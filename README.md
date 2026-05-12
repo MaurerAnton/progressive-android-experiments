@@ -1,4 +1,4 @@
-# ⛓️ Progressive Chat — Android
+# 📈 Progressive Chat — Android
 
 A Matrix client in the making. The goal: a truly progressive messenger with a **pure C++ native** core.
 
