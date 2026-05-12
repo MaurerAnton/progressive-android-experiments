@@ -12,6 +12,7 @@ struct JumpToDateRequest {
     std::string dateString;       // YYYY-MM-DD
     std::string serverBaseUrl;    // e.g. "https://matrix.example.com"
     std::string accessToken;
+    std::string errorMessage;
     int64_t originServerTs = 0;  // computed
 };
 
