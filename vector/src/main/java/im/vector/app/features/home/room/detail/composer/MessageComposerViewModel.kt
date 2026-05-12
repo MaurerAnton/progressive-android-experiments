@@ -1058,13 +1058,6 @@ class MessageComposerViewModel @AssistedInject constructor(
 
                 val sessionParams = session.sessionParams
                 val serverUrl = sessionParams.homeServerUrlBase
-                        ?: sessionParams.homeServerConnectionConfig?.homeServerUri?.toString()
-                    ?: run {
-                        _viewEvents.post(MessageComposerViewEvents.ShowMessage(
-                            stringProvider.getString(CommonStrings.unknown_error)
-                        ))
-                        return@launch
-                    }
 
                 val accessToken = sessionParams.credentials.accessToken
 
