@@ -7,10 +7,6 @@ namespace progressive {
 
 // ---- Event Link Extraction ----
 
-    }
-    return text.size() >= 3;
-}
-
 MatrixToLink parseMatrixToUrl(const std::string& url) {
     // https://matrix.to/#/!room:server/$event:server
     MatrixToLink result;

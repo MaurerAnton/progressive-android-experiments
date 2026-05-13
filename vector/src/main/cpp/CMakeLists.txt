@@ -72,6 +72,7 @@ add_library(
     src/hash_utils.cpp
     src/room_stats.cpp
     src/mention_parser.cpp
+    src/poll_utils.cpp
     src/jni_bridge.cpp
 )
 

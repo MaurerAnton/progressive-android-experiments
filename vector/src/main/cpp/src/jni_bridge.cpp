@@ -65,6 +65,7 @@
 #include "progressive/hash_utils.hpp"
 #include "progressive/room_stats.hpp"
 #include "progressive/mention_parser.hpp"
+#include "progressive/poll_utils.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3705,6 +3706,17 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeStripPills(
     if (jHtml) env->ReleaseStringUTFChars(jHtml, html.c_str());
     auto s = progressive::stripPills(html);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Poll Utils ---
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidPollQuestion(
+    JNIEnv* env, jclass, jstring jQuestion
+) {
+    auto q = jQuestion ? std::string(env->GetStringUTFChars(jQuestion, nullptr)) : "";
+    if (jQuestion) env->ReleaseStringUTFChars(jQuestion, q.c_str());
+    return progressive::isValidPollQuestion(q) ? JNI_TRUE : JNI_FALSE;
 }
 
 } // extern "C"

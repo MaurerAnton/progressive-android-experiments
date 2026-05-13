@@ -655,6 +655,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBuildUserPill(userId: String, displayName: String): String
     @JvmStatic external fun nativeStripPills(html: String): String
 
+    // --- Poll Utils ---
+
+    @JvmStatic external fun nativeIsValidPollQuestion(question: String): Boolean
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
