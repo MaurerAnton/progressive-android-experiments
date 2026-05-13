@@ -53,8 +53,8 @@ std::string colorizeChar(const std::string& ch, int hueIndex, int totalChars) {
 
     double frequency = 2.0 * M_PI / static_cast<double>(totalChars);
     double hue = hueIndex * frequency;
-    auto [ca, cb] = generateAB(hue, 1.0f);
-    auto color = labToRgb(75, ca, cb);
+    auto ab = generateAB(hue, 1.0f);
+    auto color = labToRgb(75, ab.first, ab.second);
 
     std::ostringstream out;
     out << "<font color=\"" << color.toHex() << "\">" << ch << "</font>";

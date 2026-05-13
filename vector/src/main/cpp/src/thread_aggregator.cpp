@@ -30,7 +30,8 @@ void ThreadAggregator::removeAccount(const std::string& accountId) {
 
 std::vector<ThreadInfo> ThreadAggregator::getAllThreads() const {
     std::vector<ThreadInfo> result;
-    for (const auto& [_, t] : threads_) {
+    for (const auto& p : threads_) {
+        const auto& t = p.second;
         result.push_back(t);
     }
     // Sort by last timestamp, most recent first

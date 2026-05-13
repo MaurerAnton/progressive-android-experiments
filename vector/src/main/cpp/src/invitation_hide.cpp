@@ -24,7 +24,8 @@ bool InvitationHideList::isHidden(const std::string& roomId) const {
 
 std::vector<HiddenInvitation> InvitationHideList::getAll() const {
     std::vector<HiddenInvitation> result;
-    for (const auto& [_, inv] : hidden_) {
+    for (const auto& p : hidden_) {
+        const auto& inv = p.second;
         result.push_back(inv);
     }
     return result;
@@ -44,7 +45,8 @@ std::string InvitationHideList::exportJson() const {
     std::ostringstream json;
     json << "[";
     size_t i = 0;
-    for (const auto& [_, inv] : hidden_) {
+    for (const auto& p : hidden_) {
+        const auto& inv = p.second;
         if (i++ > 0) json << ",";
         json << "{";
         json << R"("roomId": ")" << esc(inv.roomId) << R"(",)";
