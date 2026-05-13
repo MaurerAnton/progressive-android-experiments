@@ -17,7 +17,7 @@ enum class E2eeState {
     AuthenticityUnknown // sent before we joined
 };
 
-struct E2eeDecoration {
+struct E2eeMessageDecoration {
     E2eeState state = E2eeState::None;
 
     // Visual
@@ -32,7 +32,7 @@ struct E2eeDecoration {
 };
 
 // Compute E2EE decoration for a message based on device trust and encryption state.
-E2eeDecoration computeE2eeDecoration(
+E2eeMessageDecoration computeE2eeDecoration(
     bool isEncrypted,
     bool isFromVerifiedDevice,
     bool isFromCrossSignedDevice,

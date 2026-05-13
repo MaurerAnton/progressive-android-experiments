@@ -52,7 +52,7 @@ std::string disambiguateName(const std::string& displayName, const std::string& 
 bool isValidDisplayName(const std::string& name);
 
 // Get initials from a display name: "Alice Johnson" → "AJ"
-std::string getInitials(const std::string& displayName, int maxChars = 2);
+std::string getIdentityInitials(const std::string& displayName, int maxChars = 2);
 
 // ---- Room Alias Utilities ----
 

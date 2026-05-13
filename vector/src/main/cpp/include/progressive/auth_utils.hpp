@@ -69,7 +69,7 @@ struct TokenAuth {
 };
 
 // Parse login token from URL parameters (after SSO redirect).
-TokenAuth parseLoginToken(const std::string& url);
+TokenAuth parseTokenLogin(const std::string& url);
 
 // Build token login request body.
 std::string buildTokenLoginBody(const std::string& token, const std::string& deviceName = "");

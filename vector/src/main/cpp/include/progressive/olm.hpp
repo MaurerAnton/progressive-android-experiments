@@ -67,7 +67,7 @@ public:
     OlmAccountResult generateOneTimeKeys(int count);
 
     // Get the maximum number of one-time keys.
-    static int maxOneTimeKeys();
+    int maxOneTimeKeys();
 
     // Sign a message with the Ed25519 key.
     OlmAccountResult sign(const std::string& message);

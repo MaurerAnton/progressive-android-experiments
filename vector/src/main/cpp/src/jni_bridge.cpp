@@ -3550,9 +3550,9 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetTrustBadge(
 
 JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeThumbnail(
-    JNIEnv*, jclass, jint jSrcW, jint jSrcH, jint jMaxW, jint jMaxH, jboolean jUpscale, jint jQuality
+    JNIEnv* env, jclass, jint jSrcW, jint jSrcH, jint jMaxW, jint jMaxH, jboolean jUpscale, jint jQuality
 ) {
-    ThumbnailParams p{jSrcW, jSrcH, jMaxW, jMaxH, jUpscale, jQuality};
+    ThumbnailParams p{jSrcW, jSrcH, jMaxW, jMaxH, static_cast<bool>(jUpscale), jQuality};
     auto result = progressive::computeThumbnail(p);
     std::ostringstream json;
     json << R"({"targetW": )" << result.targetW;
@@ -4360,13 +4360,13 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildSpaceChildCo
 // --- Event Relations ---
 
 JNIEXPORT jstring JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseRelation(
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseEventRelation(
     JNIEnv* env, jclass, jstring jContentJson
 ) {
     auto json = jContentJson ? std::string(env->GetStringUTFChars(jContentJson, nullptr)) : "";
     if (jContentJson) env->ReleaseStringUTFChars(jContentJson, json.c_str());
 
-    auto rel = progressive::parseRelation(json);
+    auto rel = progressive::parseEventRelation(json);
     auto esc = [](const std::string& s) -> std::string {
         std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
     };
@@ -4374,7 +4374,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseRelation(
     out << R"({"relType": ")" << esc(rel.relType) << R"(")";
     out << R"(,"eventId": ")" << esc(rel.eventId) << R"(")";
     out << R"(,"key": ")" << esc(rel.key) << R"(")";
-    out << R"(,"description": ")" << progressive::formatRelationDescription(rel) << R"(")"";
+    out << R"(,"description": ")" << progressive::formatRelationDescription(rel) << R"(")";
     out << "}";
     return env->NewStringUTF(out.str().c_str());
 }

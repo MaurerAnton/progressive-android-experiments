@@ -8,7 +8,7 @@ namespace progressive {
 
 // ---- Event Relations (Threads, Replies, Edits) ----
 
-struct RelationInfo {
+struct EventRelationInfo {
     std::string relType;           // "m.thread", "m.reference", "m.replace", "m.annotation"
     std::string eventId;           // the event this relation points to
     std::string key;               // for m.annotation: the emoji key
@@ -19,7 +19,7 @@ struct RelationInfo {
 };
 
 // Parse relation info from event content JSON.
-RelationInfo parseRelation(const std::string& contentJson);
+EventRelationInfo parseEventRelation(const std::string& contentJson);
 
 // Check if an event is part of a thread.
 bool isThreadRoot(const std::string& contentJson);
@@ -52,7 +52,7 @@ std::string buildThreadRelation(const std::string& threadRoot);
 std::string buildEditRelation(const std::string& eventId);
 
 // Format relation as a human-readable description.
-std::string formatRelationDescription(const RelationInfo& relation);
+std::string formatRelationDescription(const EventRelationInfo& relation);
 
 // ---- Thread Summary ----
 

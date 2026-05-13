@@ -7,7 +7,7 @@ namespace progressive {
 
 // ---- Matrix Permalink Utilities ----
 
-struct PermalinkInfo {
+struct PermalinkResult {
     std::string fullUrl;          // https://matrix.to/#/!room:server/$event
     std::string roomId;
     std::string userId;
@@ -30,7 +30,7 @@ std::string buildEventPermalink(const std::string& roomId, const std::string& ev
 std::string buildMatrixSchemeLink(const std::string& type, const std::string& id);
 
 // Parse a matrix.to permalink.
-PermalinkInfo parsePermalink(const std::string& url);
+PermalinkResult parsePermalink(const std::string& url);
 
 // Check if a URL is a valid Matrix permalink.
 bool isPermalink(const std::string& url);
@@ -45,7 +45,7 @@ std::string extractEventIdFromPermalink(const std::string& url);
 std::string extractUserIdFromPermalink(const std::string& url);
 
 // Format a permalink for sharing (short form).
-std::string formatPermalinkForShare(const PermalinkInfo& info);
+std::string formatPermalinkForShare(const PermalinkResult& info);
 
 // Check if two permalinks point to the same room.
 bool isSameRoomPermalink(const std::string& url1, const std::string& url2);

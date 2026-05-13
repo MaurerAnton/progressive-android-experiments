@@ -3,7 +3,7 @@
 
 namespace progressive {
 
-E2eeDecoration computeE2eeDecoration(
+E2eeMessageDecoration computeE2eeDecoration(
     bool isEncrypted,
     bool isFromVerifiedDevice,
     bool isFromCrossSignedDevice,
@@ -12,7 +12,7 @@ E2eeDecoration computeE2eeDecoration(
     bool sentBeforeWeJoined,
     const std::string& errorReason
 ) {
-    E2eeDecoration dec;
+    E2eeMessageDecoration dec;
 
     if (!isEncrypted) {
         dec.state = E2eeState::None;

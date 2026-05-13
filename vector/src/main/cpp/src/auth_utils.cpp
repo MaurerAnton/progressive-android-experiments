@@ -105,7 +105,7 @@ std::string buildCaptchaResponse(const std::string& sessionId, const std::string
         R"("response": ")" + captchaToken + R"(")");
 }
 
-TokenAuth parseLoginToken(const std::string& url) {
+TokenAuth parseTokenLogin(const std::string& url) {
     TokenAuth token;
 
     auto tokenPos = url.find("loginToken=");

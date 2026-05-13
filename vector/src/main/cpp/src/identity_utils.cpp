@@ -136,7 +136,7 @@ bool isValidDisplayName(const std::string& name) {
     return hasNonSpace;
 }
 
-std::string getInitials(const std::string& displayName, int maxChars) {
+std::string getIdentityInitials(const std::string& displayName, int maxChars) {
     std::string result;
     bool takeNext = true;
     for (char c : displayName) {

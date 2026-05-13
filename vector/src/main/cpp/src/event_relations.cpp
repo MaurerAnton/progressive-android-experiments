@@ -5,8 +5,8 @@
 
 namespace progressive {
 
-RelationInfo parseRelation(const std::string& contentJson) {
-    RelationInfo info;
+EventRelationInfo parseEventRelation(const std::string& contentJson) {
+    EventRelationInfo info;
 
     // Extract m.relates_to block
     auto relatesTo = parseJsonStringValue(contentJson, "m.relates_to");
@@ -103,7 +103,7 @@ std::string buildEditRelation(const std::string& eventId) {
            R"(", "rel_type": "m.replace"}})";
 }
 
-std::string formatRelationDescription(const RelationInfo& relation) {
+std::string formatRelationDescription(const EventRelationInfo& relation) {
     if (relation.relType == "m.annotation") return "Reaction: " + relation.key;
     if (relation.relType == "m.reference") return "Reply to message";
     if (relation.relType == "m.replace") return "Edited message";

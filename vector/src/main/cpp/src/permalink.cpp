@@ -20,8 +20,8 @@ std::string buildMatrixSchemeLink(const std::string& type, const std::string& id
     return "matrix:" + type + "/" + id;
 }
 
-PermalinkInfo parsePermalink(const std::string& url) {
-    PermalinkInfo info;
+PermalinkResult parsePermalink(const std::string& url) {
+    PermalinkResult info;
     info.fullUrl = url;
 
     // Strip https://matrix.to/#/
@@ -78,7 +78,7 @@ std::string extractUserIdFromPermalink(const std::string& url) {
     return info.userId;
 }
 
-std::string formatPermalinkForShare(const PermalinkInfo& info) {
+std::string formatPermalinkForShare(const PermalinkResult& info) {
     std::ostringstream out;
     if (info.type == "room") {
         out << "Join room: " << info.fullUrl;

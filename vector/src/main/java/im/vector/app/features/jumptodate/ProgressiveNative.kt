@@ -786,7 +786,7 @@ object ProgressiveNative {
 
     // --- Event Relations ---
 
-    @JvmStatic external fun nativeParseRelation(contentJson: String): String
+    @JvmStatic external fun nativeParseEventRelation(contentJson: String): String
 
     // --- E2EE Decoration ---
 
