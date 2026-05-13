@@ -84,6 +84,7 @@ add_library(
     src/identity_utils.cpp
     src/notif_analyzer.cpp
     src/sync_analyzer.cpp
+    src/user_rating.cpp
     src/jni_bridge.cpp
 )
 

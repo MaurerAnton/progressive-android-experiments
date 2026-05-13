@@ -708,6 +708,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeFormatProgressBar(percent: Double, width: Int): String
 
+    // --- User Rating ---
+
+    @JvmStatic external fun nativeComputeStreak(timestampsJson: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

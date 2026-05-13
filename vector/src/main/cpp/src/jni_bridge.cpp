@@ -77,6 +77,7 @@
 #include "progressive/identity_utils.hpp"
 #include "progressive/notif_analyzer.hpp"
 #include "progressive/sync_analyzer.hpp"
+#include "progressive/user_rating.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3967,6 +3968,42 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatProgressBar
 ) {
     auto s = progressive::formatProgressBar(jPercent, jWidth);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- User Rating ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeStreak(
+    JNIEnv* env, jclass, jstring jTimestampsJson
+) {
+    auto json = jTimestampsJson ? std::string(env->GetStringUTFChars(jTimestampsJson, nullptr)) : "[]";
+    if (jTimestampsJson) env->ReleaseStringUTFChars(jTimestampsJson, json.c_str());
+
+    std::vector<int64_t> ts;
+    size_t pos = json.find('[');
+    if (pos != std::string::npos) {
+        ++pos;
+        while (pos < json.size()) {
+            auto comma = json.find_first_of(",]", pos);
+            if (comma != std::string::npos) {
+                auto val = json.substr(pos, comma - pos);
+                ts.push_back(std::stoll(val));
+                if (json[comma] == ']') break;
+                pos = comma + 1;
+            } else break;
+        }
+    }
+
+    auto streak = progressive::computeStreak(ts);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream out;
+    out << R"({"currentStreak": )" << streak.currentStreak;
+    out << R"(,"longestStreak": )" << streak.longestStreak;
+    out << R"(,"totalActiveDays": )" << streak.totalActiveDays;
+    out << R"(,"isActiveToday": )" << (streak.isActiveToday ? "true" : "false") << "}";
+    return env->NewStringUTF(out.str().c_str());
 }
 
 } // extern "C"
