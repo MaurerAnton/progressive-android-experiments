@@ -610,6 +610,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeGetTrustLabel(level: Int): String
     @JvmStatic external fun nativeGetTrustBadge(level: Int): String
 
+    // --- Thumbnail ---
+
+    @JvmStatic external fun nativeComputeThumbnail(srcW: Int, srcH: Int, maxW: Int, maxH: Int, upscale: Boolean, quality: Int): String
+    @JvmStatic external fun nativeBuildThumbnailUrl(mxcUri: String, w: Int, h: Int, method: String, animated: Boolean): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

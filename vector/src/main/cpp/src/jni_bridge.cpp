@@ -55,6 +55,7 @@
 #include "progressive/location_sharing.hpp"
 #include "progressive/color_utils.hpp"
 #include "progressive/e2ee_utils.hpp"
+#include "progressive/thumbnail.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3488,6 +3489,34 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetTrustBadge(
     JNIEnv* env, jclass, jint jLevel
 ) {
     auto s = progressive::getTrustBadge(static_cast<TrustLevel>(jLevel));
+    return env->NewStringUTF(s.c_str());
+}
+
+// --- Thumbnail ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeThumbnail(
+    JNIEnv*, jclass, jint jSrcW, jint jSrcH, jint jMaxW, jint jMaxH, jboolean jUpscale, jint jQuality
+) {
+    ThumbnailParams p{jSrcW, jSrcH, jMaxW, jMaxH, jUpscale, jQuality};
+    auto result = progressive::computeThumbnail(p);
+    std::ostringstream json;
+    json << R"({"targetW": )" << result.targetW;
+    json << R"(,"targetH": )" << result.targetH;
+    json << R"(,"scale": )" << result.scale;
+    json << R"(,"estimatedBytes": )" << result.estimatedBytes << "}";
+    return env->NewStringUTF(json.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildThumbnailUrl(
+    JNIEnv* env, jclass, jstring jMxc, jint jW, jint jH, jstring jMethod, jboolean jAnim
+) {
+    auto mxc = jMxc ? std::string(env->GetStringUTFChars(jMxc, nullptr)) : "";
+    auto method = jMethod ? std::string(env->GetStringUTFChars(jMethod, nullptr)) : "scale";
+    if (jMxc) env->ReleaseStringUTFChars(jMxc, mxc.c_str());
+    if (jMethod) env->ReleaseStringUTFChars(jMethod, method.c_str());
+    auto s = progressive::buildThumbnailUrl(mxc, jW, jH, method, jAnim);
     return env->NewStringUTF(s.c_str());
 }
 

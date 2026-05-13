@@ -62,6 +62,7 @@ add_library(
     src/location_sharing.cpp
     src/color_utils.cpp
     src/e2ee_utils.cpp
+    src/thumbnail.cpp
     src/jni_bridge.cpp
 )
 
