@@ -10,6 +10,12 @@
 
 namespace progressive {
 
+// Aliases for libolm C opaque types (defined in global scope by olm.h)
+typedef ::OlmAccount COlmAccount;
+typedef ::OlmSession COlmSession;
+typedef ::OlmOutboundGroupSession COlmOutboundGroupSession;
+typedef ::OlmInboundGroupSession COlmInboundGroupSession;
+
 std::string generateRandomBytes(int count) {
     std::string result(count, 0);
     for (int i = 0; i < count; ++i) {
@@ -52,13 +58,13 @@ OlmAccount::OlmAccount() {
 }
 
 OlmAccount::~OlmAccount() {
-    olm_clear_account(static_cast<OlmAccount*>(account_));
+    olm_clear_account(static_cast<COlmAccount*>(account_));
     delete[] static_cast<uint8_t*>(account_);
 }
 
 OlmAccountResult OlmAccount::create() {
     OlmAccountResult result;
-    auto* acc = static_cast<OlmAccount*>(account_);
+    auto* acc = static_cast<COlmAccount*>(account_);
     size_t randLen = olm_create_account_random_length(acc);
     auto random = generateRandomBytes(randLen);
     int rc = olm_create_account(acc, random.data(), random.size());
@@ -74,7 +80,7 @@ OlmAccountResult OlmAccount::create() {
 
 OlmAccountResult OlmAccount::identityKeys() {
     OlmAccountResult result;
-    auto* acc = static_cast<OlmAccount*>(account_);
+    auto* acc = static_cast<COlmAccount*>(account_);
     size_t len = olm_account_identity_keys_length(acc);
     std::string out(len, 0);
     size_t written = olm_account_identity_keys(acc, &out[0], len);
@@ -90,7 +96,7 @@ OlmAccountResult OlmAccount::identityKeys() {
 
 OlmAccountResult OlmAccount::generateOneTimeKeys(int count) {
     OlmAccountResult result;
-    auto* acc = static_cast<OlmAccount*>(account_);
+    auto* acc = static_cast<COlmAccount*>(account_);
     size_t randLen = olm_account_generate_one_time_keys_random_length(acc, count);
     auto random = generateRandomBytes(randLen);
     int rc = olm_account_generate_one_time_keys(acc, count, random.data(), random.size());
@@ -104,7 +110,7 @@ OlmAccountResult OlmAccount::generateOneTimeKeys(int count) {
 
 OlmAccountResult OlmAccount::sign(const std::string& message) {
     OlmAccountResult result;
-    auto* acc = static_cast<OlmAccount*>(account_);
+    auto* acc = static_cast<COlmAccount*>(account_);
     size_t sigLen = olm_account_signature_length(acc);
     std::string sig(sigLen, 0);
     size_t written = olm_account_sign(acc, message.data(), message.size(), &sig[0], sigLen);
@@ -120,7 +126,7 @@ OlmAccountResult OlmAccount::sign(const std::string& message) {
 
 OlmAccountResult OlmAccount::pickle(const std::string& key) {
     OlmAccountResult result;
-    auto* acc = static_cast<OlmAccount*>(account_);
+    auto* acc = static_cast<COlmAccount*>(account_);
     size_t len = olm_pickle_account_length(acc);
     std::string out(len, 0);
     size_t written = olm_pickle_account(acc, key.data(), key.size(), &out[0], len);
@@ -138,7 +144,7 @@ OlmAccountResult OlmAccount::pickle(const std::string& key) {
 
 OlmAccountResult OlmAccount::unpickle(const std::string& key, const std::string& pickle) {
     OlmAccountResult result;
-    auto* acc = static_cast<OlmAccount*>(account_);
+    auto* acc = static_cast<COlmAccount*>(account_);
     int rc = olm_unpickle_account(acc, key.data(), key.size(), pickle.data(), pickle.size());
     if (rc == -1) {
         const char* err;
@@ -180,7 +186,7 @@ OlmAccountResult OlmAccount::curve25519Key() {
 }
 
 int OlmAccount::maxOneTimeKeys() {
-    auto* acc = static_cast<OlmAccount*>(account_);
+    auto* acc = static_cast<COlmAccount*>(account_);
     return olm_account_max_number_of_one_time_keys(acc);
 }
 
@@ -194,15 +200,15 @@ OlmSession::OlmSession() {
 }
 
 OlmSession::~OlmSession() {
-    olm_clear_session(static_cast<OlmSession*>(session_));
+    olm_clear_session(static_cast<COlmSession*>(session_));
     delete[] static_cast<uint8_t*>(session_);
 }
 
 OlmSessionResult OlmSession::createOutbound(OlmAccount& account,
     const std::string& theirIdentityKey, const std::string& theirOneTimeKey) {
     OlmSessionResult result;
-    auto* sess = static_cast<OlmSession*>(session_);
-    auto* acc = static_cast<OlmAccount*>(account.account_);
+    auto* sess = static_cast<COlmSession*>(session_);
+    auto* acc = static_cast<COlmAccount*>(account.account_);
     size_t randLen = olm_create_outbound_session_random_length(sess);
     auto random = generateRandomBytes(randLen);
     size_t rc = olm_create_outbound_session(sess, acc,
@@ -221,8 +227,8 @@ OlmSessionResult OlmSession::createOutbound(OlmAccount& account,
 
 OlmSessionResult OlmSession::createInbound(OlmAccount& account, const std::string& preKeyMessage) {
     OlmSessionResult result;
-    auto* sess = static_cast<OlmSession*>(session_);
-    auto* acc = static_cast<OlmAccount*>(account.account_);
+    auto* sess = static_cast<COlmSession*>(session_);
+    auto* acc = static_cast<COlmAccount*>(account.account_);
     size_t rc = olm_create_inbound_session(sess, acc, (void*)preKeyMessage.data(), preKeyMessage.size());
     if (rc == static_cast<size_t>(-1)) {
         const char* err;
@@ -237,8 +243,8 @@ OlmSessionResult OlmSession::createInbound(OlmAccount& account, const std::strin
 OlmSessionResult OlmSession::createInboundFrom(OlmAccount& account,
     const std::string& theirIdentityKey, const std::string& encryptedMessage) {
     OlmSessionResult result;
-    auto* sess = static_cast<OlmSession*>(session_);
-    auto* acc = static_cast<OlmAccount*>(account.account_);
+    auto* sess = static_cast<COlmSession*>(session_);
+    auto* acc = static_cast<COlmAccount*>(account.account_);
     size_t rc = olm_create_inbound_session_from(sess, acc,
         theirIdentityKey.data(), theirIdentityKey.size(),
         (void*)encryptedMessage.data(), encryptedMessage.size());
@@ -252,7 +258,7 @@ OlmSessionResult OlmSession::createInboundFrom(OlmAccount& account,
 
 OlmSessionResult OlmSession::encrypt(const std::string& plaintext) {
     OlmSessionResult result;
-    auto* sess = static_cast<OlmSession*>(session_);
+    auto* sess = static_cast<COlmSession*>(session_);
     size_t msgLen = olm_encrypt_message_length(sess, plaintext.size());
     std::string msg(msgLen, 0);
     size_t written = olm_encrypt(sess, plaintext.data(), plaintext.size(), &msg[0], msgLen);
@@ -269,7 +275,7 @@ OlmSessionResult OlmSession::encrypt(const std::string& plaintext) {
 
 OlmSessionResult OlmSession::decrypt(const std::string& encryptedMessage, int messageType) {
     OlmSessionResult result;
-    auto* sess = static_cast<OlmSession*>(session_);
+    auto* sess = static_cast<COlmSession*>(session_);
     size_t ptLen = olm_decrypt_max_plaintext_length(sess, messageType,
         encryptedMessage.data(), encryptedMessage.size());
     std::string pt(ptLen, 0);
@@ -289,7 +295,7 @@ OlmSessionResult OlmSession::decrypt(const std::string& encryptedMessage, int me
 }
 
 bool OlmSession::matchesInbound(const std::string& preKeyMessage) {
-    auto* sess = static_cast<OlmSession*>(session_);
+    auto* sess = static_cast<COlmSession*>(session_);
     return olm_matches_inbound_session(sess, preKeyMessage.data(), preKeyMessage.size()) == 1;
 }
 
