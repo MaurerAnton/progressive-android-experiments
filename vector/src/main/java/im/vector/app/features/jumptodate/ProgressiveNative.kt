@@ -842,6 +842,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeComputeRetryDelay(maxRetries: Int, baseMs: Int, maxMs: Int, backoff: Double, jitter: Boolean, attempt: Int): Int
 
+    // --- Sync Utils ---
+
+    @JvmStatic external fun nativeBuildSyncFilter(includeThreads: Boolean, includePresence: Boolean, timelineLimit: Int): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

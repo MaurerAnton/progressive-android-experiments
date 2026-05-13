@@ -107,6 +107,7 @@
 #include "progressive/report_utils.hpp"
 #include "progressive/webrtc_utils.hpp"
 #include "progressive/message_retry.hpp"
+#include "progressive/sync_utils.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -4577,6 +4578,20 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeRetryDelay
     policy.backoffMultiplier = jBackoff;
     policy.useJitter = jJitter;
     return progressive::computeRetryDelay(policy, jAttempt);
+}
+
+// --- Sync Utils ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildSyncFilter(
+    JNIEnv* env, jclass, jboolean jIncludeThreads, jboolean jIncludePresence, jint jTimelineLimit
+) {
+    SyncFilter filter;
+    filter.includeThreads = jIncludeThreads;
+    filter.includePresence = jIncludePresence;
+    filter.timelineLimit = jTimelineLimit;
+    auto s = progressive::buildSyncFilter(filter);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"
