@@ -68,6 +68,7 @@
 #include "progressive/poll_utils.hpp"
 #include "progressive/reaction_utils.hpp"
 #include "progressive/file_validator.hpp"
+#include "progressive/date_utils.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3755,6 +3756,24 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetFileExtension(
     auto name = jFileName ? std::string(env->GetStringUTFChars(jFileName, nullptr)) : "";
     if (jFileName) env->ReleaseStringUTFChars(jFileName, name.c_str());
     auto s = progressive::getFileExtension(name);
+    return env->NewStringUTF(s.c_str());
+}
+
+// --- Date Utils ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatChatTimestamp(
+    JNIEnv* env, jclass, jlong jEpochMs, jboolean jIncludeSeconds
+) {
+    auto s = progressive::formatChatTimestamp(jEpochMs, jIncludeSeconds);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatRelativeTime(
+    JNIEnv* env, jclass, jlong jEpochMs
+) {
+    auto s = progressive::formatRelativeTime(jEpochMs);
     return env->NewStringUTF(s.c_str());
 }
 

@@ -75,6 +75,7 @@ add_library(
     src/poll_utils.cpp
     src/reaction_utils.cpp
     src/file_validator.cpp
+    src/date_utils.cpp
     src/jni_bridge.cpp
 )
 

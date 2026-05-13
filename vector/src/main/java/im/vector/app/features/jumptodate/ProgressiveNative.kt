@@ -668,6 +668,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
     @JvmStatic external fun nativeGetFileExtension(fileName: String): String
 
+    // --- Date Utils ---
+
+    @JvmStatic external fun nativeFormatChatTimestamp(epochMs: Long, includeSeconds: Boolean): String
+    @JvmStatic external fun nativeFormatRelativeTime(epochMs: Long): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
