@@ -88,6 +88,7 @@ add_library(
     src/event_timeline.cpp
     src/room_directory.cpp
     src/widget_utils.cpp
+    src/sso_utils.cpp
     src/jni_bridge.cpp
 )
 

@@ -724,6 +724,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeGetWidgetTypeName(type: String): String
 
+    // --- SSO Utils ---
+
+    @JvmStatic external fun nativeValidateHomeserverUrl(input: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

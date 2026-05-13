@@ -81,6 +81,7 @@
 #include "progressive/event_timeline.hpp"
 #include "progressive/room_directory.hpp"
 #include "progressive/widget_utils.hpp"
+#include "progressive/sso_utils.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -4066,6 +4067,30 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetWidgetTypeName
     if (jType) env->ReleaseStringUTFChars(jType, type.c_str());
     auto s = progressive::getWidgetTypeName(type);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- SSO Utils ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidateHomeserverUrl(
+    JNIEnv* env, jclass, jstring jInput
+) {
+    auto input = jInput ? std::string(env->GetStringUTFChars(jInput, nullptr)) : "";
+    if (jInput) env->ReleaseStringUTFChars(jInput, input.c_str());
+
+    auto result = progressive::validateHomeserverUrl(input);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"valid": )" << (result.valid ? "true" : "false");
+    json << R"(,"sanitizedUrl": ")" << esc(result.sanitizedUrl) << R"(")";
+    json << R"(,"serverName": ")" << esc(result.serverName) << R"(")";
+    json << R"(,"isHttps": )" << (result.isHttps ? "true" : "false");
+    if (!result.errorMessage.empty())
+        json << R"(,"errorMessage": ")" << esc(result.errorMessage) << R"(")";
+    json << "}";
+    return env->NewStringUTF(json.str().c_str());
 }
 
 } // extern "C"
