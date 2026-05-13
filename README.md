@@ -64,6 +64,19 @@ Standard Android build with NDK/CMake for native C++:
 
 CI builds F-Droid arm32 (armeabi-v7a, works on all devices). Requires Android SDK, NDK 21.3+, CMake 3.22+.
 
+## How You Can Help
+
+Progressive Chat is in active development. We have months of debugging and polishing ahead before the first stable release. Here's how you can contribute:
+
+- **Test and report bugs** — run the F-Droid debug APK, use the features, and open issues
+- **C++ code review** — all native modules in `vector/src/main/cpp/` welcome scrutiny
+- **Kotlin integration** — JNI wrappers are ready, UI wiring needs love
+- **Translations** — help localize the growing list of labs settings
+- **Documentation** — improve setup guides, feature descriptions
+- **Spread the word** — tell your Matrix friends about `progressive.chat`
+
+Every bit helps us ship the truly progressive Matrix client we all want.
+
 ## License
 
 AGPL-3.0-only (inherited from Element)

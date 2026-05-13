@@ -38,6 +38,7 @@
 #include "progressive/read_receipts.hpp"
 #include "progressive/room_analytics.hpp"
 #include "progressive/chat_tools.hpp"
+#include "progressive/lang_detect.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
@@ -92,6 +93,15 @@ static progressive::UserHideManager g_userHide;
 
 // --- Singleton message queue ---
 static progressive::MessageQueue g_msgQueue;
+
+// --- Singleton language hide manager ---
+static progressive::LanguageHideManager g_langHide;
+
+// --- Singleton chat push down ---
+static progressive::ChatPushDownManager g_chatPushDown;
+
+// --- Singleton emoji blacklist ---
+static progressive::EmojiBlacklist g_emojiBlacklist;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -2452,6 +2462,148 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeScrollPlan
     json << R"("estimatedFullScrollMin": )" << plan.estimatedFullScrollMin;
     json << "}";
     return env->NewStringUTF(json.str().c_str());
+}
+
+// --- Language Detection ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDetectLanguage(
+    JNIEnv* env, jclass, jstring jText, jint jMethod
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+
+    auto method = static_cast<DetectionMethod>(jMethod);
+    auto result = progressive::detectLanguage(text, method);
+
+    std::ostringstream json;
+    json << R"({"langCode": ")" << result.langCode << R"(")";
+    json << R"(,"langName": ")" << result.langName << R"(")";
+    json << R"(,"confidence": )" << result.confidence;
+    json << R"(,"label": ")" << progressive::getLanguageLabel(result.langCode) << R"(")";
+    json << "}";
+    return env->NewStringUTF(json.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetLanguageLabel(
+    JNIEnv* env, jclass, jstring jCode
+) {
+    auto code = jCode ? std::string(env->GetStringUTFChars(jCode, nullptr)) : "";
+    if (jCode) env->ReleaseStringUTFChars(jCode, code.c_str());
+    auto label = progressive::getLanguageLabel(code);
+    return env->NewStringUTF(label.c_str());
+}
+
+// --- Language Hide ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeLangHideAdd(
+    JNIEnv* env, jclass,
+    jstring jLangCode, jstring jRoomId, jstring jUserId,
+    jboolean jSpecificUser, jint jMinutes
+) {
+    auto langCode = jLangCode ? std::string(env->GetStringUTFChars(jLangCode, nullptr)) : "";
+    auto roomId   = jRoomId ? std::string(env->GetStringUTFChars(jRoomId, nullptr)) : "";
+    auto userId   = jUserId ? std::string(env->GetStringUTFChars(jUserId, nullptr)) : "";
+
+    if (jLangCode) env->ReleaseStringUTFChars(jLangCode, langCode.c_str());
+    if (jRoomId)   env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    if (jUserId)   env->ReleaseStringUTFChars(jUserId, userId.c_str());
+
+    g_langHide.hideLanguage(langCode, roomId, userId, jSpecificUser, jMinutes);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeLangHideIsHidden(
+    JNIEnv* env, jclass,
+    jstring jLangCode, jstring jRoomId, jstring jUserId
+) {
+    auto langCode = jLangCode ? std::string(env->GetStringUTFChars(jLangCode, nullptr)) : "";
+    auto roomId   = jRoomId ? std::string(env->GetStringUTFChars(jRoomId, nullptr)) : "";
+    auto userId   = jUserId ? std::string(env->GetStringUTFChars(jUserId, nullptr)) : "";
+
+    if (jLangCode) env->ReleaseStringUTFChars(jLangCode, langCode.c_str());
+    if (jRoomId)   env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    if (jUserId)   env->ReleaseStringUTFChars(jUserId, userId.c_str());
+
+    return g_langHide.isHidden(langCode, roomId, userId) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Chat Push Down ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeChatPushDown(
+    JNIEnv* env, jclass, jstring jRoomId, jint jMinutes
+) {
+    auto roomId = jRoomId ? std::string(env->GetStringUTFChars(jRoomId, nullptr)) : "";
+    if (jRoomId) env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    g_chatPushDown.pushDown(roomId, jMinutes);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeChatIsPushedDown(
+    JNIEnv* env, jclass, jstring jRoomId
+) {
+    auto roomId = jRoomId ? std::string(env->GetStringUTFChars(jRoomId, nullptr)) : "";
+    if (jRoomId) env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    return g_chatPushDown.isPushedDown(roomId) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeChatPushDownRestore(
+    JNIEnv* env, jclass, jstring jRoomId
+) {
+    auto roomId = jRoomId ? std::string(env->GetStringUTFChars(jRoomId, nullptr)) : "";
+    if (jRoomId) env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    g_chatPushDown.restore(roomId);
+}
+
+// --- Emoji Blacklist ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeEmojiBlacklistAdd(
+    JNIEnv* env, jclass, jstring jEmoji
+) {
+    auto emoji = jEmoji ? std::string(env->GetStringUTFChars(jEmoji, nullptr)) : "";
+    if (jEmoji) env->ReleaseStringUTFChars(jEmoji, emoji.c_str());
+    g_emojiBlacklist.add(emoji);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeEmojiBlacklistRemove(
+    JNIEnv* env, jclass, jstring jEmoji
+) {
+    auto emoji = jEmoji ? std::string(env->GetStringUTFChars(jEmoji, nullptr)) : "";
+    if (jEmoji) env->ReleaseStringUTFChars(jEmoji, emoji.c_str());
+    g_emojiBlacklist.remove(emoji);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeEmojiBlacklistIsBlocked(
+    JNIEnv* env, jclass, jstring jEmoji
+) {
+    auto emoji = jEmoji ? std::string(env->GetStringUTFChars(jEmoji, nullptr)) : "";
+    if (jEmoji) env->ReleaseStringUTFChars(jEmoji, emoji.c_str());
+    return g_emojiBlacklist.isBlocked(emoji) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeEmojiBlacklistExport(
+    JNIEnv* env, jclass
+) {
+    auto json = g_emojiBlacklist.exportJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeEmojiBlacklistImport(
+    JNIEnv* env, jclass, jstring jJson
+) {
+    if (!jJson) return;
+    auto json = std::string(env->GetStringUTFChars(jJson, nullptr));
+    env->ReleaseStringUTFChars(jJson, json.c_str());
+    g_emojiBlacklist.importJson(json);
 }
 
 } // extern "C"

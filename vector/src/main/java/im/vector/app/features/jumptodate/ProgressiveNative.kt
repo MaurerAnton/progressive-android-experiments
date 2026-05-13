@@ -448,6 +448,30 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeComputeScrollPlan(smooth: Boolean, durationMin: Int, totalLines: Int, lineHeightPx: Int): String
 
+    // --- Language Detection ---
+
+    @JvmStatic external fun nativeDetectLanguage(text: String, method: Int): String
+    @JvmStatic external fun nativeGetLanguageLabel(code: String): String
+
+    // --- Language Hide ---
+
+    @JvmStatic external fun nativeLangHideAdd(langCode: String, roomId: String, userId: String, specificUser: Boolean, minutes: Int)
+    @JvmStatic external fun nativeLangHideIsHidden(langCode: String, roomId: String, userId: String): Boolean
+
+    // --- Chat Push Down ---
+
+    @JvmStatic external fun nativeChatPushDown(roomId: String, minutes: Int)
+    @JvmStatic external fun nativeChatIsPushedDown(roomId: String): Boolean
+    @JvmStatic external fun nativeChatPushDownRestore(roomId: String)
+
+    // --- Emoji Blacklist ---
+
+    @JvmStatic external fun nativeEmojiBlacklistAdd(emoji: String)
+    @JvmStatic external fun nativeEmojiBlacklistRemove(emoji: String)
+    @JvmStatic external fun nativeEmojiBlacklistIsBlocked(emoji: String): Boolean
+    @JvmStatic external fun nativeEmojiBlacklistExport(): String
+    @JvmStatic external fun nativeEmojiBlacklistImport(json: String)
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

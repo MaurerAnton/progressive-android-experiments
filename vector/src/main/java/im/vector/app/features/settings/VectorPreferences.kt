@@ -122,6 +122,9 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_AUTO_SCROLL_KEY = "SETTINGS_LABS_AUTO_SCROLL_KEY"
         const val SETTINGS_LABS_MSG_QUEUE_KEY = "SETTINGS_LABS_MSG_QUEUE_KEY"
         const val SETTINGS_LABS_LOSSLESS_CROP_KEY = "SETTINGS_LABS_LOSSLESS_CROP_KEY"
+        const val SETTINGS_LABS_LANG_DETECT_KEY = "SETTINGS_LABS_LANG_DETECT_KEY"
+        const val SETTINGS_LABS_CHAT_PUSHDOWN_KEY = "SETTINGS_LABS_CHAT_PUSHDOWN_KEY"
+        const val SETTINGS_LABS_EMOJI_BLACKLIST_KEY = "SETTINGS_LABS_EMOJI_BLACKLIST_KEY"
         const val SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY"
@@ -1534,6 +1537,18 @@ class VectorPreferences @Inject constructor(
 
     fun isLosslessCropEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_LOSSLESS_CROP_KEY, false)
+    }
+
+    fun isLangDetectEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_LANG_DETECT_KEY, false)
+    }
+
+    fun isChatPushDownEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_CHAT_PUSHDOWN_KEY, false)
+    }
+
+    fun isEmojiBlacklistEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_EMOJI_BLACKLIST_KEY, false)
     }
 
     fun showIpAddressInSessionManagerScreens(): Boolean {

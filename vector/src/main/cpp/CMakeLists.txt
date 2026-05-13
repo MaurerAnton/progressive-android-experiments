@@ -45,6 +45,7 @@ add_library(
     src/read_receipts.cpp
     src/room_analytics.cpp
     src/chat_tools.cpp
+    src/lang_detect.cpp
     src/jni_bridge.cpp
 )
 

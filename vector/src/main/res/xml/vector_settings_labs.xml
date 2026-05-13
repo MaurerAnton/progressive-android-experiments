@@ -470,4 +470,22 @@
         android:summary="@string/labs_enable_lossless_crop_summary"
         android:title="@string/labs_enable_lossless_crop" />
 
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_LANG_DETECT_KEY"
+        android:summary="@string/labs_enable_lang_detect_summary"
+        android:title="@string/labs_enable_lang_detect" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_CHAT_PUSHDOWN_KEY"
+        android:summary="@string/labs_enable_chat_pushdown_summary"
+        android:title="@string/labs_enable_chat_pushdown" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_EMOJI_BLACKLIST_KEY"
+        android:summary="@string/labs_enable_emoji_blacklist_summary"
+        android:title="@string/labs_enable_emoji_blacklist" />
+
 </androidx.preference.PreferenceScreen>
