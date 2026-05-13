@@ -123,6 +123,7 @@ add_library(
     src/client_info.cpp
     src/keyshare.cpp
     src/displayname_utils.cpp
+    src/message_location.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )

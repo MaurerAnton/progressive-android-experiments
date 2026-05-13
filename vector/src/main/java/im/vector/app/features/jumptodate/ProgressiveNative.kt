@@ -871,6 +871,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeUserIdToDisplayName(userId: String): String
     @JvmStatic external fun nativeUserIdToColor(userId: String): String
 
+    // --- Message Location ---
+
+    @JvmStatic external fun nativeEstimatePaginationRequests(missingEvents: Int, pageSize: Int): Int
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

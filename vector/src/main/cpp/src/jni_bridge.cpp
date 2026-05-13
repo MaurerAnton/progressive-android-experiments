@@ -114,6 +114,7 @@
 #include "progressive/client_info.hpp"
 #include "progressive/keyshare.hpp"
 #include "progressive/displayname_utils.hpp"
+#include "progressive/message_location.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -4702,6 +4703,15 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserIdToColor(
     if (jUserId) env->ReleaseStringUTFChars(jUserId, userId.c_str());
     auto s = progressive::userIdToColor(userId);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Message Location ---
+
+JNIEXPORT jint JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeEstimatePaginationRequests(
+    JNIEnv*, jclass, jint jMissing, jint jPageSize
+) {
+    return progressive::estimatePaginationRequests(jMissing, jPageSize);
 }
 
 } // extern "C"
