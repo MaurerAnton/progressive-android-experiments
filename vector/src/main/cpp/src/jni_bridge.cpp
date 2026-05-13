@@ -4,6 +4,7 @@
 #include "progressive/jumptodate.hpp"
 #include "progressive/relation.hpp"
 #include "progressive/exporter.hpp"
+#include "progressive/eventcache.hpp"
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -344,6 +345,104 @@ hr { border: none; border-top: 1px solid #e0e0e0; margin: 16px 0; }
     html << "</body>\n</html>";
 
     return env->NewStringUTF(html.str().c_str());
+}
+
+// --- Event Cache (global singleton for Stage 2 acceleration) ---
+static progressive::EventCache g_eventCache;
+
+/*
+ * Class: im.vector.app.features.jumptodate.ProgressiveNative
+ * Method: nativeCachePut
+ * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
+ */
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCachePut(
+    JNIEnv* env,
+    jclass /* this */,
+    jstring jEventId,
+    jstring jSenderId,
+    jstring jSenderName,
+    jstring jTimestamp,
+    jstring jBody,
+    jstring jMsgType,
+    jstring jEventType,
+    jstring jRelationType,
+    jstring jSourceEventId,
+    jboolean jSentByMe
+) {
+    CachedEvent event;
+    event.eventId     = jEventId ? std::string(env->GetStringUTFChars(jEventId, nullptr)) : "";
+    event.senderId    = jSenderId ? std::string(env->GetStringUTFChars(jSenderId, nullptr)) : "";
+    event.senderName  = jSenderName ? std::string(env->GetStringUTFChars(jSenderName, nullptr)) : "";
+    event.timestamp   = jTimestamp ? std::string(env->GetStringUTFChars(jTimestamp, nullptr)) : "";
+    event.body        = jBody ? std::string(env->GetStringUTFChars(jBody, nullptr)) : "";
+    event.msgType     = jMsgType ? std::string(env->GetStringUTFChars(jMsgType, nullptr)) : "";
+    event.eventType   = jEventType ? std::string(env->GetStringUTFChars(jEventType, nullptr)) : "";
+    event.relationType = jRelationType ? std::string(env->GetStringUTFChars(jRelationType, nullptr)) : "";
+    event.sourceEventId = jSourceEventId ? std::string(env->GetStringUTFChars(jSourceEventId, nullptr)) : "";
+    event.sentByMe    = jSentByMe;
+
+    // Release strings
+    if (jEventId)     env->ReleaseStringUTFChars(jEventId, event.eventId.c_str());
+    if (jSenderId)    env->ReleaseStringUTFChars(jSenderId, event.senderId.c_str());
+    if (jSenderName)  env->ReleaseStringUTFChars(jSenderName, event.senderName.c_str());
+    if (jTimestamp)   env->ReleaseStringUTFChars(jTimestamp, event.timestamp.c_str());
+    if (jBody)        env->ReleaseStringUTFChars(jBody, event.body.c_str());
+    if (jMsgType)     env->ReleaseStringUTFChars(jMsgType, event.msgType.c_str());
+    if (jEventType)   env->ReleaseStringUTFChars(jEventType, event.eventType.c_str());
+    if (jRelationType) env->ReleaseStringUTFChars(jRelationType, event.relationType.c_str());
+    if (jSourceEventId) env->ReleaseStringUTFChars(jSourceEventId, event.sourceEventId.c_str());
+
+    g_eventCache.put(event);
+}
+
+/*
+ * Class: im.vector.app.features.jumptodate.ProgressiveNative
+ * Method: nativeCacheGetContext
+ * Signature: (Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetContext(
+    JNIEnv* env,
+    jclass /* this */,
+    jstring jEventId
+) {
+    if (!jEventId) {
+        return env->NewStringUTF(R"({"cached": false})");
+    }
+
+    auto eventId = std::string(env->GetStringUTFChars(jEventId, nullptr));
+    env->ReleaseStringUTFChars(jEventId, eventId.c_str());
+
+    auto json = g_eventCache.getContextData(eventId);
+    return env->NewStringUTF(json.c_str());
+}
+
+/*
+ * Class: im.vector.app.features.jumptodate.ProgressiveNative
+ * Method: nativeCacheClear
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheClear(
+    JNIEnv* /* env */,
+    jclass /* this */
+) {
+    g_eventCache.clear();
+    LOGD("EventCache cleared");
+}
+
+/*
+ * Class: im.vector.app.features.jumptodate.ProgressiveNative
+ * Method: nativeCacheSize
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheSize(
+    JNIEnv* /* env */,
+    jclass /* this */
+) {
+    return static_cast<jint>(g_eventCache.size());
 }
 
 } // extern "C"

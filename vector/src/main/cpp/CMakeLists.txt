@@ -11,6 +11,7 @@ add_library(
     src/json_parser.cpp
     src/relation.cpp
     src/exporter.cpp
+    src/eventcache.cpp
     src/jni_bridge.cpp
 )
 

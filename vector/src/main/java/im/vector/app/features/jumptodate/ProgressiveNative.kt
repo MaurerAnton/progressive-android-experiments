@@ -106,6 +106,31 @@ object ProgressiveNative {
         eventHtmls: Array<String>
     ): String
 
+    // --- Event Cache ---
+
+    @JvmStatic
+    external fun nativeCachePut(
+        eventId: String,
+        senderId: String,
+        senderName: String,
+        timestamp: String,
+        body: String,
+        msgType: String,
+        eventType: String,
+        relationType: String,
+        sourceEventId: String,
+        sentByMe: Boolean
+    )
+
+    @JvmStatic
+    external fun nativeCacheGetContext(eventId: String): String
+
+    @JvmStatic
+    external fun nativeCacheClear()
+
+    @JvmStatic
+    external fun nativeCacheSize(): Int
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
@@ -313,5 +338,68 @@ object ProgressiveNative {
         .replace("<", "&lt;")
         .replace(">", "&gt;")
         .replace("\"", "&quot;")
+
+    // --- Kotlin fallback cache (in-memory HashMap) ---
+
+    data class CachedEvent(
+        val eventId: String = "",
+        val senderId: String = "",
+        val senderName: String = "",
+        val timestamp: String = "",
+        val body: String = "",
+        val msgType: String = "",
+        val eventType: String = "",
+        val relationType: String = "",
+        val sourceEventId: String = "",
+        val sentByMe: Boolean = false
+    )
+
+    private val fallbackCache = mutableMapOf<String, CachedEvent>()
+    private val fallbackRelationIndex = mutableMapOf<String, MutableList<String>>()
+
+    fun cachePutFallback(
+        eventId: String, senderId: String, senderName: String, timestamp: String,
+        body: String, msgType: String, eventType: String,
+        relationType: String, sourceEventId: String, sentByMe: Boolean
+    ) {
+        val event = CachedEvent(eventId, senderId, senderName, timestamp, body, msgType, eventType, relationType, sourceEventId, sentByMe)
+        synchronized(fallbackCache) {
+            val old = fallbackCache[eventId]
+            if (old != null && old.sourceEventId.isNotEmpty()) {
+                fallbackRelationIndex[old.sourceEventId]?.remove(eventId)
+            }
+            fallbackCache[eventId] = event
+            if (sourceEventId.isNotEmpty()) {
+                fallbackRelationIndex.getOrPut(sourceEventId) { mutableListOf() }.add(eventId)
+            }
+        }
+    }
+
+    fun cacheGetContextFallback(eventId: String): JSONObject {
+        val result = JSONObject()
+        synchronized(fallbackCache) {
+            val e = fallbackCache[eventId] ?: return result.put("cached", false)
+            result.put("cached", true)
+            result.put("eventId", e.eventId)
+            result.put("senderId", e.senderId)
+            result.put("senderName", e.senderName)
+            result.put("timestamp", e.timestamp)
+            result.put("body", e.body)
+            result.put("msgType", e.msgType)
+            result.put("eventType", e.eventType)
+            result.put("sentByMe", e.sentByMe)
+            result.put("hasFailed", false)
+        }
+        return result
+    }
+
+    fun cacheClearFallback() {
+        synchronized(fallbackCache) {
+            fallbackCache.clear()
+            fallbackRelationIndex.clear()
+        }
+    }
+
+    fun cacheSizeFallback(): Int = synchronized(fallbackCache) { fallbackCache.size }
 
 }
