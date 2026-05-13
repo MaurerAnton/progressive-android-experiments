@@ -76,6 +76,7 @@
 #include "progressive/emoji_analyzer.hpp"
 #include "progressive/identity_utils.hpp"
 #include "progressive/notif_analyzer.hpp"
+#include "progressive/sync_analyzer.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3956,6 +3957,16 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeSuggestQuietHours
     std::ostringstream out;
     out << R"({"startHour": )" << start << R"(,"endHour": )" << end << "}";
     return env->NewStringUTF(out.str().c_str());
+}
+
+// --- Sync Analyzer ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatProgressBar(
+    JNIEnv* env, jclass, jdouble jPercent, jint jWidth
+) {
+    auto s = progressive::formatProgressBar(jPercent, jWidth);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

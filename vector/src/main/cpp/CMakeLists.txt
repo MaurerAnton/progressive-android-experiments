@@ -83,6 +83,7 @@ add_library(
     src/emoji_analyzer.cpp
     src/identity_utils.cpp
     src/notif_analyzer.cpp
+    src/sync_analyzer.cpp
     src/jni_bridge.cpp
 )
 

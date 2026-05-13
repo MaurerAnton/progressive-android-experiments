@@ -704,6 +704,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeSuggestQuietHours(byHourJson: String): String
 
+    // --- Sync Analyzer ---
+
+    @JvmStatic external fun nativeFormatProgressBar(percent: Double, width: Int): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
