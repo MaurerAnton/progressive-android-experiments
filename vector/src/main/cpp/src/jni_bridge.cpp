@@ -4615,7 +4615,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeClassifyEvent(
     auto mt = jMsgType ? std::string(env->GetStringUTFChars(jMsgType, nullptr)) : "";
     if (jEventType) env->ReleaseStringUTFChars(jEventType, et.c_str());
     if (jMsgType) env->ReleaseStringUTFChars(jMsgType, mt.c_str());
-    return static_cast<jint>(progressive::classifyEvent(et, mt));
+    return env->NewStringUTF(std::to_string(static_cast<int>(progressive::classifyEvent(et, mt))).c_str());
 }
 
 // --- Permalink ---

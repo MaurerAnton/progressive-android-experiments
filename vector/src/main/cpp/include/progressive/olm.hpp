@@ -80,6 +80,9 @@ public:
 
 private:
     void* account_;  // OlmAccount*
+    friend class OlmSession;
+    friend class OlmInboundGroupSession;
+    friend class OlmOutboundGroupSession;
 };
 
 // ---- OlmSession (1:1 Double Ratchet) ----
