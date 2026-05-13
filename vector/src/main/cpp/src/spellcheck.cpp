@@ -24,7 +24,7 @@ bool SpellChecker::isKnown(const std::string& word) const {
     return dictionary_.find(lower) != dictionary_.end();
 }
 
-std::vector<SpellCandidate> SpellChecker::suggest(const std::string& word, int maxResults) {
+std::vector<SpellCandidate> SpellChecker::suggest(const std::string& word, int maxResults) const {
     std::vector<SpellCandidate> candidates;
     auto lower = word;
     std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);

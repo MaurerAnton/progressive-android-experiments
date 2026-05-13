@@ -24,7 +24,7 @@ public:
     bool isKnown(const std::string& word) const;
 
     // Find corrections for a misspelled word.
-    std::vector<SpellCandidate> suggest(const std::string& word, int maxResults = 5);
+    std::vector<SpellCandidate> suggest(const std::string& word, int maxResults = 5) const;
 
     // Add a custom word to the dictionary.
     void addWord(const std::string& word);
