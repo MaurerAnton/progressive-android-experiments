@@ -821,6 +821,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeFormatRateLimitMessage(responseJson: String, httpStatus: Int): String
 
+    // --- Content Scanner ---
+
+    @JvmStatic external fun nativeIsServerNotice(contentJson: String): Boolean
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

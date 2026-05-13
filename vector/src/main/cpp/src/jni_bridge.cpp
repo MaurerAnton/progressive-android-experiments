@@ -102,6 +102,7 @@
 #include "progressive/invite_utils.hpp"
 #include "progressive/session_manager.hpp"
 #include "progressive/auth_utils.hpp"
+#include "progressive/content_scanner.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -4493,6 +4494,17 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatRateLimitMe
     auto limit = progressive::parseRateLimit(json, jHttpStatus);
     auto s = progressive::formatRateLimitMessage(limit);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Content Scanner ---
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsServerNotice(
+    JNIEnv* env, jclass, jstring jContentJson
+) {
+    auto json = jContentJson ? std::string(env->GetStringUTFChars(jContentJson, nullptr)) : "";
+    if (jContentJson) env->ReleaseStringUTFChars(jContentJson, json.c_str());
+    return progressive::isServerNotice(json) ? JNI_TRUE : JNI_FALSE;
 }
 
 } // extern "C"

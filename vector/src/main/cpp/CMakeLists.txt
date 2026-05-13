@@ -111,6 +111,7 @@ add_library(
     src/verification_utils.cpp
     src/session_manager.cpp
     src/auth_utils.cpp
+    src/content_scanner.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )
