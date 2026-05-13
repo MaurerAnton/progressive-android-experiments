@@ -21,9 +21,11 @@ std::vector<std::string> parsePinnedEventIds(const std::string& stateContentJson
 
     // Extract each "$eventId"
     std::regex idRe(R"("(\$[^"]+)")");
-    auto begin = std::sregex_iterator(array.begin(), array.end(), idRe);
-    for (auto it = begin; it != std::sregex_iterator(); ++it) {
-        ids.push_back((*it)[1]);
+    std::smatch match;
+    std::string searchStr = array;
+    while (std::regex_search(searchStr, match, idRe)) {
+        ids.push_back(match[1]);
+        searchStr = match.suffix().str();
     }
 
     return ids;

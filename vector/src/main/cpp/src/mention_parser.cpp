@@ -20,8 +20,8 @@ ParsedMentions parseMentions(const std::string& body, const std::string& formatt
     // Parse Matrix pills from formattedBody: <a href="https://matrix.to/#/@user:server">Name</a>
     if (!formattedBody.empty()) {
         std::regex pillRe(R"RE(<a\s+href="https://matrix\.to/#/(@[^"]+)">([^<]+)</a>)RE");
-        auto begin = std::sregex_iterator(formattedBody.begin(), formattedBody.end(), pillRe);
-        for (auto it = begin; it != std::sregex_iterator(); ++it) {
+        for (auto it = std::sregex_iterator(formattedBody.begin(), formattedBody.end(), pillRe);
+             it != std::sregex_iterator(); ++it) {
             Mention m;
             m.userId = (*it)[1];
             m.displayName = (*it)[2];
@@ -50,8 +50,8 @@ std::vector<Mention> extractAtMentions(const std::string& text) {
     std::vector<Mention> mentions;
     // Match @user:server (with domain required)
     std::regex atRe(R"(@[A-Za-z0-9._=\-/]+:[A-Za-z0-9.\-]+(?::\d+)?)");
-    auto begin = std::sregex_iterator(text.begin(), text.end(), atRe);
-    for (auto it = begin; it != std::sregex_iterator(); ++it) {
+    for (auto it = std::sregex_iterator(text.begin(), text.end(), atRe);
+         it != std::sregex_iterator(); ++it) {
         Mention m;
         m.userId = it->str();
         m.startPos = it->position();
