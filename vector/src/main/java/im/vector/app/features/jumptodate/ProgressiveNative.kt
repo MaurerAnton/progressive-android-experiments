@@ -174,6 +174,18 @@ object ProgressiveNative {
         httpStatus: Int
     ): String
 
+    // --- Proxy / Tor / I2P ---
+
+    @JvmStatic
+    external fun nativeComputeProxyConfig(
+        connType: Int,    // ConnectionType ordinal (0=Matrix, 1=Onion, 2=I2p)
+        proxyType: Int,   // ProxyType ordinal (0=None, 1=Http, 2=Socks5)
+        host: String,
+        port: Int,
+        username: String,
+        password: String
+    ): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

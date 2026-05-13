@@ -7,6 +7,7 @@
 #include "progressive/eventcache.hpp"
 #include "progressive/eventdb.hpp"
 #include "progressive/translate.hpp"
+#include "progressive/proxy.hpp"
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -619,6 +620,39 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseTranslateRes
             + std::to_string(result.statusCode) + "}";
         return env->NewStringUTF(json.c_str());
     }
+}
+
+// --- Proxy Configuration ---
+
+/*
+ * Class: im.vector.app.features.jumptodate.ProgressiveNative
+ * Method: nativeComputeProxyConfig
+ * Signature: (IILjava/lang/String;ILjava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeProxyConfig(
+    JNIEnv* env, jclass,
+    jint jConnType, jint jProxyType,
+    jstring jHost, jint jPort,
+    jstring jUsername, jstring jPassword
+) {
+    auto connType = static_cast<ConnectionType>(jConnType);
+    auto proxyType = static_cast<ProxyType>(jProxyType);
+
+    auto host     = jHost ? std::string(env->GetStringUTFChars(jHost, nullptr)) : "";
+    auto username = jUsername ? std::string(env->GetStringUTFChars(jUsername, nullptr)) : "";
+    auto password = jPassword ? std::string(env->GetStringUTFChars(jPassword, nullptr)) : "";
+
+    if (jHost)     env->ReleaseStringUTFChars(jHost, host.c_str());
+    if (jUsername) env->ReleaseStringUTFChars(jUsername, username.c_str());
+    if (jPassword) env->ReleaseStringUTFChars(jPassword, password.c_str());
+
+    auto config = progressive::computeProxyConfig(
+        connType, proxyType, host, jPort, username, password
+    );
+
+    auto json = config.toJson();
+    return env->NewStringUTF(json.c_str());
 }
 
 } // extern "C"
