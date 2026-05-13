@@ -87,6 +87,7 @@
 #include "progressive/presence_utils.hpp"
 #include "progressive/room_permissions.hpp"
 #include "progressive/room_summary.hpp"
+#include "progressive/membership_utils.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -4176,6 +4177,18 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatLastMessage
     if (jSender) env->ReleaseStringUTFChars(jSender, sender.c_str());
     if (jBody) env->ReleaseStringUTFChars(jBody, body.c_str());
     auto s = progressive::formatLastMessagePreview(sender, body, jEncrypted);
+    return env->NewStringUTF(s.c_str());
+}
+
+// --- Membership ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatMembership(
+    JNIEnv* env, jclass, jstring jMembershipStr
+) {
+    auto ms = jMembershipStr ? std::string(env->GetStringUTFChars(jMembershipStr, nullptr)) : "";
+    if (jMembershipStr) env->ReleaseStringUTFChars(jMembershipStr, ms.c_str());
+    auto s = progressive::formatMembership(progressive::parseMembership(ms));
     return env->NewStringUTF(s.c_str());
 }
 

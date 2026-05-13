@@ -750,6 +750,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeFormatLastMessagePreview(sender: String, body: String, encrypted: Boolean): String
 
+    // --- Membership ---
+
+    @JvmStatic external fun nativeFormatMembership(membershipStr: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

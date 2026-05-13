@@ -100,6 +100,7 @@ add_library(
     src/presence_utils.cpp
     src/room_permissions.cpp
     src/room_summary.cpp
+    src/membership_utils.cpp
     # src/olm.cpp  # Uncomment when libolm is added to the build
     src/jni_bridge.cpp
 )
