@@ -86,6 +86,7 @@
 #include "progressive/device_manager.hpp"
 #include "progressive/presence_utils.hpp"
 #include "progressive/room_permissions.hpp"
+#include "progressive/room_summary.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -4162,6 +4163,20 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetSuggestedRole(
     auto pl = progressive::parsePowerLevels(plJson);
     auto role = progressive::getSuggestedRole(pl, userId);
     return env->NewStringUTF(role.c_str());
+}
+
+// --- Room Summary ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatLastMessagePreview(
+    JNIEnv* env, jclass, jstring jSender, jstring jBody, jboolean jEncrypted
+) {
+    auto sender = jSender ? std::string(env->GetStringUTFChars(jSender, nullptr)) : "";
+    auto body = jBody ? std::string(env->GetStringUTFChars(jBody, nullptr)) : "";
+    if (jSender) env->ReleaseStringUTFChars(jSender, sender.c_str());
+    if (jBody) env->ReleaseStringUTFChars(jBody, body.c_str());
+    auto s = progressive::formatLastMessagePreview(sender, body, jEncrypted);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

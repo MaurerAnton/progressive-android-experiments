@@ -99,6 +99,7 @@ add_library(
     src/device_manager.cpp
     src/presence_utils.cpp
     src/room_permissions.cpp
+    src/room_summary.cpp
     # src/olm.cpp  # Uncomment when libolm is added to the build
     src/jni_bridge.cpp
 )

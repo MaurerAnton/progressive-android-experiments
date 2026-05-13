@@ -746,6 +746,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeGetSuggestedRole(plJson: String, userId: String): String
 
+    // --- Room Summary ---
+
+    @JvmStatic external fun nativeFormatLastMessagePreview(sender: String, body: String, encrypted: Boolean): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
