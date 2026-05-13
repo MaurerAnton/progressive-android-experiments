@@ -38,7 +38,7 @@ struct PasswordValidation {
 };
 
 // Validate a new password against best practices.
-PasswordValidation validatePassword(const std::string& password,
+PasswordValidation validateAccountPassword(const std::string& password,
     const std::string& username = "", int minLength = 8);
 
 // Build password change request body JSON.

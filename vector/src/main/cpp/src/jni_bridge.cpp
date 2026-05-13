@@ -4280,7 +4280,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidatePassword(
     if (jPassword) env->ReleaseStringUTFChars(jPassword, pass.c_str());
     if (jUsername) env->ReleaseStringUTFChars(jUsername, user.c_str());
 
-    auto result = progressive::validatePassword(pass, user);
+    auto result = progressive::validateAccountPassword(pass, user);
     auto esc = [](const std::string& s) -> std::string {
         std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
     };

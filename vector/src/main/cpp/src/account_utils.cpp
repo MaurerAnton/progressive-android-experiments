@@ -7,7 +7,7 @@
 
 namespace progressive {
 
-PasswordValidation validatePassword(const std::string& password, const std::string& username, int minLength) {
+PasswordValidation validateAccountPassword(const std::string& password, const std::string& username, int minLength) {
     PasswordValidation result;
 
     if (password.size() < static_cast<size_t>(minLength)) {
