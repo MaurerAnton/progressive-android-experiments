@@ -23,6 +23,7 @@ add_library(
     src/content_filter.cpp
     src/network_stats.cpp
     src/masquerade.cpp
+    src/user_mask.cpp
     src/jni_bridge.cpp
 )
 

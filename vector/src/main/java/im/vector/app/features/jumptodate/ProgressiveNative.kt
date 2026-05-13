@@ -249,6 +249,18 @@ object ProgressiveNative {
     @JvmStatic external fun nativeIsValidIconAlias(alias: String): Boolean
     @JvmStatic external fun nativeBuildMasqueradeAlias(baseAlias: String, iconName: String): String
 
+    // --- User Mask ---
+
+    @JvmStatic external fun nativeUserMaskSet(mxid: String, displayName: String, avatarUrl: String, overrideMxid: String)
+    @JvmStatic external fun nativeUserMaskRemove(mxid: String)
+    @JvmStatic external fun nativeUserMaskResolveName(mxid: String, originalName: String): String
+    @JvmStatic external fun nativeUserMaskResolveAvatar(mxid: String, originalUrl: String): String
+    @JvmStatic external fun nativeUserMaskExportJson(): String
+    @JvmStatic external fun nativeUserMaskImportJson(json: String)
+    @JvmStatic external fun nativeIsValidMxid(mxid: String): Boolean
+    @JvmStatic external fun nativeUserMaskClear()
+    @JvmStatic external fun nativeUserMaskCount(): Int
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

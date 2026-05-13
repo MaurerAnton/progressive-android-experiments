@@ -16,12 +16,16 @@
 #include "progressive/content_filter.hpp"
 #include "progressive/network_stats.hpp"
 #include "progressive/masquerade.hpp"
+#include "progressive/user_mask.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
 
 // --- Singleton network stats collector ---
 static progressive::NetworkStatsCollector g_netStats;
+
+// --- Singleton user mask registry ---
+static progressive::UserMaskRegistry g_userMasks;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -1009,6 +1013,105 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildMasqueradeAl
     if (jIcon) env->ReleaseStringUTFChars(jIcon, icon.c_str());
     auto alias = progressive::buildMasqueradeAlias(base, icon);
     return env->NewStringUTF(alias.c_str());
+}
+
+// --- User Mask ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskSet(
+    JNIEnv* env, jclass,
+    jstring jMxid, jstring jDisplayName, jstring jAvatarUrl, jstring jOverrideMxid
+) {
+    UserMask mask;
+    mask.originalMxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    mask.displayName  = jDisplayName ? std::string(env->GetStringUTFChars(jDisplayName, nullptr)) : "";
+    mask.avatarUrl    = jAvatarUrl ? std::string(env->GetStringUTFChars(jAvatarUrl, nullptr)) : "";
+    mask.overrideMxid = jOverrideMxid ? std::string(env->GetStringUTFChars(jOverrideMxid, nullptr)) : "";
+
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mask.originalMxid.c_str());
+    if (jDisplayName) env->ReleaseStringUTFChars(jDisplayName, mask.displayName.c_str());
+    if (jAvatarUrl) env->ReleaseStringUTFChars(jAvatarUrl, mask.avatarUrl.c_str());
+    if (jOverrideMxid) env->ReleaseStringUTFChars(jOverrideMxid, mask.overrideMxid.c_str());
+
+    g_userMasks.setMask(mask);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskRemove(
+    JNIEnv* env, jclass, jstring jMxid
+) {
+    if (!jMxid) return;
+    auto mxid = std::string(env->GetStringUTFChars(jMxid, nullptr));
+    env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    g_userMasks.removeMask(mxid);
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskResolveName(
+    JNIEnv* env, jclass, jstring jMxid, jstring jOriginalName
+) {
+    auto mxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    auto orig = jOriginalName ? std::string(env->GetStringUTFChars(jOriginalName, nullptr)) : "";
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    if (jOriginalName) env->ReleaseStringUTFChars(jOriginalName, orig.c_str());
+
+    auto resolved = progressive::resolveDisplayName(mxid, orig, g_userMasks);
+    return env->NewStringUTF(resolved.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskResolveAvatar(
+    JNIEnv* env, jclass, jstring jMxid, jstring jOriginalUrl
+) {
+    auto mxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    auto orig = jOriginalUrl ? std::string(env->GetStringUTFChars(jOriginalUrl, nullptr)) : "";
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    if (jOriginalUrl) env->ReleaseStringUTFChars(jOriginalUrl, orig.c_str());
+
+    auto resolved = progressive::resolveAvatarUrl(mxid, orig, g_userMasks);
+    return env->NewStringUTF(resolved.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskExportJson(
+    JNIEnv* env, jclass
+) {
+    auto json = g_userMasks.exportJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskImportJson(
+    JNIEnv* env, jclass, jstring jJson
+) {
+    if (!jJson) return;
+    auto json = std::string(env->GetStringUTFChars(jJson, nullptr));
+    env->ReleaseStringUTFChars(jJson, json.c_str());
+    g_userMasks.importJson(json);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidMxid(
+    JNIEnv* env, jclass, jstring jMxid
+) {
+    if (!jMxid) return JNI_FALSE;
+    auto mxid = std::string(env->GetStringUTFChars(jMxid, nullptr));
+    env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    return progressive::isValidMxid(mxid) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskClear(
+    JNIEnv*, jclass
+) {
+    g_userMasks.clear();
+}
+
+JNIEXPORT jint JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserMaskCount(
+    JNIEnv*, jclass
+) {
+    return static_cast<jint>(g_userMasks.count());
 }
 
 } // extern "C"
