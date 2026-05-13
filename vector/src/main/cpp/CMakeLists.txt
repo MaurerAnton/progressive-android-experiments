@@ -87,34 +87,10 @@ add_library(
     src/user_rating.cpp
     src/event_timeline.cpp
 # --- libolm E2EE crypto (C/C++ native) ---
-# To enable, uncomment and add libolm source:
-#   add_subdirectory(${CMAKE_SOURCE_DIR}/../libolm ${CMAKE_BINARY_DIR}/libolm)
-#   target_link_libraries(progressive_native olm)
-#   target_compile_definitions(progressive_native PRIVATE PROGRESSIVE_HAS_OLM=1)
+add_subdirectory(libolm)
+target_compile_definitions(progressive_native PRIVATE PROGRESSIVE_HAS_OLM=1)
 
-    src/room_directory.cpp
-    src/widget_utils.cpp
-    src/sso_utils.cpp
-    src/backup_utils.cpp
-    src/device_manager.cpp
-    src/presence_utils.cpp
-    src/room_permissions.cpp
-    src/room_summary.cpp
-    src/membership_utils.cpp
-    src/event_validator.cpp
-    src/room_encryption.cpp
-    src/login_utils.cpp
-    src/connection_monitor.cpp
-    src/push_rules.cpp
-    src/space_utils.cpp
-    src/event_relations.cpp
-    src/e2ee_decoration.cpp
-    src/room_list.cpp
-    src/media_utils.cpp
-    src/notif_settings.cpp
-    src/invite_utils.cpp
-    src/verification_utils.cpp
-    # src/olm.cpp  # Uncomment when libolm is added to the build
+    src/olm.cpp
     src/jni_bridge.cpp
 )
 
@@ -129,4 +105,5 @@ find_library(log_lib log)
 target_link_libraries(
     progressive_native
     ${log_lib}
+    olm
 )
