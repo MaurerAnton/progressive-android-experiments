@@ -74,6 +74,7 @@
 #include "progressive/server_capabilities.hpp"
 #include "progressive/username_validator.hpp"
 #include "progressive/emoji_analyzer.hpp"
+#include "progressive/identity_utils.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3890,6 +3891,37 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsEmojiOnlyMessag
     auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
     if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
     return progressive::isEmojiOnlyMessage(text) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Identity Utils ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeResolveMatrixId(
+    JNIEnv* env, jclass, jstring jInput
+) {
+    auto input = jInput ? std::string(env->GetStringUTFChars(jInput, nullptr)) : "";
+    if (jInput) env->ReleaseStringUTFChars(jInput, input.c_str());
+
+    auto result = progressive::resolveMatrixId(input);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"valid": )" << (result.valid ? "true" : "false");
+    json << R"(,"type": ")" << result.type << R"(")";
+    json << R"(,"resolved": ")" << esc(result.resolved) << R"(")";
+    json << "}";
+    return env->NewStringUTF(json.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetInitials(
+    JNIEnv* env, jclass, jstring jName
+) {
+    auto name = jName ? std::string(env->GetStringUTFChars(jName, nullptr)) : "";
+    if (jName) env->ReleaseStringUTFChars(jName, name.c_str());
+    auto s = progressive::getInitials(name);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

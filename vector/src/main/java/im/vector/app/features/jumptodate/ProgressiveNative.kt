@@ -695,6 +695,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeCountEmojis(text: String): Int
     @JvmStatic external fun nativeIsEmojiOnlyMessage(text: String): Boolean
 
+    // --- Identity Utils ---
+
+    @JvmStatic external fun nativeResolveMatrixId(input: String): String
+    @JvmStatic external fun nativeGetInitials(name: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
