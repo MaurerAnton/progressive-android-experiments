@@ -19,13 +19,16 @@ std::vector<std::string> parsePinnedEventIds(const std::string& stateContentJson
 
     std::string array = stateContentJson.substr(bracket + 1, end - bracket - 1);
 
-    // Extract each "$eventId"
-    std::regex idRe(R"("(\$[^"]+)")");
-    std::smatch match;
-    std::string searchStr = array;
-    while (std::regex_search(searchStr, match, idRe)) {
-        ids.push_back(match[1]);
-        searchStr = match.suffix().str();
+    // Extract each "$eventId" manually (NDK 21 regex_iterator is buggy)
+    size_t searchPos = 0;
+    while (true) {
+        auto dollarPos = array.find("$\"", searchPos);
+        if (dollarPos == std::string::npos) break;
+        auto start = dollarPos + 1; // skip $
+        auto end = array.find('"', start);
+        if (end == std::string::npos) break;
+        ids.push_back(array.substr(start, end - start));
+        searchPos = end + 1;
     }
 
     return ids;
