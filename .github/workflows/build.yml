@@ -78,6 +78,17 @@ jobs:
           name: vector-gplay-release-unsigned
           path: |
             vector-app/build/outputs/apk/*/release/*.apk
+      - name: Publish to GitHub Release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          gh release delete nightly --cleanup-tag -y 2>/dev/null || true
+          gh release create nightly \
+            --title "Nightly build $(date +%Y-%m-%d)" \
+            --notes "Automated build from main branch. Commit: ${{ github.sha }}" \
+            --prerelease \
+            vector-app/build/outputs/apk/gplay/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   exodus:
     runs-on: ubuntu-latest
