@@ -659,6 +659,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeIsValidPollQuestion(question: String): Boolean
 
+    // --- Reaction Utils ---
+
+    @JvmStatic external fun nativeGetQuickReactions(): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

@@ -66,6 +66,7 @@
 #include "progressive/room_stats.hpp"
 #include "progressive/mention_parser.hpp"
 #include "progressive/poll_utils.hpp"
+#include "progressive/reaction_utils.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3717,6 +3718,23 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidPollQuesti
     auto q = jQuestion ? std::string(env->GetStringUTFChars(jQuestion, nullptr)) : "";
     if (jQuestion) env->ReleaseStringUTFChars(jQuestion, q.c_str());
     return progressive::isValidPollQuestion(q) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Reaction Utils ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetQuickReactions(
+    JNIEnv* env, jclass
+) {
+    auto reactions = progressive::getQuickReactions();
+    std::ostringstream json;
+    json << "[";
+    for (size_t i = 0; i < reactions.size(); ++i) {
+        if (i > 0) json << ",";
+        json << R"(")" << reactions[i] << R"(")";
+    }
+    json << "]";
+    return env->NewStringUTF(json.str().c_str());
 }
 
 } // extern "C"

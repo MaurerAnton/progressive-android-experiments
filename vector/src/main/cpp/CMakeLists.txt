@@ -73,6 +73,7 @@ add_library(
     src/room_stats.cpp
     src/mention_parser.cpp
     src/poll_utils.cpp
+    src/reaction_utils.cpp
     src/jni_bridge.cpp
 )
 
