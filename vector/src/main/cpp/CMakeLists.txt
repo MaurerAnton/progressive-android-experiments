@@ -112,6 +112,7 @@ add_library(
     src/room_list.cpp
     src/media_utils.cpp
     src/notif_settings.cpp
+    src/invite_utils.cpp
     # src/olm.cpp  # Uncomment when libolm is added to the build
     src/jni_bridge.cpp
 )

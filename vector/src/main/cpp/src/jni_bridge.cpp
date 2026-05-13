@@ -99,6 +99,7 @@
 #include "progressive/room_list.hpp"
 #include "progressive/media_utils.hpp"
 #include "progressive/notif_settings.hpp"
+#include "progressive/invite_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
 #include <chrono>
@@ -4427,6 +4428,20 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatNotifMode(
     JNIEnv* env, jclass, jint jMode
 ) {
     auto s = progressive::formatNotifMode(static_cast<NotifMode>(jMode));
+    return env->NewStringUTF(s.c_str());
+}
+
+// --- Invite Utils ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildInviteBody(
+    JNIEnv* env, jclass, jstring jUserId, jstring jReason
+) {
+    auto userId = jUserId ? std::string(env->GetStringUTFChars(jUserId, nullptr)) : "";
+    auto reason = jReason ? std::string(env->GetStringUTFChars(jReason, nullptr)) : "";
+    if (jUserId) env->ReleaseStringUTFChars(jUserId, userId.c_str());
+    if (jReason) env->ReleaseStringUTFChars(jReason, reason.c_str());
+    auto s = progressive::buildInviteBody(userId, reason);
     return env->NewStringUTF(s.c_str());
 }
 

@@ -805,6 +805,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeFormatNotifMode(mode: Int): String
 
+    // --- Invite Utils ---
+
+    @JvmStatic external fun nativeBuildInviteBody(userId: String, reason: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
