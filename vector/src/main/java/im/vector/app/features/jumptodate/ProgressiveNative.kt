@@ -686,6 +686,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeParseServerCapabilities(wellKnownJson: String): String
 
+    // --- Username Validator ---
+
+    @JvmStatic external fun nativeValidateUsername(username: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

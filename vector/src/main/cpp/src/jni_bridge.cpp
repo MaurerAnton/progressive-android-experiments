@@ -72,6 +72,7 @@
 #include "progressive/message_queue.hpp"
 #include "progressive/pinned_events.hpp"
 #include "progressive/server_capabilities.hpp"
+#include "progressive/username_validator.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3846,6 +3847,28 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseServerCapabi
     auto caps = progressive::parseServerCapabilities(json);
     auto result = progressive::capabilitiesToJson(caps);
     return env->NewStringUTF(result.c_str());
+}
+
+// --- Username Validator ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidateUsername(
+    JNIEnv* env, jclass, jstring jUsername
+) {
+    auto username = jUsername ? std::string(env->GetStringUTFChars(jUsername, nullptr)) : "";
+    if (jUsername) env->ReleaseStringUTFChars(jUsername, username.c_str());
+
+    auto result = progressive::validateUsername(username);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"valid": )" << (result.valid ? "true" : "false");
+    json << R"(,"username": ")" << esc(result.username) << R"(")";
+    json << R"(,"sanitized": ")" << esc(result.sanitized) << R"(")";
+    json << R"(,"errorMessage": ")" << esc(result.errorMessage) << R"(")";
+    json << R"(,"length": )" << result.length << "}";
+    return env->NewStringUTF(json.str().c_str());
 }
 
 } // extern "C"

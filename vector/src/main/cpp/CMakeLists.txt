@@ -79,6 +79,7 @@ add_library(
     src/message_queue.cpp
     src/pinned_events.cpp
     src/server_capabilities.cpp
+    src/username_validator.cpp
     src/jni_bridge.cpp
 )
 
