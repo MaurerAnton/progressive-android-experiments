@@ -263,8 +263,7 @@ android {
             postprocessing {
                 // FIXME Set to true.
                 removeUnusedCode false
-                removeUnusedResources true
-                // We do not activate obfuscation as it makes it hard then to read crash reports, and it's a bit useless on an open source project :)
+                removeUnusedResources !project.hasProperty("minifyEnabled")
                 obfuscate false
                 optimizeCode !project.hasProperty("minifyEnabled")
                 proguardFiles 'proguard-rules.pro'
