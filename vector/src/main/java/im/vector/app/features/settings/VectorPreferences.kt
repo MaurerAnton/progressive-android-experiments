@@ -73,6 +73,10 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_JUMP_TO_SOURCE_EDITS = "SETTINGS_LABS_JUMP_TO_SOURCE_EDITS"
         const val SETTINGS_LABS_CHAT_EXPORT_KEY = "SETTINGS_LABS_CHAT_EXPORT_KEY"
         const val SETTINGS_LABS_SKIP_AVATAR_CROP_KEY = "SETTINGS_LABS_SKIP_AVATAR_CROP_KEY"
+        const val SETTINGS_LABS_TRANSLATE_KEY = "SETTINGS_LABS_TRANSLATE_KEY"
+        const val SETTINGS_TRANSLATE_API_ENDPOINT = "SETTINGS_TRANSLATE_API_ENDPOINT"
+        const val SETTINGS_TRANSLATE_API_TOKEN = "SETTINGS_TRANSLATE_API_TOKEN"
+        const val SETTINGS_TRANSLATE_TARGET_LANGUAGE = "SETTINGS_TRANSLATE_TARGET_LANGUAGE"
         const val SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY"
@@ -1289,6 +1293,22 @@ class VectorPreferences @Inject constructor(
 
     fun isSkipAvatarCropEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_SKIP_AVATAR_CROP_KEY, false)
+    }
+
+    fun isTranslateEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_TRANSLATE_KEY, false)
+    }
+
+    fun getTranslateApiEndpoint(): String {
+        return defaultPrefs.getString(SETTINGS_TRANSLATE_API_ENDPOINT, "") ?: ""
+    }
+
+    fun getTranslateApiToken(): String {
+        return defaultPrefs.getString(SETTINGS_TRANSLATE_API_TOKEN, "") ?: ""
+    }
+
+    fun getTranslateTargetLanguage(): String {
+        return defaultPrefs.getString(SETTINGS_TRANSLATE_TARGET_LANGUAGE, "") ?: ""
     }
 
     fun showIpAddressInSessionManagerScreens(): Boolean {

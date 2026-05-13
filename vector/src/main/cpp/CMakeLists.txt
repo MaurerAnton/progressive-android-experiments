@@ -13,6 +13,7 @@ add_library(
     src/exporter.cpp
     src/eventcache.cpp
     src/eventdb.cpp
+    src/translate.cpp
     src/jni_bridge.cpp
 )
 

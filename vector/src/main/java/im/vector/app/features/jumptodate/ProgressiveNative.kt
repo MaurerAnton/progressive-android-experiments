@@ -156,6 +156,24 @@ object ProgressiveNative {
     @JvmStatic
     external fun nativeDbCount(): Int
 
+    // --- Translation ---
+
+    @JvmStatic
+    external fun nativeBuildTranslateRequest(
+        text: String,
+        sourceLang: String,
+        targetLang: String,
+        apiEndpoint: String,
+        apiToken: String,
+        model: String
+    ): String
+
+    @JvmStatic
+    external fun nativeParseTranslateResponse(
+        responseBody: String,
+        httpStatus: Int
+    ): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
@@ -426,5 +444,63 @@ object ProgressiveNative {
     }
 
     fun cacheSizeFallback(): Int = synchronized(fallbackCache) { fallbackCache.size }
+
+    // --- Translation fallback ---
+
+    fun buildTranslateRequestFallback(
+        text: String, sourceLang: String, targetLang: String,
+        apiEndpoint: String, apiToken: String, model: String
+    ): JSONObject {
+        val body = JSONObject()
+        body.put("model", model)
+        val messages = org.json.JSONArray()
+        val systemMsg = JSONObject().apply {
+            put("role", "system")
+            var prompt = "You are a translator. Translate the following text"
+            if (sourceLang.isNotEmpty()) prompt += " from $sourceLang"
+            prompt += " to $targetLang. Output ONLY the translation, nothing else."
+            put("content", prompt)
+        }
+        messages.put(systemMsg)
+        messages.put(JSONObject().apply {
+            put("role", "user")
+            put("content", text)
+        })
+        body.put("messages", messages)
+        body.put("temperature", 0.1)
+        return body
+    }
+
+    fun parseTranslateResponseFallback(responseBody: String?, httpStatus: Int): JSONObject {
+        val result = JSONObject()
+        if (responseBody == null) return result.put("success", false).put("error", "Empty response")
+        if (httpStatus != 200) {
+            try {
+                val json = JSONObject(responseBody)
+                val error = json.optJSONObject("error")
+                val msg = error?.optString("message", "Server returned $httpStatus") ?: "Server returned $httpStatus"
+                return result.put("success", false).put("error", msg).put("statusCode", httpStatus)
+            } catch (e: Exception) {
+                return result.put("success", false).put("error", "Server returned $httpStatus").put("statusCode", httpStatus)
+            }
+        }
+        try {
+            val json = JSONObject(responseBody)
+            val choices = json.optJSONArray("choices")
+            if (choices == null || choices.length() == 0)
+                return result.put("success", false).put("error", "No choices in response")
+            val message = choices.getJSONObject(0).optJSONObject("message")
+            if (message == null)
+                return result.put("success", false).put("error", "No message in response")
+            val content = message.optString("content", "")
+            if (content.isEmpty())
+                return result.put("success", false).put("error", "No content in response")
+            result.put("success", true)
+            result.put("translatedText", content)
+            return result
+        } catch (e: Exception) {
+            return result.put("success", false).put("error", "Failed to parse response")
+        }
+    }
 
 }

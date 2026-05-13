@@ -410,6 +410,13 @@ class MessageActionsViewModel @AssistedInject constructor(
                     add(EventSharedAction.JumpToSource(eventId, sourceId))
                 }
             }
+
+            if (vectorPreferences.isTranslateEnabled() && timelineEvent.root.getClearType() == EventType.MESSAGE) {
+                val text = messageContent?.body ?: timelineEvent.root.content?.get("body") as? String ?: ""
+                if (text.isNotBlank()) {
+                    add(EventSharedAction.Translate(eventId, text))
+                }
+            }
         }
 
         if (vectorPreferences.developerMode()) {

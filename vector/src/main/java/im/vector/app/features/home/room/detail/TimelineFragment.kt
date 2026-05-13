@@ -131,6 +131,7 @@ import im.vector.app.features.home.room.detail.timeline.TimelineEventController
 import im.vector.app.features.home.room.detail.timeline.action.EventSharedAction
 import im.vector.app.features.home.room.detail.timeline.action.MessageActionsBottomSheet
 import im.vector.app.features.home.room.detail.timeline.action.MessageSharedActionViewModel
+import im.vector.app.features.jumptodate.ProgressiveNative
 import im.vector.app.features.home.room.detail.timeline.edithistory.ViewEditHistoryBottomSheet
 import im.vector.app.features.home.room.detail.timeline.helper.AudioMessagePlaybackTracker
 import im.vector.app.features.home.room.detail.timeline.helper.MatrixItemColorProvider
@@ -210,6 +211,12 @@ import timber.log.Timber
 import java.net.URL
 import java.util.UUID
 import javax.inject.Inject
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class TimelineFragment :
@@ -491,6 +498,76 @@ class TimelineFragment :
                         newAvatarFileName = getFilenameFromUri(requireContext(), uri) ?: UUID.randomUUID().toString()
                 )
         )
+    }
+
+    private fun handleTranslateAction(action: EventSharedAction.Translate) {
+        val endpoint = vectorPreferences.getTranslateApiEndpoint()
+        val token = vectorPreferences.getTranslateApiToken()
+        val targetLang = vectorPreferences.getTranslateTargetLanguage()
+            .ifEmpty { java.util.Locale.getDefault().language }
+
+        if (endpoint.isBlank() || token.isBlank()) {
+            showSnackWithMessage("Configure API endpoint and token in Settings → Labs")
+            return
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val requestJson = try {
+                    JSONObject(ProgressiveNative.nativeBuildTranslateRequest(
+                        action.text, "", targetLang, endpoint, token, "gpt-4o-mini"
+                    ))
+                } catch (e: UnsatisfiedLinkError) {
+                    ProgressiveNative.buildTranslateRequestFallback(
+                        action.text, "", targetLang, endpoint, token, "gpt-4o-mini"
+                    )
+                }
+
+                val client = OkHttpClient.Builder()
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build()
+
+                val request = okhttp3.Request.Builder()
+                    .url(endpoint)
+                    .header("Authorization", "Bearer $token")
+                    .header("Content-Type", "application/json")
+                    .post(requestJson.toString().toRequestBody("application/json".toMediaType()))
+                    .build()
+
+                val response = client.newCall(request).execute()
+                val body = response.body?.string() ?: ""
+
+                val result = try {
+                    val raw = ProgressiveNative.nativeParseTranslateResponse(body, response.code)
+                    JSONObject(raw)
+                } catch (e: UnsatisfiedLinkError) {
+                    ProgressiveNative.parseTranslateResponseFallback(body, response.code)
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (result.optBoolean("success", false)) {
+                        showTranslatedText(result.getString("translatedText"))
+                    } else {
+                        val error = result.optString("error", "Translation failed")
+                        showSnackWithMessage(error)
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) { showErrorInSnackbar(e) }
+            }
+        }
+    }
+
+    private fun showTranslatedText(text: String) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(CommonStrings.translate_action)
+            .setMessage(text)
+            .setPositiveButton(CommonStrings.action_copy) { _, _ ->
+                copyToClipboard(requireContext(), text, false, stringProvider.getString(CommonStrings.translate_action))
+            }
+            .setNegativeButton(CommonStrings.action_cancel, null)
+            .show()
     }
 
     private fun handleOpenRoomSettings(directAccess: Int? = null) {
@@ -1893,6 +1970,9 @@ class TimelineFragment :
             }
             is EventSharedAction.JumpToSource -> {
                 timelineViewModel.handle(RoomDetailAction.NavigateToEvent(action.sourceEventId, highlight = true))
+            }
+            is EventSharedAction.Translate -> {
+                handleTranslateAction(action)
             }
             is EventSharedAction.ReportContent -> Unit /* Not clickable */
             EventSharedAction.Separator -> Unit /* Not clickable */

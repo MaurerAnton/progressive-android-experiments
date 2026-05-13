@@ -122,4 +122,7 @@ sealed class EventSharedAction(
 
     data class JumpToSource(val eventId: String, val sourceEventId: String) :
             EventSharedAction(CommonStrings.jump_to_source, R.drawable.ic_jump_to_unread)
+
+    data class Translate(val eventId: String, val text: String) :
+            EventSharedAction(CommonStrings.translate_action, R.drawable.ic_play_arrow)
 }

@@ -166,4 +166,37 @@
         android:summary="@string/labs_skip_avatar_crop_summary"
         android:title="@string/labs_skip_avatar_crop" />
 
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_TRANSLATE_KEY"
+        android:summary="@string/labs_enable_translate_summary"
+        android:title="@string/labs_enable_translate" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue=""
+        android:dependency="SETTINGS_LABS_TRANSLATE_KEY"
+        android:dialogTitle="@string/translate_api_endpoint"
+        android:inputType="textUri"
+        android:key="SETTINGS_TRANSLATE_API_ENDPOINT"
+        android:summary="@string/translate_api_endpoint_hint"
+        android:title="@string/translate_api_endpoint" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue=""
+        android:dependency="SETTINGS_LABS_TRANSLATE_KEY"
+        android:dialogTitle="@string/translate_api_token"
+        android:inputType="textPassword"
+        android:key="SETTINGS_TRANSLATE_API_TOKEN"
+        android:summary="@string/translate_api_token_hint"
+        android:title="@string/translate_api_token" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue=""
+        android:dependency="SETTINGS_LABS_TRANSLATE_KEY"
+        android:dialogTitle="@string/translate_target_language"
+        android:inputType="text"
+        android:key="SETTINGS_TRANSLATE_TARGET_LANGUAGE"
+        android:summary="@string/translate_target_language_default"
+        android:title="@string/translate_target_language" />
+
 </androidx.preference.PreferenceScreen>

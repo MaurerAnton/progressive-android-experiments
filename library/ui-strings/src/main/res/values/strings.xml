@@ -3013,6 +3013,15 @@
      <string name="labs_enable_chat_export_summary">Enable chat export to HTML, plain text, and JSON formats. Exports are processed locally using C++ native code.</string>
      <string name="labs_skip_avatar_crop">Skip avatar crop</string>
      <string name="labs_skip_avatar_crop_summary">Set avatars without cropping. Original image aspect ratio is preserved.</string>
+     <string name="labs_enable_translate">Translate messages</string>
+     <string name="labs_enable_translate_summary">Add \"Translate\" to the message context menu. Uses OpenAI-compatible API.</string>
+     <string name="translate_api_endpoint">API endpoint</string>
+     <string name="translate_api_endpoint_hint">https://api.openai.com/v1/chat/completions</string>
+     <string name="translate_api_token">API token</string>
+     <string name="translate_api_token_hint">sk-...</string>
+     <string name="translate_target_language">Target language</string>
+     <string name="translate_target_language_default">System language (auto)</string>
+     <string name="translate_action">Translate</string>
      <string name="jump_to_source">Jump to source</string>
 
 

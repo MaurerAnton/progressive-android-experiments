@@ -6,6 +6,7 @@
 #include "progressive/exporter.hpp"
 #include "progressive/eventcache.hpp"
 #include "progressive/eventdb.hpp"
+#include "progressive/translate.hpp"
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -558,6 +559,66 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDbClearRoom(
 JNIEXPORT jint JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDbCount(JNIEnv*, jclass) {
     return g_eventDb.count();
+}
+
+// --- Translation ---
+
+/*
+ * Class: im.vector.app.features.jumptodate.ProgressiveNative
+ * Method: nativeBuildTranslateRequest
+ * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildTranslateRequest(
+    JNIEnv* env, jclass,
+    jstring jText, jstring jSourceLang, jstring jTargetLang,
+    jstring jApiEndpoint, jstring jApiToken, jstring jModel
+) {
+    TranslateRequest req;
+    req.text           = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    req.sourceLanguage = jSourceLang ? std::string(env->GetStringUTFChars(jSourceLang, nullptr)) : "";
+    req.targetLanguage = jTargetLang ? std::string(env->GetStringUTFChars(jTargetLang, nullptr)) : "";
+    req.apiEndpoint    = jApiEndpoint ? std::string(env->GetStringUTFChars(jApiEndpoint, nullptr)) : "";
+    req.apiToken       = jApiToken ? std::string(env->GetStringUTFChars(jApiToken, nullptr)) : "";
+    req.model          = jModel ? std::string(env->GetStringUTFChars(jModel, nullptr)) : "gpt-4o-mini";
+
+    if (jText)        env->ReleaseStringUTFChars(jText, req.text.c_str());
+    if (jSourceLang)  env->ReleaseStringUTFChars(jSourceLang, req.sourceLanguage.c_str());
+    if (jTargetLang)  env->ReleaseStringUTFChars(jTargetLang, req.targetLanguage.c_str());
+    if (jApiEndpoint) env->ReleaseStringUTFChars(jApiEndpoint, req.apiEndpoint.c_str());
+    if (jApiToken)    env->ReleaseStringUTFChars(jApiToken, req.apiToken.c_str());
+    if (jModel)       env->ReleaseStringUTFChars(jModel, req.model.c_str());
+
+    auto body = progressive::buildTranslateRequestBody(req);
+    return env->NewStringUTF(body.c_str());
+}
+
+/*
+ * Class: im.vector.app.features.jumptodate.ProgressiveNative
+ * Method: nativeParseTranslateResponse
+ * Signature: (Ljava/lang/String;I)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseTranslateResponse(
+    JNIEnv* env, jclass,
+    jstring jResponseBody, jint jHttpStatus
+) {
+    if (!jResponseBody) {
+        return env->NewStringUTF(R"({"success": false, "error": "Empty response"})");
+    }
+    auto body = std::string(env->GetStringUTFChars(jResponseBody, nullptr));
+    env->ReleaseStringUTFChars(jResponseBody, body.c_str());
+
+    auto result = progressive::parseTranslateResponse(body, jHttpStatus);
+
+    if (result.success) {
+        std::string json = R"({"success": true, "translatedText": ")" + result.translatedText + R"("})";
+        return env->NewStringUTF(json.c_str());
+    } else {
+        std::string json = R"({"success": false, "error": ")" + result.errorMessage + R"(", "statusCode": )"
+            + std::to_string(result.statusCode) + "}";
+        return env->NewStringUTF(json.c_str());
+    }
 }
 
 } // extern "C"
