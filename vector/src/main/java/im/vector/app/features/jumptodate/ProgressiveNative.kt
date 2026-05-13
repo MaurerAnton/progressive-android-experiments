@@ -560,6 +560,13 @@ object ProgressiveNative {
     @JvmStatic external fun nativeUrlDecode(input: String): String
     @JvmStatic external fun nativeBuildMatrixToUrl(roomId: String): String
 
+    // --- Notification Priority ---
+
+    @JvmStatic external fun nativeComputeNotifPriority(isDM: Boolean, isMention: Boolean, isRoomMention: Boolean, isKeyword: Boolean, isCall: Boolean, isBackground: Boolean, dnd: Boolean, favorite: Boolean): String
+    @JvmStatic external fun nativeFormatNotifTitle(roomName: String, senderName: String, isDM: Boolean): String
+    @JvmStatic external fun nativeFormatNotifBody(body: String, senderName: String, isDM: Boolean, showSender: Boolean): String
+    @JvmStatic external fun nativeIsRoomMention(body: String): Boolean
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

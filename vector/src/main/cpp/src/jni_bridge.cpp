@@ -48,6 +48,7 @@
 #include "progressive/rainbow.hpp"
 #include "progressive/text_formats.hpp"
 #include "progressive/url_tools.hpp"
+#include "progressive/notif_priority.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
@@ -3283,6 +3284,77 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildMatrixToUrl(
     if (jRoomId) env->ReleaseStringUTFChars(jRoomId, id.c_str());
     auto s = progressive::buildMatrixToUrl(id);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Notification Priority ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeNotifPriority(
+    JNIEnv*, jclass,
+    jboolean jIsDM, jboolean jIsMention, jboolean jIsRoomMention,
+    jboolean jIsKeyword, jboolean jIsCall, jboolean jIsBackground,
+    jboolean jDnd, jboolean jFavorite
+) {
+    NotifContent content;
+    content.isDirectMessage = jIsDM;
+    content.isMention = jIsMention;
+    content.isRoomMention = jIsRoomMention;
+    content.isKeywordMatch = jIsKeyword;
+    content.isCallInvite = jIsCall;
+
+    auto prio = progressive::computeNotifPriority(content, jIsBackground, jDnd, jFavorite);
+
+    std::ostringstream json;
+    json << "{";
+    json << R"("level": )" << static_cast<int>(prio.level) << ",";
+    json << R"("vibrate": )" << (prio.shouldVibrate ? "true" : "false") << ",";
+    json << R"("wakeScreen": )" << (prio.shouldWakeScreen ? "true" : "false") << ",";
+    json << R"("ledColor": )" << prio.ledColor << ",";
+    json << R"("soundUri": ")" << prio.soundUri << R"(",)";
+    json << R"("category": ")" << prio.category << R"(")";
+    json << "}";
+    return env->NewStringUTF(json.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatNotifTitle(
+    JNIEnv* env, jclass,
+    jstring jRoomName, jstring jSenderName, jboolean jIsDM
+) {
+    NotifContent c;
+    c.roomName   = jRoomName ? std::string(env->GetStringUTFChars(jRoomName, nullptr)) : "";
+    c.senderName = jSenderName ? std::string(env->GetStringUTFChars(jSenderName, nullptr)) : "";
+    c.isDirectMessage = jIsDM;
+    if (jRoomName)   env->ReleaseStringUTFChars(jRoomName, c.roomName.c_str());
+    if (jSenderName) env->ReleaseStringUTFChars(jSenderName, c.senderName.c_str());
+
+    auto s = progressive::formatNotifTitle(c);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatNotifBody(
+    JNIEnv* env, jclass,
+    jstring jBody, jstring jSenderName, jboolean jIsDM, jboolean jShowSender
+) {
+    NotifContent c;
+    c.body       = jBody ? std::string(env->GetStringUTFChars(jBody, nullptr)) : "";
+    c.senderName = jSenderName ? std::string(env->GetStringUTFChars(jSenderName, nullptr)) : "";
+    c.isDirectMessage = jIsDM;
+    if (jBody)       env->ReleaseStringUTFChars(jBody, c.body.c_str());
+    if (jSenderName) env->ReleaseStringUTFChars(jSenderName, c.senderName.c_str());
+
+    auto s = progressive::formatNotifBody(c, jShowSender);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsRoomMention(
+    JNIEnv* env, jclass, jstring jBody
+) {
+    auto body = jBody ? std::string(env->GetStringUTFChars(jBody, nullptr)) : "";
+    if (jBody) env->ReleaseStringUTFChars(jBody, body.c_str());
+    return progressive::isRoomMention(body) ? JNI_TRUE : JNI_FALSE;
 }
 
 } // extern "C"

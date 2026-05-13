@@ -54,6 +54,7 @@ add_library(
     src/rainbow.cpp
     src/text_formats.cpp
     src/url_tools.cpp
+    src/notif_priority.cpp
     src/jni_bridge.cpp
 )
 
