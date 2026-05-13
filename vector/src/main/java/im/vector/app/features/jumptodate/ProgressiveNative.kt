@@ -663,6 +663,11 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeGetQuickReactions(): String
 
+    // --- File Validator ---
+
+    @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
+    @JvmStatic external fun nativeGetFileExtension(fileName: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

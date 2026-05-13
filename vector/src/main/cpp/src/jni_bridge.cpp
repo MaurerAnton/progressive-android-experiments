@@ -67,6 +67,7 @@
 #include "progressive/mention_parser.hpp"
 #include "progressive/poll_utils.hpp"
 #include "progressive/reaction_utils.hpp"
+#include "progressive/file_validator.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -3735,6 +3736,26 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetQuickReactions
     }
     json << "]";
     return env->NewStringUTF(json.str().c_str());
+}
+
+// --- File Validator ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatFileSize(
+    JNIEnv* env, jclass, jlong jBytes
+) {
+    auto s = progressive::formatFileSize(jBytes);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetFileExtension(
+    JNIEnv* env, jclass, jstring jFileName
+) {
+    auto name = jFileName ? std::string(env->GetStringUTFChars(jFileName, nullptr)) : "";
+    if (jFileName) env->ReleaseStringUTFChars(jFileName, name.c_str());
+    auto s = progressive::getFileExtension(name);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

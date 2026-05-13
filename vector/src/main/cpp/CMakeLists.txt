@@ -74,6 +74,7 @@ add_library(
     src/mention_parser.cpp
     src/poll_utils.cpp
     src/reaction_utils.cpp
+    src/file_validator.cpp
     src/jni_bridge.cpp
 )
 
