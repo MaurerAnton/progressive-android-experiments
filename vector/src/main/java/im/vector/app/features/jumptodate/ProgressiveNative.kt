@@ -397,6 +397,24 @@ object ProgressiveNative {
     @JvmStatic external fun nativeReplacementApply(text: String): String
     @JvmStatic external fun nativeReplacementExport(): String
 
+    // --- LLM ---
+
+    @JvmStatic external fun nativeBuildLlmRequest(prompt: String, provider: Int, endpoint: String, token: String, model: String, systemPrompt: String, temp: Float, maxTokens: Int): String
+    @JvmStatic external fun nativeBuildLlmHeaders(provider: Int, token: String): String
+    @JvmStatic external fun nativeParseLlmResponse(body: String, statusCode: Int, provider: Int): String
+    @JvmStatic external fun nativeFormatLlmBroadcast(prompt: String, response: String): String
+
+    // --- Duplicate Names ---
+
+    @JvmStatic external fun nativeFormatUserDisplayName(displayName: String, mxid: String, showMxid: Boolean): String
+
+    // --- MXID Visibility ---
+
+    @JvmStatic external fun nativeMxidVisibilityHide(mxid: String)
+    @JvmStatic external fun nativeMxidVisibilityShow(mxid: String)
+    @JvmStatic external fun nativeMxidVisibilityIsVisible(mxid: String): Boolean
+    @JvmStatic external fun nativeMxidVisibilityExport(): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

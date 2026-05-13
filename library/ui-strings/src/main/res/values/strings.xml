@@ -3119,6 +3119,16 @@
      <string name="auto_replace_add">Add rule</string>
      <string name="auto_replace_pattern">Pattern</string>
      <string name="auto_replace_replacement">Replacement</string>
+     <string name="labs_enable_llm_slash">/llm and /llmp commands</string>
+     <string name="labs_enable_llm_slash_summary">/llm sends prompt to LLM (response visible only to you). /llmp broadcasts response to the room. Supports OpenAI and Anthropic APIs.</string>
+     <string name="llm_provider">LLM provider</string>
+     <string name="llm_provider_openai">OpenAI-compatible</string>
+     <string name="llm_provider_anthropic">Anthropic</string>
+     <string name="llm_anthropic_endpoint">Anthropic API endpoint</string>
+     <string name="llm_anthropic_endpoint_hint">https://api.anthropic.com/v1/messages</string>
+     <string name="labs_enable_duplicate_names">Show MXID for duplicate names</string>
+     <string name="labs_enable_duplicate_names_summary">When multiple users share the same display name, show their MXID in brackets. Per-user override in profile.</string>
+     <string name="profile_hide_mxid">Hide MXID next to nickname</string>
      <string name="jump_to_source">Jump to source</string>
 
 

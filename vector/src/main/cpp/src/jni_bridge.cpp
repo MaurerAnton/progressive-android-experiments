@@ -34,6 +34,7 @@
 #include "progressive/notification.hpp"
 #include "progressive/room_mirror.hpp"
 #include "progressive/input_tools.hpp"
+#include "progressive/llm.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
@@ -79,6 +80,9 @@ static progressive::SymbolBar g_symbolBar;
 
 // --- Singleton replacement engine ---
 static progressive::ReplacementEngine g_replacementEngine;
+
+// --- Singleton user MXID visibility ---
+static progressive::UserMxidVisibility g_mxidVisibility;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -2042,6 +2046,141 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeReplacementExport
     JNIEnv* env, jclass
 ) {
     auto json = g_replacementEngine.exportJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+// --- LLM ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildLlmRequest(
+    JNIEnv* env, jclass,
+    jstring jPrompt, jint jProvider,
+    jstring jEndpoint, jstring jToken, jstring jModel,
+    jstring jSystemPrompt, jfloat jTemp, jint jMaxTokens
+) {
+    LlmConfig cfg;
+    cfg.provider     = static_cast<LlmProvider>(jProvider);
+    cfg.apiEndpoint  = jEndpoint ? std::string(env->GetStringUTFChars(jEndpoint, nullptr)) : "";
+    cfg.apiToken     = jToken ? std::string(env->GetStringUTFChars(jToken, nullptr)) : "";
+    cfg.model        = jModel ? std::string(env->GetStringUTFChars(jModel, nullptr)) : "gpt-4o-mini";
+    cfg.systemPrompt = jSystemPrompt ? std::string(env->GetStringUTFChars(jSystemPrompt, nullptr)) : "";
+    cfg.temperature  = jTemp;
+    cfg.maxTokens    = jMaxTokens;
+
+    auto prompt = jPrompt ? std::string(env->GetStringUTFChars(jPrompt, nullptr)) : "";
+
+    if (jEndpoint) env->ReleaseStringUTFChars(jEndpoint, cfg.apiEndpoint.c_str());
+    if (jToken)    env->ReleaseStringUTFChars(jToken, cfg.apiToken.c_str());
+    if (jModel)    env->ReleaseStringUTFChars(jModel, cfg.model.c_str());
+    if (jSystemPrompt) env->ReleaseStringUTFChars(jSystemPrompt, cfg.systemPrompt.c_str());
+    if (jPrompt)   env->ReleaseStringUTFChars(jPrompt, prompt.c_str());
+
+    auto body = progressive::buildLlmRequestBody(cfg, prompt);
+    return env->NewStringUTF(body.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildLlmHeaders(
+    JNIEnv* env, jclass, jint jProvider, jstring jToken
+) {
+    LlmConfig cfg;
+    cfg.provider = static_cast<LlmProvider>(jProvider);
+    cfg.apiToken = jToken ? std::string(env->GetStringUTFChars(jToken, nullptr)) : "";
+    if (jToken) env->ReleaseStringUTFChars(jToken, cfg.apiToken.c_str());
+
+    auto headers = progressive::buildLlmHeaders(cfg);
+    return env->NewStringUTF(headers.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseLlmResponse(
+    JNIEnv* env, jclass, jstring jBody, jint jStatusCode, jint jProvider
+) {
+    auto body = jBody ? std::string(env->GetStringUTFChars(jBody, nullptr)) : "";
+    if (jBody) env->ReleaseStringUTFChars(jBody, body.c_str());
+
+    auto provider = static_cast<LlmProvider>(jProvider);
+    auto result = progressive::parseLlmResponse(body, jStatusCode, provider);
+
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out;
+        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
+        return out;
+    };
+
+    std::ostringstream json;
+    json << "{";
+    json << R"("success": )" << (result.success ? "true" : "false") << ",";
+    json << R"("text": ")" << esc(result.text) << R"(",)";
+    json << R"("errorMessage": ")" << esc(result.errorMessage) << R"(",)";
+    json << R"("statusCode": )" << result.statusCode;
+    json << "}";
+    return env->NewStringUTF(json.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatLlmBroadcast(
+    JNIEnv* env, jclass, jstring jPrompt, jstring jResponse
+) {
+    auto prompt = jPrompt ? std::string(env->GetStringUTFChars(jPrompt, nullptr)) : "";
+    auto response = jResponse ? std::string(env->GetStringUTFChars(jResponse, nullptr)) : "";
+    if (jPrompt) env->ReleaseStringUTFChars(jPrompt, prompt.c_str());
+    if (jResponse) env->ReleaseStringUTFChars(jResponse, response.c_str());
+
+    auto s = progressive::formatLlmBroadcastMessage(prompt, response);
+    return env->NewStringUTF(s.c_str());
+}
+
+// --- Duplicate Names ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatUserDisplayName(
+    JNIEnv* env, jclass,
+    jstring jDisplayName, jstring jMxid, jboolean jShowMxid
+) {
+    auto name = jDisplayName ? std::string(env->GetStringUTFChars(jDisplayName, nullptr)) : "";
+    auto mxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    if (jDisplayName) env->ReleaseStringUTFChars(jDisplayName, name.c_str());
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+
+    auto s = progressive::formatUserDisplayName(name, mxid, jShowMxid);
+    return env->NewStringUTF(s.c_str());
+}
+
+// --- User MXID Visibility ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMxidVisibilityHide(
+    JNIEnv* env, jclass, jstring jMxid
+) {
+    auto mxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    g_mxidVisibility.hideMxid(mxid);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMxidVisibilityShow(
+    JNIEnv* env, jclass, jstring jMxid
+) {
+    auto mxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    g_mxidVisibility.showMxid(mxid);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMxidVisibilityIsVisible(
+    JNIEnv* env, jclass, jstring jMxid
+) {
+    auto mxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    return g_mxidVisibility.isVisible(mxid) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMxidVisibilityExport(
+    JNIEnv* env, jclass
+) {
+    auto json = g_mxidVisibility.exportJson();
     return env->NewStringUTF(json.c_str());
 }
 

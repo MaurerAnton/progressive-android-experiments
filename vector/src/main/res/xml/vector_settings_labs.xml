@@ -409,4 +409,16 @@
         android:summary="@string/labs_enable_auto_replace_summary"
         android:title="@string/labs_enable_auto_replace" />
 
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_LLM_SLASH_KEY"
+        android:summary="@string/labs_enable_llm_slash_summary"
+        android:title="@string/labs_enable_llm_slash" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_DUPLICATE_NAMES_KEY"
+        android:summary="@string/labs_enable_duplicate_names_summary"
+        android:title="@string/labs_enable_duplicate_names" />
+
 </androidx.preference.PreferenceScreen>

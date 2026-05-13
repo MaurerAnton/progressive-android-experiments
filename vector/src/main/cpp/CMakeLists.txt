@@ -41,6 +41,7 @@ add_library(
     src/notification.cpp
     src/room_mirror.cpp
     src/input_tools.cpp
+    src/llm.cpp
     src/jni_bridge.cpp
 )
 

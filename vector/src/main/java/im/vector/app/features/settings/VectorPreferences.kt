@@ -112,6 +112,8 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_ROOM_MIRROR_KEY = "SETTINGS_LABS_ROOM_MIRROR_KEY"
         const val SETTINGS_LABS_SYMBOL_BAR_KEY = "SETTINGS_LABS_SYMBOL_BAR_KEY"
         const val SETTINGS_LABS_AUTO_REPLACE_KEY = "SETTINGS_LABS_AUTO_REPLACE_KEY"
+        const val SETTINGS_LABS_LLM_SLASH_KEY = "SETTINGS_LABS_LLM_SLASH_KEY"
+        const val SETTINGS_LABS_DUPLICATE_NAMES_KEY = "SETTINGS_LABS_DUPLICATE_NAMES_KEY"
         const val SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY"
@@ -1484,6 +1486,14 @@ class VectorPreferences @Inject constructor(
 
     fun isAutoReplaceEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_REPLACE_KEY, false)
+    }
+
+    fun isLlmSlashEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_LLM_SLASH_KEY, false)
+    }
+
+    fun isDuplicateNamesEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_DUPLICATE_NAMES_KEY, false)
     }
 
     fun showIpAddressInSessionManagerScreens(): Boolean {
