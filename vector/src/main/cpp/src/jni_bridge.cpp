@@ -92,6 +92,7 @@
 #include "progressive/room_encryption.hpp"
 #include "progressive/login_utils.hpp"
 #include "progressive/connection_monitor.hpp"
+#include "progressive/push_rules.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
 #include <chrono>
@@ -4293,6 +4294,28 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeConnMonitorGetSta
     json << R"(,"bannerColor": ")" << progressive::ConnectionMonitor::getBannerColor(state.downtimeMs) << R"(")";
     json << "}";
     return env->NewStringUTF(json.str().c_str());
+}
+
+// --- Push Rules ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParsePushCondition(
+    JNIEnv* env, jclass, jstring jConditionJson
+) {
+    auto json = jConditionJson ? std::string(env->GetStringUTFChars(jConditionJson, nullptr)) : "";
+    if (jConditionJson) env->ReleaseStringUTFChars(jConditionJson, json.c_str());
+
+    auto cond = progressive::parsePushCondition(json);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream out;
+    out << R"({"kind": ")" << esc(cond.kind) << R"(")";
+    out << R"(,"key": ")" << esc(cond.key) << R"(")";
+    out << R"(,"pattern": ")" << esc(cond.pattern) << R"(")";
+    out << R"(,"description": ")" << esc(cond.description) << R"(")";
+    out << R"(,"isSupported": true})";
+    return env->NewStringUTF(out.str().c_str());
 }
 
 } // extern "C"

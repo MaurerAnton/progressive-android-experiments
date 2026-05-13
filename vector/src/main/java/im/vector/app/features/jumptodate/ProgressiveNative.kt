@@ -776,6 +776,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeConnMonitorOnDisconnected()
     @JvmStatic external fun nativeConnMonitorGetStatus(): String
 
+    // --- Push Rules ---
+
+    @JvmStatic external fun nativeParsePushCondition(conditionJson: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
