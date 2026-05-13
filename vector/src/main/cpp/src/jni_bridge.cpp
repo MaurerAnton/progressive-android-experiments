@@ -112,6 +112,7 @@
 #include "progressive/permalink.hpp"
 #include "progressive/network_monitor.hpp"
 #include "progressive/client_info.hpp"
+#include "progressive/keyshare.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -4652,6 +4653,32 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCompareSemver(
     if (jA) env->ReleaseStringUTFChars(jA, a.c_str());
     if (jB) env->ReleaseStringUTFChars(jB, b.c_str());
     return progressive::compareSemver(a, b);
+}
+
+// --- Keyshare ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildKeyRequestBody(
+    JNIEnv* env, jclass,
+    jstring jRoomId, jstring jSessionId, jstring jSenderKey, jstring jAlgorithm,
+    jstring jRequestId, jstring jDeviceId
+) {
+    auto roomId   = jRoomId ? std::string(env->GetStringUTFChars(jRoomId, nullptr)) : "";
+    auto sessionId = jSessionId ? std::string(env->GetStringUTFChars(jSessionId, nullptr)) : "";
+    auto senderKey = jSenderKey ? std::string(env->GetStringUTFChars(jSenderKey, nullptr)) : "";
+    auto algorithm = jAlgorithm ? std::string(env->GetStringUTFChars(jAlgorithm, nullptr)) : "";
+    auto requestId = jRequestId ? std::string(env->GetStringUTFChars(jRequestId, nullptr)) : "";
+    auto deviceId  = jDeviceId ? std::string(env->GetStringUTFChars(jDeviceId, nullptr)) : "";
+
+    if (jRoomId)    env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    if (jSessionId) env->ReleaseStringUTFChars(jSessionId, sessionId.c_str());
+    if (jSenderKey) env->ReleaseStringUTFChars(jSenderKey, senderKey.c_str());
+    if (jAlgorithm) env->ReleaseStringUTFChars(jAlgorithm, algorithm.c_str());
+    if (jRequestId) env->ReleaseStringUTFChars(jRequestId, requestId.c_str());
+    if (jDeviceId)  env->ReleaseStringUTFChars(jDeviceId, deviceId.c_str());
+
+    auto s = progressive::buildKeyRequestBody(roomId, sessionId, senderKey, algorithm, requestId, deviceId);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

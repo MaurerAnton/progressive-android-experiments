@@ -121,6 +121,7 @@ add_library(
     src/permalink.cpp
     src/network_monitor.cpp
     src/client_info.cpp
+    src/keyshare.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )

@@ -862,6 +862,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeCompareSemver(a: String, b: String): Int
 
+    // --- Keyshare ---
+
+    @JvmStatic external fun nativeBuildKeyRequestBody(roomId: String, sessionId: String, senderKey: String, algorithm: String, requestId: String, deviceId: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
