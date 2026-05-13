@@ -108,6 +108,7 @@
 #include "progressive/webrtc_utils.hpp"
 #include "progressive/message_retry.hpp"
 #include "progressive/sync_utils.hpp"
+#include "progressive/event_display.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -4592,6 +4593,19 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildSyncFilter(
     filter.timelineLimit = jTimelineLimit;
     auto s = progressive::buildSyncFilter(filter);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Event Display ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeClassifyEvent(
+    JNIEnv* env, jclass, jstring jEventType, jstring jMsgType
+) {
+    auto et = jEventType ? std::string(env->GetStringUTFChars(jEventType, nullptr)) : "";
+    auto mt = jMsgType ? std::string(env->GetStringUTFChars(jMsgType, nullptr)) : "";
+    if (jEventType) env->ReleaseStringUTFChars(jEventType, et.c_str());
+    if (jMsgType) env->ReleaseStringUTFChars(jMsgType, mt.c_str());
+    return static_cast<jint>(progressive::classifyEvent(et, mt));
 }
 
 } // extern "C"

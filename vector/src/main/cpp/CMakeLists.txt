@@ -117,6 +117,7 @@ add_library(
     src/webrtc_utils.cpp
     src/message_retry.cpp
     src/sync_utils.cpp
+    src/event_display.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )

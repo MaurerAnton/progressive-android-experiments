@@ -846,6 +846,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeBuildSyncFilter(includeThreads: Boolean, includePresence: Boolean, timelineLimit: Int): String
 
+    // --- Event Display ---
+
+    @JvmStatic external fun nativeClassifyEvent(eventType: String, msgType: String): Int
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
