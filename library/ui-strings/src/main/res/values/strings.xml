@@ -3048,6 +3048,13 @@
      <string name="keyword_filter_hint">Enter keywords separated by commas or newlines</string>
      <string name="keyword_filter_blocked_title">Message blocked</string>
      <string name="keyword_filter_blocked_message">Your message contains a forbidden keyword: \"%s\". Edit your message or adjust the filter.</string>
+     <string name="labs_enable_network_stats">Network statistics</string>
+     <string name="labs_enable_network_stats_summary">Collect request latency and packet loss data. View in Network Stats activity.</string>
+     <string name="network_stats_title">Network Statistics</string>
+     <string name="labs_enable_masquerade">App masquerade</string>
+     <string name="labs_enable_masquerade_summary">Change the app icon and name to a user-chosen identity. Requires app restart.</string>
+     <string name="masquerade_name">App display name</string>
+     <string name="masquerade_name_hint">e.g. Calculator, Notes, Clock</string>
      <string name="jump_to_source">Jump to source</string>
 
 

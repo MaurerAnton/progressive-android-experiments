@@ -88,6 +88,8 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_SKIP_PREVIEW_KEY = "SETTINGS_LABS_SKIP_PREVIEW_KEY"
         const val SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY = "SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY"
         const val SETTINGS_LABS_KEYWORD_FILTER_KEY = "SETTINGS_LABS_KEYWORD_FILTER_KEY"
+        const val SETTINGS_LABS_NETWORK_STATS_KEY = "SETTINGS_LABS_NETWORK_STATS_KEY"
+        const val SETTINGS_LABS_MASQUERADE_KEY = "SETTINGS_LABS_MASQUERADE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY"
@@ -1364,6 +1366,14 @@ class VectorPreferences @Inject constructor(
 
     fun isKeywordFilterEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_KEYWORD_FILTER_KEY, false)
+    }
+
+    fun isNetworkStatsEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_NETWORK_STATS_KEY, false)
+    }
+
+    fun isMasqueradeEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_MASQUERADE_KEY, false)
     }
 
     fun showIpAddressInSessionManagerScreens(): Boolean {

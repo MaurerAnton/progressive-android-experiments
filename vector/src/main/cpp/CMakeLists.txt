@@ -21,6 +21,8 @@ add_library(
     src/audio_engine.cpp
     src/media_filter.cpp
     src/content_filter.cpp
+    src/network_stats.cpp
+    src/masquerade.cpp
     src/jni_bridge.cpp
 )
 

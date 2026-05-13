@@ -265,4 +265,16 @@
         android:summary="@string/labs_keyword_filter_summary"
         android:title="@string/labs_keyword_filter" />
 
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_NETWORK_STATS_KEY"
+        android:summary="@string/labs_enable_network_stats_summary"
+        android:title="@string/labs_enable_network_stats" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_MASQUERADE_KEY"
+        android:summary="@string/labs_enable_masquerade_summary"
+        android:title="@string/labs_enable_masquerade" />
+
 </androidx.preference.PreferenceScreen>

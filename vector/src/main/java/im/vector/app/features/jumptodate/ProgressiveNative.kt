@@ -234,6 +234,21 @@ object ProgressiveNative {
         mxcUrl: String, imageType: String
     ): Boolean
 
+    // --- Network Stats ---
+
+    @JvmStatic external fun nativeNetStatsStart(url: String, method: String): Int
+    @JvmStatic external fun nativeNetStatsEnd(requestId: Int, statusCode: Int, bytesSent: Long, bytesReceived: Long, error: String)
+    @JvmStatic external fun nativeNetStatsToJson(): String
+    @JvmStatic external fun nativeNetStatsToText(): String
+    @JvmStatic external fun nativeNetStatsClear()
+
+    // --- Masquerade ---
+
+    @JvmStatic external fun nativeIsValidMasqueradeName(name: String): Boolean
+    @JvmStatic external fun nativeGetSuggestedMasqueradeNames(): String
+    @JvmStatic external fun nativeIsValidIconAlias(alias: String): Boolean
+    @JvmStatic external fun nativeBuildMasqueradeAlias(baseAlias: String, iconName: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

@@ -14,9 +14,14 @@
 #include "progressive/audio_engine.hpp"
 #include "progressive/media_filter.hpp"
 #include "progressive/content_filter.hpp"
+#include "progressive/network_stats.hpp"
+#include "progressive/masquerade.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
+
+// --- Singleton network stats collector ---
+static progressive::NetworkStatsCollector g_netStats;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -915,6 +920,95 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeShouldBlockImage(
     if (jImageType) env->ReleaseStringUTFChars(jImageType, type.c_str());
 
     return policy.shouldBlock(url, type) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Network Stats ---
+
+JNIEXPORT jint JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeNetStatsStart(
+    JNIEnv* env, jclass, jstring jUrl, jstring jMethod
+) {
+    auto url = jUrl ? std::string(env->GetStringUTFChars(jUrl, nullptr)) : "";
+    auto method = jMethod ? std::string(env->GetStringUTFChars(jMethod, nullptr)) : "";
+    if (jUrl) env->ReleaseStringUTFChars(jUrl, url.c_str());
+    if (jMethod) env->ReleaseStringUTFChars(jMethod, method.c_str());
+    return g_netStats.startRequest(url, method);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeNetStatsEnd(
+    JNIEnv* env, jclass,
+    jint jRequestId, jint jStatusCode, jlong jBytesSent, jlong jBytesReceived,
+    jstring jError
+) {
+    auto err = jError ? std::string(env->GetStringUTFChars(jError, nullptr)) : "";
+    if (jError) env->ReleaseStringUTFChars(jError, err.c_str());
+    g_netStats.endRequest(jRequestId, jStatusCode, jBytesSent, jBytesReceived, err);
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeNetStatsToJson(
+    JNIEnv* env, jclass
+) {
+    auto json = g_netStats.statsToJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeNetStatsToText(
+    JNIEnv* env, jclass
+) {
+    auto text = g_netStats.statsToText();
+    return env->NewStringUTF(text.c_str());
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeNetStatsClear(
+    JNIEnv*, jclass
+) {
+    g_netStats.clear();
+}
+
+// --- Masquerade ---
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidMasqueradeName(
+    JNIEnv* env, jclass, jstring jName
+) {
+    if (!jName) return JNI_FALSE;
+    auto name = std::string(env->GetStringUTFChars(jName, nullptr));
+    env->ReleaseStringUTFChars(jName, name.c_str());
+    return progressive::isValidMasqueradeName(name) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetSuggestedMasqueradeNames(
+    JNIEnv* env, jclass
+) {
+    auto names = progressive::getSuggestedNames();
+    return env->NewStringUTF(names.c_str());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidIconAlias(
+    JNIEnv* env, jclass, jstring jAlias
+) {
+    if (!jAlias) return JNI_FALSE;
+    auto alias = std::string(env->GetStringUTFChars(jAlias, nullptr));
+    env->ReleaseStringUTFChars(jAlias, alias.c_str());
+    return progressive::isValidIconAlias(alias) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildMasqueradeAlias(
+    JNIEnv* env, jclass, jstring jBase, jstring jIcon
+) {
+    auto base = jBase ? std::string(env->GetStringUTFChars(jBase, nullptr)) : "";
+    auto icon = jIcon ? std::string(env->GetStringUTFChars(jIcon, nullptr)) : "";
+    if (jBase) env->ReleaseStringUTFChars(jBase, base.c_str());
+    if (jIcon) env->ReleaseStringUTFChars(jIcon, icon.c_str());
+    auto alias = progressive::buildMasqueradeAlias(base, icon);
+    return env->NewStringUTF(alias.c_str());
 }
 
 } // extern "C"
