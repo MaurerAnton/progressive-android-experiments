@@ -84,6 +84,10 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_AUDIO_STATUSBAR_KEY = "SETTINGS_LABS_AUDIO_STATUSBAR_KEY"
         const val SETTINGS_LABS_MEDIA_FILTER_KEY = "SETTINGS_LABS_MEDIA_FILTER_KEY"
         const val SETTINGS_LABS_EXPIRED_FILES_KEY = "SETTINGS_LABS_EXPIRED_FILES_KEY"
+        const val SETTINGS_LABS_SEND_ORIGINAL_SIZE_KEY = "SETTINGS_LABS_SEND_ORIGINAL_SIZE_KEY"
+        const val SETTINGS_LABS_SKIP_PREVIEW_KEY = "SETTINGS_LABS_SKIP_PREVIEW_KEY"
+        const val SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY = "SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY"
+        const val SETTINGS_LABS_KEYWORD_FILTER_KEY = "SETTINGS_LABS_KEYWORD_FILTER_KEY"
         const val SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY"
@@ -1344,6 +1348,22 @@ class VectorPreferences @Inject constructor(
 
     fun isExpiredFilesEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_EXPIRED_FILES_KEY, false)
+    }
+
+    fun isSendOriginalSizeEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_SEND_ORIGINAL_SIZE_KEY, true)
+    }
+
+    fun isSkipPreviewGenerationEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_SKIP_PREVIEW_KEY, false)
+    }
+
+    fun isBlockRemoteImagesEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY, false)
+    }
+
+    fun isKeywordFilterEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_KEYWORD_FILTER_KEY, false)
     }
 
     fun showIpAddressInSessionManagerScreens(): Boolean {

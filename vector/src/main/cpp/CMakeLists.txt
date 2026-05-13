@@ -20,6 +20,7 @@ add_library(
     src/account_export.cpp
     src/audio_engine.cpp
     src/media_filter.cpp
+    src/content_filter.cpp
     src/jni_bridge.cpp
 )
 

@@ -3036,6 +3036,18 @@
      <string name="labs_enable_media_filter_summary">Filter media/files by extension in chat media browser. C++ native filtering.</string>
      <string name="labs_enable_expired_files">Expired files</string>
      <string name="labs_enable_expired_files_summary">Show list of cached events referencing files no longer available on the server.</string>
+     <string name="labs_send_original_size">Send media in original size</string>
+     <string name="labs_send_original_size_summary">Don\'t compress images and videos before sending. Larger files, better quality.</string>
+     <string name="labs_skip_preview_generation">Skip preview generation</string>
+     <string name="labs_skip_preview_generation_summary">Don\'t generate thumbnail previews for media attachments. Saves RAM on low-memory devices.</string>
+     <string name="labs_block_remote_images">Block remote images</string>
+     <string name="labs_block_remote_images_summary">Disable all images loaded from the internet. Prevents exploitation of image codec vulnerabilities.</string>
+     <string name="labs_keyword_filter">Forbidden keywords filter</string>
+     <string name="labs_keyword_filter_summary">Block messages containing specified keywords. Keywords are checked case-insensitively by C++ native code.</string>
+     <string name="keyword_filter_edit">Edit forbidden keywords</string>
+     <string name="keyword_filter_hint">Enter keywords separated by commas or newlines</string>
+     <string name="keyword_filter_blocked_title">Message blocked</string>
+     <string name="keyword_filter_blocked_message">Your message contains a forbidden keyword: \"%s\". Edit your message or adjust the filter.</string>
      <string name="jump_to_source">Jump to source</string>
 
 

@@ -13,6 +13,10 @@
 #include "progressive/account_export.hpp"
 #include "progressive/audio_engine.hpp"
 #include "progressive/media_filter.hpp"
+#include "progressive/content_filter.hpp"
+
+// --- Singleton keyword filter ---
+static progressive::KeywordFilter g_keywordFilter;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -846,6 +850,71 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidMxcUri(
     auto uri = std::string(env->GetStringUTFChars(jUri, nullptr));
     env->ReleaseStringUTFChars(jUri, uri.c_str());
     return progressive::isValidMxcUri(uri) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Content Filter ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeKeywordFilterLoad(
+    JNIEnv* env, jclass, jstring jRaw
+) {
+    if (!jRaw) return;
+    auto raw = std::string(env->GetStringUTFChars(jRaw, nullptr));
+    env->ReleaseStringUTFChars(jRaw, raw.c_str());
+    g_keywordFilter.loadKeywords(raw);
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeKeywordFilterCheck(
+    JNIEnv* env, jclass, jstring jText
+) {
+    if (!jText) return env->NewStringUTF("");
+    auto text = std::string(env->GetStringUTFChars(jText, nullptr));
+    env->ReleaseStringUTFChars(jText, text.c_str());
+    auto match = g_keywordFilter.check(text);
+    return env->NewStringUTF(match.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeKeywordFilterExport(
+    JNIEnv* env, jclass
+) {
+    auto s = g_keywordFilter.exportKeywords();
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jint JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeKeywordFilterCount(
+    JNIEnv*, jclass
+) {
+    return static_cast<jint>(g_keywordFilter.count());
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeKeywordFilterClear(
+    JNIEnv*, jclass
+) {
+    g_keywordFilter.clear();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeShouldBlockImage(
+    JNIEnv* env, jclass,
+    jboolean jBlockAll, jboolean jAllowAvatars, jboolean jAllowStickers, jboolean jAllowEmoji,
+    jstring jMxcUrl, jstring jImageType
+) {
+    ImagePolicy policy;
+    policy.blockAllRemote = jBlockAll;
+    policy.allowAvatars   = jAllowAvatars;
+    policy.allowStickers  = jAllowStickers;
+    policy.allowEmoji     = jAllowEmoji;
+
+    auto url  = jMxcUrl ? std::string(env->GetStringUTFChars(jMxcUrl, nullptr)) : "";
+    auto type = jImageType ? std::string(env->GetStringUTFChars(jImageType, nullptr)) : "";
+    if (jMxcUrl) env->ReleaseStringUTFChars(jMxcUrl, url.c_str());
+    if (jImageType) env->ReleaseStringUTFChars(jImageType, type.c_str());
+
+    return policy.shouldBlock(url, type) ? JNI_TRUE : JNI_FALSE;
 }
 
 } // extern "C"

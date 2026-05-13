@@ -241,4 +241,28 @@
         android:summary="@string/labs_enable_expired_files_summary"
         android:title="@string/labs_enable_expired_files" />
 
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:key="SETTINGS_LABS_SEND_ORIGINAL_SIZE_KEY"
+        android:summary="@string/labs_send_original_size_summary"
+        android:title="@string/labs_send_original_size" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_SKIP_PREVIEW_KEY"
+        android:summary="@string/labs_skip_preview_generation_summary"
+        android:title="@string/labs_skip_preview_generation" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY"
+        android:summary="@string/labs_block_remote_images_summary"
+        android:title="@string/labs_block_remote_images" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_KEYWORD_FILTER_KEY"
+        android:summary="@string/labs_keyword_filter_summary"
+        android:title="@string/labs_keyword_filter" />
+
 </androidx.preference.PreferenceScreen>

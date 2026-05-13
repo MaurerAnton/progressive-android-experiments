@@ -221,6 +221,19 @@ object ProgressiveNative {
     @JvmStatic external fun nativeGetFileExtension(fileName: String, mimeType: String): String
     @JvmStatic external fun nativeIsValidMxcUri(uri: String): Boolean
 
+    // --- Content Filter ---
+
+    @JvmStatic external fun nativeKeywordFilterLoad(raw: String)
+    @JvmStatic external fun nativeKeywordFilterCheck(text: String): String
+    @JvmStatic external fun nativeKeywordFilterExport(): String
+    @JvmStatic external fun nativeKeywordFilterCount(): Int
+    @JvmStatic external fun nativeKeywordFilterClear()
+
+    @JvmStatic external fun nativeShouldBlockImage(
+        blockAll: Boolean, allowAvatars: Boolean, allowStickers: Boolean, allowEmoji: Boolean,
+        mxcUrl: String, imageType: String
+    ): Boolean
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
