@@ -625,6 +625,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeShouldLock(lockMethod: Int, idleTimeoutMin: Int, maxSessionMin: Int, maxFailedPin: Int, lockOnBg: Boolean, lastActivityMs: Long, sessionStartMs: Long, failedAttempts: Int, isLocked: Boolean, isBackground: Boolean): Boolean
     @JvmStatic external fun nativeIsValidPin(pin: String, minLen: Int, maxLen: Int): Boolean
 
+    // --- Password Validator ---
+
+    @JvmStatic external fun nativeValidatePassword(password: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
