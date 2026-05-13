@@ -809,6 +809,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeBuildInviteBody(userId: String, reason: String): String
 
+    // --- Verification ---
+
+    @JvmStatic external fun nativeGetVerificationEmojis(): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

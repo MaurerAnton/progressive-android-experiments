@@ -100,6 +100,7 @@
 #include "progressive/media_utils.hpp"
 #include "progressive/notif_settings.hpp"
 #include "progressive/invite_utils.hpp"
+#include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
 #include <chrono>
@@ -4443,6 +4444,27 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildInviteBody(
     if (jReason) env->ReleaseStringUTFChars(jReason, reason.c_str());
     auto s = progressive::buildInviteBody(userId, reason);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Verification ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetVerificationEmojis(
+    JNIEnv* env, jclass
+) {
+    auto emojis = progressive::getVerificationEmojis();
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << "[";
+    for (size_t i = 0; i < emojis.size(); ++i) {
+        if (i > 0) json << ",";
+        json << R"({"emoji": ")" << esc(emojis[i].emoji) << R"(")";
+        json << R"(,"description": ")" << esc(emojis[i].description) << R"(")" << "}";
+    }
+    json << "]";
+    return env->NewStringUTF(json.str().c_str());
 }
 
 } // extern "C"
