@@ -9,6 +9,7 @@
 #include "progressive/translate.hpp"
 #include "progressive/proxy.hpp"
 #include "progressive/yggdrasil.hpp"
+#include "progressive/markdown.hpp"
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -700,6 +701,34 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeRewriteHomeserver
     env->ReleaseStringUTFChars(jYggAddr, ygg.c_str());
     auto result = progressive::rewriteHomeserverUrl(original, ygg);
     return env->NewStringUTF(result.c_str());
+}
+
+// --- Markdown ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMarkdownToHtml(
+    JNIEnv* env, jclass, jstring jMarkdown, jboolean jEnableTables
+) {
+    if (!jMarkdown) return env->NewStringUTF("");
+    auto md = std::string(env->GetStringUTFChars(jMarkdown, nullptr));
+    env->ReleaseStringUTFChars(jMarkdown, md.c_str());
+
+    MdConfig config;
+    config.enableTables = jEnableTables;
+    auto html = progressive::markdownToHtml(md, config);
+    return env->NewStringUTF(html.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseMarkdownTable(
+    JNIEnv* env, jclass, jstring jTableBlock, jboolean jWithScroll
+) {
+    if (!jTableBlock) return env->NewStringUTF("");
+    auto block = std::string(env->GetStringUTFChars(jTableBlock, nullptr));
+    env->ReleaseStringUTFChars(jTableBlock, block.c_str());
+
+    auto html = progressive::parseMarkdownTable(block, jWithScroll);
+    return env->NewStringUTF(html.c_str());
 }
 
 } // extern "C"

@@ -193,6 +193,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBuildYggHomeserverUrl(addr: String, port: Int, tls: Boolean): String
     @JvmStatic external fun nativeRewriteHomeserverUrl(originalUrl: String, yggAddr: String): String
 
+    // --- Markdown ---
+
+    @JvmStatic external fun nativeMarkdownToHtml(markdown: String, enableTables: Boolean): String
+    @JvmStatic external fun nativeParseMarkdownTable(tableBlock: String, withScroll: Boolean): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

@@ -16,6 +16,7 @@ add_library(
     src/translate.cpp
     src/proxy.cpp
     src/yggdrasil.cpp
+    src/markdown.cpp
     src/jni_bridge.cpp
 )
 
