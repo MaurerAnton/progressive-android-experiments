@@ -40,6 +40,7 @@ add_library(
     src/module_loader.cpp
     src/notification.cpp
     src/room_mirror.cpp
+    src/input_tools.cpp
     src/jni_bridge.cpp
 )
 

@@ -33,6 +33,7 @@
 #include "progressive/module_loader.hpp"
 #include "progressive/notification.hpp"
 #include "progressive/room_mirror.hpp"
+#include "progressive/input_tools.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
@@ -72,6 +73,12 @@ static progressive::NotificationKeywords g_notifKeywords;
 
 // --- Singleton room mirror manager ---
 static progressive::RoomMirrorManager g_mirrorMgr;
+
+// --- Singleton symbol bar ---
+static progressive::SymbolBar g_symbolBar;
+
+// --- Singleton replacement engine ---
+static progressive::ReplacementEngine g_replacementEngine;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -1975,6 +1982,66 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMirrorExportJson(
     JNIEnv* env, jclass
 ) {
     auto json = g_mirrorMgr.exportJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+// --- Input Tools (Symbol Bar + Replacement Engine) ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeSymbolAdd(
+    JNIEnv* env, jclass, jstring jSymbol, jstring jLabel
+) {
+    auto sym = jSymbol ? std::string(env->GetStringUTFChars(jSymbol, nullptr)) : "";
+    auto lbl = jLabel ? std::string(env->GetStringUTFChars(jLabel, nullptr)) : "";
+    if (jSymbol) env->ReleaseStringUTFChars(jSymbol, sym.c_str());
+    if (jLabel)  env->ReleaseStringUTFChars(jLabel, lbl.c_str());
+    g_symbolBar.addSymbol(sym, lbl);
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeSymbolExport(
+    JNIEnv* env, jclass
+) {
+    auto json = g_symbolBar.exportJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeSymbolImport(
+    JNIEnv* env, jclass, jstring jJson
+) {
+    if (!jJson) return;
+    auto json = std::string(env->GetStringUTFChars(jJson, nullptr));
+    env->ReleaseStringUTFChars(jJson, json.c_str());
+    g_symbolBar.importJson(json);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeReplacementAddRule(
+    JNIEnv* env, jclass, jstring jPattern, jstring jReplacement, jboolean jExactMatch
+) {
+    auto pattern = jPattern ? std::string(env->GetStringUTFChars(jPattern, nullptr)) : "";
+    auto replacement = jReplacement ? std::string(env->GetStringUTFChars(jReplacement, nullptr)) : "";
+    if (jPattern) env->ReleaseStringUTFChars(jPattern, pattern.c_str());
+    if (jReplacement) env->ReleaseStringUTFChars(jReplacement, replacement.c_str());
+    g_replacementEngine.addRule(pattern, replacement, jExactMatch);
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeReplacementApply(
+    JNIEnv* env, jclass, jstring jText
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    auto result = g_replacementEngine.apply(text);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeReplacementExport(
+    JNIEnv* env, jclass
+) {
+    auto json = g_replacementEngine.exportJson();
     return env->NewStringUTF(json.c_str());
 }
 

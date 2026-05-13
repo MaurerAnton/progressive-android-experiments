@@ -3112,6 +3112,13 @@
      <string name="room_mirror_create">Create or connect mirror room</string>
      <string name="room_mirror_use_dolls">Auto-register doll accounts</string>
      <string name="room_mirror_doll_desc">Registers unique doll MXIDs (@alicedoll:server) for more natural message forwarding. Requires admin on both homeservers.</string>
+     <string name="labs_enable_symbol_bar">Custom symbol bar</string>
+     <string name="labs_enable_symbol_bar_summary">Show a bar below the chat input with user-defined symbols (arrows, math, emoji, text snippets). Tap to insert.</string>
+     <string name="labs_enable_auto_replace">Auto-replacement rules</string>
+     <string name="labs_enable_auto_replace_summary">Define pattern→replacement rules. E.g. www.youtube.com→redirect.invidious.io. Applied when sending messages.</string>
+     <string name="auto_replace_add">Add rule</string>
+     <string name="auto_replace_pattern">Pattern</string>
+     <string name="auto_replace_replacement">Replacement</string>
      <string name="jump_to_source">Jump to source</string>
 
 

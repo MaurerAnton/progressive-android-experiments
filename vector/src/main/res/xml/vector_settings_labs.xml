@@ -397,4 +397,16 @@
         android:summary="@string/labs_enable_room_mirror_summary"
         android:title="@string/labs_enable_room_mirror" />
 
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_SYMBOL_BAR_KEY"
+        android:summary="@string/labs_enable_symbol_bar_summary"
+        android:title="@string/labs_enable_symbol_bar" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_AUTO_REPLACE_KEY"
+        android:summary="@string/labs_enable_auto_replace_summary"
+        android:title="@string/labs_enable_auto_replace" />
+
 </androidx.preference.PreferenceScreen>

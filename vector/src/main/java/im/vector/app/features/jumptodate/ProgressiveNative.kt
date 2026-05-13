@@ -387,6 +387,16 @@ object ProgressiveNative {
     @JvmStatic external fun nativeMirrorIsValidDoll(mxid: String): Boolean
     @JvmStatic external fun nativeMirrorExportJson(): String
 
+    // --- Input Tools ---
+
+    @JvmStatic external fun nativeSymbolAdd(symbol: String, label: String)
+    @JvmStatic external fun nativeSymbolExport(): String
+    @JvmStatic external fun nativeSymbolImport(json: String)
+
+    @JvmStatic external fun nativeReplacementAddRule(pattern: String, replacement: String, exactMatch: Boolean)
+    @JvmStatic external fun nativeReplacementApply(text: String): String
+    @JvmStatic external fun nativeReplacementExport(): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
