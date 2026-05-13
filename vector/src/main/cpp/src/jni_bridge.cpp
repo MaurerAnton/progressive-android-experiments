@@ -98,6 +98,7 @@
 #include "progressive/e2ee_decoration.hpp"
 #include "progressive/room_list.hpp"
 #include "progressive/media_utils.hpp"
+#include "progressive/notif_settings.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
 #include <chrono>
@@ -4417,6 +4418,16 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidBlurhash(
     auto hash = jHash ? std::string(env->GetStringUTFChars(jHash, nullptr)) : "";
     if (jHash) env->ReleaseStringUTFChars(jHash, hash.c_str());
     return progressive::isValidBlurhash(hash) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Notification Settings ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatNotifMode(
+    JNIEnv* env, jclass, jint jMode
+) {
+    auto s = progressive::formatNotifMode(static_cast<NotifMode>(jMode));
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

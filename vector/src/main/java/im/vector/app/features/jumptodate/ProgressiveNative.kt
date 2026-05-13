@@ -801,6 +801,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeMimeToMsgType(mimeType: String): String
     @JvmStatic external fun nativeIsValidBlurhash(hash: String): Boolean
 
+    // --- Notification Settings ---
+
+    @JvmStatic external fun nativeFormatNotifMode(mode: Int): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
