@@ -3132,6 +3132,18 @@
      <string name="labs_enable_read_receipts_cpp">C++ read receipts</string>
      <string name="labs_enable_read_receipts_cpp_summary">Use C++ native computation for read receipt display ordering and overflow. Configurable max visible avatars (default 20).</string>
      <string name="read_receipts_max_visible">Max visible read receipts</string>
+     <string name="labs_enable_room_analytics">Room analytics</string>
+     <string name="labs_enable_room_analytics_summary">View user list, server breakdown, top posters, join/leave history. Filter by server. C++ native analysis of cached events.</string>
+     <string name="labs_enable_user_hide">Temporary user hide</string>
+     <string name="labs_enable_user_hide_summary">Hide messages from a user for N minutes. Timer shown in active hides list.</string>
+     <string name="labs_enable_moderation">Moderation tools</string>
+     <string name="labs_enable_moderation_summary">Delete all or last N messages from a user (moderators). See who voted in polls.</string>
+     <string name="labs_enable_auto_scroll">Auto-scroll chat</string>
+     <string name="labs_enable_auto_scroll_summary">Auto-scroll chat for N minutes. Smooth or paginated. Configurable speed.</string>
+     <string name="labs_enable_msg_queue">Message queue with ordering</string>
+     <string name="labs_enable_msg_queue_summary">Reorder failed/pending messages in the send queue. Choose which message goes first.</string>
+     <string name="labs_enable_lossless_crop">Lossless image crop</string>
+     <string name="labs_enable_lossless_crop_summary">Crop images before sending without quality loss (PNG format in zip). C++ validation.</string>
      <string name="jump_to_source">Jump to source</string>
 
 

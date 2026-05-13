@@ -116,6 +116,12 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_DUPLICATE_NAMES_KEY = "SETTINGS_LABS_DUPLICATE_NAMES_KEY"
         const val SETTINGS_LABS_READ_RECEIPTS_KEY = "SETTINGS_LABS_READ_RECEIPTS_KEY"
         const val SETTINGS_READ_RECEIPTS_MAX_VISIBLE = "SETTINGS_READ_RECEIPTS_MAX_VISIBLE"
+        const val SETTINGS_LABS_ROOM_ANALYTICS_KEY = "SETTINGS_LABS_ROOM_ANALYTICS_KEY"
+        const val SETTINGS_LABS_USER_HIDE_KEY = "SETTINGS_LABS_USER_HIDE_KEY"
+        const val SETTINGS_LABS_MODERATION_KEY = "SETTINGS_LABS_MODERATION_KEY"
+        const val SETTINGS_LABS_AUTO_SCROLL_KEY = "SETTINGS_LABS_AUTO_SCROLL_KEY"
+        const val SETTINGS_LABS_MSG_QUEUE_KEY = "SETTINGS_LABS_MSG_QUEUE_KEY"
+        const val SETTINGS_LABS_LOSSLESS_CROP_KEY = "SETTINGS_LABS_LOSSLESS_CROP_KEY"
         const val SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_DIVIDER_PREFERENCE_KEY"
         const val SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY = "SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY"
@@ -1504,6 +1510,30 @@ class VectorPreferences @Inject constructor(
 
     fun getReadReceiptsMaxVisible(): Int {
         return defaultPrefs.getInt(SETTINGS_READ_RECEIPTS_MAX_VISIBLE, 20)
+    }
+
+    fun isRoomAnalyticsEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_ANALYTICS_KEY, false)
+    }
+
+    fun isUserHideEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_USER_HIDE_KEY, false)
+    }
+
+    fun isModerationEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_MODERATION_KEY, false)
+    }
+
+    fun isAutoScrollEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_SCROLL_KEY, false)
+    }
+
+    fun isMsgQueueEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_MSG_QUEUE_KEY, false)
+    }
+
+    fun isLosslessCropEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_LOSSLESS_CROP_KEY, false)
     }
 
     fun showIpAddressInSessionManagerScreens(): Boolean {

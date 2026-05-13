@@ -434,4 +434,40 @@
         android:key="SETTINGS_READ_RECEIPTS_MAX_VISIBLE"
         android:title="@string/read_receipts_max_visible" />
 
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_ROOM_ANALYTICS_KEY"
+        android:summary="@string/labs_enable_room_analytics_summary"
+        android:title="@string/labs_enable_room_analytics" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_USER_HIDE_KEY"
+        android:summary="@string/labs_enable_user_hide_summary"
+        android:title="@string/labs_enable_user_hide" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_MODERATION_KEY"
+        android:summary="@string/labs_enable_moderation_summary"
+        android:title="@string/labs_enable_moderation" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_AUTO_SCROLL_KEY"
+        android:summary="@string/labs_enable_auto_scroll_summary"
+        android:title="@string/labs_enable_auto_scroll" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_MSG_QUEUE_KEY"
+        android:summary="@string/labs_enable_msg_queue_summary"
+        android:title="@string/labs_enable_msg_queue" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_LOSSLESS_CROP_KEY"
+        android:summary="@string/labs_enable_lossless_crop_summary"
+        android:title="@string/labs_enable_lossless_crop" />
+
 </androidx.preference.PreferenceScreen>

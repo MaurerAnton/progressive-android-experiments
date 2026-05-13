@@ -43,6 +43,8 @@ add_library(
     src/input_tools.cpp
     src/llm.cpp
     src/read_receipts.cpp
+    src/room_analytics.cpp
+    src/chat_tools.cpp
     src/jni_bridge.cpp
 )
 

@@ -421,6 +421,33 @@ object ProgressiveNative {
     @JvmStatic external fun nativeFormatOverflowLabel(count: Int): String
     @JvmStatic external fun nativeFormatReceiptAccessibility(visibleJson: String, overflow: Int): String
 
+    // --- Room Analytics ---
+
+    @JvmStatic external fun nativeExtractServerName(mxid: String): String
+
+    // --- User Hide Timer ---
+
+    @JvmStatic external fun nativeUserHideFor(userId: String, displayName: String, minutes: Int)
+    @JvmStatic external fun nativeUserHideIsHidden(userId: String): Boolean
+    @JvmStatic external fun nativeUserHideGetActive(): String
+
+    // --- Message Queue ---
+
+    @JvmStatic external fun nativeMsgQueueEnqueue(msgId: String, roomId: String, body: String, formattedBody: String, order: Int, maxRetries: Int)
+    @JvmStatic external fun nativeMsgQueueSetOrder(msgId: String, order: Int)
+    @JvmStatic external fun nativeMsgQueueMarkFailed(msgId: String, error: String)
+    @JvmStatic external fun nativeMsgQueueMarkSent(msgId: String)
+    @JvmStatic external fun nativeMsgQueuePendingCount(): Int
+    @JvmStatic external fun nativeMsgQueueExport(): String
+
+    // --- Image Crop ---
+
+    @JvmStatic external fun nativeIsValidCrop(imgW: Int, imgH: Int, x: Int, y: Int, w: Int, h: Int): Boolean
+
+    // --- Auto-Scroll ---
+
+    @JvmStatic external fun nativeComputeScrollPlan(smooth: Boolean, durationMin: Int, totalLines: Int, lineHeightPx: Int): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(

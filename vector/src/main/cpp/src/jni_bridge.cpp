@@ -36,6 +36,8 @@
 #include "progressive/input_tools.hpp"
 #include "progressive/llm.hpp"
 #include "progressive/read_receipts.hpp"
+#include "progressive/room_analytics.hpp"
+#include "progressive/chat_tools.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
@@ -84,6 +86,12 @@ static progressive::ReplacementEngine g_replacementEngine;
 
 // --- Singleton user MXID visibility ---
 static progressive::UserMxidVisibility g_mxidVisibility;
+
+// --- Singleton user hide manager ---
+static progressive::UserHideManager g_userHide;
+
+// --- Singleton message queue ---
+static progressive::MessageQueue g_msgQueue;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -2303,6 +2311,147 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatReceiptAcce
 
     auto s = progressive::formatReceiptAccessibility(entries, jOverflow);
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Room Analytics ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeExtractServerName(
+    JNIEnv* env, jclass, jstring jMxid
+) {
+    auto mxid = jMxid ? std::string(env->GetStringUTFChars(jMxid, nullptr)) : "";
+    if (jMxid) env->ReleaseStringUTFChars(jMxid, mxid.c_str());
+    auto s = progressive::extractServerName(mxid);
+    return env->NewStringUTF(s.c_str());
+}
+
+// --- User Hide ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserHideFor(
+    JNIEnv* env, jclass, jstring jUserId, jstring jDisplayName, jint jMinutes
+) {
+    auto uid = jUserId ? std::string(env->GetStringUTFChars(jUserId, nullptr)) : "";
+    auto dn  = jDisplayName ? std::string(env->GetStringUTFChars(jDisplayName, nullptr)) : "";
+    if (jUserId) env->ReleaseStringUTFChars(jUserId, uid.c_str());
+    if (jDisplayName) env->ReleaseStringUTFChars(jDisplayName, dn.c_str());
+    g_userHide.hideFor(uid, dn, jMinutes);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserHideIsHidden(
+    JNIEnv* env, jclass, jstring jUserId
+) {
+    auto uid = jUserId ? std::string(env->GetStringUTFChars(jUserId, nullptr)) : "";
+    if (jUserId) env->ReleaseStringUTFChars(jUserId, uid.c_str());
+    return g_userHide.isHidden(uid) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUserHideGetActive(
+    JNIEnv* env, jclass
+) {
+    g_userHide.cleanExpired();
+    auto json = g_userHide.exportJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+// --- Message Queue ---
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMsgQueueEnqueue(
+    JNIEnv* env, jclass,
+    jstring jMsgId, jstring jRoomId, jstring jBody, jstring jFormattedBody,
+    jint jOrder, jint jMaxRetries
+) {
+    QueuedMessage msg;
+    msg.msgId        = jMsgId ? std::string(env->GetStringUTFChars(jMsgId, nullptr)) : "";
+    msg.roomId       = jRoomId ? std::string(env->GetStringUTFChars(jRoomId, nullptr)) : "";
+    msg.body         = jBody ? std::string(env->GetStringUTFChars(jBody, nullptr)) : "";
+    msg.formattedBody = jFormattedBody ? std::string(env->GetStringUTFChars(jFormattedBody, nullptr)) : "";
+    msg.order        = jOrder;
+    msg.maxRetries   = jMaxRetries > 0 ? jMaxRetries : 5;
+
+    if (jMsgId) env->ReleaseStringUTFChars(jMsgId, msg.msgId.c_str());
+    if (jRoomId) env->ReleaseStringUTFChars(jRoomId, msg.roomId.c_str());
+    if (jBody) env->ReleaseStringUTFChars(jBody, msg.body.c_str());
+    if (jFormattedBody) env->ReleaseStringUTFChars(jFormattedBody, msg.formattedBody.c_str());
+
+    g_msgQueue.enqueue(msg);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMsgQueueSetOrder(
+    JNIEnv* env, jclass, jstring jMsgId, jint jOrder
+) {
+    auto id = jMsgId ? std::string(env->GetStringUTFChars(jMsgId, nullptr)) : "";
+    if (jMsgId) env->ReleaseStringUTFChars(jMsgId, id.c_str());
+    g_msgQueue.setOrder(id, jOrder);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMsgQueueMarkFailed(
+    JNIEnv* env, jclass, jstring jMsgId, jstring jError
+) {
+    auto id = jMsgId ? std::string(env->GetStringUTFChars(jMsgId, nullptr)) : "";
+    auto err = jError ? std::string(env->GetStringUTFChars(jError, nullptr)) : "";
+    if (jMsgId) env->ReleaseStringUTFChars(jMsgId, id.c_str());
+    if (jError) env->ReleaseStringUTFChars(jError, err.c_str());
+    g_msgQueue.markFailed(id, err);
+}
+
+JNIEXPORT void JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMsgQueueMarkSent(
+    JNIEnv* env, jclass, jstring jMsgId
+) {
+    auto id = jMsgId ? std::string(env->GetStringUTFChars(jMsgId, nullptr)) : "";
+    if (jMsgId) env->ReleaseStringUTFChars(jMsgId, id.c_str());
+    g_msgQueue.markSent(id);
+}
+
+JNIEXPORT jint JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMsgQueuePendingCount(
+    JNIEnv*, jclass
+) {
+    return g_msgQueue.pendingCount();
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeMsgQueueExport(
+    JNIEnv* env, jclass
+) {
+    auto json = g_msgQueue.exportJson();
+    return env->NewStringUTF(json.c_str());
+}
+
+// --- Image Crop ---
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidCrop(
+    JNIEnv*, jclass, jint jImgW, jint jImgH, jint jX, jint jY, jint jW, jint jH
+) {
+    return progressive::isValidCrop(jImgW, jImgH, jX, jY, jW, jH) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Auto-Scroll ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeScrollPlan(
+    JNIEnv* env, jclass, jboolean jSmooth, jint jDurationMin, jint jTotalLines, jint jLineHeightPx
+) {
+    AutoScrollConfig cfg;
+    cfg.smoothScroll = jSmooth;
+    cfg.durationMinutes = jDurationMin;
+    auto plan = progressive::computeScrollPlan(cfg, jTotalLines, jLineHeightPx);
+
+    std::ostringstream json;
+    json << "{";
+    json << R"("totalLines": )" << plan.totalLines << ",";
+    json << R"("linesPerMinute": )" << plan.linesPerMinute << ",";
+    json << R"("scrollPxPerTick": )" << plan.scrollPxPerTick << ",";
+    json << R"("estimatedFullScrollMin": )" << plan.estimatedFullScrollMin;
+    json << "}";
+    return env->NewStringUTF(json.str().c_str());
 }
 
 } // extern "C"
