@@ -104,6 +104,7 @@
 #include "progressive/auth_utils.hpp"
 #include "progressive/content_scanner.hpp"
 #include "progressive/event_encryption.hpp"
+#include "progressive/report_utils.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -4528,6 +4529,18 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseEncryptedHea
     out << R"(,"sessionId": ")" << esc(header.sessionId) << R"(")";
     out << R"(,"messageIndex": )" << header.messageIndex << "}";
     return env->NewStringUTF(out.str().c_str());
+}
+
+// --- Report Utils ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetReasonDescription(
+    JNIEnv* env, jclass, jstring jCode
+) {
+    auto code = jCode ? std::string(env->GetStringUTFChars(jCode, nullptr)) : "";
+    if (jCode) env->ReleaseStringUTFChars(jCode, code.c_str());
+    auto s = progressive::getReasonDescription(code);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

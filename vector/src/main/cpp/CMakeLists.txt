@@ -113,6 +113,7 @@ add_library(
     src/auth_utils.cpp
     src/content_scanner.cpp
     src/event_encryption.cpp
+    src/report_utils.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )

@@ -829,6 +829,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeParseEncryptedHeader(contentJson: String): String
 
+    // --- Report Utils ---
+
+    @JvmStatic external fun nativeGetReasonDescription(code: String): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
