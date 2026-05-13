@@ -870,20 +870,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsSupportedAudio(
     return progressive::isSupportedAudioType(mime) ? JNI_TRUE : JNI_FALSE;
 }
 
-// --- Media Filter ---
-
-JNIEXPORT jstring JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetFileExtension(
-    JNIEnv* env, jclass, jstring jFileName, jstring jMimeType
-) {
-    auto fn = jFileName ? std::string(env->GetStringUTFChars(jFileName, nullptr)) : "";
-    auto mt = jMimeType ? std::string(env->GetStringUTFChars(jMimeType, nullptr)) : "";
-    if (jFileName) env->ReleaseStringUTFChars(jFileName, fn.c_str());
-    if (jMimeType) env->ReleaseStringUTFChars(jMimeType, mt.c_str());
-    auto ext = progressive::getFileExtension(fn, mt);
-    return env->NewStringUTF(ext.c_str());
-}
-
 JNIEXPORT jboolean JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidMxcUri(
     JNIEnv* env, jclass, jstring jUri
@@ -3611,29 +3597,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsValidPin(
     auto pin = jPin ? std::string(env->GetStringUTFChars(jPin, nullptr)) : "";
     if (jPin) env->ReleaseStringUTFChars(jPin, pin.c_str());
     return progressive::isValidPin(pin, jMinLen, jMaxLen) ? JNI_TRUE : JNI_FALSE;
-}
-
-// --- Password Validator ---
-
-JNIEXPORT jstring JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidatePassword(
-    JNIEnv* env, jclass, jstring jPassword
-) {
-    auto pass = jPassword ? std::string(env->GetStringUTFChars(jPassword, nullptr)) : "";
-    if (jPassword) env->ReleaseStringUTFChars(jPassword, pass.c_str());
-
-    auto result = progressive::validatePassword(pass);
-    auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
-    };
-    std::ostringstream json;
-    json << R"({"valid": )" << (result.valid ? "true" : "false");
-    json << R"(,"strength": )" << result.strength;
-    json << R"(,"label": ")" << result.strengthLabel << R"(")";
-    json << R"(,"feedback": ")" << esc(result.feedback) << R"(")";
-    json << R"(,"crackTime": ")" << progressive::formatCrackTime(progressive::estimateCrackTimeSeconds(pass)) << R"(")";
-    json << "}";
-    return env->NewStringUTF(json.str().c_str());
 }
 
 // --- Spellcheck ---
