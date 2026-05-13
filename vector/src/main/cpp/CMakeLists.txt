@@ -52,6 +52,7 @@ add_library(
     src/svg_draw.cpp
     src/profile_swiper.cpp
     src/rainbow.cpp
+    src/text_formats.cpp
     src/jni_bridge.cpp
 )
 

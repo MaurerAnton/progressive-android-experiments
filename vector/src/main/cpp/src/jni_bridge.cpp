@@ -46,6 +46,7 @@
 #include "progressive/svg_draw.hpp"
 #include "progressive/profile_swiper.hpp"
 #include "progressive/rainbow.hpp"
+#include "progressive/text_formats.hpp"
 
 // --- Singleton keyword filter ---
 static progressive::KeywordFilter g_keywordFilter;
@@ -3131,6 +3132,89 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGenerateRainbow(
     if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
     auto rainbow = progressive::generateRainbow(text);
     return env->NewStringUTF(rainbow.c_str());
+}
+
+// --- Text Formats ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatSpoiler(
+    JNIEnv* env, jclass, jstring jText
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    auto s = progressive::formatSpoiler(text);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatEmote(
+    JNIEnv* env, jclass, jstring jSender, jstring jText
+) {
+    auto sender = jSender ? std::string(env->GetStringUTFChars(jSender, nullptr)) : "";
+    auto text   = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jSender) env->ReleaseStringUTFChars(jSender, sender.c_str());
+    if (jText)   env->ReleaseStringUTFChars(jText, text.c_str());
+    auto s = progressive::formatEmote(sender, text);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatShrug(
+    JNIEnv* env, jclass, jstring jText
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    auto s = progressive::formatShrug(text);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatLenny(
+    JNIEnv* env, jclass, jstring jText
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    auto s = progressive::formatLenny(text);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatTableFlip(
+    JNIEnv* env, jclass, jstring jText
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    auto s = progressive::formatTableFlip(text);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatPlain(
+    JNIEnv* env, jclass, jstring jText
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    auto s = progressive::formatPlain(text);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsEmojiOnly(
+    JNIEnv* env, jclass, jstring jText
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    return progressive::isEmojiOnly(text) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeTruncateText(
+    JNIEnv* env, jclass, jstring jText, jint jMaxLen
+) {
+    auto text = jText ? std::string(env->GetStringUTFChars(jText, nullptr)) : "";
+    if (jText) env->ReleaseStringUTFChars(jText, text.c_str());
+    auto s = progressive::truncateText(text, jMaxLen);
+    return env->NewStringUTF(s.c_str());
 }
 
 } // extern "C"

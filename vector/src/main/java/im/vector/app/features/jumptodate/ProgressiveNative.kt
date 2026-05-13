@@ -541,6 +541,17 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeGenerateRainbow(text: String): String
 
+    // --- Text Formatting ---
+
+    @JvmStatic external fun nativeFormatSpoiler(text: String): String
+    @JvmStatic external fun nativeFormatEmote(sender: String, text: String): String
+    @JvmStatic external fun nativeFormatShrug(text: String): String
+    @JvmStatic external fun nativeFormatLenny(text: String): String
+    @JvmStatic external fun nativeFormatTableFlip(text: String): String
+    @JvmStatic external fun nativeFormatPlain(text: String): String
+    @JvmStatic external fun nativeIsEmojiOnly(text: String): Boolean
+    @JvmStatic external fun nativeTruncateText(text: String, maxLen: Int): String
+
     // --- Pure Kotlin fallback implementations ---
 
     fun validateAndBuildFallback(
