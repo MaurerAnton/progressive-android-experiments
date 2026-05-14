@@ -20,6 +20,10 @@ struct MessageDraft {
     bool isEdit = false;
     bool isQuote = false;
     bool hasAttachment = false;
+
+    // Check if draft is valid (from UserDraft.kt:33-38).
+    // Regular drafts: content must be non-blank. Quotes/Edits/Replies: always valid.
+    bool isValid() const { return !text.empty() || isReply || isEdit || isQuote; }
 };
 
 class DraftManager {
