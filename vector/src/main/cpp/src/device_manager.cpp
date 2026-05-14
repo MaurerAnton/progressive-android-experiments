@@ -33,7 +33,7 @@ DeviceStats parseDeviceList(const std::string& apiResponseJson, const std::strin
 
         std::string obj = apiResponseJson.substr(objStart, objEnd - objStart + 1);
 
-        DeviceInfo d;
+        ManagedDeviceInfo d;
         d.deviceId          = parseJsonStringValue(obj, "device_id");
         d.displayName       = parseJsonStringValue(obj, "display_name");
         d.lastSeenIp        = parseJsonStringValue(obj, "last_seen_ip");
@@ -122,7 +122,7 @@ std::string formatDeviceStats(const DeviceStats& stats) {
     return out.str();
 }
 
-std::string deviceInfoToJson(const DeviceInfo& device) {
+std::string managedDeviceInfoToJson(const ManagedDeviceInfo& device) {
     auto esc = [](const std::string& s) -> std::string {
         std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
     };
@@ -142,13 +142,13 @@ std::string deviceListToJson(const DeviceStats& stats) {
     json << "[";
     for (size_t i = 0; i < stats.devices.size(); ++i) {
         if (i > 0) json << ",";
-        json << deviceInfoToJson(stats.devices[i]);
+        json << managedDeviceInfoToJson(stats.devices[i]);
     }
     json << "]";
     return json.str();
 }
 
-std::string getDeviceRecommendation(const DeviceInfo& device) {
+std::string getDeviceRecommendation(const ManagedDeviceInfo& device) {
     if (device.isCurrentDevice) return "This is your current device.";
     if (!device.isVerified && !device.isInactive) return "Verify this device for secure messaging.";
     if (device.isInactive) return "Sign out from inactive devices you don't use.";
@@ -156,7 +156,7 @@ std::string getDeviceRecommendation(const DeviceInfo& device) {
     return "No action needed.";
 }
 
-void sortDevices(std::vector<DeviceInfo>& devices, const std::string& sortBy) {
+void sortDevices(std::vector<ManagedDeviceInfo>& devices, const std::string& sortBy) {
     if (sortBy == "name") {
         std::sort(devices.begin(), devices.end(), [](const auto& a, const auto& b) {
             return a.displayName < b.displayName;
@@ -205,7 +205,7 @@ std::string buildSessionRenameBody(const std::string& sessionId, const std::stri
     return R"({"session_id": ")" + esc(sessionId) + R"(", "display_name": ")" + esc(newName) + R"("})";
 }
 
-// ==== Device Crypto (from CryptoDeviceInfo.kt:46-59) ====
+// ==== Device Crypto (from CryptoManagedDeviceInfo.kt:46-59) ====
 std::string extractDeviceFingerprint(const std::string& deviceId, const std::string& keysJson) {
     // Original: keys?.takeIf { deviceId.isNotBlank() }?.get("ed25519:$deviceId")
     if (deviceId.empty()) return "";

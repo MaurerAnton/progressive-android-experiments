@@ -9,7 +9,7 @@ namespace progressive {
 
 // ---- Device Info ----
 
-struct DeviceInfo {
+struct ManagedDeviceInfo {
     std::string deviceId;
     std::string displayName;
     std::string lastSeenIp;
@@ -31,7 +31,7 @@ struct DeviceStats {
     int unverifiedDevices = 0;
     int inactiveDevices = 0;
     int currentDeviceIndex = -1;
-    std::vector<DeviceInfo> devices;
+    std::vector<ManagedDeviceInfo> devices;
 };
 
 // Parse device list from Matrix /devices API response.
@@ -49,17 +49,19 @@ std::string formatDeviceLastSeen(int64_t lastSeenMs);
 // Format device stats as text for settings display.
 std::string formatDeviceStats(const DeviceStats& stats);
 
-// Format device info as JSON.
-std::string deviceInfoToJson(const DeviceInfo& device);
+// Format device info as JSON (defined in crypto_models.hpp)
+std::string managedManagedDeviceInfoToJson(const ManagedDeviceInfo& device);
+
+// A device with its resolution timestamp (millis since epoch).
 
 // Format device list as JSON.
 std::string deviceListToJson(const DeviceStats& stats);
 
 // Get security recommendation for a device.
-std::string getDeviceRecommendation(const DeviceInfo& device);
+std::string getDeviceRecommendation(const ManagedDeviceInfo& device);
 
 // Sort devices (by name, by last seen, by verification).
-void sortDevices(std::vector<DeviceInfo>& devices, const std::string& sortBy);
+void sortDevices(std::vector<ManagedDeviceInfo>& devices, const std::string& sortBy);
 
 // ---- Device Crypto (from CryptoDeviceInfo.kt 78L) ----
 // Extract ed25519 fingerprint from device keys map.
