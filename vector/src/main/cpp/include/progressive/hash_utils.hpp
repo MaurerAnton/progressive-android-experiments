@@ -47,6 +47,16 @@ std::string generateToken(int numBytes = 32);
 // Simple constant-time comparison (prevents timing attacks).
 bool constantTimeCompare(const std::string& a, const std::string& b);
 
+// Convert base64-URL to standard base64: - → +, _ → /
+// From: org.matrix.android.sdk.internal.util.Base64.kt (38L)
+std::string base64UrlToBase64(const std::string& base64Url);
+
+// Convert standard base64 to base64-URL: + → -, / → _, = removed, newlines stripped
+std::string base64ToBase64Url(const std::string& base64);
+
+// Convert standard base64 to unpadded (remove = and newlines).
+std::string base64ToUnpaddedBase64(const std::string& base64);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_HASH_UTILS_HPP

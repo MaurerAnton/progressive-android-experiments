@@ -244,4 +244,29 @@ bool constantTimeCompare(const std::string& a, const std::string& b) {
     return result == 0;
 }
 
+// ==== Base64 URL Conversion (from Base64.kt:23-38) ====
+std::string base64UrlToBase64(const std::string& base64Url) {
+    std::string result = base64Url;
+    for (char& c : result) { if (c == '-') c = '+'; else if (c == '_') c = '/'; }
+    return result;
+}
+
+std::string base64ToBase64Url(const std::string& base64) {
+    std::string result;
+    for (char c : base64) {
+        if (c == '\n') continue;
+        if (c == '+') result += '-';
+        else if (c == '/') result += '_';
+        else if (c == '=') continue;
+        else result += c;
+    }
+    return result;
+}
+
+std::string base64ToUnpaddedBase64(const std::string& base64) {
+    std::string result;
+    for (char c : base64) { if (c == '\n' || c == '=') continue; result += c; }
+    return result;
+}
+
 } // namespace progressive
