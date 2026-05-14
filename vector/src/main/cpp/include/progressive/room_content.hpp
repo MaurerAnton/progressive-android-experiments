@@ -1,0 +1,342 @@
+#pragma once
+
+#include <string>
+#include <vector>
+#include <cstdint>
+#include <unordered_map>
+
+namespace progressive {
+
+// ==== Membership ====
+//
+// Original Kotlin (Membership.kt:26-50):
+//   enum class Membership {
+//       NONE, @Json(name="invite") INVITE, @Json(name="join") JOIN,
+//       @Json(name="knock") KNOCK, @Json(name="leave") LEAVE,
+//       @Json(name="ban") BAN
+//   }
+
+enum class Membership {
+    NONE = 0,
+    INVITE = 1,
+    JOIN = 2,
+    KNOCK = 3,
+    LEAVE = 4,
+    BAN = 5
+};
+
+const char* membershipToString(Membership m);
+Membership membershipFromString(const std::string& s);
+
+inline bool isActiveMembership(Membership m) {
+    return m == Membership::INVITE || m == Membership::JOIN;
+}
+
+inline bool isLeftMembership(Membership m) {
+    return m == Membership::KNOCK || m == Membership::LEAVE || m == Membership::BAN;
+}
+
+// ==== RoomMemberContent ====
+//
+// Original Kotlin (RoomMemberContent.kt:25-41):
+//   data class RoomMemberContent(
+//       @Json(name="membership") membership: Membership,
+//       @Json(name="reason") reason, @Json(name="displayname") displayName,
+//       @Json(name="avatar_url") avatarUrl, @Json(name="is_direct") isDirect,
+//       @Json(name="third_party_invite") thirdPartyInvite,
+//       @Json(name="unsigned") unsignedData
+//   )
+
+struct Invite {
+    std::string displayName;
+    std::string signedToken;
+    std::string mxId;
+};
+
+struct RoomMemberContent {
+    Membership membership = Membership::NONE;
+    std::string reason;              // "reason" key — optional kick/ban reason
+    std::string displayName;         // "displayname" key
+    std::string avatarUrl;           // "avatar_url" key
+    bool isDirect = false;           // "is_direct" key
+    Invite thirdPartyInvite;         // "third_party_invite" key
+    std::string unsignedData;        // "unsigned" key — raw JSON
+
+    // Original Kotlin: val safeReason = reason?.takeIf { it.isNotBlank() }
+    std::string safeReason() const {
+        if (reason.empty()) return "";
+        for (char c : reason) if (c != ' ') return reason;
+        return "";
+    }
+};
+
+// ==== RoomMemberSummary ====
+//
+// Original Kotlin (RoomMemberSummary.kt:25-33):
+//   data class RoomMemberSummary(
+//       membership, userId, userPresence, displayName, avatarUrl
+//   )
+
+struct RoomMemberSummary {
+    Membership membership = Membership::NONE;
+    std::string userId;
+    std::string userPresence;        // "online", "unavailable", "offline"
+    std::string displayName;
+    std::string avatarUrl;
+};
+
+// ==== PowerLevelsContent ====
+//
+// Original Kotlin (PowerLevelsContent.kt:27-68):
+//   data class PowerLevelsContent(
+//       ban, kick, invite, redact, events_default, events,
+//       users_default, users, state_default, notifications
+//   )
+
+struct RoomPowerLevelsContent {
+    int ban = 50;                    // "ban" key — default 50
+    int kick = 50;                   // "kick" key — default 50
+    int invite = 0;                  // "invite" key — default 0
+    int redact = 50;                 // "redact" key — default 50
+    int eventsDefault = 0;           // "events_default" key — default 0
+    int usersDefault = 0;            // "users_default" key — default 0
+    int stateDefault = 50;           // "state_default" key — default 50
+    std::unordered_map<std::string, int> events;     // "events" key
+    std::unordered_map<std::string, int> users;      // "users" key
+    int notificationRoomLevel = 50;  // "notifications.room" key — default 50
+
+    // Original Kotlin: setUserPowerLevel(userId, powerLevel)
+    void setUserPowerLevel(const std::string& userId, int powerLevel) {
+        if (powerLevel == usersDefault) {
+            users.erase(userId);
+        } else {
+            users[userId] = powerLevel;
+        }
+    }
+
+    // Original Kotlin: notificationLevel(key)
+    int notificationLevel(const std::string& key) const {
+        if (key == "room") return notificationRoomLevel;
+        return 0;
+    }
+};
+
+// ==== Room State Content Types ====
+//
+// Original Kotlin (RoomNameContent.kt:24-26):
+//   data class RoomNameContent(@Json(name="name") name: String?)
+
+struct RoomNameContent {
+    std::string name;                // "name" key
+};
+
+// Original Kotlin (RoomTopicContent.kt:22-24):
+//   data class RoomTopicContent(@Json(name="topic") topic: String?)
+
+struct RoomTopicContent {
+    std::string topic;               // "topic" key
+};
+
+// Original Kotlin (RoomAvatarContent.kt:22-24):
+//   data class RoomAvatarContent(@Json(name="url") avatarUrl: String?)
+
+struct RoomAvatarContent {
+    std::string avatarUrl;           // "url" key — MXC URI
+};
+
+// Original Kotlin (RoomCanonicalAliasContent.kt:25-37):
+//   data class RoomCanonicalAliasContent(
+//       @Json(name="alias") canonicalAlias: String?,
+//       @Json(name="alt_aliases") alternativeAliases: List<String>?
+//   )
+
+struct RoomCanonicalAliasContent {
+    std::string canonicalAlias;              // "alias" key
+    std::vector<std::string> alternativeAliases; // "alt_aliases" key
+};
+
+// Original Kotlin (RoomAliasesContent.kt:28-30):
+//   data class RoomAliasesContent(@Json(name="aliases") aliases: List<String>)
+
+struct RoomAliasesContent {
+    std::vector<std::string> aliases;  // "aliases" key
+};
+
+// ==== Room Join Rules ====
+//
+// Original Kotlin (RoomJoinRules.kt:25-32):
+//   enum class RoomJoinRules(val value: String) {
+//       PUBLIC("public"), INVITE("invite"), KNOCK("knock"),
+//       PRIVATE("private"), RESTRICTED("restricted")
+//   }
+
+enum class RoomJoinRules {
+    PUBLIC = 0,
+    INVITE = 1,
+    KNOCK = 2,
+    PRIVATE = 3,
+    RESTRICTED = 4
+};
+
+const char* roomJoinRulesToString(RoomJoinRules r);
+RoomJoinRules roomJoinRulesFromString(const std::string& s);
+
+// Original Kotlin (RoomJoinRulesContent.kt:26-43):
+//   data class RoomJoinRulesContent(
+//       @Json(name="join_rule") joinRulesStr,
+//       @Json(name="allow") allowList
+//   )
+struct RoomJoinRulesAllowEntry {
+    std::string type;        // "m.room_membership"
+    std::string roomId;      // room ID for allowed members
+};
+
+struct RoomJoinRulesContent {
+    RoomJoinRules joinRules = RoomJoinRules::INVITE;
+    std::vector<RoomJoinRulesAllowEntry> allowList; // "allow" key
+};
+
+// ==== Room History Visibility ====
+//
+// Original Kotlin (RoomHistoryVisibility.kt:26-54):
+//   enum class RoomHistoryVisibility(val value: String) {
+//       WORLD_READABLE("world_readable"), SHARED("shared"),
+//       INVITED("invited"), JOINED("joined")
+//   }
+
+enum class RoomHistoryVisibility {
+    WORLD_READABLE = 0,
+    SHARED = 1,
+    INVITED = 2,
+    JOINED = 3
+};
+
+const char* roomHistoryVisibilityToString(RoomHistoryVisibility v);
+RoomHistoryVisibility roomHistoryVisibilityFromString(const std::string& s);
+
+inline bool shouldShareHistory(RoomHistoryVisibility v) {
+    return v == RoomHistoryVisibility::WORLD_READABLE
+        || v == RoomHistoryVisibility::SHARED;
+}
+
+// Original Kotlin (RoomHistoryVisibilityContent.kt:24-33):
+//   data class RoomHistoryVisibilityContent(
+//       @Json(name="history_visibility") historyVisibilityStr
+//   )
+
+struct RoomHistoryVisibilityContent {
+    RoomHistoryVisibility historyVisibility = RoomHistoryVisibility::SHARED;
+};
+
+// ==== Room Guest Access ====
+//
+// Original Kotlin (GuestAccess enum from RoomGuestAccessContent.kt:41-44):
+//   enum class GuestAccess(val value: String) {
+//       @Json(name="can_join") CanJoin("can_join"),
+//       @Json(name="forbidden") Forbidden("forbidden")
+//   }
+
+enum class GuestAccess {
+    CAN_JOIN = 0,
+    FORBIDDEN = 1
+};
+
+const char* guestAccessToString(GuestAccess g);
+GuestAccess guestAccessFromString(const std::string& s);
+
+// Original Kotlin (RoomGuestAccessContent.kt:30-37):
+//   data class RoomGuestAccessContent(
+//       @Json(name="guest_access") guestAccessStr
+//   )
+
+struct RoomGuestAccessContent {
+    GuestAccess guestAccess = GuestAccess::FORBIDDEN;
+};
+
+// ==== Room Encryption Algorithm ====
+//
+// Original Kotlin (RoomEncryptionAlgorithm.kt:24-31):
+//   sealed class RoomEncryptionAlgorithm {
+//       object Megolm : SupportedAlgorithm(MXCRYPTO_ALGORITHM_MEGOLM)
+//       data class UnsupportedAlgorithm(val name: String?)
+//   }
+
+constexpr const char* MEGOLM_ALGORITHM = "m.megolm.v1.aes-sha2";
+
+struct RoomEncryptionAlgorithm {
+    std::string algorithm;           // e.g. "m.megolm.v1.aes-sha2"
+    bool isSupported = false;
+
+    static RoomEncryptionAlgorithm megolm() {
+        return {MEGOLM_ALGORITHM, true};
+    }
+
+    static RoomEncryptionAlgorithm unsupported(const std::string& name) {
+        return {name, false};
+    }
+};
+
+// ==== Read Receipt ====
+//
+// Original Kotlin (ReadReceipt.kt:19-23):
+//   data class ReadReceipt(roomMember, originServerTs, threadId)
+
+struct RoomReadReceipt {
+    RoomMemberSummary roomMember;
+    int64_t originServerTs = 0;
+    std::string threadId;            // null for main timeline
+};
+
+// ==== Signed (Invite Signature) ====
+//
+// Original Kotlin (Signed.kt:25-30):
+//   data class Signed(token, signatures, mxid)
+
+struct Signed {
+    std::string token;
+    std::string signatures;          // Raw JSON object (Any in Kotlin)
+    std::string mxId;
+};
+
+// ==== Room Type ====
+//
+// Original Kotlin (RoomType.kt:19-21):
+//   object RoomType { const val SPACE = "m.space" }
+
+namespace RoomType {
+    constexpr const char* SPACE = "m.space";
+}
+
+// ==== Versioning State ====
+//
+// Original Kotlin (VersioningState.kt:21-33):
+//   enum class VersioningState {
+//       NONE, UPGRADED_ROOM_NOT_JOINED, UPGRADED_ROOM_JOINED
+//   }
+
+enum class RoomVersioningState {
+    NONE = 0,
+    UPGRADED_ROOM_NOT_JOINED = 1,
+    UPGRADED_ROOM_JOINED = 2
+};
+
+inline bool isRoomUpgraded(RoomVersioningState s) {
+    return s != RoomVersioningState::NONE;
+}
+
+const char* roomVersioningStateToString(RoomVersioningState s);
+RoomVersioningState roomVersioningStateFromString(const std::string& s);
+
+// ==== JSON Parsing ====
+
+RoomMemberContent parseRoomMemberContent(const std::string& contentJson);
+RoomPowerLevelsContent parsePowerLevelsContent(const std::string& contentJson);
+RoomNameContent parseRoomNameContent(const std::string& contentJson);
+RoomTopicContent parseRoomTopicContent(const std::string& contentJson);
+RoomAvatarContent parseRoomAvatarContent(const std::string& contentJson);
+RoomCanonicalAliasContent parseRoomCanonicalAliasContent(const std::string& contentJson);
+RoomJoinRulesContent parseRoomJoinRulesContent(const std::string& contentJson);
+RoomHistoryVisibilityContent parseRoomHistoryVisibilityContent(const std::string& contentJson);
+RoomGuestAccessContent parseRoomGuestAccessContent(const std::string& contentJson);
+
+} // namespace progressive

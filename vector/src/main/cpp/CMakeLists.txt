@@ -44,6 +44,7 @@ add_library(
     src/llm.cpp
     src/read_receipts.cpp
     src/room_analytics.cpp
+    src/room_content.cpp
     src/chat_tools.cpp
     src/lang_detect.cpp
     src/avatar_history.cpp
