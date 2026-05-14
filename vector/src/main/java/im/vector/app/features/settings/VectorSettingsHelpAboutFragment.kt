@@ -61,15 +61,24 @@ class VectorSettingsHelpAboutFragment :
         // application version
         findPreference<VectorPreference>(VectorPreferences.SETTINGS_VERSION_PREFERENCE_KEY)!!.let {
             it.summary = buildString {
-                append(versionProvider.getVersion(longFormat = false))
+                append("Progressive Chat (development)")
                 if (buildMeta.isDebug) {
-                    append(" ")
+                    append("\n")
                     append(buildMeta.gitBranchName)
-                    append(" ")
+                    append(" @ ")
                     append(buildMeta.gitRevision)
                 }
             }
 
+            it.setOnPreferenceClickListener { pref ->
+                copyToClipboard(requireContext(), pref.summary.orEmpty())
+                true
+            }
+        }
+
+        // Native core version
+        findPreference<VectorPreference>(VectorPreferences.SETTINGS_NATIVE_CORE_VERSION_KEY)!!.let {
+            it.summary = "libprogressive_native.so — 95 C++ modules"
             it.setOnPreferenceClickListener { pref ->
                 copyToClipboard(requireContext(), pref.summary.orEmpty())
                 true
@@ -86,9 +95,29 @@ class VectorSettingsHelpAboutFragment :
             }
         }
 
-        // olm version
-        findPreference<VectorPreference>(VectorPreferences.SETTINGS_CRYPTO_VERSION_PREFERENCE_KEY)!!
-                .summary = Matrix.getCryptoVersion(true)
+        // crypto version (libolm)
+        findPreference<VectorPreference>(VectorPreferences.SETTINGS_CRYPTO_VERSION_PREFERENCE_KEY)!!.let {
+            val cryptoVersion = Matrix.getCryptoVersion(true)
+            it.summary = "libolm ${cryptoVersion}"
+            it.setOnPreferenceClickListener { pref ->
+                copyToClipboard(requireContext(), it.summary.orEmpty())
+                true
+            }
+        }
+
+        // Legacy init sync
+        findPreference<VectorPreference>(VectorPreferences.SETTINGS_DO_LEGACY_INIT_SYNC)!!
+                .onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            vectorPreferences.didAskLegacyInitSync()
+            true
+        }
+
+        // Optimized init sync
+        findPreference<VectorPreference>(VectorPreferences.SETTINGS_DO_OPTIMIZED_INIT_SYNC)!!
+                .onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            vectorPreferences.didAskOptimizedInitSync()
+            true
+        }
     }
 
     companion object {

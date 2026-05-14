@@ -16,7 +16,12 @@
         <im.vector.app.core.preference.VectorPreference
             android:key="SETTINGS_VERSION_PREFERENCE_KEY"
             android:title="@string/settings_version"
-            tools:summary="1.2.3" />
+            tools:summary="Progressive Chat (development)" />
+
+        <im.vector.app.core.preference.VectorPreference
+            android:key="SETTINGS_NATIVE_CORE_VERSION_KEY"
+            android:title="Native Core (C++)"
+            tools:summary="libprogressive_native.so — 95 modules" />
 
         <im.vector.app.core.preference.VectorPreference
             android:key="SETTINGS_SDK_VERSION_PREFERENCE_KEY"
@@ -25,8 +30,22 @@
 
         <im.vector.app.core.preference.VectorPreference
             android:key="SETTINGS_CRYPTO_VERSION_PREFERENCE_KEY"
-            android:title="@string/settings_crypto_version"
-            tools:summary="7.8.9" />
+            android:title="Encryption (libolm)"
+            tools:summary="libolm 3.2.16" />
+
+    </im.vector.app.core.preference.VectorPreferenceCategory>
+
+    <im.vector.app.core.preference.VectorPreferenceCategory android:title="Init Sync">
+
+        <im.vector.app.core.preference.VectorPreference
+            android:key="SETTINGS_DO_LEGACY_INIT_SYNC"
+            android:summary="Full re-sync from scratch (slow, downloads everything)"
+            android:title="Do a legacy init sync" />
+
+        <im.vector.app.core.preference.VectorPreference
+            android:key="SETTINGS_DO_OPTIMIZED_INIT_SYNC"
+            android:summary="Smart incremental sync (only downloads new data)"
+            android:title="Do an optimized init sync" />
 
     </im.vector.app.core.preference.VectorPreferenceCategory>
 

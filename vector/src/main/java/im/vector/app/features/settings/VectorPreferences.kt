@@ -41,8 +41,11 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_HELP_PREFERENCE_KEY = "SETTINGS_HELP_PREFERENCE_KEY"
         const val SETTINGS_CHANGE_PASSWORD_PREFERENCE_KEY = "SETTINGS_CHANGE_PASSWORD_PREFERENCE_KEY"
         const val SETTINGS_VERSION_PREFERENCE_KEY = "SETTINGS_VERSION_PREFERENCE_KEY"
+        const val SETTINGS_NATIVE_CORE_VERSION_KEY = "SETTINGS_NATIVE_CORE_VERSION_KEY"
         const val SETTINGS_SDK_VERSION_PREFERENCE_KEY = "SETTINGS_SDK_VERSION_PREFERENCE_KEY"
         const val SETTINGS_CRYPTO_VERSION_PREFERENCE_KEY = "SETTINGS_CRYPTO_VERSION_PREFERENCE_KEY"
+        const val SETTINGS_DO_LEGACY_INIT_SYNC = "SETTINGS_DO_LEGACY_INIT_SYNC"
+        const val SETTINGS_DO_OPTIMIZED_INIT_SYNC = "SETTINGS_DO_OPTIMIZED_INIT_SYNC"
         const val SETTINGS_LOGGED_IN_PREFERENCE_KEY = "SETTINGS_LOGGED_IN_PREFERENCE_KEY"
         const val SETTINGS_HOME_SERVER_PREFERENCE_KEY = "SETTINGS_HOME_SERVER_PREFERENCE_KEY"
         const val SETTINGS_IDENTITY_SERVER_PREFERENCE_KEY = "SETTINGS_IDENTITY_SERVER_PREFERENCE_KEY"
@@ -1673,5 +1676,13 @@ class VectorPreferences @Inject constructor(
         defaultPrefs.edit {
             putBoolean(IS_ON_RUST_CRYPTO, boolean)
         }
+    }
+
+    fun didAskLegacyInitSync() {
+        defaultPrefs.edit().putBoolean("DID_ASK_LEGACY_INIT_SYNC", true).apply()
+    }
+
+    fun didAskOptimizedInitSync() {
+        defaultPrefs.edit().putBoolean("DID_ASK_OPTIMIZED_INIT_SYNC", true).apply()
     }
 }
