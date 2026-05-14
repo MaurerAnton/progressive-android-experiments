@@ -1044,6 +1044,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeEvaluatePushCondition(eventJson: String, key: String, pattern: String): Boolean
     @JvmStatic external fun nativeExtractJsonField(json: String, fieldPath: String): String
 
+    // --- Thread Metadata ---
+    // Computes header: title, starter avatar, message count
+
+    @JvmStatic external fun nativeComputeThreadMeta(rootContent: String, replySenders: Array<String>, replyBodies: Array<String>, replyTimestamps: LongArray): String
+
     // --- Content Utils (MXC URLs, Message Types) ---
     // Ported from: ContentUrlResolver.kt, MessageContent.kt
 

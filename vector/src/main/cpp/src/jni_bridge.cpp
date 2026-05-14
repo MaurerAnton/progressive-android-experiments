@@ -1438,4 +1438,40 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeExtractJsonField(
     return env->NewStringUTF(value.c_str());
 }
 
+// --- Thread Metadata ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeThreadMeta(
+    JNIEnv* env, jclass,
+    jstring jRootContent,
+    jobjectArray jReplySenders,
+    jobjectArray jReplyBodies,
+    jlongArray jReplyTimestamps
+) {
+    auto rootContent = jRootContent ? std::string(env->GetStringUTFChars(jRootContent, nullptr)) : "{}";
+    if (jRootContent) env->ReleaseStringUTFChars(jRootContent, rootContent.c_str());
+
+    std::vector<std::string> senders, bodies;
+    std::vector<int64_t> timestamps;
+
+    jsize n = jReplySenders ? env->GetArrayLength(jReplySenders) : 0;
+    for (jsize i = 0; i < n; ++i) {
+        auto js = (jstring)env->GetObjectArrayElement(jReplySenders, i);
+        if (js) { const char* c = env->GetStringUTFChars(js, nullptr); senders.push_back(c); env->ReleaseStringUTFChars(js, c); env->DeleteLocalRef(js); }
+        auto jb = (jstring)env->GetObjectArrayElement(jReplyBodies, i);
+        if (jb) { const char* c = env->GetStringUTFChars(jb, nullptr); bodies.push_back(c); env->ReleaseStringUTFChars(jb, c); env->DeleteLocalRef(jb); }
+    }
+
+    if (jReplyTimestamps) {
+        jsize tn = env->GetArrayLength(jReplyTimestamps);
+        jlong* raw = env->GetLongArrayElements(jReplyTimestamps, nullptr);
+        for (jsize i = 0; i < tn; ++i) timestamps.push_back(raw[i]);
+        env->ReleaseLongArrayElements(jReplyTimestamps, raw, JNI_ABORT);
+    }
+
+    auto meta = progressive::computeThreadMeta(rootContent, senders, bodies, timestamps);
+    auto result = progressive::threadMetaToJson(meta);
+    return env->NewStringUTF(result.c_str());
+}
+
 } // extern "C"
