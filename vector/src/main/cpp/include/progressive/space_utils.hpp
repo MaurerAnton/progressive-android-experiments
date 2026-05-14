@@ -8,6 +8,19 @@ namespace progressive {
 
 // ---- Matrix Spaces Utilities ----
 
+// Space filter for room queries — from SpaceFilter.kt (53L)
+enum class SpaceFilterKind { NoFilter, OrphanRooms, ActiveSpace, ExcludeSpace };
+
+struct SpaceFilter {
+    SpaceFilterKind kind = SpaceFilterKind::NoFilter;
+    std::string spaceId;  // for ActiveSpace/ExcludeSpace
+};
+
+inline SpaceFilter spaceFilterNoFilter() { return {SpaceFilterKind::NoFilter}; }
+inline SpaceFilter spaceFilterOrphanRooms() { return {SpaceFilterKind::OrphanRooms}; }
+inline SpaceFilter spaceFilterActiveSpace(const std::string& id) { return {SpaceFilterKind::ActiveSpace, id}; }
+inline SpaceFilter spaceFilterExcludeSpace(const std::string& id) { return {SpaceFilterKind::ExcludeSpace, id}; }
+
 struct SpaceInfo {
     std::string spaceId;
     std::string name;
