@@ -135,14 +135,8 @@ add_library(
     src/well_known.cpp
     src/room_sort.cpp
     src/key_backup.cpp
-    src/content_utils.cpp
-    src/room_state.cpp
-    src/login_flow.cpp
-    src/device_naming.cpp
-    src/sync_filter.cpp
-    src/room_name.cpp
     src/notif_format.cpp
-    # src/olm.cpp  # disabled: libolm API mismatches
+    src/olm.cpp
     src/jni_bridge.cpp
 )
 
