@@ -1003,6 +1003,22 @@ object ProgressiveNative {
     @JvmStatic external fun nativeComputeUserPermissions(powerLevelsJson: String, userId: String): String
     @JvmStatic external fun nativeGetUserRole(powerLevel: Int): String
 
+    // --- Well-Known / Server Discovery ---
+    // Ported from: WellKnown.kt, LoginServerUrlFormatter.kt
+
+    @JvmStatic external fun nativeParseWellKnown(json: String): String
+    @JvmStatic external fun nativeFormatServerUrl(input: String): String
+    @JvmStatic external fun nativeExtractServerName(mxid: String): String
+    @JvmStatic external fun nativeIsValidHomeserverUrl(url: String): Boolean
+    @JvmStatic external fun nativeNeedsWellKnownLookup(input: String): Boolean
+
+    // --- Room Sort / Ordering ---
+    // Ported from: RoomComparator.kt, RoomListViewModel.kt
+
+    @JvmStatic external fun nativeSortRooms(roomsJson: String): String
+    @JvmStatic external fun nativeGetRoomSortKey(lastEventTs: Long, notifCount: Int, highlightCount: Int, isDirect: Boolean, hasUnread: Boolean, tagStr: String, priority: Int): Int
+    @JvmStatic external fun nativeGetRoomSectionName(tagStr: String, isDirect: Boolean): String
+
     // --- Kotlin fallbacks for Slash Commands ---
 
     fun parseSlashCommandFallback(text: String): JSONObject {

@@ -132,6 +132,8 @@ add_library(
     src/typing_monitor.cpp
     src/url_preview.cpp
     src/power_levels.cpp
+    src/well_known.cpp
+    src/room_sort.cpp
     # src/olm.cpp  # disabled: libolm API mismatches
     src/jni_bridge.cpp
 )
