@@ -59,6 +59,24 @@ std::string getCurrentBody(const EditHistory& history);
 // Get the edit count badge text: "Edited" or "Edited 3 times".
 std::string getEditBadgeText(int editCount);
 
+// Get the edit count badge text with natural language variants.
+// 1 → "(edited)", 2 → "(edited twice)", 3 → "(edited 3 times)", 5 → "(edited 5 times)"
+std::string getEditCountBadge(int editCount);
+
+// Compute a short diff summary between two edit bodies.
+// "Hello world" → "Hello everyone" returns "+2/-2 chars"
+std::string computeEditDiffSummary(const std::string& oldBody, const std::string& newBody);
+
+// Format a one-line edit summary for stacking display.
+// "Edited by Alice: +5/-2 chars (changed 'world' to 'everyone')"
+std::string formatEditSummary(const EditEntry& entry);
+
+// Check if edit stacking should be collapsed (2+ edits → collapsed by default).
+bool shouldCollapseEdits(const EditHistory& history, int threshold = 2);
+
+// Format the expanded edit list for display when uncollapsed.
+std::string formatExpandedEditList(const EditHistory& history);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_EDIT_HISTORY_HPP

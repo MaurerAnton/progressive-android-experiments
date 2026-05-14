@@ -133,8 +133,64 @@ std::string getCurrentBody(const EditHistory& history) {
 
 std::string getEditBadgeText(int editCount) {
     if (editCount <= 0) return "";
-    if (editCount == 1) return "Edited";
-    return "Edited " + std::to_string(editCount) + " times";
+    if (editCount == 1) return "(edited)";
+    return "(edited " + std::to_string(editCount) + " times)";
+}
+
+std::string getEditCountBadge(int editCount) {
+    if (editCount <= 0) return "";
+    if (editCount == 1) return "(edited)";
+    if (editCount == 2) return "(edited twice)";
+    return "(edited " + std::to_string(editCount) + " times)";
+}
+
+std::string computeEditDiffSummary(const std::string& oldBody, const std::string& newBody) {
+    if (oldBody.empty() && newBody.empty()) return "no change";
+
+    int added = static_cast<int>(newBody.size()) - static_cast<int>(oldBody.size());
+    int absDiff = std::abs(added);
+
+    if (added > 0) {
+        return "+" + std::to_string(added) + " chars";
+    } else if (added < 0) {
+        return std::to_string(added) + " chars";
+    }
+    return "no size change";
+}
+
+std::string formatEditSummary(const EditEntry& entry) {
+    std::ostringstream out;
+
+    // Original Kotlin (ViewEditHistoryBottomSheet): shows editor + time
+    std::string editor = entry.editorName.empty() ? entry.editorId : entry.editorName;
+    out << editor;
+
+    if (entry.editedAtMs > 0) {
+        time_t ts = static_cast<time_t>(entry.editedAtMs / 1000);
+        char timeBuf[32];
+        strftime(timeBuf, sizeof(timeBuf), "%H:%M", localtime(&ts));
+        out << " at " << timeBuf;
+    }
+
+    // Add diff summary
+    if (!entry.previousBody.empty() && !entry.newBody.empty()) {
+        out << " — " << computeEditDiffSummary(entry.previousBody, entry.newBody);
+    }
+
+    return out.str();
+}
+
+bool shouldCollapseEdits(const EditHistory& history, int threshold) {
+    return history.editCount >= threshold;
+}
+
+std::string formatExpandedEditList(const EditHistory& history) {
+    std::ostringstream out;
+    for (size_t i = 0; i < history.edits.size(); ++i) {
+        if (i > 0) out << "\n";
+        out << (i + 1) << ". " << formatEditSummary(history.edits[i]);
+    }
+    return out.str();
 }
 
 } // namespace progressive

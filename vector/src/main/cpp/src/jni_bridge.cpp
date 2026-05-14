@@ -981,6 +981,26 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetEditBadgeText(
     return env->NewStringUTF(s.c_str());
 }
 
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetEditCountBadge(
+    JNIEnv* env, jclass, jint jEditCount
+) {
+    auto s = progressive::getEditCountBadge(jEditCount);
+    return env->NewStringUTF(s.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeEditDiffSummary(
+    JNIEnv* env, jclass, jstring jOldBody, jstring jNewBody
+) {
+    auto oldBody = jOldBody ? std::string(env->GetStringUTFChars(jOldBody, nullptr)) : "";
+    auto newBody = jNewBody ? std::string(env->GetStringUTFChars(jNewBody, nullptr)) : "";
+    if (jOldBody) env->ReleaseStringUTFChars(jOldBody, oldBody.c_str());
+    if (jNewBody) env->ReleaseStringUTFChars(jNewBody, newBody.c_str());
+    auto s = progressive::computeEditDiffSummary(oldBody, newBody);
+    return env->NewStringUTF(s.c_str());
+}
+
 // --- Read Marker / Unread Count ---
 // Ported from: TimelineViewModel.kt (read marker index math)
 //              ReadMarkers.kt (server-side management)

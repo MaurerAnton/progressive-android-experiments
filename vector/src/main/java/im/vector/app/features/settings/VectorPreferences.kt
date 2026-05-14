@@ -119,6 +119,8 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY = "SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY"
         const val SETTINGS_LABS_VIA_PARAM_COUNT_KEY = "SETTINGS_LABS_VIA_PARAM_COUNT_KEY"
         const val SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY = "SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY"
+        const val SETTINGS_LABS_EDIT_STACKING_KEY = "SETTINGS_LABS_EDIT_STACKING_KEY"
+        const val SETTINGS_LABS_SHOW_EDIT_COUNT_KEY = "SETTINGS_LABS_SHOW_EDIT_COUNT_KEY"
         const val SETTINGS_LABS_DUPLICATE_NAMES_KEY = "SETTINGS_LABS_DUPLICATE_NAMES_KEY"
         const val SETTINGS_LABS_READ_RECEIPTS_KEY = "SETTINGS_LABS_READ_RECEIPTS_KEY"
         const val SETTINGS_READ_RECEIPTS_MAX_VISIBLE = "SETTINGS_READ_RECEIPTS_MAX_VISIBLE"
@@ -1531,6 +1533,14 @@ class VectorPreferences @Inject constructor(
 
     fun isIncludeHistoricalServersEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY, false)
+    }
+
+    fun isEditStackingEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_EDIT_STACKING_KEY, false)
+    }
+
+    fun isShowEditCountEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_EDIT_COUNT_KEY, false)
     }
 
     fun isDuplicateNamesEnabled(): Boolean {

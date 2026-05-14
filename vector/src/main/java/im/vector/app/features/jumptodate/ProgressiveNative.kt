@@ -884,6 +884,8 @@ object ProgressiveNative {
     // --- Edit History ---
 
     @JvmStatic external fun nativeGetEditBadgeText(editCount: Int): String
+    @JvmStatic external fun nativeGetEditCountBadge(editCount: Int): String
+    @JvmStatic external fun nativeComputeEditDiffSummary(oldBody: String, newBody: String): String
 
     // --- Read Marker / Unread Count ---
     // Ported from: TimelineViewModel.kt (read marker index math)
