@@ -15,34 +15,28 @@
             android:defaultValue="false"
             android:dependency="SETTINGS_DEVELOPER_MODE_PREFERENCE_KEY"
             android:key="SETTINGS_LABS_SHOW_HIDDEN_EVENTS_PREFERENCE_KEY"
-            android:title="@string/settings_labs_show_hidden_events_in_timeline" />
+            android:title="Show hidden events in timeline" />
 
         <im.vector.app.core.preference.VectorSwitchPreference
             android:defaultValue="false"
             android:dependency="SETTINGS_DEVELOPER_MODE_PREFERENCE_KEY"
             android:key="SETTINGS_DEVELOPER_MODE_SHOW_INFO_ON_SCREEN_KEY"
-            android:summary="@string/settings_developer_mode_show_info_on_screen_summary"
-            android:title="@string/settings_developer_mode_show_info_on_screen_title" />
-
-        <im.vector.app.core.preference.VectorSwitchPreference
-            android:defaultValue="false"
-            android:dependency="SETTINGS_DEVELOPER_MODE_PREFERENCE_KEY"
-            android:key="SETTINGS_LABS_SHOW_COMPLETE_HISTORY_IN_ENCRYPTED_ROOM"
-            android:title="@string/settings_labs_show_complete_history_in_encrypted_room" />
+            android:summary="Overlay event type and debug info on each message"
+            android:title="Show debug info on screen" />
 
         <im.vector.app.core.preference.VectorSwitchPreference
             android:defaultValue="false"
             android:dependency="SETTINGS_DEVELOPER_MODE_PREFERENCE_KEY"
             android:key="SETTINGS_LABS_ALLOW_EXTENDED_LOGS"
-            android:summary="@string/labs_allow_extended_logging_summary"
-            android:title="@string/labs_allow_extended_logging" />
+            android:summary="Include verbose C++ native and network logs in bug reports"
+            android:title="Allow extended logging" />
 
         <im.vector.app.core.preference.VectorSwitchPreference
             android:defaultValue="false"
             android:dependency="SETTINGS_DEVELOPER_MODE_PREFERENCE_KEY"
             android:key="SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY"
-            android:summary="@string/settings_developer_mode_fail_fast_summary"
-            android:title="@string/settings_developer_mode_fail_fast_title" />
+            android:summary="Crash immediately on unexpected errors instead of recovering"
+            android:title="Fail fast mode" />
 
     </im.vector.app.core.preference.VectorPreferenceCategory>
 
