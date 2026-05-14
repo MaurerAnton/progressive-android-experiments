@@ -144,6 +144,27 @@ std::string buildReplyWithImageContent(
 
 bool hasTextWithImage(const std::string& contentJson);
 
+// ---- MIME Type Constants & Detection (from MimeTypes.kt 48L) ----
+namespace MimeTypes {
+    constexpr const char* Any = "*/*";
+    constexpr const char* OctetStream = "application/octet-stream";
+    constexpr const char* Images = "image/*";
+    constexpr const char* Png = "image/png";
+    constexpr const char* Jpeg = "image/jpeg";
+    constexpr const char* Gif = "image/gif";
+    constexpr const char* Webp = "image/webp";
+    constexpr const char* Ogg = "audio/ogg";
+    constexpr const char* PlainText = "text/plain";
+}
+
+// Normalize MIME type: "image/jpg" → "image/jpeg"
+std::string normalizeMimeType(const std::string& mimeType);
+
+bool isMimeTypeImage(const std::string& mt);
+bool isMimeTypeVideo(const std::string& mt);
+bool isMimeTypeAudio(const std::string& mt);
+bool isMimeTypeText(const std::string& mt);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_CONTENT_UTILS_HPP

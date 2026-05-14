@@ -447,4 +447,16 @@ bool hasTextWithImage(const std::string& contentJson) {
            contentJson.find("<img") != std::string::npos;
 }
 
+// ==== MIME Type Detection (from MimeTypes.kt:39-48) ====
+std::string normalizeMimeType(const std::string& mimeType) {
+    // "image/jpg" → "image/jpeg"
+    if (mimeType == "image/jpg") return "image/jpeg";
+    return mimeType;
+}
+
+bool isMimeTypeImage(const std::string& mt) { return mt.find("image/") == 0; }
+bool isMimeTypeVideo(const std::string& mt) { return mt.find("video/") == 0; }
+bool isMimeTypeAudio(const std::string& mt) { return mt.find("audio/") == 0; }
+bool isMimeTypeText(const std::string& mt) { return mt.find("text/") == 0; }
+
 } // namespace progressive
