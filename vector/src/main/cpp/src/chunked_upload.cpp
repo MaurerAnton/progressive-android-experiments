@@ -116,9 +116,16 @@ std::string ChunkedUploader::chunkToJson(const ChunkInfo& chunk) {
 }
 
 int ChunkedUploader::suggestChunkSizeMb(int64_t fileSize) {
-    if (fileSize < 100LL * 1024 * 1024) return 10;      // < 100MB
-    if (fileSize < 1024LL * 1024 * 1024) return 20;      // 100MB - 1GB
-    return 50;                                             // > 1GB
+    if (fileSize < 100LL * 1024 * 1024) return 10;
+    if (fileSize < 1024LL * 1024 * 1024) return 20;
+    return 50;
+}
+
+ChunkedUploader::ListChunkSize ChunkedUploader::computeBestListChunkSize(int listSize, int limit) {
+    if (listSize <= limit) return {1, listSize};
+    int numberOfChunks = (listSize + limit - 1) / limit;
+    int chunkSize = (listSize + numberOfChunks - 1) / numberOfChunks;
+    return {numberOfChunks, chunkSize};
 }
 
 } // namespace progressive

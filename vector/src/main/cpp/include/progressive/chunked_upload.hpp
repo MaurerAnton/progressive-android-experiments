@@ -80,6 +80,18 @@ public:
     // Files < 100MB: 10MB chunks, 100MB-1GB: 20MB, >1GB: 50MB
     static int suggestChunkSizeMb(int64_t fileSize);
 
+    // Compute optimal chunk count and size for splitting a list.
+    // Faithful port from org.matrix.android.sdk.internal.util.BestChunkSize.kt (44L)
+    // Original Kotlin:
+    //   fun computeBestChunkSize(listSize: Int, limit: Int): BestChunkSize {
+    //       if (listSize <= limit) return BestChunkSize(1, listSize)
+    //       val numberOfChunks = ceil(listSize / limit.toDouble()).toInt()
+    //       val chunkSize = ceil(listSize / numberOfChunks.toDouble()).toInt()
+    //       return BestChunkSize(numberOfChunks, chunkSize)
+    //   }
+    struct ListChunkSize { int numberOfChunks; int chunkSize; bool shouldChunk() const { return numberOfChunks > 1; } };
+    static ListChunkSize computeBestListChunkSize(int listSize, int limit);
+
 private:
     int64_t chunkSizeBytes_ = 10 * 1024 * 1024; // default 10MB
     int64_t fileSize_ = 0;
