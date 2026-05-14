@@ -232,7 +232,9 @@ std::string urlDecode(const std::string& encoded) {
 std::vector<std::string> computeViaParams(
     const std::string& myUserId,
     const std::vector<std::string>& memberUserIds,
-    int maxServers)
+    const std::vector<std::string>& historicalUserIds,
+    int maxServers,
+    bool includeHistorical)
 {
     // Extract the current user's server name
     std::string myServer;
@@ -241,23 +243,27 @@ std::vector<std::string> computeViaParams(
         if (colon != std::string::npos) myServer = myUserId.substr(colon + 1);
     }
 
-    // Extract server names from all member MXIDs
-    std::vector<std::string> servers;
+    // Extract server names from current member MXIDs
+    std::unordered_map<std::string, int> serverCounts;
     for (const auto& uid : memberUserIds) {
         auto colon = uid.rfind(':');
         if (colon != std::string::npos) {
-            servers.push_back(uid.substr(colon + 1));
+            serverCounts[uid.substr(colon + 1)]++;
         }
     }
 
-    // Group by server and count members per server
-    std::unordered_map<std::string, int> serverCounts;
-    for (const auto& srv : servers) {
-        serverCounts[srv]++;
+    // Original: optionally include historical (left) members
+    if (includeHistorical) {
+        for (const auto& uid : historicalUserIds) {
+            auto colon = uid.rfind(':');
+            if (colon != std::string::npos) {
+                // Lower weight for historical servers
+                serverCounts[uid.substr(colon + 1)] += 1;
+            }
+        }
     }
 
     // Original: .apply { this[userHomeserver] = Int.MAX_VALUE }
-    // Ensure the user's own server is included (highest priority)
     if (!myServer.empty()) serverCounts[myServer] = INT32_MAX;
 
     // Sort servers by count (descending)
@@ -268,9 +274,10 @@ std::vector<std::string> computeViaParams(
     std::sort(sorted.begin(), sorted.end(),
         [](const auto& a, const auto& b) { return a.second > b.second; });
 
-    // Take top N
+    // Take top N (0 = all)
     std::vector<std::string> result;
-    for (int i = 0; i < maxServers && i < static_cast<int>(sorted.size()); ++i) {
+    int limit = (maxServers > 0) ? maxServers : static_cast<int>(sorted.size());
+    for (int i = 0; i < limit && i < static_cast<int>(sorted.size()); ++i) {
         result.push_back(sorted[i].first);
     }
 

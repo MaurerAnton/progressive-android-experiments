@@ -113,6 +113,9 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_SYMBOL_BAR_KEY = "SETTINGS_LABS_SYMBOL_BAR_KEY"
         const val SETTINGS_LABS_AUTO_REPLACE_KEY = "SETTINGS_LABS_AUTO_REPLACE_KEY"
         const val SETTINGS_LABS_LLM_SLASH_KEY = "SETTINGS_LABS_LLM_SLASH_KEY"
+        const val SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY = "SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY"
+        const val SETTINGS_LABS_VIA_PARAM_COUNT_KEY = "SETTINGS_LABS_VIA_PARAM_COUNT_KEY"
+        const val SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY = "SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY"
         const val SETTINGS_LABS_DUPLICATE_NAMES_KEY = "SETTINGS_LABS_DUPLICATE_NAMES_KEY"
         const val SETTINGS_LABS_READ_RECEIPTS_KEY = "SETTINGS_LABS_READ_RECEIPTS_KEY"
         const val SETTINGS_READ_RECEIPTS_MAX_VISIBLE = "SETTINGS_READ_RECEIPTS_MAX_VISIBLE"
@@ -1512,6 +1515,19 @@ class VectorPreferences @Inject constructor(
 
     fun isLlmSlashEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_LLM_SLASH_KEY, false)
+    }
+
+    fun isExtendedViaParamsEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY, false)
+    }
+
+    fun getViaParamCount(): Int {
+        val count = defaultPrefs.getString(SETTINGS_LABS_VIA_PARAM_COUNT_KEY, "3")
+        return count?.toIntOrNull() ?: 3
+    }
+
+    fun isIncludeHistoricalServersEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY, false)
     }
 
     fun isDuplicateNamesEnabled(): Boolean {

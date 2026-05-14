@@ -97,12 +97,16 @@ std::string urlDecode(const std::string& encoded);
 //
 // @param myUserId  The requesting user's MXID
 // @param memberUserIds  List of joined member MXIDs
-// @param maxServers  Max via servers to include (default 3)
+// @param historicalUserIds  List of members who left (for extended via params)
+// @param maxServers  Max via servers (0 = all)
+// @param includeHistorical  Whether to include left members' servers
 // @return List of server names, sorted by representativeness
 std::vector<std::string> computeViaParams(
     const std::string& myUserId,
     const std::vector<std::string>& memberUserIds,
-    int maxServers = 3
+    const std::vector<std::string>& historicalUserIds = {},
+    int maxServers = 3,
+    bool includeHistorical = false
 );
 
 // Format via parameters as URL query string.
