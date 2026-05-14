@@ -3,14 +3,23 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 namespace progressive {
 
 // ---- Matrix Cross-Signing Utilities ----
-// Ported from: org.matrix.android.sdk.internal.crypto.CrossSigningService.kt
-//              im.vector.app.features.crypto.quads.SharedSecureStorageViewModel.kt
+// Ported from: org.matrix.android.sdk.api.session.crypto.crosssigning.CryptoCrossSigningKey.kt (110L)
+//              org.matrix.android.sdk.internal.crypto.CrossSigningService.kt
 
 enum class CrossSigningKey { Master, SelfSigning, UserSigning, Unknown };
+
+// Key usage enum from CryptoCrossSigningKey.kt:KeyUsage
+enum class KeyUsage { Master, SelfSigning, UserSigning };
+
+inline std::string keyUsageToString(KeyUsage u) {
+    switch (u) { case KeyUsage::Master: return "master"; case KeyUsage::SelfSigning: return "self_signing"; case KeyUsage::UserSigning: return "user_signing"; }
+    return "";
+}
 
 struct CrossSigningStatus {
     bool masterKeyExists = false;
