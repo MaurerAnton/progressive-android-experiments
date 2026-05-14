@@ -165,6 +165,26 @@ bool isMimeTypeVideo(const std::string& mt);
 bool isMimeTypeAudio(const std::string& mt);
 bool isMimeTypeText(const std::string& mt);
 
+// ---- Timeline Event Content Resolution (from TimelineEvent.kt:121-233) ----
+// Resolves the "latest" content considering edit chains and replies.
+
+// Get the latest event ID from edit chain (original or last edit).
+std::string getLatestEditEventId(const std::string& editSummaryJson, const std::string& originalEventId);
+
+// Get the event ID that this edit targets (m.relates_to → m.replace → event_id).
+std::string getEditedTargetEventId(const std::string& contentJson);
+
+// Get the latest message body after possible edits.
+// Strips reply prefix ("> quoted text") if this is a reply.
+std::string getTextEditableContent(const std::string& contentJson,
+    const std::string& editSummaryJson, bool formatted = false);
+
+// Check if a timeline event is a reply.
+bool isReplyEvent(const std::string& contentJson);
+
+// Check if a timeline event is an edition (m.replace).
+bool isEditionEvent(const std::string& contentJson);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_CONTENT_UTILS_HPP

@@ -459,4 +459,94 @@ bool isMimeTypeVideo(const std::string& mt) { return mt.find("video/") == 0; }
 bool isMimeTypeAudio(const std::string& mt) { return mt.find("audio/") == 0; }
 bool isMimeTypeText(const std::string& mt) { return mt.find("text/") == 0; }
 
+// ==== Timeline Event Content (from TimelineEvent.kt:121-233) ====
+
+std::string getLatestEditEventId(const std::string& editSummaryJson, const std::string& originalEventId) {
+    // Original: annotations?.editSummary?.sourceEvents?.lastOrNull() ?: eventId
+    if (editSummaryJson.empty()) return originalEventId;
+
+    // Find last event_id in sourceEvents array
+    auto eventsPos = editSummaryJson.find("\"sourceEvents\"");
+    if (eventsPos == std::string::npos) return originalEventId;
+
+    // Find last quoted event_id
+    auto lastQuote = editSummaryJson.rfind("\"event_id\":\"", editSummaryJson.find(']', eventsPos));
+    if (lastQuote == std::string::npos) {
+        lastQuote = editSummaryJson.rfind("\"event_id\": \"", editSummaryJson.find(']', eventsPos));
+    }
+    if (lastQuote == std::string::npos || lastQuote < eventsPos) return originalEventId;
+
+    lastQuote += 12; // skip "event_id":"
+    auto end = editSummaryJson.find('"', lastQuote);
+    return (end != std::string::npos) ? editSummaryJson.substr(lastQuote, end - lastQuote) : originalEventId;
+}
+
+std::string getEditedTargetEventId(const std::string& contentJson) {
+    // Original: getRelationContent()?.takeIf { it.type == REPLACE }?.eventId
+    auto relatesPos = contentJson.find("\"m.relates_to\"");
+    if (relatesPos == std::string::npos) return "";
+
+    // Find rel_type: "m.replace"
+    auto typePos = contentJson.find("\"rel_type\":\"m.replace\"", relatesPos);
+    if (typePos == std::string::npos) {
+        typePos = contentJson.find("\"rel_type\": \"m.replace\"", relatesPos);
+    }
+    if (typePos == std::string::npos || typePos > contentJson.find('}', relatesPos)) return "";
+
+    // Find event_id
+    auto eventPos = contentJson.find("\"event_id\":\"", relatesPos);
+    if (eventPos == std::string::npos) {
+        eventPos = contentJson.find("\"event_id\": \"", relatesPos);
+    }
+    if (eventPos == std::string::npos || eventPos > contentJson.find('}', relatesPos)) return "";
+
+    eventPos += 12;
+    auto end = contentJson.find('"', eventPos);
+    return (end != std::string::npos) ? contentJson.substr(eventPos, end - eventPos) : "";
+}
+
+std::string getTextEditableContent(const std::string& contentJson,
+    const std::string& editSummaryJson, bool formatted)
+{
+    // Original: getLastMessageContent() then get body or formattedBody
+    // First, try to get the latest edited body
+    std::string body;
+    auto extractStr = [](const std::string& json, const std::string& key) -> std::string {
+        auto search = "\"" + key + "\":\"";
+        auto pos = json.find(search);
+        if (pos == std::string::npos) {
+            search = "\"" + key + "\": \"";
+            pos = json.find(search);
+        }
+        if (pos == std::string::npos) return "";
+        pos += search.size();
+        auto end = json.find('"', pos);
+        return (end != std::string::npos) ? json.substr(pos, end - pos) : "";
+    };
+
+    // Check if it's a reply — strip quoted lines if so
+    bool isReply = contentJson.find("\"m.in_reply_to\"") != std::string::npos;
+
+    if (formatted) {
+        body = extractStr(contentJson, "formatted_body");
+        if (body.empty()) body = extractStr(contentJson, "body");
+    } else {
+        body = extractStr(contentJson, "body");
+    }
+
+    if (isReply && !body.empty()) {
+        body = extractUsefulTextFromReply(body);
+    }
+
+    return body;
+}
+
+bool isReplyEvent(const std::string& contentJson) {
+    return contentJson.find("\"m.in_reply_to\"") != std::string::npos;
+}
+
+bool isEditionEvent(const std::string& contentJson) {
+    return !getEditedTargetEventId(contentJson).empty();
+}
+
 } // namespace progressive
