@@ -402,4 +402,173 @@ std::string endPollContentToJson(const MessageEndPollContent& endPoll) {
     return json;
 }
 
+// ==== Verification Parsing ====
+//
+// Original Kotlin (MessageVerificationRequestContent.kt:28-43)
+
+MessageVerificationRequestContent parseVerificationRequest(const std::string& json) {
+    MessageVerificationRequestContent c;
+    c.msgType = "m.key.verification.request";
+    c.body = extractJsonString(json, "body");
+    c.fromDevice = extractJsonString(json, "from_device");
+    c.toUserId = extractJsonString(json, "to");
+    c.timestamp = extractJsonInt64(json, "timestamp");
+    c.format = extractJsonString(json, "format");
+    c.formattedBody = extractJsonString(json, "formatted_body");
+
+    // Parse methods array
+    auto methodsArr = extractJsonArray(json, "methods");
+    for (const auto& m : methodsArr) {
+        if (!m.empty()) c.methods.push_back(m);
+    }
+
+    return c;
+}
+
+// Original Kotlin (MessageVerificationStartContent.kt:26-40)
+MessageVerificationStartContent parseVerificationStart(const std::string& json) {
+    MessageVerificationStartContent c;
+    c.fromDevice = extractJsonString(json, "from_device");
+    c.method = extractJsonString(json, "method");
+    c.sharedSecret = extractJsonString(json, "secret");
+
+    // Array fields
+    auto hashesArr = extractJsonArray(json, "hashes");
+    for (const auto& h : hashesArr) c.hashes.push_back(h);
+    auto protocols = extractJsonArray(json, "key_agreement_protocols");
+    for (const auto& p : protocols) c.keyAgreementProtocols.push_back(p);
+    auto macs = extractJsonArray(json, "message_authentication_codes");
+    for (const auto& m : macs) c.messageAuthenticationCodes.push_back(m);
+    auto sas = extractJsonArray(json, "short_authentication_string");
+    for (const auto& s : sas) c.shortAuthenticationStrings.push_back(s);
+
+    // Relation
+    auto relJson = extractJsonObject(json, "m.relates_to");
+    if (!relJson.empty()) {
+        c.relatesTo.eventId = extractJsonString(relJson, "event_id");
+        c.transactionId = c.relatesTo.eventId;
+    }
+
+    return c;
+}
+
+// Original Kotlin (MessageVerificationReadyContent.kt:26-33)
+MessageVerificationReadyContent parseVerificationReady(const std::string& json) {
+    MessageVerificationReadyContent c;
+    c.fromDevice = extractJsonString(json, "from_device");
+    auto methodsArr = extractJsonArray(json, "methods");
+    for (const auto& m : methodsArr) c.methods.push_back(m);
+
+    auto relJson = extractJsonObject(json, "m.relates_to");
+    if (!relJson.empty()) {
+        c.relatesTo.eventId = extractJsonString(relJson, "event_id");
+        c.transactionId = c.relatesTo.eventId;
+    }
+
+    return c;
+}
+
+// Original Kotlin (MessageVerificationDoneContent.kt:26-32)
+MessageVerificationDoneContent parseVerificationDone(const std::string& json) {
+    MessageVerificationDoneContent c;
+    auto relJson = extractJsonObject(json, "m.relates_to");
+    if (!relJson.empty()) {
+        c.relatesTo.eventId = extractJsonString(relJson, "event_id");
+        c.transactionId = c.relatesTo.eventId;
+    }
+    return c;
+}
+
+// Original Kotlin (MessageVerificationCancelContent.kt:28-36)
+MessageVerificationCancelContent parseVerificationCancel(const std::string& json) {
+    MessageVerificationCancelContent c;
+    c.code = extractJsonString(json, "code");
+    c.reason = extractJsonString(json, "reason");
+    auto relJson = extractJsonObject(json, "m.relates_to");
+    if (!relJson.empty()) {
+        c.relatesTo.eventId = extractJsonString(relJson, "event_id");
+        c.transactionId = c.relatesTo.eventId;
+    }
+    return c;
+}
+
+// Original Kotlin (MessageVerificationMacContent.kt:27-35)
+MessageVerificationMacContent parseVerificationMac(const std::string& json) {
+    MessageVerificationMacContent c;
+    c.keys = extractJsonString(json, "keys");
+
+    // Parse mac object as key-value string pairs
+    auto macJson = extractJsonObject(json, "mac");
+    if (!macJson.empty()) {
+        size_t pos = 1;
+        while (pos < macJson.size()) {
+            while (pos < macJson.size() && (macJson[pos] == ' ' || macJson[pos] == ',')) pos++;
+            if (pos >= macJson.size() || macJson[pos] == '}') break;
+            if (macJson[pos] == '"') {
+                pos++;
+                size_t keyEnd = pos;
+                while (keyEnd < macJson.size() && macJson[keyEnd] != '"') keyEnd++;
+                std::string key = macJson.substr(pos, keyEnd - pos);
+                pos = keyEnd + 1;
+                while (pos < macJson.size() && macJson[pos] != ':') pos++;
+                pos++;
+                while (pos < macJson.size() && (macJson[pos] == ' ' || macJson[pos] == '\t')) pos++;
+                if (pos < macJson.size() && macJson[pos] == '"') {
+                    pos++;
+                    size_t valEnd = pos;
+                    while (valEnd < macJson.size() && macJson[valEnd] != '"') {
+                        if (macJson[valEnd] == '\\') valEnd++;
+                        valEnd++;
+                    }
+                    c.mac[key] = macJson.substr(pos, valEnd - pos);
+                    pos = valEnd + 1;
+                }
+            }
+        }
+    }
+
+    auto relJson = extractJsonObject(json, "m.relates_to");
+    if (!relJson.empty()) {
+        c.relatesTo.eventId = extractJsonString(relJson, "event_id");
+        c.transactionId = c.relatesTo.eventId;
+    }
+
+    return c;
+}
+
+// Original Kotlin (MessageVerificationKeyContent.kt:28-36)
+MessageVerificationKeyContent parseVerificationKey(const std::string& json) {
+    MessageVerificationKeyContent c;
+    c.key = extractJsonString(json, "key");
+    auto relJson = extractJsonObject(json, "m.relates_to");
+    if (!relJson.empty()) {
+        c.relatesTo.eventId = extractJsonString(relJson, "event_id");
+        c.transactionId = c.relatesTo.eventId;
+    }
+    return c;
+}
+
+// ==== Element Call Notification Parsing ====
+//
+// Original Kotlin (ElementCallNotifyContent.kt:24-33)
+
+ElementCallNotifyContent parseCallNotifyContent(const std::string& json) {
+    ElementCallNotifyContent c;
+    c.application = extractJsonString(json, "application");
+    c.callId = extractJsonString(json, "call_id");
+    c.notifyType = extractJsonString(json, "notify_type");
+
+    // Original Kotlin: mentions object
+    auto mentionsJson = extractJsonObject(json, "m.mentions");
+    if (!mentionsJson.empty()) {
+        c.mentions.room = extractJsonBool(mentionsJson, "room");
+        auto userIdsArr = extractJsonArray(mentionsJson, "user_ids");
+        for (const auto& uid : userIdsArr) {
+            if (!uid.empty()) c.mentions.userIds.push_back(uid);
+        }
+    }
+
+    return c;
+}
+
 } // namespace progressive

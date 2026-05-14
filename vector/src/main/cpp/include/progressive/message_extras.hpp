@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <unordered_map>
 #include "progressive/message_content.hpp"
 
 namespace progressive {
@@ -270,5 +271,141 @@ PollType pollTypeFromString(const std::string& s);
 std::string pollContentToJson(const MessagePollContent& poll);
 std::string pollResponseToJson(const MessagePollResponseContent& response);
 std::string endPollContentToJson(const MessageEndPollContent& endPoll);
+
+// ==== Verification Message Types ====
+//
+// Original Kotlin (MessageVerificationRequestContent.kt:28-43):
+//   data class MessageVerificationRequestContent(
+//       @Json(name="msgtype") msgType = MSGTYPE_VERIFICATION_REQUEST,
+//       body, fromDevice, methods, toUserId, timestamp,
+//       format, formattedBody, relatesTo, newContent, transactionId
+//   ) : MessageContent
+
+struct MessageVerificationRequestContent : MessageContent {
+    std::string fromDevice;              // "from_device" key
+    std::vector<std::string> methods;    // "methods" key — e.g. ["m.sas.v1"]
+    std::string toUserId;                // "to" key
+    int64_t timestamp = 0;               // "timestamp" key
+    std::string format;
+    std::string formattedBody;
+    std::string transactionId;           // set from eventId, not in JSON
+};
+
+// Original Kotlin (MessageVerificationStartContent.kt:26-40):
+//   data class MessageVerificationStartContent(
+//       fromDevice, hashes, keyAgreementProtocols,
+//       messageAuthenticationCodes, shortAuthenticationStrings,
+//       method, relatesTo, sharedSecret
+//   )
+struct MessageVerificationStartContent {
+    std::string fromDevice;              // "from_device" key
+    std::vector<std::string> hashes;     // "hashes" key
+    std::vector<std::string> keyAgreementProtocols;    // "key_agreement_protocols"
+    std::vector<std::string> messageAuthenticationCodes; // "message_authentication_codes"
+    std::vector<std::string> shortAuthenticationStrings; // "short_authentication_string"
+    std::string method;                  // "method" key
+    std::string sharedSecret;            // "secret" key (SAS shared secret)
+    RelationDefaultContent relatesTo;
+    std::string transactionId;           // relatesTo.eventId
+};
+
+// Original Kotlin (MessageVerificationReadyContent.kt:26-33):
+//   data class MessageVerificationReadyContent(
+//       fromDevice, methods, relatesTo
+//   )
+struct MessageVerificationReadyContent {
+    std::string fromDevice;
+    std::vector<std::string> methods;
+    RelationDefaultContent relatesTo;
+    std::string transactionId;
+};
+
+// Original Kotlin (MessageVerificationDoneContent.kt:26-32):
+//   data class MessageVerificationDoneContent(relatesTo)
+struct MessageVerificationDoneContent {
+    RelationDefaultContent relatesTo;
+    std::string transactionId;
+};
+
+// Original Kotlin (MessageVerificationCancelContent.kt:28-36):
+//   data class MessageVerificationCancelContent(code, reason, relatesTo)
+struct MessageVerificationCancelContent {
+    std::string code;                    // "code" key — e.g. "m.user"
+    std::string reason;                  // "reason" key
+    RelationDefaultContent relatesTo;
+    std::string transactionId;
+};
+
+// Original Kotlin (MessageVerificationMacContent.kt:27-35):
+//   data class MessageVerificationMacContent(mac, keys, relatesTo)
+struct MessageVerificationMacContent {
+    std::unordered_map<std::string, std::string> mac;  // "mac" key
+    std::string keys;                    // "keys" key
+    RelationDefaultContent relatesTo;
+    std::string transactionId;
+};
+
+// Original Kotlin (MessageVerificationKeyContent.kt:28-36):
+//   data class MessageVerificationKeyContent(key, relatesTo)
+struct MessageVerificationKeyContent {
+    std::string key;                     // "key" key — device's ephemeral public key
+    RelationDefaultContent relatesTo;
+    std::string transactionId;
+};
+
+// ==== Element Call Notification ====
+//
+// Original Kotlin (ElementCallNotifyContent.kt:24-33):
+//   data class ElementCallNotifyContent(
+//       application, callId, mentions, notifyType
+//   )
+
+struct Mentions {
+    bool room = false;                   // "room" key — true if @room
+    std::vector<std::string> userIds;    // "user_ids" key
+};
+
+struct ElementCallNotifyContent {
+    std::string application;             // "application" key
+    std::string callId;                  // "call_id" key
+    Mentions mentions;                   // "m.mentions" key
+    std::string notifyType;              // "notify_type" key
+
+    // Original Kotlin: fun isUserMentioned(userId: String): Boolean
+    bool isUserMentioned(const std::string& userId) const {
+        if (mentions.room) return true;
+        for (const auto& uid : mentions.userIds) {
+            if (uid == userId) return true;
+        }
+        return false;
+    }
+};
+
+// ==== MessageAudioEvent Wrapper ====
+//
+// Original Kotlin (MessageAudioEvent.kt:27-48):
+//   value class MessageAudioEvent(val root: Event) {
+//       val content: MessageAudioContent
+//           get() = root.getClearContent().toModel<MessageContent>() as MessageAudioContent
+//   }
+struct MessageAudioEvent {
+    std::string eventId;
+    std::string roomId;
+    std::string sender;
+    int64_t timestamp = 0;
+    MessageAudioContent content;
+};
+
+// Parse verification contents
+MessageVerificationRequestContent parseVerificationRequest(const std::string& contentJson);
+MessageVerificationStartContent parseVerificationStart(const std::string& contentJson);
+MessageVerificationReadyContent parseVerificationReady(const std::string& contentJson);
+MessageVerificationDoneContent parseVerificationDone(const std::string& contentJson);
+MessageVerificationCancelContent parseVerificationCancel(const std::string& contentJson);
+MessageVerificationMacContent parseVerificationMac(const std::string& contentJson);
+MessageVerificationKeyContent parseVerificationKey(const std::string& contentJson);
+
+// Parse Element Call notification
+ElementCallNotifyContent parseCallNotifyContent(const std::string& contentJson);
 
 } // namespace progressive
