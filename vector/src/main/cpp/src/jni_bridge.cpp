@@ -1577,13 +1577,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetOlderThan
     return env->NewStringUTF(json.c_str());
 }
 
-JNIEXPORT void JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheClear(
-    JNIEnv*, jclass
-) {
-    g_cacheMgr.clear();
-}
-
 // --- Message Aggregator ---
 
 JNIEXPORT void JNICALL
@@ -3298,24 +3291,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsUserId(
     return progressive::isUserId(input) ? JNI_TRUE : JNI_FALSE;
 }
 
-JNIEXPORT jboolean JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsRoomAlias(
-    JNIEnv* env, jclass, jstring jInput
-) {
-    auto input = jInput ? std::string(env->GetStringUTFChars(jInput, nullptr)) : "";
-    if (jInput) env->ReleaseStringUTFChars(jInput, input.c_str());
-    return progressive::isRoomAlias(input) ? JNI_TRUE : JNI_FALSE;
-}
-
-JNIEXPORT jboolean JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeIsEventId(
-    JNIEnv* env, jclass, jstring jInput
-) {
-    auto input = jInput ? std::string(env->GetStringUTFChars(jInput, nullptr)) : "";
-    if (jInput) env->ReleaseStringUTFChars(jInput, input.c_str());
-    return progressive::isEventId(input) ? JNI_TRUE : JNI_FALSE;
-}
-
 JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseMatrixToPermalink(
     JNIEnv* env, jclass, jstring jUrl
@@ -3768,7 +3743,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatFileSize(
 }
 
 JNIEXPORT jstring JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetFileExtension(
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetExtensionFromName(
     JNIEnv* env, jclass, jstring jFileName
 ) {
     auto name = jFileName ? std::string(env->GetStringUTFChars(jFileName, nullptr)) : "";
@@ -4267,7 +4242,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildLoginBody(
 // --- Account Utils ---
 
 JNIEXPORT jstring JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidatePassword(
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidatePasswordWithUsername(
     JNIEnv* env, jclass, jstring jPassword, jstring jUsername
 ) {
     auto pass = jPassword ? std::string(env->GetStringUTFChars(jPassword, nullptr)) : "";

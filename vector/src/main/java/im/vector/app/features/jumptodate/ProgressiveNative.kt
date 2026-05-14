@@ -330,8 +330,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeCacheStatsJson(): String
     @JvmStatic external fun nativeCacheGetByRoom(roomId: String): String
     @JvmStatic external fun nativeCacheGetOlderThan(beforeTs: Long): String
-    @JvmStatic external fun nativeCacheClear()
-
     // --- Message Aggregator (All Messages) ---
 
     @JvmStatic external fun nativeMsgAggAdd(eventId: String, roomId: String, roomName: String, accountId: String, accountIndex: String, senderName: String, body: String, msgType: String, originServerTs: Long)
@@ -570,8 +568,6 @@ object ProgressiveNative {
     // --- Matrix Patterns ---
 
     @JvmStatic external fun nativeIsUserId(input: String): Boolean
-    @JvmStatic external fun nativeIsRoomAlias(input: String): Boolean
-    @JvmStatic external fun nativeIsEventId(input: String): Boolean
     @JvmStatic external fun nativeParseMatrixToPermalink(url: String): String
     @JvmStatic external fun nativeIsValidEmail(input: String): Boolean
 
@@ -666,7 +662,7 @@ object ProgressiveNative {
     // --- File Validator ---
 
     @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
-    @JvmStatic external fun nativeGetFileExtension(fileName: String): String
+    @JvmStatic external fun nativeGetExtensionFromName(fileName: String): String
 
     // --- Date Utils ---
 
@@ -768,7 +764,7 @@ object ProgressiveNative {
 
     // --- Account Utils ---
 
-    @JvmStatic external fun nativeValidatePassword(password: String, username: String): String
+    @JvmStatic external fun nativeValidatePasswordWithUsername(password: String, username: String): String
 
     // --- Connection Monitor ---
 
