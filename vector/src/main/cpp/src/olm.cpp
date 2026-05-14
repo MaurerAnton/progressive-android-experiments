@@ -6,15 +6,14 @@
 
 namespace progressive {
 
-static std::string generateRandomBytes(int count) {
+// ==== Utility functions ====
+
+std::string generateRandomBytes(int count) {
     std::string result(count, 0);
     for (int i = 0; i < count; ++i) result[i] = static_cast<char>(rand() % 256);
     return result;
 }
 
-// ==== Utility functions ====
-
-std::string generateRandomBytes(int count);
 std::string olmErrorToString(OlmError error) {
     switch (error) {
         case OlmError::None: return "No error";
