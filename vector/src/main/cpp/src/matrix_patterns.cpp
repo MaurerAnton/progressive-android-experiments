@@ -183,9 +183,4 @@ std::string candidateAliasFromRoomName(const std::string& roomName, const std::s
     return result;
 }
 
-bool isPermalink(const std::string& url) {
-    // Original Kotlin: PATTERN_CONTAIN_MATRIX_TO_PERMALINK.containsMatchIn(str) || PATTERN_CONTAIN_APP_PERMALINK.containsMatchIn(str)
-    return isMatrixToPermalink(url) || isAppPermalink(url);
-}
-
 } // namespace progressive

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "progressive/permalink.hpp"
 
 namespace progressive {
 
@@ -83,10 +84,6 @@ bool isValidOrderString(const std::string& order);
 //       .take(maxAliasLocalPartLength(domain))
 // "My Room Name" → "my_room_name"
 std::string candidateAliasFromRoomName(const std::string& roomName, const std::string& domain, int maxAliasLength = 100);
-
-// Check if a string is a valid Matrix permalink (both matrix.to and app permalink).
-// Original Kotlin: PATTERN_CONTAIN_MATRIX_TO_PERMALINK.containsMatchIn(str) || PATTERN_CONTAIN_APP_PERMALINK.containsMatchIn(str)
-bool isPermalink(const std::string& url);
 
 } // namespace progressive
 

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "progressive/link_preview.hpp"
 
 namespace progressive {
 
@@ -39,8 +40,7 @@ std::string extractMetaDescription(const std::string& html);
 // Resolve relative URLs to absolute (for og:image which may be /path/to/img.jpg).
 std::string resolveUrl(const std::string& baseUrl, const std::string& relative);
 
-// Check if a URL is an image (by extension or Content-Type).
-bool isImageUrl(const std::string& url);
+// isImageUrl is declared in progressive/link_preview.hpp
 
 // Extract all URLs from HTML (for additional link preview candidates).
 std::vector<std::string> extractUrls(const std::string& html);

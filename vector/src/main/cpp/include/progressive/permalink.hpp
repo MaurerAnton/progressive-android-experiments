@@ -81,8 +81,7 @@ std::vector<std::string> extractViaParameters(const std::string& fragment);
 // Check if a permalink is a room email invite link.
 bool isEmailInviteLink(const std::string& url);
 
-// URL-decode a string (replaces %20 with space, etc.)
-std::string urlDecode(const std::string& encoded);
+// urlDecode is declared in progressive/url_tools.hpp
 
 // Compute via parameters for a Matrix permalink.
 // Faithful port from org.matrix.android.sdk.internal.session.permalinks.ViaParameterFinder.kt (103L)

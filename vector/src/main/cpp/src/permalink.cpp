@@ -191,31 +191,7 @@ bool isEmailInviteLink(const std::string& url) {
     return fragment.find("email=") != std::string::npos && fragment.find("signurl=") != std::string::npos;
 }
 
-std::string urlDecode(const std::string& encoded) {
-    std::string result;
-    for (size_t i = 0; i < encoded.size(); ++i) {
-        if (encoded[i] == '%' && i + 2 < encoded.size()) {
-            char high = encoded[i + 1];
-            char low = encoded[i + 2];
-            auto hexVal = [](char c) -> int {
-                if (c >= '0' && c <= '9') return c - '0';
-                if (c >= 'A' && c <= 'F') return c - 'A' + 10;
-                if (c >= 'a' && c <= 'f') return c - 'a' + 10;
-                return -1;
-            };
-            int h = hexVal(high);
-            int l = hexVal(low);
-            if (h >= 0 && l >= 0) {
-                result += static_cast<char>((h << 4) | l);
-                i += 2;
-                continue;
-            }
-        }
-        if (encoded[i] == '+') result += ' ';
-        else result += encoded[i];
-    }
-    return result;
-}
+// urlDecode is defined in progressive/url_tools.cpp
 
 // ==== Via Parameter Computation (from ViaParameterFinder.kt:36-64) ====
 // Original Kotlin:

@@ -1,4 +1,5 @@
 #include "progressive/url_preview.hpp"
+#include "progressive/link_preview.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
@@ -147,17 +148,7 @@ std::string resolveUrl(const std::string& baseUrl, const std::string& relative) 
     return baseUrl.substr(0, lastSlash + 1) + relative;
 }
 
-bool isImageUrl(const std::string& url) {
-    auto lower = url;
-    for (char& c : lower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-    return lower.find(".jpg") != std::string::npos ||
-           lower.find(".jpeg") != std::string::npos ||
-           lower.find(".png") != std::string::npos ||
-           lower.find(".gif") != std::string::npos ||
-           lower.find(".webp") != std::string::npos ||
-           lower.find(".svg") != std::string::npos ||
-           lower.find(".bmp") != std::string::npos;
-}
+// isImageUrl is defined in progressive/link_preview.cpp
 
 std::vector<std::string> extractUrls(const std::string& html) {
     std::vector<std::string> urls;
