@@ -9,7 +9,7 @@ namespace progressive {
 
 // ---- Power Levels & Permissions ----
 
-struct RoomRoomPowerLevels {
+struct RoomPowerLevels {
     int usersDefault = 0;
     int eventsDefault = 0;
     int stateDefault = 50;
