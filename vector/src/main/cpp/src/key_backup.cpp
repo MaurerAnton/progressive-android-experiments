@@ -329,7 +329,63 @@ bool isValidPassphrase(const std::string& passphrase) {
 }
 
 int getMinPassphraseLength() {
-    return 8;  // minimum recommended by Matrix spec
+    return 8;
+}
+
+// ==== Secret Storage Key (from SecretStorageKeyContent.kt:53-103) ====
+
+SecretStorageKey parseSecretStorageKey(const std::string& keyId, const std::string& json) {
+    SecretStorageKey key;
+    key.keyId = keyId;
+
+    auto extractStr = [&](const std::string& k) -> std::string {
+        auto search = "\"" + k + "\":\"";
+        auto pos = json.find(search);
+        if (pos == std::string::npos) { search = "\"" + k + "\": \""; pos = json.find(search); }
+        if (pos == std::string::npos) return "";
+        pos += search.size();
+        auto end = json.find('"', pos);
+        return (end != std::string::npos) ? json.substr(pos, end - pos) : "";
+    };
+
+    auto extractInt = [&](const std::string& k) -> int {
+        auto search = "\"" + k + "\":";
+        auto pos = json.find(search);
+        if (pos == std::string::npos) return 0;
+        pos += search.size();
+        while (pos < json.size() && (json[pos] == ' ' || json[pos] == '\t')) pos++;
+        int v = 0;
+        while (pos < json.size() && json[pos] >= '0' && json[pos] <= '9') { v = v * 10 + (json[pos] - '0'); pos++; }
+        return v;
+    };
+
+    key.algorithm = extractStr("algorithm");
+    key.name = extractStr("name");
+    key.publicKey = extractStr("pubkey");
+
+    auto passPos = json.find("\"passphrase\"");
+    if (passPos != std::string::npos) {
+        key.passphrase.algorithm = "m.pbkdf2";
+        key.passphrase.iterations = extractInt("iterations");
+        if (key.passphrase.iterations == 0) key.passphrase.iterations = 500000;
+        key.passphrase.salt = extractStr("salt");
+    }
+
+    key.valid = !key.algorithm.empty() && !key.publicKey.empty();
+    return key;
+}
+
+std::string secretStorageKeyToJson(const SecretStorageKey& key) {
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"keyId": ")" << esc(key.keyId) << R"(",)";
+    json << R"("algorithm": ")" << esc(key.algorithm) << R"(",)";
+    json << R"("name": ")" << esc(key.name) << R"(",)";
+    json << R"("valid": )" << (key.valid ? "true" : "false") << ",";
+    json << R"("hasPassphrase": )" << (key.hasPassphrase() ? "true" : "false") << "}";
+    return json.str();
 }
 
 } // namespace progressive

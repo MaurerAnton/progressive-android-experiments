@@ -121,6 +121,26 @@ bool isValidPassphrase(const std::string& passphrase);
 // Get the minimum recommended passphrase length.
 int getMinPassphraseLength();
 
+// ---- Secure Storage Key (4S/SSSS) from SecretStorageKeyContent.kt (103L) ----
+struct SsssPassphrase {
+    std::string algorithm;
+    int iterations = 500000;
+    std::string salt;
+};
+
+struct SecretStorageKey {
+    std::string keyId;
+    std::string algorithm;
+    std::string name;
+    std::string publicKey;
+    SsssPassphrase passphrase;
+    bool valid = false;
+    bool hasPassphrase() const { return !passphrase.salt.empty(); }
+};
+
+SecretStorageKey parseSecretStorageKey(const std::string& keyId, const std::string& json);
+std::string secretStorageKeyToJson(const SecretStorageKey& key);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_KEY_BACKUP_HPP
