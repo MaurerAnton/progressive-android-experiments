@@ -228,4 +228,36 @@ void sortMembersByPowerAndName(std::vector<MemberInfo>& members) {
     std::sort(members.begin(), members.end(), memberCompare);
 }
 
+// ==== Membership Diff (from TimelineEventVisibilityHelper.kt:261-279) ====
+
+MembershipDiff computeMembershipDiff(
+    Membership oldMembership, Membership newMembership,
+    const std::string& oldName, const std::string& newName,
+    const std::string& oldAvatar, const std::string& newAvatar,
+    bool isSelf)
+{
+    MembershipDiff diff;
+
+    // Original: val isMembershipChanged = content?.membership != prevContent?.membership
+    bool membershipChanged = (oldMembership != newMembership);
+
+    // Original: val isJoin = isMembershipChanged && content?.membership == Membership.JOIN
+    diff.isJoin = membershipChanged && newMembership == Membership::Join;
+
+    // Original: val isPart = isMembershipChanged && content?.membership == LEAVE && root.stateKey == root.senderId
+    diff.isPart = membershipChanged && newMembership == Membership::Leave && isSelf;
+
+    // Original: val isProfileChanged = !isMembershipChanged && content?.membership == Membership.JOIN
+    bool profileChanged = !membershipChanged && newMembership == Membership::Join;
+
+    // Original: val isDisplaynameChange = isProfileChanged && content?.displayName != prevContent?.displayName
+    diff.isDisplaynameChange = profileChanged && oldName != newName;
+
+    // Original: val isAvatarChange = isProfileChanged && content?.avatarUrl !== prevContent?.avatarUrl
+    diff.isAvatarChange = profileChanged && oldAvatar != newAvatar;
+
+    diff.hasChanged = diff.isJoin || diff.isPart || diff.isDisplaynameChange || diff.isAvatarChange;
+    return diff;
+}
+
 } // namespace progressive

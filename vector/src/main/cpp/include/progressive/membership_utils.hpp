@@ -85,6 +85,29 @@ std::string memberListToJson(const MemberListInfo& list);
 void sortMembersByPowerAndName(std::vector<MemberInfo>& members);
 bool memberCompare(const MemberInfo& a, const MemberInfo& b);
 
+// ---- Membership Diff (from TimelineEventVisibilityHelper.kt:261-279) ----
+// Detects what changed between two membership events.
+// Original: computeMembershipDiff() → MembershipDiff
+
+struct MembershipDiff {
+    bool isJoin = false;
+    bool isPart = false;
+    bool isDisplaynameChange = false;
+    bool isAvatarChange = false;
+    bool hasChanged = false;  // any change at all
+};
+
+// Compute the difference between two membership states.
+// @param oldMembership, newMembership — previous and current membership
+// @param oldName, newName — previous and current display name
+// @param oldAvatar, newAvatar — previous and current avatar URL
+// @param isSelf — true if sender == stateKey (for part detection)
+MembershipDiff computeMembershipDiff(
+    Membership oldMembership, Membership newMembership,
+    const std::string& oldName, const std::string& newName,
+    const std::string& oldAvatar, const std::string& newAvatar,
+    bool isSelf);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_MEMBERSHIP_UTILS_HPP
