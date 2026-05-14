@@ -19,8 +19,8 @@ namespace progressive {
 //       return LoginFlows(flows)
 //   }
 
-LoginLoginAuthFlowsResult parseLoginFlows(const std::string& json) {
-    LoginLoginAuthFlowsResult result;
+LoginAuthFlowsResult parseLoginFlows(const std::string& json) {
+    LoginAuthFlowsResult result;
 
     // Find the "flows" array
     auto flowsPos = json.find("\"flows\"");

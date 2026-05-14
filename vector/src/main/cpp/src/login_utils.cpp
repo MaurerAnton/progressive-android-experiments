@@ -8,7 +8,7 @@
 
 namespace progressive {
 
-std::vector<LoginFlow> parseLoginFlows(const std::string& apiResponseJson) {
+std::vector<LoginFlow> parseLoginFlowsList(const std::string& apiResponseJson) {
     std::vector<LoginFlow> flows;
 
     // Parse "flows": [{"type": "m.login.password"}, ...]

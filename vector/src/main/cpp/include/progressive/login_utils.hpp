@@ -61,7 +61,7 @@ struct LoginResult {
 };
 
 // Parse available login flows from /login response.
-std::vector<LoginFlow> parseLoginFlows(const std::string& apiResponseJson);
+std::vector<LoginFlow> parseLoginFlowsList(const std::string& apiResponseJson);
 
 // Build the login request body JSON.
 std::string buildLoginBody(const LoginParams& params);
