@@ -142,6 +142,32 @@ bool isDelegatedOidcEnabled(const HomeServerCapabilities& caps);
 // Format capabilities as JSON.
 std::string capabilitiesToJson(const HomeServerCapabilities& caps);
 
+// ---- HomeServer Version (from HomeServerVersion.kt:25-66) ----
+// Parses server version strings in format "rX.Y.Z" or "vX.Y.Z"
+// Implements comparison for feature compatibility checks.
+
+struct HomeServerVersion {
+    int major = 0;
+    int minor = 0;
+    int patch = 0;
+
+    bool operator<(const HomeServerVersion& other) const;
+    bool operator>=(const HomeServerVersion& other) const { return !(*this < other); }
+    std::string toString() const;
+};
+
+// Parse a server version string: "r0.6.1", "v1.11.0"
+HomeServerVersion parseHomeServerVersion(const std::string& versionStr);
+
+// Known server versions for capability checks.
+namespace ServerVersion {
+    constexpr int R0_0_0[] = {0,0,0};
+    constexpr int R0_6_1[] = {0,6,1};
+    constexpr int V1_3_0[] = {1,3,0};
+    constexpr int V1_4_0[] = {1,4,0};
+    constexpr int V1_11_0[] = {1,11,0};
+}
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_SERVER_CAPABILITIES_HPP

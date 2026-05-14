@@ -195,6 +195,42 @@ std::string capabilitiesToJson(const HomeServerCapabilities& caps) {
     json << R"("delegatedOidcEnabled": )" << (isDelegatedOidcEnabled(caps) ? "true" : "false");
     json << "}";
     return json.str();
+    return json.str();
+}
+
+// ==== HomeServer Version (from HomeServerVersion.kt:30-66) ====
+bool HomeServerVersion::operator<(const HomeServerVersion& other) const {
+    if (major != other.major) return major < other.major;
+    if (minor != other.minor) return minor < other.minor;
+    return patch < other.patch;
+}
+
+std::string HomeServerVersion::toString() const {
+    return "r" + std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+}
+
+HomeServerVersion parseHomeServerVersion(const std::string& versionStr) {
+    HomeServerVersion ver;
+
+    // Original: pattern = Regex("""[r|v](\d+)\.(\d+)(?:\.(\d+))?""")
+    // Parse "r0.6.1" or "v1.11.0" or "r0.4"
+    const char* s = versionStr.c_str();
+    if (*s == 'r' || *s == 'v') s++; else return ver;
+
+    // Parse major
+    while (*s >= '0' && *s <= '9') { ver.major = ver.major * 10 + (*s - '0'); s++; }
+    if (*s != '.') return ver; s++;
+
+    // Parse minor
+    while (*s >= '0' && *s <= '9') { ver.minor = ver.minor * 10 + (*s - '0'); s++; }
+
+    // Parse optional patch
+    if (*s == '.') {
+        s++;
+        while (*s >= '0' && *s <= '9') { ver.patch = ver.patch * 10 + (*s - '0'); s++; }
+    }
+
+    return ver;
 }
 
 } // namespace progressive
