@@ -1080,6 +1080,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeFormatUnreadCounter(count: Int): String
     @JvmStatic external fun nativeFormatBadgeText(totalCount: Int): String
 
+    // --- Permalink Parser (updated) ---
+
+    @JvmStatic external fun nativeParsePermalinkFull(url: String): String
+
     // --- Kotlin fallbacks for Slash Commands ---
 
     fun parseSlashCommandFallback(text: String): JSONObject {

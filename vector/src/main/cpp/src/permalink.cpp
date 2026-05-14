@@ -94,4 +94,126 @@ bool isSameRoomPermalink(const std::string& url1, const std::string& url2) {
     return extractRoomIdFromPermalink(url1) == extractRoomIdFromPermalink(url2);
 }
 
+// ---- Enhanced Permalink Parser (from PermalinkParser.kt:45-88) ----
+// Original Kotlin:
+//   fun parse(uri: Uri): PermalinkData {
+//       val matrixToUri = MatrixToConverter.convert(uri) ?: return PermalinkData.FallbackLink(uri)
+//       val fragment = matrixToUri.toString().substringAfter("#")
+//       val safeFragment = fragment.substringBefore('?')
+//       val params = safeFragment.split("/").filter { it.isNotEmpty() }.take(2)
+//       val decodedIdentifier = decodedParams.getOrNull(0)
+//       return when {
+//           isUserId(decodedIdentifier) -> UserLink(userId = decodedIdentifier)
+//           isRoomId(decodedIdentifier) -> handleRoomIdCase(...)
+//           isRoomAlias(decodedIdentifier) -> RoomLink(roomIdOrAlias = ..., isRoomAlias = true)
+//           else -> FallbackLink(uri)
+//       }
+//   }
+
+PermalinkResult parsePermalinkFull(const std::string& url) {
+    PermalinkResult result;
+    result.fullUrl = url;
+
+    // First try the existing parser
+    result = parsePermalink(url);
+    if (!result.valid) {
+        result.fullUrl = url;
+        return result;
+    }
+
+    // Extract fragment (everything after #)
+    auto hashPos = url.find('#');
+    if (hashPos == std::string::npos) return result;
+    std::string fragment = url.substr(hashPos + 1);
+
+    // Get safe fragment (before ?)
+    auto queryPos = fragment.find('?');
+    std::string safeFragment = (queryPos != std::string::npos) ? fragment.substr(0, queryPos) : fragment;
+
+    // Extract via parameters
+    result.viaParameters = extractViaParameters(fragment);
+
+    // Check for email invite parameters
+    auto emailPos = fragment.find("email=");
+    auto signurlPos = fragment.find("signurl=");
+    if (emailPos != std::string::npos && signurlPos != std::string::npos) {
+        result.isEmailInvite = true;
+        // Extract email
+        emailPos += 6;
+        auto emailEnd = fragment.find('&', emailPos);
+        result.email = urlDecode(fragment.substr(emailPos, emailEnd - emailPos));
+        // Extract signurl
+        signurlPos += 8;
+        auto signurlEnd = fragment.find('&', signurlPos);
+        result.signUrl = urlDecode(fragment.substr(signurlPos, signurlEnd - signurlPos));
+        // Extract other params
+        auto extractParam = [&](const std::string& key) -> std::string {
+            auto kp = fragment.find(key + "=");
+            if (kp == std::string::npos) return "";
+            kp += key.size() + 1;
+            auto ke = fragment.find('&', kp);
+            return urlDecode(fragment.substr(kp, ke - kp));
+        };
+        result.roomName = extractParam("room_name");
+        result.inviterName = extractParam("inviter_name");
+        result.roomAvatarUrl = extractParam("room_avatar_url");
+        result.roomType = extractParam("room_type");
+        result.token = extractParam("token");
+        result.privateKey = extractParam("private_key");
+    }
+
+    result.isRoomAlias = !result.roomAlias.empty();
+    return result;
+}
+
+std::vector<std::string> extractViaParameters(const std::string& fragment) {
+    std::vector<std::string> vias;
+    // Original Kotlin: UrlQuerySanitizer(this).parameterList.filter { it.mParameter == "via" }
+    size_t pos = 0;
+    while (true) {
+        pos = fragment.find("via=", pos);
+        if (pos == std::string::npos) break;
+        pos += 4;
+        auto end = fragment.find('&', pos);
+        std::string value = (end != std::string::npos) ? fragment.substr(pos, end - pos) : fragment.substr(pos);
+        vias.push_back(urlDecode(value));
+        if (end == std::string::npos) break;
+        pos = end;
+    }
+    return vias;
+}
+
+bool isEmailInviteLink(const std::string& url) {
+    auto hashPos = url.find('#');
+    if (hashPos == std::string::npos) return false;
+    std::string fragment = url.substr(hashPos + 1);
+    return fragment.find("email=") != std::string::npos && fragment.find("signurl=") != std::string::npos;
+}
+
+std::string urlDecode(const std::string& encoded) {
+    std::string result;
+    for (size_t i = 0; i < encoded.size(); ++i) {
+        if (encoded[i] == '%' && i + 2 < encoded.size()) {
+            char high = encoded[i + 1];
+            char low = encoded[i + 2];
+            auto hexVal = [](char c) -> int {
+                if (c >= '0' && c <= '9') return c - '0';
+                if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+                if (c >= 'a' && c <= 'f') return c - 'a' + 10;
+                return -1;
+            };
+            int h = hexVal(high);
+            int l = hexVal(low);
+            if (h >= 0 && l >= 0) {
+                result += static_cast<char>((h << 4) | l);
+                i += 2;
+                continue;
+            }
+        }
+        if (encoded[i] == '+') result += ' ';
+        else result += encoded[i];
+    }
+    return result;
+}
+
 } // namespace progressive

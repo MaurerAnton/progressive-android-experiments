@@ -5099,6 +5099,30 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatBadgeText(
     return env->NewStringUTF(s.c_str());
 }
 
+// --- Permalink Parser (updated from PermalinkParser.kt) ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParsePermalinkFull(
+    JNIEnv* env, jclass, jstring jUrl
+) {
+    auto url = jUrl ? std::string(env->GetStringUTFChars(jUrl, nullptr)) : "";
+    if (jUrl) env->ReleaseStringUTFChars(jUrl, url.c_str());
+    auto result = progressive::parsePermalinkFull(url);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"valid": )" << (result.valid ? "true" : "false") << ",";
+    json << R"("type": ")" << esc(result.type) << R"(",)";
+    json << R"("roomId": ")" << esc(result.roomId) << R"(",)";
+    json << R"("userId": ")" << esc(result.userId) << R"(",)";
+    json << R"("eventId": ")" << esc(result.eventId) << R"(",)";
+    json << R"("isEmailInvite": )" << (result.isEmailInvite ? "true" : "false") << ",";
+    json << R"("email": ")" << esc(result.email) << R"(")";
+    json << "}";
+    return env->NewStringUTF(json.str().c_str());
+}
+
 // --- Sync Utils ---
 
 JNIEXPORT jstring JNICALL

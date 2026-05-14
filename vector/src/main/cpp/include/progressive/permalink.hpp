@@ -2,10 +2,14 @@
 #define PROGRESSIVE_PERMALINK_HPP
 
 #include <string>
+#include <vector>
 
 namespace progressive {
 
 // ---- Matrix Permalink Utilities ----
+// Faithful port from original Kotlin:
+//   org.matrix.android.sdk.api.session.permalinks.PermalinkParser.kt (144 lines)
+//   Also: MatrixToConverter.kt, PermalinkData.kt
 
 struct PermalinkResult {
     std::string fullUrl;          // https://matrix.to/#/!room:server/$event
@@ -15,6 +19,20 @@ struct PermalinkResult {
     std::string roomAlias;
     std::string type;             // "room", "user", "event"
     bool valid = false;
+    bool isRoomAlias = false;     // #alias:server (vs !room:server)
+    std::vector<std::string> viaParameters; // via server names
+
+    // Room email invite fields (from PermalinkParser.kt:101-112)
+    std::string email;            // invitee email
+    std::string signUrl;          // identity server sign URL
+    std::string identityServer;   // identity server host
+    std::string token;            // invitation token
+    std::string privateKey;       // invitation private key
+    std::string roomName;         // room name from params
+    std::string inviterName;      // inviter name from params
+    std::string roomAvatarUrl;    // room avatar from params
+    std::string roomType;         // room type from params
+    bool isEmailInvite = false;   // this is an email invite link
 };
 
 // Build a matrix.to permalink for a room.
@@ -49,6 +67,22 @@ std::string formatPermalinkForShare(const PermalinkResult& info);
 
 // Check if two permalinks point to the same room.
 bool isSameRoomPermalink(const std::string& url1, const std::string& url2);
+
+// Parse a matrix.to permalink with full parameter extraction.
+// Faithful to PermalinkParser.kt:parse(uri)
+// Handles: user links, room links, room+event links, room alias links,
+//   room email invite links (signurl, email, token), group links
+PermalinkResult parsePermalinkFull(const std::string& url);
+
+// Extract via parameters from a permalink fragment.
+// Original Kotlin: String.getViaParameters()
+std::vector<std::string> extractViaParameters(const std::string& fragment);
+
+// Check if a permalink is a room email invite link.
+bool isEmailInviteLink(const std::string& url);
+
+// URL-decode a string (replaces %20 with space, etc.)
+std::string urlDecode(const std::string& encoded);
 
 } // namespace progressive
 
