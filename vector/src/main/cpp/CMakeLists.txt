@@ -140,6 +140,7 @@ add_library(
     src/agent_executor.cpp
     src/push_condition.cpp
     src/sender_notif_filter.cpp
+    src/string_order.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )

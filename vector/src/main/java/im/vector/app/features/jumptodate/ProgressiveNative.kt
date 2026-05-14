@@ -1062,6 +1062,12 @@ object ProgressiveNative {
     @JvmStatic external fun nativeShouldNotifyForSender(settingsJson: String, senderId: String, hasMention: Boolean, hasHighlight: Boolean): Boolean
     @JvmStatic external fun nativeToggleMuteSender(settingsJson: String, senderId: String, mute: Boolean): String
 
+    // --- String Order / Fractional Indexing ---
+    // Ported from: StringOrderUtils.kt, SpaceOrderUtils.kt
+
+    @JvmStatic external fun nativeStringMidPoints(left: String, right: String, count: Int): String
+    @JvmStatic external fun nativeStringAverage(left: String, right: String): String
+
     // --- Content Utils (MXC URLs, Message Types) ---
     // Ported from: ContentUrlResolver.kt, MessageContent.kt
 

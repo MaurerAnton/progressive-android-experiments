@@ -137,6 +137,7 @@
 #include "progressive/agent_executor.hpp"
 #include "progressive/push_condition.hpp"
 #include "progressive/sender_notif_filter.hpp"
+#include "progressive/string_order.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -1538,6 +1539,44 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeToggleMuteSender(
     else progressive::unmuteSender(settings, sender);
     auto result = progressive::senderNotifSettingsToJson(settings);
     return env->NewStringUTF(result.c_str());
+}
+
+// --- String Order / Fractional Indexing ---
+// Ported from: StringOrderUtils.kt (87L), SpaceOrderUtils.kt (105L)
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeStringMidPoints(
+    JNIEnv* env, jclass, jstring jLeft, jstring jRight, jint jCount
+) {
+    auto left = jLeft ? std::string(env->GetStringUTFChars(jLeft, nullptr)) : "";
+    auto right = jRight ? std::string(env->GetStringUTFChars(jRight, nullptr)) : "";
+    if (jLeft) env->ReleaseStringUTFChars(jLeft, left.c_str());
+    if (jRight) env->ReleaseStringUTFChars(jRight, right.c_str());
+
+    auto mids = progressive::stringMidPoints(left, right, jCount);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << "[";
+    for (size_t i = 0; i < mids.size(); ++i) {
+        if (i > 0) json << ",";
+        json << R"(")" << esc(mids[i]) << R"(")";
+    }
+    json << "]";
+    return env->NewStringUTF(json.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeStringAverage(
+    JNIEnv* env, jclass, jstring jLeft, jstring jRight
+) {
+    auto left = jLeft ? std::string(env->GetStringUTFChars(jLeft, nullptr)) : "";
+    auto right = jRight ? std::string(env->GetStringUTFChars(jRight, nullptr)) : "";
+    if (jLeft) env->ReleaseStringUTFChars(jLeft, left.c_str());
+    if (jRight) env->ReleaseStringUTFChars(jRight, right.c_str());
+    auto avg = progressive::stringAverage(left, right);
+    return env->NewStringUTF(avg.c_str());
 }
 
 } // extern "C"
