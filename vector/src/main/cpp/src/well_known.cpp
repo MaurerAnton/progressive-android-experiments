@@ -13,7 +13,7 @@ namespace progressive {
 //   data class HomeServer(@Json(name = "base_url") val baseUrl: String)
 //   data class IdentityServer(@Json(name = "base_url") val baseUrl: String)
 
-ServerDiscoveryResult parseWellKnown(const std::string& json) {
+ServerDiscoveryResult parseServerDiscovery(const std::string& json) {
     ServerDiscoveryResult result;
 
     // Original Kotlin: json.optJSONObject("m.homeserver")?.optString("base_url")

@@ -19,8 +19,8 @@ namespace progressive {
 //       return LoginFlows(flows)
 //   }
 
-AuthFlowsResult parseLoginFlows(const std::string& json) {
-    AuthFlowsResult result;
+LoginLoginAuthFlowsResult parseLoginFlows(const std::string& json) {
+    LoginLoginAuthFlowsResult result;
 
     // Find the "flows" array
     auto flowsPos = json.find("\"flows\"");
@@ -250,7 +250,7 @@ std::vector<std::string> getSupportedLoginTypes() {
     };
 }
 
-std::string loginFlowsToJson(const AuthFlowsResult& result) {
+std::string loginFlowsToJson(const LoginLoginAuthFlowsResult& result) {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
         for (char c : s) { if (c == '"') out += "\\\""; else out += c; }

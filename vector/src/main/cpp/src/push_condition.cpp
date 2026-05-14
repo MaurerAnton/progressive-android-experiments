@@ -208,11 +208,11 @@ bool evaluateEventMatchCondition(
 
 // ==== Generic Push Condition Evaluator ====
 
-PushCondition evaluatePushCondition(
-    const PushCondition& condition,
+EventPushCondition evaluateEventPushCondition(
+    const EventPushCondition& condition,
     const std::string& eventJson)
 {
-    PushCondition result = condition;
+    EventPushCondition result = condition;
 
     // Original: when (kind) { "event_match" -> ... }
     if (condition.kind == "event_match") {
@@ -224,7 +224,7 @@ PushCondition evaluatePushCondition(
     return result;
 }
 
-std::string pushConditionToJson(const PushCondition& condition) {
+std::string pushConditionToJson(const EventPushCondition& condition) {
     auto esc = [](const std::string& s) -> std::string {
         std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
     };
@@ -278,10 +278,10 @@ bool evaluateDisplayNameCondition(const std::string& eventJson, const std::strin
     return caseInsensitiveFind(body, displayName);
 }
 
-// ==== Push Rule & Rule Set (from PushRule.kt:62-142 + RuleSet.kt:39-70) ====
+// ==== Push Rule & Rule Set (from EventPushRule.kt:62-142 + RuleSet.kt:39-70) ====
 
-PushRule parsePushRule(const std::string& json) {
-    PushRule rule;
+EventPushRule parseEventPushRule(const std::string& json) {
+    EventPushRule rule;
 
     auto extractStr = [&](const std::string& key) -> std::string {
         auto search = "\"" + key + "\":\"";
@@ -338,21 +338,21 @@ PushRule parsePushRule(const std::string& json) {
     return rule;
 }
 
-PushRule setPushRuleSound(const PushRule& rule, const std::string& sound) {
-    PushRule updated = rule;
+EventPushRule setEventPushRuleSound(const EventPushRule& rule, const std::string& sound) {
+    EventPushRule updated = rule;
     updated.notificationSound = sound;
     return updated;
 }
 
-PushRule setPushRuleHighlight(const PushRule& rule, bool highlight) {
-    PushRule updated = rule;
+EventPushRule setEventPushRuleHighlight(const EventPushRule& rule, bool highlight) {
+    EventPushRule updated = rule;
     updated.shouldHighlight = highlight;
     return updated;
 }
 
-PushRule setPushRuleNotify(const PushRule& rule, bool notify) {
+EventPushRule setEventPushRuleNotify(const EventPushRule& rule, bool notify) {
     // Original: if (notify) add ACTION_NOTIFY, remove ACTION_DONT_NOTIFY
-    PushRule updated = rule;
+    EventPushRule updated = rule;
     updated.shouldNotify = notify;
     // Remove existing notify/dont_notify
     std::vector<std::string> newActions;
@@ -364,7 +364,7 @@ PushRule setPushRuleNotify(const PushRule& rule, bool notify) {
     return updated;
 }
 
-std::string pushRuleToJson(const PushRule& rule) {
+std::string pushRuleToJson(const EventPushRule& rule) {
     auto esc = [](const std::string& s) -> std::string {
         std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
     };

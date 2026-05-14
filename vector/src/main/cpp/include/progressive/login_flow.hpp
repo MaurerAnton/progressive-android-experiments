@@ -48,7 +48,7 @@ struct SsoProvider {
     std::string iconUrl;         // optional icon URL
 };
 
-struct AuthFlow {
+struct LoginAuthFlow {
     LoginFlowType type = LoginFlowType::Unknown;
     std::string rawType;         // original string from JSON
     std::vector<SsoProvider> ssoProviders; // for SSO flows only
@@ -56,7 +56,7 @@ struct AuthFlow {
     std::string requiredParameter;         // parameter name if required
 };
 
-struct AuthFlowsResult {
+struct LoginLoginAuthFlowsResult {
     std::vector<LoginFlow> flows;
     bool hasPassword = false;    // can login with password
     bool hasSso = false;         // can login via SSO
@@ -69,7 +69,7 @@ struct AuthFlowsResult {
 // Original Kotlin (LoginWizard.kt:parseLoginFlows):
 //   val response = authAPI.getLoginFlows()
 //   val flows = response.flows.map { LoginFlow(...) }
-AuthFlowsResult parseLoginFlows(const std::string& json);
+LoginAuthFlowsResult parseLoginFlows(const std::string& json);
 
 // Parse SSO identity providers from a login flow JSON object.
 std::vector<SsoProvider> parseSsoProviders(const std::string& flowJson);
@@ -88,7 +88,7 @@ std::string loginFlowTypeDescription(LoginFlowType type);
 std::string getSsoProviderIcon(const std::string& providerId);
 
 // Format login flows result as JSON for the Kotlin UI.
-std::string loginFlowsToJson(const LoginFlowsResult& result);
+std::string loginFlowsToJson(const LoginAuthFlowsResult& result);
 
 // ---- Registration Token ----
 // Parse m.login.registration_token from registration flows.

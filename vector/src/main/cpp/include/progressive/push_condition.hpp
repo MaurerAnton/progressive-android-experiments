@@ -53,7 +53,7 @@ bool simpleRegexMatch(const std::string& text, const std::string& regexPattern);
 bool simpleRegexContainsMatch(const std::string& text, const std::string& regexPattern);
 
 // Structure representing a push rule condition.
-struct PushCondition {
+struct EventPushCondition {
     std::string kind;        // "event_match", "room_member_count", "sender_notification_permission"
     std::string key;         // for event_match: "content.body", "sender", "room_id", "type"
     std::string pattern;     // glob pattern
@@ -73,7 +73,7 @@ std::string pushConditionToJson(const PushCondition& condition);
 // Models for Matrix push rules as defined in the spec:
 //   https://matrix.org/docs/spec/client_server/latest#push-rules
 
-struct PushRule {
+struct EventPushRule {
     std::string ruleId;
     bool enabled = true;
     bool isDefault = false;

@@ -33,7 +33,7 @@ struct ServerDiscoveryResult {
 //       val baseUrl = homeServer?.optString("base_url")
 //       return WellKnown(baseUrl, ...)
 //   }
-ServerDiscoveryResult parseWellKnown(const std::string& json);
+ServerDiscoveryResult parseServerDiscovery(const std::string& json);
 
 // Format a user-entered server URL (e.g. "matrix.org" → "https://matrix.org").
 // Original Kotlin (LoginServerUrlFormatter.kt:format):
