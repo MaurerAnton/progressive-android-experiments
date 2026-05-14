@@ -51,6 +51,15 @@ int suggestBarCount(int64_t durationMs);
 // Normalize amplitudes to 0.0-1.0 range.
 std::vector<double> normalizeAmplitudes(const std::vector<double>& amplitudes);
 
+// Sanitize waveform values for Matrix voice message spec.
+// Faithful port from org.matrix.android.sdk.internal.session.room.send.WaveFormSanitizer.kt (86L)
+// Original: sanitize(waveForm: List<Int>?): List<Int>?
+//   - Forces 30-120 values (repeats short, subsamples long)
+//   - Makes all values positive (abs)
+//   - Caps max value at 1024
+//   - Scales down proportionally if over max
+std::vector<int> sanitizeWaveform(const std::vector<int>& waveform);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_WAVEFORM_HPP

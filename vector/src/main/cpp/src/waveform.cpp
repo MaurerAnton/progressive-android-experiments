@@ -134,4 +134,59 @@ std::vector<double> normalizeAmplitudes(const std::vector<double>& amplitudes) {
     return result;
 }
 
+// ==== Waveform Sanitizer (from WaveFormSanitizer.kt:36-85) ====
+// Original Kotlin:
+//   fun sanitize(waveForm: List<Int>?): List<Int>? {
+//       // MIN_NUMBER_OF_VALUES = 30, MAX_NUMBER_OF_VALUES = 120, MAX_VALUE = 1024
+//       // 1. Extend short lists by repeating values
+//       // 2. Trim long lists by subsampling (keep every Nth)
+//       // 3. Make all values positive (abs)
+//       // 4. Cap max at 1024 and scale down if over
+
+std::vector<int> sanitizeWaveform(const std::vector<int>& waveform) {
+    const int MIN_VALUES = 30;
+    const int MAX_VALUES = 120;
+    const int MAX_VALUE = 1024;
+
+    if (waveform.empty()) return {};
+
+    // Step 1: Adjust size to be in [30, 120]
+    std::vector<int> sized;
+    if (static_cast<int>(waveform.size()) < MIN_VALUES) {
+        // Original: repeat values to reach at least 30
+        int repeatTimes = (MIN_VALUES + static_cast<int>(waveform.size()) - 1) / static_cast<int>(waveform.size());
+        for (int val : waveform) {
+            for (int r = 0; r < repeatTimes; ++r) sized.push_back(val);
+        }
+    } else if (static_cast<int>(waveform.size()) > MAX_VALUES) {
+        // Original: subsample — keep every Nth value
+        int keepOneOf = (static_cast<int>(waveform.size()) + MAX_VALUES - 1) / MAX_VALUES;
+        for (size_t i = 0; i < waveform.size(); ++i) {
+            if (i % keepOneOf == 0) sized.push_back(waveform[i]);
+        }
+    } else {
+        sized = waveform;
+    }
+
+    // Step 2: Make all values positive (abs)
+    std::vector<int> positive;
+    for (int val : sized) positive.push_back(std::abs(val));
+
+    // Step 3: Find max, scale down if > MAX_VALUE
+    int maxVal = 0;
+    for (int val : positive) if (val > maxVal) maxVal = val;
+    if (maxVal == 0) maxVal = MAX_VALUE;
+
+    if (maxVal > MAX_VALUE) {
+        // Original: scale down proportionally
+        std::vector<int> scaled;
+        for (int val : positive) {
+            scaled.push_back(val * MAX_VALUE / maxVal);
+        }
+        return scaled;
+    }
+
+    return positive;
+}
+
 } // namespace progressive
