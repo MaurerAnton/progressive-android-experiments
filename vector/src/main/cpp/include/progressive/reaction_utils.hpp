@@ -11,6 +11,7 @@ struct ReactionInfo {
     std::string emoji;         // "👍"
     int count = 0;
     bool addedByMe = false;
+    bool synced = true;        // from ReactionInfoData.synced — false if pending echo
     std::vector<std::string> userIds;  // who reacted
     int64_t firstTimestamp = 0;
 };
@@ -21,6 +22,7 @@ struct ReactionSummary {
     int totalReactions = 0;
     std::string topEmoji;      // most used reaction
     int uniqueReactors = 0;
+    bool showAll = false;      // from ReactionsSummaryData.showAll — expand collapsed
 };
 
 // Aggregate reactions from raw event data.
@@ -49,6 +51,9 @@ std::string extractReactionKey(const std::string& eventContentJson);
 
 // Check if two emojis are the same (handles variation selectors).
 bool isSameEmoji(const std::string& a, const std::string& b);
+
+// Format ReactionSummary as JSON with synced and showAll fields.
+std::string reactionSummaryToJson(const ReactionSummary& summary);
 
 } // namespace progressive
 

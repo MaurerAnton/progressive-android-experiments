@@ -132,4 +132,27 @@ bool isSameEmoji(const std::string& a, const std::string& b) {
     return strip(a) == strip(b);
 }
 
+std::string reactionSummaryToJson(const ReactionSummary& summary) {
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"eventId": ")" << esc(summary.eventId) << R"(",)";
+    json << R"("totalReactions": )" << summary.totalReactions << ",";
+    json << R"("topEmoji": ")" << esc(summary.topEmoji) << R"(",)";
+    json << R"("uniqueReactors": )" << summary.uniqueReactors << ",";
+    json << R"("showAll": )" << (summary.showAll ? "true" : "false") << ",";
+    json << R"("reactions": [)";
+    for (size_t i = 0; i < summary.reactions.size(); ++i) {
+        if (i > 0) json << ",";
+        const auto& r = summary.reactions[i];
+        json << R"({"emoji": ")" << esc(r.emoji) << R"(",)";
+        json << R"("count": )" << r.count << ",";
+        json << R"("addedByMe": )" << (r.addedByMe ? "true" : "false") << ",";
+        json << R"("synced": )" << (r.synced ? "true" : "false") << "}";
+    }
+    json << "]}";
+    return json.str();
+}
+
 } // namespace progressive
