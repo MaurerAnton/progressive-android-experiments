@@ -1030,6 +1030,14 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseMatrixError(json: String): String
     @JvmStatic external fun nativeGetErrorDescription(errorCode: String): String
 
+    // --- AI Agent Executor ---
+    // Enables /agent <task> — LLM-driven chat automation like Claude Code
+
+    @JvmStatic external fun nativeBuildAgentSystemPrompt(systemPrompt: String): String
+    @JvmStatic external fun nativeProcessAgentIteration(stateJson: String, llmResponse: String): String
+    @JvmStatic external fun nativeParseToolCalls(llmResponse: String): String
+    @JvmStatic external fun nativeExtractTextAnswer(llmResponse: String): String
+
     // --- Content Utils (MXC URLs, Message Types) ---
     // Ported from: ContentUrlResolver.kt, MessageContent.kt
 

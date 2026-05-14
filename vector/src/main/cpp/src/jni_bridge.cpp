@@ -134,6 +134,7 @@
 #include "progressive/room_name.hpp"
 #include "progressive/notif_format.hpp"
 #include "progressive/matrix_error.hpp"
+#include "progressive/agent_executor.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -1338,6 +1339,74 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetErrorDescripti
     if (jErrorCode) env->ReleaseStringUTFChars(jErrorCode, code.c_str());
     auto desc = progressive::getErrorDescription(code);
     return env->NewStringUTF(desc.c_str());
+}
+
+// --- AI Agent Executor ---
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeBuildAgentSystemPrompt(
+    JNIEnv* env, jclass, jstring jSystemPrompt
+) {
+    progressive::AgentConfig config;
+    if (jSystemPrompt) {
+        config.systemPrompt = std::string(env->GetStringUTFChars(jSystemPrompt, nullptr));
+        env->ReleaseStringUTFChars(jSystemPrompt, config.systemPrompt.c_str());
+    }
+    config.toolsDescription = progressive::getAgentToolsSchema();
+    auto prompt = progressive::buildAgentSystemPrompt(config);
+    return env->NewStringUTF(prompt.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeProcessAgentIteration(
+    JNIEnv* env, jclass, jstring jStateJson, jstring jLlmResponse
+) {
+    // Quick minimal parse of agent state from JSON
+    auto stateJson = jStateJson ? std::string(env->GetStringUTFChars(jStateJson, nullptr)) : "{}";
+    auto llmResp = jLlmResponse ? std::string(env->GetStringUTFChars(jLlmResponse, nullptr)) : "";
+    if (jStateJson) env->ReleaseStringUTFChars(jStateJson, stateJson.c_str());
+    if (jLlmResponse) env->ReleaseStringUTFChars(jLlmResponse, llmResp.c_str());
+
+    progressive::AgentState state;
+    state.llmResponse = llmResp;
+
+    auto updated = progressive::processAgentIteration(state, llmResp);
+    auto result = progressive::agentStateToJson(updated);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseToolCalls(
+    JNIEnv* env, jclass, jstring jLlmResponse
+) {
+    auto resp = jLlmResponse ? std::string(env->GetStringUTFChars(jLlmResponse, nullptr)) : "";
+    if (jLlmResponse) env->ReleaseStringUTFChars(jLlmResponse, resp.c_str());
+
+    auto calls = progressive::parseToolCalls(resp);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"hasToolCalls": )" << (!calls.empty() ? "true" : "false") << ",";
+    json << R"("calls": [)";
+    for (size_t i = 0; i < calls.size(); ++i) {
+        if (i > 0) json << ",";
+        json << R"({"name": ")" << esc(calls[i].toolName) << R"(")";
+        json << R"(,"arguments": )" << calls[i].argumentsJson;
+        json << R"(,"callId": ")" << esc(calls[i].callId) << R"("})";
+    }
+    json << "]}";
+    return env->NewStringUTF(json.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeExtractTextAnswer(
+    JNIEnv* env, jclass, jstring jLlmResponse
+) {
+    auto resp = jLlmResponse ? std::string(env->GetStringUTFChars(jLlmResponse, nullptr)) : "";
+    if (jLlmResponse) env->ReleaseStringUTFChars(jLlmResponse, resp.c_str());
+    auto answer = progressive::extractTextAnswer(resp);
+    return env->NewStringUTF(answer.c_str());
 }
 
 } // extern "C"

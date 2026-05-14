@@ -13,6 +13,36 @@ Currently an active fork of [Element](https://github.com/element-hq) Classic ([e
 - **Full Matrix compatibility** — no compromises on federation
 - **Open source** — AGPLv3
 
+## AI Agent (`/agent`)
+
+Progressive Chat includes an LLM-powered agent system — like Claude Code for your chats.
+
+```
+/agent find messages from Alice about the future
+/agent summarize what happened since yesterday
+/agent search for any mentions of "meeting" and tell me who said what
+```
+
+The agent can:
+- **Read** your chat history
+- **Search** messages by keyword
+- **Send** and **edit** messages
+- **List** room members and their profiles
+- **React** to messages with emoji
+- **Navigate** between rooms and DMs
+
+**How it works:**
+1. You write `/agent <task>` in any room
+2. The C++ `agent_executor` module builds a system prompt with room context + available tools
+3. It sends the request to your configured LLM (OpenAI / Anthropic API)
+4. The LLM can call "tools" (read messages, search, etc.) to gather information
+5. The agent loop continues until the task is complete or max iterations reached
+6. Results are displayed in the room
+
+**Configuration:** Set your LLM API endpoint in Labs → LLM Settings.
+
+**C++ modules used:** `agent_executor` (orchestrator), `llm` (API calls), `slash_command` (parsing)
+
 ## C++ Native Modules
 
 Progressive Chat replaces slow Kotlin/Java components with native C++:

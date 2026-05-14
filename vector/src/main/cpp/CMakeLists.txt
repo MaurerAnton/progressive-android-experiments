@@ -137,6 +137,7 @@ add_library(
     src/key_backup.cpp
     src/notif_format.cpp
     src/matrix_error.cpp
+    src/agent_executor.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )

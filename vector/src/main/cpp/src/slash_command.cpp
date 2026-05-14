@@ -63,6 +63,9 @@ static const CommandDef COMMANDS[] = {
 
     // --- Navigation ---
     {SlashCommandId::JumpToDate,   "/jumptodate", {}, "<YYYY-MM-DD> [HH:MM]", false, true, false},
+
+    // --- AI Agent ---
+    {SlashCommandId::Agent,        "/agent", {}, "<task description>", false, true, false},
 };
 
 const std::vector<CommandDef>& getCommandTable() {
@@ -485,6 +488,15 @@ ParsedCommand parseSlashCommand(const std::string& text, const std::string& form
             if (messageParts.size() == 2) {
                 result.resultType = ParseResultType::JumpToDate;
                 result.message = messageParts[1];
+            } else {
+                result.resultType = ParseResultType::ErrorSyntax;
+            }
+            break;
+
+        case SlashCommandId::Agent:
+            if (!message.empty()) {
+                result.resultType = ParseResultType::AgentTask;
+                result.message = message;
             } else {
                 result.resultType = ParseResultType::ErrorSyntax;
             }

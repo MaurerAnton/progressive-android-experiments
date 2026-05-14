@@ -85,6 +85,9 @@ enum class SlashCommandId {
 
     // Navigation
     JumpToDate,         // /jumptodate <YYYY-MM-DD> [HH:MM] (Labs-gated)
+
+    // AI Agent
+    Agent,              // /agent <task> — LLM-powered chat automation
 };
 
 struct CommandDef {
@@ -157,6 +160,7 @@ enum class ParseResultType {
     LeaveRoom,                  // /leave
     UpgradeRoom,                // /upgraderoom
     JumpToDate,                 // /jumptodate
+    AgentTask,                  // /agent — LLM agent task
 };
 
 struct ParsedCommand {
