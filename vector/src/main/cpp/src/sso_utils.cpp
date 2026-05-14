@@ -1,4 +1,5 @@
 #include "progressive/sso_utils.hpp"
+#include "progressive/login_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include "progressive/url_tools.hpp"
 #include <sstream>

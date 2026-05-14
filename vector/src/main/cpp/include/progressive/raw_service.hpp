@@ -96,10 +96,6 @@ bool shouldFetchFromNetwork(
     int64_t nowMillis
 );
 
-// Build the well-known URL for a domain.
-// Original Kotlin (DefaultRawService.kt:33-36):
-//   "https://$domain/.well-known/matrix/client"
-std::string buildWellKnownUrl(const std::string& domain);
 
 // Serialize a cache entry to JSON for storage.
 std::string rawCacheEntryToJson(const RawCacheEntry& entry);

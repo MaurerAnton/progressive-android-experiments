@@ -1,4 +1,5 @@
 #include "progressive/webrtc_utils.hpp"
+#include "progressive/event_classifier.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <chrono>
@@ -154,12 +155,6 @@ std::string getCallState(const std::string& eventContentJson) {
     if (eventContentJson.find("\"m.call.hangup\"") != std::string::npos) return "hangup";
     if (eventContentJson.find("\"m.call.reject\"") != std::string::npos) return "reject";
     return "unknown";
-}
-
-bool isCallEvent(const std::string& eventType) {
-    return eventType == "m.call.invite" || eventType == "m.call.answer" ||
-           eventType == "m.call.candidates" || eventType == "m.call.hangup" ||
-           eventType == "m.call.reject";
 }
 
 } // namespace progressive

@@ -1,4 +1,5 @@
 #include "progressive/backup_utils.hpp"
+#include "progressive/key_backup.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <algorithm>
@@ -71,10 +72,6 @@ bool isValidRecoveryKey(const std::string& key) {
         if (!std::isalnum(static_cast<unsigned char>(c)) && c != ' ') return false;
     }
     return true;
-}
-
-bool isValidPassphrase(const std::string& passphrase) {
-    return passphrase.size() >= 8;
 }
 
 std::string extractDefaultSecretKey(const std::string& accountDataJson) {

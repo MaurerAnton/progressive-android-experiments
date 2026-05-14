@@ -25,9 +25,6 @@ struct EmojiStats {
 // Analyze emoji usage from a list.
 EmojiStats analyzeEmojiUsage(const std::vector<std::string>& emojis);
 
-// Count emojis in a text message.
-int countEmojis(const std::string& text);
-
 // Extract all emojis from text.
 std::vector<std::string> extractEmojis(const std::string& text);
 

@@ -65,9 +65,6 @@ HomeserverUrl validateHomeserverUrl(const std::string& input);
 // Auto-detect if a URL is a homeserver or identity server.
 bool isHomeserverUrl(const std::string& url);
 
-// Build the /.well-known/matrix/client discovery URL.
-std::string buildWellKnownUrl(const std::string& serverName);
-
 } // namespace progressive
 
 #endif // PROGRESSIVE_SSO_UTILS_HPP

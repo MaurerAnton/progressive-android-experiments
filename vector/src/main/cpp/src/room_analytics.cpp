@@ -6,12 +6,6 @@
 
 namespace progressive {
 
-std::string extractServerName(const std::string& mxid) {
-    auto colon = mxid.find(':');
-    if (colon == std::string::npos || colon + 1 >= mxid.size()) return "";
-    return mxid.substr(colon + 1);
-}
-
 void sortByJoinDate(std::vector<UserStats>& users) {
     std::sort(users.begin(), users.end(), [](const UserStats& a, const UserStats& b) {
         return a.firstSeenMs < b.firstSeenMs;

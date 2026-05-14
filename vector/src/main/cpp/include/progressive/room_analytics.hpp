@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "progressive/well_known.hpp"
 #include <unordered_map>
 #include <cstdint>
 
@@ -42,8 +43,7 @@ RoomAnalytics computeRoomAnalytics(
     const std::vector<struct CacheEvent>& events
 );
 
-// Extract server name from MXID: @user:matrix.org → "matrix.org"
-std::string extractServerName(const std::string& mxid);
+// Extract server name from MXID: @user:matrix.org → "matrix.org" (see well_known.hpp)
 
 // Sort users by join date (oldest first).
 void sortByJoinDate(std::vector<UserStats>& users);

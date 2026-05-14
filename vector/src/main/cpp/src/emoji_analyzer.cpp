@@ -1,4 +1,5 @@
 #include "progressive/emoji_analyzer.hpp"
+#include "progressive/content_guard.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
@@ -31,18 +32,6 @@ static uint32_t utf8ToCodepoint(const std::string& s, size_t& i) {
     else if (c < 0xF0) { cp = ((c & 0x0F) << 12) | ((s[i+1] & 0x3F) << 6) | (s[i+2] & 0x3F); i += 2; }
     else { cp = ((c & 0x07) << 18) | ((s[i+1] & 0x3F) << 12) | ((s[i+2] & 0x3F) << 6) | (s[i+3] & 0x3F); i += 3; }
     return cp;
-}
-
-int countEmojis(const std::string& text) {
-    int count = 0;
-    for (size_t i = 0; i < text.size();) {
-        int len = utf8CharLen(text[i]);
-        if (i + len > text.size()) break;
-        uint32_t cp = utf8ToCodepoint(text, i);
-        if (isEmojiChar(cp)) count++;
-        i += len;
-    }
-    return count;
 }
 
 std::vector<std::string> extractEmojis(const std::string& text) {

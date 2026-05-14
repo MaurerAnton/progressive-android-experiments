@@ -70,9 +70,6 @@ bool isCallExpired(int64_t createdAtMs, int timeoutSeconds = 120);
 // Get call state from event content.
 std::string getCallState(const std::string& eventContentJson);
 
-// Check if an event is a call-related event.
-bool isCallEvent(const std::string& eventType);
-
 } // namespace progressive
 
 #endif // PROGRESSIVE_WEBRTC_UTILS_HPP

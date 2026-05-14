@@ -1,4 +1,5 @@
 #include "progressive/raw_service.hpp"
+#include "progressive/login_utils.hpp"
 
 namespace progressive {
 
@@ -112,19 +113,6 @@ bool shouldFetchFromNetwork(
             return true;
     }
     return true;
-}
-
-// ==== Well-Known URL ====
-//
-// Original Kotlin (DefaultRawService.kt:33-36):
-//   return getUrl(
-//       "https://$domain/.well-known/matrix/client",
-//       CacheStrategy.TtlCache(TimeUnit.HOURS.toMillis(8), false)
-//   )
-
-std::string buildWellKnownUrl(const std::string& domain) {
-    // Original Kotlin: "https://$domain/.well-known/matrix/client"
-    return "https://" + domain + "/.well-known/matrix/client";
 }
 
 // ==== Cache Serialization ====

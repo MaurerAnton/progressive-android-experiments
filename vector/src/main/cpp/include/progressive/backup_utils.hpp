@@ -45,9 +45,6 @@ std::string buildCreateBackupBody(const std::string& algorithm, const std::strin
 // Validate a backup recovery key format (base58, starts with "Es").
 bool isValidRecoveryKey(const std::string& key);
 
-// Extract the recovery key from a passphrase using PBKDF2-like derivation hints.
-bool isValidPassphrase(const std::string& passphrase);
-
 // ---- Secret Storage Utilities ----
 
 struct SecretInfo {
