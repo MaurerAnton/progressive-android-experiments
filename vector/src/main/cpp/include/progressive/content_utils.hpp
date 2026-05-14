@@ -165,6 +165,11 @@ bool isMimeTypeVideo(const std::string& mt);
 bool isMimeTypeAudio(const std::string& mt);
 bool isMimeTypeText(const std::string& mt);
 
+// ---- Message Format Constants (from MessageFormat.kt 21L) ----
+namespace MessageFormatStr {
+    constexpr const char* MATRIX_HTML = "org.matrix.custom.html";
+}
+
 // ---- Timeline Event Content Resolution (from TimelineEvent.kt:121-233) ----
 // Resolves the "latest" content considering edit chains and replies.
 
