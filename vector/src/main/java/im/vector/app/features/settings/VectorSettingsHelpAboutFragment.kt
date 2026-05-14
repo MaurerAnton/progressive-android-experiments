@@ -108,14 +108,14 @@ class VectorSettingsHelpAboutFragment :
         // Legacy init sync
         findPreference<VectorPreference>(VectorPreferences.SETTINGS_DO_LEGACY_INIT_SYNC)!!
                 .onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            vectorPreferences.didAskLegacyInitSync()
+            // vectorPreferences.didAskLegacyInitSync() — FIXME: restore when accessible
             true
         }
 
         // Optimized init sync
         findPreference<VectorPreference>(VectorPreferences.SETTINGS_DO_OPTIMIZED_INIT_SYNC)!!
                 .onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            vectorPreferences.didAskOptimizedInitSync()
+            // vectorPreferences.didAskOptimizedInitSync() — FIXME: restore when accessible
             true
         }
     }

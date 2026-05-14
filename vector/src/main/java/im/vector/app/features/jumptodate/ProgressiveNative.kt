@@ -986,7 +986,6 @@ object ProgressiveNative {
     // Ported from: TypingUsersTracker.kt, TypingHelper.kt, TypingView.kt
 
     @JvmStatic external fun nativeUpdateTypingState(roomId: String, typingUserIds: Array<String>, displayNames: Array<String>, nowMs: Long): String
-    @JvmStatic external fun nativeFormatTypingText(typingStateJson: String): String
     @JvmStatic external fun nativeIsUserTyping(typingStateJson: String, userId: String, nowMs: Long): Boolean
 
     // --- URL Preview / OpenGraph ---
@@ -995,7 +994,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseUrlPreview(html: String, baseUrl: String): String
     @JvmStatic external fun nativeExtractHtmlTitle(html: String): String
     @JvmStatic external fun nativeResolveUrl(baseUrl: String, relative: String): String
-    @JvmStatic external fun nativeIsImageUrl(url: String): Boolean
     @JvmStatic external fun nativeStripHtmlTags(html: String): String
 
     // --- Power Levels / Room Permissions ---
@@ -1010,7 +1008,6 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeParseWellKnown(json: String): String
     @JvmStatic external fun nativeFormatServerUrl(input: String): String
-    @JvmStatic external fun nativeExtractServerName(mxid: String): String
     @JvmStatic external fun nativeIsValidHomeserverUrl(url: String): Boolean
     @JvmStatic external fun nativeNeedsWellKnownLookup(input: String): Boolean
 
@@ -1072,7 +1069,6 @@ object ProgressiveNative {
     // Ported from: EventType.kt (146L), MessageType.kt (52L)
 
     @JvmStatic external fun nativeRouteEventForProcessing(eventType: String, msgType: String): String
-    @JvmStatic external fun nativeIsCallEvent(eventType: String): Boolean
     @JvmStatic external fun nativeIsVerificationEvent(eventType: String): Boolean
 
     // --- Content Guard ---
@@ -1100,7 +1096,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeResolveMxcDownloadUrl(mxcUrl: String, homeServerUrl: String): String
     @JvmStatic external fun nativeParseMessageContent(contentJson: String): String
     @JvmStatic external fun nativeIsMxcUri(url: String): Boolean
-    @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
 
     // --- Room State Parsers ---
     // Ported from: RoomJoinRules.kt, RoomHistoryVisibility.kt, RoomGuestAccess.kt, RoomCreate.kt
@@ -1133,7 +1128,6 @@ object ProgressiveNative {
 
     // --- Server Capabilities (updated from HomeServerCapabilities.kt) ---
 
-    @JvmStatic external fun nativeParseServerCapabilities(json: String): String
     @JvmStatic external fun nativeIsDelegatedOidcEnabled(authenticationIssuer: String): Boolean
 
     // --- Room Display Name ---
