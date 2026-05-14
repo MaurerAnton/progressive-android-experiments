@@ -124,6 +124,7 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_EMOJI_ATTACK_PROTECTION_KEY = "SETTINGS_LABS_EMOJI_ATTACK_PROTECTION_KEY"
         const val SETTINGS_LABS_EMOJI_MAX_COUNT_KEY = "SETTINGS_LABS_EMOJI_MAX_COUNT_KEY"
         const val SETTINGS_LABS_MEDIA_COLLAPSE_THRESHOLD_KEY = "SETTINGS_LABS_MEDIA_COLLAPSE_THRESHOLD_KEY"
+        const val SETTINGS_LABS_OFFLINE_CACHE_KEY = "SETTINGS_LABS_OFFLINE_CACHE_KEY"
         const val SETTINGS_LABS_DUPLICATE_NAMES_KEY = "SETTINGS_LABS_DUPLICATE_NAMES_KEY"
         const val SETTINGS_LABS_READ_RECEIPTS_KEY = "SETTINGS_LABS_READ_RECEIPTS_KEY"
         const val SETTINGS_READ_RECEIPTS_MAX_VISIBLE = "SETTINGS_READ_RECEIPTS_MAX_VISIBLE"
@@ -1570,6 +1571,10 @@ class VectorPreferences @Inject constructor(
 
     fun isFailFastEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY, false)
+    }
+
+    fun isOfflineCacheEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_OFFLINE_CACHE_KEY, false)
     }
 
     fun isDuplicateNamesEnabled(): Boolean {

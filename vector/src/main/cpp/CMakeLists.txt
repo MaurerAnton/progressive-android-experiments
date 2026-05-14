@@ -145,6 +145,7 @@ add_library(
     src/encrypted_file.cpp
     src/content_guard.cpp
     src/user_status.cpp
+    src/offline_cache.cpp
     src/olm.cpp
     src/jni_bridge.cpp
 )
