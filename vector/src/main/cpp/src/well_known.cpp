@@ -13,8 +13,8 @@ namespace progressive {
 //   data class HomeServer(@Json(name = "base_url") val baseUrl: String)
 //   data class IdentityServer(@Json(name = "base_url") val baseUrl: String)
 
-WellKnownResult parseWellKnown(const std::string& json) {
-    WellKnownResult result;
+ServerDiscoveryResult parseWellKnown(const std::string& json) {
+    ServerDiscoveryResult result;
 
     // Original Kotlin: json.optJSONObject("m.homeserver")?.optString("base_url")
     auto extractBaseUrl = [&](const std::string& section) -> std::string {
@@ -147,7 +147,7 @@ bool isValidIdentityServerUrl(const std::string& url) {
 }
 
 // ---- JSON serialization ----
-std::string wellKnownToJson(const WellKnownResult& result) {
+std::string wellKnownToJson(const ServerDiscoveryResult& result) {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
         for (char c : s) { if (c == '"') out += "\\\""; else out += c; }

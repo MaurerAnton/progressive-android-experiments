@@ -52,7 +52,7 @@ struct RoomFilter {
 };
 
 // Sync filter (from Filter)
-struct SyncFilter {
+struct RoomSyncFilter {
     RoomFilter room;            // room-specific filter
     std::vector<std::string> eventFields;  // fields to include in events
     std::string eventFormat;    // "client" or "federation"

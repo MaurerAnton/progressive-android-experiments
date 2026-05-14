@@ -4,41 +4,26 @@
 namespace progressive {
 
 // ==== EncryptedFileKey Validation (from EncryptedFileKey.kt:57-79) ====
-bool EncryptedFileKey::isValid() const {
-    // Original Kotlin: alg != "A256CTR" → return false
+bool EncryptedFileKey::isValid() {
     if (alg != "A256CTR") return false;
-    // Original: ext != true
     if (!ext) return false;
-    // Original: keyOps?.contains("encrypt") != true || !keyOps.contains("decrypt")
     bool hasEncrypt = false, hasDecrypt = false;
     for (const auto& op : keyOps) {
         if (op == "encrypt") hasEncrypt = true;
         if (op == "decrypt") hasDecrypt = true;
     }
     if (!hasEncrypt || !hasDecrypt) return false;
-    // Original: kty != "oct"
     if (kty != "oct") return false;
-    // Original: k.isNullOrBlank()
     if (k.empty()) return false;
-
-    valid = true;
     return true;
 }
 
-// ==== EncryptedFileInfo Validation (from EncryptedFileInfo.kt:61-83) ====
-bool EncryptedFileInfo::isValid() const {
-    // Original: url.isNullOrBlank()
+bool EncryptedFileInfo::isValid() {
     if (url.empty()) return false;
-    // Original: key?.isValid() != true
     if (!key.isValid()) return false;
-    // Original: iv.isNullOrBlank()
     if (iv.empty()) return false;
-    // Original: hashes?.containsKey("sha256") != true
     if (hashes.find("sha256") == hashes.end()) return false;
-    // Original: v != "v2"
     if (version != "v2") return false;
-
-    valid = true;
     return true;
 }
 

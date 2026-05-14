@@ -4,7 +4,7 @@
 namespace progressive {
 
 // ---- RoomEventFilter ----
-// Original Kotlin (SyncFilterBuilder.kt:RoomEventFilter):
+// Original Kotlin (RoomSyncFilterBuilder.kt:RoomEventFilter):
 //   data class RoomEventFilter(
 //       val enableUnreadThreadNotifications: Boolean? = null,
 //       val lazyLoadMembers: Boolean? = null,
@@ -81,14 +81,14 @@ std::string RoomFilter::toJson() const {
     return json.str();
 }
 
-// ---- SyncFilter ----
+// ---- RoomSyncFilter ----
 // Original Kotlin (Filter): data class Filter(val room: RoomFilter? = null, ...)
 
-bool SyncFilter::hasData() const {
+bool RoomSyncFilter::hasData() const {
     return room.hasData() || !eventFields.empty() || !eventFormat.empty();
 }
 
-std::string SyncFilter::toJson() const {
+std::string RoomSyncFilter::toJson() const {
     if (!hasData()) return "{}";
 
     std::ostringstream json;
@@ -120,7 +120,7 @@ std::string SyncFilter::toJson() const {
     return json.str();
 }
 
-// ---- SyncFilterBuilder logic (from SyncFilterBuilder.kt:57-94) ----
+// ---- RoomSyncFilterBuilder logic (from RoomSyncFilterBuilder.kt:57-94) ----
 // Original Kotlin:
 //   fun build(homeServerCapabilities: HomeServerCapabilities): Filter {
 //       return Filter(room = buildRoomFilter(homeServerCapabilities))
@@ -139,11 +139,11 @@ std::string SyncFilter::toJson() const {
 //   private fun buildStateFilter(): RoomEventFilter? =
 //       RoomEventFilter(lazyLoadMembers = lazyLoadMembersForStateEvents, types = supportedStateTypes).orNullIfEmpty()
 
-SyncFilter buildSyncFilter(
-    const SyncFilterParams& params,
+RoomSyncFilter buildRoomSyncFilter(
+    const RoomSyncFilterParams& params,
     bool canUseThreadReadReceiptsAndNotifications
 ) {
-    SyncFilter filter;
+    RoomSyncFilter filter;
 
     // Build timeline filter
     // Original: lazyLoadMembers = lazyLoadMembersForMessageEvents
@@ -174,8 +174,8 @@ SyncFilter buildSyncFilter(
     return filter;
 }
 
-SyncFilter getDefaultSyncFilter() {
-    SyncFilterParams params;
+RoomSyncFilter getDefaultRoomSyncFilter() {
+    RoomSyncFilterParams params;
     params.lazyLoadMembersForMessageEvents = true;
     params.lazyLoadMembersForStateEvents = true;
 
@@ -217,15 +217,15 @@ SyncFilter getDefaultSyncFilter() {
         "m.room.tombstone"
     };
 
-    return buildSyncFilter(params, false);
+    return buildRoomSyncFilter(params, false);
 }
 
-bool hasActiveFiltering(const SyncFilter& filter) {
+bool hasActiveFiltering(const RoomSyncFilter& filter) {
     // Original: orNullIfEmpty() — null if no data
     return filter.hasData();
 }
 
-std::string syncFilterToJson(const SyncFilter& filter) {
+std::string syncFilterToJson(const RoomSyncFilter& filter) {
     return filter.toJson();
 }
 

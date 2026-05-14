@@ -19,7 +19,7 @@ namespace progressive {
 //
 // This is the parsing/validation logic — HTTP fetching is done by Kotlin.
 
-struct WellKnownResult {
+struct ServerDiscoveryResult {
     std::string homeserverBaseUrl;    // e.g. https://matrix.example.com
     std::string identityServerUrl;    // e.g. https://vector.im
     bool isValid = false;            // at least homeserver present + valid

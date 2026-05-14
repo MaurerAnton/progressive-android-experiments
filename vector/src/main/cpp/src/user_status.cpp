@@ -1,6 +1,7 @@
 #include "progressive/user_status.hpp"
 #include <sstream>
 #include <ctime>
+#include <vector>
 
 namespace progressive {
 
