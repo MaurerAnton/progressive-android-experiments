@@ -996,6 +996,13 @@ object ProgressiveNative {
     @JvmStatic external fun nativeIsImageUrl(url: String): Boolean
     @JvmStatic external fun nativeStripHtmlTags(html: String): String
 
+    // --- Power Levels / Room Permissions ---
+    // Ported from: PowerLevelsContent.kt, RoomPermissions.kt, PowerLevelsHelper.kt
+
+    @JvmStatic external fun nativeParsePowerLevels(json: String): String
+    @JvmStatic external fun nativeComputeUserPermissions(powerLevelsJson: String, userId: String): String
+    @JvmStatic external fun nativeGetUserRole(powerLevel: Int): String
+
     // --- Kotlin fallbacks for Slash Commands ---
 
     fun parseSlashCommandFallback(text: String): JSONObject {

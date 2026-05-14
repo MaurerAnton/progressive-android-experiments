@@ -122,6 +122,7 @@
 #include "progressive/slash_command.hpp"
 #include "progressive/typing_monitor.hpp"
 #include "progressive/url_preview.hpp"
+#include "progressive/power_levels.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
 #include <sstream>
@@ -4592,6 +4593,61 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatMessageStat
 ) {
     auto s = progressive::formatMessageStatus(static_cast<progressive::MessageSendState>(jState));
     return env->NewStringUTF(s.c_str());
+}
+
+// --- Power Levels / Room Permissions ---
+// Ported from: PowerLevelsContent.kt, RoomPermissions.kt, PowerLevelsHelper.kt
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParsePowerLevels(
+    JNIEnv* env, jclass, jstring jJson
+) {
+    auto json = jJson ? std::string(env->GetStringUTFChars(jJson, nullptr)) : "{}";
+    if (jJson) env->ReleaseStringUTFChars(jJson, json.c_str());
+    auto pl = progressive::parsePowerLevels(json);
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream out;
+    out << "{";
+    out << R"("usersDefault": )" << pl.usersDefault << ",";
+    out << R"("eventsDefault": )" << pl.eventsDefault << ",";
+    out << R"("stateDefault": )" << pl.stateDefault << ",";
+    out << R"("inviteLevel": )" << pl.inviteLevel << ",";
+    out << R"("kickLevel": )" << pl.kickLevel << ",";
+    out << R"("banLevel": )" << pl.banLevel << ",";
+    out << R"("redactLevel": )" << pl.redactLevel << ",";
+    out << R"("notificationsRoomLevel": )" << pl.notificationsRoomLevel;
+    out << "}";
+    return env->NewStringUTF(out.str().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeUserPermissions(
+    JNIEnv* env, jclass, jstring jPowerLevelsJson, jstring jUserId
+) {
+    auto json = jPowerLevelsJson ? std::string(env->GetStringUTFChars(jPowerLevelsJson, nullptr)) : "{}";
+    auto userId = jUserId ? std::string(env->GetStringUTFChars(jUserId, nullptr)) : "";
+    if (jPowerLevelsJson) env->ReleaseStringUTFChars(jPowerLevelsJson, json.c_str());
+    if (jUserId) env->ReleaseStringUTFChars(jUserId, userId.c_str());
+
+    auto pl = progressive::parsePowerLevels(json);
+    auto perms = progressive::computeUserPermissions(pl, userId);
+    auto result = progressive::permissionsToJson(perms);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetUserRole(
+    JNIEnv* env, jclass, jint jPowerLevel
+) {
+    progressive::UserPermissions perms;
+    perms.powerLevel = jPowerLevel;
+    perms.isOwner = jPowerLevel >= 100;
+    perms.isAdmin = jPowerLevel >= 50;
+    perms.canKick = jPowerLevel >= 50;
+    auto role = progressive::getUserRole(perms);
+    return env->NewStringUTF(role.c_str());
 }
 
 // --- Sync Utils ---
