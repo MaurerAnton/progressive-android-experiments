@@ -145,6 +145,8 @@ add_library(
     src/key_backup.cpp
     src/notif_format.cpp
     src/matrix_error.cpp
+    src/message_content.cpp
+    src/message_extras.cpp
     src/agent_executor.cpp
     src/push_condition.cpp
     src/sender_notif_filter.cpp
