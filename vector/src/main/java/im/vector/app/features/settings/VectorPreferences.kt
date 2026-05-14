@@ -1560,6 +1560,18 @@ class VectorPreferences @Inject constructor(
         return count?.toIntOrNull() ?: 10
     }
 
+    fun isShowHiddenEventsEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_HIDDEN_EVENTS_PREFERENCE_KEY, false)
+    }
+
+    fun isShowDebugInfoOnScreenEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_SHOW_INFO_ON_SCREEN_KEY, false)
+    }
+
+    fun isFailFastEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY, false)
+    }
+
     fun isDuplicateNamesEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_DUPLICATE_NAMES_KEY, false)
     }
