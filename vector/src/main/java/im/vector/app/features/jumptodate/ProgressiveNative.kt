@@ -1256,6 +1256,14 @@ object ProgressiveNative {
     @JvmStatic external fun nativeApiSync(filter: String, since: String, timeout: Int): String
     @JvmStatic external fun nativeApiLogin(userId: String, password: String, deviceId: String): String
     @JvmStatic external fun nativeApiSendEvent(roomId: String, eventType: String, txnId: String, contentJson: String): String
+    @JvmStatic external fun nativeApiJoinRoom(roomId: String, reason: String): String
+    @JvmStatic external fun nativeApiLeaveRoom(roomId: String): String
+    @JvmStatic external fun nativeApiGetProfile(userId: String): String
+    @JvmStatic external fun nativeApiWhoAmI(): String
+    @JvmStatic external fun nativeApiLogout(): Boolean
+    @JvmStatic external fun nativeApiGetRoomMembers(roomId: String): String
+    @JvmStatic external fun nativeApiInviteUser(roomId: String, userId: String, reason: String): String
+    @JvmStatic external fun nativeApiAvailable(): Boolean
 
     // --- OIDC / MAS Authentication ---
 
@@ -1983,6 +1991,14 @@ object ProgressiveNative {
     @JvmStatic fun nativeApiSyncFallback(filter: String, since: String, timeout: Int): String =
         """{"next_batch":"","rooms_joined":0,"rooms_invited":0,"rooms_left":0,"events_total_timeline":0}"""
     @JvmStatic fun nativeApiSendEventFallback(roomId: String, eventType: String, txnId: String, contentJson: String): String = ""
+    @JvmStatic fun nativeApiJoinRoomFallback(roomId: String, reason: String): String = ""
+    @JvmStatic fun nativeApiLeaveRoomFallback(roomId: String): String = ""
+    @JvmStatic fun nativeApiGetProfileFallback(userId: String): String = "{}"
+    @JvmStatic fun nativeApiWhoAmIFallback(): String = """{"user_id":""}"""
+    @JvmStatic fun nativeApiLogoutFallback(): Boolean = false
+    @JvmStatic fun nativeApiGetRoomMembersFallback(roomId: String): String = """{"chunk":[]}"""
+    @JvmStatic fun nativeApiInviteUserFallback(roomId: String, userId: String, reason: String): String = ""
+    @JvmStatic fun nativeApiAvailableFallback(): Boolean = false
 
     // --- Native SQLite DB fallbacks ---
     @JvmStatic fun nativeSqliteDbOpenFallback(dbPath: String, key: String): Boolean =

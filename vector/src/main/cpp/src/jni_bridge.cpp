@@ -1384,4 +1384,44 @@ JNI_FUNC(jstring, nativeApiSendEvent)(JNIEnv* env, jclass, jstring jRoom, jstrin
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Room / Profile / Account API ---
+
+JNI_FUNC(jstring, nativeApiJoinRoom)(JNIEnv* env, jclass, jstring jRoom, jstring jReason) {
+    auto result = progressive::apiJoinRoom(jStr(env, jRoom), jStr(env, jReason));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiLeaveRoom)(JNIEnv* env, jclass, jstring jRoom) {
+    auto result = progressive::apiLeaveRoom(jStr(env, jRoom));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiGetProfile)(JNIEnv* env, jclass, jstring jUser) {
+    auto result = progressive::apiGetProfile(jStr(env, jUser));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiWhoAmI)(JNIEnv* env, jclass) {
+    auto result = progressive::apiWhoAmI();
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jboolean, nativeApiLogout)(JNIEnv* env, jclass) {
+    return progressive::apiLogout() ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeApiGetRoomMembers)(JNIEnv* env, jclass, jstring jRoom) {
+    auto result = progressive::apiGetRoomMembers(jStr(env, jRoom));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiInviteUser)(JNIEnv* env, jclass, jstring jRoom, jstring jUser, jstring jReason) {
+    auto result = progressive::apiInviteUser(jStr(env, jRoom), jStr(env, jUser), jStr(env, jReason));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jboolean, nativeApiAvailable)(JNIEnv* env, jclass) {
+    return progressive::nativeApiAvailable() ? JNI_TRUE : JNI_FALSE;
+}
+
 } // extern "C"
