@@ -285,13 +285,13 @@ inline std::vector<int> getEmojiCodes(const uint8_t* bytes6) {
     uint32_t b0 = bytes6[0], b1 = bytes6[1], b2 = bytes6[2];
     uint32_t b3 = bytes6[3], b4 = bytes6[4], b5 = bytes6[5];
     return {
-        (b0 >> 2) & 0x3f,
-        ((b0 & 0x03) << 4) | ((b1 & 0xf0) >> 4),
-        ((b1 & 0x0f) << 2) | ((b2 & 0xc0) >> 6),
-        b2 & 0x3f,
-        (b3 >> 2) & 0x3f,
-        ((b3 & 0x03) << 4) | ((b4 & 0xf0) >> 4),
-        ((b4 & 0x0f) << 2) | ((b5 & 0xc0) >> 6)
+        static_cast<int>((b0 >> 2) & 0x3f),
+        static_cast<int>(((b0 & 0x03) << 4) | ((b1 & 0xf0) >> 4)),
+        static_cast<int>(((b1 & 0x0f) << 2) | ((b2 & 0xc0) >> 6)),
+        static_cast<int>(b2 & 0x3f),
+        static_cast<int>((b3 >> 2) & 0x3f),
+        static_cast<int>(((b3 & 0x03) << 4) | ((b4 & 0xf0) >> 4)),
+        static_cast<int>(((b4 & 0x0f) << 2) | ((b5 & 0xc0) >> 6))
     };
 }
 
