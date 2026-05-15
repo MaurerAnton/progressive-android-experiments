@@ -131,6 +131,12 @@
 #include "progressive/common_utils.hpp"
 #include "progressive/event_utils.hpp"
 #include "progressive/content_builder.hpp"
+#include "progressive/displayname_utils.hpp"
+#include "progressive/permalink.hpp"
+#include "progressive/media_utils.hpp"
+#include "progressive/key_backup.hpp"
+#include "progressive/room_encryption.hpp"
+#include "progressive/event_display.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -1505,6 +1511,79 @@ JNI_FUNC(jboolean, nativeApiLogoutAll)(JNIEnv* env, jclass) {
 JNI_FUNC(jstring, nativeApiPublicRooms)(JNIEnv* env, jclass, jstring jServer, jstring jQuery, jint jLimit) {
     auto result = progressive::apiPublicRooms(jStr(env, jServer), jStr(env, jQuery), jLimit);
     return env->NewStringUTF(result.c_str());
+}
+
+// --- Display Name & Avatar Utilities ---
+
+JNI_FUNC(jstring, nativeUserIdToDisplayName)(JNIEnv* env, jclass, jstring jUserId, jboolean jCap) {
+    auto result = progressive::userIdToDisplayName(jStr(env, jUserId), jCap);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeGetInitials)(JNIEnv* env, jclass, jstring jName, jint jMax) {
+    auto result = progressive::getInitials(jStr(env, jName), jMax);
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Permalink Builder ---
+
+JNI_FUNC(jstring, nativeBuildEventPermalink)(JNIEnv* env, jclass, jstring jRoom, jstring jEvent) {
+    auto result = progressive::buildEventPermalink(jStr(env, jRoom), jStr(env, jEvent));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeBuildRoomPermalink)(JNIEnv* env, jclass, jstring jRoom) {
+    auto result = progressive::buildRoomPermalink(jStr(env, jRoom));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeBuildUserPermalink)(JNIEnv* env, jclass, jstring jUser) {
+    auto result = progressive::buildUserPermalink(jStr(env, jUser));
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Media Utilities ---
+
+JNI_FUNC(jstring, nativeFormatFileSize)(JNIEnv* env, jclass, jlong jBytes) {
+    auto result = progressive::formatFileSize(jBytes);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeMimeToMsgType)(JNIEnv* env, jclass, jstring jMime) {
+    auto result = progressive::mimeToMsgType(jStr(env, jMime));
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Key Backup ---
+
+JNI_FUNC(jstring, nativeFormatRecoveryKey)(JNIEnv* env, jclass, jstring jRaw) {
+    auto result = progressive::formatRecoveryKey(jStr(env, jRaw));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jboolean, nativeValidateRecoveryKey)(JNIEnv* env, jclass, jstring jKey) {
+    return progressive::validateRecoveryKey(jStr(env, jKey)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Room Encryption ---
+
+JNI_FUNC(jboolean, nativeIsRoomEncrypted)(JNIEnv* env, jclass, jstring jState) {
+    return progressive::isRoomEncrypted(jStr(env, jState)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Event Display ---
+
+JNI_FUNC(jboolean, nativeShouldShowTimestamp)(JNIEnv* env, jclass, jstring jSender, jlong jCurTs, jlong jPrevTs, jboolean jShowAll) {
+    return progressive::shouldShowTimestamp(jStr(env, jSender), jCurTs, jPrevTs, jShowAll) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- User ID Validation ---
+
+JNI_FUNC(jboolean, nativeIsValidUserId)(JNIEnv* env, jclass, jstring jUserId) {
+    auto id = jStr(env, jUserId);
+    if (id.empty() || id[0] != '@') return JNI_FALSE;
+    auto colon = id.find(':');
+    return colon != std::string::npos && colon > 1 && colon < id.size() - 1;
 }
 
 } // extern "C"

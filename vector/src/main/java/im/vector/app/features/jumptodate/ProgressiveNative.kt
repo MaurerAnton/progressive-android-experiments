@@ -1282,6 +1282,39 @@ object ProgressiveNative {
     @JvmStatic external fun nativeApiLogoutAll(): Boolean
     @JvmStatic external fun nativeApiPublicRooms(server: String, query: String, limit: Int): String
 
+    // --- Display Name & Avatar Utilities ---
+
+    @JvmStatic external fun nativeUserIdToDisplayName(userId: String, capitalize: Boolean): String
+    @JvmStatic external fun nativeGetInitials(name: String, maxChars: Int): String
+
+    // --- Permalink Builder ---
+
+    @JvmStatic external fun nativeBuildEventPermalink(roomId: String, eventId: String): String
+    @JvmStatic external fun nativeBuildRoomPermalink(roomId: String): String
+    @JvmStatic external fun nativeBuildUserPermalink(userId: String): String
+
+    // --- Media Utilities ---
+
+    @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
+    @JvmStatic external fun nativeMimeToMsgType(mimeType: String): String
+
+    // --- Key Backup ---
+
+    @JvmStatic external fun nativeFormatRecoveryKey(raw: String): String
+    @JvmStatic external fun nativeValidateRecoveryKey(key: String): Boolean
+
+    // --- Room Encryption ---
+
+    @JvmStatic external fun nativeIsRoomEncrypted(stateContentJson: String): Boolean
+
+    // --- Event Display ---
+
+    @JvmStatic external fun nativeShouldShowTimestamp(currentSender: String, currentTs: Long, previousTs: Long, showAll: Boolean): Boolean
+
+    // --- User ID Validation ---
+
+    @JvmStatic external fun nativeIsValidUserId(userId: String): Boolean
+
     // --- OIDC / MAS Authentication ---
 
     @JvmStatic external fun nativeDiscoverOidc(homeserverUrl: String): String
@@ -2031,6 +2064,48 @@ object ProgressiveNative {
     @JvmStatic fun nativeApiGetVersionsFallback(): String = """{"versions":[]}"""
     @JvmStatic fun nativeApiLogoutAllFallback(): Boolean = false
     @JvmStatic fun nativeApiPublicRoomsFallback(server: String, query: String, limit: Int): String = """{"chunk":[]}"""
+
+    // --- Display Name & Avatar fallbacks ---
+    @JvmStatic fun nativeUserIdToDisplayNameFallback(userId: String, capitalize: Boolean): String {
+        val name = userId.removePrefix("@").substringBefore(":")
+        return if (capitalize) name.replaceFirstChar { it.uppercase() } else name
+    }
+    @JvmStatic fun nativeGetInitialsFallback(name: String, maxChars: Int): String = name.take(maxChars).uppercase()
+
+    // --- Permalink fallbacks ---
+    @JvmStatic fun nativeBuildEventPermalinkFallback(roomId: String, eventId: String): String = "https://matrix.to/#/$roomId/$eventId"
+    @JvmStatic fun nativeBuildRoomPermalinkFallback(roomId: String): String = "https://matrix.to/#/$roomId"
+    @JvmStatic fun nativeBuildUserPermalinkFallback(userId: String): String = "https://matrix.to/#/$userId"
+
+    // --- Media fallbacks ---
+    @JvmStatic fun nativeFormatFileSizeFallback(bytes: Long): String {
+        if (bytes < 1024) return "$bytes B"
+        val kb = bytes / 1024.0
+        if (kb < 1024) return "%.1f KB".format(kb)
+        return "%.1f MB".format(kb / 1024)
+    }
+    @JvmStatic fun nativeMimeToMsgTypeFallback(mimeType: String): String = when {
+        mimeType.startsWith("image/") -> "m.image"
+        mimeType.startsWith("video/") -> "m.video"
+        mimeType.startsWith("audio/") -> "m.audio"
+        else -> "m.file"
+    }
+
+    // --- Key Backup fallbacks ---
+    @JvmStatic fun nativeFormatRecoveryKeyFallback(raw: String): String = raw.chunked(4).joinToString(" ")
+    @JvmStatic fun nativeValidateRecoveryKeyFallback(key: String): Boolean = key.length == 59 && key.all { it in '0'..'9' || it in 'A'..'Z' || it in 'a'..'z' }
+
+    // --- Room Encryption fallback ---
+    @JvmStatic fun nativeIsRoomEncryptedFallback(stateContentJson: String): Boolean = stateContentJson.contains("m.megolm") || stateContentJson.contains("encrypted")
+
+    // --- Event Display fallback ---
+    @JvmStatic fun nativeShouldShowTimestampFallback(currentSender: String, currentTs: Long, previousTs: Long, showAll: Boolean): Boolean {
+        if (showAll) return true
+        return (currentTs - previousTs) > 300_000 // 5 minutes
+    }
+
+    // --- User ID fallback ---
+    @JvmStatic fun nativeIsValidUserIdFallback(userId: String): Boolean = userId.startsWith("@") && userId.contains(":")
 
     // --- Native SQLite DB fallbacks ---
     @JvmStatic fun nativeSqliteDbOpenFallback(dbPath: String, key: String): Boolean =
