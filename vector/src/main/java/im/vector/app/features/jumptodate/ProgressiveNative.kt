@@ -745,10 +745,6 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeExtractServers(roomsJson: String): String
 
-    // --- Widget Utils ---
-
-    @JvmStatic external fun nativeGetWidgetTypeName(type: String): String
-
     // --- SSO Utils ---
 
     @JvmStatic external fun nativeValidateHomeserverUrl(input: String): String
@@ -1342,6 +1338,28 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeIsJitsiWidget(type: String): Boolean
     @JvmStatic external fun nativeGetWidgetTypeName(type: String): String
+
+    // --- WebRTC / Calls ---
+
+    @JvmStatic external fun nativeIsCallExpired(createdAtMs: Long, timeoutSec: Int): Boolean
+    @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
+
+    // --- Notification Settings ---
+
+    @JvmStatic external fun nativeFormatNotifMode(mode: String): String
+    @JvmStatic external fun nativeParseNotifMode(action: String): String
+
+    // --- Crypto / E2EE ---
+
+    @JvmStatic external fun nativeIsValidDeviceKey(key: String): Boolean
+
+    // --- Server Info ---
+
+    @JvmStatic external fun nativeParseServerVersion(apiResponseJson: String): String
+
+    // --- Time Formatting ---
+
+    @JvmStatic external fun nativeFormatTimeAgoLabel(timestampMs: Long, nowMs: Long): String
 
     // --- OIDC / MAS Authentication ---
 
@@ -2177,6 +2195,45 @@ object ProgressiveNative {
         "jitsi", "m.jitsi" -> "Jitsi Meet"
         "etherpad", "m.etherpad" -> "Etherpad"
         else -> type
+    }
+
+    // --- WebRTC / Calls fallbacks ---
+    @JvmStatic fun nativeIsCallExpiredFallback(createdAtMs: Long, timeoutSec: Int): Boolean =
+        (System.currentTimeMillis() - createdAtMs) > timeoutSec * 1000
+    @JvmStatic fun nativeFormatCallDurationFallback(seconds: Int): String {
+        val m = seconds / 60; val s = seconds % 60
+        return if (m > 0) "${m}m ${s}s" else "${s}s"
+    }
+
+    // --- Notification Settings fallbacks ---
+    @JvmStatic fun nativeFormatNotifModeFallback(mode: String): String = when(mode) {
+        "all" -> "All messages"
+        "mentions" -> "Mentions only"
+        "none" -> "Muted"
+        else -> "Default"
+    }
+    @JvmStatic fun nativeParseNotifModeFallback(action: String): String = when {
+        action.contains("notify") -> "all"
+        action.contains("dont_notify") -> "none"
+        else -> "mentions"
+    }
+
+    // --- Crypto fallback ---
+    @JvmStatic fun nativeIsValidDeviceKeyFallback(key: String): Boolean =
+        key.length in 43..44 && key.all { it in 'A'..'Z' || it in 'a'..'z' || it in '0'..'9' || it == '+' || it == '/' || it == '=' }
+
+    // --- Server Info fallback ---
+    @JvmStatic fun nativeParseServerVersionFallback(apiResponseJson: String): String = "0.0.0"
+
+    // --- Time fallback ---
+    @JvmStatic fun nativeFormatTimeAgoLabelFallback(timestampMs: Long, nowMs: Long): String {
+        val diff = (nowMs - timestampMs) / 1000
+        return when {
+            diff < 60 -> "just now"
+            diff < 3600 -> "${diff / 60}m ago"
+            diff < 86400 -> "${diff / 3600}h ago"
+            else -> "${diff / 86400}d ago"
+        }
     }
 
     // --- Native SQLite DB fallbacks ---

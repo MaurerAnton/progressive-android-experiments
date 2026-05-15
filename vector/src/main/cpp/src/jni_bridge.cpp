@@ -1690,4 +1690,56 @@ JNI_FUNC(jstring, nativeGetWidgetTypeName)(JNIEnv* env, jclass, jstring jType) {
     return env->NewStringUTF(result.c_str());
 }
 
+// --- WebRTC / Calls ---
+
+JNI_FUNC(jboolean, nativeIsCallExpired)(JNIEnv* env, jclass, jlong jCreatedMs, jint jTimeout) {
+    return progressive::isCallExpired(jCreatedMs, jTimeout) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeFormatCallDuration)(JNIEnv* env, jclass, jint jSeconds) {
+    auto result = progressive::formatCallDuration(jSeconds);
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Notification Settings ---
+
+JNI_FUNC(jstring, nativeFormatNotifMode)(JNIEnv* env, jclass, jstring jMode) {
+    auto ms = jStr(env, jMode);
+    progressive::NotifMode m = progressive::NotifMode::Default;
+    if (ms == "all") m = progressive::NotifMode::All;
+    else if (ms == "mentions") m = progressive::NotifMode::Mentions;
+    else if (ms == "none") m = progressive::NotifMode::None;
+    auto result = progressive::formatNotifMode(m);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeParseNotifMode)(JNIEnv* env, jclass, jstring jAction) {
+    auto mode = progressive::parseNotifMode(jStr(env, jAction));
+    const char* s = "default";
+    if (mode == progressive::NotifMode::All) s = "all";
+    else if (mode == progressive::NotifMode::Mentions) s = "mentions";
+    else if (mode == progressive::NotifMode::None) s = "none";
+    return env->NewStringUTF(s);
+}
+
+// --- Crypto / E2EE ---
+
+JNI_FUNC(jboolean, nativeIsValidDeviceKey)(JNIEnv* env, jclass, jstring jKey) {
+    return progressive::isValidDeviceKey(jStr(env, jKey)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Server Info ---
+
+JNI_FUNC(jstring, nativeParseServerVersion)(JNIEnv* env, jclass, jstring jJson) {
+    auto result = progressive::parseServerVersion(jStr(env, jJson));
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Time Formatting ---
+
+JNI_FUNC(jstring, nativeFormatTimeAgoLabel)(JNIEnv* env, jclass, jlong jTs, jlong jNow) {
+    auto result = progressive::formatTimeAgoLabel(jTs, jNow);
+    return env->NewStringUTF(result.c_str());
+}
+
 } // extern "C"
