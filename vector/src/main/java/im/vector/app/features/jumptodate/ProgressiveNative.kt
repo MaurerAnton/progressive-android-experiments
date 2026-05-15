@@ -1221,6 +1221,14 @@ object ProgressiveNative {
         return tlsRequestFallback(host, port, request, timeoutMs)
     }
 
+    // --- Native API (homeserver config) ---
+
+    @JvmStatic external fun nativeSetHomeserverUrl(url: String)
+    @JvmStatic external fun nativeSetAccessToken(token: String)
+    @JvmStatic external fun nativeApiSync(filter: String, since: String, timeout: Int): String
+    @JvmStatic external fun nativeApiLogin(userId: String, password: String, deviceId: String): String
+    @JvmStatic external fun nativeApiSendEvent(roomId: String, eventType: String, txnId: String, contentJson: String): String
+
     // --- Live Draft ---
 
     @JvmStatic external fun nativeShouldAutoDraft(text: String, threshold: Int): Boolean

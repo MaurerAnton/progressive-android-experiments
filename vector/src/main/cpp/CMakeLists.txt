@@ -16,6 +16,7 @@ add_library(
     src/proxy.cpp
     src/yggdrasil.cpp
     src/markdown.cpp
+    src/matrix_api.cpp
     src/account_export.cpp
     src/audio_engine.cpp
     src/auth_models.cpp
