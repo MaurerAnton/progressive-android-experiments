@@ -1679,7 +1679,7 @@ object ProgressiveNative {
         val parts = args.trim().split(Regex("\\s+"), limit = 2)
         if (parts.isEmpty() || parts[0].isEmpty()) return """{"isValid":false}"""
         val engineWords = mapOf("ddg" to "ddg", "duckduckgo" to "ddg", "google" to "google", "g" to "google", "searxng" to "searxng", "sx" to "searxng")
-        val engine = if (parts.size >= 2 && parts[0] in engineWords) engineWords[parts[0]] else ""
+        val engine = if (parts.size >= 2 && parts[0] in engineWords) engineWords[parts[0]] ?: "" else ""
         val query = if (engine.isNotEmpty() && parts.size >= 2) parts[1] else args.trim()
         return """{"engine":"$engine","query":"$query","isValid":${query.isNotEmpty()}}"""
     }
