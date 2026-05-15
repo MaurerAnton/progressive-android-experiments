@@ -61,7 +61,6 @@
     <attr name="sc_fab_scrim_color" format="color" />
     <attr name="sc_link_color" format="color" />
     <attr name="unread_line_unimportant" format="color" />
-    <attr name="background" format="reference|color" />
     <attr name="boxStrokeColor" format="color" />
     <attr name="chipBackgroundColor" format="color" />
     <attr name="closeIconTint" format="color" />
