@@ -789,6 +789,96 @@ struct IntegrityResult {
 // ==== Matrix ID Failure ====
 enum class MatrixIdFailureType { INVALID = 0 };
 
+// ==== Server Version Feature Detection ====
+//
+// Original Kotlin (Versions.kt:55-178):
+//   extension functions on Versions data class:
+//   doesServerSupportThreads(), doesServerSupportLogoutDevices(),
+//   doesServerSupportAuthenticatedMedia(), doesServerSupportThreadUnreadNotifications(),
+//   isSupportedBySdk(), isLoginAndRegistrationSupportedBySdk(), etc.
+//
+// Compares HomeServerVersion against known version thresholds and checks unstable feature flags.
+
+struct ServerVersions {
+    std::vector<std::string> supportedVersions;   // ["r0.6.1", "v1.4.0", ...]
+    std::unordered_map<std::string, bool> unstableFeatures; // "org.matrix.msc3440" → true
+    bool empty() const { return supportedVersions.empty() && unstableFeatures.empty(); }
+};
+
+inline HomeServerVersion getMaxServerVersion(const ServerVersions& v) {
+    HomeServerVersion maxVer{0, 0, 0};
+    for (const auto& s : v.supportedVersions) {
+        auto ver = parseHomeServerVersion(s);
+        if (maxVer < ver) maxVer = ver;
+    }
+    return maxVer;
+}
+
+inline bool hasUnstableFeature(const ServerVersions& v, const std::string& feature) {
+    auto it = v.unstableFeatures.find(feature);
+    return it != v.unstableFeatures.end() && it->second;
+}
+
+// Feature detection constants (original Kotlin private consts)
+namespace MatrixFeature {
+    constexpr const char* LAZY_LOAD_MEMBERS = "m.lazy_load_members";
+    constexpr const char* REQUIRE_IDENTITY_SERVER = "m.require_identity_server";
+    constexpr const char* ID_ACCESS_TOKEN = "m.id_access_token";
+    constexpr const char* SEPARATE_ADD_AND_BIND = "m.separate_add_and_bind";
+    constexpr const char* THREADS_MSC3440_STABLE = "org.matrix.msc3440.stable";
+    constexpr const char* THREADS_MSC3771 = "org.matrix.msc3771";
+    constexpr const char* THREADS_MSC3773 = "org.matrix.msc3773";
+    constexpr const char* REMOTE_TOGGLE_PUSH_MSC3881 = "org.matrix.msc3881";
+    constexpr const char* REDACTION_RELATED_MSC3912 = "org.matrix.msc3912";
+}
+
+// Individual feature checks
+inline bool doesServerSupportLazyLoadMembers(const ServerVersions& v) {
+    return getMaxServerVersion(v) >= HomeServerVersion{0, 5, 0}
+        || hasUnstableFeature(v, MatrixFeature::LAZY_LOAD_MEMBERS);
+}
+inline bool isSupportedBySdk(const ServerVersions& v) { return doesServerSupportLazyLoadMembers(v); }
+
+inline bool doesServerSupportLogoutDevices(const ServerVersions& v) {
+    return getMaxServerVersion(v) >= HomeServerVersion{0, 6, 1};
+}
+inline bool doesServerSupportAuthenticatedMedia(const ServerVersions& v) {
+    return getMaxServerVersion(v) >= HomeServerVersion{1, 11, 0};
+}
+inline bool doesServerSupportThreads(const ServerVersions& v) {
+    return hasUnstableFeature(v, MatrixFeature::THREADS_MSC3440_STABLE);
+}
+inline bool doesServerSupportThreadUnreadNotifications(const ServerVersions& v) {
+    return getMaxServerVersion(v) >= HomeServerVersion{1, 4, 0}
+        || (hasUnstableFeature(v, MatrixFeature::THREADS_MSC3771)
+         && hasUnstableFeature(v, MatrixFeature::THREADS_MSC3773));
+}
+inline bool doesServerSupportRemoteTogglePush(const ServerVersions& v) {
+    return hasUnstableFeature(v, MatrixFeature::REMOTE_TOGGLE_PUSH_MSC3881);
+}
+inline bool doesServerSupportRedactionOfRelatedEvents(const ServerVersions& v) {
+    return hasUnstableFeature(v, MatrixFeature::REDACTION_RELATED_MSC3912);
+}
+
+inline bool doesServerRequireIdentityServerParam(const ServerVersions& v) {
+    if (getMaxServerVersion(v) >= HomeServerVersion{0, 6, 0}) return false;
+    auto it = v.unstableFeatures.find(MatrixFeature::REQUIRE_IDENTITY_SERVER);
+    return it == v.unstableFeatures.end() || it->second; // default true
+}
+inline bool doesServerAcceptIdentityAccessToken(const ServerVersions& v) {
+    return getMaxServerVersion(v) >= HomeServerVersion{0, 6, 0}
+        || hasUnstableFeature(v, MatrixFeature::ID_ACCESS_TOKEN);
+}
+inline bool doesServerSeparatesAddAndBind(const ServerVersions& v) {
+    return getMaxServerVersion(v) >= HomeServerVersion{0, 6, 0}
+        || hasUnstableFeature(v, MatrixFeature::SEPARATE_ADD_AND_BIND);
+}
+inline bool isLoginAndRegistrationSupported(const ServerVersions& v) {
+    return !doesServerRequireIdentityServerParam(v)
+        && doesServerAcceptIdentityAccessToken(v)
+        && doesServerSeparatesAddAndBind(v);
+}
+
 // ==== URL Parameter Builder ====
 //
 // Original Kotlin (UrlExtensions.kt:24-44):
