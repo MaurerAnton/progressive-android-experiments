@@ -31,9 +31,32 @@ internal class InitialSyncResponseParser @Inject constructor(
         private val roomSyncEphemeralTemporaryStore: RoomSyncEphemeralTemporaryStore
 ) {
 
+    /**
+     * Optional native C++ sync validator for Progressive Chat.
+     * Set by the app layer before starting sync. When non-null, the raw sync JSON
+     * is passed to this function for native parsing/validation alongside Moshi.
+     * Returns: the parsed SyncResponse (always from Moshi — native is for validation only).
+     */
+    companion object {
+        @JvmStatic
+        var nativeSyncValidator: ((String) -> Unit)? = null
+    }
+
     fun parse(syncStrategy: InitialSyncStrategy.Optimized, workingFile: File): SyncResponse {
         val syncResponseLength = workingFile.length().toInt()
         Timber.d("INIT_SYNC Sync file size is $syncResponseLength bytes")
+
+        // Progressive Chat: native C++ validation (Labs-gated, fires in parallel with Moshi)
+        val validator = nativeSyncValidator
+        if (validator != null) {
+            try {
+                val json = workingFile.readText()
+                validator(json)
+            } catch (e: Exception) {
+                Timber.w(e, "INIT_SYNC Native validator failed")
+            }
+        }
+
         val shouldSplit = syncResponseLength >= syncStrategy.minSizeToSplit
         Timber.d("INIT_SYNC should split in several files: $shouldSplit")
         return getMoshi(syncStrategy, shouldSplit)

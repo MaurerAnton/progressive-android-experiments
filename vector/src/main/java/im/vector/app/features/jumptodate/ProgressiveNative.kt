@@ -1457,6 +1457,7 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseEvent(json: String): String
     @JvmStatic external fun nativeParseTimeline(json: String): String
     @JvmStatic external fun nativeCountEventsInSync(json: String): Int
+    @JvmStatic external fun nativeSyncResponseRoundtrip(json: String): String
 
     // --- Timeline Chunk (native pagination engine) ---
 
@@ -2152,6 +2153,7 @@ object ProgressiveNative {
     @JvmStatic fun nativeParseTimelineFallback(json: String): String =
         """{"events_count":0,"limited":false,"prev_batch":""}"""
     @JvmStatic fun nativeCountEventsInSyncFallback(json: String): Int = 0
+    @JvmStatic fun nativeSyncResponseRoundtripFallback(json: String): String = json
 
     // --- Native API fallbacks ---
     @JvmStatic fun nativeSetHomeserverUrlFallback(url: String) {}

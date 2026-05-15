@@ -1356,6 +1356,13 @@ JNI_FUNC(jint, nativeCountEventsInSync)(JNIEnv* env, jclass, jstring jJson) {
     return total;
 }
 
+// Full sync JSON round-trip: parse → re-serialize (validates C++ parser against Moshi)
+JNI_FUNC(jstring, nativeSyncResponseRoundtrip)(JNIEnv* env, jclass, jstring jJson) {
+    auto response = progressive::parseSyncResponse(jStr(env, jJson));
+    auto result = progressive::syncResponseToJson(response);
+    return env->NewStringUTF(result.c_str());
+}
+
 // --- Native Matrix API (login, sync, send) ---
 // Controlled by Labs: SETTINGS_LABS_NATIVE_HTTP
 
