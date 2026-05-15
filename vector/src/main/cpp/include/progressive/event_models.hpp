@@ -651,4 +651,10 @@ namespace TimelineEventFilter {
     }
 }
 
+// ==== SAS Mode Constants ====
+namespace SasMode {
+    constexpr const char* DECIMAL = "decimal";
+    constexpr const char* EMOJI = "emoji";
+}
+
 } // namespace progressive

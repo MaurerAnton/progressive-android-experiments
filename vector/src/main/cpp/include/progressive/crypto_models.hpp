@@ -233,4 +233,11 @@ ImportRoomKeysResult parseImportRoomKeysResult(const std::string& json);
 std::string deviceInfoToJson(const DeviceInfo& info);
 std::string cryptoDeviceInfoToJson(const CryptoDeviceInfo& info);
 
+// ==== Global Crypto Config ====
+struct GlobalCryptoConfig {
+    bool globalBlockUnverifiedDevices = false;
+    bool globalEnableKeyGossiping = true;
+    bool enableKeyForwardingOnInvite = true;
+};
+
 } // namespace progressive
