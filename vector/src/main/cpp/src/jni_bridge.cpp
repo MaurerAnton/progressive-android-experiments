@@ -256,6 +256,14 @@ static progressive::LocationSharingManager g_locationSharing;
 #define JNI_FUNC(ret, name) \
     JNIEXPORT ret JNICALL Java_im_vector_app_features_jumptodate_ProgressiveNative_##name
 
+static std::string jStr(JNIEnv* env, jstring js) {
+    if (!js) return "";
+    const char* chars = env->GetStringUTFChars(js, nullptr);
+    std::string result(chars);
+    env->ReleaseStringUTFChars(js, chars);
+    return result;
+}
+
 extern "C" {
 
 /*

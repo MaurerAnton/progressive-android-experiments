@@ -159,4 +159,30 @@ inline std::string formatIsoDateTime(int64_t timestampMs) {
     return buf;
 }
 
+// Parse a JSON array of strings: ["a","b","c"] → vector of strings.
+inline std::vector<std::string> parseJsonStringArray(const std::string& json) {
+    std::vector<std::string> result;
+    size_t pos = 0;
+    while (pos < json.size() && json[pos] != '[') pos++;
+    if (pos >= json.size()) return result;
+    pos++;
+    while (pos < json.size()) {
+        while (pos < json.size() && (json[pos] == ' ' || json[pos] == '\t' || json[pos] == ',' || json[pos] == '\n')) pos++;
+        if (pos >= json.size() || json[pos] == ']') break;
+        if (json[pos] == '"') {
+            pos++;
+            size_t end = pos;
+            while (end < json.size() && json[end] != '"') {
+                if (json[end] == '\\') end++;
+                end++;
+            }
+            result.push_back(json.substr(pos, end - pos));
+            pos = end + 1;
+        } else {
+            pos++;
+        }
+    }
+    return result;
+}
+
 } // namespace progressive
