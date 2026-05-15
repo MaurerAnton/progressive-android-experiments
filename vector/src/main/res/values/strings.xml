@@ -1,4 +1,5 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <!-- Notification icon styles -->
     <string-array name="notification_icon_style_entries">
         <item>Element (default)</item>
@@ -10,3 +11,4 @@
         <item>chart_filled</item>
         <item>chart_outline</item>
     </string-array>
+</resources>
