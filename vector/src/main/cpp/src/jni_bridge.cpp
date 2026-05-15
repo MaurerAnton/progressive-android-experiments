@@ -2161,6 +2161,26 @@ JNI_FUNC(jint, nativeCompareSemver)(JNIEnv* env, jclass, jstring jA, jstring jB)
     return progressive::compareSemver(jStr(env, jA), jStr(env, jB));
 }
 
+// --- Knock Reason ---
+
+JNI_FUNC(jstring, nativeFormatKnockReason)(JNIEnv* env, jclass, jstring jReason) {
+    auto result = progressive::formatKnockReason(jStr(env, jReason));
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Server Compatibility ---
+
+JNI_FUNC(jboolean, nativeIsServerCompatible)(JNIEnv* env, jclass, jstring jVersion, jstring jMinRequired) {
+    return progressive::isServerCompatible(jStr(env, jVersion), jStr(env, jMinRequired)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Device Fingerprint ---
+
+JNI_FUNC(jstring, nativeExtractDeviceFingerprint)(JNIEnv* env, jclass, jstring jDeviceId, jstring jKeysJson) {
+    auto result = progressive::extractDeviceFingerprint(jStr(env, jDeviceId), jStr(env, jKeysJson));
+    return env->NewStringUTF(result.c_str());
+}
+
 // --- Key Backup Extended ---
 
 JNI_FUNC(jstring, nativeGetRecoveryKeyExample)(JNIEnv* env, jclass) {

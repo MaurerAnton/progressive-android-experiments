@@ -1454,9 +1454,23 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeClassifyDeviceType(userAgent: String, clientName: String): String
 
-    // --- Version Comparison ---
+    @JvmStatic external fun nativeTruncateDescription(text: String, maxLen: Int): String
 
-    @JvmStatic external fun nativeCompareSemver(a: String, b: String): Int
+    // --- Device Type ---
+
+    @JvmStatic external fun nativeClassifyDeviceType(userAgent: String, clientName: String): String
+
+    // --- Knock Reason ---
+
+    @JvmStatic external fun nativeFormatKnockReason(reason: String): String
+
+    // --- Server Compatibility ---
+
+    @JvmStatic external fun nativeIsServerCompatible(serverVersion: String, minRequired: String): Boolean
+
+    // --- Device Fingerprint ---
+
+    @JvmStatic external fun nativeExtractDeviceFingerprint(deviceId: String, keysJson: String): String
 
     // --- OIDC / MAS Authentication ---
 
@@ -2544,5 +2558,13 @@ object ProgressiveNative {
         }
         return 0
     }
+
+    // --- Knock / Server / Fingerprint fallbacks ---
+    @JvmStatic fun nativeFormatKnockReasonFallback(reason: String): String = reason.ifEmpty { "No reason provided" }
+    @JvmStatic fun nativeIsServerCompatibleFallback(serverVersion: String, minRequired: String): Boolean {
+        val r = nativeCompareSemverFallback(serverVersion, minRequired)
+        return r >= 0
+    }
+    @JvmStatic fun nativeExtractDeviceFingerprintFallback(deviceId: String, keysJson: String): String = deviceId.take(10)
 
 }
