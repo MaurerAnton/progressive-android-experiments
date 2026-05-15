@@ -5,6 +5,8 @@
 #include <vector>
 #include <cstdint>
 
+#include "progressive/crypto_algorithms.hpp"
+
 namespace progressive {
 
 // ---- Key Backup / Recovery Key Formatter ----
@@ -69,11 +71,8 @@ std::string extractCurveKeyFromRecoveryKey(const std::string& recoveryKey);
 //   fun computeRecoveryKey(curve25519Key: ByteArray): String
 std::string computeRecoveryKey(const std::string& curve25519Key);
 
-// Encode binary data to base58 string.
-std::string base58Encode(const std::string& data);
-
-// Decode base58 string to binary data.
-std::string base58Decode(const std::string& input);
+// Encode binary data to base58 string (via crypto_algorithms.hpp).
+// Decode base58 string to binary data (via crypto_algorithms.hpp).
 
 // Validate the checksum of a recovery key.
 // The last 4 bytes of the decoded data are a SHA-256 checksum.

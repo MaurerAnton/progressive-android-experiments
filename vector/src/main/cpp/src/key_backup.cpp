@@ -5,12 +5,10 @@
 
 namespace progressive {
 
-// Base58 alphabet (Bitcoin)
-static const char* BASE58_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
-
 bool isValidBase58Char(char c) {
-    for (int i = 0; BASE58_ALPHABET[i]; ++i) {
-        if (BASE58_ALPHABET[i] == c) return true;
+    static const char* alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    for (int i = 0; alphabet[i]; ++i) {
+        if (alphabet[i] == c) return true;
     }
     return false;
 }
@@ -103,7 +101,8 @@ std::string extractCurveKeyFromRecoveryKey(const std::string& recoveryKey) {
 
     // Step 2: Base58 decode
     auto decoded = base58Decode(spaceFree);
-    const int RECOVERY_KEY_LENGTH = 35; // 2 header + 32 key + 1 parity
+    if (decoded.empty()) throw std::runtime_error("Invalid base58 key");
+    const int RECOVERY_KEY_LENGTH = 35;
 
     // Step 3: Check length
     if (static_cast<int>(decoded.size()) != RECOVERY_KEY_LENGTH) return "";
@@ -158,67 +157,7 @@ std::string computeRecoveryKey(const std::string& curve25519Key) {
     }
     data += static_cast<char>(parity);
 
-    return base58Encode(data);
-}
-
-std::string base58Encode(const std::string& data) {
-    // Convert binary to base58
-    std::vector<int> digits;
-    for (size_t i = 0; i < data.size(); ++i) {
-        unsigned char byte = static_cast<unsigned char>(data[i]);
-        int carry = byte;
-        for (size_t j = 0; j < digits.size(); ++j) {
-            carry += digits[j] * 256;
-            digits[j] = carry % 58;
-            carry /= 58;
-        }
-        while (carry > 0) {
-            digits.push_back(carry % 58);
-            carry /= 58;
-        }
-    }
-
-    // Add leading '1' for each leading zero byte
-    std::string result;
-    for (size_t i = 0; i < data.size() && data[i] == 0; ++i) {
-        result += '1';
-    }
-
-    // Convert digits to base58 chars (reverse order)
-    for (auto it = digits.rbegin(); it != digits.rend(); ++it) {
-        result += BASE58_ALPHABET[*it];
-    }
-
-    return result;
-}
-
-std::string base58Decode(const std::string& input) {
-    std::string result;
-    std::vector<int> digits;
-    for (char c : input) {
-        int value = 0;
-        for (int i = 0; BASE58_ALPHABET[i]; ++i) {
-            if (BASE58_ALPHABET[i] == c) { value = i; break; }
-        }
-        int carry = value;
-        for (size_t j = 0; j < digits.size(); ++j) {
-            carry += digits[j] * 58;
-            digits[j] = carry & 0xFF;
-            carry >>= 8;
-        }
-        while (carry > 0) {
-            digits.push_back(carry & 0xFF);
-            carry >>= 8;
-        }
-    }
-    for (char c : input) {
-        if (c == '1') digits.push_back(0);
-        else break;
-    }
-    for (auto it = digits.rbegin(); it != digits.rend(); ++it) {
-        result += static_cast<char>(*it);
-    }
-    return result;
+    return base58Encode(std::vector<uint8_t>(data.begin(), data.end()));
 }
 
 bool validateRecoveryKeyChecksum(const std::string& rawKey) {
