@@ -20,7 +20,6 @@
     <attr name="chipBackgroundColor" format="color" />
     <attr name="closeIconTint" format="color" />
     <attr name="InReplyToViewParams" format="reference" />
-    <attr name="unread_line_unimportant" format="color" />
     <attr name="sc_notice_text_color" format="color" />
     <attr name="sc_notice_secondary_text_color" format="color" />
     <attr name="sc_tombstone_text_color" format="color" />
