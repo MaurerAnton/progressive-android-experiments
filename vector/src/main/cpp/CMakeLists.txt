@@ -78,6 +78,7 @@ add_library(
     src/draft_manager.cpp
     src/link_preview.cpp
     src/hash_utils.cpp
+    src/http_client.cpp
     src/room_stats.cpp
     src/mention_parser.cpp
     src/poll_utils.cpp
