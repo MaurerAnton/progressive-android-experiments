@@ -205,14 +205,20 @@ if(NOT EXISTS "${SQLITE3_SRC}")
         list(GET download_status 1 download_err)
         message(FATAL_ERROR "Failed to download SQLite: ${download_err}")
     endif()
-    # Extract using python (available on all platforms, handles zip)
+    message(STATUS "Extracting SQLite amalgamation...")
     file(MAKE_DIRECTORY "${SQLITE3_DIR}")
     execute_process(
-        COMMAND python3 -c "import zipfile,os; z=zipfile.ZipFile('${CMAKE_BINARY_DIR}/sqlite3.zip'); z.extract('sqlite-amalgamation-3450200/sqlite3.c','${CMAKE_BINARY_DIR}'); z.extract('sqlite-amalgamation-3450200/sqlite3.h','${CMAKE_BINARY_DIR}')"
+        COMMAND python3 -c "import zipfile,sys; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" "${CMAKE_BINARY_DIR}/sqlite3.zip" "${CMAKE_BINARY_DIR}"
         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+        RESULT_VARIABLE extract_result
+        ERROR_VARIABLE extract_err
     )
+    if(NOT extract_result EQUAL 0)
+        message(FATAL_ERROR "SQLite extraction failed (${extract_result}): ${extract_err}")
+    endif()
     if(NOT EXISTS "${SQLITE3_SRC}")
-        message(FATAL_ERROR "SQLite extraction failed — sqlite3.c not found")
+        file(GLOB extracted_files "${CMAKE_BINARY_DIR}/sqlite*")
+        message(FATAL_ERROR "SQLite extraction failed — sqlite3.c not found. Extracted files in ${CMAKE_BINARY_DIR}: ${extracted_files}")
     endif()
     message(STATUS "SQLite3 amalgamation extracted to ${SQLITE3_DIR}")
 endif()
