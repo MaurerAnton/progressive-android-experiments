@@ -190,24 +190,34 @@ add_library(
 # sqlite3.c (255k lines) is NOT stored in the repo.
 # Downloaded once, cached in build dir.
 set(SQLITE3_DIR "${CMAKE_BINARY_DIR}/sqlite3-amalgamation-3450200")
-if(NOT EXISTS "${SQLITE3_DIR}/sqlite3.c")
+set(SQLITE3_SRC "${SQLITE3_DIR}/sqlite3.c")
+if(NOT EXISTS "${SQLITE3_SRC}")
+    message(STATUS "Downloading SQLite3 amalgamation from sqlite.org...")
     file(DOWNLOAD
         "https://sqlite.org/2024/sqlite-amalgamation-3450200.zip"
         "${CMAKE_BINARY_DIR}/sqlite3.zip"
         SHOW_PROGRESS
         STATUS download_status
-        TIMEOUT 60
+        TIMEOUT 120
     )
     list(GET download_status 0 download_code)
     if(NOT download_code EQUAL 0)
-        message(FATAL_ERROR "Failed to download SQLite amalgamation")
+        list(GET download_status 1 download_err)
+        message(FATAL_ERROR "Failed to download SQLite: ${download_err}")
     endif()
+    # Extract using python (available on all platforms, handles zip)
+    file(MAKE_DIRECTORY "${SQLITE3_DIR}")
     execute_process(
-        COMMAND ${CMAKE_COMMAND} -E tar xf "${CMAKE_BINARY_DIR}/sqlite3.zip"
+        COMMAND python3 -c "import zipfile,os; z=zipfile.ZipFile('${CMAKE_BINARY_DIR}/sqlite3.zip'); z.extract('sqlite-amalgamation-3450200/sqlite3.c','${CMAKE_BINARY_DIR}'); z.extract('sqlite-amalgamation-3450200/sqlite3.h','${CMAKE_BINARY_DIR}')"
         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
     )
+    if(NOT EXISTS "${SQLITE3_SRC}")
+        message(FATAL_ERROR "SQLite extraction failed — sqlite3.c not found")
+    endif()
+    message(STATUS "SQLite3 amalgamation extracted to ${SQLITE3_DIR}")
 endif()
-target_sources(progressive_native PRIVATE "${SQLITE3_DIR}/sqlite3.c")
+# Add to build after download+extraction
+target_sources(progressive_native PRIVATE "${SQLITE3_SRC}")
 target_include_directories(progressive_native PUBLIC "${SQLITE3_DIR}")
 
 target_include_directories(
