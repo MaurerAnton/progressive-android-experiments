@@ -145,6 +145,7 @@ add_library(
     src/keyshare.cpp
     src/displayname_utils.cpp
     src/message_location.cpp
+    src/timeline_chunk.cpp
     src/timeline_utils.cpp
     src/cross_signing.cpp
     src/crypto_algorithms.cpp

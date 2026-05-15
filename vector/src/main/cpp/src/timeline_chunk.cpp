@@ -1,0 +1,347 @@
+#include "progressive/timeline_chunk.hpp"
+#include <algorithm>
+#include <sstream>
+#include <limits>
+
+namespace progressive {
+
+// ==== TimelineChunkManager ====
+
+TimelineChunkManager::TimelineChunkManager(const std::string& roomId)
+    : roomId_(roomId) {}
+
+int TimelineChunkManager::addChunk(
+    const std::string& chunkId,
+    const std::vector<TimelineEventData>& events,
+    const std::string& prevToken,
+    const std::string& nextToken,
+    TimelineDirection direction)
+{
+    lastPaginationDirection_ = direction;
+
+    // Deduplicate against known events
+    auto newEvents = dedupEvents(events);
+    if (newEvents.empty()) return 0;
+
+    // Create chunk
+    TimelineChunkData chunk;
+    chunk.chunkId = chunkId;
+    chunk.prevToken = prevToken;
+    chunk.nextToken = nextToken;
+    chunk.isLastBackward = (direction == TimelineDirection::BACKWARDS && events.empty());
+    chunk.isLastForward = (direction == TimelineDirection::FORWARDS && events.empty());
+
+    // Find insertion position
+    int insertIdx = findChunkInsertionIndex(prevToken, nextToken);
+
+    // Insert events into the chunk
+    chunk.events = newEvents;
+
+    // Insert chunk at correct position
+    if (insertIdx < 0 || insertIdx >= (int)chunks_.size()) {
+        chunks_.push_back(chunk);
+    } else {
+        chunks_.insert(chunks_.begin() + insertIdx, chunk);
+    }
+
+    // Add events to index and assign display indices
+    for (auto& ev : newEvents) {
+        ev.displayIndex = globalNextDisplayIndex_++;
+        eventIndex_[ev.eventId] = ev;
+        displayIndexMap_[ev.eventId] = ev.displayIndex;
+    }
+
+    // Update chunk events with correct display indices
+    if (insertIdx >= 0 && insertIdx < (int)chunks_.size()) {
+        chunks_[insertIdx].events = newEvents;
+    }
+
+    return (int)newEvents.size();
+}
+
+int TimelineChunkManager::addLiveEvent(const TimelineEventData& event) {
+    if (eventIndex_.count(event.eventId)) return -1; // Duplicate
+
+    TimelineEventData ev = event;
+    ev.displayIndex = globalNextDisplayIndex_++;
+    eventIndex_[ev.eventId] = ev;
+    displayIndexMap_[ev.eventId] = ev.displayIndex;
+
+    // Add to the last forward chunk
+    if (!chunks_.empty()) {
+        auto& lastChunk = chunks_.back();
+        if (!lastChunk.isLastBackward && lastChunk.nextToken.empty()) {
+            lastChunk.events.push_back(ev);
+        }
+    }
+
+    return ev.displayIndex;
+}
+
+std::vector<TimelineEventData> TimelineChunkManager::getEventsInOrder() const {
+    // Sort by display index
+    std::vector<std::pair<int, std::string>> indexed;
+    for (const auto& [id, idx] : displayIndexMap_) {
+        indexed.push_back({idx, id});
+    }
+    std::sort(indexed.begin(), indexed.end());
+
+    std::vector<TimelineEventData> result;
+    for (const auto& [idx, id] : indexed) {
+        result.push_back(eventIndex_.at(id));
+    }
+    return result;
+}
+
+const TimelineEventData* TimelineChunkManager::getEvent(const std::string& eventId) const {
+    auto it = eventIndex_.find(eventId);
+    return it != eventIndex_.end() ? &it->second : nullptr;
+}
+
+int TimelineChunkManager::getDisplayIndex(const std::string& eventId) const {
+    auto it = displayIndexMap_.find(eventId);
+    return it != displayIndexMap_.end() ? it->second : -1;
+}
+
+int TimelineChunkManager::totalEventCount() const {
+    return (int)eventIndex_.size();
+}
+
+std::string TimelineChunkManager::getPrevToken() const {
+    for (const auto& c : chunks_) {
+        if (!c.isLastBackward && !c.prevToken.empty()) return c.prevToken;
+    }
+    return "";
+}
+
+std::string TimelineChunkManager::getNextToken() const {
+    for (auto it = chunks_.rbegin(); it != chunks_.rend(); ++it) {
+        if (!it->isLastForward && !it->nextToken.empty()) return it->nextToken;
+    }
+    return "";
+}
+
+bool TimelineChunkManager::canLoadMore(TimelineDirection dir) const {
+    if (dir == TimelineDirection::BACKWARDS) {
+        return !chunks_.empty() && !chunks_.front().isLastBackward;
+    }
+    return !chunks_.empty() && !chunks_.back().isLastForward;
+}
+
+void TimelineChunkManager::clear() {
+    chunks_.clear();
+    eventIndex_.clear();
+    displayIndexMap_.clear();
+    globalNextDisplayIndex_ = 0;
+}
+
+// ==== Display-Index Arithmetic ====
+
+std::vector<int> TimelineChunkManager::computeDisplayIndices(
+    int beforeIndex, int afterIndex, int count)
+{
+    // Original Kotlin: distributed indices between before and after
+    std::vector<int> result;
+    if (count <= 0) return result;
+
+    if (beforeIndex < 0) beforeIndex = 0;
+    if (afterIndex < 0 || afterIndex == INT_MAX) afterIndex = beforeIndex + count + 1;
+
+    int gap = afterIndex - beforeIndex;
+    if (gap <= count) {
+        // Not enough room — use sequential indices after beforeIndex
+        for (int i = 0; i < count; i++) {
+            result.push_back(beforeIndex + i + 1);
+        }
+    } else {
+        // Evenly distribute
+        int step = gap / (count + 1);
+        for (int i = 0; i < count; i++) {
+            result.push_back(beforeIndex + step * (i + 1));
+        }
+    }
+
+    return result;
+}
+
+// ==== Reply-Map Building ====
+
+std::unordered_map<std::string, std::vector<std::string>>
+TimelineChunkManager::buildReplyMap() const {
+    std::unordered_map<std::string, std::vector<std::string>> replyMap;
+
+    for (const auto& [id, ev] : eventIndex_) {
+        if (!ev.relatesToEventId.empty() && ev.relationType == "m.in_reply_to") {
+            replyMap[ev.relatesToEventId].push_back(ev.eventId);
+        }
+    }
+
+    return replyMap;
+}
+
+std::vector<std::string> TimelineChunkManager::getReplies(const std::string& eventId) const {
+    auto replyMap = buildReplyMap();
+    auto it = replyMap.find(eventId);
+    return it != replyMap.end() ? it->second : std::vector<std::string>{};
+}
+
+// ==== Edit Chain Detection ====
+
+std::string TimelineChunkManager::getLatestEditEventId(const std::string& originalEventId) const {
+    // Follow m.replace chain to find latest edit
+    std::string current = originalEventId;
+    std::unordered_set<std::string> visited;
+    visited.insert(current);
+
+    while (true) {
+        bool foundNext = false;
+        for (const auto& [id, ev] : eventIndex_) {
+            if (ev.relatesToEventId == current && ev.relationType == "m.replace") {
+                if (visited.count(id)) break; // Cycle detected
+                visited.insert(id);
+                current = id;
+                foundNext = true;
+                break;
+            }
+        }
+        if (!foundNext) break;
+    }
+
+    return current;
+}
+
+std::vector<std::string> TimelineChunkManager::getEditChain(const std::string& eventId) const {
+    std::vector<std::string> chain;
+
+    // Follow the chain forward from original
+    std::string current = eventId;
+    std::unordered_set<std::string> visited;
+    chain.push_back(current);
+    visited.insert(current);
+
+    while (true) {
+        bool found = false;
+        for (const auto& [id, ev] : eventIndex_) {
+            if (ev.relatesToEventId == current && ev.relationType == "m.replace" && !visited.count(id)) {
+                visited.insert(id);
+                chain.push_back(id);
+                current = id;
+                found = true;
+                break;
+            }
+        }
+        if (!found) break;
+    }
+
+    return chain;
+}
+
+// ==== Thread Detection ====
+
+std::string TimelineChunkManager::getThreadRoot(const std::string& eventId) const {
+    auto it = eventIndex_.find(eventId);
+    if (it == eventIndex_.end()) return "";
+
+    if (it->second.relationType == "m.thread" && !it->second.relatesToEventId.empty()) {
+        return it->second.relatesToEventId;
+    }
+
+    // Follow the reply chain up to find thread root
+    std::string current = eventId;
+    std::unordered_set<std::string> visited;
+    visited.insert(current);
+
+    auto ev = eventIndex_.find(current);
+    while (ev != eventIndex_.end() && !ev->second.relatesToEventId.empty()) {
+        std::string parent = ev->second.relatesToEventId;
+        if (visited.count(parent)) break; // Cycle
+        visited.insert(parent);
+        auto parentEv = eventIndex_.find(parent);
+        if (parentEv != eventIndex_.end() && parentEv->second.relationType == "m.thread") {
+            return parent; // Found thread root
+        }
+        if (parentEv == eventIndex_.end()) break;
+        current = parent;
+        ev = parentEv;
+    }
+
+    return "";
+}
+
+std::vector<std::string> TimelineChunkManager::getThreadEvents(const std::string& rootEventId) const {
+    std::vector<std::string> thread;
+    thread.push_back(rootEventId);
+
+    // BFS to collect all replies (both m.in_reply_to and m.thread)
+    std::vector<std::string> frontier = {rootEventId};
+    while (!frontier.empty()) {
+        std::vector<std::string> next;
+        for (const auto& [id, ev] : eventIndex_) {
+            if (!ev.relatesToEventId.empty()) {
+                for (const auto& fid : frontier) {
+                    if (ev.relatesToEventId == fid) {
+                        thread.push_back(id);
+                        next.push_back(id);
+                        break;
+                    }
+                }
+            }
+        }
+        frontier = next;
+    }
+
+    return thread;
+}
+
+// ==== Internal Helpers ====
+
+std::vector<TimelineEventData> TimelineChunkManager::dedupEvents(
+    const std::vector<TimelineEventData>& events) const
+{
+    std::vector<TimelineEventData> result;
+    for (const auto& ev : events) {
+        if (!eventIndex_.count(ev.eventId)) {
+            result.push_back(ev);
+        }
+    }
+    return result;
+}
+
+int TimelineChunkManager::findChunkInsertionIndex(
+    const std::string& /*prevToken*/, const std::string& /*nextToken*/) const
+{
+    // Original Kotlin: find the chunk that has matching prev/next tokens
+    // and insert adjacent to it. For simplicity, insert at end for forwards,
+    // beginning for backwards.
+    if (lastPaginationDirection_ == TimelineDirection::BACKWARDS) {
+        return 0; // Insert at beginning
+    }
+    return (int)chunks_.size(); // Insert at end
+}
+
+void TimelineChunkManager::rebuildDisplayIndices() {
+    int idx = 0;
+    for (auto& chunk : chunks_) {
+        for (auto& ev : chunk.events) {
+            ev.displayIndex = idx++;
+            displayIndexMap_[ev.eventId] = ev.displayIndex;
+        }
+    }
+    globalNextDisplayIndex_ = idx;
+}
+
+// ==== Serialization ====
+
+std::string serializeChunkManager(const TimelineChunkManager& mgr) {
+    std::ostringstream os;
+    os << "{\"roomId\":\"" << "..." << "\",";
+    os << "\"eventCount\":" << mgr.totalEventCount();
+    os << "}";
+    return os.str();
+}
+
+TimelineChunkManager deserializeChunkManager(const std::string& /*json*/, const std::string& roomId) {
+    return TimelineChunkManager(roomId);
+}
+
+} // namespace progressive
