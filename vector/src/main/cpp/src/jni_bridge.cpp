@@ -1424,4 +1424,73 @@ JNI_FUNC(jboolean, nativeApiAvailable)(JNIEnv* env, jclass) {
     return progressive::nativeApiAvailable() ? JNI_TRUE : JNI_FALSE;
 }
 
+// --- Extended API ---
+
+JNI_FUNC(jstring, nativeApiGetRoomMessages)(JNIEnv* env, jclass, jstring jRoom, jstring jFrom, jstring jDir, jint jLimit) {
+    auto result = progressive::apiGetRoomMessages(
+        jStr(env, jRoom), jStr(env, jFrom), jStr(env, jDir), jLimit);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiCreateRoom)(JNIEnv* env, jclass, jstring jName, jstring jTopic, jboolean jDirect, jstring jInvitees) {
+    std::vector<std::string> users;
+    auto inviteStr = jStr(env, jInvitees);
+    if (!inviteStr.empty()) {
+        size_t p = 0;
+        while (p < inviteStr.size()) {
+            size_t c = inviteStr.find(',', p);
+            users.push_back(inviteStr.substr(p, c - p));
+            if (c == std::string::npos) break;
+            p = c + 1;
+        }
+    }
+    auto result = progressive::apiCreateRoom(jStr(env, jName), jStr(env, jTopic), jDirect, users);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiSearch)(JNIEnv* env, jclass, jstring jQuery, jstring jRoom, jint jLimit) {
+    auto result = progressive::apiSearch(jStr(env, jQuery), jStr(env, jRoom), jLimit);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiKickUser)(JNIEnv* env, jclass, jstring jRoom, jstring jUser, jstring jReason) {
+    auto result = progressive::apiKickUser(jStr(env, jRoom), jStr(env, jUser), jStr(env, jReason));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiBanUser)(JNIEnv* env, jclass, jstring jRoom, jstring jUser, jstring jReason) {
+    auto result = progressive::apiBanUser(jStr(env, jRoom), jStr(env, jUser), jStr(env, jReason));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiUnbanUser)(JNIEnv* env, jclass, jstring jRoom, jstring jUser) {
+    auto result = progressive::apiUnbanUser(jStr(env, jRoom), jStr(env, jUser));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiRedactEvent)(JNIEnv* env, jclass, jstring jRoom, jstring jEvent, jstring jTxn) {
+    auto result = progressive::apiRedactEvent(jStr(env, jRoom), jStr(env, jEvent), jStr(env, jTxn));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiGetPushRules)(JNIEnv* env, jclass) {
+    auto result = progressive::apiGetPushRules();
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiCreateFilter)(JNIEnv* env, jclass, jstring jUser, jstring jFilter) {
+    auto result = progressive::apiCreateFilter(jStr(env, jUser), jStr(env, jFilter));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiGetDisplayName)(JNIEnv* env, jclass, jstring jUser) {
+    auto result = progressive::apiGetDisplayName(jStr(env, jUser));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeApiSetDisplayName)(JNIEnv* env, jclass, jstring jUser, jstring jName) {
+    auto result = progressive::apiSetDisplayName(jStr(env, jUser), jStr(env, jName));
+    return env->NewStringUTF(result.c_str());
+}
+
 } // extern "C"

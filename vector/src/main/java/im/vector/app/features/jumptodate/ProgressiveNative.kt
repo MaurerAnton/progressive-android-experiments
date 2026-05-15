@@ -1265,6 +1265,20 @@ object ProgressiveNative {
     @JvmStatic external fun nativeApiInviteUser(roomId: String, userId: String, reason: String): String
     @JvmStatic external fun nativeApiAvailable(): Boolean
 
+    // --- Extended API (room, profile, search, moderation) ---
+
+    @JvmStatic external fun nativeApiGetRoomMessages(roomId: String, from: String, dir: String, limit: Int): String
+    @JvmStatic external fun nativeApiCreateRoom(name: String, topic: String, isDirect: Boolean, invitees: String): String
+    @JvmStatic external fun nativeApiSearch(query: String, roomId: String, limit: Int): String
+    @JvmStatic external fun nativeApiKickUser(roomId: String, userId: String, reason: String): String
+    @JvmStatic external fun nativeApiBanUser(roomId: String, userId: String, reason: String): String
+    @JvmStatic external fun nativeApiUnbanUser(roomId: String, userId: String): String
+    @JvmStatic external fun nativeApiRedactEvent(roomId: String, eventId: String, txnId: String): String
+    @JvmStatic external fun nativeApiGetPushRules(): String
+    @JvmStatic external fun nativeApiCreateFilter(userId: String, filterJson: String): String
+    @JvmStatic external fun nativeApiGetDisplayName(userId: String): String
+    @JvmStatic external fun nativeApiSetDisplayName(userId: String, displayName: String): String
+
     // --- OIDC / MAS Authentication ---
 
     @JvmStatic external fun nativeDiscoverOidc(homeserverUrl: String): String
@@ -1999,6 +2013,18 @@ object ProgressiveNative {
     @JvmStatic fun nativeApiGetRoomMembersFallback(roomId: String): String = """{"chunk":[]}"""
     @JvmStatic fun nativeApiInviteUserFallback(roomId: String, userId: String, reason: String): String = ""
     @JvmStatic fun nativeApiAvailableFallback(): Boolean = false
+
+    @JvmStatic fun nativeApiGetRoomMessagesFallback(roomId: String, from: String, dir: String, limit: Int): String = """{"chunk":[]}"""
+    @JvmStatic fun nativeApiCreateRoomFallback(name: String, topic: String, isDirect: Boolean, invitees: String): String = ""
+    @JvmStatic fun nativeApiSearchFallback(query: String, roomId: String, limit: Int): String = """{"search_categories":{}}"""
+    @JvmStatic fun nativeApiKickUserFallback(roomId: String, userId: String, reason: String): String = ""
+    @JvmStatic fun nativeApiBanUserFallback(roomId: String, userId: String, reason: String): String = ""
+    @JvmStatic fun nativeApiUnbanUserFallback(roomId: String, userId: String): String = ""
+    @JvmStatic fun nativeApiRedactEventFallback(roomId: String, eventId: String, txnId: String): String = ""
+    @JvmStatic fun nativeApiGetPushRulesFallback(): String = """{}"""
+    @JvmStatic fun nativeApiCreateFilterFallback(userId: String, filterJson: String): String = ""
+    @JvmStatic fun nativeApiGetDisplayNameFallback(userId: String): String = ""
+    @JvmStatic fun nativeApiSetDisplayNameFallback(userId: String, displayName: String): String = ""
 
     // --- Native SQLite DB fallbacks ---
     @JvmStatic fun nativeSqliteDbOpenFallback(dbPath: String, key: String): Boolean =
