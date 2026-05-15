@@ -1238,6 +1238,52 @@ object ProgressiveNative {
     @JvmStatic external fun nativeGenerateOAuthState(): String
     @JvmStatic external fun nativeGeneratePkce(): String
 
+    // --- Timeline Chunk (native pagination engine) ---
+
+    @JvmStatic external fun nativeTimelineAddEvents(roomId: String, eventsJson: String, prevToken: String, nextToken: String, direction: Int): Int
+    @JvmStatic external fun nativeTimelineGetEvents(roomId: String): String
+    @JvmStatic external fun nativeTimelineGetEvent(eventId: String): String
+    @JvmStatic external fun nativeTimelineClear(roomId: String)
+    @JvmStatic external fun nativeTimelineGetReplies(eventId: String): String
+    @JvmStatic external fun nativeTimelineGetLatestEdit(eventId: String): String
+    @JvmStatic external fun nativeTimelineGetThreadEvents(rootEventId: String): String
+
+    // --- Event Utilities ---
+
+    @JvmStatic external fun nativeFormatEventSummary(eventType: String, msgType: String, senderName: String, body: String, membership: String, displayName: String, isRedacted: Boolean, isEncrypted: Boolean): String
+    @JvmStatic external fun nativeFormatTypingIndicator(namesJson: String, maxNames: Int): String
+    @JvmStatic external fun nativeCalculateCapabilities(userLevel: Int, eventsDefault: Int, stateDefault: Int, inviteLvl: Int, kickLvl: Int, banLvl: Int, redactLvl: Int, notifyLvl: Int): String
+
+    // --- Content Builder ---
+
+    @JvmStatic external fun nativeBuildTextContent(msgType: String, body: String, formattedBody: String): String
+    @JvmStatic external fun nativeBuildImageContent(body: String, mxcUrl: String, w: Int, h: Int, sz: Long, mime: String): String
+    @JvmStatic external fun nativeBuildFileContent(body: String, mxcUrl: String, fileName: String, sz: Long, mime: String): String
+    @JvmStatic external fun nativeBuildRoomStateContent(eventType: String, value1: String, value2: String): String
+
+    // --- Media Utilities ---
+
+    @JvmStatic external fun nativeCalculateThumbnailSize(origW: Int, origH: Int, maxW: Int, maxH: Int): String
+    @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
+    @JvmStatic external fun nativeFormatDuration(ms: Long): String
+    @JvmStatic external fun nativeSanitizeFilename(name: String, maxLen: Int): String
+
+    // --- Account Data ---
+
+    @JvmStatic external fun nativeParseDirectMessages(json: String): String
+    @JvmStatic external fun nativeParseIgnoredUsers(json: String): String
+    @JvmStatic external fun nativeAddBreadcrumb(currentJson: String, roomId: String): String
+    @JvmStatic external fun nativeIsValidUserId(userId: String): Boolean
+    @JvmStatic external fun nativeServerNameFromMxid(mxid: String): String
+
+    // --- Relation Builder ---
+
+    @JvmStatic external fun nativeBuildReplyRelation(eventId: String): String
+    @JvmStatic external fun nativeBuildThreadRelation(rootId: String, latestId: String, fallingBack: Boolean): String
+    @JvmStatic external fun nativeBuildEditRelation(eventId: String): String
+    @JvmStatic external fun nativeBuildReactionRelation(eventId: String, key: String): String
+    @JvmStatic external fun nativeWrapWithRelation(contentJson: String, relationJson: String): String
+
     // --- Live Draft ---
 
     @JvmStatic external fun nativeShouldAutoDraft(text: String, threshold: Int): Boolean
@@ -1800,6 +1846,85 @@ object ProgressiveNative {
             .encodeToString(java.util.UUID.randomUUID().toString().toByteArray())
             .take(64)
         return """{"codeVerifier":"$verifier","codeChallenge":"$verifier"}"""
+    }
+
+    // --- Timeline Chunk fallbacks ---
+    @JvmStatic fun timelineAddEventsFallback(roomId: String, eventsJson: String, prevToken: String, nextToken: String, direction: Int): Int = 0
+    @JvmStatic fun timelineGetEventsFallback(roomId: String): String = "[]"
+    @JvmStatic fun timelineGetEventFallback(eventId: String): String = "{}"
+    @JvmStatic fun timelineClearFallback(roomId: String) {}
+    @JvmStatic fun timelineGetRepliesFallback(eventId: String): String = "[]"
+    @JvmStatic fun timelineGetLatestEditFallback(eventId: String): String = eventId
+    @JvmStatic fun timelineGetThreadEventsFallback(rootEventId: String): String = "[]"
+
+    // --- Event Utils fallbacks ---
+    @JvmStatic fun formatEventSummaryFallback(eventType: String, msgType: String, senderName: String, body: String, membership: String, displayName: String, isRedacted: Boolean, isEncrypted: Boolean): String {
+        if (isRedacted) return "Message removed"
+        return if (senderName.isNotEmpty()) "$senderName: $body" else body
+    }
+    @JvmStatic fun formatTypingIndicatorFallback(namesJson: String, maxNames: Int): String {
+        val names = try { JSONArray(namesJson) } catch (e: Exception) { return "" }
+        if (names.length() == 0) return ""
+        if (names.length() == 1) return "${names.getString(0)} is typing..."
+        return "${names.getString(0)} and ${names.length()-1} other(s) are typing..."
+    }
+    @JvmStatic fun calculateCapabilitiesFallback(userLevel: Int, eventsDefault: Int, stateDefault: Int, inviteLvl: Int, kickLvl: Int, banLvl: Int, redactLvl: Int, notifyLvl: Int): String {
+        return """{"isOwner":${userLevel >= 100},"isModerator":${userLevel >= 50},"canSendMessages":${userLevel >= eventsDefault},"canInvite":${userLevel >= inviteLvl},"canKick":${userLevel >= kickLvl},"canBan":${userLevel >= banLvl}}"""
+    }
+
+    // --- Content Builder fallbacks ---
+    @JvmStatic fun buildTextContentFallback(msgType: String, body: String, formattedBody: String): String {
+        val fb = if (formattedBody.isNotEmpty()) ""","format":"org.matrix.custom.html","formatted_body":"$formattedBody"""" else ""
+        return """{"msgtype":"$msgType","body":"$body"$fb}"""
+    }
+    @JvmStatic fun buildImageContentFallback(body: String, mxcUrl: String, w: Int, h: Int, sz: Long, mime: String): String {
+        return """{"msgtype":"m.image","body":"$body","url":"$mxcUrl","info":{"w":$w,"h":$h,"size":$sz,"mimetype":"$mime"}}"""
+    }
+    @JvmStatic fun buildFileContentFallback(body: String, mxcUrl: String, fileName: String, sz: Long, mime: String): String {
+        return """{"msgtype":"m.file","body":"$body","url":"$mxcUrl","filename":"$fileName","info":{"size":$sz,"mimetype":"$mime"}}"""
+    }
+    @JvmStatic fun buildRoomStateContentFallback(eventType: String, value1: String, value2: String): String {
+        return when (eventType) {
+            "m.room.name" -> """{"name":"$value1"}"""
+            "m.room.topic" -> """{"topic":"$value1"}"""
+            "m.room.member" -> """{"membership":"$value1","reason":"$value2"}"""
+            else -> """{"value":"$value1"}"""
+        }
+    }
+
+    // --- Media Utils fallbacks ---
+    @JvmStatic fun calculateThumbnailSizeFallback(origW: Int, origH: Int, maxW: Int, maxH: Int): String = """{"width":$maxW,"height":$maxH}"""
+    @JvmStatic fun formatFileSizeFallback(bytes: Long): String {
+        if (bytes < 1024) return "$bytes B"
+        val units = arrayOf("B", "KB", "MB", "GB")
+        var size = bytes.toDouble(); var u = 0
+        while (size >= 1024 && u < 3) { size /= 1024; u++ }
+        return "%.1f %s".format(size, units[u])
+    }
+    @JvmStatic fun formatDurationFallback(ms: Long): String {
+        val s = (ms / 1000).toInt()
+        return if (s >= 3600) "%d:%02d:%02d".format(s/3600, s%3600/60, s%60)
+               else "%d:%02d".format(s/60, s%60)
+    }
+    @JvmStatic fun sanitizeFilenameFallback(name: String, maxLen: Int): String = name.take(maxLen)
+
+    // --- Account Data fallbacks ---
+    @JvmStatic fun parseDirectMessagesFallback(json: String): String = json
+    @JvmStatic fun parseIgnoredUsersFallback(json: String): String = "[]"
+    @JvmStatic fun addBreadcrumbFallback(currentJson: String, roomId: String): String {
+        return """{"recent_rooms":["$roomId"]}"""
+    }
+    @JvmStatic fun isValidUserIdFallback(userId: String): Boolean = userId.startsWith("@") && userId.contains(":")
+    @JvmStatic fun serverNameFromMxidFallback(mxid: String): String = mxid.substringAfter(":")
+
+    // --- Relation Builder fallbacks ---
+    @JvmStatic fun buildReplyRelationFallback(eventId: String): String = """{"m.in_reply_to":{"event_id":"$eventId"}}"""
+    @JvmStatic fun buildThreadRelationFallback(rootId: String, latestId: String, fallingBack: Boolean): String =
+        """{"rel_type":"m.thread","event_id":"$rootId","m.in_reply_to":{"event_id":"$latestId"},"is_falling_back":$fallingBack}"""
+    @JvmStatic fun buildEditRelationFallback(eventId: String): String = """{"rel_type":"m.replace","event_id":"$eventId"}"""
+    @JvmStatic fun buildReactionRelationFallback(eventId: String, key: String): String = """{"rel_type":"m.annotation","event_id":"$eventId","key":"$key"}"""
+    @JvmStatic fun wrapWithRelationFallback(contentJson: String, relationJson: String): String {
+        return contentJson.dropLast(1) + ",\"m.relates_to\":" + relationJson + "}"
     }
 
 }

@@ -833,4 +833,106 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatJumpToUnrea
     return env->NewStringUTF(label.c_str());
 }
 
+// ==== Progressive Chat v0.2 JNI Bridges ====
+
+// --- Event Summary ---
+JNI_FUNC(jstring, nativeFormatEventSummary)(JNIEnv* env, jclass,
+    jstring jType, jstring jMsgType, jstring jSender, jstring jBody,
+    jstring jMembership, jstring jDisplayName, jboolean jRedacted, jboolean jEncrypted)
+{
+    auto result = progressive::formatEventSummary(
+        jStr(env, jType), jStr(env, jMsgType), jStr(env, jSender), jStr(env, jBody),
+        jStr(env, jMembership), jStr(env, jDisplayName), jRedacted, jEncrypted);
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Typing Indicator ---
+JNI_FUNC(jstring, nativeFormatTypingIndicator)(JNIEnv* env, jclass, jstring jNamesJson, jint jMax) {
+    auto names = progressive::parseJsonStringArray(jStr(env, jNamesJson));
+    auto result = progressive::formatTypingIndicator(names, jMax);
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Calculate Capabilities ---
+JNI_FUNC(jstring, nativeCalculateCapabilities)(JNIEnv* env, jclass, jint u, jint e, jint s,
+    jint i, jint k, jint b, jint r, jint n)
+{
+    auto caps = progressive::calculateCapabilities(u, e, s, i, k, b, r, n);
+    std::ostringstream os;
+    os << R"({"isOwner":)" << caps.isOwner
+       << R"(,"isModerator":)" << caps.isModerator
+       << R"(,"canSendMessages":)" << caps.canSendMessages
+       << R"(,"canInvite":)" << caps.canInvite
+       << R"(,"canKick":)" << caps.canKick
+       << R"(,"canBan":)" << caps.canBan
+       << R"(,"canRedact":)" << caps.canRedact << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+// --- Content Builder ---
+JNI_FUNC(jstring, nativeBuildTextContent)(JNIEnv* env, jclass, jstring jType, jstring jBody, jstring jFb) {
+    auto result = progressive::buildTextContent(jStr(env, jType), jStr(env, jBody), jStr(env, jFb));
+    return env->NewStringUTF(result.c_str());
+}
+JNI_FUNC(jstring, nativeBuildImageContent)(JNIEnv* env, jclass, jstring jBody, jstring jUrl,
+    jint jW, jint jH, jlong jSz, jstring jMime) {
+    auto result = progressive::buildImageContent(jStr(env, jBody), jStr(env, jUrl), jW, jH, jSz, jStr(env, jMime));
+    return env->NewStringUTF(result.c_str());
+}
+JNI_FUNC(jstring, nativeBuildFileContent)(JNIEnv* env, jclass, jstring jBody, jstring jUrl,
+    jstring jFn, jlong jSz, jstring jMime) {
+    auto result = progressive::buildFileContent(jStr(env, jBody), jStr(env, jUrl), jStr(env, jFn), jSz, jStr(env, jMime));
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Media ---
+JNI_FUNC(jstring, nativeFormatFileSize)(JNIEnv* env, jclass, jlong jBytes) {
+    return env->NewStringUTF(progressive::formatFileSize(jBytes).c_str());
+}
+JNI_FUNC(jstring, nativeFormatDuration)(JNIEnv* env, jclass, jlong jMs) {
+    return env->NewStringUTF(progressive::formatDuration(jMs).c_str());
+}
+JNI_FUNC(jstring, nativeSanitizeFilename)(JNIEnv* env, jclass, jstring jName, jint jLen) {
+    return env->NewStringUTF(progressive::sanitizeFilename(jStr(env, jName), jLen).c_str());
+}
+
+// --- Account Data ---
+JNI_FUNC(jstring, nativeParseDirectMessages)(JNIEnv* env, jclass, jstring jJson) {
+    auto dm = progressive::parseDirectMessageMap(jStr(env, jJson));
+    return env->NewStringUTF(progressive::buildDirectMessageMapJson(dm).c_str());
+}
+JNI_FUNC(jstring, nativeParseIgnoredUsers)(JNIEnv* env, jclass, jstring jJson) {
+    auto list = progressive::parseIgnoredUsers(jStr(env, jJson));
+    std::ostringstream os; os << "["; for (size_t i = 0; i < list.size(); i++) {
+        if (i>0) os<<","; os<<"\""<<list[i]<<"\""; } os<<"]";
+    return env->NewStringUTF(os.str().c_str());
+}
+JNI_FUNC(jstring, nativeAddBreadcrumb)(JNIEnv* env, jclass, jstring jJson, jstring jRoom) {
+    auto result = progressive::addBreadcrumb(jStr(env, jJson), jStr(env, jRoom));
+    return env->NewStringUTF(result.c_str());
+}
+JNI_FUNC(jboolean, nativeIsValidUserId)(JNIEnv*, jclass, jstring jId) {
+    return progressive::isValidUserId(jStr(nullptr, jId));
+}
+JNI_FUNC(jstring, nativeServerNameFromMxid)(JNIEnv* env, jclass, jstring jMxid) {
+    return env->NewStringUTF(progressive::serverNameFromMxid(jStr(env, jMxid)).c_str());
+}
+
+// --- Relation Builder ---
+JNI_FUNC(jstring, nativeBuildReplyRelation)(JNIEnv* env, jclass, jstring jId) {
+    return env->NewStringUTF(progressive::buildReplyRelation(jStr(env, jId)).c_str());
+}
+JNI_FUNC(jstring, nativeBuildThreadRelation)(JNIEnv* env, jclass, jstring jR, jstring jL, jboolean jFb) {
+    return env->NewStringUTF(progressive::buildThreadRelation(jStr(env, jR), jStr(env, jL), jFb).c_str());
+}
+JNI_FUNC(jstring, nativeBuildEditRelation)(JNIEnv* env, jclass, jstring jId) {
+    return env->NewStringUTF(progressive::buildReplaceRelation(jStr(env, jId)).c_str());
+}
+JNI_FUNC(jstring, nativeBuildReactionRelation)(JNIEnv* env, jclass, jstring jId, jstring jKey) {
+    return env->NewStringUTF(progressive::buildReactionRelation(jStr(env, jId), jStr(env, jKey)).c_str());
+}
+JNI_FUNC(jstring, nativeWrapWithRelation)(JNIEnv* env, jclass, jstring jContent, jstring jRel) {
+    return env->NewStringUTF(progressive::wrapWithRelation(jStr(env, jContent), jStr(env, jRel)).c_str());
+}
+
 } // extern "C"
