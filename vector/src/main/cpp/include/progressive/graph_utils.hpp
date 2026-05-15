@@ -708,4 +708,155 @@ inline void pruneOverlaps(std::vector<MentionLinkSpec>& links) {
     }
 }
 
+// ==== HomeServer Version ====
+//
+// Original Kotlin (HomeServerVersion.kt:24-66):
+//   data class HomeServerVersion(major, minor, patch) : Comparable
+//   companion object { fun parse(value): HomeServerVersion? }
+//
+// Parses Matrix server versions like "r0.6.1" or "v1.4.0" into version numbers.
+
+struct HomeServerVersion {
+    int major = 0;
+    int minor = 0;
+    int patch = 0;
+
+    bool operator<(const HomeServerVersion& o) const {
+        if (major != o.major) return major < o.major;
+        if (minor != o.minor) return minor < o.minor;
+        return patch < o.patch;
+    }
+    bool operator==(const HomeServerVersion& o) const {
+        return major == o.major && minor == o.minor && patch == o.patch;
+    }
+};
+
+inline HomeServerVersion parseHomeServerVersion(const std::string& value) {
+    // Original Kotlin: Regex("""[r|v](\d+)\.(\d+)(?:\.(\d+))?""")
+    HomeServerVersion v;
+    size_t pos = 0;
+    if (pos < value.size() && (value[pos] == 'r' || value[pos] == 'v')) pos++;
+
+    auto dot1 = value.find('.', pos);
+    if (dot1 == std::string::npos) return v;
+    v.major = std::stoi(value.substr(pos, dot1 - pos));
+
+    auto dot2 = value.find('.', dot1 + 1);
+    if (dot2 == std::string::npos) {
+        v.minor = std::stoi(value.substr(dot1 + 1));
+    } else {
+        v.minor = std::stoi(value.substr(dot1 + 1, dot2 - dot1 - 1));
+        v.patch = std::stoi(value.substr(dot2 + 1));
+    }
+    return v;
+}
+
+// Predefined versions (Matrix spec)
+inline HomeServerVersion serverVersionR0_0_0() { return {0, 0, 0}; }
+inline HomeServerVersion serverVersionR0_6_1() { return {0, 6, 1}; }
+inline HomeServerVersion serverVersionV1_3_0() { return {1, 3, 0}; }
+inline HomeServerVersion serverVersionV1_4_0() { return {1, 4, 0}; }
+
+// ==== Via Parameter Computation ====
+//
+// Original Kotlin (ViaParameterFinder.kt:38-58):
+//   fun computeViaParams(userId, roomId, max): List<String>
+//   Takes up to max homeserver domains, ordered by joined member count.
+//   Always includes the current user's homeserver.
+
+inline std::vector<std::string> computeViaParams(
+    const std::string& userHomeserver,
+    const std::vector<std::string>& joinedMemberIds,
+    int maxCount)
+{
+    // Original Kotlin: getServerName() from each userId, group by, count, sort desc
+    std::unordered_map<std::string, int> serverCounts;
+
+    // Ensure user's homeserver is included
+    serverCounts[userHomeserver] = INT32_MAX;
+
+    for (const auto& uid : joinedMemberIds) {
+        auto colon = uid.find(':');
+        if (colon != std::string::npos) {
+            std::string server = uid.substr(colon + 1);
+            serverCounts[server]++;
+        }
+    }
+
+    // Sort by count descending
+    std::vector<std::pair<std::string, int>> sorted(serverCounts.begin(), serverCounts.end());
+    std::sort(sorted.begin(), sorted.end(),
+        [](const auto& a, const auto& b) { return a.second > b.second; });
+
+    std::vector<std::string> result;
+    for (size_t i = 0; i < sorted.size() && (int)result.size() < maxCount; i++) {
+        result.push_back(sorted[i].first);
+    }
+    return result;
+}
+
+// ==== Event Edit Validation ====
+//
+// Original Kotlin (EventEditValidator.kt:44-128):
+//   fun validateEdit(originalEvent, replaceEvent): EditValidity
+//
+// Validates per Matrix spec (replace relationships):
+//   1. Same room_id
+//   2. Same sender
+//   3. Same event type
+//   4. Neither is a state event
+//   5. Original must not have m.replace relation
+//   6. Replacement must have m.new_content
+//   7. If original was encrypted, replacement must be too
+
+enum class EditValidity { UNKNOWN = 0, VALID = 1, INVALID = 2 };
+
+struct EditValidationResult {
+    EditValidity validity = EditValidity::UNKNOWN;
+    std::string reason;              // Why invalid (empty if valid/unknown)
+};
+
+inline EditValidationResult validateEventEdit(
+    const std::string& originalRoomId, const std::string& replaceRoomId,
+    const std::string& originalSender, const std::string& replaceSender,
+    const std::string& originalType, const std::string& replaceType,
+    bool originalIsState, bool replaceIsState,
+    bool originalIsEncrypted, bool replaceIsEncrypted,
+    bool originalHasReplaceRelation,
+    bool replacementHasNewContent)
+{
+    EditValidationResult r;
+
+    // Rule 1: same room_id
+    if (originalRoomId != replaceRoomId) {
+        return {EditValidity::INVALID, "original and replacement must have same room_id"};
+    }
+    // Rule 4: neither is a state event
+    if (originalIsState || replaceIsState) {
+        return {EditValidity::INVALID, "cannot edit state events"};
+    }
+    // Rule 7: both encrypted or both not
+    if (originalIsEncrypted && !replaceIsEncrypted) {
+        return {EditValidity::INVALID, "replacement must also be encrypted"};
+    }
+    // Rule 2: same sender
+    if (originalSender != replaceSender) {
+        return {EditValidity::INVALID, "original and replacement must have same sender"};
+    }
+    // Rule 5: original must not be an edit
+    if (originalHasReplaceRelation) {
+        return {EditValidity::INVALID, "cannot edit an edit"};
+    }
+    // Rule 3: same type
+    if (originalType != replaceType) {
+        return {EditValidity::INVALID, "replacement must have same type as original"};
+    }
+    // Rule 6: new_content must exist
+    if (!replacementHasNewContent) {
+        return {EditValidity::INVALID, "replacement must have m.new_content"};
+    }
+
+    return {EditValidity::VALID, ""};
+}
+
 } // namespace progressive
