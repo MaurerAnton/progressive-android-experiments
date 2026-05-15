@@ -258,4 +258,130 @@ inline std::vector<int> sanitizeWaveform(const std::vector<int>& waveForm) {
     return positiveList;
 }
 
+// ==== SAS Verification Bit-Math ====
+//
+// Original Kotlin (VerificationEmoji.kt:92-118):
+//   fun ByteArray.getDecimalCodeRepresentation(): String
+//   fun ByteArray.getEmojiCodeRepresentation(): List<EmojiRepresentation>
+//
+// getDecimalCodeRepresentation:
+//   Takes 5 bytes, extracts 3× 13-bit numbers, adds 1000 → 3 numbers between 1000–9191
+//   first  = (b0 << 5 | b1 >> 3) + 1000
+//   second = ((b1 & 0x07) << 10 | b2 << 2 | b3 >> 6) + 1000
+//   third  = ((b3 & 0x3f) << 7 | b4 >> 1) + 1000
+//
+// getEmojiCodeRepresentation:
+//   Takes 6 bytes, splits first 42 bits into 7× 6-bit groups → emoji indices (0–63)
+
+inline std::string getDecimalCodeRepresentation(const uint8_t* bytes5) {
+    uint32_t b0 = bytes5[0], b1 = bytes5[1], b2 = bytes5[2], b3 = bytes5[3], b4 = bytes5[4];
+    int first  = ((b0 << 5) | (b1 >> 3)) + 1000;
+    int second = (((b1 & 0x07) << 10) | (b2 << 2) | (b3 >> 6)) + 1000;
+    int third  = (((b3 & 0x3f) << 7) | (b4 >> 1)) + 1000;
+    return std::to_string(first) + " " + std::to_string(second) + " " + std::to_string(third);
+}
+
+inline std::vector<int> getEmojiCodes(const uint8_t* bytes6) {
+    uint32_t b0 = bytes6[0], b1 = bytes6[1], b2 = bytes6[2];
+    uint32_t b3 = bytes6[3], b4 = bytes6[4], b5 = bytes6[5];
+    return {
+        (b0 >> 2) & 0x3f,
+        ((b0 & 0x03) << 4) | ((b1 & 0xf0) >> 4),
+        ((b1 & 0x0f) << 2) | ((b2 & 0xc0) >> 6),
+        b2 & 0x3f,
+        (b3 >> 2) & 0x3f,
+        ((b3 & 0x03) << 4) | ((b4 & 0xf0) >> 4),
+        ((b4 & 0x0f) << 2) | ((b5 & 0xc0) >> 6)
+    };
+}
+
+// ==== Cancel-Send Tracker ====
+//
+// Original Kotlin (CancelSendTracker.kt:24-59):
+//   Thread-safe tracking of in-flight message cancellations.
+
+struct CancelSendTracker {
+    struct Request {
+        std::string localId;
+        std::string roomId;
+        bool operator==(const Request& o) const { return localId == o.localId && roomId == o.roomId; }
+    };
+
+    std::vector<Request> cancelling;
+
+    void markForCancel(const std::string& eventId, const std::string& roomId) {
+        cancelling.push_back({eventId, roomId});
+    }
+
+    bool isCancelRequested(const std::string& eventId, const std::string& roomId) {
+        for (const auto& r : cancelling)
+            if (r.localId == eventId && r.roomId == roomId) return true;
+        return false;
+    }
+
+    void markCancelled(const std::string& eventId, const std::string& roomId) {
+        for (auto it = cancelling.begin(); it != cancelling.end(); ++it) {
+            if (it->localId == eventId && it->roomId == roomId) {
+                cancelling.erase(it);
+                return;
+            }
+        }
+    }
+};
+
+// ==== Room Name Sanitizer ====
+//
+// Original Kotlin (StringUtils.kt:88-94):
+//   fun String.removeInvalidRoomNameChars() = "[^a-z0-9._%#@=+-]".toRegex().replace(this, "")
+
+inline std::string removeInvalidRoomNameChars(const std::string& name) {
+    std::string result;
+    for (char c : name) {
+        char lc = (c >= 'A' && c <= 'Z') ? c + 32 : c;
+        if ((lc >= 'a' && lc <= 'z') || (lc >= '0' && lc <= '9') ||
+            lc == '.' || lc == '_' || lc == '%' || lc == '#' ||
+            lc == '@' || lc == '=' || lc == '+' || lc == '-') {
+            result += c;
+        }
+    }
+    return result;
+}
+
+// ==== Unicode Space Stripping ====
+//
+// Original Kotlin (StringUtils.kt:82-84):
+//   val spaceChars = "[\u00A0\u2000-\u200B\u2800\u3000]".toRegex()
+//   fun String.replaceSpaceChars(replacement: String = "") = replace(spaceChars, replacement)
+
+inline std::string replaceSpaceChars(const std::string& input, const std::string& replacement = "") {
+    std::string result;
+    for (size_t i = 0; i < input.size(); ) {
+        uint32_t cp = 0;
+        unsigned char b = static_cast<unsigned char>(input[i]);
+        int len = 1;
+        if (b < 0x80) cp = b;
+        else if ((b & 0xE0) == 0xC0 && i+1 < input.size()) {
+            cp = ((b & 0x1F) << 6) | (input[i+1] & 0x3F); len = 2;
+        } else if ((b & 0xF0) == 0xE0 && i+2 < input.size()) {
+            cp = ((b & 0x0F) << 12) | ((input[i+1] & 0x3F) << 6) | (input[i+2] & 0x3F); len = 3;
+        }
+        // Check if it's a special space character
+        bool isSpecialSpace = (cp == 0x00A0 || (cp >= 0x2000 && cp <= 0x200B) || cp == 0x2800 || cp == 0x3000);
+        if (isSpecialSpace) {
+            result += replacement;
+        } else {
+            for (int j = 0; j < len; j++) result += input[i + j];
+        }
+        i += len;
+    }
+    return result;
+}
+
+// ==== Byte to Unsigned Int ====
+//
+// Original Kotlin (Primitives.kt:22):
+//   internal fun Byte.toUnsignedInt() = toInt() and 0xff
+
+inline uint32_t byteToUnsignedInt(uint8_t b) { return b; }
+
 } // namespace progressive
