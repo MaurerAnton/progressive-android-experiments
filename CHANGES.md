@@ -1,6 +1,28 @@
 # Changes
 
+## v0.1.5 — Nightly Build
+
+> First nightly build since the C++ native engine was connected to the Matrix sync pipeline.
+
+### Highlights
+- **Native sync parser integrated** — C++ `parseSyncResponse()` runs alongside Moshi for validation (Labs-gated)
+- **190+ JNI bridges** covering the full API surface: login→sync→timeline→rooms→profile→search→moderation→crypto→polls→spaces→calls→widgets
+- **Native SQLite** (SqliteDB + EventDatabase) ready as Realm replacement
+- **SQLite amalgamation** downloaded at build time — not stored in repo
+- **Cleanup**: 10 duplicate declarations removed from ProgressiveNative.kt, section headers consolidated
+
+### Known issues
+- Exodus tracker scan may fail (pre-existing, informational only)
+- Code quality checks (knit/ktlint/detekt) may fail (pre-existing, `continue-on-error`)
+- OpenSSL not linked — AES-CTR and PBKDF2-HMAC-SHA512 unavailable via libolm
+
+### Full changelog
+See [git history](https://github.com/progressive-chat/progressive-android/commits/main) for all 26+ commits since v0.1.
+
+---
+
 ## v0.2 (in development)
+(see below for full v0.2 roadmap)
 
 ### Core Architecture
 - **Pure C++ native engine** (`libprogressive_native.so`) — 194 modules replacing key SDK subsystems
