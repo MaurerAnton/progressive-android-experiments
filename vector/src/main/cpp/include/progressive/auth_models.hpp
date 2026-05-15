@@ -485,4 +485,55 @@ namespace WidgetType {
 HomeServerCapabilities parseHomeServerCapabilities(const std::string& json);
 WidgetContent parseWidgetContent(const std::string& json);
 
+// ==== Push Rule → Notification State ====
+//
+// Original Kotlin (RoomPushRuleMapper.kt:69-95):
+//   Decision tree analyzing push rule actions → RoomNotificationState
+
+struct PushRuleParams {
+    bool enabled = true;
+    bool hasNotify = false;
+    bool hasSound = false;
+    bool isOverride = false;
+    std::string roomId;
+};
+
+inline RoomNotificationState pushRuleToNotificationState(
+    bool enabled, bool hasNotify, bool hasSound, bool isOverride)
+{
+    if (!enabled) return RoomNotificationState::ALL_MESSAGES;
+    if (!hasNotify) {
+        return isOverride ? RoomNotificationState::MUTE
+                          : RoomNotificationState::MENTIONS_ONLY;
+    }
+    return hasSound ? RoomNotificationState::ALL_MESSAGES_NOISY
+                    : RoomNotificationState::ALL_MESSAGES;
+}
+
+inline PushRuleParams notificationStateToPushRule(
+    RoomNotificationState state, const std::string& roomId)
+{
+    PushRuleParams p; p.roomId = roomId;
+    if (state == RoomNotificationState::ALL_MESSAGES) { return p; }
+    if (state == RoomNotificationState::ALL_MESSAGES_NOISY) {
+        p.hasNotify = true; p.hasSound = true; return p;
+    }
+    p.isOverride = (state == RoomNotificationState::MUTE);
+    return p;
+}
+
+// ==== Trust Shield ====
+//
+// Original Kotlin (ComputeShieldForGroupUseCase.kt:31-70):
+//   Algorithm: filter trusted → check untrusted devices → green/red/black
+
+inline RoomEncryptionTrustLevel computeShieldForGroup(
+    int totalUsers, int trustedUsers, int totalDevices, int untrustedDevices)
+{
+    if (trustedUsers == 0) return RoomEncryptionTrustLevel::DEFAULT;
+    if (untrustedDevices > 0) return RoomEncryptionTrustLevel::WARNING;
+    if (totalUsers == trustedUsers) return RoomEncryptionTrustLevel::TRUSTED;
+    return RoomEncryptionTrustLevel::DEFAULT;
+}
+
 } // namespace progressive
