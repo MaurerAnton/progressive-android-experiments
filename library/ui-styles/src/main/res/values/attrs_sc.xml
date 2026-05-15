@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ShieldChat / Progressive Chat theme attributes -->
+    <attr name="backgroundColorLight" format="color" />
+    <attr name="verification_request_background" format="color" />
+    <attr name="timestamp_overlay_fg" format="color" />
+    <attr name="timestamp_overlay_bg" format="color" />
+    <attr name="dense_dropdown_text_input" format="reference" />
+    <attr name="room_color_hash_01" format="color" />
+    <attr name="room_color_hash_02" format="color" />
+    <attr name="room_color_hash_03" format="color" />
+    <attr name="room_color_hash_04" format="color" />
+    <attr name="room_color_hash_05" format="color" />
+    <attr name="room_color_hash_06" format="color" />
+    <attr name="room_color_hash_07" format="color" />
+    <attr name="room_color_hash_08" format="color" />
+</resources>
