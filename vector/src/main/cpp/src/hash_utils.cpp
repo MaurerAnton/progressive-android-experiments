@@ -94,16 +94,6 @@ static std::vector<uint8_t> sha256Raw(const uint8_t* data, size_t len) {
 
 std::string sha256Hex(const std::string& input) {
     auto hash = sha256Raw(reinterpret_cast<const uint8_t*>(input.data()), input.size());
-    return std::string(hash.begin(), hash.end());
-}
-
-std::string sha256Hex(const std::vector<uint8_t>& data) {
-    auto hash = sha256Raw(data.data(), data.size());
-    return std::string(hash.begin(), hash.end());
-}
-
-std::string sha256Hex(const std::string& input) {
-    auto hash = sha256Raw(reinterpret_cast<const uint8_t*>(input.data()), input.size());
     return hexEncode(hash);
 }
 
