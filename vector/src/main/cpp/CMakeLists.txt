@@ -183,9 +183,32 @@ add_library(
     src/olm.cpp
     src/openid_token.cpp
     src/jni_bridge.cpp
-    src/sqlite3.c
     src/eventdb.cpp
 )
+
+# --- Download SQLite3 amalgamation at configure time ---
+# sqlite3.c (255k lines) is NOT stored in the repo.
+# Downloaded once, cached in build dir.
+set(SQLITE3_DIR "${CMAKE_BINARY_DIR}/sqlite3-amalgamation-3450200")
+if(NOT EXISTS "${SQLITE3_DIR}/sqlite3.c")
+    file(DOWNLOAD
+        "https://sqlite.org/2024/sqlite-amalgamation-3450200.zip"
+        "${CMAKE_BINARY_DIR}/sqlite3.zip"
+        SHOW_PROGRESS
+        STATUS download_status
+        TIMEOUT 60
+    )
+    list(GET download_status 0 download_code)
+    if(NOT download_code EQUAL 0)
+        message(FATAL_ERROR "Failed to download SQLite amalgamation")
+    endif()
+    execute_process(
+        COMMAND ${CMAKE_COMMAND} -E tar xf "${CMAKE_BINARY_DIR}/sqlite3.zip"
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+    )
+endif()
+target_sources(progressive_native PRIVATE "${SQLITE3_DIR}/sqlite3.c")
+target_include_directories(progressive_native PUBLIC "${SQLITE3_DIR}")
 
 target_include_directories(
     progressive_native
@@ -206,8 +229,8 @@ target_link_libraries(
 
 target_compile_definitions(progressive_native PRIVATE PROGRESSIVE_HAS_OLM=1)
 
-# SQLite3 amalgamation compile flags (optimize for Android)
+# SQLite3 amalgamation compile flags (optimize for Android, downloaded at build time)
 set_source_files_properties(
-    src/sqlite3.c
+    "${SQLITE3_DIR}/sqlite3.c"
     PROPERTIES COMPILE_FLAGS "-DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_OMIT_DECLTYPE -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_USE_ALLOCA -Os"
 )
