@@ -189,7 +189,7 @@ add_library(
 # --- Download SQLite3 amalgamation at configure time ---
 # sqlite3.c (255k lines) is NOT stored in the repo.
 # Downloaded once, cached in build dir.
-set(SQLITE3_DIR "${CMAKE_BINARY_DIR}/sqlite3-amalgamation-3450200")
+set(SQLITE3_DIR "${CMAKE_BINARY_DIR}/sqlite-amalgamation-3450200")
 set(SQLITE3_SRC "${SQLITE3_DIR}/sqlite3.c")
 if(NOT EXISTS "${SQLITE3_SRC}")
     message(STATUS "Downloading SQLite3 amalgamation from sqlite.org...")
