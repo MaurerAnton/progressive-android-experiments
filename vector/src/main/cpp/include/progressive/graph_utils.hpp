@@ -469,8 +469,6 @@ inline std::string normalizeMimeType(const std::string& mime) {
 // For real MD5, link against OpenSSL's MD5().
 
 inline std::string md5Hash(const std::string& input) {
-    // Fallback: use SHA-256 if MD5 not available
-    // In production, replace with OpenSSL's MD5(input.data(), input.size(), digest)
     auto hash = sha256(reinterpret_cast<const uint8_t*>(input.data()), input.size());
     std::string hex;
     for (uint8_t b : hash) {
@@ -478,6 +476,91 @@ inline std::string md5Hash(const std::string& input) {
         hex += "0123456789abcdef"[b & 0xf];
     }
     return hex;
+}
+
+// ==== Fingerprint Formatting ====
+//
+// Original Kotlin (MatrixSdkExtensions.kt):
+//   fun getFingerprintHumanReadable(): String → groups of 4 uppercase chars
+//   fun sortByLastSeen(): List<DeviceInfo> → sorted by lastSeenTs descending
+
+inline std::string formatFingerprint(const std::string& raw) {
+    std::string result;
+    std::string upper = raw;
+    for (char& c : upper) c = (c >= 'a' && c <= 'z') ? c - 32 : c;
+    for (size_t i = 0; i < upper.size(); i++) {
+        result += upper[i];
+        if ((i + 1) % 4 == 0 && i + 1 < upper.size()) result += ' ';
+    }
+    return result;
+}
+
+// ==== MentionLinkSpec Comparator ====
+//
+// Original Kotlin (MentionLinkSpecComparator.kt): sorts by start ASC, then end DESC (longer first)
+
+struct MentionLinkSpec {
+    int start = 0;
+    int end = 0;
+};
+
+inline int compareMentionLinks(const MentionLinkSpec& a, const MentionLinkSpec& b) {
+    if (a.start < b.start) return -1;
+    if (a.start > b.start) return 1;
+    if (a.end < b.end) return 1;   // longer span first
+    if (a.end > b.end) return -1;
+    return 0;
+}
+
+// ==== Clock / Timestamp ====
+//
+// Original Kotlin (Clock.kt): interface Clock { fun epochMillis(): Long }
+
+class SimpleClock {
+    int64_t epochMillis() const;
+};
+
+// ==== HTML Unescape ====
+//
+// Original Kotlin (Html.kt): wraps HtmlCompat.fromHtml
+// Common HTML entities → unicode
+
+inline std::string unescapeHtml(const std::string& html) {
+    std::string result;
+    for (size_t i = 0; i < html.size(); i++) {
+        if (html[i] == '&') {
+            auto semi = html.find(';', i);
+            if (semi == std::string::npos) { result += '&'; continue; }
+            std::string entity = html.substr(i + 1, semi - i - 1);
+            if (entity == "amp") result += '&';
+            else if (entity == "lt") result += '<';
+            else if (entity == "gt") result += '>';
+            else if (entity == "quot") result += '"';
+            else if (entity == "apos") result += '\'';
+            else if (entity == "nbsp") result += ' ';
+            else if (entity.size() >= 2 && entity[0] == '#' && entity[1] == 'x') {
+                // &#xHHHH;
+                result += static_cast<char>(std::stoi(entity.substr(2), nullptr, 16));
+            } else if (entity.size() >= 2 && entity[0] == '#') {
+                // &#DDDD;
+                result += static_cast<char>(std::stoi(entity.substr(1)));
+            } else { result += '&'; result += entity; result += ';'; }
+            i = semi;
+        } else {
+            result += html[i];
+        }
+    }
+    return result;
+}
+
+// ==== Conditional Fatal Error ====
+//
+// Original Kotlin (fatal.kt: fatalError)
+
+inline void fatalError(const std::string& msg, bool isDebug) {
+    if (isDebug) {
+        throw std::runtime_error(msg);
+    }
 }
 
 } // namespace progressive
