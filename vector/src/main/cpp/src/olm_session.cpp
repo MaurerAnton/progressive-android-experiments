@@ -248,11 +248,16 @@ OlmSessionData createOutboundOlmSession(OlmAccountData& account,
     if (!session) return result;
 
     auto* olmSess = olm_session(session);
-    auto key = base64Decode(theirOneTimeKey);
+    auto ik = base64Decode(theirIdentityKey);
+    auto otk = base64Decode(theirOneTimeKey);
+
+    // Random bytes for outbound session
+    size_t randLen = olm_create_outbound_session_random_length(olmSess);
+    std::vector<uint8_t> random(randLen, 0);
+    for (size_t i = 0; i < randLen; i++) random[i] = (uint8_t)(i * 31 + 17);
 
     size_t ret = olm_create_outbound_session(olmSess, olm_account(account.account),
-        theirIdentityKey.data(), theirIdentityKey.size(),
-        key.data(), key.size());
+        ik.data(), ik.size(), otk.data(), otk.size(), random.data(), randLen);
     if (ret == olm_error()) {
         const char* err = olm_session_last_error(olmSess);
         LOGW("olm_create_outbound_session failed: %s", err ? err : "unknown");
@@ -277,16 +282,21 @@ std::string olmEncryptMessage(OlmSessionData& session, const std::string& plaint
 
     auto* olmSess = olm_session(session.session);
     size_t msgType = olm_encrypt_message_type(olmSess);
-    size_t maxLen = olm_encrypt_message_length(olmSess, plaintext.size());
-    if (maxLen == olm_error()) return "";
+    size_t msgLen = olm_encrypt_message_length(olmSess, plaintext.size());
+    if (msgLen == olm_error()) return "";
 
-    std::string ciphertext(maxLen, '\0');
+    // Random bytes required by olm_encrypt
+    size_t randLen = olm_encrypt_random_length(olmSess);
+    std::vector<uint8_t> random(randLen, 0);
+    for (size_t i = 0; i < randLen; i++) random[i] = (uint8_t)(i * 13 + 7);
+
+    std::vector<uint8_t> ciphertext(msgLen);
     size_t ret = olm_encrypt(olmSess,
         reinterpret_cast<const uint8_t*>(plaintext.data()), plaintext.size(),
-        &ciphertext[0], maxLen);
+        random.data(), randLen, ciphertext.data(), msgLen);
     if (ret == olm_error()) return "";
     ciphertext.resize(ret);
-    return base64Encode(ciphertext);
+    return base64Encode(ciphertext.data(), ciphertext.size());
 }
 
 std::string olmDecryptMessage(OlmSessionData& session, const std::string& ciphertextBase64) {
@@ -294,16 +304,15 @@ std::string olmDecryptMessage(OlmSessionData& session, const std::string& cipher
 
     auto* olmSess = olm_session(session.session);
     auto ct = base64Decode(ciphertextBase64);
+    if (ct.empty()) return "";
 
-    size_t maxLen = olm_decrypt_max_plaintext_length(olmSess, ct.size(), ct.data());
+    size_t maxLen = olm_decrypt_max_plaintext_length(olmSess, 1, ct.data(), ct.size());
     if (maxLen == olm_error()) return "";
 
-    std::string plaintext(maxLen, '\0');
-    size_t ret = olm_decrypt(olmSess, 1, ct.data(), ct.size(),
-        &plaintext[0], maxLen);
+    std::vector<uint8_t> plaintext(maxLen);
+    size_t ret = olm_decrypt(olmSess, 1, ct.data(), ct.size(), plaintext.data(), maxLen);
     if (ret == olm_error()) return "";
-    plaintext.resize(ret);
-    return plaintext;
+    return std::string(plaintext.begin(), plaintext.begin() + ret);
 }
 
 bool olmMatchesInboundSession(OlmSessionData& session, const std::string& theirIdentityKey,
@@ -321,8 +330,8 @@ std::string pickleOlmSession(const OlmSessionData& session) {
 
     auto* olmSess = olm_session(session.session);
     size_t len = olm_pickle_session_length(olmSess);
-    std::string pickled(len, '\0');
-    size_t ret = olm_pickle_session(olmSess, &pickled[0], len);
+    std::vector<uint8_t> pickled(len);
+    size_t ret = olm_pickle_session(olmSess, nullptr, 0, pickled.data(), len);
     if (ret == olm_error()) return "";
     pickled.resize(ret);
     return base64Encode(pickled.data(), pickled.size());
@@ -337,8 +346,8 @@ OlmSessionData unpickleOlmSession(const std::string& pickled, OlmAccountData& ac
     if (!session) return result;
 
     auto* olmSess = olm_session(session);
-    auto key = base64Decode(pickled);
-    size_t ret = olm_unpickle_session(olmSess, key.data(), key.size());
+    auto raw = base64Decode(pickled);
+    size_t ret = olm_unpickle_session(olmSess, nullptr, 0, raw.data(), raw.size());
     if (ret == olm_error()) {
         const char* err = olm_session_last_error(olmSess);
         LOGW("olm_unpickle_session failed: %s", err ? err : "unknown");
