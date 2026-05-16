@@ -973,6 +973,218 @@ static void test_backup_trust() {
     ASSERT_EQ(static_cast<int>(mgr.getTrustLevel()), static_cast<int>(progressive::BackupTrust::UNTRUSTED));
 }
 
+// ==== Live Location ====
+
+#include "progressive/live_location.hpp"
+
+static void test_geo_uri_parse() {
+    auto geo = progressive::parseGeoUri("geo:48.858093,2.294694;u=10");
+    ASSERT_TRUE(geo.valid);
+    ASSERT_TRUE(geo.latitude > 48.0 && geo.latitude < 49.0);
+    ASSERT_TRUE(geo.longitude > 2.0 && geo.longitude < 3.0);
+    ASSERT_TRUE(geo.uncertainty > 0);
+}
+
+static void test_geo_uri_invalid() {
+    auto geo = progressive::parseGeoUri("not_a_geo:uri");
+    ASSERT_FALSE(geo.valid);
+}
+
+static void test_geo_uri_format() {
+    progressive::GeoCoordinate c; c.latitude = 48.858093; c.longitude = 2.294694; c.accuracy = 10;
+    auto uri = progressive::formatGeoUri(c);
+    ASSERT_TRUE(uri.find("geo:") == 0);
+    ASSERT_TRUE(uri.find("48.858093") != std::string::npos);
+    ASSERT_TRUE(uri.find("2.294694") != std::string::npos);
+}
+
+static void test_location_format_message() {
+    progressive::GeoCoordinate c; c.latitude = 48.858093; c.longitude = 2.294694;
+    auto msg = progressive::formatLocationMessage(c, "Eiffel Tower");
+    ASSERT_TRUE(msg.find("Eiffel Tower") != std::string::npos);
+    ASSERT_TRUE(msg.find("48.858093") != std::string::npos);
+}
+
+static void test_live_session_start_stop() {
+    progressive::LiveLocationManager mgr;
+    std::string error;
+    auto result = mgr.startLiveSession("!room:org", "@alice:org", "Alice's location", 300, 30, true, 60, error);
+    ASSERT_TRUE(!result.empty());
+    ASSERT_STREQ(error.c_str(), "");
+    ASSERT_EQ(mgr.activeSessionCount(), 1);
+}
+
+static void test_beacon_info_build() {
+    progressive::BeaconInfoContent info;
+    info.description = "Test beacon";
+    info.timeoutSec = 300;
+    info.live = true;
+    auto json = progressive::buildBeaconInfoContent(info);
+    ASSERT_TRUE(json.find("Test beacon") != std::string::npos);
+    ASSERT_TRUE(json.find("\"timeout\":300") != std::string::npos);
+    ASSERT_TRUE(json.find("\"live\":true") != std::string::npos);
+}
+
+// ==== Notif Formatter ====
+
+#include "progressive/notif_formatter.hpp"
+
+static void test_format_image_notification() {
+    auto r = progressive::formatImageNotification("Alice");
+    ASSERT_TRUE(r.find("Alice") != std::string::npos);
+    ASSERT_TRUE(r.find("image") != std::string::npos || r.find("Image") != std::string::npos || r.find("sent") != std::string::npos);
+}
+
+static void test_format_file_notification() {
+    auto r = progressive::formatFileNotification("Bob", "report.pdf");
+    ASSERT_TRUE(r.find("Bob") != std::string::npos);
+    ASSERT_TRUE(r.find("file") != std::string::npos || r.find("File") != std::string::npos);
+}
+
+static void test_format_invite_notification() {
+    auto r = progressive::formatInviteNotification("Charlie", "Engineering");
+    ASSERT_TRUE(r.find("Charlie") != std::string::npos);
+    ASSERT_TRUE(r.find("Engineering") != std::string::npos);
+}
+
+static void test_format_room_notification() {
+    auto r = progressive::formatRoomNotification(5, "General");
+    ASSERT_TRUE(r.find("5") != std::string::npos);
+}
+
+// ==== Offline Cache ====
+
+#include "progressive/offline_cache.hpp"
+
+static void test_can_fit_in_storage() {
+    ASSERT_TRUE(progressive::canFitInStorage(100, 1000, 100));
+    ASSERT_FALSE(progressive::canFitInStorage(1000, 1000, 100));
+}
+
+static void test_estimate_message_cache_size() {
+    auto size = progressive::estimateMessageCacheSize(100, 500);
+    ASSERT_TRUE(size > 0);
+}
+
+// ==== Lightweight Settings ====
+
+#include "progressive/lightweight_settings.hpp"
+
+static void test_settings_get_bool() {
+    ASSERT_TRUE(progressive::getSettingBool(R"({"enabled":true})", "enabled", false));
+    ASSERT_FALSE(progressive::getSettingBool(R"({"enabled":true})", "disabled", false));
+}
+
+static void test_settings_set_bool() {
+    auto r = progressive::setSettingBool(R"({"a":true})", "b", true);
+    ASSERT_TRUE(r.find("\"b\":true") != std::string::npos);
+}
+
+static void test_settings_get_string() {
+    ASSERT_STREQ(progressive::getSettingString(R"({"key":"value"})", "key", "default").c_str(), "value");
+    ASSERT_STREQ(progressive::getSettingString(R"({})", "key", "default").c_str(), "default");
+}
+
+// ==== Encrypted File ====
+
+#include "progressive/encrypted_file.hpp"
+
+static void test_encrypted_file_key_to_json() {
+    progressive::EncryptedFileKey k;
+    k.alg = "A256CTR"; k.kty = "oct"; k.k = "test_key_base64"; k.ext = true;
+    k.keyOps = {"encrypt", "decrypt"};
+    auto json = progressive::encryptedFileKeyToJson(k);
+    ASSERT_TRUE(json.find("A256CTR") != std::string::npos);
+}
+
+static void test_is_valid_jwk_key() {
+    progressive::EncryptedFileKey k;
+    k.alg = "A256CTR"; k.kty = "oct"; k.k = "key"; k.ext = true;
+    k.keyOps = {"encrypt", "decrypt"};
+    ASSERT_TRUE(progressive::isValidJwkKey(k));
+}
+
+static void test_extract_file_key() {
+    progressive::EncryptedFileKey k;
+    k.alg = "A256CTR"; k.kty = "oct"; k.k = "secret_key"; k.ext = true;
+    k.keyOps = {"encrypt", "decrypt"};
+    auto key = progressive::extractFileKey(k);
+    ASSERT_STREQ(key.c_str(), "secret_key");
+}
+
+// ==== URL Preview ====
+
+#include "progressive/url_preview.hpp"
+
+static void test_extract_html_title() {
+    auto title = progressive::extractHtmlTitle("<html><head><title>My Page</title></head></html>");
+    ASSERT_STREQ(title.c_str(), "My Page");
+}
+
+static void test_resolve_url() {
+    auto resolved = progressive::resolveUrl("https://example.com/path/", "page.html");
+    ASSERT_STREQ(resolved.c_str(), "https://example.com/path/page.html");
+}
+
+// ==== Web Search ====
+
+#include "progressive/web_search.hpp"
+
+static void test_build_searxng_url() {
+    auto url = progressive::buildSearxngUrl("https://search.example.com", "test query", 10);
+    ASSERT_TRUE(url.find("search.example.com") != std::string::npos);
+    ASSERT_TRUE(url.find("test+query") != std::string::npos || url.find("test%20query") != std::string::npos);
+}
+
+static void test_build_duckduckgo_url() {
+    auto url = progressive::buildDuckDuckGoUrl("test");
+    ASSERT_TRUE(url.find("api.duckduckgo.com") != std::string::npos);
+}
+
+// ==== Signout Service ====
+
+#include "progressive/signout_service.hpp"
+
+static void test_should_ignore_signout_error() {
+    ASSERT_TRUE(progressive::shouldIgnoreSignOutError("M_UNKNOWN_TOKEN", 401));
+    ASSERT_FALSE(progressive::shouldIgnoreSignOutError("M_FORBIDDEN", 403));
+}
+
+// ==== Message Extras ====
+
+#include "progressive/message_extras.hpp"
+#include "progressive/room_uploads.hpp"
+#include "progressive/auth_models.hpp"
+#include "progressive/call_models.hpp"
+#include "progressive/json_parser.hpp"
+
+static void test_poll_type_to_string() {
+    auto s = progressive::pollTypeToString(progressive::PollType::DISCLOSED);
+    ASSERT_STREQ(s, "m.poll.disclosed");
+}
+
+static void test_is_sticker_event() {
+    ASSERT_TRUE(progressive::isStickerEvent("m.sticker"));
+    ASSERT_FALSE(progressive::isStickerEvent("m.room.message"));
+}
+
+static void test_presence_enum_to_string() {
+    ASSERT_STREQ(progressive::presenceEnumToString(progressive::PresenceEnum::ONLINE), "online");
+}
+
+static void test_sdp_type_to_string() {
+    ASSERT_STREQ(progressive::sdpTypeToString(progressive::SdpType::OFFER), "offer");
+}
+
+static void test_parse_json_string_value() {
+    ASSERT_STREQ(progressive::parseJsonStringValue(R"({"key":"hello"})", "key").c_str(), "hello");
+    ASSERT_STREQ(progressive::parseJsonStringValue(R"({"a":"b"})", "c").c_str(), "");
+}
+
+static void test_end_call_reason_to_string() {
+    ASSERT_STREQ(progressive::endCallReasonToString(progressive::EndCallReason::USER_HUNG_UP), "user_hung_up");
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -1158,6 +1370,49 @@ int main() {
     ADD_TEST(runner, test_backup_progress);
     ADD_TEST(runner, test_backup_parse_keys_response);
     ADD_TEST(runner, test_backup_trust);
+    
+    printf("\n-- Live Location --\n");
+    ADD_TEST(runner, test_geo_uri_parse);
+    ADD_TEST(runner, test_geo_uri_invalid);
+    ADD_TEST(runner, test_geo_uri_format);
+    ADD_TEST(runner, test_location_format_message);
+    ADD_TEST(runner, test_live_session_start_stop);
+    ADD_TEST(runner, test_beacon_info_build);
+    
+    printf("\n-- Notif Formatter --\n");
+    ADD_TEST(runner, test_format_image_notification);
+    ADD_TEST(runner, test_format_file_notification);
+    ADD_TEST(runner, test_format_invite_notification);
+    ADD_TEST(runner, test_format_room_notification);
+    
+    printf("\n-- Offline Cache --\n");
+    ADD_TEST(runner, test_can_fit_in_storage);
+    ADD_TEST(runner, test_estimate_message_cache_size);
+    
+    printf("\n-- Lightweight Settings --\n");
+    ADD_TEST(runner, test_settings_get_bool);
+    ADD_TEST(runner, test_settings_set_bool);
+    ADD_TEST(runner, test_settings_get_string);
+    
+    printf("\n-- Encrypted File --\n");
+    ADD_TEST(runner, test_encrypted_file_key_to_json);
+    ADD_TEST(runner, test_is_valid_jwk_key);
+    ADD_TEST(runner, test_extract_file_key);
+    
+    printf("\n-- URL Preview + Web Search --\n");
+    ADD_TEST(runner, test_extract_html_title);
+    ADD_TEST(runner, test_resolve_url);
+    ADD_TEST(runner, test_build_searxng_url);
+    ADD_TEST(runner, test_build_duckduckgo_url);
+    
+    printf("\n-- Signout + Extras + Misc --\n");
+    ADD_TEST(runner, test_should_ignore_signout_error);
+    ADD_TEST(runner, test_poll_type_to_string);
+    ADD_TEST(runner, test_is_sticker_event);
+    ADD_TEST(runner, test_presence_enum_to_string);
+    ADD_TEST(runner, test_sdp_type_to_string);
+    ADD_TEST(runner, test_parse_json_string_value);
+    ADD_TEST(runner, test_end_call_reason_to_string);
     
     return runner.summary();
 }
