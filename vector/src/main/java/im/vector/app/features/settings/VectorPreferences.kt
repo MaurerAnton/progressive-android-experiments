@@ -160,6 +160,7 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_NATIVE_CRYPTO_KEY = "SETTINGS_LABS_NATIVE_CRYPTO_KEY"
         const val SETTINGS_LABS_NATIVE_MARKDOWN_KEY = "SETTINGS_LABS_NATIVE_MARKDOWN_KEY"
         const val SETTINGS_LABS_NATIVE_WIDGET_MANAGER_KEY = "SETTINGS_LABS_NATIVE_WIDGET_MANAGER_KEY"
+        const val SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY = "SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
         const val SETTINGS_LABS_FULL_AVATAR_KEY = "SETTINGS_LABS_FULL_AVATAR_KEY"
         const val SETTINGS_LABS_AVATAR_ORIGINAL_RATIO = "SETTINGS_LABS_AVATAR_ORIGINAL_RATIO"
         const val SETTINGS_LABS_WEB_SEARCH_KEY = "SETTINGS_LABS_WEB_SEARCH_KEY"
@@ -1782,6 +1783,20 @@ class VectorPreferences @Inject constructor(
     fun isLiveDraftEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_LIVE_DRAFT_KEY, false)
     }
+
+    fun isTransparentOverlayEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY, false)
+    }
+
+    // Transparent Overlay config parameters
+    fun getOverlayOneFingerHoldMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_ONE_FINGER_MS", 200)
+    fun getOverlayTwoFingerHoldMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_TWO_FINGER_MS", 1000)
+    fun getOverlayForegroundDurationMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_FG_DURATION_MS", 2000)
+    fun getOverlayForegroundExtendedMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_FG_EXTENDED_MS", 3000)
+    fun isOverlayOneFingerEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_ONE_FINGER", true)
+    fun isOverlayTwoFingerEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_TWO_FINGER", true)
+    fun isOverlayBackEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_BACK", true)
+    fun isOverlaySwipeEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_SWIPE", true)
 
     fun getLiveDraftCharThreshold(): Int {
         return defaultPrefs.getInt(SETTINGS_LIVE_DRAFT_CHAR_THRESHOLD, 20)

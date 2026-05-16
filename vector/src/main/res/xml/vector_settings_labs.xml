@@ -695,4 +695,68 @@
         android:key="SETTINGS_LIVE_DRAFT_UPDATE_INTERVAL_MS"
         android:title="Update interval (milliseconds)" />
 
+    <!-- === Transparent Overlay (multi-touch background interaction) === -->
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:summary="Show previous activity transparently behind current. Multi-touch gestures allow background interaction. One-finger hold + second finger = pass-through. Two-finger hold = swap foreground. Restart required."
+        android:title="Transparent Background Overlay (experimental)" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:key="SETTINGS_OVERLAY_ONE_FINGER"
+        android:summary="Hold one finger still, then use second finger to interact with background activity"
+        android:title="One-finger pass-through" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:key="SETTINGS_OVERLAY_TWO_FINGER"
+        android:summary="Hold two fingers to temporarily bring background to foreground"
+        android:title="Two-finger foreground swap" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:key="SETTINGS_OVERLAY_BACK"
+        android:summary="Press Back to return from background foreground view"
+        android:title="Back button to return" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:key="SETTINGS_OVERLAY_SWIPE"
+        android:summary="Swipe down on background foreground to return"
+        android:title="Swipe down to return" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue="200"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:inputType="number"
+        android:key="SETTINGS_OVERLAY_ONE_FINGER_MS"
+        android:title="One-finger hold threshold (milliseconds)" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue="1000"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:inputType="number"
+        android:key="SETTINGS_OVERLAY_TWO_FINGER_MS"
+        android:title="Two-finger hold threshold (milliseconds)" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue="2000"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:inputType="number"
+        android:key="SETTINGS_OVERLAY_FG_DURATION_MS"
+        android:title="Foreground display duration (milliseconds)" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue="3000"
+        android:dependency="SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        android:inputType="number"
+        android:key="SETTINGS_OVERLAY_FG_EXTENDED_MS"
+        android:title="Extended foreground duration after tap (milliseconds)" />
+
 </androidx.preference.PreferenceScreen>
