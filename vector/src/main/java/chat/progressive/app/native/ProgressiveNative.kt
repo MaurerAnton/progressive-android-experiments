@@ -906,6 +906,17 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeBuildSessionRenameBody(sessionId: String, newName: String): String
 
+    // --- Permalink Detection ---
+
+    @JvmStatic external fun nativeIsMatrixToPermalink(url: String): Boolean
+    @JvmStatic external fun nativeIsAppPermalink(url: String): Boolean
+    @JvmStatic external fun nativeIsValidOrderString(order: String): Boolean
+    @JvmStatic external fun nativeIsGroupId(input: String): Boolean
+
+    // --- Device Name ---
+
+    @JvmStatic external fun nativeParseDeviceName(userAgent: String): String
+
     // --- Megolm Decryptor ---
 
     @JvmStatic external fun nativeMegolmAddSession(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean
@@ -2878,6 +2889,18 @@ object ProgressiveNative {
     // --- Session Rename fallback ---
     @JvmStatic fun nativeBuildSessionRenameBodyFallback(sessionId: String, newName: String): String =
         """{"session_id":"$sessionId","display_name":"$newName"}"""
+
+    // --- Permalink fallbacks ---
+    @JvmStatic fun nativeIsMatrixToPermalinkFallback(url: String): Boolean =
+        url.contains("matrix.to/#/") || url.contains("matrix.to/")
+    @JvmStatic fun nativeIsAppPermalinkFallback(url: String): Boolean =
+        url.contains("#/") && (url.startsWith("https://matrix.to") || url.startsWith("https://app.element.io"))
+    @JvmStatic fun nativeIsValidOrderStringFallback(order: String): Boolean =
+        order.isNotEmpty() && order.length < 50 && order.all { it in 0x20.toChar()..0x7E.toChar() }
+    @JvmStatic fun nativeIsGroupIdFallback(input: String): Boolean = input.startsWith("+") && input.contains(":") && input.length > 3
+
+    // --- Device Name fallback ---
+    @JvmStatic fun nativeParseDeviceNameFallback(userAgent: String): String = userAgent
 
     // --- Megolm fallbacks ---
     @JvmStatic fun nativeMegolmAddSessionFallback(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean = false

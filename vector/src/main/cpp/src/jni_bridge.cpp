@@ -2749,6 +2749,31 @@ JNI_FUNC(jstring, nativeBuildSessionRenameBody)(JNIEnv* env, jclass, jstring jSe
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Permalink Detection ---
+
+JNI_FUNC(jboolean, nativeIsMatrixToPermalink)(JNIEnv* env, jclass, jstring jUrl) {
+    return progressive::isMatrixToPermalink(jStr(env, jUrl)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeIsAppPermalink)(JNIEnv* env, jclass, jstring jUrl) {
+    return progressive::isAppPermalink(jStr(env, jUrl)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeIsValidOrderString)(JNIEnv* env, jclass, jstring jOrder) {
+    return progressive::isValidOrderString(jStr(env, jOrder)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeIsGroupId)(JNIEnv* env, jclass, jstring jInput) {
+    return progressive::isGroupId(jStr(env, jInput)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Device Name ---
+
+JNI_FUNC(jstring, nativeParseDeviceName)(JNIEnv* env, jclass, jstring jUserAgent) {
+    auto result = progressive::parseDeviceName(jStr(env, jUserAgent));
+    return env->NewStringUTF(result.c_str());
+}
+
 // --- Megolm Decryptor ---
 // Controlled by Labs: SETTINGS_LABS_NATIVE_CRYPTO
 
