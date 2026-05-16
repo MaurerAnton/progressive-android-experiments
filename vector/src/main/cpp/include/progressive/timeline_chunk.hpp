@@ -104,6 +104,15 @@ public:
     // Get chunk count.
     int chunkCount() const { return (int)chunks_.size(); }
 
+    // ==== Snapshot Building ====
+
+    // Get all events in display order (oldest first) across all linked chunks.
+    // For room timeline display. Equivalent to Kotlin builtItems().
+    std::vector<TimelineEventData> getSnapshot(int limit = 0, int offset = 0) const;
+
+    // Get events from a specific chunk by index.
+    const TimelineChunkData* getChunk(int idx) const;
+
     // Clear all chunks (for room change).
     void clear();
 

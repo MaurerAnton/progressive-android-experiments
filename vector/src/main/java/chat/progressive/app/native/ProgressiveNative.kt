@@ -1604,6 +1604,8 @@ object ProgressiveNative {
     @JvmStatic external fun nativeTimelineGetReplies(eventId: String): String
     @JvmStatic external fun nativeTimelineGetLatestEdit(eventId: String): String
     @JvmStatic external fun nativeTimelineGetThreadEvents(rootEventId: String): String
+    @JvmStatic external fun nativeTimelineChunkCount(roomId: String): Int
+    @JvmStatic external fun nativeTimelineGetSnapshot(roomId: String, limit: Int, offset: Int): String
 
     // --- Event Utilities ---
 
@@ -2208,6 +2210,9 @@ object ProgressiveNative {
     @JvmStatic fun timelineClearFallback(roomId: String) {}
     @JvmStatic fun timelineGetRepliesFallback(eventId: String): String = "[]"
     @JvmStatic fun timelineGetLatestEditFallback(eventId: String): String = eventId
+    @JvmStatic fun timelineGetThreadEventsFallback(rootEventId: String): String = "[]"
+    @JvmStatic fun timelineChunkCountFallback(roomId: String): Int = 0
+    @JvmStatic fun timelineGetSnapshotFallback(roomId: String, limit: Int, offset: Int): String = "[]"
     @JvmStatic fun timelineGetThreadEventsFallback(rootEventId: String): String = "[]"
 
     // --- Event Utils fallbacks ---

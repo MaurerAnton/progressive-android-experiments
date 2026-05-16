@@ -203,6 +203,21 @@ int TimelineChunkManager::getLastChunkIdx() const {
     return lastIdx;
 }
 
+// ==== Snapshot Building ====
+
+std::vector<TimelineEventData> TimelineChunkManager::getSnapshot(int limit, int offset) const {
+    // Get sorted events and apply limit/offset
+    auto events = getEventsInOrder();
+    if (offset >= (int)events.size()) return {};
+    int end = limit > 0 ? std::min(offset + limit, (int)events.size()) : (int)events.size();
+    return std::vector<TimelineEventData>(events.begin() + offset, events.begin() + end);
+}
+
+const TimelineChunkData* TimelineChunkManager::getChunk(int idx) const {
+    if (idx < 0 || idx >= (int)chunks_.size()) return nullptr;
+    return &chunks_[idx];
+}
+
 void TimelineChunkManager::clear() {
     chunks_.clear();
     eventIndex_.clear();

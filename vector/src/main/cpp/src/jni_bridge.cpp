@@ -1034,6 +1034,30 @@ JNI_FUNC(jstring, nativeTimelineGetThreadEvents)(JNIEnv* env, jclass, jstring jR
     return env->NewStringUTF("[]");
 }
 
+JNI_FUNC(jint, nativeTimelineChunkCount)(JNIEnv* env, jclass, jstring jRoom) {
+    static std::unordered_map<std::string, progressive::TimelineChunkManager> managers;
+    auto room = jStr(env, jRoom);
+    auto it = managers.find(room);
+    return it != managers.end() ? it->second.chunkCount() : 0;
+}
+
+JNI_FUNC(jstring, nativeTimelineGetSnapshot)(JNIEnv* env, jclass, jstring jRoom, jint jLimit, jint jOffset) {
+    static std::unordered_map<std::string, progressive::TimelineChunkManager> managers;
+    auto room = jStr(env, jRoom);
+    auto it = managers.find(room);
+    if (it == managers.end()) return env->NewStringUTF("[]");
+    auto events = it->second.getSnapshot(jLimit, jOffset);
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < events.size(); i++) {
+        if (i > 0) os << ",";
+        os << R"({"id":")" << events[i].eventId
+           << R"(","di":)" << events[i].displayIndex
+           << R"(","ts":)" << events[i].originServerTs << "}";
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
 // --- Room Filter ---
 JNI_FUNC(jstring, nativeFilterRooms)(JNIEnv* env, jclass, jstring jRooms, jint jCat, jstring jQuery) {
     // Stub: returns input as-is. Full impl parses JSON array, filters, returns.
