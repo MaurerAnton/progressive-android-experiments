@@ -2473,4 +2473,31 @@ JNI_FUNC(jstring, nativeBuildKnockBody)(JNIEnv* env, jclass, jstring jReason) {
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Device Manager ---
+
+JNI_FUNC(jstring, nativeFormatFingerprint)(JNIEnv* env, jclass, jstring jFingerprint) {
+    auto result = progressive::formatFingerprint(jStr(env, jFingerprint));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jboolean, nativeIsDeviceInactive)(JNIEnv* env, jclass, jlong jLastSeenMs) {
+    return progressive::isDeviceInactive(jLastSeenMs) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Version Compatibility ---
+
+JNI_FUNC(jboolean, nativeSatisfiesMinVersion)(JNIEnv* env, jclass, jstring jCurrent, jstring jMinimum) {
+    return progressive::satisfiesMinVersion(jStr(env, jCurrent), jStr(env, jMinimum)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Federation Version ---
+
+JNI_FUNC(jstring, nativeParseFederationVersion)(JNIEnv* env, jclass, jstring jJson) {
+    auto version = progressive::parseFederationVersion(jStr(env, jJson));
+    std::ostringstream os;
+    os << R"({"name":")" << version.name
+       << R"(","version":")" << version.version << "\"}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
 } // extern "C"

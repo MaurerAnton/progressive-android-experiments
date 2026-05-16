@@ -1489,6 +1489,19 @@ object ProgressiveNative {
     @JvmStatic external fun nativeIsInviteExpired(invitedAtMs: Long, maxAgeDays: Int): Boolean
     @JvmStatic external fun nativeBuildKnockBody(reason: String): String
 
+    // --- Device Manager ---
+
+    @JvmStatic external fun nativeFormatFingerprint(fingerprint: String): String
+    @JvmStatic external fun nativeIsDeviceInactive(lastSeenMs: Long): Boolean
+
+    // --- Version Compatibility ---
+
+    @JvmStatic external fun nativeSatisfiesMinVersion(current: String, minimum: String): Boolean
+
+    // --- Federation Version ---
+
+    @JvmStatic external fun nativeParseFederationVersion(json: String): String
+
     // --- URL Preview ---
 
     @JvmStatic external fun nativeIsPreviewableUrl(url: String): Boolean
@@ -2681,6 +2694,19 @@ object ProgressiveNative {
         (System.currentTimeMillis() - invitedAtMs) > maxAgeDays * 86400_000L
     @JvmStatic fun nativeBuildKnockBodyFallback(reason: String): String =
         """{"reason":"$reason"}"""
+
+    // --- Device fallbacks ---
+    @JvmStatic fun nativeFormatFingerprintFallback(fingerprint: String): String =
+        fingerprint.chunked(4).joinToString(" ")
+    @JvmStatic fun nativeIsDeviceInactiveFallback(lastSeenMs: Long): Boolean =
+        lastSeenMs > 0 && (System.currentTimeMillis() - lastSeenMs) > 90L * 86400_000
+
+    // --- Version fallback ---
+    @JvmStatic fun nativeSatisfiesMinVersionFallback(current: String, minimum: String): Boolean =
+        nativeCompareSemverFallback(current, minimum) >= 0
+
+    // --- Federation fallback ---
+    @JvmStatic fun nativeParseFederationVersionFallback(json: String): String = """{"name":"","version":""}"""
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")
