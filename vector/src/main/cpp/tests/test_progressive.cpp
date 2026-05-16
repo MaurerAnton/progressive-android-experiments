@@ -631,6 +631,38 @@ static void test_encryption_algorithm_parse() {
     ASSERT_TRUE(alg.isDefault);
 }
 
+// ==== Push notification evaluation ====
+static void test_push_eval_own_event() {
+    progressive::PushRuleSet rules;
+    auto result = progressive::evaluatePushNotification(
+        R"({"type":"m.room.message","sender":"@me:matrix.org","room_id":"!r:matrix.org","content":{"body":"hello"}})",
+        rules, "Me", "@me:matrix.org");
+    ASSERT_FALSE(result.shouldNotify); // own event → no notify
+}
+
+// ==== Room upgrade handler ====
+static void test_room_upgrade_not_upgrade() {
+    auto info = progressive::processRoomUpgrade(R"({"body":"Room closed"})");
+    ASSERT_FALSE(info.isUpgrade);
+}
+
+// ==== Redaction notice ====
+static void test_redaction_self() {
+    auto result = progressive::formatRedactionNotice("", true, false);
+    ASSERT_TRUE(result.find("You") != std::string::npos);
+}
+
+static void test_redaction_with_reason() {
+    auto result = progressive::formatRedactionNotice("spam", false, false);
+    ASSERT_TRUE(result.find("spam") != std::string::npos);
+}
+
+// ==== Key backup validation ====
+static void test_validate_bad_recovery_key() {
+    auto result = progressive::validateAndFormatRecoveryKey("short");
+    ASSERT_TRUE(result.find("\"valid\":false") != std::string::npos);
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -770,6 +802,13 @@ int main() {
     printf("\n-- E2EE End-to-End --\n");
     ADD_TEST(runner, test_e2ee_full_pipeline);
     ADD_TEST(runner, test_encryption_algorithm_parse);
+    
+    printf("\n-- Serious Components --\n");
+    ADD_TEST(runner, test_push_eval_own_event);
+    ADD_TEST(runner, test_room_upgrade_not_upgrade);
+    ADD_TEST(runner, test_redaction_self);
+    ADD_TEST(runner, test_redaction_with_reason);
+    ADD_TEST(runner, test_validate_bad_recovery_key);
     
     return runner.summary();
 }
