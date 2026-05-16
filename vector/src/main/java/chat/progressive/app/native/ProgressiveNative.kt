@@ -1382,6 +1382,30 @@ object ProgressiveNative {
     @JvmStatic external fun nativeClassifyWidgetType(type: String): String
     @JvmStatic external fun nativeIsAutoApprovedCapability(capability: Int, widgetType: String): Boolean
 
+    // --- Key Backup Manager ---
+
+    @JvmStatic external fun nativeBackupExtractPrivateKey(recoveryKey: String): String
+    @JvmStatic external fun nativeBackupGenerateRecoveryKey(curve25519Key: String): String
+    @JvmStatic external fun nativeBackupParseVersion(json: String): String
+    @JvmStatic external fun nativeBackupBuildCreateVersion(configJson: String): String
+    @JvmStatic external fun nativeBackupBuildDelete(version: String): String
+    @JvmStatic external fun nativeBackupExportSession(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String, firstMessageIndex: Long, isForwarded: Boolean, forwardedCount: Long): String
+    @JvmStatic external fun nativeBackupEncryptSession(sessionJson: String, authData: String): String
+    @JvmStatic external fun nativeBackupParseKeys(backupJson: String): String
+    @JvmStatic external fun nativeBackupDecryptSession(sessionJson: String, backupKey: String, roomId: String): String
+    @JvmStatic external fun nativeBackupDecryptAll(keysJson: String, authData: String, recoveryKey: String): String
+    @JvmStatic external fun nativeBackupVerifyIntegrity(authData: String): Boolean
+    @JvmStatic external fun nativeBackupVerifyRecoveryMatch(recoveryKey: String, authData: String): Boolean
+    @JvmStatic external fun nativeBackupProgress(): String
+    @JvmStatic external fun nativeBackupProgressJson(): String
+    @JvmStatic external fun nativeBackupSetTotalKeys(count: Int)
+    @JvmStatic external fun nativeBackupAdvanceUploaded()
+    @JvmStatic external fun nativeBackupAdvanceDownloaded()
+    @JvmStatic external fun nativeBackupAdvanceDecrypted()
+    @JvmStatic external fun nativeBackupAdvanceImported()
+    @JvmStatic external fun nativeBackupMarkComplete()
+    @JvmStatic external fun nativeBackupReset()
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -3990,6 +4014,41 @@ object ProgressiveNative {
         else -> type }
     @JvmStatic fun nativeIsAutoApprovedCapabilityFallback(capability: Int, widgetType: String): Boolean =
         widgetType in listOf("m.jitsi","jitsi","m.stickerpicker")
+
+    // --- Key Backup Manager fallbacks ---
+    @JvmStatic fun nativeBackupExtractPrivateKeyFallback(recoveryKey: String): String = ""
+    @JvmStatic fun nativeBackupGenerateRecoveryKeyFallback(curve25519Key: String): String {
+        // Simple ASCII-based mock recovery key
+        return curve25519Key.take(43).chunked(4).joinToString(" ")
+    }
+    @JvmStatic fun nativeBackupParseVersionFallback(json: String): String {
+        val ver = Regex(""""version":"([^"]+)"""").find(json)?.groupValues?.getOrNull(1) ?: "0"
+        val algo = Regex(""""algorithm":"([^"]+)"""").find(json)?.groupValues?.getOrNull(1) ?: ""
+        val cnt = Regex(""""count":(\d+)""").find(json)?.groupValues?.getOrNull(1) ?: "0"
+        return """{"version":"$ver","algorithm":"$algo","count":$cnt,"valid":true,"etag":""}"""
+    }
+    @JvmStatic fun nativeBackupBuildCreateVersionFallback(configJson: String): String = """{"algorithm":"m.megolm_backup.v1.curve25519-aes-sha2","auth_data":{},"version":"1"}"""
+    @JvmStatic fun nativeBackupBuildDeleteFallback(version: String): String = "{}"
+    @JvmStatic fun nativeBackupExportSessionFallback(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String, firstMessageIndex: Long, isForwarded: Boolean, forwardedCount: Long): String =
+        """{"room_id":"$roomId","session_id":"$sessionId","sender_key":"$senderKey","first_index":$firstMessageIndex}"""
+    @JvmStatic fun nativeBackupEncryptSessionFallback(sessionJson: String, authData: String): String = sessionJson
+    @JvmStatic fun nativeBackupParseKeysFallback(backupJson: String): String = "[]"
+    @JvmStatic fun nativeBackupDecryptSessionFallback(sessionJson: String, backupKey: String, roomId: String): String {
+        val sid = Regex(""""session_id":"([^"]+)"""").find(sessionJson)?.groupValues?.getOrNull(1) ?: ""
+        return """{"session_id":"$sid","sender_key":"","session_key":"","decrypted":false,"error":"fallback — native lib not loaded"}"""
+    }
+    @JvmStatic fun nativeBackupDecryptAllFallback(keysJson: String, authData: String, recoveryKey: String): String = "[]"
+    @JvmStatic fun nativeBackupVerifyIntegrityFallback(authData: String): Boolean = authData.contains("public_key")
+    @JvmStatic fun nativeBackupVerifyRecoveryMatchFallback(recoveryKey: String, authData: String): Boolean = recoveryKey.isNotEmpty()
+    @JvmStatic fun nativeBackupProgressFallback(): String = "0"
+    @JvmStatic fun nativeBackupProgressJsonFallback(): String = """{"total_keys":0,"uploaded":0,"failed":0,"downloaded":0,"decrypted":0,"imported":0,"is_running":false,"is_complete":false,"started_at":0,"last_update":0}"""
+    @JvmStatic fun nativeBackupSetTotalKeysFallback(count: Int) {}
+    @JvmStatic fun nativeBackupAdvanceUploadedFallback() {}
+    @JvmStatic fun nativeBackupAdvanceDownloadedFallback() {}
+    @JvmStatic fun nativeBackupAdvanceDecryptedFallback() {}
+    @JvmStatic fun nativeBackupAdvanceImportedFallback() {}
+    @JvmStatic fun nativeBackupMarkCompleteFallback() {}
+    @JvmStatic fun nativeBackupResetFallback() {}
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")

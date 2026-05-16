@@ -158,6 +158,7 @@
 #include "progressive/event_validator.hpp"
 #include "progressive/widget_utils.hpp"
 #include "progressive/widget_manager.hpp"
+#include "progressive/key_backup_manager.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -4910,5 +4911,128 @@ JNI_FUNC(jboolean, nativeIsAutoApprovedCapability)(JNIEnv* env, jclass, jint jCa
     return progressive::isAutoApprovedCapability(
         static_cast<progressive::WidgetCapability>(jCap), jStr(env, jWidgetType)) ? JNI_TRUE : JNI_FALSE;
 }
+
+// ============================================================
+// Key Backup Manager — full E2EE backup pipeline
+// ============================================================
+
+static std::unique_ptr<progressive::KeyBackupManager> g_backupMgr;
+
+static progressive::KeyBackupManager* getBackupMgr() {
+    if (!g_backupMgr) g_backupMgr.reset(new progressive::KeyBackupManager());
+    return g_backupMgr.get();
+}
+
+JNI_FUNC(jstring, nativeBackupExtractPrivateKey)(JNIEnv* env, jclass, jstring jRecoveryKey) {
+    auto result = getBackupMgr()->extractPrivateKeyFromRecoveryKey(jStr(env, jRecoveryKey));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupGenerateRecoveryKey)(JNIEnv* env, jclass, jstring jCurveKey) {
+    auto result = getBackupMgr()->generateRecoveryKey(jStr(env, jCurveKey));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupParseVersion)(JNIEnv* env, jclass, jstring jJson) {
+    auto ver = getBackupMgr()->parseBackupVersion(jStr(env, jJson));
+    return env->NewStringUTF(getBackupMgr()->backupVersionToJson(ver).c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupBuildCreateVersion)(JNIEnv* env, jclass, jstring jConfigJson) {
+    auto json = jStr(env, jConfigJson);
+    progressive::KeyBackupConfig c;
+    c.algorithm = jExtractStr(json, "algorithm");
+    if (c.algorithm.empty()) c.algorithm = "m.megolm_backup.v1.curve25519-aes-sha2";
+    c.authData = jExtractStr(json, "auth_data");
+    c.version = static_cast<int>(jExtractInt(json, "version"));
+    c.recoveryKey = jExtractStr(json, "recovery_key");
+    auto result = getBackupMgr()->buildCreateBackupVersionRequest(c);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupBuildDelete)(JNIEnv* env, jclass, jstring jVersion) {
+    auto result = getBackupMgr()->buildDeleteBackupRequest(jStr(env, jVersion));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupExportSession)(JNIEnv* env, jclass, jstring jRoomId, jstring jSenderKey,
+                                              jstring jSessionId, jstring jKeyBase64, jlong jIdx,
+                                              jboolean jForwarded, jlong jFwdCount) {
+    auto exp = getBackupMgr()->exportSessionForBackup(
+        jStr(env, jRoomId), jStr(env, jSenderKey), jStr(env, jSessionId),
+        jStr(env, jKeyBase64), jIdx, jForwarded, jFwdCount);
+    std::ostringstream os;
+    os << R"({"room_id":")" << exp.roomId << R"(","session_id":")" << exp.sessionId
+       << R"(","sender_key":")" << exp.senderKey << R"(","first_index":)" << exp.firstMessageIndex << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupEncryptSession)(JNIEnv* env, jclass, jstring jSessionJson, jstring jAuthData) {
+    auto json = jStr(env, jSessionJson);
+    progressive::MegolmSessionExport s;
+    s.roomId = jExtractStr(json, "room_id");
+    s.senderKey = jExtractStr(json, "sender_key");
+    s.sessionId = jExtractStr(json, "session_id");
+    s.firstMessageIndex = jExtractInt(json, "first_index");
+    s.isForwardedKey = jExtractBool(json, "forwarded");
+    s.forwardedCount = jExtractInt(json, "forwarded_count");
+    auto result = getBackupMgr()->encryptSessionDataForBackup(s, jStr(env, jAuthData));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupParseKeys)(JNIEnv* env, jclass, jstring jJson) {
+    auto rooms = getBackupMgr()->parseBackupKeysResponse(jStr(env, jJson));
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < rooms.size(); i++) {
+        if (i > 0) os << ",";
+        os << R"({"room_id":")" << rooms[i].roomId << R"(","count":)" << rooms[i].sessions[rooms[i].roomId].size() << "}";
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupDecryptSession)(JNIEnv* env, jclass, jstring jSessionJson, jstring jBackupKey, jstring jRoomId) {
+    auto result = getBackupMgr()->decryptSessionData(jStr(env, jSessionJson), jStr(env, jBackupKey), jStr(env, jRoomId));
+    std::ostringstream os;
+    os << R"({"session_id":")" << result.sessionId
+       << R"(","sender_key":")" << result.senderKey
+       << R"(","session_key":")" << result.sessionKeyBase64
+       << R"(","decrypted":)" << (result.decrypted ? "true" : "false");
+    if (!result.error.empty()) os << R"(,"error":")" << result.error << "\"";
+    os << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeBackupDecryptAll)(JNIEnv* env, jclass, jstring jKeysJson, jstring jAuthData, jstring jRecoveryKey) {
+    auto results = getBackupMgr()->decryptAllSessions(jStr(env, jKeysJson), jStr(env, jAuthData), jStr(env, jRecoveryKey));
+    return env->NewStringUTF(getBackupMgr()->decryptResultsToJson(results).c_str());
+}
+
+JNI_FUNC(jboolean, nativeBackupVerifyIntegrity)(JNIEnv* env, jclass, jstring jAuthData) {
+    return getBackupMgr()->verifyBackupIntegrity(jStr(env, jAuthData)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeBackupVerifyRecoveryMatch)(JNIEnv* env, jclass, jstring jRecoveryKey, jstring jAuthData) {
+    return getBackupMgr()->verifyRecoveryKeyMatchesBackup(jStr(env, jRecoveryKey), jStr(env, jAuthData)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeBackupProgress)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(getBackupMgr()->getProgress().isRunning ? "1" : "0");
+}
+
+JNI_FUNC(jstring, nativeBackupProgressJson)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(getBackupMgr()->progressToJson().c_str());
+}
+
+JNI_FUNC(void, nativeBackupSetTotalKeys)(JNIEnv* env, jclass, jint jCount) {
+    getBackupMgr()->setTotalKeys(jCount);
+}
+
+JNI_FUNC(void, nativeBackupAdvanceUploaded)(JNIEnv*, jclass) { getBackupMgr()->advanceUploaded(1); }
+JNI_FUNC(void, nativeBackupAdvanceDownloaded)(JNIEnv*, jclass) { getBackupMgr()->advanceDownloaded(1); }
+JNI_FUNC(void, nativeBackupAdvanceDecrypted)(JNIEnv*, jclass) { getBackupMgr()->advanceDecrypted(1); }
+JNI_FUNC(void, nativeBackupAdvanceImported)(JNIEnv*, jclass) { getBackupMgr()->advanceImported(1); }
+JNI_FUNC(void, nativeBackupMarkComplete)(JNIEnv*, jclass) { getBackupMgr()->markComplete(); }
+JNI_FUNC(void, nativeBackupReset)(JNIEnv*, jclass) { g_backupMgr.reset(new progressive::KeyBackupManager()); }
 
 } // extern "C"

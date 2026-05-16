@@ -877,6 +877,102 @@ static void test_widget_by_type() {
     ASSERT_EQ(mgr.widgetCount(), 3);
 }
 
+// ==== Key Backup Manager ====
+
+#include "progressive/key_backup_manager.hpp"
+#include "progressive/key_backup.hpp"
+
+static void test_backup_parse_version() {
+    progressive::KeyBackupManager mgr;
+    auto ver = mgr.parseBackupVersion(
+        R"({"version":"1","algorithm":"m.megolm_backup.v1.curve25519-aes-sha2","auth_data":{"public_key":"abc"},"count":5})");
+    ASSERT_TRUE(ver.valid);
+    ASSERT_STREQ(ver.version.c_str(), "1");
+    ASSERT_EQ(ver.count, 5);
+}
+
+static void test_backup_unsupported_algorithm() {
+    progressive::KeyBackupManager mgr;
+    auto ver = mgr.parseBackupVersion(R"({"version":"1","algorithm":"bad_algo"})");
+    ASSERT_FALSE(ver.valid);
+    ASSERT_TRUE(!ver.error.empty());
+}
+
+static void test_backup_build_create_request() {
+    progressive::KeyBackupManager mgr;
+    progressive::KeyBackupConfig c;
+    c.algorithm = "m.megolm_backup.v1.curve25519-aes-sha2";
+    c.version = 1;
+    c.authData = R"({"public_key":"test_key"})";
+    auto req = mgr.buildCreateBackupVersionRequest(c);
+    ASSERT_TRUE(req.find("m.megolm_backup.v1.curve25519-aes-sha2") != std::string::npos);
+    ASSERT_TRUE(req.find("test_key") != std::string::npos);
+    ASSERT_TRUE(req.find(R"("version":"1")") != std::string::npos);
+}
+
+static void test_backup_export_session() {
+    progressive::KeyBackupManager mgr;
+    auto exp = mgr.exportSessionForBackup(
+        "!room:example.org", "sender_key_abc", "sess123", "AQIDBAUG", 100, false, 0);
+    ASSERT_STREQ(exp.roomId.c_str(), "!room:example.org");
+    ASSERT_STREQ(exp.senderKey.c_str(), "sender_key_abc");
+    ASSERT_EQ(exp.firstMessageIndex, 100);
+    ASSERT_FALSE(exp.isForwardedKey);
+}
+
+static void test_backup_encrypt_session() {
+    progressive::KeyBackupManager mgr;
+    progressive::MegolmSessionExport s;
+    s.roomId = "!room:example.org";
+    s.senderKey = "key1";
+    s.sessionId = "sess1";
+    auto enc = mgr.encryptSessionDataForBackup(s, "{}");
+    ASSERT_TRUE(!enc.empty());
+    ASSERT_TRUE(enc.find("room_id") != std::string::npos || enc.find("sender_key") != std::string::npos);
+}
+
+static void test_backup_verify_integrity() {
+    progressive::KeyBackupManager mgr;
+    ASSERT_TRUE(mgr.verifyBackupIntegrity(R"({"public_key":"abc","signatures":{"@alice:org":{"ed25519:dev":"sig"}}})"));
+    ASSERT_FALSE(mgr.verifyBackupIntegrity(R"({"public_key":""})"));
+    ASSERT_FALSE(mgr.verifyBackupIntegrity(R"({})"));
+}
+
+static void test_backup_progress() {
+    progressive::KeyBackupManager mgr;
+    mgr.setTotalKeys(100);
+    mgr.advanceUploaded(10);
+    mgr.advanceDownloaded(10);
+    mgr.advanceDecrypted(8);
+    mgr.advanceImported(8);
+
+    auto json = mgr.progressToJson();
+    ASSERT_TRUE(json.find("100") != std::string::npos);
+    ASSERT_TRUE(json.find(R"("uploaded":10)") != std::string::npos);
+    ASSERT_TRUE(json.find("is_running\":true") != std::string::npos);
+
+    mgr.markComplete();
+    auto json2 = mgr.progressToJson();
+    ASSERT_TRUE(json2.find("is_complete\":true") != std::string::npos);
+}
+
+static void test_backup_parse_keys_response() {
+    progressive::KeyBackupManager mgr;
+    auto rooms = mgr.parseBackupKeysResponse(
+        R"({"rooms":{"!room1:org":{"sessions":{"sess1":"data1","sess2":"data2"}},"!room2:org":{"sessions":{"sess3":"data3"}}}})");
+    ASSERT_EQ(static_cast<int>(rooms.size()), 2);
+    ASSERT_STREQ(rooms[0].roomId.c_str(), "!room1:org");
+}
+
+static void test_backup_trust() {
+    progressive::KeyBackupManager mgr;
+    ASSERT_EQ(static_cast<int>(mgr.getTrustLevel()), static_cast<int>(progressive::BackupTrust::UNKNOWN));
+    mgr.markBackupAsTrusted();
+    ASSERT_EQ(static_cast<int>(mgr.getTrustLevel()), static_cast<int>(progressive::BackupTrust::TRUSTED));
+    mgr.markBackupAsUntrusted();
+    ASSERT_EQ(static_cast<int>(mgr.getTrustLevel()), static_cast<int>(progressive::BackupTrust::UNTRUSTED));
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -1051,6 +1147,17 @@ int main() {
     ADD_TEST(runner, test_widget_postmessage_parse);
     ADD_TEST(runner, test_widget_pip_support);
     ADD_TEST(runner, test_widget_by_type);
+    
+    printf("\n-- Key Backup Manager --\n");
+    ADD_TEST(runner, test_backup_parse_version);
+    ADD_TEST(runner, test_backup_unsupported_algorithm);
+    ADD_TEST(runner, test_backup_build_create_request);
+    ADD_TEST(runner, test_backup_export_session);
+    ADD_TEST(runner, test_backup_encrypt_session);
+    ADD_TEST(runner, test_backup_verify_integrity);
+    ADD_TEST(runner, test_backup_progress);
+    ADD_TEST(runner, test_backup_parse_keys_response);
+    ADD_TEST(runner, test_backup_trust);
     
     return runner.summary();
 }
