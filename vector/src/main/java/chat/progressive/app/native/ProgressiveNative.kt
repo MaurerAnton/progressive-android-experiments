@@ -850,6 +850,11 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeGetReasonDescription(code: String): String
 
+    // --- Secret Storage ---
+
+    @JvmStatic external fun nativeExtractDefaultSecretKey(accountDataJson: String): String
+    @JvmStatic external fun nativeHasCrossSigningSecrets(accountDataJson: String): Boolean
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -1505,7 +1510,6 @@ object ProgressiveNative {
     // --- Report Utilities ---
 
     @JvmStatic external fun nativeIsValidReportReason(reason: String): Boolean
-    @JvmStatic external fun nativeGetReasonDescription(code: String): String
 
     // --- URL Preview ---
 
@@ -2729,6 +2733,11 @@ object ProgressiveNative {
         "m.harassment" -> "Harassment"; "m.suicide" -> "Self-harm"; "m.child" -> "Child exploitation"
         else -> code
     }
+
+    // --- Secret Storage fallbacks ---
+    @JvmStatic fun nativeExtractDefaultSecretKeyFallback(accountDataJson: String): String = ""
+    @JvmStatic fun nativeHasCrossSigningSecretsFallback(accountDataJson: String): Boolean =
+        accountDataJson.contains("\"m.cross_signing")
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")

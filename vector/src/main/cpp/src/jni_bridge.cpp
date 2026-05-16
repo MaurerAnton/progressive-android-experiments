@@ -2561,4 +2561,15 @@ JNI_FUNC(jstring, nativeGetReasonDescription)(JNIEnv* env, jclass, jstring jCode
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Secret Storage ---
+
+JNI_FUNC(jstring, nativeExtractDefaultSecretKey)(JNIEnv* env, jclass, jstring jAccountDataJson) {
+    auto result = progressive::extractDefaultSecretKey(jStr(env, jAccountDataJson));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jboolean, nativeHasCrossSigningSecrets)(JNIEnv* env, jclass, jstring jAccountDataJson) {
+    return progressive::hasCrossSigningSecrets(jStr(env, jAccountDataJson)) ? JNI_TRUE : JNI_FALSE;
+}
+
 } // extern "C"
