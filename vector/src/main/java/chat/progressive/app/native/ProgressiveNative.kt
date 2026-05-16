@@ -265,6 +265,21 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseHistoryVisibility(contentJson: String): String
     @JvmStatic external fun nativeParseGuestAccess(contentJson: String): String
 
+    // --- Push Rules ---
+
+    @JvmStatic external fun nativeIsKnownPushRuleKind(kind: String): Boolean
+    @JvmStatic external fun nativeGetRuleKindDescription(kind: String, enabled: Boolean): String
+
+    // --- Poll Validation ---
+
+    @JvmStatic external fun nativeIsValidPollQuestion(question: String): Boolean
+
+    // --- Room Uploads ---
+
+    @JvmStatic external fun nativeIsStickerEvent(eventType: String): Boolean
+    @JvmStatic external fun nativeHasAttachmentUrl(decryptedContentJson: String): Boolean
+    @JvmStatic external fun nativeCreateUploadsFilterJson(numberOfEvents: Int): String
+
     // --- Account Export ---
 
     @JvmStatic external fun nativeEncryptAccount(
@@ -1326,7 +1341,6 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeParseJoinRules(contentJson: String): String
     @JvmStatic external fun nativeParseHistoryVisibility(contentJson: String): String
-    @JvmStatic external fun nativeParseGuestAccess(contentJson: String): String
     @JvmStatic external fun nativeParseRoomCreate(contentJson: String): String
     @JvmStatic external fun nativeParseTombstone(contentJson: String): String
 
@@ -3145,6 +3159,23 @@ object ProgressiveNative {
         val acc = Regex("\"guest_access\":\"(\\w+)\"").find(contentJson)?.groupValues?.get(1) ?: "unknown"
         return """{"access":"$acc"}"""
     }
+
+    // --- Push Rules fallbacks ---
+    @JvmStatic fun nativeIsKnownPushRuleKindFallback(kind: String): Boolean =
+        kind in listOf("override", "underride", "sender", "room", "content")
+    @JvmStatic fun nativeGetRuleKindDescriptionFallback(kind: String, enabled: Boolean): String =
+        "${kind.replaceFirstChar { it.uppercase() }} rules${if (enabled) "" else " (disabled)"}"
+
+    // --- Poll fallback ---
+    @JvmStatic fun nativeIsValidPollQuestionFallback(question: String): Boolean =
+        question.isNotEmpty() && question.length < 1000
+
+    // --- Uploads fallbacks ---
+    @JvmStatic fun nativeIsStickerEventFallback(eventType: String): Boolean = eventType == "m.sticker"
+    @JvmStatic fun nativeHasAttachmentUrlFallback(decryptedContentJson: String): Boolean =
+        decryptedContentJson.contains("\"url\":\"mxc://")
+    @JvmStatic fun nativeCreateUploadsFilterJsonFallback(numberOfEvents: Int): String =
+        """{"types":["m.room.message"],"limit":$numberOfEvents}"""
 
     // --- Megolm fallbacks ---
     @JvmStatic fun nativeMegolmAddSessionFallback(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean = false

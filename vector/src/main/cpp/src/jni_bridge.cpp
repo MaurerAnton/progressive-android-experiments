@@ -3113,6 +3113,38 @@ JNI_FUNC(jstring, nativeParseGuestAccess)(JNIEnv* env, jclass, jstring jContentJ
     return env->NewStringUTF(os.str().c_str());
 }
 
+// --- Push Rules ---
+
+JNI_FUNC(jboolean, nativeIsKnownPushRuleKind)(JNIEnv* env, jclass, jstring jKind) {
+    return progressive::isKnownPushRuleKind(jStr(env, jKind)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeGetRuleKindDescription)(JNIEnv* env, jclass, jstring jKind, jboolean jEnabled) {
+    auto result = progressive::getRuleKindDescription(jStr(env, jKind), jEnabled);
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Poll Validation ---
+
+JNI_FUNC(jboolean, nativeIsValidPollQuestion)(JNIEnv* env, jclass, jstring jQuestion) {
+    return progressive::isValidPollQuestion(jStr(env, jQuestion)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- Room Uploads ---
+
+JNI_FUNC(jboolean, nativeIsStickerEvent)(JNIEnv* env, jclass, jstring jEventType) {
+    return progressive::isStickerEvent(jStr(env, jEventType)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeHasAttachmentUrl)(JNIEnv* env, jclass, jstring jContentJson) {
+    return progressive::hasAttachmentUrl(jStr(env, jContentJson)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeCreateUploadsFilterJson)(JNIEnv* env, jclass, jint jCount) {
+    auto result = progressive::createUploadsFilterJson(jCount);
+    return env->NewStringUTF(result.c_str());
+}
+
 JNI_FUNC(jstring, nativeParseMarkdownTable)(JNIEnv* env, jclass, jstring jTableBlock, jboolean jWithScroll) {
     auto result = progressive::parseMarkdownTable(jStr(env, jTableBlock), jWithScroll);
     return env->NewStringUTF(result.c_str());
