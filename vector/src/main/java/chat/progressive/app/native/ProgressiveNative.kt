@@ -1472,6 +1472,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeMustAcceptTos(responseJson: String): Boolean
     @JvmStatic external fun nativeBuildTosAcceptBody(version: String): String
 
+    // --- Login Utilities ---
+
+    @JvmStatic external fun nativeIsValidLoginCredentials(userId: String, password: String): Boolean
+    @JvmStatic external fun nativeGenerateDeviceId(): String
+
     // --- URL Preview ---
 
     @JvmStatic external fun nativeIsPreviewableUrl(url: String): Boolean
@@ -2621,6 +2626,12 @@ object ProgressiveNative {
     @JvmStatic fun nativeIsServerNoticeFallback(eventContentJson: String): Boolean = eventContentJson.contains("\"server_notice\"")
     @JvmStatic fun nativeMustAcceptTosFallback(responseJson: String): Boolean = responseJson.contains("\"m.consent\"")
     @JvmStatic fun nativeBuildTosAcceptBodyFallback(version: String): String = """{"version":"$version"}"""
+
+    // --- Login Utilities fallbacks ---
+    @JvmStatic fun nativeIsValidLoginCredentialsFallback(userId: String, password: String): Boolean =
+        userId.isNotEmpty() && password.isNotEmpty()
+    @JvmStatic fun nativeGenerateDeviceIdFallback(): String =
+        "PC" + java.util.UUID.randomUUID().toString().take(8).uppercase()
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")

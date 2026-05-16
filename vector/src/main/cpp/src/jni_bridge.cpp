@@ -2411,4 +2411,15 @@ JNI_FUNC(jstring, nativeBuildTosAcceptBody)(JNIEnv* env, jclass, jstring jVersio
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Login Utilities ---
+
+JNI_FUNC(jboolean, nativeIsValidLoginCredentials)(JNIEnv* env, jclass, jstring jUserId, jstring jPassword) {
+    return progressive::isValidLoginCredentials(jStr(env, jUserId), jStr(env, jPassword)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeGenerateDeviceId)(JNIEnv* env, jclass) {
+    auto result = progressive::generateDeviceId();
+    return env->NewStringUTF(result.c_str());
+}
+
 } // extern "C"
