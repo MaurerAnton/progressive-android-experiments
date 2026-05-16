@@ -3203,6 +3203,23 @@ JNI_FUNC(jstring, nativeParseKeyBackupVersion)(JNIEnv* env, jclass, jstring jJso
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Device List (JSON round-trip) ---
+
+JNI_FUNC(jstring, nativeParseDeviceList)(JNIEnv* env, jclass, jstring jApiResponseJson, jstring jCurrentDeviceId) {
+    auto stats = progressive::parseDeviceList(jStr(env, jApiResponseJson), jStr(env, jCurrentDeviceId));
+    auto result = progressive::deviceListToJson(stats);
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Room Permissions (JSON round-trip) ---
+
+JNI_FUNC(jstring, nativeComputePermissions)(JNIEnv* env, jclass, jstring jPlJson, jstring jMyUserId) {
+    auto pl = progressive::parseRoomPowerLevels(jStr(env, jPlJson));
+    auto perms = progressive::computePermissions(pl, jStr(env, jMyUserId));
+    auto result = progressive::permissionsToJson(perms);
+    return env->NewStringUTF(result.c_str());
+}
+
 // --- Poll Validation ---
 
 JNI_FUNC(jboolean, nativeIsValidPollQuestion)(JNIEnv* env, jclass, jstring jQuestion) {

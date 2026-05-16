@@ -291,6 +291,14 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseCrossSigningStatus(accountDataJson: String, userId: String): String
     @JvmStatic external fun nativeParseKeyBackupVersion(json: String): String
 
+    // --- Device List ---
+
+    @JvmStatic external fun nativeParseDeviceList(apiResponseJson: String, currentDeviceId: String): String
+
+    // --- Room Permissions ---
+
+    @JvmStatic external fun nativeComputePermissions(powerLevelsJson: String, myUserId: String): String
+
     // --- Poll Validation ---
 
     @JvmStatic external fun nativeIsValidPollQuestion(question: String): Boolean
@@ -1279,7 +1287,6 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeFormatRecoveryKey(raw: String): String
     @JvmStatic external fun nativeValidateRecoveryKey(key: String): Boolean
-    @JvmStatic external fun nativeParseKeyBackupVersion(json: String): String
     @JvmStatic external fun nativeIsValidPassphrase(passphrase: String): Boolean
     @JvmStatic external fun nativeComputeRecoveryKey(curve25519Key: String): String
     @JvmStatic external fun nativeParseMatrixError(json: String): String
@@ -3214,6 +3221,14 @@ object ProgressiveNative {
     @JvmStatic fun nativeParseBackupInfoFallback(apiResponseJson: String): String = "No backup"
     @JvmStatic fun nativeParseCrossSigningStatusFallback(accountDataJson: String, userId: String): String = "Not set up"
     @JvmStatic fun nativeParseKeyBackupVersionFallback(json: String): String = "{}"
+
+    // --- Device list fallback ---
+    @JvmStatic fun nativeParseDeviceListFallback(apiResponseJson: String, currentDeviceId: String): String =
+        """{"total_devices":0,"verified_devices":0,"unverified_devices":0}"""
+
+    // --- Permissions fallback ---
+    @JvmStatic fun nativeComputePermissionsFallback(powerLevelsJson: String, myUserId: String): String =
+        """{"can_send_messages":true,"can_send_images":true,"can_ban":false,"can_kick":false}"""
 
     // --- Poll fallback ---
     @JvmStatic fun nativeIsValidPollQuestionFallback(question: String): Boolean =
