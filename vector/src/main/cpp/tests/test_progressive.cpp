@@ -13,6 +13,9 @@
 #include "progressive/content_scanner.hpp"
 #include "progressive/password_validator.hpp"
 #include "progressive/notif_format.hpp"
+#include "progressive/identity_utils.hpp"
+#include "progressive/content_utils.hpp"
+#include "progressive/user_status.hpp"
 #include <cstring>
 
 // ==== SHA-256 verification (E2EE foundation) ====
@@ -271,6 +274,54 @@ static void test_total_unread_count() {
     ASSERT_EQ(progressive::getTotalUnreadCount(0, 0), 0);
 }
 
+// ==== Identity validation ====
+static void test_is_email() {
+    ASSERT_TRUE(progressive::isEmail("alice@matrix.org"));
+    ASSERT_FALSE(progressive::isEmail("@alice:matrix.org"));
+    ASSERT_FALSE(progressive::isEmail("notanemail"));
+}
+
+static void test_is_msisdn() {
+    ASSERT_TRUE(progressive::isMsisdn("+1234567890"));
+    ASSERT_FALSE(progressive::isMsisdn("notaphone"));
+}
+
+static void test_extract_alias_localpart() {
+    ASSERT_STREQ(progressive::extractAliasLocalpart("#room:matrix.org"), "room");
+    ASSERT_STREQ(progressive::extractAliasLocalpart("#my-room:example.com"), "my-room");
+}
+
+// ==== Content utilities ====
+static void test_is_mxc_uri() {
+    ASSERT_TRUE(progressive::isMxcUri("mxc://matrix.org/abc123"));
+    ASSERT_FALSE(progressive::isMxcUri("https://matrix.org/abc123"));
+}
+
+static void test_extract_mxc_server_name() {
+    ASSERT_STREQ(progressive::extractMxcServerName("mxc://matrix.org/abc123"), "matrix.org");
+}
+
+static void test_extract_mxc_media_id() {
+    ASSERT_STREQ(progressive::extractMxcMediaId("mxc://server/abc123"), "abc123");
+}
+
+static void test_has_text_with_image() {
+    ASSERT_TRUE(progressive::hasTextWithImage(R"({"msgtype":"m.image","body":"alt text"})"));
+    ASSERT_FALSE(progressive::hasTextWithImage(R"({"msgtype":"m.text","body":"hello"})"));
+}
+
+// ==== User status ====
+static void test_get_status_suggestions() {
+    auto suggestions = progressive::getStatusSuggestions();
+    ASSERT_GT(suggestions.size(), 0u);
+}
+
+static void test_build_user_status_json() {
+    auto json = progressive::buildUserStatusJson("busy", "💼", 1000000);
+    ASSERT_TRUE(json.find("\"busy\"") != std::string::npos);
+    ASSERT_TRUE(json.find("\"💼\"") != std::string::npos);
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -331,6 +382,19 @@ int main() {
     ADD_TEST(runner, test_password_strength_label);
     ADD_TEST(runner, test_format_badge_text);
     ADD_TEST(runner, test_total_unread_count);
+    
+    printf("\n-- Identity & Content --\n");
+    ADD_TEST(runner, test_is_email);
+    ADD_TEST(runner, test_is_msisdn);
+    ADD_TEST(runner, test_extract_alias_localpart);
+    ADD_TEST(runner, test_is_mxc_uri);
+    ADD_TEST(runner, test_extract_mxc_server_name);
+    ADD_TEST(runner, test_extract_mxc_media_id);
+    ADD_TEST(runner, test_has_text_with_image);
+    
+    printf("\n-- User Status --\n");
+    ADD_TEST(runner, test_get_status_suggestions);
+    ADD_TEST(runner, test_build_user_status_json);
     
     return runner.summary();
 }
