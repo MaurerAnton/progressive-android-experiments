@@ -1,4 +1,5 @@
 #include "progressive/timeline_chunk.hpp"
+#include "progressive/sqlite_wrapper.hpp"
 #include <algorithm>
 #include <sstream>
 #include <limits>
@@ -49,6 +50,13 @@ int TimelineChunkManager::addChunk(
         ev.displayIndex = globalNextDisplayIndex_++;
         eventIndex_[ev.eventId] = ev;
         displayIndexMap_[ev.eventId] = ev.displayIndex;
+
+        // Persist to SqliteDB if attached
+        if (db_) {
+            db_->insertEvent(ev.eventId, ev.roomId, ev.type, ev.senderId,
+                ev.contentJson, ev.originServerTs, ev.ageLocalTs, ev.displayIndex,
+                ev.stateKey, ev.redacts, ev.relationType, ev.relatesToEventId);
+        }
     }
 
     // Update chunk events with correct display indices
@@ -69,6 +77,13 @@ int TimelineChunkManager::addLiveEvent(const TimelineEventData& event) {
     ev.displayIndex = globalNextDisplayIndex_++;
     eventIndex_[ev.eventId] = ev;
     displayIndexMap_[ev.eventId] = ev.displayIndex;
+
+    // Persist to SqliteDB if attached
+    if (db_) {
+        db_->insertEvent(ev.eventId, ev.roomId, ev.type, ev.senderId,
+            ev.contentJson, ev.originServerTs, ev.ageLocalTs, ev.displayIndex,
+            ev.stateKey, ev.redacts, ev.relationType, ev.relatesToEventId);
+    }
 
     // Add to the last forward chunk
     if (!chunks_.empty()) {
@@ -143,6 +158,60 @@ bool TimelineChunkManager::canLoadMore(TimelineDirection dir) const {
     }
     if (lastIdx < 0 && !chunks_.empty()) lastIdx = (int)chunks_.size() - 1;
     return lastIdx >= 0 && !chunks_[lastIdx].isLastForward;
+}
+
+// ==== SqliteDB Persistence ====
+
+void TimelineChunkManager::attachDatabase(SqliteDB* db) {
+    db_ = db;
+    if (db_) {
+        db_->createTimelineSchema();
+    }
+}
+
+void TimelineChunkManager::detachDatabase() {
+    db_ = nullptr;
+}
+
+int TimelineChunkManager::loadFromDatabase(int limit, int offset) {
+    if (!db_) return 0;
+    auto rows = db_->queryEvents(roomId_, limit, offset, true);
+    if (rows.empty()) return 0;
+
+    int added = 0;
+    TimelineChunkData chunk;
+    chunk.chunkId = "db_chunk_" + std::to_string(chunks_.size());
+    chunk.isLastForward = true;
+
+    for (const auto& row : rows) {
+        TimelineEventData ev;
+        ev.eventId = row.eventId;
+        ev.roomId = row.roomId;
+        ev.type = row.type;
+        ev.senderId = row.senderId;
+        ev.contentJson = row.contentJson;
+        ev.originServerTs = row.originServerTs;
+        ev.ageLocalTs = row.ageLocalTs;
+        ev.displayIndex = row.displayIndex;
+        ev.stateKey = row.stateKey;
+        ev.redacts = row.redacts;
+        ev.relationType = row.relationType;
+        ev.relatesToEventId = row.relatesToId;
+
+        if (!eventIndex_.count(ev.eventId)) {
+            eventIndex_[ev.eventId] = ev;
+            displayIndexMap_[ev.eventId] = ev.displayIndex;
+            chunk.events.push_back(std::move(ev));
+            added++;
+        }
+    }
+
+    if (!chunk.events.empty()) {
+        chunks_.push_back(chunk);
+        linkChunks();
+    }
+
+    return added;
 }
 
 // ==== Linked-List Chunk Navigation ====

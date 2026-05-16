@@ -1067,6 +1067,23 @@ JNI_FUNC(jint, nativeTimelineEventsAvailable)(JNIEnv* env, jclass, jstring jRoom
     return it->second.eventsAvailable(dir);
 }
 
+JNI_FUNC(jboolean, nativeTimelineAttachDb)(JNIEnv* env, jclass, jstring jRoom, jstring jDbKey) {
+    static std::unordered_map<std::string, progressive::TimelineChunkManager> managers;
+    static std::unordered_map<std::string, std::unique_ptr<progressive::SqliteDB>> g_sqliteDbs;
+    auto room = jStr(env, jRoom);
+    auto dbKey = jStr(env, jDbKey);
+    auto dbit = g_sqliteDbs.find(dbKey);
+    if (dbit == g_sqliteDbs.end()) return JNI_FALSE;
+    auto it = managers.find(room);
+    if (it == managers.end()) {
+        managers.emplace(std::piecewise_construct, std::forward_as_tuple(room), std::forward_as_tuple(room));
+        it = managers.find(room);
+    }
+    it->second.attachDatabase(dbit->second.get());
+    it->second.loadFromDatabase(100, 0);
+    return JNI_TRUE;
+}
+
 // --- Room Filter ---
 JNI_FUNC(jstring, nativeFilterRooms)(JNIEnv* env, jclass, jstring jRooms, jint jCat, jstring jQuery) {
     // Stub: returns input as-is. Full impl parses JSON array, filters, returns.

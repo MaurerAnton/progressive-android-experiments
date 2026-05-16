@@ -9,6 +9,8 @@
 
 namespace progressive {
 
+class SqliteDB; // Forward declaration
+
 // ==== Native Timeline Chunk Engine ====
 //
 // C++ replacement for TimelineChunk.kt — the core pagination engine.
@@ -106,6 +108,21 @@ public:
     // Check if more events can be loaded in a direction.
     bool canLoadMore(TimelineDirection dir) const;
 
+    // ==== SqliteDB Persistence ====
+    //
+    // Attach a SqliteDB for persistent event storage.
+    // When set, events are automatically persisted on addChunk/addLiveEvent
+    // and loaded via loadFromDatabase().
+
+    // Attach a database for persistence.
+    void attachDatabase(SqliteDB* db);
+
+    // Detach the database (returns to memory-only mode).
+    void detachDatabase();
+
+    // Load events from database for this room.
+    int loadFromDatabase(int limit = 100, int offset = 0);
+
     // ==== Linked-List Chunk Navigation ====
 
     // Link chunks after insertion — rebuilds prevChunkIdx/nextChunkIdx.
@@ -187,6 +204,7 @@ private:
     std::string roomId_;
     TimelineMode mode_ = TimelineMode::LIVE;
     std::string anchorEventId_;
+    SqliteDB* db_ = nullptr;       // Optional persistent storage
     std::vector<TimelineChunkData> chunks_;
     std::unordered_map<std::string, TimelineEventData> eventIndex_; // eventId → event data
     std::unordered_map<std::string, int> displayIndexMap_; // eventId → display index
