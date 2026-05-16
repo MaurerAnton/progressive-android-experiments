@@ -328,4 +328,61 @@ std::string annotateEdited(const std::string& body, bool isEdited) {
     return body + " (edited)";
 }
 
+// ==== Room State Notice Formatters ====
+
+std::string formatRoomNameNotice(const std::string& senderName, const std::string& newName, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    if (newName.empty()) return who + " removed the room name";
+    return who + " changed the room name to " + newName;
+}
+
+std::string formatRoomTopicNotice(const std::string& senderName, const std::string& newTopic, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    if (newTopic.empty()) return who + " removed the topic";
+    return who + " changed the topic to: " + newTopic;
+}
+
+std::string formatRoomAvatarNotice(const std::string& senderName, bool isRemoved, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    return isRemoved ? who + " removed the room avatar" : who + " changed the room avatar";
+}
+
+std::string formatRoomCreateNotice(const std::string& senderName, const std::string& predecessorRoomId, bool isDirect, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    std::string type = isDirect ? "chat" : "room";
+    if (!predecessorRoomId.empty()) return who + " upgraded the " + type;
+    return who + " created the " + type;
+}
+
+std::string formatRoomTombstoneNotice(const std::string& senderName, const std::string& replacementRoom, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    if (!replacementRoom.empty()) return who + " upgraded the room to " + replacementRoom;
+    return "This room has been replaced";
+}
+
+std::string formatRoomEncryptionNotice(const std::string& senderName, bool isEnabled, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    return isEnabled ? who + " enabled encryption" : who + " disabled encryption";
+}
+
+std::string formatPowerLevelNotice(const std::string& senderName, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    return who + " changed power levels";
+}
+
+std::string formatJoinRulesNotice(const std::string& senderName, const std::string& newRule, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    return who + " changed join rules to " + newRule;
+}
+
+std::string formatHistoryVisibilityNotice(const std::string& senderName, const std::string& newVisibility, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    return who + " changed history visibility to " + newVisibility;
+}
+
+std::string formatGuestAccessNotice(const std::string& senderName, bool guestsAllowed, bool sentByCurrentUser) {
+    std::string who = sentByCurrentUser ? "You" : senderName;
+    return guestsAllowed ? who + " allowed guests to join" : who + " restricted guest access";
+}
+
 } // namespace progressive

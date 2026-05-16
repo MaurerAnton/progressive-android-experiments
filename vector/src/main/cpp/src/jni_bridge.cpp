@@ -3403,6 +3403,38 @@ JNI_FUNC(jstring, nativeAnnotateEdited)(JNIEnv* env, jclass, jstring jBody, jboo
     auto result = progressive::annotateEdited(jStr(env, jBody), jEdited);
     return env->NewStringUTF(result.c_str());
 }
+
+// --- Room State Notices ---
+
+JNI_FUNC(jstring, nativeFormatRoomNameNotice)(JNIEnv* env, jclass, jstring jName, jstring jNewName, jboolean jSelf) {
+    auto result = progressive::formatRoomNameNotice(jStr(env, jName), jStr(env, jNewName), jSelf);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatRoomTopicNotice)(JNIEnv* env, jclass, jstring jName, jstring jTopic, jboolean jSelf) {
+    auto result = progressive::formatRoomTopicNotice(jStr(env, jName), jStr(env, jTopic), jSelf);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatRoomAvatarNotice)(JNIEnv* env, jclass, jstring jName, jboolean jRemoved, jboolean jSelf) {
+    auto result = progressive::formatRoomAvatarNotice(jStr(env, jName), jRemoved, jSelf);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatRoomCreateNotice)(JNIEnv* env, jclass, jstring jName, jstring jPredecessor, jboolean jDirect, jboolean jSelf) {
+    auto result = progressive::formatRoomCreateNotice(jStr(env, jName), jStr(env, jPredecessor), jDirect, jSelf);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatRoomTombstoneNotice)(JNIEnv* env, jclass, jstring jName, jstring jReplacement, jboolean jSelf) {
+    auto result = progressive::formatRoomTombstoneNotice(jStr(env, jName), jStr(env, jReplacement), jSelf);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatRoomEncryptionNotice)(JNIEnv* env, jclass, jstring jName, jboolean jEnabled, jboolean jSelf) {
+    auto result = progressive::formatRoomEncryptionNotice(jStr(env, jName), jEnabled, jSelf);
+    return env->NewStringUTF(result.c_str());
+}
     auto result = progressive::threadSummaryToJson(summary);
     return env->NewStringUTF(result.c_str());
 }

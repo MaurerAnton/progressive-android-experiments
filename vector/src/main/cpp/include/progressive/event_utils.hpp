@@ -141,4 +141,36 @@ std::string formatCallNotice(
 
 std::string annotateEdited(const std::string& body, bool isEdited);
 
+// ==== Room State Notice Formatters ====
+
+// Room name change: "Alice changed the room name to General"
+std::string formatRoomNameNotice(const std::string& senderName, const std::string& newName, bool sentByCurrentUser);
+
+// Room topic change: "Alice changed the topic to Welcome!"
+std::string formatRoomTopicNotice(const std::string& senderName, const std::string& newTopic, bool sentByCurrentUser);
+
+// Room avatar change: "Alice changed the room avatar" / "Alice removed the room avatar"
+std::string formatRoomAvatarNotice(const std::string& senderName, bool isRemoved, bool sentByCurrentUser);
+
+// Room create: "You created the room" / "Alice created the room"
+std::string formatRoomCreateNotice(const std::string& senderName, const std::string& predecessorRoomId, bool isDirect, bool sentByCurrentUser);
+
+// Room tombstone: "This room has been replaced" / "Room upgraded to new_room"
+std::string formatRoomTombstoneNotice(const std::string& senderName, const std::string& replacementRoom, bool sentByCurrentUser);
+
+// Room encryption: "Encryption has been enabled by Alice"
+std::string formatRoomEncryptionNotice(const std::string& senderName, bool isEnabled, bool sentByCurrentUser);
+
+// Power level change: "Alice changed power levels"
+std::string formatPowerLevelNotice(const std::string& senderName, bool sentByCurrentUser);
+
+// Join rules change: "Alice changed join rules to invite-only"
+std::string formatJoinRulesNotice(const std::string& senderName, const std::string& newRule, bool sentByCurrentUser);
+
+// History visibility change: "Alice changed history visibility"
+std::string formatHistoryVisibilityNotice(const std::string& senderName, const std::string& newVisibility, bool sentByCurrentUser);
+
+// Guest access change: "Alice changed guest access"
+std::string formatGuestAccessNotice(const std::string& senderName, bool guestsAllowed, bool sentByCurrentUser);
+
 } // namespace progressive

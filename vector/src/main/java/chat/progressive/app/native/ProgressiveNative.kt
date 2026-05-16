@@ -350,6 +350,15 @@ object ProgressiveNative {
     @JvmStatic external fun nativeFormatCallNotice(eventType: String, isVideo: Boolean, senderName: String, sentBySelf: Boolean): String
     @JvmStatic external fun nativeAnnotateEdited(body: String, isEdited: Boolean): String
 
+    // --- Room State Notices ---
+
+    @JvmStatic external fun nativeFormatRoomNameNotice(senderName: String, newName: String, sentBySelf: Boolean): String
+    @JvmStatic external fun nativeFormatRoomTopicNotice(senderName: String, newTopic: String, sentBySelf: Boolean): String
+    @JvmStatic external fun nativeFormatRoomAvatarNotice(senderName: String, isRemoved: Boolean, sentBySelf: Boolean): String
+    @JvmStatic external fun nativeFormatRoomCreateNotice(senderName: String, predecessorRoomId: String, isDirect: Boolean, sentBySelf: Boolean): String
+    @JvmStatic external fun nativeFormatRoomTombstoneNotice(senderName: String, replacementRoom: String, sentBySelf: Boolean): String
+    @JvmStatic external fun nativeFormatRoomEncryptionNotice(senderName: String, isEnabled: Boolean, sentBySelf: Boolean): String
+
     // --- Poll Validation ---
 
     @JvmStatic external fun nativeIsValidPollQuestion(question: String): Boolean
@@ -3348,6 +3357,33 @@ object ProgressiveNative {
     }
     @JvmStatic fun nativeAnnotateEditedFallback(body: String, isEdited: Boolean): String =
         if (isEdited) "$body (edited)" else body
+
+    // --- Room State notice fallbacks ---
+    @JvmStatic fun nativeFormatRoomNameNoticeFallback(senderName: String, newName: String, sentBySelf: Boolean): String {
+        val who = if (sentBySelf) "You" else senderName
+        return if (newName.isEmpty()) "$who removed the room name" else "$who changed the room name to $newName"
+    }
+    @JvmStatic fun nativeFormatRoomTopicNoticeFallback(senderName: String, newTopic: String, sentBySelf: Boolean): String {
+        val who = if (sentBySelf) "You" else senderName
+        return if (newTopic.isEmpty()) "$who removed the topic" else "$who changed the topic to: $newTopic"
+    }
+    @JvmStatic fun nativeFormatRoomAvatarNoticeFallback(senderName: String, isRemoved: Boolean, sentBySelf: Boolean): String {
+        val who = if (sentBySelf) "You" else senderName
+        return if (isRemoved) "$who removed the room avatar" else "$who changed the room avatar"
+    }
+    @JvmStatic fun nativeFormatRoomCreateNoticeFallback(senderName: String, predecessorRoomId: String, isDirect: Boolean, sentBySelf: Boolean): String {
+        val who = if (sentBySelf) "You" else senderName
+        val type = if (isDirect) "chat" else "room"
+        return if (predecessorRoomId.isNotEmpty()) "$who upgraded the $type" else "$who created the $type"
+    }
+    @JvmStatic fun nativeFormatRoomTombstoneNoticeFallback(senderName: String, replacementRoom: String, sentBySelf: Boolean): String {
+        val who = if (sentBySelf) "You" else senderName
+        return if (replacementRoom.isNotEmpty()) "$who upgraded the room to $replacementRoom" else "This room has been replaced"
+    }
+    @JvmStatic fun nativeFormatRoomEncryptionNoticeFallback(senderName: String, isEnabled: Boolean, sentBySelf: Boolean): String {
+        val who = if (sentBySelf) "You" else senderName
+        return if (isEnabled) "$who enabled encryption" else "$who disabled encryption"
+    }
 
     // --- Poll fallback ---
     @JvmStatic fun nativeIsValidPollQuestionFallback(question: String): Boolean =
