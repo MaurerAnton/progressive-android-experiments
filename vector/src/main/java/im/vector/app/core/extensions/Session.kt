@@ -22,6 +22,7 @@ import org.matrix.android.sdk.api.session.events.model.Event
 import org.matrix.android.sdk.internal.crypto.EventDecryptor
 import org.matrix.android.sdk.internal.crypto.RustCryptoService
 import org.matrix.android.sdk.internal.session.room.timeline.TokenChunkEventPersistor
+import org.matrix.android.sdk.internal.session.sync.handler.room.RoomSyncHandler
 import timber.log.Timber
 
 fun Session.startSyncing(context: Context) {
@@ -80,6 +81,20 @@ fun Session.startSyncing(context: Context) {
             if (di >= 0) Timber.d("PROGRESSIVE native timeline: stored $eventId (di=$di)")
         } catch (e: Exception) {
             Timber.w(e, "PROGRESSIVE native timeline storage failed")
+        }
+    }
+
+    // Progressive Chat: mirror room summaries to native SQLite during /sync
+    RoomSyncHandler.nativeRoomSyncCallback = { roomId, displayName, avatarUrl, topic, membership, notifCount, highlightCount, lastActivityMs, isDirect, isSpace, isFav, isEncrypted ->
+        try {
+            ProgressiveNative.ensureLoaded()
+            ProgressiveNative.nativeSqliteDbUpsertRoom(
+                "sync", roomId, displayName, avatarUrl, topic, membership,
+                notifCount, highlightCount, lastActivityMs,
+                isDirect, isSpace, isFav, isEncrypted
+            )
+        } catch (e: Exception) {
+            Timber.w(e, "PROGRESSIVE native room sync failed")
         }
     }
 

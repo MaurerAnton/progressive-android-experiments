@@ -102,6 +102,17 @@ internal class RoomSyncHandler @Inject constructor(
         private val unRequestedForwardManager: UnRequestedForwardManager,
 ) {
 
+    companion object {
+        /**
+         * Optional native C++ room mirror callback for Progressive Chat.
+         * Called for each room during /sync so native SQLite can mirror.
+         * Parameters: roomId, displayName, avatarUrl, topic, membership,
+         *             notifCount, highlightCount, lastActivityMs, isDirect, isSpace, isFav, isEncrypted
+         */
+        @JvmStatic
+        var nativeRoomSyncCallback: ((roomId: String, displayName: String, avatarUrl: String, topic: String, membership: String, notifCount: Int, highlightCount: Int, lastActivityMs: Long, isDirect: Boolean, isSpace: Boolean, isFav: Boolean, isEncrypted: Boolean) -> Unit)? = null
+    }
+
     sealed class HandlingStrategy {
         data class JOINED(val data: Map<String, RoomSync>) : HandlingStrategy()
         data class INVITED(val data: Map<String, InvitedRoomSync>) : HandlingStrategy()
@@ -288,6 +299,19 @@ internal class RoomSyncHandler @Inject constructor(
                 updateMembers = hasRoomMember,
                 aggregator = aggregator
         )
+
+        // Progressive Chat: mirror to native SQLite
+        val cb = nativeRoomSyncCallback
+        if (cb != null) {
+            val notif = roomSync.unreadNotifications
+            cb(roomId,
+                roomSync.summary?.heroes?.firstOrNull() ?: "",
+                roomSync.summary?.joinedMembersCount?.toString() ?: "",
+                "", Membership.JOIN.name,
+                notif?.notificationCount ?: 0, notif?.highlightCount ?: 0,
+                syncLocalTimestampMillis, false, false, false, false)
+        }
+
         return roomEntity
     }
 
