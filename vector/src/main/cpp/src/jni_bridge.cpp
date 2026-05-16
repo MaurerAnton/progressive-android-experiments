@@ -159,6 +159,7 @@
 #include "progressive/session_manager_full.hpp"
 #include "progressive/server_notice_manager.hpp"
 #include "progressive/media_upload_manager.hpp"
+#include "progressive/identity_server_manager.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -6131,6 +6132,65 @@ JNI_FUNC(void, nativeUploadResetProgress)(JNIEnv*, jclass, jlong jTotal) {
 
 JNI_FUNC(void, nativeUploadSetMaxSize)(JNIEnv*, jclass, jlong jMax) {
     getUploadMgr()->setMaxFileSize(jMax);
+}
+
+// ============================================================
+// Identity Server Manager
+// ============================================================
+
+static std::unique_ptr<progressive::IdentityServerManager> g_identityMgr;
+
+static progressive::IdentityServerManager* getIdentityMgr() {
+    if (!g_identityMgr) g_identityMgr.reset(new progressive::IdentityServerManager());
+    return g_identityMgr.get();
+}
+
+JNI_FUNC(jstring, nativeIdentityParse3pid)(JNIEnv* env, jclass, jstring jInput) {
+    auto pid = progressive::ThreePid::parse(jStr(env, jInput));
+    return env->NewStringUTF(getIdentityMgr()->threePidToJson(pid).c_str());
+}
+
+JNI_FUNC(jstring, nativeIdentityBuildBind)(JNIEnv* env, jclass, jstring jInput) {
+    auto pid = progressive::ThreePid::parse(jStr(env, jInput));
+    return env->NewStringUTF(getIdentityMgr()->buildBindRequest(pid).c_str());
+}
+
+JNI_FUNC(jstring, nativeIdentityBuildLookup)(JNIEnv* env, jclass, jstring jPidsJson) {
+    auto json = jStr(env, jPidsJson);
+    std::vector<progressive::ThreePid> pids;
+    size_t p = 0;
+    while ((p = json.find("\"", p)) != std::string::npos) {
+        p++; size_t e = p;
+        while (e < json.size() && json[e] != '"') e++;
+        std::string v = json.substr(p, e - p);
+        if (!v.empty() && v != "[" && v != "]" && v != ",") {
+            auto pid = progressive::ThreePid::parse(v);
+            if (pid.valid) pids.push_back(pid);
+        }
+        p = e + 1;
+    }
+    return env->NewStringUTF(getIdentityMgr()->buildLookupRequest(pids).c_str());
+}
+
+JNI_FUNC(jstring, nativeIdentityParseLookup)(JNIEnv* env, jclass, jstring jJson) {
+    auto results = getIdentityMgr()->parseLookupResponse(jStr(env, jJson));
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < results.size(); i++) {
+        if (i > 0) os << ","; os << getIdentityMgr()->foundPidToJson(results[i]);
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeIdentitySetServer)(JNIEnv* env, jclass, jstring jUrl) {
+    std::string error;
+    auto r = getIdentityMgr()->setNewIdentityServer(jStr(env, jUrl), error);
+    if (r.empty()) return env->NewStringUTF(("{\"error\":\"" + error + "\"}").c_str());
+    return env->NewStringUTF(("{\"url\":\"" + r + "\"}").c_str());
+}
+
+JNI_FUNC(jstring, nativeIdentityGetServer)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(getIdentityMgr()->getCurrentServerUrl().c_str());
 }
 
 } // extern "C"

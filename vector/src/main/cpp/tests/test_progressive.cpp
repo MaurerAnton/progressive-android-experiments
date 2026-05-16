@@ -1899,6 +1899,46 @@ static void test_upload_attachment_type() {
     ASSERT_TRUE(progressive::ContentAttachmentData::detectType("application/pdf") == progressive::AttachmentType::FILE);
 }
 
+// ==== Identity Server (Element Android sources) ====
+
+#include "progressive/identity_server_manager.hpp"
+
+static void test_identity_parse_email() {
+    auto pid = progressive::ThreePid::parse("alice@example.org");
+    ASSERT_TRUE(pid.valid);
+    ASSERT_TRUE(pid.medium == progressive::ThreePidMedium::EMAIL);
+    ASSERT_STREQ(pid.value.c_str(), "alice@example.org");
+}
+
+static void test_identity_parse_phone() {
+    auto pid = progressive::ThreePid::parse("+1234567890");
+    ASSERT_TRUE(pid.valid);
+    ASSERT_TRUE(pid.medium == progressive::ThreePidMedium::MSISDN);
+}
+
+static void test_identity_set_server() {
+    progressive::IdentityServerManager mgr;
+    std::string error;
+    auto url = mgr.setNewIdentityServer("identity.example.org", error);
+    ASSERT_TRUE(url.find("https://") == 0);
+    ASSERT_STREQ(error.c_str(), "");
+}
+
+static void test_identity_build_bind() {
+    progressive::IdentityServerManager mgr;
+    auto pid = progressive::ThreePid::parse("alice@example.org");
+    auto json = mgr.buildBindRequest(pid);
+    ASSERT_TRUE(json.find("email") != std::string::npos);
+    ASSERT_TRUE(json.find("alice@example.org") != std::string::npos);
+}
+
+static void test_identity_lookup_response() {
+    progressive::IdentityServerManager mgr;
+    auto results = mgr.parseLookupResponse(R"({"mappings":{"email+alice@org":"@alice:org"}})");
+    ASSERT_EQ(static_cast<int>(results.size()), 1);
+    ASSERT_STREQ(results[0].matrixId.c_str(), "@alice:org");
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -2230,6 +2270,13 @@ int main() {
     ADD_TEST(runner, test_upload_compress_dims);
     ADD_TEST(runner, test_upload_progress);
     ADD_TEST(runner, test_upload_attachment_type);
+    
+    printf("\n-- Identity Server (Element Android) --\n");
+    ADD_TEST(runner, test_identity_parse_email);
+    ADD_TEST(runner, test_identity_parse_phone);
+    ADD_TEST(runner, test_identity_set_server);
+    ADD_TEST(runner, test_identity_build_bind);
+    ADD_TEST(runner, test_identity_lookup_response);
     
     return runner.summary();
 }

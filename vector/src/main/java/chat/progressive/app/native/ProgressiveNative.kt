@@ -1590,6 +1590,15 @@ object ProgressiveNative {
     @JvmStatic external fun nativeUploadResetProgress(totalBytes: Long)
     @JvmStatic external fun nativeUploadSetMaxSize(maxBytes: Long)
 
+    // --- Identity Server Manager ---
+
+    @JvmStatic external fun nativeIdentityParse3pid(input: String): String
+    @JvmStatic external fun nativeIdentityBuildBind(threePid: String): String
+    @JvmStatic external fun nativeIdentityBuildLookup(pidsJson: String): String
+    @JvmStatic external fun nativeIdentityParseLookup(json: String): String
+    @JvmStatic external fun nativeIdentitySetServer(url: String): String
+    @JvmStatic external fun nativeIdentityGetServer(): String
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4545,6 +4554,22 @@ object ProgressiveNative {
     @JvmStatic fun nativeUploadGetProgressFallback(): String = """{"total_bytes":0,"uploaded_bytes":0,"percent":0.0,"is_complete":false,"content_uri":""}"""
     @JvmStatic fun nativeUploadResetProgressFallback(totalBytes: Long) {}
     @JvmStatic fun nativeUploadSetMaxSizeFallback(maxBytes: Long) {}
+
+    // --- Identity Server Manager fallbacks ---
+    @JvmStatic fun nativeIdentityParse3pidFallback(input: String): String {
+        val medium = if (input.contains("@")) "email" else "msisdn"
+        return """{"medium":"$medium","value":"$input","valid":true}"""
+    }
+    @JvmStatic fun nativeIdentityBuildBindFallback(threePid: String): String =
+        """{"medium":"email","address":"$threePid"}"""
+    @JvmStatic fun nativeIdentityBuildLookupFallback(pidsJson: String): String =
+        """{"threepids":[["email","$pidsJson"]]}"""
+    @JvmStatic fun nativeIdentityParseLookupFallback(json: String): String = "[]"
+    @JvmStatic fun nativeIdentitySetServerFallback(url: String): String {
+        val final = if (url.startsWith("http")) url else "https://$url"
+        return """{"url":"$final"}"""
+    }
+    @JvmStatic fun nativeIdentityGetServerFallback(): String = ""
 
     @JvmStatic fun nativeSessionCountFallback(): Int = 0
 
