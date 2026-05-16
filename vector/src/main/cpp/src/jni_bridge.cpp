@@ -2876,6 +2876,18 @@ JNI_FUNC(jstring, nativeGetSsoProviderBrand)(JNIEnv* env, jclass, jstring jProvi
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Trust Label ---
+
+JNI_FUNC(jstring, nativeGetTrustLabel)(JNIEnv* env, jclass, jstring jLevel) {
+    auto s = jStr(env, jLevel);
+    progressive::TrustLevel level = progressive::TrustLevel::Unknown;
+    if (s == "verified") level = progressive::TrustLevel::Verified;
+    else if (s == "warning") level = progressive::TrustLevel::Warning;
+    else if (s == "blacklisted") level = progressive::TrustLevel::Blacklisted;
+    auto result = progressive::getTrustLabel(level);
+    return env->NewStringUTF(result.c_str());
+}
+
 // --- Megolm Decryptor ---
 // Controlled by Labs: SETTINGS_LABS_NATIVE_CRYPTO
 

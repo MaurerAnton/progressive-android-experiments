@@ -943,6 +943,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBuildSsoLoginUrl(baseUrl: String, redirectUrl: String): String
     @JvmStatic external fun nativeGetSsoProviderBrand(provider: String): String
 
+    // --- Trust Label ---
+
+    @JvmStatic external fun nativeGetTrustLabel(level: String): String
+
     // --- Megolm Decryptor ---
 
     @JvmStatic external fun nativeMegolmAddSession(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean
@@ -2961,6 +2965,11 @@ object ProgressiveNative {
     @JvmStatic fun nativeGetSsoProviderBrandFallback(provider: String): String = when(provider) {
         "google" -> "Google"; "github" -> "GitHub"; "facebook" -> "Facebook"
         "apple" -> "Apple"; "gitlab" -> "GitLab"; else -> provider
+    }
+
+    // --- Trust Label fallback ---
+    @JvmStatic fun nativeGetTrustLabelFallback(level: String): String = when(level) {
+        "verified" -> "Verified"; "warning" -> "Warning"; "blacklisted" -> "Blocked"; else -> "Unknown"
     }
 
     // --- Megolm fallbacks ---
