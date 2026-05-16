@@ -3443,6 +3443,34 @@ JNI_FUNC(jstring, nativeBuildThreadListJson)(JNIEnv* env, jclass, jstring jEvent
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Thread Unread Counter ---
+
+JNI_FUNC(jstring, nativeComputeThreadUnreadCount)(JNIEnv* env, jclass, jstring jEventIdsJson, jstring jReadReceiptId, jstring jHighlightIdsJson) {
+    // Parse JSON arrays
+    auto parseStrArray = [&](const std::string& json) -> std::vector<std::string> {
+        std::vector<std::string> v;
+        size_t p = 0;
+        while ((p = json.find('"', p)) != std::string::npos) {
+            p++; size_t e = p;
+            while (e < json.size() && json[e] != '"') e++;
+            if (e > p) v.push_back(json.substr(p, e - p));
+            p = e + 1;
+        }
+        return v;
+    };
+    auto eventIds = parseStrArray(jStr(env, jEventIdsJson));
+    auto highlightIds = parseStrArray(jStr(env, jHighlightIdsJson));
+    auto readId = jStr(env, jReadReceiptId);
+
+    auto result = progressive::computeThreadUnreadCount(eventIds, readId, highlightIds);
+    std::ostringstream os;
+    os << R"({"total":)" << result.totalReplies
+       << R"(,"unread":)" << result.unreadReplies
+       << R"(,"highlight":)" << result.highlightReplies
+       << R"(,"has_unread":)" << (result.hasUnread ? "true" : "false") << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
 // --- Event Classifier ---
 
 JNI_FUNC(jboolean, nativeIsStateEvent)(JNIEnv* env, jclass, jstring jEventType) {

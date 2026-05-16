@@ -83,9 +83,25 @@ ThreadSummary computeThreadSummary(
 std::string threadSummaryToJson(const ThreadSummary& summary);
 
 // Build thread list from a JSON array of events.
-// Returns JSON array of thread summaries: [{"root_event_id":"$x","reply_count":3,"latest_event_id":"$y"},...]
-// Sorted by latest event timestamp (newest first).
 std::string buildThreadListJson(const std::string& eventsJson);
+
+// ==== Thread Unread Counter ====
+
+struct ThreadUnreadCount {
+    int totalReplies = 0;
+    int unreadReplies = 0;       // replies after read receipt
+    int highlightReplies = 0;    // replies with @mention
+    bool hasUnread = false;
+};
+
+// Compute unread counts for a thread.
+// eventIds: ordered list of event IDs in the thread (oldest first)
+// readReceiptEventId: the last event the user has read (empty = none read)
+// highlightIds: event IDs that should be highlighted (mentions)
+ThreadUnreadCount computeThreadUnreadCount(
+    const std::vector<std::string>& eventIds,
+    const std::string& readReceiptEventId,
+    const std::vector<std::string>& highlightIds);
 
 } // namespace progressive
 

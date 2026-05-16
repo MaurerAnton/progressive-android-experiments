@@ -211,4 +211,42 @@ std::string buildThreadListJson(const std::string& eventsJson) {
     return os.str();
 }
 
+// ==== Thread Unread Counter ====
+
+ThreadUnreadCount computeThreadUnreadCount(
+    const std::vector<std::string>& eventIds,
+    const std::string& readReceiptEventId,
+    const std::vector<std::string>& highlightIds)
+{
+    ThreadUnreadCount result;
+    result.totalReplies = static_cast<int>(eventIds.size());
+
+    if (readReceiptEventId.empty()) {
+        // Nothing read — all are unread
+        result.unreadReplies = result.totalReplies;
+        result.hasUnread = result.totalReplies > 0;
+        for (const auto& id : eventIds) {
+            if (std::find(highlightIds.begin(), highlightIds.end(), id) != highlightIds.end())
+                result.highlightReplies++;
+        }
+        return result;
+    }
+
+    // Find read receipt position
+    int readPos = -1;
+    for (int i = 0; i < result.totalReplies; i++) {
+        if (eventIds[i] == readReceiptEventId) { readPos = i; break; }
+    }
+
+    // Count unread events after read position
+    for (int i = readPos + 1; i < result.totalReplies; i++) {
+        result.unreadReplies++;
+        if (std::find(highlightIds.begin(), highlightIds.end(), eventIds[i]) != highlightIds.end())
+            result.highlightReplies++;
+    }
+
+    result.hasUnread = result.unreadReplies > 0;
+    return result;
+}
+
 } // namespace progressive

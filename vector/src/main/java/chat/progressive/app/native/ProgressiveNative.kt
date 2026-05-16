@@ -360,6 +360,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeBuildThreadListJson(eventsJson: String): String
 
+    // --- Thread Unread Counter ---
+
+    @JvmStatic external fun nativeComputeThreadUnreadCount(eventIdsJson: String, readReceiptId: String, highlightIdsJson: String): String
+
     // --- Event Classifier ---
 
     @JvmStatic external fun nativeIsStateEvent(eventType: String): Boolean
@@ -3411,6 +3415,10 @@ object ProgressiveNative {
 
     // --- Thread List fallback ---
     @JvmStatic fun nativeBuildThreadListJsonFallback(eventsJson: String): String = "[]"
+
+    // --- Thread Unread fallback ---
+    @JvmStatic fun nativeComputeThreadUnreadCountFallback(eventIdsJson: String, readReceiptId: String, highlightIdsJson: String): String =
+        """{"total":0,"unread":0,"highlight":0,"has_unread":false}"""
 
     // --- Event Classifier fallback ---
     @JvmStatic fun nativeIsStateEventFallback(eventType: String): Boolean =
