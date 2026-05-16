@@ -3,7 +3,7 @@
 
 namespace progressive {
 
-// ---- Capability Checking (from ServerServerHomeServerCapabilities.kt:125-143) ----
+// ---- Capability Checking (from ServerHomeServerCapabilities.kt:125-143) ----
 // Original Kotlin:
 //   fun isFeatureSupported(feature: String): ServerRoomCapabilitySupport {
 //       if (roomVersions?.capabilities == null) return ServerRoomCapabilitySupport.UNKNOWN
@@ -88,7 +88,7 @@ std::string versionOverrideForFeature(
     return "";
 }
 
-// ---- OAuth Logout URL Builder (from ServerServerHomeServerCapabilities.kt:171-191) ----
+// ---- OAuth Logout URL Builder (from ServerHomeServerCapabilities.kt:171-191) ----
 // Original: fun getLogoutDeviceURL(deviceId: String): String?
 //   if (externalAccountManagementUrl == null) return null
 //   var action = "org.matrix.device_delete"
@@ -100,7 +100,7 @@ std::string versionOverrideForFeature(
 //   return externalAccountManagementUrl.removeSuffix("/") + "?action=${action}&device_id=${deviceId}"
 
 std::string buildLogoutDeviceUrl(
-    const ServerServerHomeServerCapabilities& caps, const std::string& deviceId)
+    const ServerHomeServerCapabilities& caps, const std::string& deviceId)
 {
     if (caps.externalAccountManagementUrl.empty() || deviceId.empty()) return "";
 
@@ -133,13 +133,13 @@ std::string buildLogoutDeviceUrl(
 }
 
 // ---- Default Capabilities ----
-ServerServerHomeServerCapabilities getDefaultCapabilities() {
-    return ServerServerHomeServerCapabilities{};
+ServerHomeServerCapabilities getDefaultCapabilities() {
+    return ServerHomeServerCapabilities{};
 }
 
 // ---- Parse from JSON ----
-ServerServerHomeServerCapabilities parseCapabilities(const std::string& json) {
-    ServerServerHomeServerCapabilities caps;
+ServerHomeServerCapabilities parseCapabilities(const std::string& json) {
+    ServerHomeServerCapabilities caps;
 
     // Simple JSON extractors
     auto extractBool = [&](const std::string& key, bool defaultVal = false) -> bool {
@@ -175,12 +175,12 @@ ServerServerHomeServerCapabilities parseCapabilities(const std::string& json) {
     return caps;
 }
 
-bool isDelegatedOidcEnabled(const ServerServerHomeServerCapabilities& caps) {
+bool isDelegatedOidcEnabled(const ServerHomeServerCapabilities& caps) {
     // Original: val delegatedOidcAuthEnabled: Boolean = authenticationIssuer != null
     return !caps.authenticationIssuer.empty();
 }
 
-std::string capabilitiesToJson(const ServerServerHomeServerCapabilities& caps) {
+std::string capabilitiesToJson(const ServerHomeServerCapabilities& caps) {
     std::ostringstream json;
     json << "{";
     json << R"("canChangePassword": )" << (caps.canChangePassword ? "true" : "false") << ",";
