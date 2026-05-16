@@ -3446,7 +3446,6 @@ JNI_FUNC(jstring, nativeBuildThreadListJson)(JNIEnv* env, jclass, jstring jEvent
 // --- Thread Unread Counter ---
 
 JNI_FUNC(jstring, nativeComputeThreadUnreadCount)(JNIEnv* env, jclass, jstring jEventIdsJson, jstring jReadReceiptId, jstring jHighlightIdsJson) {
-    // Parse JSON arrays
     auto parseStrArray = [&](const std::string& json) -> std::vector<std::string> {
         std::vector<std::string> v;
         size_t p = 0;
@@ -3456,6 +3455,30 @@ JNI_FUNC(jstring, nativeComputeThreadUnreadCount)(JNIEnv* env, jclass, jstring j
             if (e > p) v.push_back(json.substr(p, e - p));
             p = e + 1;
         }
+        return v;
+    };
+    auto eventIds = parseStrArray(jStr(env, jEventIdsJson));
+    auto highlightIds = parseStrArray(jStr(env, jHighlightIdsJson));
+    auto readId = jStr(env, jReadReceiptId);
+
+    auto result = progressive::computeThreadUnreadCount(eventIds, readId, highlightIds);
+    std::ostringstream os;
+    os << R"({"total":)" << result.totalReplies << R"(,"unread":)" << result.unreadReplies
+       << R"(,"highlight":)" << result.highlightReplies << R"(,"has_unread":)" << (result.hasUnread ? "true" : "false") << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+// --- Sync Filter Builder ---
+
+JNI_FUNC(jstring, nativeBuildSyncFilter)(JNIEnv* env, jclass, jboolean jThreads, jboolean jPresence, jint jTimelineLimit, jboolean jLazyLoad) {
+    progressive::SyncFilter filter;
+    filter.includeThreads = jThreads;
+    filter.includePresence = jPresence;
+    filter.timelineLimit = jTimelineLimit;
+    filter.lazyLoadMembers = jLazyLoad;
+    auto result = progressive::buildSyncFilter(filter);
+    return env->NewStringUTF(result.c_str());
+}
         return v;
     };
     auto eventIds = parseStrArray(jStr(env, jEventIdsJson));
