@@ -1523,6 +1523,17 @@ object ProgressiveNative {
     @JvmStatic external fun nativeUserDirAvatarInit(displayName: String, userId: String): String
     @JvmStatic external fun nativeUserDirIsValidQuery(query: String): Boolean
 
+    // --- Profiler ---
+
+    @JvmStatic external fun nativeProfileStart()
+    @JvmStatic external fun nativeProfileStop()
+    @JvmStatic external fun nativeProfileReset()
+    @JvmStatic external fun nativeProfileIsActive(): Boolean
+    @JvmStatic external fun nativeProfileReport(): String
+    @JvmStatic external fun nativeProfileReportText(): String
+    @JvmStatic external fun nativeProfileGetSummary(name: String): String
+    @JvmStatic external fun nativeProfileMemory(): String
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4356,6 +4367,16 @@ object ProgressiveNative {
         return if (name.isNotEmpty()) name.take(1).uppercase() else "?"
     }
     @JvmStatic fun nativeUserDirIsValidQueryFallback(query: String): Boolean = query.length in 2..256
+
+    // --- Profiler fallbacks ---
+    @JvmStatic fun nativeProfileStartFallback() {}
+    @JvmStatic fun nativeProfileStopFallback() {}
+    @JvmStatic fun nativeProfileResetFallback() {}
+    @JvmStatic fun nativeProfileIsActiveFallback(): Boolean = false
+    @JvmStatic fun nativeProfileReportFallback(): String = """{"total_time_ns":0,"total_time_fmt":"0ns","is_profiling":false,"entries":[],"snapshots":[]}"""
+    @JvmStatic fun nativeProfileReportTextFallback(): String = "Profiler not available (native lib not loaded)"
+    @JvmStatic fun nativeProfileGetSummaryFallback(name: String): String = """{"name":"$name","calls":0,"total_ns":0,"avg_ns":0,"min_ns":0,"max_ns":0}"""
+    @JvmStatic fun nativeProfileMemoryFallback(): String = """{"bytes":0,"alloc_count":0,"dealloc_count":0,"ts":0}"""
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")

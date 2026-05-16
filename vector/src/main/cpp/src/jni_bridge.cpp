@@ -153,6 +153,7 @@
 #include "progressive/media_viewer.hpp"
 #include "progressive/oidc_manager.hpp"
 #include "progressive/user_directory.hpp"
+#include "progressive/profiler.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -5805,6 +5806,41 @@ JNI_FUNC(jstring, nativeUserDirAvatarInit)(JNIEnv* env, jclass, jstring jDisplay
 
 JNI_FUNC(jboolean, nativeUserDirIsValidQuery)(JNIEnv* env, jclass, jstring jQ) {
     return getUserDir()->isValidSearchQuery(jStr(env, jQ)) ? JNI_TRUE : JNI_FALSE;
+}
+
+// ============================================================
+// Profiler
+// ============================================================
+
+JNI_FUNC(void, nativeProfileStart)(JNIEnv*, jclass) { progressive::Profiler::instance().startProfiling(); }
+JNI_FUNC(void, nativeProfileStop)(JNIEnv*, jclass) { progressive::Profiler::instance().stopProfiling(); }
+JNI_FUNC(void, nativeProfileReset)(JNIEnv*, jclass) { progressive::Profiler::instance().reset(); }
+
+JNI_FUNC(jboolean, nativeProfileIsActive)(JNIEnv*, jclass) {
+    return progressive::Profiler::instance().isProfiling() ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeProfileReport)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(progressive::Profiler::instance().reportToJson().c_str());
+}
+
+JNI_FUNC(jstring, nativeProfileReportText)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(progressive::Profiler::instance().reportToText().c_str());
+}
+
+JNI_FUNC(jstring, nativeProfileGetSummary)(JNIEnv* env, jclass, jstring jName) {
+    auto s = progressive::Profiler::instance().getSummary(jStr(env, jName));
+    return env->NewStringUTF(progressive::Profiler::instance().summaryToJson(s).c_str());
+}
+
+JNI_FUNC(jstring, nativeProfileMemory)(JNIEnv* env, jclass) {
+    auto snap = progressive::Profiler::instance().takeMemorySnapshot("jni");
+    std::ostringstream os;
+    os << R"({"bytes":)" << snap.allocatedBytes
+       << R"(,"alloc_count":)" << snap.allocateCount
+       << R"(,"dealloc_count":)" << snap.deallocateCount
+       << R"(,"ts":)" << snap.timestampNs << "}";
+    return env->NewStringUTF(os.str().c_str());
 }
 
 } // extern "C"
