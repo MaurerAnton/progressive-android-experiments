@@ -1164,7 +1164,8 @@ JNI_FUNC(jboolean, nativeSqliteDbOpen)(JNIEnv* env, jclass, jstring jPath, jstri
     auto db = progressive::SqliteDB::open(jStr(env, jPath));
     if (!db.isOpen()) return JNI_FALSE;
     db.createTimelineSchema();
-    g_sqliteDbs.at(jStr(env, jKey)) = std::move(db);
+    auto key = jStr(env, jKey);
+    g_sqliteDbs[key] = std::make_unique<progressive::SqliteDB>(std::move(db));
     return JNI_TRUE;
 }
 
@@ -2173,11 +2174,6 @@ JNI_FUNC(jboolean, nativeRequiresDeviceVerification)(JNIEnv* env, jclass, jstrin
 
 JNI_FUNC(jboolean, nativeIsReasonableTimestamp)(JNIEnv* env, jclass, jstring jTs, jlong jMaxFuture) {
     return progressive::isReasonableTimestamp(jStr(env, jTs), jMaxFuture) ? JNI_TRUE : JNI_FALSE;
-}
-
-JNI_FUNC(jboolean, nativeValidateRecoveryKey)(JNIEnv* env, jclass, jstring jKey) {
-    auto rk = progressive::validateRecoveryKey(jStr(env, jKey));
-    return rk.valid ? JNI_TRUE : JNI_FALSE;
 }
 
 } // extern "C"
