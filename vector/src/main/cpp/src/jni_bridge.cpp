@@ -2918,6 +2918,40 @@ JNI_FUNC(jboolean, nativeHasTextWithImage)(JNIEnv* env, jclass, jstring jContent
     return progressive::hasTextWithImage(jStr(env, jContentJson)) ? JNI_TRUE : JNI_FALSE;
 }
 
+// --- MXC Thumbnail ---
+
+JNI_FUNC(jstring, nativeResolveMxcThumbnailUrl)(JNIEnv* env, jclass, jstring jMxcUrl, jstring jHomeServer, jint jW, jint jH) {
+    auto result = progressive::resolveMxcThumbnailUrl(jStr(env, jMxcUrl), jStr(env, jHomeServer), jW, jH);
+    return env->NewStringUTF(result.c_str());
+}
+
+// --- Content Utilities ---
+
+JNI_FUNC(jstring, nativeGetExtensionFromMimeType)(JNIEnv* env, jclass, jstring jMime) {
+    auto result = progressive::getExtensionFromMimeType(jStr(env, jMime));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeExtractUsefulTextFromReply)(JNIEnv* env, jclass, jstring jRepliedBody) {
+    auto result = progressive::extractUsefulTextFromReply(jStr(env, jRepliedBody));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatSpoilerTextFromHtml)(JNIEnv* env, jclass, jstring jHtml) {
+    auto result = progressive::formatSpoilerTextFromHtml(jStr(env, jHtml));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeGetLatestEditEventId)(JNIEnv* env, jclass, jstring jEditSummaryJson, jstring jOriginalEventId) {
+    auto result = progressive::getLatestEditEventId(jStr(env, jEditSummaryJson), jStr(env, jOriginalEventId));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeGetEditedTargetEventId)(JNIEnv* env, jclass, jstring jContentJson) {
+    auto result = progressive::getEditedTargetEventId(jStr(env, jContentJson));
+    return env->NewStringUTF(result.c_str());
+}
+
 // --- Megolm Decryptor ---
 // Controlled by Labs: SETTINGS_LABS_NATIVE_CRYPTO
 

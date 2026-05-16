@@ -956,6 +956,18 @@ object ProgressiveNative {
     @JvmStatic external fun nativeResolveMxcDownloadUrl(mxcUrl: String, homeServerUrl: String): String
     @JvmStatic external fun nativeHasTextWithImage(contentJson: String): Boolean
 
+    // --- MXC Thumbnail ---
+
+    @JvmStatic external fun nativeResolveMxcThumbnailUrl(mxcUrl: String, homeServerUrl: String, width: Int, height: Int): String
+
+    // --- Content Utilities ---
+
+    @JvmStatic external fun nativeGetExtensionFromMimeType(mimetype: String): String
+    @JvmStatic external fun nativeExtractUsefulTextFromReply(repliedBody: String): String
+    @JvmStatic external fun nativeFormatSpoilerTextFromHtml(formattedBody: String): String
+    @JvmStatic external fun nativeGetLatestEditEventId(editSummaryJson: String, originalEventId: String): String
+    @JvmStatic external fun nativeGetEditedTargetEventId(contentJson: String): String
+
     // --- Megolm Decryptor ---
 
     @JvmStatic external fun nativeMegolmAddSession(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean
@@ -2993,6 +3005,24 @@ object ProgressiveNative {
         "${homeServerUrl.trimEnd('/')}/_matrix/media/v3/download/${mxcUrl.removePrefix("mxc://")}"
     @JvmStatic fun nativeHasTextWithImageFallback(contentJson: String): Boolean =
         contentJson.contains("\"msgtype\":\"m.image\"")
+
+    // --- MXC Thumbnail fallback ---
+    @JvmStatic fun nativeResolveMxcThumbnailUrlFallback(mxcUrl: String, homeServerUrl: String, width: Int, height: Int): String =
+        "${homeServerUrl.trimEnd('/')}/_matrix/media/v3/thumbnail/${mxcUrl.removePrefix("mxc://")}?width=$width&height=$height&method=scale"
+
+    // --- Content Utilities fallbacks ---
+    @JvmStatic fun nativeGetExtensionFromMimeTypeFallback(mimetype: String): String = when {
+        mimetype.contains("jpeg") || mimetype.contains("jpg") -> ".jpg"
+        mimetype.contains("png") -> ".png"; mimetype.contains("gif") -> ".gif"
+        mimetype.contains("webp") -> ".webp"; mimetype.contains("mp4") -> ".mp4"
+        else -> ""
+    }
+    @JvmStatic fun nativeExtractUsefulTextFromReplyFallback(repliedBody: String): String =
+        repliedBody.lines().dropWhile { it.startsWith(">") || it.isBlank() }.joinToString("\n")
+    @JvmStatic fun nativeFormatSpoilerTextFromHtmlFallback(formattedBody: String): String =
+        formattedBody.replace(Regex("<span[^>]*>"), "").replace("</span>", "")
+    @JvmStatic fun nativeGetLatestEditEventIdFallback(editSummaryJson: String, originalEventId: String): String = originalEventId
+    @JvmStatic fun nativeGetEditedTargetEventIdFallback(contentJson: String): String = ""
 
     // --- Megolm fallbacks ---
     @JvmStatic fun nativeMegolmAddSessionFallback(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean = false
