@@ -4658,4 +4658,36 @@ JNI_FUNC(jstring, nativeSignInAgainBodyToJson)(JNIEnv* env, jclass, jstring jPar
     return env->NewStringUTF(r.c_str());
 }
 
+// --- Message Extras ---
+
+JNI_FUNC(jstring, nativePollTypeToString)(JNIEnv* env, jclass, jint jType) {
+    auto r = progressive::pollTypeToString(static_cast<progressive::PollType>(jType));
+    return env->NewStringUTF(r);
+}
+
+JNI_FUNC(jint, nativePollTypeFromString)(JNIEnv* env, jclass, jstring jType) {
+    return static_cast<jint>(progressive::pollTypeFromString(jStr(env, jType)));
+}
+
+// --- Terms Service ---
+
+JNI_FUNC(jstring, nativeAcceptTermsBodyToJson)(JNIEnv* env, jclass, jstring jBodyJson) {
+    auto json = jStr(env, jBodyJson);
+    progressive::AcceptTermsBody b;
+    // Parse accepted_urls array
+    size_t p = 0;
+    while ((p = json.find("\"", p)) != std::string::npos) {
+        p++;
+        size_t e = p;
+        while (e < json.size() && json[e] != '"') e++;
+        if (e > p && json[p-1] == '"') {
+            std::string url = json.substr(p, e - p);
+            if (url.find("://") != std::string::npos) b.acceptedUrls.push_back(url);
+        }
+        p = e + 1;
+    }
+    auto r = progressive::acceptTermsBodyToJson(b);
+    return env->NewStringUTF(r.c_str());
+}
+
 } // extern "C"

@@ -1345,6 +1345,15 @@ object ProgressiveNative {
     @JvmStatic external fun nativeShouldIgnoreSignOutError(errorCode: String, httpCode: Int): Boolean
     @JvmStatic external fun nativeSignInAgainBodyToJson(paramsJson: String): String
 
+    // --- Message Extras ---
+
+    @JvmStatic external fun nativePollTypeToString(type: Int): String
+    @JvmStatic external fun nativePollTypeFromString(type: String): Int
+
+    // --- Terms Service ---
+
+    @JvmStatic external fun nativeAcceptTermsBodyToJson(bodyJson: String): String
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -3864,6 +3873,19 @@ object ProgressiveNative {
     @JvmStatic fun nativeShouldIgnoreSignOutErrorFallback(errorCode: String, httpCode: Int): Boolean =
         httpCode == 401 || errorCode == "M_UNKNOWN_TOKEN"
     @JvmStatic fun nativeSignInAgainBodyToJsonFallback(paramsJson: String): String = paramsJson
+
+    // --- Message Extras fallbacks ---
+    @JvmStatic fun nativePollTypeToStringFallback(type: Int): String = when(type) {
+        0 -> "org.matrix.msc3381.poll.disclosed"; 1 -> "m.poll.disclosed"
+        2 -> "org.matrix.msc3381.poll.undisclosed"; 3 -> "m.poll.undisclosed"
+        else -> "m.poll.disclosed" }
+    @JvmStatic fun nativePollTypeFromStringFallback(type: String): Int = when(type) {
+        "m.poll.disclosed" -> 1; "m.poll.undisclosed" -> 3
+        "org.matrix.msc3381.poll.disclosed" -> 0; "org.matrix.msc3381.poll.undisclosed" -> 2
+        else -> 1 }
+
+    // --- Terms Service fallback ---
+    @JvmStatic fun nativeAcceptTermsBodyToJsonFallback(bodyJson: String): String = bodyJson
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")
