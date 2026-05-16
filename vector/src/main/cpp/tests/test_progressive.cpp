@@ -31,6 +31,8 @@
 #include "progressive/date_utils.hpp"
 #include "progressive/matrix_error.hpp"
 #include "progressive/content_guard.hpp"
+#include "progressive/invite_utils.hpp"
+#include "progressive/file_validator.hpp"
 #include <cstring>
 
 // ==== SHA-256 verification (E2EE foundation) ====
@@ -513,6 +515,27 @@ static void test_format_media_collapse_label() {
     ASSERT_TRUE(result.find("5") != std::string::npos);
 }
 
+// ==== Invite utilities ====
+static void test_is_invite_expired() {
+    ASSERT_TRUE(progressive::isInviteExpired(0, 30)); // invited at epoch, definitely expired
+}
+
+static void test_build_knock_body() {
+    auto result = progressive::buildKnockBody("let me in");
+    ASSERT_TRUE(result.find("let me in") != std::string::npos);
+}
+
+// ==== File validator ====
+static void test_format_file_size() {
+    auto result = progressive::formatFileSize(1024);
+    ASSERT_TRUE(result.find("KB") != std::string::npos);
+}
+
+static void test_format_file_size_bytes() {
+    auto result = progressive::formatFileSize(500);
+    ASSERT_TRUE(result.find("B") != std::string::npos);
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -627,6 +650,12 @@ int main() {
     ADD_TEST(runner, test_get_all_error_codes);
     ADD_TEST(runner, test_count_emojis);
     ADD_TEST(runner, test_format_media_collapse_label);
+    
+    printf("\n-- Invite & Files --\n");
+    ADD_TEST(runner, test_is_invite_expired);
+    ADD_TEST(runner, test_build_knock_body);
+    ADD_TEST(runner, test_format_file_size);
+    ADD_TEST(runner, test_format_file_size_bytes);
     
     return runner.summary();
 }
