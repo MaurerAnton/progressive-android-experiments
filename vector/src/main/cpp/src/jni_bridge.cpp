@@ -1018,7 +1018,7 @@ JNI_FUNC(void, nativeTimelineClear)(JNIEnv* env, jclass, jstring jRoom) {
     static std::unordered_map<std::string, std::unique_ptr<progressive::TimelineChunkManager>> managers;
     auto room = jStr(env, jRoom);
     auto it = managers.find(room);
-    if (it != managers.end()) it->second.clear();
+    if (it != managers.end()) it->second->clear();
 }
 
 JNI_FUNC(jstring, nativeTimelineGetReplies)(JNIEnv* env, jclass, jstring jId) {
@@ -1177,7 +1177,7 @@ JNI_FUNC(jboolean, nativeSqliteDbInsertEvent)(JNIEnv* env, jclass, jstring jKey,
     jstring jContentJson, jlong jOriginTs, jlong jAgeTs, jint jDi) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return JNI_FALSE;
-    return it->second.insertEvent(
+    return it->second->insertEvent(
         jStr(env, jEventId), jStr(env, jRoomId), jStr(env, jType),
         jStr(env, jSenderId), jStr(env, jContentJson),
         jOriginTs, jAgeTs, jDi) ? JNI_TRUE : JNI_FALSE;
@@ -1189,7 +1189,7 @@ JNI_FUNC(jboolean, nativeSqliteDbInsertEventRel)(JNIEnv* env, jclass, jstring jK
     jstring jStateKey, jstring jRedacts, jstring jRelType, jstring jRelatesTo) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return JNI_FALSE;
-    return it->second.insertEvent(
+    return it->second->insertEvent(
         jStr(env, jEventId), jStr(env, jRoomId), jStr(env, jType),
         jStr(env, jSenderId), jStr(env, jContentJson),
         jOriginTs, jAgeTs, jDi,
@@ -1201,7 +1201,7 @@ JNI_FUNC(jstring, nativeSqliteDbQueryEvents)(JNIEnv* env, jclass, jstring jKey,
     jstring jRoomId, jint jLimit, jint jOffset, jboolean jAsc) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return env->NewStringUTF("[]");
-    auto rows = it->second.queryEvents(jStr(env, jRoomId), jLimit, jOffset, jAsc);
+    auto rows = it->second->queryEvents(jStr(env, jRoomId), jLimit, jOffset, jAsc);
     std::ostringstream os; os << "[";
     for (size_t i = 0; i < rows.size(); i++) {
         if (i > 0) os << ",";
@@ -1215,7 +1215,7 @@ JNI_FUNC(jstring, nativeSqliteDbQueryEvents)(JNIEnv* env, jclass, jstring jKey,
 JNI_FUNC(jstring, nativeSqliteDbQueryEvent)(JNIEnv* env, jclass, jstring jKey, jstring jEventId) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return env->NewStringUTF("{}");
-    auto row = it->second.queryEvent(jStr(env, jEventId));
+    auto row = it->second->queryEvent(jStr(env, jEventId));
     std::ostringstream os;
     os << R"({"id":")" << row.eventId << R"(","type":")" << row.type
        << R"(","content":)" << row.contentJson << "}";
@@ -1224,19 +1224,19 @@ JNI_FUNC(jstring, nativeSqliteDbQueryEvent)(JNIEnv* env, jclass, jstring jKey, j
 
 JNI_FUNC(void, nativeSqliteDbDeleteEvent)(JNIEnv* env, jclass, jstring jKey, jstring jEventId) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
-    if (it != g_sqliteDbs.end()) it->second.deleteEvent(jStr(env, jEventId));
+    if (it != g_sqliteDbs.end()) it->second->deleteEvent(jStr(env, jEventId));
 }
 
 JNI_FUNC(jint, nativeSqliteDbCountEvents)(JNIEnv* env, jclass, jstring jKey, jstring jRoomId) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return 0;
-    return it->second.countEvents(jStr(env, jRoomId));
+    return it->second->countEvents(jStr(env, jRoomId));
 }
 
 JNI_FUNC(jint, nativeSqliteDbMaxDisplayIndex)(JNIEnv* env, jclass, jstring jKey, jstring jRoomId) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return 0;
-    return it->second.maxDisplayIndex(jStr(env, jRoomId));
+    return it->second->maxDisplayIndex(jStr(env, jRoomId));
 }
 
 JNI_FUNC(jboolean, nativeSqliteDbUpsertRoom)(JNIEnv* env, jclass, jstring jKey,
@@ -1246,7 +1246,7 @@ JNI_FUNC(jboolean, nativeSqliteDbUpsertRoom)(JNIEnv* env, jclass, jstring jKey,
     jboolean jFav, jboolean jEnc) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return JNI_FALSE;
-    return it->second.upsertRoom(
+    return it->second->upsertRoom(
         jStr(env, jRoomId), jStr(env, jName), jStr(env, jAvatar),
         jStr(env, jTopic), jStr(env, jMembership),
         jNotifCount, jHighlightCount, jActivity,
@@ -1256,7 +1256,7 @@ JNI_FUNC(jboolean, nativeSqliteDbUpsertRoom)(JNIEnv* env, jclass, jstring jKey,
 JNI_FUNC(jstring, nativeSqliteDbQueryRooms)(JNIEnv* env, jclass, jstring jKey) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return env->NewStringUTF("[]");
-    auto rows = it->second.queryRooms();
+    auto rows = it->second->queryRooms();
     std::ostringstream os; os << "[";
     for (size_t i = 0; i < rows.size(); i++) {
         if (i > 0) os << ",";
@@ -1273,18 +1273,18 @@ JNI_FUNC(jstring, nativeSqliteDbQueryRooms)(JNIEnv* env, jclass, jstring jKey) {
 
 JNI_FUNC(void, nativeSqliteDbBeginTransaction)(JNIEnv* env, jclass, jstring jKey) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
-    if (it != g_sqliteDbs.end()) it->second.beginTransaction();
+    if (it != g_sqliteDbs.end()) it->second->beginTransaction();
 }
 
 JNI_FUNC(void, nativeSqliteDbCommitTransaction)(JNIEnv* env, jclass, jstring jKey) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
-    if (it != g_sqliteDbs.end()) it->second.commitTransaction();
+    if (it != g_sqliteDbs.end()) it->second->commitTransaction();
 }
 
 JNI_FUNC(jint, nativeSqliteDbSchemaVersion)(JNIEnv* env, jclass, jstring jKey) {
     auto it = g_sqliteDbs.find(jStr(env, jKey));
     if (it == g_sqliteDbs.end()) return 0;
-    return it->second.schemaVersion();
+    return it->second->schemaVersion();
 }
 
 // --- Native Sync Response Parser (bypass Moshi) ---
@@ -1359,8 +1359,8 @@ JNI_FUNC(jint, nativeCountEventsInSync)(JNIEnv* env, jclass, jstring jJson) {
     total += response.presence.events.size();
     total += response.toDevice.events.size();
     for (auto& kv : response.rooms.join) {
-        total += kv.second->state.events.size();
-        total += kv.second->timeline.events.size();
+        total += kv.second.state.events.size();
+        total += kv.second.timeline.events.size();
     }
     return total;
 }
@@ -1404,8 +1404,8 @@ JNI_FUNC(jstring, nativeApiSync)(JNIEnv* env, jclass, jstring jFilter, jstring j
        << R"(,"rooms_left":)" << response.rooms.leave.size()
        << R"(,"events_total_timeline":)";
     int totalTimeline = 0;
-    for (auto& kv : response.rooms.join) totalTimeline += kv.second->timeline.events.size();
-    for (auto& kv : response.rooms.leave) totalTimeline += kv.second->timeline.events.size();
+    for (auto& kv : response.rooms.join) totalTimeline += kv.second.timeline.events.size();
+    for (auto& kv : response.rooms.leave) totalTimeline += kv.second.timeline.events.size();
     os << totalTimeline << "}";
     return env->NewStringUTF(os.str().c_str());
 }
