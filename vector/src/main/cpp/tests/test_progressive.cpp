@@ -1583,6 +1583,58 @@ static void test_oidc_well_known() {
     ASSERT_FALSE(progressive::requiresOidc(wk));
 }
 
+// ==== User Directory ====
+
+#include "progressive/user_directory.hpp"
+
+static void test_userdir_parse_response() {
+    progressive::UserDirectoryManager mgr;
+    auto resp = mgr.parseSearchResponse(R"({"results":[{"user_id":"@alice:org","display_name":"Alice","avatar_url":"mxc://org/a"}],"limited":false})");
+    ASSERT_EQ(resp.totalResults, 1);
+    ASSERT_STREQ(resp.results[0].userId.c_str(), "@alice:org");
+    ASSERT_STREQ(resp.results[0].displayName.c_str(), "Alice");
+    ASSERT_FALSE(resp.limited);
+}
+
+static void test_userdir_best_name() {
+    progressive::UserDirectoryManager mgr;
+    ASSERT_STREQ(mgr.getBestDisplayName("Alice", "@alice:example.org").c_str(), "Alice");
+    ASSERT_STREQ(mgr.getBestDisplayName("", "@bob:example.org").c_str(), "bob");
+}
+
+static void test_userdir_avatar_init() {
+    progressive::UserDirectoryManager mgr;
+    progressive::UserSearchResult u;
+    u.displayName = "Alice"; u.userId = "@alice:org";
+    ASSERT_STREQ(mgr.getAvatarInitial(u).c_str(), "A");
+    u.displayName = ""; u.userId = "@bob:org";
+    ASSERT_STREQ(mgr.getAvatarInitial(u).c_str(), "b");
+}
+
+static void test_userdir_validation() {
+    progressive::UserDirectoryManager mgr;
+    ASSERT_TRUE(mgr.isValidSearchQuery("al"));
+    ASSERT_FALSE(mgr.isValidSearchQuery("a"));
+    ASSERT_FALSE(mgr.isValidSearchQuery(""));
+}
+
+static void test_userdir_build_request() {
+    progressive::UserDirectoryManager mgr;
+    progressive::UserSearchQuery q;
+    q.searchTerm = "alice"; q.limit = 10;
+    auto json = mgr.buildSearchRequest(q);
+    ASSERT_TRUE(json.find("alice") != std::string::npos);
+    ASSERT_TRUE(json.find("10") != std::string::npos);
+}
+
+static void test_userdir_relevance() {
+    progressive::UserDirectoryManager mgr;
+    progressive::UserSearchResult u;
+    u.userId = "@alice:org"; u.displayName = "Alice";
+    ASSERT_EQ(mgr.calculateRelevance(u, "Alice"), 100);
+    ASSERT_TRUE(mgr.calculateRelevance(u, "Bo") <= 50);
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -1867,6 +1919,14 @@ int main() {
     ADD_TEST(runner, test_oidc_login_types);
     ADD_TEST(runner, test_oidc_password_login_request);
     ADD_TEST(runner, test_oidc_well_known);
+    
+    printf("\n-- User Directory --\n");
+    ADD_TEST(runner, test_userdir_parse_response);
+    ADD_TEST(runner, test_userdir_best_name);
+    ADD_TEST(runner, test_userdir_avatar_init);
+    ADD_TEST(runner, test_userdir_validation);
+    ADD_TEST(runner, test_userdir_build_request);
+    ADD_TEST(runner, test_userdir_relevance);
     
     return runner.summary();
 }

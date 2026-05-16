@@ -152,6 +152,7 @@
 #include "progressive/pin_manager.hpp"
 #include "progressive/media_viewer.hpp"
 #include "progressive/oidc_manager.hpp"
+#include "progressive/user_directory.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -5760,6 +5761,50 @@ JNI_FUNC(jstring, nativeOidcBuildPasswordLogin)(JNIEnv* env, jclass, jstring jUs
     creds.initialDeviceDisplayName = jStr(env, jDevName);
     auto r = progressive::buildPasswordLoginRequest(creds);
     return env->NewStringUTF(r.c_str());
+}
+
+// ============================================================
+// User Directory Search
+// ============================================================
+
+static std::unique_ptr<progressive::UserDirectoryManager> g_userDir;
+
+static progressive::UserDirectoryManager* getUserDir() {
+    if (!g_userDir) g_userDir.reset(new progressive::UserDirectoryManager());
+    return g_userDir.get();
+}
+
+JNI_FUNC(jstring, nativeUserDirBuildSearch)(JNIEnv* env, jclass, jstring jTerm, jint jLimit) {
+    progressive::UserSearchQuery q;
+    q.searchTerm = jStr(env, jTerm);
+    q.limit = jLimit;
+    auto r = getUserDir()->buildSearchRequest(q);
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jstring, nativeUserDirSearch)(JNIEnv* env, jclass, jstring jQuery, jstring jResponseJson) {
+    progressive::UserSearchQuery q;
+    q.searchTerm = jStr(env, jQuery);
+    q.limit = 20;
+    auto resp = getUserDir()->search(q, jStr(env, jResponseJson));
+    return env->NewStringUTF(getUserDir()->responseToJson(resp).c_str());
+}
+
+JNI_FUNC(jstring, nativeUserDirBestName)(JNIEnv* env, jclass, jstring jDisplayName, jstring jUserId) {
+    auto r = getUserDir()->getBestDisplayName(jStr(env, jDisplayName), jStr(env, jUserId));
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jstring, nativeUserDirAvatarInit)(JNIEnv* env, jclass, jstring jDisplayName, jstring jUserId) {
+    progressive::UserSearchResult u;
+    u.displayName = jStr(env, jDisplayName);
+    u.userId = jStr(env, jUserId);
+    auto r = getUserDir()->getAvatarInitial(u);
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jboolean, nativeUserDirIsValidQuery)(JNIEnv* env, jclass, jstring jQ) {
+    return getUserDir()->isValidSearchQuery(jStr(env, jQ)) ? JNI_TRUE : JNI_FALSE;
 }
 
 } // extern "C"

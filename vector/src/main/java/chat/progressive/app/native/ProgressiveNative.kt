@@ -1515,6 +1515,14 @@ object ProgressiveNative {
     @JvmStatic external fun nativeOidcExtractCode(callbackUrl: String): String
     @JvmStatic external fun nativeOidcBuildPasswordLogin(userId: String, password: String, deviceId: String, deviceName: String): String
 
+    // --- User Directory ---
+
+    @JvmStatic external fun nativeUserDirBuildSearch(searchTerm: String, limit: Int): String
+    @JvmStatic external fun nativeUserDirSearch(query: String, responseJson: String): String
+    @JvmStatic external fun nativeUserDirBestName(displayName: String, userId: String): String
+    @JvmStatic external fun nativeUserDirAvatarInit(displayName: String, userId: String): String
+    @JvmStatic external fun nativeUserDirIsValidQuery(query: String): Boolean
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4336,6 +4344,18 @@ object ProgressiveNative {
         Regex("""[?&]code=([^&]+)""").find(callbackUrl)?.groupValues?.getOrNull(1) ?: ""
     @JvmStatic fun nativeOidcBuildPasswordLoginFallback(userId: String, password: String, deviceId: String, deviceName: String): String =
         """{"type":"m.login.password","identifier":{"type":"m.id.user","user":"$userId"},"password":"$password"}"""
+
+    // --- User Directory fallbacks ---
+    @JvmStatic fun nativeUserDirBuildSearchFallback(searchTerm: String, limit: Int): String =
+        """{"search_term":"$searchTerm","limit":$limit}"""
+    @JvmStatic fun nativeUserDirSearchFallback(query: String, responseJson: String): String = responseJson
+    @JvmStatic fun nativeUserDirBestNameFallback(displayName: String, userId: String): String =
+        displayName.ifEmpty { userId.removePrefix("@").substringBefore(":") }
+    @JvmStatic fun nativeUserDirAvatarInitFallback(displayName: String, userId: String): String {
+        val name = displayName.ifEmpty { userId.removePrefix("@").substringBefore(":") }
+        return if (name.isNotEmpty()) name.take(1).uppercase() else "?"
+    }
+    @JvmStatic fun nativeUserDirIsValidQueryFallback(query: String): Boolean = query.length in 2..256
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")
