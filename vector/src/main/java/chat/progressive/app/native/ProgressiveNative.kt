@@ -898,6 +898,14 @@ object ProgressiveNative {
     @JvmStatic external fun nativeExtractUserNameFromId(mxid: String): String
     @JvmStatic external fun nativeCandidateAliasFromRoomName(roomName: String, domain: String, maxLength: Int): String
 
+    // --- Widget List ---
+
+    @JvmStatic external fun nativeListRoomWidgets(stateEventsJson: String): String
+
+    // --- Session Rename ---
+
+    @JvmStatic external fun nativeBuildSessionRenameBody(sessionId: String, newName: String): String
+
     // --- Megolm Decryptor ---
 
     @JvmStatic external fun nativeMegolmAddSession(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean
@@ -2863,6 +2871,13 @@ object ProgressiveNative {
     @JvmStatic fun nativeExtractUserNameFromIdFallback(mxid: String): String = mxid.removePrefix("@").substringBefore(":")
     @JvmStatic fun nativeCandidateAliasFromRoomNameFallback(roomName: String, domain: String, maxLength: Int): String =
         "#${roomName.lowercase().replace(" ", "_").take(maxLength)}:$domain"
+
+    // --- Widget fallback ---
+    @JvmStatic fun nativeListRoomWidgetsFallback(stateEventsJson: String): String = "[]"
+
+    // --- Session Rename fallback ---
+    @JvmStatic fun nativeBuildSessionRenameBodyFallback(sessionId: String, newName: String): String =
+        """{"session_id":"$sessionId","display_name":"$newName"}"""
 
     // --- Megolm fallbacks ---
     @JvmStatic fun nativeMegolmAddSessionFallback(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean = false

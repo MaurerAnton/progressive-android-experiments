@@ -2726,6 +2726,29 @@ JNI_FUNC(jstring, nativeCandidateAliasFromRoomName)(JNIEnv* env, jclass, jstring
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Widget List ---
+
+JNI_FUNC(jstring, nativeListRoomWidgets)(JNIEnv* env, jclass, jstring jStateJson) {
+    auto widgets = progressive::listRoomWidgets(jStr(env, jStateJson));
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < widgets.size(); i++) {
+        if (i > 0) os << ",";
+        os << R"({"widget_id":")" << widgets[i].widgetId
+           << R"(","name":")" << widgets[i].name
+           << R"(","type":")" << widgets[i].type
+           << R"(","url":")" << widgets[i].url << "\"}";
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+// --- Session Rename ---
+
+JNI_FUNC(jstring, nativeBuildSessionRenameBody)(JNIEnv* env, jclass, jstring jSessionId, jstring jNewName) {
+    auto result = progressive::buildSessionRenameBody(jStr(env, jSessionId), jStr(env, jNewName));
+    return env->NewStringUTF(result.c_str());
+}
+
 // --- Megolm Decryptor ---
 // Controlled by Labs: SETTINGS_LABS_NATIVE_CRYPTO
 
