@@ -1658,6 +1658,16 @@ object ProgressiveNative {
     @JvmStatic external fun nativeTermsAreRequired(errorJson: String): Boolean
     @JvmStatic external fun nativeTermsGetPending(responseJson: String, agreedJson: String): String
 
+    // --- Transparent Overlay ---
+
+    @JvmStatic external fun nativeOverlaySetConfig(configJson: String)
+    @JvmStatic external fun nativeOverlayTouchDown(x: Double, y: Double, pointerId: Int, timeNs: Long): Int
+    @JvmStatic external fun nativeOverlayTouchMove(x: Double, y: Double, pointerId: Int, timeNs: Long): Int
+    @JvmStatic external fun nativeOverlayTouchUp(pointerId: Int, timeNs: Long): Int
+    @JvmStatic external fun nativeOverlayBack(timeNs: Long): Int
+    @JvmStatic external fun nativeOverlayTick(timeNs: Long): Int
+    @JvmStatic external fun nativeOverlayGetState(): String
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4716,6 +4726,16 @@ object ProgressiveNative {
     @JvmStatic fun nativeTermsAreRequiredFallback(errorJson: String): Boolean =
         "M_TERMS_NOT_SIGNED" in errorJson || "M_CONSENT_NOT_GIVEN" in errorJson
     @JvmStatic fun nativeTermsGetPendingFallback(responseJson: String, agreedJson: String): String = "[]"
+
+    // --- Transparent Overlay fallbacks ---
+    @JvmStatic fun nativeOverlaySetConfigFallback(configJson: String) {}
+    @JvmStatic fun nativeOverlayTouchDownFallback(x: Double, y: Double, pointerId: Int, timeNs: Long): Int = 0
+    @JvmStatic fun nativeOverlayTouchMoveFallback(x: Double, y: Double, pointerId: Int, timeNs: Long): Int = 0
+    @JvmStatic fun nativeOverlayTouchUpFallback(pointerId: Int, timeNs: Long): Int = 0
+    @JvmStatic fun nativeOverlayBackFallback(timeNs: Long): Int = 0
+    @JvmStatic fun nativeOverlayTickFallback(timeNs: Long): Int = 0
+    @JvmStatic fun nativeOverlayGetStateFallback(): String =
+        """{"gesture":0,"bg_is_fg":false,"one_finger_armed":false,"two_finger_waiting":false,"fg_until_ms":0,"pointers":0}"""
 
     @JvmStatic fun nativeSessionCountFallback(): Int = 0
 

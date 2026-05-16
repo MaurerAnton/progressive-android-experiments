@@ -165,6 +165,7 @@
 #include "progressive/draft_manager_full.hpp"
 #include "progressive/room_state_manager.hpp"
 #include "progressive/terms_manager.hpp"
+#include "progressive/transparent_overlay.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -6460,6 +6461,59 @@ JNI_FUNC(jstring, nativeTermsGetPending)(JNIEnv* env, jclass, jstring jResponseJ
     for (size_t i = 0; i < pending.size(); i++) { if (i > 0) os << ","; os << "\"" << pending[i] << "\""; }
     os << "]";
     return env->NewStringUTF(os.str().c_str());
+}
+
+// ============================================================
+// Transparent Overlay Engine
+// ============================================================
+
+static std::unique_ptr<progressive::TransparentOverlayEngine> g_overlayEngine;
+
+static progressive::TransparentOverlayEngine* getOverlayEngine() {
+    if (!g_overlayEngine) g_overlayEngine.reset(new progressive::TransparentOverlayEngine());
+    return g_overlayEngine.get();
+}
+
+JNI_FUNC(void, nativeOverlaySetConfig)(JNIEnv* env, jclass, jstring jJson) {
+    progressive::TransparentOverlayConfig cfg;
+    auto json = jStr(env, jJson);
+    cfg.oneFingerHoldMs = static_cast<int>(jExtractInt(json, "one_finger_hold_ms"));
+    cfg.twoFingerHoldMs = static_cast<int>(jExtractInt(json, "two_finger_hold_ms"));
+    cfg.foregroundDurationMs = static_cast<int>(jExtractInt(json, "fg_duration_ms"));
+    cfg.foregroundExtendedMs = static_cast<int>(jExtractInt(json, "fg_extended_ms"));
+    cfg.enableOneFingerPassThrough = jExtractBool(json, "enable_one_finger");
+    cfg.enableTwoFingerSwitch = jExtractBool(json, "enable_two_finger");
+    cfg.enableBackButton = jExtractBool(json, "enable_back");
+    cfg.enableSwipeToReturn = jExtractBool(json, "enable_swipe");
+    if (cfg.oneFingerHoldMs == 0) cfg.oneFingerHoldMs = 200;
+    if (cfg.twoFingerHoldMs == 0) cfg.twoFingerHoldMs = 1000;
+    if (cfg.foregroundDurationMs == 0) cfg.foregroundDurationMs = 2000;
+    if (cfg.foregroundExtendedMs == 0) cfg.foregroundExtendedMs = 3000;
+    getOverlayEngine()->setConfig(cfg);
+}
+
+JNI_FUNC(jint, nativeOverlayTouchDown)(JNIEnv*, jclass, jdouble jX, jdouble jY, jint jPtrId, jlong jTimeNs) {
+    return static_cast<jint>(getOverlayEngine()->touchDown(jX, jY, jPtrId, jTimeNs));
+}
+
+JNI_FUNC(jint, nativeOverlayTouchMove)(JNIEnv*, jclass, jdouble jX, jdouble jY, jint jPtrId, jlong jTimeNs) {
+    return static_cast<jint>(getOverlayEngine()->touchMove(jX, jY, jPtrId, jTimeNs));
+}
+
+JNI_FUNC(jint, nativeOverlayTouchUp)(JNIEnv*, jclass, jint jPtrId, jlong jTimeNs) {
+    return static_cast<jint>(getOverlayEngine()->touchUp(jPtrId, jTimeNs));
+}
+
+JNI_FUNC(jint, nativeOverlayBack)(JNIEnv*, jclass, jlong jTimeNs) {
+    return static_cast<jint>(getOverlayEngine()->backPressed(jTimeNs));
+}
+
+JNI_FUNC(jint, nativeOverlayTick)(JNIEnv*, jclass, jlong jTimeNs) {
+    return static_cast<jint>(getOverlayEngine()->timerTick(jTimeNs));
+}
+
+JNI_FUNC(jstring, nativeOverlayGetState)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(getOverlayEngine()->stateToJson().c_str());
 }
 
 } // extern "C"
