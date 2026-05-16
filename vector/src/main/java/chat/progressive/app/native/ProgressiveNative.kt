@@ -1708,6 +1708,16 @@ object ProgressiveNative {
     @JvmStatic external fun nativePermBuildBan(userId: String, reason: String): String
     @JvmStatic external fun nativePermFormatChange(userId: String, oldPower: Int, newPower: Int): String
 
+    // --- Offline Cache Manager ---
+
+    @JvmStatic external fun nativeCacheRegisterRoom(roomJson: String)
+    @JvmStatic external fun nativeCacheGetPlan(): String
+    @JvmStatic external fun nativeCacheGetStats(): String
+    @JvmStatic external fun nativeCacheGetPressure(availableBytes: Long, reservedBytes: Long): String
+    @JvmStatic external fun nativeCacheEvictToFree(targetBytes: Long, availableBytes: Long, reservedBytes: Long): String
+    @JvmStatic external fun nativeCacheRecordHit(roomId: String, bytes: Long)
+    @JvmStatic external fun nativeCacheRecordMiss(roomId: String, bytes: Long)
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4834,6 +4844,20 @@ object ProgressiveNative {
         val newRole = when { newPower >= 100 -> "Admin"; newPower >= 50 -> "Moderator"; else -> "User" }
         return "$userId changed from $oldRole ($oldPower) to $newRole ($newPower)"
     }
+
+    // --- Offline Cache fallbacks ---
+    @JvmStatic fun nativeCacheRegisterRoomFallback(roomJson: String) {}
+    @JvmStatic fun nativeCacheGetPlanFallback(): String =
+        """{"totalBudget":0,"totalAllocated":0,"roomsCached":0,"roomsSkipped":0,"roomPlans":[],"estimatedTimeMs":0}"""
+    @JvmStatic fun nativeCacheGetStatsFallback(): String =
+        """{"total_cached_mb":0.0,"total_messages":0,"total_media":0,"rooms_cached":0,"hits":0,"misses":0,"hit_rate":0.0,"bandwidth_saved_mb":0.0,"evictions":0,"evicted_mb":0.0}"""
+    @JvmStatic fun nativeCacheGetPressureFallback(availableBytes: Long, reservedBytes: Long): String {
+        val free = availableBytes - reservedBytes
+        return """{"level":0,"label":"plenty of space"}""" // Simplified
+    }
+    @JvmStatic fun nativeCacheEvictToFreeFallback(targetBytes: Long, availableBytes: Long, reservedBytes: Long): String = "[]"
+    @JvmStatic fun nativeCacheRecordHitFallback(roomId: String, bytes: Long) {}
+    @JvmStatic fun nativeCacheRecordMissFallback(roomId: String, bytes: Long) {}
 
     @JvmStatic fun nativeSessionCountFallback(): Int = 0
 

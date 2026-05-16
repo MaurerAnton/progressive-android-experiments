@@ -116,6 +116,128 @@ bool canFitInStorage(int64_t required, int64_t available, int64_t reserved);
 std::string offlineCachePlanToJson(const OfflineCachePlan& plan);
 std::string roomPriorityToJson(const RoomPriority& room);
 
+// ================================================================
+// Offline Cache Manager — cache state, eviction, statistics
+// Extends the existing budget allocator with full lifecycle mgmt.
+// ================================================================
+
+// ---- Cache State (per room) ----
+
+struct RoomCacheState {
+    std::string roomId;
+    int64_t cachedBytes = 0;         // Current cached size
+    int cachedMessages = 0;          // Current cached message count
+    int cachedMedia = 0;             // Current cached media count
+    int64_t lastAccessMs = 0;        // When cache was last used
+    int64_t createdAtMs = 0;         // When cache was created
+    int priority = 0;                // Priority score
+    bool isComplete = false;         // Full cache completed
+    int64_t expireAfterMs = 0;       // Auto-expire (0 = never)
+};
+
+// ---- Cache Statistics ----
+
+struct CacheStats {
+    int64_t totalCachedBytes = 0;    // Total data cached
+    int totalCachedMessages = 0;
+    int totalCachedMedia = 0;
+    int roomsCached = 0;
+    int cacheHits = 0;               // Read from cache
+    int cacheMisses = 0;             // Had to fetch from network
+    int64_t bandwidthSavedBytes = 0; // Estimated bandwidth saved
+    int evictions = 0;               // Items removed to free space
+    int64_t evictedBytes = 0;
+    int64_t oldestCacheMs = 0;       // Oldest cached entry age
+    int64_t newestCacheMs = 0;
+    double hitRate() const {
+        int total = cacheHits + cacheMisses;
+        return total > 0 ? static_cast<double>(cacheHits) / total * 100.0 : 0.0;
+    }
+};
+
+// ---- Cache Pressure Level ----
+
+enum class CachePressure {
+    NONE = 0,            // Plenty of space
+    LOW = 1,             // < 75% full — monitor
+    MEDIUM = 2,          // < 50% free — start evicting
+    HIGH = 3,            // < 25% free — aggressive eviction
+    CRITICAL = 4,        // < 10 MB free — emergency
+};
+
+// ---- Offline Cache Manager ----
+
+class OfflineCacheManager {
+public:
+    OfflineCacheManager();
+
+    // ====== Config ======
+
+    void setConfig(const OfflineCacheConfig& config);
+    OfflineCacheConfig getConfig() const;
+
+    // ====== Room Registration ======
+    // Register room priority for cache budgeting.
+
+    void registerRoom(const RoomPriority& room);
+    void unregisterRoom(const std::string& roomId);
+    void updateRoomActivity(const std::string& roomId, int64_t timestampMs);
+
+    // ====== Cache State ======
+
+    // Record that data was cached for a room.
+    void recordCached(const std::string& roomId, int64_t bytes, int messages, int media);
+
+    // Record a cache hit (read from cache).
+    void recordHit(const std::string& roomId, int64_t bytes);
+
+    // Record a cache miss (had to fetch).
+    void recordMiss(const std::string& roomId, int64_t bytes);
+
+    // Get current cache state for a room.
+    bool getRoomState(const std::string& roomId, RoomCacheState& out) const;
+
+    // ====== Eviction ======
+
+    // Check storage pressure level.
+    CachePressure getPressure(int64_t availableStorage, int64_t reservedStorage) const;
+
+    // Evict rooms to free targetBytes of space.
+    // Evicts lowest priority + oldest access first.
+    // Returns list of evicted room IDs.
+    std::vector<std::string> evictToFree(int64_t targetBytes, int64_t availableStorage, int64_t reservedStorage);
+
+    // Evict a specific room.
+    int64_t evictRoom(const std::string& roomId);
+
+    // Evict expired caches.
+    std::vector<std::string> evictExpired();
+
+    // ====== Statistics ======
+
+    CacheStats getStats() const;
+    void resetStats();
+
+    // ====== Cache Plan ======
+
+    // Generate a full cache plan using the existing allocator.
+    OfflineCachePlan generatePlan();
+
+    // ====== Serialization ======
+
+    std::string statsToJson() const;
+    std::string roomStateToJson(const RoomCacheState& state) const;
+    std::string pressureToJson(CachePressure pressure) const;
+
+private:
+    OfflineCacheConfig config_;
+    std::vector<RoomPriority> rooms_;
+    std::unordered_map<std::string, RoomCacheState> cacheState_; // roomId → cache state
+    CacheStats stats_;
+
+    RoomCacheState& getOrCreateState(const std::string& roomId);
+};
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_OFFLINE_CACHE_HPP

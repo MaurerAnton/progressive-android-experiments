@@ -169,6 +169,7 @@
 #include "progressive/composer_manager.hpp"
 #include "progressive/text_undo_manager.hpp"
 #include "progressive/room_permissions_manager.hpp"
+#include "progressive/offline_cache.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -6714,6 +6715,63 @@ JNI_FUNC(jstring, nativePermBuildBan)(JNIEnv* env, jclass, jstring jUserId, jstr
 
 JNI_FUNC(jstring, nativePermFormatChange)(JNIEnv* env, jclass, jstring jUserId, jint jOld, jint jNew) {
     return env->NewStringUTF(getPermMgr()->formatPowerLevelChange(jStr(env, jUserId), jOld, jNew).c_str());
+}
+
+// ============================================================
+// Offline Cache Manager (full lifecycle)
+// ============================================================
+
+static std::unique_ptr<progressive::OfflineCacheManager> g_cacheMgr;
+
+static progressive::OfflineCacheManager* getCacheMgr() {
+    if (!g_cacheMgr) g_cacheMgr.reset(new progressive::OfflineCacheManager());
+    return g_cacheMgr.get();
+}
+
+JNI_FUNC(void, nativeCacheRegisterRoom)(JNIEnv* env, jclass, jstring jRoomJson) {
+    auto json = jStr(env, jRoomJson);
+    progressive::RoomPriority r;
+    r.roomId = jExtractStr(json, "room_id");
+    r.roomName = jExtractStr(json, "room_name");
+    r.priority = static_cast<int>(jExtractInt(json, "priority"));
+    r.messageCount = static_cast<int>(jExtractInt(json, "msg_count"));
+    r.mediaFileCount = static_cast<int>(jExtractInt(json, "media_count"));
+    r.lastActivityMs = jExtractInt(json, "last_activity");
+    r.isDirect = jExtractBool(json, "is_direct");
+    r.isFavourite = jExtractBool(json, "is_favourite");
+    getCacheMgr()->registerRoom(r);
+}
+
+JNI_FUNC(jstring, nativeCacheGetPlan)(JNIEnv* env, jclass) {
+    auto plan = getCacheMgr()->generatePlan();
+    return env->NewStringUTF(progressive::offlineCachePlanToJson(plan).c_str());
+}
+
+JNI_FUNC(jstring, nativeCacheGetStats)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(getCacheMgr()->statsToJson().c_str());
+}
+
+JNI_FUNC(jstring, nativeCacheGetPressure)(JNIEnv*, jclass, jlong jAvail, jlong jReserved) {
+    auto p = getCacheMgr()->getPressure(jAvail, jReserved);
+    return env->NewStringUTF(getCacheMgr()->pressureToJson(p).c_str());
+}
+
+JNI_FUNC(jstring, nativeCacheEvictToFree)(JNIEnv* env, jclass, jlong jTarget, jlong jAvail, jlong jReserved) {
+    auto evicted = getCacheMgr()->evictToFree(jTarget, jAvail, jReserved);
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < evicted.size(); i++) {
+        if (i > 0) os << ","; os << "\"" << evicted[i] << "\"";
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(void, nativeCacheRecordHit)(JNIEnv* env, jclass, jstring jRoomId, jlong jBytes) {
+    getCacheMgr()->recordHit(jStr(env, jRoomId), jBytes);
+}
+
+JNI_FUNC(void, nativeCacheRecordMiss)(JNIEnv* env, jclass, jstring jRoomId, jlong jBytes) {
+    getCacheMgr()->recordMiss(jStr(env, jRoomId), jBytes);
 }
 
 } // extern "C"
