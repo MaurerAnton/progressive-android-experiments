@@ -16,6 +16,13 @@ namespace progressive {
 // Opt-in via Labs: SETTINGS_LABS_NATIVE_TIMELINE
 // Original Kotlin/Realm code remains as fallback.
 
+// Timeline open mode — mirrors Kotlin's Mode sealed interface.
+enum class TimelineMode {
+    LIVE,         // Follow live stream (default)
+    PERMALINK,    // Open around a specific event
+    THREAD        // Thread timeline for a root event
+};
+
 // A single event in the timeline.
 struct TimelineEventData {
     std::string eventId;
@@ -56,8 +63,17 @@ enum class TimelineDirection { FORWARDS = 0, BACKWARDS = 1 };
 
 class TimelineChunkManager {
 public:
-    // Initialize with a room ID.
+    // Initialize with a room ID. Defaults to LIVE mode.
     TimelineChunkManager(const std::string& roomId);
+
+    // ==== Mode-Based Initialization ====
+
+    // Set the timeline mode and optionally an anchor event.
+    // openLive(): follow live stream (isLastForward chunk)
+    // openAtEvent(eventId): open around a specific event (permalink mode)
+    void setMode(TimelineMode mode, const std::string& anchorEventId = "");
+    TimelineMode getMode() const { return mode_; }
+    std::string getAnchorEventId() const { return anchorEventId_; }
 
     // Add a chunk from pagination response.
     // Returns the number of new events added (after dedup).
@@ -103,6 +119,12 @@ public:
 
     // Get chunk count.
     int chunkCount() const { return (int)chunks_.size(); }
+
+    // ==== Pagination (loadMore delegation) ====
+
+    // How many more events could be loaded in a direction.
+    // Returns 0 if no more events can be loaded, or a suggested count.
+    int eventsAvailable(TimelineDirection dir) const;
 
     // ==== Snapshot Building ====
 
@@ -163,6 +185,8 @@ public:
 
 private:
     std::string roomId_;
+    TimelineMode mode_ = TimelineMode::LIVE;
+    std::string anchorEventId_;
     std::vector<TimelineChunkData> chunks_;
     std::unordered_map<std::string, TimelineEventData> eventIndex_; // eventId → event data
     std::unordered_map<std::string, int> displayIndexMap_; // eventId → display index

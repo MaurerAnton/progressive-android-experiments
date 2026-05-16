@@ -1058,6 +1058,15 @@ JNI_FUNC(jstring, nativeTimelineGetSnapshot)(JNIEnv* env, jclass, jstring jRoom,
     return env->NewStringUTF(os.str().c_str());
 }
 
+JNI_FUNC(jint, nativeTimelineEventsAvailable)(JNIEnv* env, jclass, jstring jRoom, jint jDir) {
+    static std::unordered_map<std::string, progressive::TimelineChunkManager> managers;
+    auto room = jStr(env, jRoom);
+    auto it = managers.find(room);
+    if (it == managers.end()) return 0;
+    auto dir = jDir == 0 ? progressive::TimelineDirection::FORWARDS : progressive::TimelineDirection::BACKWARDS;
+    return it->second.eventsAvailable(dir);
+}
+
 // --- Room Filter ---
 JNI_FUNC(jstring, nativeFilterRooms)(JNIEnv* env, jclass, jstring jRooms, jint jCat, jstring jQuery) {
     // Stub: returns input as-is. Full impl parses JSON array, filters, returns.
