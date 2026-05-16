@@ -31,14 +31,14 @@ enum class RoomCapabilitySupport {
     SupportedUnstable  // unstable version supported (dev only)
 };
 
-enum class RoomVersionStatus {
+enum class RoomVersionCap {
     Stable,            // fully released
     Unstable           // experimental/preview
 };
 
-struct RoomVersionInfo {
+struct RoomVersionCapInfo {
     std::string version;       // e.g. "9", "10"
-    RoomVersionStatus status = RoomVersionStatus::Stable;
+    RoomVersionCap status = RoomVersionCap::Stable;
 };
 
 struct FeatureInfo {
@@ -48,7 +48,7 @@ struct FeatureInfo {
 
 struct RoomVersionCapabilities {
     std::string defaultVersion;                  // default room version
-    std::vector<RoomVersionInfo> supportedVersion; // available room versions
+    std::vector<RoomVersionCapInfo> supportedVersion; // available room versions
     std::map<std::string, FeatureInfo> capabilities; // feature → version mapping
 };
 

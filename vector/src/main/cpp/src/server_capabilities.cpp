@@ -37,14 +37,14 @@ RoomCapabilitySupport isFeatureSupported(
     if (preferred.empty()) return RoomCapabilitySupport::Unknown;
 
     // Original: val versionCap = supportedVersion.firstOrNull { it.version == preferred }
-    const RoomVersionInfo* versionCap = nullptr;
+    const RoomVersionCapInfo* versionCap = nullptr;
     for (const auto& v : caps.supportedVersion) {
         if (v.version == preferred) { versionCap = &v; break; }
     }
     if (!versionCap) return RoomCapabilitySupport::Unknown;
 
     // Original: versionCap.status == STABLE → SUPPORTED else SUPPORTED_UNSTABLE
-    return (versionCap->status == RoomVersionStatus::Stable)
+    return (versionCap->status == RoomVersionCap::Stable)
         ? RoomCapabilitySupport::Supported
         : RoomCapabilitySupport::SupportedUnstable;
 }

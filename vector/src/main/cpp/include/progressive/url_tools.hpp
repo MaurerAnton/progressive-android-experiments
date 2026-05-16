@@ -6,7 +6,7 @@
 
 namespace progressive {
 
-struct ParsedUrl {
+struct UrlParts {
     std::string protocol;     // "https"
     std::string host;         // "matrix.example.com"
     std::string port;         // "8448" or "" for default
@@ -17,7 +17,7 @@ struct ParsedUrl {
 };
 
 // Parse a URL into its components.
-ParsedUrl parseUrl(const std::string& url);
+UrlParts parseUrl(const std::string& url);
 
 // Check if a string is likely a URL (starts with http/https/ftp/matrix).
 bool isLikelyUrl(const std::string& text);

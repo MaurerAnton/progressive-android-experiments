@@ -5,8 +5,8 @@
 
 namespace progressive {
 
-ParsedUrl parseUrl(const std::string& url) {
-    ParsedUrl result;
+UrlParts parseUrl(const std::string& url) {
+    UrlParts result;
     if (url.empty()) return result;
 
     // Protocol

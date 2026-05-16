@@ -6,8 +6,8 @@
 
 namespace progressive {
 
-// Login type — from LoginType.kt (40L)
-enum class LoginType { Password, Sso, Unsupported, Custom, Direct, Unknown, Qr };
+// Login type — from AuthLoginType.kt (40L)
+enum class AuthLoginType { Password, Sso, Unsupported, Custom, Direct, Unknown, Qr };
 
 // ---- Registration Flow (from RegistrationFlowResponse.kt 115L) ----
 struct RegistrationStage {

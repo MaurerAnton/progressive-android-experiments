@@ -582,8 +582,8 @@ SecretSendEventContent parseSecretSendEventContent(const std::string& json);
 
 // ==== Search Result ====
 //
-// Original Kotlin (SearchResult.kt:25-44):
-//   data class SearchResult(nextBatch, highlights, results: List<EventAndSender>)
+// Original Kotlin (EventSearchResult.kt:25-44):
+//   data class EventSearchResult(nextBatch, highlights, results: List<EventAndSender>)
 //   data class EventAndSender(event: Event, sender: MatrixItem.UserItem?)
 
 struct UserItem {
@@ -597,7 +597,7 @@ struct EventAndSender {
     UserItem sender;
 };
 
-struct SearchResult {
+struct EventEventSearchResult {
     std::string nextBatch;                   // pagination token, null if no more
     std::vector<std::string> highlights;     // stemmed words to highlight
     std::vector<EventAndSender> results;     // ordered result list
@@ -625,7 +625,7 @@ struct ContentAttachmentData {
     std::vector<int> waveform;               // audio waveform data
 };
 
-SearchResult parseSearchResult(const std::string& json);
+EventSearchResult parseEventSearchResult(const std::string& json);
 ContentAttachmentData parseContentAttachmentData(const std::string& json);
 
 // ==== Timeline Event Filter Constants ====
