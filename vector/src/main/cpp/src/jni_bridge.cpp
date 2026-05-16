@@ -160,6 +160,7 @@
 #include "progressive/server_notice_manager.hpp"
 #include "progressive/media_upload_manager.hpp"
 #include "progressive/identity_server_manager.hpp"
+#include "progressive/event_relations_manager.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -6191,6 +6192,58 @@ JNI_FUNC(jstring, nativeIdentitySetServer)(JNIEnv* env, jclass, jstring jUrl) {
 
 JNI_FUNC(jstring, nativeIdentityGetServer)(JNIEnv* env, jclass) {
     return env->NewStringUTF(getIdentityMgr()->getCurrentServerUrl().c_str());
+}
+
+// ============================================================
+// Event Relations Manager
+// ============================================================
+
+static std::unique_ptr<progressive::EventRelationsManager> g_relationsMgr;
+
+static progressive::EventRelationsManager* getRelationsMgr() {
+    if (!g_relationsMgr) g_relationsMgr.reset(new progressive::EventRelationsManager());
+    return g_relationsMgr.get();
+}
+
+JNI_FUNC(jstring, nativeRelationParse)(JNIEnv* env, jclass, jstring jContent) {
+    auto rel = getRelationsMgr()->parseRelation(jStr(env, jContent));
+    return env->NewStringUTF(getRelationsMgr()->relationToJson(rel).c_str());
+}
+
+JNI_FUNC(jboolean, nativeRelationIsReply)(JNIEnv* env, jclass, jstring jContent) {
+    return getRelationsMgr()->isEventReply(jStr(env, jContent)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeRelationIsEdit)(JNIEnv* env, jclass, jstring jContent) {
+    return getRelationsMgr()->isEventEdit(jStr(env, jContent)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeRelationIsReaction)(JNIEnv* env, jclass, jstring jContent) {
+    return getRelationsMgr()->isEventReaction(jStr(env, jContent)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeRelationExtractThreadRoot)(JNIEnv* env, jclass, jstring jContent) {
+    return env->NewStringUTF(getRelationsMgr()->extractThreadRoot(jStr(env, jContent)).c_str());
+}
+
+JNI_FUNC(jstring, nativeRelationExtractReplySource)(JNIEnv* env, jclass, jstring jContent) {
+    return env->NewStringUTF(getRelationsMgr()->extractReplySource(jStr(env, jContent)).c_str());
+}
+
+JNI_FUNC(jstring, nativeRelationBuildReply)(JNIEnv* env, jclass, jstring jEventId) {
+    return env->NewStringUTF(getRelationsMgr()->buildReplyRelation(jStr(env, jEventId)).c_str());
+}
+
+JNI_FUNC(jstring, nativeRelationBuildEdit)(JNIEnv* env, jclass, jstring jEventId) {
+    return env->NewStringUTF(getRelationsMgr()->buildEditRelation(jStr(env, jEventId)).c_str());
+}
+
+JNI_FUNC(jstring, nativeRelationBuildThread)(JNIEnv* env, jclass, jstring jEventId, jstring jReplyToId) {
+    return env->NewStringUTF(getRelationsMgr()->buildThreadRelation(jStr(env, jEventId), false, jStr(env, jReplyToId)).c_str());
+}
+
+JNI_FUNC(jstring, nativeRelationBuildAnnotation)(JNIEnv* env, jclass, jstring jEventId, jstring jKey) {
+    return env->NewStringUTF(getRelationsMgr()->buildAnnotationRelation(jStr(env, jEventId), jStr(env, jKey)).c_str());
 }
 
 } // extern "C"

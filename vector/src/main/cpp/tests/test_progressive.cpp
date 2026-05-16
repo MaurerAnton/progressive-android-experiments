@@ -1939,6 +1939,65 @@ static void test_identity_lookup_response() {
     ASSERT_STREQ(results[0].matrixId.c_str(), "@alice:org");
 }
 
+// ==== Event Relations (Element Android sources) ====
+
+#include "progressive/event_relations_manager.hpp"
+
+static void test_relations_parse() {
+    progressive::EventRelationsManager mgr;
+    auto rel = mgr.parseRelation(R"({"m.relates_to":{"rel_type":"m.replace","event_id":"$evt1"}})");
+    ASSERT_TRUE(rel.valid);
+    ASSERT_TRUE(rel.type == progressive::RelationType::REPLACE);
+    ASSERT_STREQ(rel.eventId.c_str(), "$evt1");
+}
+
+static void test_relations_is_reply() {
+    progressive::EventRelationsManager mgr;
+    ASSERT_TRUE(mgr.isEventReply(R"({"m.in_reply_to":{"event_id":"$evt1"}})"));
+    ASSERT_FALSE(mgr.isEventReply(R"({"body":"hello"})"));
+}
+
+static void test_relations_is_edit() {
+    progressive::EventRelationsManager mgr;
+    ASSERT_TRUE(mgr.isEventEdit(R"({"m.relates_to":{"rel_type":"m.replace","event_id":"$evt1"}})"));
+    ASSERT_FALSE(mgr.isEventEdit(R"({"m.relates_to":{"rel_type":"m.annotation","event_id":"$evt1"}})"));
+}
+
+static void test_relations_is_reaction() {
+    progressive::EventRelationsManager mgr;
+    ASSERT_TRUE(mgr.isEventReaction(R"({"m.relates_to":{"rel_type":"m.annotation","event_id":"$evt1","key":"👍"}})"));
+}
+
+static void test_relations_build_reply() {
+    progressive::EventRelationsManager mgr;
+    auto json = mgr.buildReplyRelation("$evt1");
+    ASSERT_TRUE(json.find("$evt1") != std::string::npos);
+    ASSERT_TRUE(json.find("m.in_reply_to") != std::string::npos);
+}
+
+static void test_relations_build_edit() {
+    progressive::EventRelationsManager mgr;
+    auto json = mgr.buildEditRelation("$evtOld");
+    ASSERT_TRUE(json.find("m.replace") != std::string::npos);
+    ASSERT_TRUE(json.find("$evtOld") != std::string::npos);
+}
+
+static void test_relations_build_annotation() {
+    progressive::EventRelationsManager mgr;
+    auto json = mgr.buildAnnotationRelation("$evtTarget", "👍");
+    ASSERT_TRUE(json.find("m.annotation") != std::string::npos);
+    ASSERT_TRUE(json.find("👍") != std::string::npos);
+}
+
+static void test_relations_validate_edit() {
+    progressive::EventRelationsManager mgr;
+    std::string error;
+    std::string orig = R"({"room_id":"!room:org","sender":"@alice:org","type":"m.room.message"})";
+    std::string repl = R"({"room_id":"!room:org","sender":"@alice:org","type":"m.room.message","m.new_content":{"body":"edited"}})";
+    ASSERT_TRUE(mgr.validateEdit(orig, repl, error));
+    ASSERT_STREQ(error.c_str(), "");
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -2277,6 +2336,16 @@ int main() {
     ADD_TEST(runner, test_identity_set_server);
     ADD_TEST(runner, test_identity_build_bind);
     ADD_TEST(runner, test_identity_lookup_response);
+    
+    printf("\n-- Event Relations (Element Android) --\n");
+    ADD_TEST(runner, test_relations_parse);
+    ADD_TEST(runner, test_relations_is_reply);
+    ADD_TEST(runner, test_relations_is_edit);
+    ADD_TEST(runner, test_relations_is_reaction);
+    ADD_TEST(runner, test_relations_build_reply);
+    ADD_TEST(runner, test_relations_build_edit);
+    ADD_TEST(runner, test_relations_build_annotation);
+    ADD_TEST(runner, test_relations_validate_edit);
     
     return runner.summary();
 }

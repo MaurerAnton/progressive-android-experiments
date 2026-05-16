@@ -1599,6 +1599,19 @@ object ProgressiveNative {
     @JvmStatic external fun nativeIdentitySetServer(url: String): String
     @JvmStatic external fun nativeIdentityGetServer(): String
 
+    // --- Event Relations ---
+
+    @JvmStatic external fun nativeRelationParse(eventContent: String): String
+    @JvmStatic external fun nativeRelationIsReply(eventContent: String): Boolean
+    @JvmStatic external fun nativeRelationIsEdit(eventContent: String): Boolean
+    @JvmStatic external fun nativeRelationIsReaction(eventContent: String): Boolean
+    @JvmStatic external fun nativeRelationExtractThreadRoot(eventContent: String): String
+    @JvmStatic external fun nativeRelationExtractReplySource(eventContent: String): String
+    @JvmStatic external fun nativeRelationBuildReply(eventId: String): String
+    @JvmStatic external fun nativeRelationBuildEdit(eventId: String): String
+    @JvmStatic external fun nativeRelationBuildThread(eventId: String, replyToId: String): String
+    @JvmStatic external fun nativeRelationBuildAnnotation(eventId: String, key: String): String
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4570,6 +4583,31 @@ object ProgressiveNative {
         return """{"url":"$final"}"""
     }
     @JvmStatic fun nativeIdentityGetServerFallback(): String = ""
+
+    // --- Event Relations fallbacks ---
+    @JvmStatic fun nativeRelationParseFallback(eventContent: String): String {
+        val type = Regex(""""rel_type":"([^"]+)"""").find(eventContent)?.groupValues?.getOrNull(1) ?: ""
+        val eid = Regex(""""event_id":"([^"]+)"""").find(eventContent)?.groupValues?.getOrNull(1) ?: ""
+        return """{"type":"$type","rel_type":"$type","event_id":"$eid","is_reply":false,"is_edit":$type=="m.replace","is_thread":$type=="m.thread","is_annotation":$type=="m.annotation"}"""
+    }
+    @JvmStatic fun nativeRelationIsReplyFallback(eventContent: String): Boolean =
+        """m.in_reply_to""" in eventContent
+    @JvmStatic fun nativeRelationIsEditFallback(eventContent: String): Boolean =
+        """"rel_type":"m.replace"""" in eventContent
+    @JvmStatic fun nativeRelationIsReactionFallback(eventContent: String): Boolean =
+        """"rel_type":"m.annotation"""" in eventContent
+    @JvmStatic fun nativeRelationExtractThreadRootFallback(eventContent: String): String =
+        Regex(""""rel_type":"m\.thread".*?"event_id":"(\$[^"]+)"""").find(eventContent)?.groupValues?.getOrNull(1) ?: ""
+    @JvmStatic fun nativeRelationExtractReplySourceFallback(eventContent: String): String =
+        Regex(""""m\.in_reply_to":\{"event_id":"(\$[^"]+)"""").find(eventContent)?.groupValues?.getOrNull(1) ?: ""
+    @JvmStatic fun nativeRelationBuildReplyFallback(eventId: String): String =
+        """{"m.in_reply_to":{"event_id":"$eventId"}}"""
+    @JvmStatic fun nativeRelationBuildEditFallback(eventId: String): String =
+        """{"m.relates_to":{"rel_type":"m.replace","event_id":"$eventId"}}"""
+    @JvmStatic fun nativeRelationBuildThreadFallback(eventId: String, replyToId: String): String =
+        """{"m.relates_to":{"rel_type":"m.thread","event_id":"$eventId"}}"""
+    @JvmStatic fun nativeRelationBuildAnnotationFallback(eventId: String, key: String): String =
+        """{"m.relates_to":{"rel_type":"m.annotation","event_id":"$eventId","key":"$key"}}"""
 
     @JvmStatic fun nativeSessionCountFallback(): Int = 0
 
