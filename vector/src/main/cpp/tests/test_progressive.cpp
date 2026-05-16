@@ -8,6 +8,9 @@
 #include "progressive/content_utils.hpp"
 #include "progressive/room_state.hpp"
 #include "progressive/olm_session.hpp"
+#include "progressive/event_relations.hpp"
+#include "progressive/push_rules.hpp"
+#include "progressive/content_scanner.hpp"
 #include <cstring>
 
 // ==== SHA-256 verification (E2EE foundation) ====
@@ -193,6 +196,46 @@ static void test_base58_roundtrip() {
         ASSERT_EQ(decoded[i], data[i]);
 }
 
+// ==== Event relations ====
+static void test_is_reply() {
+    ASSERT_TRUE(progressive::isReply(R"({"m.in_reply_to":{"event_id":"$abc"}})"));
+    ASSERT_FALSE(progressive::isReply(R"({"body":"hello"})"));
+}
+
+static void test_is_edit() {
+    ASSERT_TRUE(progressive::isEdit(R"({"m.relates_to":{"rel_type":"m.replace","event_id":"$x"}})"));
+    ASSERT_FALSE(progressive::isEdit(R"({"body":"hello"})"));
+}
+
+static void test_is_reaction() {
+    ASSERT_TRUE(progressive::isReaction(R"({"m.relates_to":{"rel_type":"m.annotation","key":"👍"}})"));
+    ASSERT_FALSE(progressive::isReaction(R"({"body":"hello"})"));
+}
+
+static void test_extract_thread_root() {
+    std::string json = R"({"m.relates_to":{"rel_type":"m.thread","event_id":"$root"}})";
+    auto root = progressive::extractThreadRoot(json);
+    ASSERT_STREQ(root, "$root");
+}
+
+// ==== Push rules ====
+static void test_is_known_push_rule_kind() {
+    ASSERT_TRUE(progressive::isKnownPushRuleKind("override"));
+    ASSERT_TRUE(progressive::isKnownPushRuleKind("content"));
+    ASSERT_FALSE(progressive::isKnownPushRuleKind("invalid_kind"));
+}
+
+// ==== Content scanner ====
+static void test_is_server_notice() {
+    ASSERT_TRUE(progressive::isServerNotice(R"({"server_notice_type":"m.server_notice"})"));
+    ASSERT_FALSE(progressive::isServerNotice(R"({"body":"hello"})"));
+}
+
+static void test_must_accept_tos() {
+    ASSERT_TRUE(progressive::mustAcceptTos(R"({"errcode":"M_CONSENT_NOT_GIVEN"})"));
+    ASSERT_FALSE(progressive::mustAcceptTos(R"({"errcode":"M_FORBIDDEN"})"));
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -235,6 +278,17 @@ int main() {
     
     printf("\n-- Crypto --\n");
     ADD_TEST(runner, test_base58_roundtrip);
+    
+    printf("\n-- Event Relations --\n");
+    ADD_TEST(runner, test_is_reply);
+    ADD_TEST(runner, test_is_edit);
+    ADD_TEST(runner, test_is_reaction);
+    ADD_TEST(runner, test_extract_thread_root);
+    
+    printf("\n-- Push & Content --\n");
+    ADD_TEST(runner, test_is_known_push_rule_kind);
+    ADD_TEST(runner, test_is_server_notice);
+    ADD_TEST(runner, test_must_accept_tos);
     
     return runner.summary();
 }
