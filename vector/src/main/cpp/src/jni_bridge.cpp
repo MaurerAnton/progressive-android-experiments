@@ -2282,16 +2282,6 @@ JNI_FUNC(jstring, nativeFormatKnockReason)(JNIEnv* env, jclass, jstring jReason)
     return env->NewStringUTF(result.c_str());
 }
 
-// --- Room Uploads ---
-
-JNI_FUNC(jboolean, nativeIsStickerEvent)(JNIEnv* env, jclass, jstring jEventType) {
-    return progressive::isStickerEvent(jStr(env, jEventType)) ? JNI_TRUE : JNI_FALSE;
-}
-
-JNI_FUNC(jboolean, nativeHasAttachmentUrl)(JNIEnv* env, jclass, jstring jContentJson) {
-    return progressive::hasAttachmentUrl(jStr(env, jContentJson)) ? JNI_TRUE : JNI_FALSE;
-}
-
 // --- Server Compatibility ---
 
 JNI_FUNC(jboolean, nativeIsServerCompatible)(JNIEnv* env, jclass, jstring jVersion, jstring jMinRequired) {
@@ -4154,9 +4144,51 @@ JNI_FUNC(jstring, nativeCreateUploadsFilterJson)(JNIEnv* env, jclass, jint jCoun
     return env->NewStringUTF(result.c_str());
 }
 
-JNI_FUNC(jstring, nativeParseMarkdownTable)(JNIEnv* env, jclass, jstring jTableBlock, jboolean jWithScroll) {
-    auto result = progressive::parseMarkdownTable(jStr(env, jTableBlock), jWithScroll);
+// --- Matrix Error ---
+
+JNI_FUNC(jstring, nativeGetErrorDescription)(JNIEnv* env, jclass, jstring jCode) {
+    auto result = progressive::getErrorDescription(jStr(env, jCode));
     return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jboolean, nativeIsPasswordError)(JNIEnv* env, jclass, jstring jCode) {
+    return progressive::isPasswordError(jStr(env, jCode)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeGetAllErrorCodes)(JNIEnv* env, jclass) {
+    auto codes = progressive::getAllErrorCodes();
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < codes.size(); i++) {
+        if (i > 0) os << ",";
+        os << "\"" << codes[i] << "\"";
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jboolean, nativeIsRateLimitError)(JNIEnv* env, jclass, jstring jErrorJson) {
+    auto error = progressive::parseMatrixErrorJson(jStr(env, jErrorJson));
+    return progressive::isRateLimitError(error) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jlong, nativeGetRetryAfterMs)(JNIEnv* env, jclass, jstring jErrorJson) {
+    auto error = progressive::parseMatrixErrorJson(jStr(env, jErrorJson));
+    return progressive::getRetryAfterMs(error);
+}
+
+JNI_FUNC(jboolean, nativeIsSoftLogout)(JNIEnv* env, jclass, jstring jErrorJson) {
+    auto error = progressive::parseMatrixErrorJson(jStr(env, jErrorJson));
+    return progressive::isSoftLogout(error) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeNeedsConsent)(JNIEnv* env, jclass, jstring jErrorJson) {
+    auto error = progressive::parseMatrixErrorJson(jStr(env, jErrorJson));
+    return progressive::needsConsent(error) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jboolean, nativeIsUserDeactivated)(JNIEnv* env, jclass, jstring jErrorJson) {
+    auto error = progressive::parseMatrixErrorJson(jStr(env, jErrorJson));
+    return progressive::isUserDeactivated(error) ? JNI_TRUE : JNI_FALSE;
 }
 
 // --- Megolm Decryptor ---

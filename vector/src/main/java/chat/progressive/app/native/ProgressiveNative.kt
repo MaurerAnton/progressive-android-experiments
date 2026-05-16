@@ -480,6 +480,17 @@ object ProgressiveNative {
     @JvmStatic external fun nativeHasAttachmentUrl(decryptedContentJson: String): Boolean
     @JvmStatic external fun nativeCreateUploadsFilterJson(numberOfEvents: Int): String
 
+    // --- Matrix Error ---
+
+    @JvmStatic external fun nativeGetErrorDescription(errorCode: String): String
+    @JvmStatic external fun nativeIsPasswordError(errorCode: String): Boolean
+    @JvmStatic external fun nativeGetAllErrorCodes(): String
+    @JvmStatic external fun nativeIsRateLimitError(errorJson: String): Boolean
+    @JvmStatic external fun nativeGetRetryAfterMs(errorJson: String): Long
+    @JvmStatic external fun nativeIsSoftLogout(errorJson: String): Boolean
+    @JvmStatic external fun nativeNeedsConsent(errorJson: String): Boolean
+    @JvmStatic external fun nativeIsUserDeactivated(errorJson: String): Boolean
+
     // --- Account Export ---
 
     @JvmStatic external fun nativeEncryptAccount(
@@ -1973,11 +1984,6 @@ object ProgressiveNative {
     // --- Knock Reason ---
 
     @JvmStatic external fun nativeFormatKnockReason(reason: String): String
-
-    // --- Room Uploads ---
-
-    @JvmStatic external fun nativeIsStickerEvent(eventType: String): Boolean
-    @JvmStatic external fun nativeHasAttachmentUrl(contentJson: String): Boolean
 
     // --- Server Compatibility ---
 
@@ -3642,6 +3648,30 @@ object ProgressiveNative {
     @JvmStatic fun nativeCreateUploadsFilterJsonFallback(numberOfEvents: Int): String =
         """{"types":["m.room.message"],"limit":$numberOfEvents}"""
 
+    // --- Matrix Error fallbacks ---
+    @JvmStatic fun nativeGetErrorDescriptionFallback(errorCode: String): String =
+        errorCode.replace("M_", "").replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
+    @JvmStatic fun nativeIsPasswordErrorFallback(errorCode: String): Boolean =
+        errorCode == "M_FORBIDDEN" || errorCode == "M_USER_DEACTIVATED"
+    @JvmStatic fun nativeGetAllErrorCodesFallback(): String =
+        """["M_FORBIDDEN","M_UNKNOWN_TOKEN","M_MISSING_TOKEN","M_BAD_JSON","M_NOT_JSON","M_NOT_FOUND",
+        |"M_LIMIT_EXCEEDED","M_UNKNOWN","M_UNRECOGNISED","M_UNAUTHORIZED","M_USER_DEACTIVATED",
+        |"M_USER_IN_USE","M_INVALID_USERNAME","M_ROOM_IN_USE","M_INVALID_ROOM_STATE","M_THREEPID_IN_USE",
+        |"M_THREEPID_NOT_FOUND","M_SERVER_NOT_TRUSTED","M_CONSENT_NOT_GIVEN","M_CANNOT_LEAVE_SERVER_NOTICE_ROOM",
+        |"M_WEAK_PASSWORD","M_RESOURCE_LIMIT_EXCEEDED","M_ORG_MATRIX_EXPIRED_ACCOUNT"]""".trimMargin()
+    @JvmStatic fun nativeIsRateLimitErrorFallback(errorJson: String): Boolean =
+        """"errcode":"M_LIMIT_EXCEEDED"""" in errorJson
+    @JvmStatic fun nativeGetRetryAfterMsFallback(errorJson: String): Long {
+        val m = Regex(""""retry_after_ms":(\d+)""").find(errorJson)
+        return m?.groupValues?.getOrNull(1)?.toLongOrNull() ?: 0L
+    }
+    @JvmStatic fun nativeIsSoftLogoutFallback(errorJson: String): Boolean =
+        errorJson.contains("soft_logout")
+    @JvmStatic fun nativeNeedsConsentFallback(errorJson: String): Boolean =
+        errorJson.contains("M_CONSENT_NOT_GIVEN")
+    @JvmStatic fun nativeIsUserDeactivatedFallback(errorJson: String): Boolean =
+        errorJson.contains("M_USER_DEACTIVATED")
+
     // --- Megolm fallbacks ---
     @JvmStatic fun nativeMegolmAddSessionFallback(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean = false
     @JvmStatic fun nativeMegolmDecryptFallback(roomId: String, senderKey: String, sessionId: String, ciphertext: String): String = ""
@@ -3773,9 +3803,6 @@ object ProgressiveNative {
     // --- Knock / Server / Fingerprint fallbacks ---
     @JvmStatic fun nativeFormatKnockReasonFallback(reason: String): String = reason.ifEmpty { "No reason provided" }
 
-    // --- Room Uploads fallback ---
-    @JvmStatic fun nativeIsStickerEventFallback(eventType: String): Boolean = eventType == "m.sticker"
-    @JvmStatic fun nativeHasAttachmentUrlFallback(contentJson: String): Boolean = "\"url\":" in contentJson || "\"thumbnail_url\":" in contentJson
     @JvmStatic fun nativeIsServerCompatibleFallback(serverVersion: String, minRequired: String): Boolean {
         val r = nativeCompareSemverFallback(serverVersion, minRequired)
         return r >= 0
