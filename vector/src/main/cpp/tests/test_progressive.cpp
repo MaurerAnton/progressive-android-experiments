@@ -3,6 +3,11 @@
 #include "progressive/crypto_algorithms.hpp"
 #include "progressive/timeline_chunk.hpp"
 #include "progressive/markdown.hpp"
+#include "progressive/sync_models.hpp"
+#include "progressive/matrix_patterns.hpp"
+#include "progressive/content_utils.hpp"
+#include "progressive/room_state.hpp"
+#include "progressive/olm_session.hpp"
 #include <cstring>
 
 // ==== SHA-256 verification (E2EE foundation) ====
@@ -121,6 +126,73 @@ static void test_timeline_get_snapshot() {
     ASSERT_EQ(snap.size(), 3u);
 }
 
+// ==== Sync response parser (next_batch extraction) ====
+static void test_sync_parse_next_batch() {
+    std::string json = R"({"next_batch":"s12345_67890","rooms":{"join":{},"invite":{},"leave":{}}})";
+    auto resp = progressive::parseSyncResponse(json);
+    ASSERT_STREQ(resp.nextBatch, "s12345_67890");
+}
+
+static void test_sync_parse_empty() {
+    auto resp = progressive::parseSyncResponse("{}");
+    ASSERT_STREQ(resp.nextBatch, "");
+    ASSERT_EQ(resp.rooms.join.size(), 0u);
+}
+
+// ==== Matrix ID validation ====
+static void test_is_valid_user_id() {
+    ASSERT_TRUE(progressive::isUserId("@alice:matrix.org"));
+    ASSERT_FALSE(progressive::isUserId("alice"));
+    ASSERT_FALSE(progressive::isUserId(""));
+}
+
+static void test_is_valid_room_id() {
+    ASSERT_TRUE(progressive::isRoomId("!abc123:matrix.org"));
+    ASSERT_FALSE(progressive::isRoomId("#alias:matrix.org"));
+}
+
+static void test_is_valid_room_alias() {
+    ASSERT_TRUE(progressive::isRoomAlias("#room:matrix.org"));
+    ASSERT_FALSE(progressive::isRoomAlias("!abc:matrix.org"));
+}
+
+static void test_is_valid_event_id() {
+    ASSERT_TRUE(progressive::isEventId("$abcdefghijklmnopqrstuvwxyz1234567890"));
+    ASSERT_FALSE(progressive::isEventId("short"));
+}
+
+// ==== MIME type normalization ====
+static void test_normalize_mime_type() {
+    ASSERT_STREQ(progressive::normalizeMimeType("image/jpg"), "image/jpeg");
+    ASSERT_STREQ(progressive::normalizeMimeType("image/jpeg"), "image/jpeg");
+    ASSERT_STREQ(progressive::normalizeMimeType("text/plain"), "text/plain");
+}
+
+// ==== Room state parsing ====
+static void test_parse_join_rules() {
+    std::string json = R"({"join_rule":"public"})";
+    auto rules = progressive::parseJoinRules(json);
+    auto ruleStr = progressive::joinRuleToString(rules.rule);
+    ASSERT_STREQ(ruleStr, "public");
+}
+
+static void test_parse_history_visibility() {
+    std::string json = R"({"history_visibility":"shared"})";
+    auto vis = progressive::parseHistoryVisibility(json);
+    auto visStr = progressive::historyVisibilityToString(vis.visibility);
+    ASSERT_STREQ(visStr, "shared");
+}
+
+// ==== Base58 encode/decode (recovery keys) ====
+static void test_base58_roundtrip() {
+    std::vector<uint8_t> data = {0x00, 0x01, 0x02, 0xFF};
+    auto encoded = progressive::base58Encode(data);
+    auto decoded = progressive::base58Decode(encoded);
+    ASSERT_EQ(decoded.size(), data.size());
+    for (size_t i = 0; i < data.size(); i++)
+        ASSERT_EQ(decoded[i], data[i]);
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -145,6 +217,24 @@ int main() {
     ADD_TEST(runner, test_timeline_add_event);
     ADD_TEST(runner, test_timeline_duplicate);
     ADD_TEST(runner, test_timeline_get_snapshot);
+    
+    printf("\n-- Sync Parser --\n");
+    ADD_TEST(runner, test_sync_parse_next_batch);
+    ADD_TEST(runner, test_sync_parse_empty);
+    
+    printf("\n-- Matrix IDs --\n");
+    ADD_TEST(runner, test_is_valid_user_id);
+    ADD_TEST(runner, test_is_valid_room_id);
+    ADD_TEST(runner, test_is_valid_room_alias);
+    ADD_TEST(runner, test_is_valid_event_id);
+    
+    printf("\n-- MIME & Room State --\n");
+    ADD_TEST(runner, test_normalize_mime_type);
+    ADD_TEST(runner, test_parse_join_rules);
+    ADD_TEST(runner, test_parse_history_visibility);
+    
+    printf("\n-- Crypto --\n");
+    ADD_TEST(runner, test_base58_roundtrip);
     
     return runner.summary();
 }

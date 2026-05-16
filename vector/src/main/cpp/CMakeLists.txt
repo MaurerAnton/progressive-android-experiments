@@ -262,6 +262,11 @@ add_executable(
     src/timeline_chunk.cpp
     src/markdown.cpp
     src/olm.cpp
+    src/sync_models.cpp
+    src/matrix_patterns.cpp
+    src/content_utils.cpp
+    src/room_state.cpp
+    src/event_models.cpp
 )
 target_include_directories(test_progressive PUBLIC include tests)
 target_include_directories(test_progressive PUBLIC "${SQLITE3_DIR}")
