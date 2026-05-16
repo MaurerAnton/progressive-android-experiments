@@ -1580,6 +1580,16 @@ object ProgressiveNative {
     @JvmStatic external fun nativeServerNoticeFormatDowntime(retryAfterMs: Long): String
     @JvmStatic external fun nativeServerNoticeGetBanner(errorJson: String): String
 
+    // --- Media Upload Manager ---
+
+    @JvmStatic external fun nativeUploadParseResponse(json: String): String
+    @JvmStatic external fun nativeUploadBuildContent(attachmentJson: String, mxcUrl: String): String
+    @JvmStatic external fun nativeUploadIsSizeValid(fileSize: Long): Boolean
+    @JvmStatic external fun nativeUploadFormatSizeWarning(fileSize: Long, maxSize: Long): String
+    @JvmStatic external fun nativeUploadGetProgress(): String
+    @JvmStatic external fun nativeUploadResetProgress(totalBytes: Long)
+    @JvmStatic external fun nativeUploadSetMaxSize(maxBytes: Long)
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4518,6 +4528,23 @@ object ProgressiveNative {
     }
     @JvmStatic fun nativeServerNoticeGetBannerFallback(errorJson: String): String =
         if ("M_RESOURCE_LIMIT_EXCEEDED" in errorJson) "#FF4444" else "#2196F3"
+
+    // --- Media Upload Manager fallbacks ---
+    @JvmStatic fun nativeUploadParseResponseFallback(json: String): String {
+        val uri = Regex(""""content_uri":"([^"]+)"""").find(json)?.groupValues?.getOrNull(1) ?: ""
+        return """{"content_uri":"$uri","success":${uri.isNotEmpty()}}"""
+    }
+    @JvmStatic fun nativeUploadBuildContentFallback(attachmentJson: String, mxcUrl: String): String {
+        val body = Regex(""""name":"([^"]+)"""").find(attachmentJson)?.groupValues?.getOrNull(1) ?: ""
+        val mime = Regex(""""mime_type":"([^"]+)"""").find(attachmentJson)?.groupValues?.getOrNull(1) ?: ""
+        return """{"msgtype":"m.file","body":"$body","url":"$mxcUrl","info":{"size":0,"mimetype":"$mime"}}"""
+    }
+    @JvmStatic fun nativeUploadIsSizeValidFallback(fileSize: Long): Boolean = fileSize <= 104857600
+    @JvmStatic fun nativeUploadFormatSizeWarningFallback(fileSize: Long, maxSize: Long): String =
+        "File too large: ${fileSize/1048576.0} MB exceeds ${maxSize/1048576.0} MB limit"
+    @JvmStatic fun nativeUploadGetProgressFallback(): String = """{"total_bytes":0,"uploaded_bytes":0,"percent":0.0,"is_complete":false,"content_uri":""}"""
+    @JvmStatic fun nativeUploadResetProgressFallback(totalBytes: Long) {}
+    @JvmStatic fun nativeUploadSetMaxSizeFallback(maxBytes: Long) {}
 
     @JvmStatic fun nativeSessionCountFallback(): Int = 0
 

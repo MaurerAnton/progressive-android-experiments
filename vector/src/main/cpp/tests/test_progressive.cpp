@@ -1850,6 +1850,55 @@ static void test_server_notice_banner_color() {
     ASSERT_STREQ(mgr.getBannerColor(info).c_str(), "#FF4444");
 }
 
+// ==== Media Upload (Element Android sources) ====
+
+#include "progressive/media_upload_manager.hpp"
+
+static void test_upload_parse_response() {
+    progressive::MediaUploadManager mgr;
+    auto resp = mgr.parseUploadResponse(R"({"content_uri":"mxc://example.org/abc123"})");
+    ASSERT_TRUE(resp.success);
+    ASSERT_STREQ(resp.contentUri.c_str(), "mxc://example.org/abc123");
+}
+
+static void test_upload_size_valid() {
+    progressive::MediaUploadManager mgr;
+    mgr.setMaxFileSize(104857600);
+    ASSERT_TRUE(mgr.isFileSizeValid(10485760));
+    ASSERT_FALSE(mgr.isFileSizeValid(209715200));
+}
+
+static void test_upload_exif_rotation() {
+    ASSERT_EQ(progressive::MediaUploadManager::exifToRotationDegrees(6), 90);
+    ASSERT_EQ(progressive::MediaUploadManager::exifToRotationDegrees(3), 180);
+    ASSERT_EQ(progressive::MediaUploadManager::exifToRotationDegrees(1), 0);
+    ASSERT_TRUE(progressive::MediaUploadManager::exifRequiresSwap(6));
+    ASSERT_FALSE(progressive::MediaUploadManager::exifRequiresSwap(1));
+}
+
+static void test_upload_compress_dims() {
+    progressive::MediaUploadManager mgr;
+    int w = 4096, h = 2160;
+    mgr.getCompressedDimensions(w, h, 2048, w, h);
+    ASSERT_EQ(w, 2048);
+    ASSERT_TRUE(h > 0 && h < 2160);
+}
+
+static void test_upload_progress() {
+    progressive::MediaUploadManager mgr;
+    mgr.resetProgress(1000000);
+    mgr.updateProgress(500000);
+    auto p = mgr.getProgress();
+    ASSERT_TRUE(p.percent >= 49.0f && p.percent <= 51.0f);
+}
+
+static void test_upload_attachment_type() {
+    ASSERT_TRUE(progressive::ContentAttachmentData::detectType("image/png") == progressive::AttachmentType::IMAGE);
+    ASSERT_TRUE(progressive::ContentAttachmentData::detectType("video/mp4") == progressive::AttachmentType::VIDEO);
+    ASSERT_TRUE(progressive::ContentAttachmentData::detectType("audio/ogg") == progressive::AttachmentType::AUDIO);
+    ASSERT_TRUE(progressive::ContentAttachmentData::detectType("application/pdf") == progressive::AttachmentType::FILE);
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -2173,6 +2222,14 @@ int main() {
     ADD_TEST(runner, test_server_notice_downtime);
     ADD_TEST(runner, test_server_notice_error_descriptions);
     ADD_TEST(runner, test_server_notice_banner_color);
+    
+    printf("\n-- Media Upload (Element Android) --\n");
+    ADD_TEST(runner, test_upload_parse_response);
+    ADD_TEST(runner, test_upload_size_valid);
+    ADD_TEST(runner, test_upload_exif_rotation);
+    ADD_TEST(runner, test_upload_compress_dims);
+    ADD_TEST(runner, test_upload_progress);
+    ADD_TEST(runner, test_upload_attachment_type);
     
     return runner.summary();
 }

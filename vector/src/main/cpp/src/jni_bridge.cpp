@@ -158,6 +158,7 @@
 #include "progressive/room_directory_manager.hpp"
 #include "progressive/session_manager_full.hpp"
 #include "progressive/server_notice_manager.hpp"
+#include "progressive/media_upload_manager.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -6074,6 +6075,62 @@ JNI_FUNC(jstring, nativeServerNoticeFormatDowntime)(JNIEnv*, jclass, jlong jMs) 
 JNI_FUNC(jstring, nativeServerNoticeGetBanner)(JNIEnv* env, jclass, jstring jErrorJson) {
     auto info = getServerNotice()->parseMatrixError(jStr(env, jErrorJson));
     return env->NewStringUTF(getServerNotice()->getBannerColor(info).c_str());
+}
+
+// ============================================================
+// Media Upload Manager
+// ============================================================
+
+static std::unique_ptr<progressive::MediaUploadManager> g_uploadMgr;
+
+static progressive::MediaUploadManager* getUploadMgr() {
+    if (!g_uploadMgr) g_uploadMgr.reset(new progressive::MediaUploadManager());
+    return g_uploadMgr.get();
+}
+
+JNI_FUNC(jstring, nativeUploadParseResponse)(JNIEnv* env, jclass, jstring jJson) {
+    auto resp = getUploadMgr()->parseUploadResponse(jStr(env, jJson));
+    std::ostringstream os;
+    os << R"({"content_uri":")" << resp.contentUri
+       << R"(","success":)" << (resp.success ? "true" : "false");
+    if (!resp.errorMessage.empty()) os << R"(,"error":")" << resp.errorMessage << R"(")";
+    os << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeUploadBuildContent)(JNIEnv* env, jclass, jstring jAttachmentJson, jstring jMxcUrl) {
+    auto json = jStr(env, jAttachmentJson);
+    progressive::ContentAttachmentData a;
+    a.size = jExtractInt(json, "size");
+    a.duration = jExtractInt(json, "duration");
+    a.height = jExtractInt(json, "height");
+    a.width = jExtractInt(json, "width");
+    a.exifOrientation = static_cast<int>(jExtractInt(json, "exif_orientation"));
+    a.name = jExtractStr(json, "name");
+    a.mimeType = jExtractStr(json, "mime_type");
+    a.type = progressive::ContentAttachmentData::detectType(a.mimeType);
+    a.valid = true;
+    return env->NewStringUTF(getUploadMgr()->buildMediaContent(a, jStr(env, jMxcUrl)).c_str());
+}
+
+JNI_FUNC(jboolean, nativeUploadIsSizeValid)(JNIEnv*, jclass, jlong jSize) {
+    return getUploadMgr()->isFileSizeValid(jSize) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeUploadFormatSizeWarning)(JNIEnv*, jclass, jlong jSize, jlong jMax) {
+    return env->NewStringUTF(getUploadMgr()->formatSizeLimitWarning(jSize, jMax).c_str());
+}
+
+JNI_FUNC(jstring, nativeUploadGetProgress)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(getUploadMgr()->progressToJson().c_str());
+}
+
+JNI_FUNC(void, nativeUploadResetProgress)(JNIEnv*, jclass, jlong jTotal) {
+    getUploadMgr()->resetProgress(jTotal);
+}
+
+JNI_FUNC(void, nativeUploadSetMaxSize)(JNIEnv*, jclass, jlong jMax) {
+    getUploadMgr()->setMaxFileSize(jMax);
 }
 
 } // extern "C"
