@@ -1354,6 +1354,19 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeAcceptTermsBodyToJson(bodyJson: String): String
 
+    // --- Live Draft ---
+
+    @JvmStatic external fun nativeLiveDraftConfigToJson(configJson: String): String
+
+    // --- Encrypted File ---
+
+    @JvmStatic external fun nativeEncryptedFileKeyToJson(keyJson: String): String
+    @JvmStatic external fun nativeIsValidJwkKey(keyJson: String): Boolean
+    @JvmStatic external fun nativeExtractFileKey(keyJson: String): String
+    @JvmStatic external fun nativeEncryptedFileInfoToJson(infoJson: String): String
+    @JvmStatic external fun nativeIsValidEncryptedFile(infoJson: String): Boolean
+    @JvmStatic external fun nativeExtractFileIv(infoJson: String): String
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -3886,6 +3899,21 @@ object ProgressiveNative {
 
     // --- Terms Service fallback ---
     @JvmStatic fun nativeAcceptTermsBodyToJsonFallback(bodyJson: String): String = bodyJson
+
+    // --- Live Draft fallback ---
+    @JvmStatic fun nativeLiveDraftConfigToJsonFallback(configJson: String): String = configJson
+
+    // --- Encrypted File fallbacks ---
+    @JvmStatic fun nativeEncryptedFileKeyToJsonFallback(keyJson: String): String = keyJson
+    @JvmStatic fun nativeIsValidJwkKeyFallback(keyJson: String): Boolean =
+        "\"alg\":\"A256CTR\"" in keyJson && "\"k\":" in keyJson
+    @JvmStatic fun nativeExtractFileKeyFallback(keyJson: String): String =
+        Regex(""""k":"([^"]+)"""").find(keyJson)?.groupValues?.getOrNull(1) ?: ""
+    @JvmStatic fun nativeEncryptedFileInfoToJsonFallback(infoJson: String): String = infoJson
+    @JvmStatic fun nativeIsValidEncryptedFileFallback(infoJson: String): Boolean =
+        "\"url\":\"mxc://" in infoJson && "\"iv\":\"" in infoJson
+    @JvmStatic fun nativeExtractFileIvFallback(infoJson: String): String =
+        Regex(""""iv":"([^"]+)"""").find(infoJson)?.groupValues?.getOrNull(1) ?: ""
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")

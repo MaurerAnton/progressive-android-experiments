@@ -4690,4 +4690,135 @@ JNI_FUNC(jstring, nativeAcceptTermsBodyToJson)(JNIEnv* env, jclass, jstring jBod
     return env->NewStringUTF(r.c_str());
 }
 
+// --- Live Draft ---
+
+JNI_FUNC(jstring, nativeLiveDraftConfigToJson)(JNIEnv* env, jclass, jstring jConfigJson) {
+    auto json = jStr(env, jConfigJson);
+    progressive::LiveDraftConfig c;
+    auto es = [&](const std::string& k) -> std::string {
+        auto pp = json.find("\"" + k + "\""); if (pp == std::string::npos) return "";
+        pp = json.find('"', pp + k.size() + 2); if (pp == std::string::npos) return "";
+        pp++; size_t e = pp; while (e < json.size() && json[e] != '"') e++;
+        return json.substr(pp, e - pp);
+    };
+    auto ei = [&](const std::string& k) -> int64_t {
+        auto pp = json.find("\"" + k + "\""); if (pp == std::string::npos) return 0;
+        pp = json.find(':', pp); if (pp == std::string::npos) return 0;
+        pp++; while (pp < json.size() && (json[pp] == ' ' || json[pp] == '\t')) pp++;
+        int64_t v = 0; while (pp < json.size() && json[pp] >= '0' && json[pp] <= '9') { v=v*10+(json[pp]-'0'); pp++; }
+        return v;
+    };
+    c.enabled = json.find("\"enabled\":true") != std::string::npos;
+    c.characterThreshold = static_cast<int>(ei("character_threshold"));
+    c.updateIntervalMs = static_cast<int>(ei("update_interval_ms"));
+    c.draftPrefix = es("draft_prefix");
+    c.finalEditRemovesPrefix = json.find("\"final_edit_removes_prefix\":true") != std::string::npos;
+    auto r = progressive::liveDraftConfigToJson(c);
+    return env->NewStringUTF(r.c_str());
+}
+
+// --- Encrypted File ---
+
+JNI_FUNC(jstring, nativeEncryptedFileKeyToJson)(JNIEnv* env, jclass, jstring jKeyJson) {
+    auto json = jStr(env, jKeyJson);
+    progressive::EncryptedFileKey k;
+    auto es = [&](const std::string& key) -> std::string {
+        auto pp = json.find("\"" + key + "\""); if (pp == std::string::npos) return "";
+        pp = json.find('"', pp + key.size() + 2); if (pp == std::string::npos) return "";
+        pp++; size_t e = pp; while (e < json.size() && json[e] != '"') e++;
+        return json.substr(pp, e - pp);
+    };
+    k.alg = es("alg"); k.kty = es("kty"); k.k = es("k");
+    k.ext = json.find("\"ext\":true") != std::string::npos;
+    // Parse key_ops array
+    size_t p = json.find("\"key_ops\""); if (p != std::string::npos) {
+        p = json.find('[', p); if (p != std::string::npos) {
+            p++;
+            while (p < json.size() && json[p] != ']') {
+                if (json[p] == '"') { p++; size_t e = p; while (e < json.size() && json[e] != '"') e++;
+                    k.keyOps.push_back(json.substr(p, e - p)); p = e; }
+                p++;
+            }
+        }
+    }
+    auto r = progressive::encryptedFileKeyToJson(k);
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jboolean, nativeIsValidJwkKey)(JNIEnv* env, jclass, jstring jKeyJson) {
+    auto json = jStr(env, jKeyJson);
+    progressive::EncryptedFileKey k;
+    auto es = [&](const std::string& key) -> std::string {
+        auto pp = json.find("\"" + key + "\""); if (pp == std::string::npos) return "";
+        pp = json.find('"', pp + key.size() + 2); if (pp == std::string::npos) return "";
+        pp++; size_t e = pp; while (e < json.size() && json[e] != '"') e++;
+        return json.substr(pp, e - pp);
+    };
+    k.alg = es("alg"); k.kty = es("kty"); k.k = es("k");
+    k.ext = json.find("\"ext\":true") != std::string::npos;
+    return progressive::isValidJwkKey(k) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeExtractFileKey)(JNIEnv* env, jclass, jstring jKeyJson) {
+    auto json = jStr(env, jKeyJson);
+    progressive::EncryptedFileKey k;
+    auto es = [&](const std::string& key) -> std::string {
+        auto pp = json.find("\"" + key + "\""); if (pp == std::string::npos) return "";
+        pp = json.find('"', pp + key.size() + 2); if (pp == std::string::npos) return "";
+        pp++; size_t e = pp; while (e < json.size() && json[e] != '"') e++;
+        return json.substr(pp, e - pp);
+    };
+    k.alg = es("alg"); k.kty = es("kty"); k.k = es("k");
+    k.ext = json.find("\"ext\":true") != std::string::npos;
+    auto r = progressive::extractFileKey(k);
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jstring, nativeEncryptedFileInfoToJson)(JNIEnv* env, jclass, jstring jInfoJson) {
+    auto json = jStr(env, jInfoJson);
+    progressive::EncryptedFileInfo i;
+    auto es = [&](const std::string& key) -> std::string {
+        auto pp = json.find("\"" + key + "\""); if (pp == std::string::npos) return "";
+        pp = json.find('"', pp + key.size() + 2); if (pp == std::string::npos) return "";
+        pp++; size_t e = pp; while (e < json.size() && json[e] != '"') e++;
+        return json.substr(pp, e - pp);
+    };
+    i.url = es("url"); i.iv = es("iv"); i.version = es("version");
+    i.key.alg = es("alg"); i.key.kty = es("kty"); i.key.k = es("k");
+    i.key.ext = json.find("\"ext\":true") != std::string::npos;
+    auto r = progressive::encryptedFileInfoToJson(i);
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jboolean, nativeIsValidEncryptedFile)(JNIEnv* env, jclass, jstring jInfoJson) {
+    auto json = jStr(env, jInfoJson);
+    progressive::EncryptedFileInfo i;
+    auto es = [&](const std::string& key) -> std::string {
+        auto pp = json.find("\"" + key + "\""); if (pp == std::string::npos) return "";
+        pp = json.find('"', pp + key.size() + 2); if (pp == std::string::npos) return "";
+        pp++; size_t e = pp; while (e < json.size() && json[e] != '"') e++;
+        return json.substr(pp, e - pp);
+    };
+    i.url = es("url"); i.iv = es("iv"); i.version = es("version");
+    i.key.alg = es("alg"); i.key.kty = es("kty"); i.key.k = es("k");
+    i.key.ext = json.find("\"ext\":true") != std::string::npos;
+    return progressive::isValidEncryptedFile(i) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeExtractFileIv)(JNIEnv* env, jclass, jstring jInfoJson) {
+    auto json = jStr(env, jInfoJson);
+    progressive::EncryptedFileInfo i;
+    auto es = [&](const std::string& key) -> std::string {
+        auto pp = json.find("\"" + key + "\""); if (pp == std::string::npos) return "";
+        pp = json.find('"', pp + key.size() + 2); if (pp == std::string::npos) return "";
+        pp++; size_t e = pp; while (e < json.size() && json[e] != '"') e++;
+        return json.substr(pp, e - pp);
+    };
+    i.url = es("url"); i.iv = es("iv"); i.version = es("version");
+    i.key.alg = es("alg"); i.key.kty = es("kty"); i.key.k = es("k");
+    i.key.ext = json.find("\"ext\":true") != std::string::npos;
+    auto r = progressive::extractFileIv(i);
+    return env->NewStringUTF(r.c_str());
+}
+
 } // extern "C"
