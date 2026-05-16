@@ -3,11 +3,11 @@
 
 namespace progressive {
 
-// ---- Capability Checking (from HomeServerCapabilities.kt:125-143) ----
+// ---- Capability Checking (from ServerHomeServerCapabilities.kt:125-143) ----
 // Original Kotlin:
-//   fun isFeatureSupported(feature: String): RoomCapabilitySupport {
-//       if (roomVersions?.capabilities == null) return RoomCapabilitySupport.UNKNOWN
-//       val info = roomVersions.capabilities[feature] ?: return RoomCapabilitySupport.UNSUPPORTED
+//   fun isFeatureSupported(feature: String): ServerRoomCapabilitySupport {
+//       if (roomVersions?.capabilities == null) return ServerRoomCapabilitySupport.UNKNOWN
+//       val info = roomVersions.capabilities[feature] ?: return ServerRoomCapabilitySupport.UNSUPPORTED
 //       val preferred = info.preferred ?: info.support.lastOrNull()
 //       val versionCap = roomVersions.supportedVersion.firstOrNull { it.version == preferred }
 //       return when {
@@ -17,15 +17,15 @@ namespace progressive {
 //       }
 //   }
 
-RoomCapabilitySupport isFeatureSupported(
-    const RoomVersionCapabilities& caps, const std::string& feature)
+ServerRoomCapabilitySupport isFeatureSupported(
+    const ServerRoomVersionCapabilities& caps, const std::string& feature)
 {
     // Original: capabilities == null → UNKNOWN
-    if (caps.capabilities.empty()) return RoomCapabilitySupport::Unknown;
+    if (caps.capabilities.empty()) return ServerRoomCapabilitySupport::Unknown;
 
     // Original: capabilities[feature] ?: return UNSUPPORTED
     auto it = caps.capabilities.find(feature);
-    if (it == caps.capabilities.end()) return RoomCapabilitySupport::Unsupported;
+    if (it == caps.capabilities.end()) return ServerRoomCapabilitySupport::Unsupported;
 
     const auto& info = it->second;
 
@@ -34,19 +34,19 @@ RoomCapabilitySupport isFeatureSupported(
     if (preferred.empty() && !info.support.empty()) {
         preferred = info.support.back();
     }
-    if (preferred.empty()) return RoomCapabilitySupport::Unknown;
+    if (preferred.empty()) return ServerRoomCapabilitySupport::Unknown;
 
     // Original: val versionCap = supportedVersion.firstOrNull { it.version == preferred }
-    const RoomVersionCapInfo* versionCap = nullptr;
+    const ServerRoomVersionCapInfo* versionCap = nullptr;
     for (const auto& v : caps.supportedVersion) {
         if (v.version == preferred) { versionCap = &v; break; }
     }
-    if (!versionCap) return RoomCapabilitySupport::Unknown;
+    if (!versionCap) return ServerRoomCapabilitySupport::Unknown;
 
     // Original: versionCap.status == STABLE → SUPPORTED else SUPPORTED_UNSTABLE
-    return (versionCap->status == RoomVersionCap::Stable)
-        ? RoomCapabilitySupport::Supported
-        : RoomCapabilitySupport::SupportedUnstable;
+    return (versionCap->status == ServerRoomVersionCap::Stable)
+        ? ServerRoomCapabilitySupport::Supported
+        : ServerRoomCapabilitySupport::SupportedUnstable;
 }
 
 // Original: fun isFeatureSupported(feature: String, byRoomVersion: String): Boolean
@@ -54,7 +54,7 @@ RoomCapabilitySupport isFeatureSupported(
 //   return info.preferred == byRoomVersion || info.support.contains(byRoomVersion)
 
 bool isFeatureSupportedByVersion(
-    const RoomVersionCapabilities& caps, const std::string& feature, const std::string& roomVersion)
+    const ServerRoomVersionCapabilities& caps, const std::string& feature, const std::string& roomVersion)
 {
     if (caps.capabilities.empty()) return false;
 
@@ -75,7 +75,7 @@ bool isFeatureSupportedByVersion(
 //   return cap?.preferred ?: cap?.support?.lastOrNull()
 
 std::string versionOverrideForFeature(
-    const RoomVersionCapabilities& caps, const std::string& feature)
+    const ServerRoomVersionCapabilities& caps, const std::string& feature)
 {
     if (caps.capabilities.empty()) return "";
 
@@ -88,7 +88,7 @@ std::string versionOverrideForFeature(
     return "";
 }
 
-// ---- OAuth Logout URL Builder (from HomeServerCapabilities.kt:171-191) ----
+// ---- OAuth Logout URL Builder (from ServerHomeServerCapabilities.kt:171-191) ----
 // Original: fun getLogoutDeviceURL(deviceId: String): String?
 //   if (externalAccountManagementUrl == null) return null
 //   var action = "org.matrix.device_delete"
@@ -100,7 +100,7 @@ std::string versionOverrideForFeature(
 //   return externalAccountManagementUrl.removeSuffix("/") + "?action=${action}&device_id=${deviceId}"
 
 std::string buildLogoutDeviceUrl(
-    const HomeServerCapabilities& caps, const std::string& deviceId)
+    const ServerHomeServerCapabilities& caps, const std::string& deviceId)
 {
     if (caps.externalAccountManagementUrl.empty() || deviceId.empty()) return "";
 
@@ -133,13 +133,13 @@ std::string buildLogoutDeviceUrl(
 }
 
 // ---- Default Capabilities ----
-HomeServerCapabilities getDefaultCapabilities() {
-    return HomeServerCapabilities{};
+ServerHomeServerCapabilities getDefaultCapabilities() {
+    return ServerHomeServerCapabilities{};
 }
 
 // ---- Parse from JSON ----
-HomeServerCapabilities parseCapabilities(const std::string& json) {
-    HomeServerCapabilities caps;
+ServerHomeServerCapabilities parseCapabilities(const std::string& json) {
+    ServerHomeServerCapabilities caps;
 
     // Simple JSON extractors
     auto extractBool = [&](const std::string& key, bool defaultVal = false) -> bool {
@@ -175,12 +175,12 @@ HomeServerCapabilities parseCapabilities(const std::string& json) {
     return caps;
 }
 
-bool isDelegatedOidcEnabled(const HomeServerCapabilities& caps) {
+bool isDelegatedOidcEnabled(const ServerHomeServerCapabilities& caps) {
     // Original: val delegatedOidcAuthEnabled: Boolean = authenticationIssuer != null
     return !caps.authenticationIssuer.empty();
 }
 
-std::string capabilitiesToJson(const HomeServerCapabilities& caps) {
+std::string capabilitiesToJson(const ServerHomeServerCapabilities& caps) {
     std::ostringstream json;
     json << "{";
     json << R"("canChangePassword": )" << (caps.canChangePassword ? "true" : "false") << ",";

@@ -5,7 +5,7 @@
 
 namespace progressive {
 
-UrlParts parseUrl(const std::string& url) {
+UrlParts parseUrlParts(const std::string& url) {
     UrlParts result;
     if (url.empty()) return result;
 

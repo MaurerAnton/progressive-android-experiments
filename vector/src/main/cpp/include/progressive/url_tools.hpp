@@ -17,7 +17,7 @@ struct UrlParts {
 };
 
 // Parse a URL into its components.
-UrlParts parseUrl(const std::string& url);
+UrlParts parseUrlParts(const std::string& url);
 
 // Check if a string is likely a URL (starts with http/https/ftp/matrix).
 bool isLikelyUrl(const std::string& text);
