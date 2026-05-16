@@ -19,6 +19,9 @@
 #include "progressive/event_classifier.hpp"
 #include "progressive/poll_utils.hpp"
 #include "progressive/room_counter.hpp"
+#include "progressive/report_utils.hpp"
+#include "progressive/permalink.hpp"
+#include "progressive/well_known.hpp"
 #include <cstring>
 
 // ==== SHA-256 verification (E2EE foundation) ====
@@ -356,6 +359,29 @@ static void test_room_count_zero() {
     ASSERT_EQ(result.totalRooms, 0);
 }
 
+// ==== Report utilities ====
+static void test_is_valid_report_reason() {
+    ASSERT_TRUE(progressive::isValidReportReason("m.spam"));
+    ASSERT_FALSE(progressive::isValidReportReason("invalid_reason"));
+}
+
+// ==== Permalink builder ====
+static void test_build_event_permalink() {
+    auto link = progressive::buildEventPermalink("!room:matrix.org", "$event123");
+    ASSERT_TRUE(link.find("!room:matrix.org") != std::string::npos || link.find("$event123") != std::string::npos);
+}
+
+static void test_build_room_permalink() {
+    auto link = progressive::buildRoomPermalink("!room:matrix.org");
+    ASSERT_TRUE(link.find("!room:matrix.org") != std::string::npos);
+}
+
+// ==== Well-known discovery ====
+static void test_needs_well_known_discovery() {
+    ASSERT_TRUE(progressive::needsWellKnownDiscovery("https://matrix.org"));
+    ASSERT_FALSE(progressive::needsWellKnownDiscovery("https://matrix-client.matrix.org"));
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -436,6 +462,12 @@ int main() {
     ADD_TEST(runner, test_classify_event_message);
     ADD_TEST(runner, test_get_edit_badge_text);
     ADD_TEST(runner, test_room_count_zero);
+    
+    printf("\n-- Report & Permalink --\n");
+    ADD_TEST(runner, test_is_valid_report_reason);
+    ADD_TEST(runner, test_build_event_permalink);
+    ADD_TEST(runner, test_build_room_permalink);
+    ADD_TEST(runner, test_needs_well_known_discovery);
     
     return runner.summary();
 }
