@@ -3454,8 +3454,7 @@ JNI_FUNC(jboolean, nativeIsStateEvent)(JNIEnv* env, jclass, jstring jEventType) 
 JNI_FUNC(jstring, nativeComputePollResults)(JNIEnv* env, jclass, jstring jPollJson) {
     auto json = jStr(env, jPollJson);
     progressive::PollResult result;
-
-    // Parse question
+    // ... (implementation in previous commit)
     auto qPos = json.find("\"question\"");
     if (qPos != std::string::npos) {
         qPos = json.find('"', qPos + 10);
@@ -3464,6 +3463,93 @@ JNI_FUNC(jstring, nativeComputePollResults)(JNIEnv* env, jclass, jstring jPollJs
             while (e < json.size() && json[e] != '"') e++;
             result.question = json.substr(qPos, e - qPos);
         }
+    }
+    result.isEnded = json.find("\"closed\":true") != std::string::npos;
+    auto optsPos = json.find("\"options\"");
+    if (optsPos != std::string::npos) {
+        optsPos = json.find('[', optsPos);
+        if (optsPos != std::string::npos) {
+            optsPos++;
+            while (optsPos < json.size()) {
+                while (optsPos < json.size() && json[optsPos] != '{') { optsPos++; if (json[optsPos] == ']') break; }
+                if (optsPos >= json.size() || json[optsPos] == ']') break;
+                int depth = 1; size_t start = optsPos; optsPos++;
+                while (optsPos < json.size() && depth > 0) {
+                    if (json[optsPos] == '{') depth++;
+                    else if (json[optsPos] == '}') depth--;
+                    optsPos++;
+                }
+                std::string optJson = json.substr(start, optsPos - start);
+                progressive::PollOption opt;
+                auto idP = optJson.find("\"id\"");
+                if (idP != std::string::npos) {
+                    idP = optJson.find('"', idP + 4);
+                    if (idP != std::string::npos) { idP++; size_t e=idP; while(e<optJson.size()&&optJson[e]!='"')e++; opt.id=optJson.substr(idP,e-idP); }
+                }
+                auto txP = optJson.find("\"text\"");
+                if (txP != std::string::npos) {
+                    txP = optJson.find('"', txP + 6);
+                    if (txP != std::string::npos) { txP++; size_t e=txP; while(e<optJson.size()&&optJson[e]!='"')e++; opt.text=optJson.substr(txP,e-txP); }
+                }
+                if (!opt.id.empty()) {
+                    size_t vp = 0;
+                    while ((vp = json.find(opt.id, vp)) != std::string::npos) { opt.voteCount++; vp++; }
+                    opt.voteCount--;
+                    if (opt.voteCount < 0) opt.voteCount = 0;
+                }
+                result.totalVotes += opt.voteCount;
+                result.options.push_back(opt);
+            }
+        }
+    }
+    int maxVotes = 0;
+    for (auto& opt : result.options) {
+        if (opt.voteCount > maxVotes) maxVotes = opt.voteCount;
+        opt.percentage = result.totalVotes > 0 ? (opt.voteCount * 100.0 / result.totalVotes) : 0.0;
+    }
+    for (auto& opt : result.options) {
+        if (opt.voteCount == maxVotes && maxVotes > 0) { opt.isWinner = true; result.winnerId = opt.id; result.winnerText = opt.text; }
+    }
+    std::ostringstream os;
+    os << R"({"question":")" << result.question << R"(","total_votes":)" << result.totalVotes
+       << R"(,"is_ended":)" << (result.isEnded ? "true" : "false") << R"(,"winner":")" << result.winnerText << R"(","options":[)";
+    for (size_t i = 0; i < result.options.size(); i++) {
+        if (i > 0) os << ",";
+        os << R"({"id":")" << result.options[i].id << R"(","text":")" << result.options[i].text
+           << R"(","votes":)" << result.options[i].voteCount << R"(,"percent":)" << result.options[i].percentage
+           << R"(,"winner":)" << (result.options[i].isWinner ? "true" : "false") << "}";
+    }
+    os << "]}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+// --- Location Sharing ---
+static progressive::LocationSharingManager g_locationSharing;
+
+JNI_FUNC(jstring, nativeLocationStartSession)(JNIEnv* env, jclass, jstring jSessionId, jstring jRoomId, jstring jUserId, jint jInterval) {
+    progressive::LocationSession session;
+    session.sessionId = jStr(env, jSessionId);
+    session.roomId = jStr(env, jRoomId);
+    session.userId = jStr(env, jUserId);
+    session.intervalSeconds = jInterval;
+    session.active = true;
+    session.startedAtMs = static_cast<int64_t>(time(nullptr)) * 1000;
+    auto result = g_locationSharing.startSession(session);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(void, nativeLocationStopSession)(JNIEnv* env, jclass, jstring jSessionId) {
+    g_locationSharing.stopSession(jStr(env, jSessionId));
+}
+
+JNI_FUNC(jboolean, nativeLocationIsDue)(JNIEnv* env, jclass, jstring jSessionId) {
+    return g_locationSharing.isDue(jStr(env, jSessionId)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeLocationExportJson)(JNIEnv* env, jclass) {
+    auto result = g_locationSharing.exportJson();
+    return env->NewStringUTF(result.c_str());
+}
     }
     result.isEnded = json.find("\"closed\":true") != std::string::npos;
 

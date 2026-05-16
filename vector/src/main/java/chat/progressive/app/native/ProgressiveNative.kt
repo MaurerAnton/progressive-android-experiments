@@ -368,6 +368,13 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeComputePollResults(pollJson: String): String
 
+    // --- Location Sharing ---
+
+    @JvmStatic external fun nativeLocationStartSession(sessionId: String, roomId: String, userId: String, intervalSec: Int): String
+    @JvmStatic external fun nativeLocationStopSession(sessionId: String)
+    @JvmStatic external fun nativeLocationIsDue(sessionId: String): Boolean
+    @JvmStatic external fun nativeLocationExportJson(): String
+
     // --- Member / Call Notices ---
 
     @JvmStatic external fun nativeFormatMemberNotice(membership: String, prevMembership: String, senderId: String, senderName: String, targetId: String, targetName: String, reason: String, isDirect: Boolean, sentBySelf: Boolean): String
@@ -3377,6 +3384,12 @@ object ProgressiveNative {
     // --- Poll Results fallback ---
     @JvmStatic fun nativeComputePollResultsFallback(pollJson: String): String =
         """{"question":"","total_votes":0,"is_ended":false,"winner":"","options":[]}"""
+
+    // --- Location Sharing fallbacks ---
+    @JvmStatic fun nativeLocationStartSessionFallback(sessionId: String, roomId: String, userId: String, intervalSec: Int): String = sessionId
+    @JvmStatic fun nativeLocationStopSessionFallback(sessionId: String) {}
+    @JvmStatic fun nativeLocationIsDueFallback(sessionId: String): Boolean = false
+    @JvmStatic fun nativeLocationExportJsonFallback(): String = "[]"
 
     // --- Member/Call/Edit fallbacks ---
     @JvmStatic fun nativeFormatMemberNoticeFallback(membership: String, prevMembership: String, senderId: String, senderName: String, targetId: String, targetName: String, reason: String, isDirect: Boolean, sentBySelf: Boolean): String {
