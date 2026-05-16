@@ -1689,6 +1689,16 @@ object ProgressiveNative {
     @JvmStatic external fun nativeComposerExtractMention(text: String, cursorPos: Int): String
     @JvmStatic external fun nativeComposerValidate(text: String, maxLength: Int): String
 
+    // --- Text Undo (delete protection) ---
+
+    @JvmStatic external fun nativeUndoSetConfig(configJson: String)
+    @JvmStatic external fun nativeUndoCheckpoint(text: String, cursorPos: Int, description: String)
+    @JvmStatic external fun nativeUndoOnSelectAll(text: String, cursorPos: Int)
+    @JvmStatic external fun nativeUndoOnBeforePaste(currentText: String, cursorPos: Int, pastedText: String)
+    @JvmStatic external fun nativeUndoDo(): String
+    @JvmStatic external fun nativeUndoRedo(): String
+    @JvmStatic external fun nativeUndoGetState(): String
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4784,6 +4794,18 @@ object ProgressiveNative {
         val isEmpty = text.isBlank(); val tooLong = text.length > maxLength
         return """{"valid":${!isEmpty && !tooLong},"isEmpty":$isEmpty,"is_too_long":$tooLong,"length":${text.length},"max_length":$maxLength,"error":"${if (isEmpty) "Message is empty" else if (tooLong) "Too long" else ""}"}"""
     }
+
+    // --- Text Undo fallbacks ---
+    @JvmStatic fun nativeUndoSetConfigFallback(configJson: String) {}
+    @JvmStatic fun nativeUndoCheckpointFallback(text: String, cursorPos: Int, description: String) {}
+    @JvmStatic fun nativeUndoOnSelectAllFallback(text: String, cursorPos: Int) {}
+    @JvmStatic fun nativeUndoOnBeforePasteFallback(currentText: String, cursorPos: Int, pastedText: String) {}
+    @JvmStatic fun nativeUndoDoFallback(): String =
+        """{"text":"","cursor":0,"can_undo":false,"can_redo":false,"description":""}"""
+    @JvmStatic fun nativeUndoRedoFallback(): String =
+        """{"text":"","cursor":0,"can_undo":false,"can_redo":false,"description":""}"""
+    @JvmStatic fun nativeUndoGetStateFallback(): String =
+        """{"can_undo":false,"can_redo":false,"undo_count":0,"redo_count":0,"next_undo":"","next_redo":"","enabled":false}"""
 
     @JvmStatic fun nativeSessionCountFallback(): Int = 0
 

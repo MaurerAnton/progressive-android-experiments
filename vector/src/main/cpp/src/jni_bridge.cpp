@@ -167,6 +167,7 @@
 #include "progressive/terms_manager.hpp"
 #include "progressive/transparent_overlay.hpp"
 #include "progressive/composer_manager.hpp"
+#include "progressive/text_undo_manager.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -6600,6 +6601,72 @@ JNI_FUNC(jstring, nativeComposerValidate)(JNIEnv* env, jclass, jstring jText, ji
        << R"(,"error":")" << v.errorMessage << R"(")";
     os << "}";
     return env->NewStringUTF(os.str().c_str());
+}
+
+// ============================================================
+// Text Undo Manager (delete protection)
+// ============================================================
+
+static std::unique_ptr<progressive::TextUndoManager> g_undoMgr;
+
+static progressive::TextUndoManager* getUndoMgr() {
+    if (!g_undoMgr) g_undoMgr.reset(new progressive::TextUndoManager());
+    return g_undoMgr.get();
+}
+
+JNI_FUNC(void, nativeUndoSetConfig)(JNIEnv* env, jclass, jstring jJson) {
+    progressive::UndoConfig cfg;
+    auto json = jStr(env, jJson);
+    cfg.maxDepth = static_cast<int>(jExtractInt(json, "max_depth"));
+    cfg.autoCheckpointBytes = static_cast<int>(jExtractInt(json, "auto_checkpoint_bytes"));
+    cfg.checkpointBeforePaste = jExtractBool(json, "checkpoint_before_paste");
+    cfg.checkpointOnSelectAll = jExtractBool(json, "checkpoint_on_select_all");
+    cfg.restoreCursor = jExtractBool(json, "restore_cursor");
+    cfg.debounceMs = static_cast<int>(jExtractInt(json, "debounce_ms"));
+    if (cfg.maxDepth == 0) cfg.maxDepth = 50;
+    if (cfg.autoCheckpointBytes == 0) cfg.autoCheckpointBytes = 100;
+    if (cfg.debounceMs == 0) cfg.debounceMs = 500;
+    getUndoMgr()->setConfig(cfg);
+}
+
+JNI_FUNC(void, nativeUndoCheckpoint)(JNIEnv* env, jclass, jstring jText, jint jCursor, jstring jDesc) {
+    getUndoMgr()->checkpoint(jStr(env, jText), jCursor, jStr(env, jDesc));
+}
+
+JNI_FUNC(void, nativeUndoOnSelectAll)(JNIEnv* env, jclass, jstring jText, jint jCursor) {
+    getUndoMgr()->onSelectAll(jStr(env, jText), jCursor);
+}
+
+JNI_FUNC(void, nativeUndoOnBeforePaste)(JNIEnv* env, jclass, jstring jCurrent, jint jCursor, jstring jPasted) {
+    getUndoMgr()->onBeforePaste(jStr(env, jCurrent), jCursor, jStr(env, jPasted));
+}
+
+JNI_FUNC(jstring, nativeUndoDo)(JNIEnv* env, jclass) {
+    std::string text; int cursor = 0;
+    auto desc = getUndoMgr()->undo(text, cursor);
+    std::ostringstream os;
+    os << R"({"text":")" << text << R"(","cursor":)" << cursor
+       << R"(,"can_undo":)" << (getUndoMgr()->canUndo() ? "true" : "false")
+       << R"(,"can_redo":)" << (getUndoMgr()->canRedo() ? "true" : "false")
+       << R"(,"description":")" << desc << R"(")";
+    os << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeUndoRedo)(JNIEnv* env, jclass) {
+    std::string text; int cursor = 0;
+    auto desc = getUndoMgr()->redo(text, cursor);
+    std::ostringstream os;
+    os << R"({"text":")" << text << R"(","cursor":)" << cursor
+       << R"(,"can_undo":)" << (getUndoMgr()->canUndo() ? "true" : "false")
+       << R"(,"can_redo":)" << (getUndoMgr()->canRedo() ? "true" : "false")
+       << R"(,"description":")" << desc << R"(")";
+    os << "}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeUndoGetState)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(getUndoMgr()->stateToJson().c_str());
 }
 
 } // extern "C"

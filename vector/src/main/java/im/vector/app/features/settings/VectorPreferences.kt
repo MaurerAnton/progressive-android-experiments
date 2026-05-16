@@ -161,6 +161,7 @@ class VectorPreferences @Inject constructor(
         const val SETTINGS_LABS_NATIVE_MARKDOWN_KEY = "SETTINGS_LABS_NATIVE_MARKDOWN_KEY"
         const val SETTINGS_LABS_NATIVE_WIDGET_MANAGER_KEY = "SETTINGS_LABS_NATIVE_WIDGET_MANAGER_KEY"
         const val SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY = "SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY"
+        const val SETTINGS_LABS_TEXT_UNDO_KEY = "SETTINGS_LABS_TEXT_UNDO_KEY"
         const val SETTINGS_LABS_FULL_AVATAR_KEY = "SETTINGS_LABS_FULL_AVATAR_KEY"
         const val SETTINGS_LABS_AVATAR_ORIGINAL_RATIO = "SETTINGS_LABS_AVATAR_ORIGINAL_RATIO"
         const val SETTINGS_LABS_WEB_SEARCH_KEY = "SETTINGS_LABS_WEB_SEARCH_KEY"
@@ -1787,6 +1788,15 @@ class VectorPreferences @Inject constructor(
     fun isTransparentOverlayEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY, false)
     }
+
+    fun isTextUndoEnabled(): Boolean {
+        return defaultPrefs.getBoolean(SETTINGS_LABS_TEXT_UNDO_KEY, false)
+    }
+
+    fun getUndoMaxDepth(): Int = defaultPrefs.getInt("SETTINGS_UNDO_MAX_DEPTH", 50)
+    fun isUndoCheckpointOnPaste(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_CHECKPOINT_PASTE", true)
+    fun isUndoCheckpointOnSelectAll(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_CHECKPOINT_SELECT_ALL", true)
+    fun isUndoRestoreCursor(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_RESTORE_CURSOR", true)
 
     // Transparent Overlay config parameters
     fun getOverlayOneFingerHoldMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_ONE_FINGER_MS", 200)

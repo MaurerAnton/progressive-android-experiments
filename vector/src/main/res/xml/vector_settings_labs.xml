@@ -759,4 +759,40 @@
         android:key="SETTINGS_OVERLAY_FG_EXTENDED_MS"
         android:title="Extended foreground duration after tap (milliseconds)" />
 
+    <!-- === Text Undo (accidental deletion protection) === -->
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="false"
+        android:key="SETTINGS_LABS_TEXT_UNDO_KEY"
+        android:summary="Adds undo/redo to text editors. Protects against accidental deletion: select-all + paste, cut, swipe-delete. Auto-checkpoints before risky operations. Both plain and rich text editors supported."
+        android:title="Undo/Redo text protection (experimental)" />
+
+    <im.vector.app.core.preference.VectorEditTextPreference
+        android:defaultValue="50"
+        android:dependency="SETTINGS_LABS_TEXT_UNDO_KEY"
+        android:inputType="number"
+        android:key="SETTINGS_UNDO_MAX_DEPTH"
+        android:title="Undo depth (max entries)" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:dependency="SETTINGS_LABS_TEXT_UNDO_KEY"
+        android:key="SETTINGS_UNDO_CHECKPOINT_PASTE"
+        android:summary="Auto-save text state before paste (most common accident)"
+        android:title="Checkpoint before paste" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:dependency="SETTINGS_LABS_TEXT_UNDO_KEY"
+        android:key="SETTINGS_UNDO_CHECKPOINT_SELECT_ALL"
+        android:summary="Auto-save text state when user selects all"
+        android:title="Checkpoint on select-all" />
+
+    <im.vector.app.core.preference.VectorSwitchPreference
+        android:defaultValue="true"
+        android:dependency="SETTINGS_LABS_TEXT_UNDO_KEY"
+        android:key="SETTINGS_UNDO_RESTORE_CURSOR"
+        android:summary="Restore cursor position when undoing"
+        android:title="Restore cursor on undo" />
+
 </androidx.preference.PreferenceScreen>
