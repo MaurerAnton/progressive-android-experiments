@@ -1456,6 +1456,16 @@ object ProgressiveNative {
     @JvmStatic external fun nativeComputeRecoveryKey(curve25519Key: String): String
     @JvmStatic external fun nativeExtractCurveKeyFromRecoveryKey(recoveryKey: String): String
 
+    // --- Membership ---
+
+    @JvmStatic external fun nativeFormatMembership(membership: String): String
+    @JvmStatic external fun nativeIsActiveMember(membership: String): Boolean
+
+    // --- WebRTC / Calls ---
+
+    @JvmStatic external fun nativeBuildCallHangupContent(callId: String, reason: String): String
+    @JvmStatic external fun nativeFormatCallNotification(callJson: String): String
+
     // --- URL Preview ---
 
     @JvmStatic external fun nativeIsPreviewableUrl(url: String): Boolean
@@ -2589,6 +2599,17 @@ object ProgressiveNative {
     // --- Recovery Key fallbacks ---
     @JvmStatic fun nativeComputeRecoveryKeyFallback(curve25519Key: String): String = curve25519Key
     @JvmStatic fun nativeExtractCurveKeyFromRecoveryKeyFallback(recoveryKey: String): String = recoveryKey.replace(" ", "")
+
+    // --- Membership fallbacks ---
+    @JvmStatic fun nativeFormatMembershipFallback(membership: String): String = when(membership) {
+        "join" -> "Joined"; "invite" -> "Invited"; "knock" -> "Knocked"; "ban" -> "Banned"; else -> "Left"
+    }
+    @JvmStatic fun nativeIsActiveMemberFallback(membership: String): Boolean = membership == "join" || membership == "invite"
+
+    // --- Calls fallbacks ---
+    @JvmStatic fun nativeBuildCallHangupContentFallback(callId: String, reason: String): String =
+        """{"call_id":"$callId","reason":"$reason"}"""
+    @JvmStatic fun nativeFormatCallNotificationFallback(callJson: String): String = "Incoming call"
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")

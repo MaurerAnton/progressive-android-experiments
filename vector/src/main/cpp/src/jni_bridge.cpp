@@ -2347,4 +2347,53 @@ JNI_FUNC(jstring, nativeExtractCurveKeyFromRecoveryKey)(JNIEnv* env, jclass, jst
     return env->NewStringUTF(result.c_str());
 }
 
+// --- Membership ---
+
+JNI_FUNC(jstring, nativeFormatMembership)(JNIEnv* env, jclass, jstring jMembership) {
+    auto ms = jStr(env, jMembership);
+    progressive::Membership m = progressive::Membership::Leave;
+    if (ms == "join") m = progressive::Membership::Join;
+    else if (ms == "invite") m = progressive::Membership::Invite;
+    else if (ms == "knock") m = progressive::Membership::Knock;
+    else if (ms == "ban") m = progressive::Membership::Ban;
+    auto result = progressive::formatMembership(m);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jboolean, nativeIsActiveMember)(JNIEnv* env, jclass, jstring jMembership) {
+    auto ms = jStr(env, jMembership);
+    progressive::Membership m = progressive::Membership::Leave;
+    if (ms == "join") m = progressive::Membership::Join;
+    else if (ms == "invite") m = progressive::Membership::Invite;
+    else if (ms == "knock") m = progressive::Membership::Knock;
+    return progressive::isActiveMember(m) ? JNI_TRUE : JNI_FALSE;
+}
+
+// --- WebRTC / Calls ---
+
+JNI_FUNC(jstring, nativeBuildCallHangupContent)(JNIEnv* env, jclass, jstring jCallId, jstring jReason) {
+    auto result = progressive::buildCallHangupContent(jStr(env, jCallId), jStr(env, jReason));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatCallNotification)(JNIEnv* env, jclass, jstring jCallJson) {
+    // Parse CallInfo from JSON, format notification
+    auto json = jStr(env, jCallJson);
+    progressive::CallInfo call;
+    auto extractStr = [&](const std::string& key) -> std::string {
+        auto p = json.find("\"" + key + "\"");
+        if (p == std::string::npos) return "";
+        p = json.find(':', p); if (p == std::string::npos) return "";
+        p++; while (p < json.size() && (json[p] == ' ' || json[p] == '\t')) p++;
+        if (p >= json.size() || json[p] != '"') return "";
+        p++; size_t e = p; while (e < json.size() && json[e] != '"') { if (json[e] == '\\') e++; e++; }
+        return json.substr(p, e - p);
+    };
+    call.callId = extractStr("call_id");
+    call.callerName = extractStr("caller_name");
+    call.isVideo = json.find("\"is_video\":true") != std::string::npos;
+    auto result = progressive::formatCallNotification(call);
+    return env->NewStringUTF(result.c_str());
+}
+
 } // extern "C"
