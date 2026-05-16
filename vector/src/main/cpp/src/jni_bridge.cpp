@@ -146,6 +146,7 @@
 #include "progressive/key_backup_manager.hpp"
 #include "progressive/live_location.hpp"
 #include "progressive/call_manager.hpp"
+#include "progressive/thread_manager.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -5229,6 +5230,87 @@ JNI_FUNC(void, nativeCallSetVideo)(JNIEnv* env, jclass, jstring jCallId, jboolea
 
 JNI_FUNC(void, nativeCallReset)(JNIEnv*, jclass) {
     g_callMgr.reset(new progressive::CallManager());
+}
+
+// ============================================================
+// Thread Manager
+// ============================================================
+
+static std::unique_ptr<progressive::ThreadManager> g_threadMgr;
+
+static progressive::ThreadManager* getThreadMgr() {
+    if (!g_threadMgr) g_threadMgr.reset(new progressive::ThreadManager());
+    return g_threadMgr.get();
+}
+
+JNI_FUNC(jboolean, nativeThreadIsRoot)(JNIEnv* env, jclass, jstring jContent, jstring jEventId) {
+    return getThreadMgr()->isThreadRoot(jStr(env, jContent), jStr(env, jEventId)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeThreadExtractRoot)(JNIEnv* env, jclass, jstring jContent) {
+    return env->NewStringUTF(getThreadMgr()->extractThreadRoot(jStr(env, jContent)).c_str());
+}
+
+JNI_FUNC(void, nativeThreadUpsert)(JNIEnv* env, jclass, jstring jThreadJson) {
+    auto json = jStr(env, jThreadJson);
+    progressive::ThreadInfo t;
+    t.threadId = jExtractStr(json, "thread_id");
+    t.roomId = jExtractStr(json, "room_id");
+    t.rootSenderId = jExtractStr(json, "root_sender_id");
+    t.rootSenderName = jExtractStr(json, "root_sender_name");
+    t.rootBody = jExtractStr(json, "root_body");
+    t.replyCount = static_cast<int>(jExtractInt(json, "reply_count"));
+    t.rootTimestampMs = jExtractInt(json, "root_ts");
+    t.lastReplyTimestampMs = jExtractInt(json, "last_reply_ts");
+    t.valid = true;
+    getThreadMgr()->upsertThread(t);
+}
+
+JNI_FUNC(void, nativeThreadAddReply)(JNIEnv* env, jclass, jstring jThreadId, jstring jSenderId,
+                                      jstring jSenderName, jstring jBody, jlong jTs) {
+    getThreadMgr()->addReply(jStr(env, jThreadId), jStr(env, jSenderId),
+        jStr(env, jSenderName), jStr(env, jBody), jTs);
+}
+
+JNI_FUNC(jstring, nativeThreadGetList)(JNIEnv* env, jclass, jint jLimit, jint jOffset) {
+    auto list = getThreadMgr()->getThreadList(jLimit, jOffset);
+    return env->NewStringUTF(getThreadMgr()->threadListToJson(list).c_str());
+}
+
+JNI_FUNC(void, nativeThreadSetUnread)(JNIEnv* env, jclass, jstring jThreadId, jint jCount, jboolean jHighlight) {
+    getThreadMgr()->setThreadUnread(jStr(env, jThreadId), jCount, jHighlight);
+}
+
+JNI_FUNC(void, nativeThreadMarkRead)(JNIEnv* env, jclass, jstring jThreadId, jlong jPos) {
+    getThreadMgr()->markThreadRead(jStr(env, jThreadId), jPos);
+}
+
+JNI_FUNC(jstring, nativeThreadGetUnreadState)(JNIEnv* env, jclass, jstring jThreadId) {
+    auto state = getThreadMgr()->getUnreadState(jStr(env, jThreadId));
+    return env->NewStringUTF(getThreadMgr()->unreadStateToJson(state).c_str());
+}
+
+JNI_FUNC(jint, nativeThreadTotalUnread)(JNIEnv*, jclass) {
+    return getThreadMgr()->getTotalUnreadCount();
+}
+
+JNI_FUNC(jstring, nativeThreadFormatCount)(JNIEnv* env, jclass, jint jCount) {
+    return env->NewStringUTF(getThreadMgr()->formatThreadNotificationCount(jCount).c_str());
+}
+
+JNI_FUNC(jstring, nativeThreadGetNotifications)(JNIEnv* env, jclass) {
+    auto notifs = getThreadMgr()->getNotifications();
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < notifs.size(); i++) {
+        if (i > 0) os << ",";
+        os << getThreadMgr()->notificationToJson(notifs[i]);
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(void, nativeThreadReset)(JNIEnv*, jclass) {
+    g_threadMgr.reset(new progressive::ThreadManager());
 }
 
 } // extern "C"

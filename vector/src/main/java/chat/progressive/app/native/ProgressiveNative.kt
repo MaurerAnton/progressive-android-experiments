@@ -1440,6 +1440,21 @@ object ProgressiveNative {
     @JvmStatic external fun nativeCallSetVideo(callId: String, enabled: Boolean)
     @JvmStatic external fun nativeCallReset()
 
+    // --- Thread Manager ---
+
+    @JvmStatic external fun nativeThreadIsRoot(eventContent: String, eventId: String): Boolean
+    @JvmStatic external fun nativeThreadExtractRoot(eventContent: String): String
+    @JvmStatic external fun nativeThreadUpsert(threadJson: String)
+    @JvmStatic external fun nativeThreadAddReply(threadId: String, senderId: String, senderName: String, body: String, timestampMs: Long)
+    @JvmStatic external fun nativeThreadGetList(limit: Int, offset: Int): String
+    @JvmStatic external fun nativeThreadSetUnread(threadId: String, count: Int, highlighted: Boolean)
+    @JvmStatic external fun nativeThreadMarkRead(threadId: String, readPos: Long)
+    @JvmStatic external fun nativeThreadGetUnreadState(threadId: String): String
+    @JvmStatic external fun nativeThreadTotalUnread(): Int
+    @JvmStatic external fun nativeThreadFormatCount(count: Int): String
+    @JvmStatic external fun nativeThreadGetNotifications(): String
+    @JvmStatic external fun nativeThreadReset()
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4136,6 +4151,24 @@ object ProgressiveNative {
     @JvmStatic fun nativeCallSetMutedFallback(callId: String, muted: Boolean) {}
     @JvmStatic fun nativeCallSetVideoFallback(callId: String, enabled: Boolean) {}
     @JvmStatic fun nativeCallResetFallback() {}
+
+    // --- Thread Manager fallbacks ---
+    @JvmStatic fun nativeThreadIsRootFallback(eventContent: String, eventId: String): Boolean =
+        """"rel_type":"m.thread"""" in eventContent
+    @JvmStatic fun nativeThreadExtractRootFallback(eventContent: String): String =
+        Regex(""""event_id":"(\$[^"]+)"""").find(eventContent)?.groupValues?.getOrNull(1) ?: ""
+    @JvmStatic fun nativeThreadUpsertFallback(threadJson: String) {}
+    @JvmStatic fun nativeThreadAddReplyFallback(threadId: String, senderId: String, senderName: String, body: String, timestampMs: Long) {}
+    @JvmStatic fun nativeThreadGetListFallback(limit: Int, offset: Int): String =
+        """{"threads":[],"total_count":0,"unread_count":0,"highlighted_count":0,"has_more":false}"""
+    @JvmStatic fun nativeThreadSetUnreadFallback(threadId: String, count: Int, highlighted: Boolean) {}
+    @JvmStatic fun nativeThreadMarkReadFallback(threadId: String, readPos: Long) {}
+    @JvmStatic fun nativeThreadGetUnreadStateFallback(threadId: String): String =
+        """{"thread_id":"$threadId","unread_count":0,"highlighted":false,"read_receipt_pos":0}"""
+    @JvmStatic fun nativeThreadTotalUnreadFallback(): Int = 0
+    @JvmStatic fun nativeThreadFormatCountFallback(count: Int): String = if (count > 99) "99+" else count.toString()
+    @JvmStatic fun nativeThreadGetNotificationsFallback(): String = "[]"
+    @JvmStatic fun nativeThreadResetFallback() {}
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")

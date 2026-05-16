@@ -1253,6 +1253,61 @@ static void test_call_sdp_parse() {
     ASSERT_STREQ(parsed.hash.c_str(), "sha-256");
 }
 
+// ==== Thread Manager ====
+
+#include "progressive/thread_manager.hpp"
+
+static void test_thread_is_root() {
+    progressive::ThreadManager mgr;
+    auto content = R"({"m.relates_to":{"rel_type":"m.thread","event_id":"$evt1"}})";
+    ASSERT_TRUE(mgr.isThreadRoot(content, "$evt1"));
+    ASSERT_FALSE(mgr.isThreadRoot(content, "$evt_other"));
+}
+
+static void test_thread_extract_root() {
+    progressive::ThreadManager mgr;
+    auto content = R"({"m.relates_to":{"rel_type":"m.thread","event_id":"$root123"}})";
+    ASSERT_STREQ(mgr.extractThreadRoot(content).c_str(), "$root123");
+}
+
+static void test_thread_upsert_and_list() {
+    progressive::ThreadManager mgr;
+    progressive::ThreadInfo t;
+    t.threadId = "$thread1"; t.roomId = "!room:org";
+    t.rootSenderId = "@alice:org"; t.rootSenderName = "Alice";
+    t.rootBody = "Hello thread!"; t.rootTimestampMs = 1000;
+    t.valid = true;
+    mgr.upsertThread(t);
+    t.threadId = "$thread2"; t.rootSenderName = "Bob"; t.rootBody = "Another thread"; t.rootTimestampMs = 2000;
+    mgr.upsertThread(t);
+
+    ASSERT_EQ(mgr.totalThreads(), 2);
+    auto list = mgr.getThreadList(10, 0);
+    ASSERT_EQ(list.totalCount, 2);
+    ASSERT_EQ(static_cast<int>(list.threads.size()), 2);
+}
+
+static void test_thread_unread() {
+    progressive::ThreadManager mgr;
+    progressive::ThreadInfo t;
+    t.threadId = "$t1"; t.roomId = "!room:org"; t.rootSenderName = "A"; t.rootBody = "b"; t.valid = true;
+    mgr.upsertThread(t);
+
+    mgr.setThreadUnread("$t1", 5, true);
+    ASSERT_EQ(mgr.getTotalUnreadCount(), 5);
+
+    mgr.setThreadUnread("$t1", 0, false);
+    ASSERT_EQ(mgr.getTotalUnreadCount(), 0);
+}
+
+static void test_thread_format_count() {
+    progressive::ThreadManager mgr;
+    ASSERT_STREQ(mgr.formatThreadNotificationCount(5).c_str(), "5");
+    ASSERT_STREQ(mgr.formatThreadNotificationCount(99).c_str(), "99");
+    ASSERT_STREQ(mgr.formatThreadNotificationCount(100).c_str(), "99+");
+    ASSERT_STREQ(mgr.formatThreadNotificationCount(0).c_str(), "");
+}
+
 // ==== Run all tests ====
 int main() {
     printf("=== Progressive Chat C++ Unit Tests ===\n");
@@ -1491,6 +1546,13 @@ int main() {
     ADD_TEST(runner, test_call_room_in_call);
     ADD_TEST(runner, test_call_format_duration);
     ADD_TEST(runner, test_call_sdp_parse);
+    
+    printf("\n-- Thread Manager --\n");
+    ADD_TEST(runner, test_thread_is_root);
+    ADD_TEST(runner, test_thread_extract_root);
+    ADD_TEST(runner, test_thread_upsert_and_list);
+    ADD_TEST(runner, test_thread_unread);
+    ADD_TEST(runner, test_thread_format_count);
     
     return runner.summary();
 }
