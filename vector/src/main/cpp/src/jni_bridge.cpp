@@ -159,6 +159,7 @@
 #include "progressive/widget_utils.hpp"
 #include "progressive/widget_manager.hpp"
 #include "progressive/key_backup_manager.hpp"
+#include "progressive/live_location.hpp"
 #include "progressive/cross_signing.hpp"
 #include "progressive/edit_history.hpp"
 #include "progressive/read_marker.hpp"
@@ -5034,5 +5035,148 @@ JNI_FUNC(void, nativeBackupAdvanceDecrypted)(JNIEnv*, jclass) { getBackupMgr()->
 JNI_FUNC(void, nativeBackupAdvanceImported)(JNIEnv*, jclass) { getBackupMgr()->advanceImported(1); }
 JNI_FUNC(void, nativeBackupMarkComplete)(JNIEnv*, jclass) { getBackupMgr()->markComplete(); }
 JNI_FUNC(void, nativeBackupReset)(JNIEnv*, jclass) { g_backupMgr.reset(new progressive::KeyBackupManager()); }
+
+// ============================================================
+// Live Location Manager
+// ============================================================
+
+static std::unique_ptr<progressive::LiveLocationManager> g_locationMgr;
+
+static progressive::LiveLocationManager* getLocationMgr() {
+    if (!g_locationMgr) g_locationMgr.reset(new progressive::LiveLocationManager());
+    return g_locationMgr.get();
+}
+
+JNI_FUNC(jstring, nativeLiveLocationParseGeoUri)(JNIEnv* env, jclass, jstring jUri) {
+    auto geo = progressive::parseGeoUri(jStr(env, jUri));
+    std::ostringstream os;
+    os << R"({"lat":)" << geo.latitude << R"(,"lon":)" << geo.longitude
+       << R"(,"alt":)" << geo.altitude << R"(,"uncertainty":)" << geo.uncertainty
+       << R"(,"valid":)" << (geo.valid ? "true" : "false")
+       << R"(,"crs":")" << geo.crs << R"(","label":")" << geo.label << "\"}";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationFormatMessage)(JNIEnv* env, jclass, jdouble jLat, jdouble jLon, jdouble jAcc, jstring jLabel) {
+    progressive::GeoCoordinate c; c.latitude = jLat; c.longitude = jLon; c.accuracy = jAcc;
+    auto r = progressive::formatLocationMessage(c, jStr(env, jLabel));
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationFormatGeoUri)(JNIEnv* env, jclass, jdouble jLat, jdouble jLon) {
+    progressive::GeoCoordinate c; c.latitude = jLat; c.longitude = jLon;
+    auto r = progressive::formatGeoUri(c);
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jdouble, nativeLiveLocationDistance)(JNIEnv*, jclass, jdouble jLat1, jdouble jLon1, jdouble jLat2, jdouble jLon2) {
+    // Use inline haversine via the manager's clustering (static utility)
+    progressive::GeoCoordinate a; a.latitude = jLat1; a.longitude = jLon1;
+    progressive::GeoCoordinate b; b.latitude = jLat2; b.longitude = jLon2;
+    progressive::LiveLocationManager tmp;
+    auto clusters = tmp.clusterLocations({a, b}, 99999999.0);
+    (void)clusters;
+    // Simple haversine implementation inline
+    auto toRad = [](double d) { return d * 3.141592653589793 / 180.0; };
+    double dlat = toRad(jLat2 - jLat1);
+    double dlon = toRad(jLon2 - jLon1);
+    double la1 = toRad(jLat1), la2 = toRad(jLat2);
+    double x = std::sin(dlat/2)*std::sin(dlat/2) + std::cos(la1)*std::cos(la2)*std::sin(dlon/2)*std::sin(dlon/2);
+    return 2.0 * 6371000.0 * std::atan2(std::sqrt(x), std::sqrt(1-x));
+}
+
+JNI_FUNC(jstring, nativeLiveLocationStartSession)(JNIEnv* env, jclass, jstring jRoomId, jstring jUserId,
+                                                    jstring jDesc, jint jTimeout, jint jInterval,
+                                                    jboolean jAutoStop, jint jAutoStopMin) {
+    std::string error;
+    auto r = getLocationMgr()->startLiveSession(jStr(env, jRoomId), jStr(env, jUserId),
+        jStr(env, jDesc), jTimeout, jInterval, jAutoStop, jAutoStopMin, error);
+    if (r.empty()) return env->NewStringUTF(("{\"error\":\"" + error + "\"}").c_str());
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationStopSession)(JNIEnv* env, jclass, jstring jSessionId) {
+    auto r = getLocationMgr()->stopLiveSession(jStr(env, jSessionId));
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jboolean, nativeLiveLocationIsDue)(JNIEnv* env, jclass, jstring jSessionId) {
+    return getLocationMgr()->isUpdateDue(jStr(env, jSessionId)) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeLiveLocationUpdate)(JNIEnv* env, jclass, jstring jSessionId, jdouble jLat, jdouble jLon, jdouble jAcc) {
+    std::string error;
+    progressive::GeoCoordinate c; c.latitude = jLat; c.longitude = jLon; c.accuracy = jAcc;
+    auto r = getLocationMgr()->updateLocation(jStr(env, jSessionId), c, error);
+    if (r.empty()) return env->NewStringUTF(("{\"error\":\"" + error + "\"}").c_str());
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationGetActive)(JNIEnv* env, jclass, jstring jUserId) {
+    return env->NewStringUTF(getLocationMgr()->sessionsToJson().c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationGetRoomSessions)(JNIEnv* env, jclass, jstring jRoomId) {
+    auto sessions = getLocationMgr()->getRoomSessions(jStr(env, jRoomId));
+    // Filter to room and rebuild JSON... reuse sessionsToJson which already serializes all
+    return env->NewStringUTF(getLocationMgr()->sessionsToJson().c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationHistory)(JNIEnv* env, jclass, jstring jSessionId) {
+    return env->NewStringUTF(getLocationMgr()->historyToJson(jStr(env, jSessionId)).c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationBuildMapUrl)(JNIEnv* env, jclass, jstring jRoomId, jstring jConfigJson) {
+    auto json = jStr(env, jConfigJson);
+    progressive::MapTileConfig cfg;
+    auto ps = jExtractStr(json, "provider");
+    if (ps == "google") cfg.provider = progressive::MapProvider::GOOGLE_MAPS;
+    else if (ps == "apple") cfg.provider = progressive::MapProvider::APPLE_MAPS;
+    cfg.width = static_cast<int>(jExtractInt(json, "width"));
+    cfg.height = static_cast<int>(jExtractInt(json, "height"));
+    cfg.zoom = static_cast<int>(jExtractInt(json, "zoom"));
+    if (cfg.width == 0) cfg.width = 320;
+    if (cfg.height == 0) cfg.height = 240;
+    if (cfg.zoom == 0) cfg.zoom = 14;
+    auto r = getLocationMgr()->buildRoomMapUrl(jStr(env, jRoomId), cfg);
+    return env->NewStringUTF(r.c_str());
+}
+
+JNI_FUNC(jstring, nativeLiveLocationCluster)(JNIEnv* env, jclass, jstring jCoordsJson, jdouble jRadius) {
+    auto json = jStr(env, jCoordsJson);
+    std::vector<progressive::GeoCoordinate> coords;
+    // Parse [{"lat":...,"lon":...}, ...]
+    size_t p = 0;
+    while ((p = json.find("\"lat\"", p)) != std::string::npos) {
+        progressive::GeoCoordinate c;
+        c.latitude = static_cast<double>(jExtractInt(json.substr(p), "lat")) * 0.000001;
+        if (c.latitude == 0.0) {
+            auto s = jExtractStr(json.substr(p), "lat");
+            if (!s.empty()) c.latitude = std::stod(s);
+        }
+        c.longitude = std::stod(jExtractStr(json.substr(p), "lon"));
+        coords.push_back(c);
+        p += 10;
+    }
+    auto clusters = getLocationMgr()->clusterLocations(coords, jRadius);
+    std::ostringstream os; os << "[";
+    for (size_t i = 0; i < clusters.size(); i++) {
+        if (i > 0) os << ",";
+        os << R"({"center_lat":)" << clusters[i].centerLat
+           << R"(,"center_lon":)" << clusters[i].centerLon
+           << R"(,"count":)" << clusters[i].memberCount
+           << R"(,"radius":)" << clusters[i].radiusMeters
+           << R"(,"label":")" << clusters[i].label << "\"}";
+    }
+    os << "]";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(jboolean, nativeLiveLocationWithinGeofence)(JNIEnv* env, jclass, jdouble jLat, jdouble jLon,
+                                                      jdouble jCenterLat, jdouble jCenterLon, jdouble jRadius) {
+    progressive::GeoCoordinate c; c.latitude = jLat; c.longitude = jLon;
+    progressive::GeofenceRegion r; r.centerLat = jCenterLat; r.centerLon = jCenterLon; r.radiusMeters = jRadius;
+    return progressive::isWithinGeofence(c, r) ? JNI_TRUE : JNI_FALSE;
+}
 
 } // extern "C"

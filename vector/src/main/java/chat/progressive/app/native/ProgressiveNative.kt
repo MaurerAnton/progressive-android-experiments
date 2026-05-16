@@ -1406,6 +1406,23 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBackupMarkComplete()
     @JvmStatic external fun nativeBackupReset()
 
+    // --- Live Location ---
+
+    @JvmStatic external fun nativeLiveLocationParseGeoUri(uri: String): String
+    @JvmStatic external fun nativeLiveLocationFormatMessage(lat: Double, lon: Double, accuracy: Double, label: String): String
+    @JvmStatic external fun nativeLiveLocationFormatGeoUri(lat: Double, lon: Double): String
+    @JvmStatic external fun nativeLiveLocationDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double
+    @JvmStatic external fun nativeLiveLocationStartSession(roomId: String, userId: String, description: String, timeoutSec: Int, intervalSec: Int, autoStop: Boolean, autoStopMin: Int): String
+    @JvmStatic external fun nativeLiveLocationStopSession(sessionId: String): String
+    @JvmStatic external fun nativeLiveLocationIsDue(sessionId: String): Boolean
+    @JvmStatic external fun nativeLiveLocationUpdate(sessionId: String, lat: Double, lon: Double, accuracy: Double): String
+    @JvmStatic external fun nativeLiveLocationGetActive(userId: String): String
+    @JvmStatic external fun nativeLiveLocationGetRoomSessions(roomId: String): String
+    @JvmStatic external fun nativeLiveLocationHistory(sessionId: String): String
+    @JvmStatic external fun nativeLiveLocationBuildMapUrl(roomId: String, configJson: String): String
+    @JvmStatic external fun nativeLiveLocationCluster(coordsJson: String, radiusMeters: Double): String
+    @JvmStatic external fun nativeLiveLocationWithinGeofence(lat: Double, lon: Double, centerLat: Double, centerLon: Double, radiusMeters: Double): Boolean
+
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
@@ -4049,6 +4066,37 @@ object ProgressiveNative {
     @JvmStatic fun nativeBackupAdvanceImportedFallback() {}
     @JvmStatic fun nativeBackupMarkCompleteFallback() {}
     @JvmStatic fun nativeBackupResetFallback() {}
+
+    // --- Live Location fallbacks ---
+    @JvmStatic fun nativeLiveLocationParseGeoUriFallback(uri: String): String {
+        val m = Regex("""geo:(-?\d+\.?\d*),(-?\d+\.?\d*)(?:;u=(\d+))?""").find(uri)
+        return if (m != null) """{"lat":${m.groupValues[1]},"lon":${m.groupValues[2]},"uncertainty":${m.groupValues.getOrNull(3)?:"0"},"valid":true,"crs":"wgs84","label":""}"""
+        else """{"lat":0,"lon":0,"valid":false,"crs":"","label":""}"""
+    }
+    @JvmStatic fun nativeLiveLocationFormatMessageFallback(lat: Double, lon: Double, accuracy: Double, label: String): String =
+        "Location: $lat,$lon" + if (label.isNotEmpty()) " ($label)" else "" + if (accuracy > 0) " (±${accuracy.toInt()}m)" else ""
+    @JvmStatic fun nativeLiveLocationFormatGeoUriFallback(lat: Double, lon: Double): String =
+        "geo:$lat,$lon"
+    @JvmStatic fun nativeLiveLocationDistanceFallback(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val R = 6371000.0
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = Math.sin(dLat/2)*Math.sin(dLat/2) + Math.cos(Math.toRadians(lat1))*Math.cos(Math.toRadians(lat2))*Math.sin(dLon/2)*Math.sin(dLon/2)
+        return 2*R*Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+    }
+    @JvmStatic fun nativeLiveLocationStartSessionFallback(roomId: String, userId: String, description: String, timeoutSec: Int, intervalSec: Int, autoStop: Boolean, autoStopMin: Int): String =
+        """{"description":"${description.ifEmpty{"$userId's location"}}","timeout":$timeoutSec,"live":true}"""
+    @JvmStatic fun nativeLiveLocationStopSessionFallback(sessionId: String): String = """{"live":false,"timeout":0}"""
+    @JvmStatic fun nativeLiveLocationIsDueFallback(sessionId: String): Boolean = false
+    @JvmStatic fun nativeLiveLocationUpdateFallback(sessionId: String, lat: Double, lon: Double, accuracy: Double): String =
+        """{"org.matrix.msc3488.location":"geo:$lat,$lon${if (accuracy > 0) ";u=${accuracy.toInt()}" else ""}"}"""
+    @JvmStatic fun nativeLiveLocationGetActiveFallback(userId: String): String = "[]"
+    @JvmStatic fun nativeLiveLocationGetRoomSessionsFallback(roomId: String): String = "[]"
+    @JvmStatic fun nativeLiveLocationHistoryFallback(sessionId: String): String = "[]"
+    @JvmStatic fun nativeLiveLocationBuildMapUrlFallback(roomId: String, configJson: String): String = ""
+    @JvmStatic fun nativeLiveLocationClusterFallback(coordsJson: String, radiusMeters: Double): String = "[]"
+    @JvmStatic fun nativeLiveLocationWithinGeofenceFallback(lat: Double, lon: Double, centerLat: Double, centerLon: Double, radiusMeters: Double): Boolean =
+        nativeLiveLocationDistanceFallback(lat, lon, centerLat, centerLon) <= radiusMeters
 
     // --- URL Preview fallbacks ---
     @JvmStatic fun nativeIsPreviewableUrlFallback(url: String): Boolean = url.startsWith("http")
