@@ -27,7 +27,7 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-internal interface RoomSyncEphemeralTemporaryStore {
+interface RoomSyncEphemeralTemporaryStore {
     fun write(roomId: String, roomSyncEphemeralJson: String)
     fun read(roomId: String): RoomSyncEphemeral?
     fun reset()
