@@ -390,6 +390,10 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeEvaluatePushNotification(eventJson: String, rulesJson: String, myDisplayName: String, myUserId: String): String
 
+    // --- Room Upgrade ---
+
+    @JvmStatic external fun nativeProcessRoomUpgrade(tombstoneEventJson: String): String
+
     // --- Member / Call Notices ---
 
     @JvmStatic external fun nativeFormatMemberNotice(membership: String, prevMembership: String, senderId: String, senderName: String, targetId: String, targetName: String, reason: String, isDirect: Boolean, sentBySelf: Boolean): String
@@ -3419,6 +3423,10 @@ object ProgressiveNative {
     // --- Push Evaluator fallback ---
     @JvmStatic fun nativeEvaluatePushNotificationFallback(eventJson: String, rulesJson: String, myDisplayName: String, myUserId: String): String =
         """{"notify":true,"highlight":false,"noisy":true,"rule":""}"""
+
+    // --- Room Upgrade fallback ---
+    @JvmStatic fun nativeProcessRoomUpgradeFallback(tombstoneEventJson: String): String =
+        """{"is_upgrade":false,"successor":"","notice":""}"""
 
     // --- Member/Call/Edit fallbacks ---
     @JvmStatic fun nativeFormatMemberNoticeFallback(membership: String, prevMembership: String, senderId: String, senderName: String, targetId: String, targetName: String, reason: String, isDirect: Boolean, sentBySelf: Boolean): String {

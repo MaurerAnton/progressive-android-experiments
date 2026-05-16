@@ -66,4 +66,19 @@ bool shouldProcessTombstoneEvent(const std::string& eventType);
 // Serialize tombstone content to JSON
 std::string tombstoneContentToJson(const RoomTombstoneContent& content);
 
+// ==== Room Upgrade Handler ====
+
+struct UpgradeInfo {
+    std::string predecessorRoomId;    // the old room (tombstoned)
+    std::string successorRoomId;      // the new room (replacement)
+    bool isUpgrade = false;           // true if both rooms exist
+    std::string noticeText;           // for timeline display
+};
+
+// Process a tombstone event to extract upgrade info.
+UpgradeInfo processRoomUpgrade(const std::string& tombstoneEventJson);
+
+// Format the upgrade notice for timeline display.
+std::string formatUpgradeNotice(const UpgradeInfo& info);
+
 } // namespace progressive

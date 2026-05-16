@@ -3592,6 +3592,17 @@ JNI_FUNC(jstring, nativeEvaluatePushNotification)(JNIEnv* env, jclass, jstring j
        << R"(,"rule":")" << result.matchedRuleId << "\"}";
     return env->NewStringUTF(os.str().c_str());
 }
+
+// --- Room Upgrade ---
+
+JNI_FUNC(jstring, nativeProcessRoomUpgrade)(JNIEnv* env, jclass, jstring jTombstoneJson) {
+    auto info = progressive::processRoomUpgrade(jStr(env, jTombstoneJson));
+    std::ostringstream os;
+    os << R"({"is_upgrade":)" << (info.isUpgrade ? "true" : "false")
+       << R"(,"successor":")" << info.successorRoomId
+       << R"(,"notice":")" << progressive::formatUpgradeNotice(info) << "\"}";
+    return env->NewStringUTF(os.str().c_str());
+}
     }
     result.isEnded = json.find("\"closed\":true") != std::string::npos;
 

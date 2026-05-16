@@ -95,4 +95,23 @@ std::string tombstoneContentToJson(const RoomTombstoneContent& content) {
     return json;
 }
 
+// ==== Room Upgrade Handler ====
+
+UpgradeInfo processRoomUpgrade(const std::string& tombstoneEventJson) {
+    UpgradeInfo info;
+    auto content = parseRoomTombstoneContent(tombstoneEventJson);
+    if (!content.isUpgrade()) return info;
+
+    info.predecessorRoomId = "";  // roomId from context
+    info.successorRoomId = content.replacementRoomId;
+    info.isUpgrade = true;
+    return info;
+}
+
+std::string formatUpgradeNotice(const UpgradeInfo& info) {
+    if (!info.isUpgrade) return "";
+    if (info.successorRoomId.empty()) return "This room has been replaced";
+    return "This room has been replaced. Continue in the new room?";
+}
+
 } // namespace progressive
