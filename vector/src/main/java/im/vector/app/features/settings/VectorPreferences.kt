@@ -1652,6 +1652,11 @@ class VectorPreferences @Inject constructor(
         return defaultPrefs.getBoolean(SETTINGS_LABS_EMOJI_BLACKLIST_KEY, false)
     }
 
+    fun toggleEmojiBlacklist() {
+        val current = isEmojiBlacklistEnabled()
+        defaultPrefs.edit { putBoolean(SETTINGS_LABS_EMOJI_BLACKLIST_KEY, !current) }
+    }
+
     fun isAvatarHistoryEnabled(): Boolean {
         return defaultPrefs.getBoolean(SETTINGS_LABS_AVATAR_HISTORY_KEY, false)
     }

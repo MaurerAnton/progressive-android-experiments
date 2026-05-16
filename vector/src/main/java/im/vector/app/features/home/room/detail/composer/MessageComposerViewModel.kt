@@ -24,6 +24,7 @@ import im.vector.app.features.analytics.extensions.toAnalyticsComposer
 import im.vector.app.features.analytics.extensions.toAnalyticsJoinedRoom
 import im.vector.app.features.analytics.plan.JoinedRoom
 import im.vector.app.features.attachments.toContentAttachmentData
+import im.vector.app.features.command.Command
 import im.vector.app.features.command.CommandParser
 import im.vector.app.features.command.ParsedCommand
 import im.vector.app.features.home.room.detail.ChatEffect
@@ -555,7 +556,15 @@ class MessageComposerViewModel @AssistedInject constructor(
                              popDraft(room)
                          }
                          is ParsedCommand.ProgressiveChatCommand -> {
-                             _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                             when (parsedCommand.command) {
+                                 Command.HIDE_EMOJI -> {
+                                     vectorPreferences.toggleEmojiBlacklist()
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 else -> {
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                             }
                              popDraft(room)
                          }
                     }
