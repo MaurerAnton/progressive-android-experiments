@@ -131,6 +131,7 @@
 #include "progressive/common_utils.hpp"
 #include "progressive/media_utils_extra.hpp"
 #include "progressive/account_data_utils.hpp"
+#include "progressive/room_tombstone.hpp"
 #include "progressive/event_utils.hpp"
 #include "progressive/content_builder.hpp"
 #include "progressive/displayname_utils.hpp"
@@ -982,7 +983,9 @@ JNI_FUNC(jstring, nativeWrapWithRelation)(JNIEnv* env, jclass, jstring jContent,
 // --- Timeline Chunk (native pagination) ---
 JNI_FUNC(jint, nativeTimelineAddEvents)(JNIEnv* env, jclass, jstring jRoom, jstring jEvents, jstring jPrev, jstring jNext, jint jDir) {
     static std::unordered_map<std::string, progressive::TimelineChunkManager> managers;
-    auto& mgr = managers[jStr(env, jRoom)];
+    auto room = jStr(env, jRoom);
+    if (managers.find(room) == managers.end()) managers.emplace(std::piecewise_construct, std::forward_as_tuple(room), std::forward_as_tuple(room));
+    auto& mgr = managers[room];
     // Parse events JSON array
     auto eventsJson = jStr(env, jEvents);
     std::vector<progressive::TimelineEventData> events;
@@ -994,7 +997,9 @@ JNI_FUNC(jint, nativeTimelineAddEvents)(JNIEnv* env, jclass, jstring jRoom, jstr
 
 JNI_FUNC(jstring, nativeTimelineGetEvents)(JNIEnv* env, jclass, jstring jRoom) {
     static std::unordered_map<std::string, progressive::TimelineChunkManager> managers;
-    auto& mgr = managers[jStr(env, jRoom)];
+    auto room = jStr(env, jRoom);
+    if (managers.find(room) == managers.end()) managers.emplace(std::piecewise_construct, std::forward_as_tuple(room), std::forward_as_tuple(room));
+    auto& mgr = managers[room];
     auto events = mgr.getEventsInOrder();
     std::ostringstream os; os << "[";
     for (size_t i = 0; i < events.size(); i++) {
@@ -1011,7 +1016,9 @@ JNI_FUNC(jstring, nativeTimelineGetEvent)(JNIEnv* env, jclass, jstring jId) {
 
 JNI_FUNC(void, nativeTimelineClear)(JNIEnv* env, jclass, jstring jRoom) {
     static std::unordered_map<std::string, progressive::TimelineChunkManager> managers;
-    managers[jStr(env, jRoom)].clear();
+    auto room = jStr(env, jRoom);
+    auto it = managers.find(room);
+    if (it != managers.end()) it->second.clear();
 }
 
 JNI_FUNC(jstring, nativeTimelineGetReplies)(JNIEnv* env, jclass, jstring jId) {
