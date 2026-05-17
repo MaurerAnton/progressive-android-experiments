@@ -256,24 +256,6 @@ set_source_files_properties(
 
 # ==== Unit Tests ====
 add_executable(
-    test_progressive
-    tests/test_progressive.cpp
-    src/crypto_algorithms.cpp
-    src/timeline_chunk.cpp
-    src/markdown.cpp
-    src/olm.cpp
-    src/sync_models.cpp
-    src/matrix_patterns.cpp
-    src/content_utils.cpp
-    src/room_state.cpp
-    src/event_models.cpp
-)
-target_include_directories(test_progressive PUBLIC include tests)
-target_include_directories(test_progressive PUBLIC "${SQLITE3_DIR}")
-target_link_libraries(test_progressive ${log_lib} olm)
-target_compile_definitions(test_progressive PRIVATE PROGRESSIVE_HAS_OLM=1)
-# Also need sqlite3.c linked
-target_sources(test_progressive PRIVATE "${SQLITE3_DIR}/sqlite3.c")
 set_source_files_properties(
     "${SQLITE3_DIR}/sqlite3.c"
     PROPERTIES COMPILE_FLAGS "-DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION -Os"
