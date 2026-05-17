@@ -7,13 +7,13 @@ namespace progressive {
 
 // ====== Enum conversions ======
 
-const char* visibilityToString(RoomDirVisibility v) {
-    return v == RoomDirVisibility::PUBLIC ? "public" : "private";
+const char* visibilityToString(RoomDirectoryVisibility v) {
+    return v == RoomDirectoryVisibility::PUBLIC ? "public" : "private";
 }
 
-RoomDirVisibility visibilityFromString(const std::string& s) {
-    if (s == "public") return RoomDirVisibility::PUBLIC;
-    return RoomDirVisibility::PRIVATE;
+RoomDirectoryVisibility visibilityFromString(const std::string& s) {
+    if (s == "public") return RoomDirectoryVisibility::PUBLIC;
+    return RoomDirectoryVisibility::PRIVATE;
 }
 
 // ====== JSON helpers ======
@@ -107,7 +107,7 @@ PublicRoomsResponseEntry RoomDirectoryManager::parsePublicRoomsResponse(const st
         }
         std::string roomJson = json.substr(objStart, pos - objStart);
 
-        PublicRoomEntry room;
+        PublicRoom room;
         room.roomId = extractStr(roomJson, "room_id");
         room.name = extractStr(roomJson, "name");
         room.topic = extractStr(roomJson, "topic");
@@ -157,11 +157,11 @@ void RoomDirectoryManager::accumulateResults(PublicRoomsResponseEntry& existing,
 
 // ====== Room Directory Visibility ======
 
-std::string RoomDirectoryManager::buildVisibilityRequest(RoomDirVisibility visibility) const {
+std::string RoomDirectoryManager::buildVisibilityRequest(RoomDirectoryVisibility visibility) const {
     return std::string(R"({"visibility":")") + visibilityToString(visibility) + R"("})";
 }
 
-RoomDirVisibility RoomDirectoryManager::parseVisibilityResponse(const std::string& json) const {
+RoomDirectoryVisibility RoomDirectoryManager::parseVisibilityResponse(const std::string& json) const {
     auto vis = extractStr(json, "visibility");
     return visibilityFromString(vis);
 }
@@ -186,7 +186,7 @@ AliasAvailabilityResult RoomDirectoryManager::parseAliasAvailability(const std::
 
 // ====== Room Preview ======
 
-std::string RoomDirectoryManager::formatRoomPreview(const PublicRoomEntry& room) const {
+std::string RoomDirectoryManager::formatRoomPreview(const PublicRoom& room) const {
     std::ostringstream os;
     os << (room.name.empty() ? room.getPrimaryAlias() : room.name);
     if (!room.topic.empty()) {
@@ -234,13 +234,13 @@ std::string RoomDirectoryManager::buildRoomAvatarUrl(const std::string& avatarUr
 
 // ====== Filtering & Sorting ======
 
-std::vector<PublicRoomEntry> RoomDirectoryManager::filterRooms(const std::vector<PublicRoomEntry>& rooms, const std::string& query) const {
+std::vector<PublicRoom> RoomDirectoryManager::filterRooms(const std::vector<PublicRoom>& rooms, const std::string& query) const {
     if (query.empty()) return rooms;
 
     std::string q;
     for (char c : query) q += static_cast<char>(std::tolower(c));
 
-    std::vector<PublicRoomEntry> result;
+    std::vector<PublicRoom> result;
     for (const auto& room : rooms) {
         std::string name;
         for (char c : room.name) name += static_cast<char>(std::tolower(c));
@@ -257,22 +257,22 @@ std::vector<PublicRoomEntry> RoomDirectoryManager::filterRooms(const std::vector
     return result;
 }
 
-void RoomDirectoryManager::sortRoomsByPopularity(std::vector<PublicRoomEntry>& rooms) const {
-    std::sort(rooms.begin(), rooms.end(), [](const PublicRoomEntry& a, const PublicRoomEntry& b) {
+void RoomDirectoryManager::sortRoomsByPopularity(std::vector<PublicRoom>& rooms) const {
+    std::sort(rooms.begin(), rooms.end(), [](const PublicRoom& a, const PublicRoom& b) {
         if (a.numJoinedMembers != b.numJoinedMembers) return a.numJoinedMembers > b.numJoinedMembers;
         return a.name < b.name;
     });
 }
 
-void RoomDirectoryManager::sortRoomsByName(std::vector<PublicRoomEntry>& rooms) const {
-    std::sort(rooms.begin(), rooms.end(), [](const PublicRoomEntry& a, const PublicRoomEntry& b) {
+void RoomDirectoryManager::sortRoomsByName(std::vector<PublicRoom>& rooms) const {
+    std::sort(rooms.begin(), rooms.end(), [](const PublicRoom& a, const PublicRoom& b) {
         return a.name < b.name;
     });
 }
 
 // ====== Serialization ======
 
-std::string RoomDirectoryManager::roomToJson(const PublicRoomEntry& room) const {
+std::string RoomDirectoryManager::roomToJson(const PublicRoom& room) const {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
         for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
@@ -298,7 +298,7 @@ std::string RoomDirectoryManager::roomToJson(const PublicRoomEntry& room) const 
     return os.str();
 }
 
-std::string RoomDirectoryManager::roomsToJson(const std::vector<PublicRoomEntry>& rooms) const {
+std::string RoomDirectoryManager::roomsToJson(const std::vector<PublicRoom>& rooms) const {
     std::ostringstream os; os << "[";
     for (size_t i = 0; i < rooms.size(); i++) {
         if (i > 0) os << ","; os << roomToJson(rooms[i]);
