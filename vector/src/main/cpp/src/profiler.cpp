@@ -53,7 +53,7 @@ void Profiler::reset() {
 // ====== Measurement ======
 
 int Profiler::start(const std::string& name) {
-    ProfileEntry entry;
+    ProfilerEntry entry;
     entry.name = name;
     entry.startTimeNs = nowNs();
     entry.active = true;

@@ -30,7 +30,7 @@ namespace progressive {
 
 // ---- Login Type ----
 
-enum class LoginType {
+enum class OidcLoginType {
     UNKNOWN = 0,
     PASSWORD = 1,          // m.login.password
     SSO = 2,               // m.login.sso (full page redirect)
@@ -39,8 +39,8 @@ enum class LoginType {
     CAS = 5,               // m.login.cas
 };
 
-const char* loginTypeToString(LoginType type);
-LoginType loginTypeFromString(const std::string& s);
+const char* loginTypeToString(OidcLoginType type);
+OidcLoginType loginTypeFromString(const std::string& s);
 
 // ---- SSO Provider ----
 
@@ -73,7 +73,7 @@ struct OidcConfig {
 
 // ---- PKCE (RFC 7636) ----
 
-struct PkcePair {
+struct OidcPkcePair {
     std::string codeVerifier;        // 43-128 chars random
     std::string codeChallenge;       // SHA-256(verifier), base64url encoded
 };
@@ -81,7 +81,7 @@ struct PkcePair {
 // Generate a cryptographically random PKCE pair.
 // Uses std::rand() seeded with time — for production use,
 // replace with OpenSSL or OS random generator.
-PkcePair generatePkce();
+OidcPkcePair generatePkce();
 
 // Verify a PKCE code challenge matches the verifier.
 bool verifyPkce(const std::string& verifier, const std::string& challenge);
@@ -131,7 +131,7 @@ struct OidcAuthorization {
     std::string authorizationUrl;    // Full URL to open in browser
     std::string state;               // Opaque state for CSRF
     std::string nonce;               // For ID token verification
-    PkcePair pkce;                   // PKCE challenge/verifier pair
+    OidcPkcePair pkce;                   // PKCE challenge/verifier pair
     bool valid = false;
 };
 
@@ -156,7 +156,7 @@ struct OidcTokenRequest {
     std::string codeVerifier;        // PKCE verifier
 };
 
-struct OidcTokenResponse {
+struct OidcTokenResponseFull {
     std::string accessToken;
     std::string refreshToken;
     std::string idToken;
@@ -171,7 +171,7 @@ struct OidcTokenResponse {
 std::string buildTokenExchangeRequest(const OidcTokenRequest& req);
 
 // Parse token exchange response.
-OidcTokenResponse parseTokenResponse(const std::string& json);
+OidcTokenResponseFull parseTokenResponse(const std::string& json);
 
 // ---- Token Refresh ----
 
@@ -230,40 +230,40 @@ std::string extractStateFromCallback(const std::string& callbackUrl);
 
 // ---- Well-Known / Server Discovery ----
 
-struct WellKnownResult {
+struct OidcWellKnownResult {
     std::string baseUrl;
     std::string idServer;
     std::string oidcIssuer;
     bool supportsOidc = false;
     bool supportsPassword = true;
-    std::vector<LoginType> supportedLoginTypes;
+    std::vector<OidcLoginType> supportedLoginTypes;
     std::vector<SsoProvider> ssoProviders;
     std::string error;
 };
 
 // Parse well-known response for OIDC and SSO information.
-WellKnownResult parseWellKnown(const std::string& json);
+OidcWellKnownResult parseWellKnown(const std::string& json);
 
 // Check if well-known requires OIDC (no password login available).
-bool requiresOidc(const WellKnownResult& wellKnown);
+bool requiresOidc(const OidcWellKnownResult& wellKnown);
 
 // ---- Login Flows ----
 
-struct LoginFlow {
-    LoginType type = LoginType::UNKNOWN;
+struct OidcLoginFlow {
+    OidcLoginType type = OidcLoginType::UNKNOWN;
     std::vector<std::string> identityProviders;  // SSO provider IDs
 };
 
 // Parse login flows from GET /login response.
-std::vector<LoginFlow> parseLoginFlows(const std::string& json);
+std::vector<OidcLoginFlow> parseLoginFlows(const std::string& json);
 
 // Check if OIDC flow is available.
-bool hasOidcFlow(const std::vector<LoginFlow>& flows);
+bool hasOidcFlow(const std::vector<OidcLoginFlow>& flows);
 
 // ---- Password / Token Manager Interface ----
 
 struct LoginCredentials {
-    LoginType type = LoginType::PASSWORD;
+    OidcLoginType type = OidcLoginType::PASSWORD;
     std::string userId;              // @user:example.org
     std::string password;
     std::string token;               // For token login

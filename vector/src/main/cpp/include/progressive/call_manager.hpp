@@ -207,7 +207,7 @@ public:
 
     // Reject/decline an incoming call.
     // Returns the reject event content JSON.
-    std::string rejectCall(const std::string& callId, const std::string& reason = "rejected", std::string& error = std::string());
+    std::string rejectCall(const std::string& callId, const std::string& reason = "rejected");
 
     // Hang up an active call.
     // Returns the hangup event content JSON.

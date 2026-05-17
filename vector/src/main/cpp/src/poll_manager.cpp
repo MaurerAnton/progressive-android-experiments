@@ -35,7 +35,7 @@ static bool extractBool(const std::string& json, const std::string& key) {
     return json.find("\"" + key + "\":true") != std::string::npos;
 }
 
-// ====== PollOption helpers ======
+// ====== PollOptionFull helpers ======
 
 int PollContent::totalVotes() const {
     int total = 0;
@@ -184,7 +184,7 @@ PollContent PollManager::parsePollStartContent(const std::string& contentJson, b
                 }
                 std::string optionJson = contentJson.substr(objStart, pos - objStart);
 
-                PollOption opt;
+                PollOptionFull opt;
                 opt.id = extractStr(optionJson, "id");
                 opt.text = extractStr(optionJson, prefix + ".org_text");
                 if (!opt.id.empty() && !opt.text.empty()) {
@@ -277,8 +277,8 @@ PollEnd PollManager::parsePollEndContent(const std::string& contentJson, bool un
 
 // ====== Vote Tallying ======
 
-PollResult PollManager::tallyVotes(const PollContent& poll, const std::vector<PollVote>& votes) {
-    PollResult result;
+PollResultFull PollManager::tallyVotes(const PollContent& poll, const std::vector<PollVote>& votes) {
+    PollResultFull result;
     result.poll = poll;
     result.results = poll.options;
     result.isClosed = poll.isClosed();
@@ -314,7 +314,7 @@ PollResult PollManager::tallyVotes(const PollContent& poll, const std::vector<Po
     return result;
 }
 
-void PollManager::setMyVote(PollResult& result, const std::string& userId) {
+void PollManager::setMyVote(PollResultFull& result, const std::string& userId) {
     for (const auto& opt : result.results) {
         for (const auto& voter : opt.voterIds) {
             if (voter == userId) {
@@ -327,7 +327,7 @@ void PollManager::setMyVote(PollResult& result, const std::string& userId) {
 
 // ====== Display Formatting ======
 
-PollEventDisplay PollManager::formatPollEvent(const PollResult& result) {
+PollEventDisplay PollManager::formatPollEvent(const PollResultFull& result) {
     PollEventDisplay display;
     display.question = result.poll.question;
     display.totalVotes = result.totalVotes;
@@ -408,7 +408,7 @@ std::string PollManager::formatPollHtml(const PollEventDisplay& display) {
     return display.htmlBody;
 }
 
-std::string PollManager::getWinnerText(const PollResult& result) const {
+std::string PollManager::getWinnerText(const PollResultFull& result) const {
     if (result.totalVoters == 0) return "No votes yet";
     if (result.totalVoters == 1) return "1 vote";
 

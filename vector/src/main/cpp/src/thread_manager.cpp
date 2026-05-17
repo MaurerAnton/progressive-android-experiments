@@ -116,7 +116,7 @@ std::string ThreadManager::extractThreadRoot(const std::string& eventContentJson
 
 // ====== Thread Management ======
 
-void ThreadManager::upsertThread(const ThreadInfo& thread) {
+void ThreadManager::upsertThread(const ThreadInfoFull& thread) {
     auto it = threads_.find(thread.threadId);
     if (it != threads_.end()) {
         // Update existing
@@ -182,15 +182,15 @@ void ThreadManager::clearRoom(const std::string& roomId) {
 
 // ====== Thread Queries ======
 
-bool ThreadManager::getThread(const std::string& threadId, ThreadInfo& out) const {
+bool ThreadManager::getThread(const std::string& threadId, ThreadInfoFull& out) const {
     auto it = threads_.find(threadId);
     if (it == threads_.end()) return false;
     out = it->second;
     return true;
 }
 
-std::vector<ThreadInfo> ThreadManager::getRoomThreads(const std::string& roomId) const {
-    std::vector<ThreadInfo> result;
+std::vector<ThreadInfoFull> ThreadManager::getRoomThreads(const std::string& roomId) const {
+    std::vector<ThreadInfoFull> result;
     for (const auto& [id, th] : threads_) {
         if (th.roomId == roomId) result.push_back(th);
     }
@@ -209,7 +209,7 @@ std::vector<ThreadInfo> ThreadManager::getRoomThreads(const std::string& roomId)
 
 ThreadList ThreadManager::getThreadList(int limit, int offset) const {
     ThreadList list;
-    std::vector<ThreadInfo> all;
+    std::vector<ThreadInfoFull> all;
     for (const auto& [id, th] : threads_) {
         auto t = th;
         auto it = unread_.find(id);
@@ -328,8 +328,8 @@ std::string ThreadManager::formatThreadNotificationCount(int count) const {
 
 // ====== Sorting ======
 
-void ThreadManager::sortThreads(std::vector<ThreadInfo>& threads) const {
-    std::sort(threads.begin(), threads.end(), [](const ThreadInfo& a, const ThreadInfo& b) {
+void ThreadManager::sortThreads(std::vector<ThreadInfoFull>& threads) const {
+    std::sort(threads.begin(), threads.end(), [](const ThreadInfoFull& a, const ThreadInfoFull& b) {
         // Unread first
         if (a.isUnread != b.isUnread) return a.isUnread;
         // Highlighted next
@@ -343,7 +343,7 @@ void ThreadManager::sortThreads(std::vector<ThreadInfo>& threads) const {
 
 // ====== Serialization ======
 
-std::string ThreadManager::threadToJson(const ThreadInfo& thread) const {
+std::string ThreadManager::threadToJson(const ThreadInfoFull& thread) const {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
         for (char c : s) { if (c == '"') out += "\\\""; else out += c; }

@@ -11,14 +11,14 @@ namespace progressive {
 // Device Manager — full device management (Element Android port)
 //
 // Based on original Element Android sources:
-//   DeviceInfo.kt — basic device info (user_id, device_id, display_name,
+//   ManagedDeviceInfo.kt — basic device info (user_id, device_id, display_name,
 //     last_seen_ts, last_seen_ip, last_seen_user_agent)
-//   CryptoDeviceInfo.kt — crypto device (algorithms, keys, signatures,
+//   ManagedCryptoDeviceInfo.kt — crypto device (algorithms, keys, signatures,
 //     trustLevel, fingerprint/identityKey extraction)
 //   DeviceTrustLevel.kt — crossSigningVerified + locallyVerified
 //   CryptoService.kt — fetchDevicesList, getMyDevicesInfo,
 //     setDeviceName, deleteDevice, getUserDevices, getCryptoDeviceInfo
-//   DevicesListResponse.kt — /devices API response
+//   ManagedDevicesListResponse.kt — /devices API response
 //
 // Covers:
 //   1. Device list fetching/parsing (/devices API)
@@ -47,10 +47,10 @@ struct DeviceTrustLevel {
 };
 
 // ---- Device Info ----
-// Original: DeviceInfo.kt (userId, deviceId, displayName, lastSeenTs,
+// Original: ManagedDeviceInfo.kt (userId, deviceId, displayName, lastSeenTs,
 //   lastSeenIp, lastSeenUserAgent, unstableLastSeenUserAgent)
 
-struct DeviceInfo {
+struct ManagedDeviceInfo {
     std::string userId;              // @alice:example.org
     std::string deviceId;            // ABCDEFGHIJ
     std::string displayName;         // "Alice's Phone"
@@ -69,10 +69,10 @@ struct DeviceInfo {
 };
 
 // ---- Crypto Device Info ----
-// Original: CryptoDeviceInfo.kt (deviceId, userId, algorithms, keys,
+// Original: ManagedCryptoDeviceInfo.kt (deviceId, userId, algorithms, keys,
 //   signatures, unsigned, trustLevel, isBlocked, firstTimeSeenLocalTs)
 
-struct CryptoDeviceInfo {
+struct ManagedCryptoDeviceInfo {
     std::string deviceId;
     std::string userId;
     std::vector<std::string> algorithms;
@@ -108,10 +108,10 @@ struct CryptoDeviceInfo {
 };
 
 // ---- Devices List Response ----
-// Original: DevicesListResponse (devices: List<DeviceInfo>)
+// Original: ManagedDevicesListResponse (devices: List<ManagedDeviceInfo>)
 
-struct DevicesListResponse {
-    std::vector<DeviceInfo> devices;
+struct ManagedDevicesListResponse {
+    std::vector<ManagedDeviceInfo> devices;
     int totalCount = 0;
 };
 
@@ -160,16 +160,16 @@ public:
     // ====== Device List ======
 
     // Parse /devices API response.
-    // Original: CryptoService.fetchDevicesList() → DevicesListResponse
-    DevicesListResponse parseDevicesList(const std::string& json);
+    // Original: CryptoService.fetchDevicesList() → ManagedDevicesListResponse
+    ManagedDevicesListResponse parseDevicesList(const std::string& json);
 
     // Parse a single device info from JSON.
-    // Original: CryptoService.fetchDeviceInfo(deviceId) → DeviceInfo
-    DeviceInfo parseDeviceInfo(const std::string& deviceId, const std::string& json);
+    // Original: CryptoService.fetchDeviceInfo(deviceId) → ManagedDeviceInfo
+    ManagedDeviceInfo parseDeviceInfo(const std::string& deviceId, const std::string& json);
 
     // Parse crypto device info from JSON.
-    // Original: getCryptoDeviceInfo(userId, deviceId) → CryptoDeviceInfo
-    CryptoDeviceInfo parseCryptoDeviceInfo(const std::string& deviceId, const std::string& userId, const std::string& json);
+    // Original: getCryptoDeviceInfo(userId, deviceId) → ManagedCryptoDeviceInfo
+    ManagedCryptoDeviceInfo parseCryptoDeviceInfo(const std::string& deviceId, const std::string& userId, const std::string& json);
 
     // ====== Device Rename ======
 
@@ -225,24 +225,24 @@ public:
     // ====== Sorting & Filtering ======
 
     // Sort device list.
-    void sortDevices(std::vector<DeviceInfo>& devices, DeviceSortMode mode) const;
-    void sortCryptoDevices(std::vector<CryptoDeviceInfo>& devices, DeviceSortMode mode) const;
+    void sortDevices(std::vector<ManagedDeviceInfo>& devices, DeviceSortMode mode) const;
+    void sortCryptoDevices(std::vector<ManagedCryptoDeviceInfo>& devices, DeviceSortMode mode) const;
 
     // Filter device list.
-    std::vector<DeviceInfo> filterDevices(const std::vector<DeviceInfo>& devices,
+    std::vector<ManagedDeviceInfo> filterDevices(const std::vector<ManagedDeviceInfo>& devices,
                                            const DeviceFilter& filter) const;
 
     // ====== Serialization ======
 
     // Export device info as JSON.
-    std::string deviceToJson(const DeviceInfo& device) const;
+    std::string deviceToJson(const ManagedDeviceInfo& device) const;
 
     // Export crypto device info as JSON.
-    std::string cryptoDeviceToJson(const CryptoDeviceInfo& device) const;
+    std::string cryptoDeviceToJson(const ManagedCryptoDeviceInfo& device) const;
 
     // Export device list as JSON array.
-    std::string devicesToJson(const std::vector<DeviceInfo>& devices) const;
-    std::string cryptoDevicesToJson(const std::vector<CryptoDeviceInfo>& devices) const;
+    std::string devicesToJson(const std::vector<ManagedDeviceInfo>& devices) const;
+    std::string cryptoDevicesToJson(const std::vector<ManagedCryptoDeviceInfo>& devices) const;
 
     // Export device trust level as JSON.
     std::string trustLevelToJson(const DeviceTrustLevel& level) const;

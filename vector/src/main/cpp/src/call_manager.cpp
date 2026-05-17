@@ -380,12 +380,9 @@ std::string CallManager::answerCall(const std::string& callId, const std::string
     return os.str();
 }
 
-std::string CallManager::rejectCall(const std::string& callId, const std::string& reason, std::string& error) {
+std::string CallManager::rejectCall(const std::string& callId, const std::string& reason) {
     auto* call = findCall(callId);
-    if (!call) {
-        if (error.empty()) error = "Call not found: " + callId;
-        return "";
-    }
+    if (!call) return "";
 
     call->state = CallState::REJECTED;
     call->endedAtMs = nowMs();

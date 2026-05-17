@@ -24,15 +24,15 @@ static bool extractBool(const std::string& json, const std::string& key) {
 
 // ====== Constructor ======
 
-PinManager::PinManager() {}
+PinManagerFull::PinManagerFull() {}
 
 // ====== Helpers ======
 
-std::vector<std::string>& PinManager::getPinnedIds(const std::string& roomId) {
+std::vector<std::string>& PinManagerFull::getPinnedIds(const std::string& roomId) {
     return pinned_[roomId];
 }
 
-std::string PinManager::buildPreview(const std::string& body, const std::string& senderName,
+std::string PinManagerFull::buildPreview(const std::string& body, const std::string& senderName,
                                       const std::string& eventType, bool hasImage,
                                       bool hasFile, bool hasVideo) const {
     std::string sender = senderName.empty() ? "" : senderName + ": ";
@@ -57,7 +57,7 @@ std::string PinManager::buildPreview(const std::string& body, const std::string&
 
 // ====== Pin/Unpin Lifecycle ======
 
-std::string PinManager::pinEvent(const std::string& roomId, const std::string& eventId,
+std::string PinManagerFull::pinEvent(const std::string& roomId, const std::string& eventId,
                                   const std::string& pinnedBy, int userPowerLevel,
                                   std::string& error) {
     if (!canManagePins(userPowerLevel)) {
@@ -96,7 +96,7 @@ std::string PinManager::pinEvent(const std::string& roomId, const std::string& e
     return buildPinnedEventsContent(ids);
 }
 
-std::string PinManager::unpinEvent(const std::string& roomId, const std::string& eventId,
+std::string PinManagerFull::unpinEvent(const std::string& roomId, const std::string& eventId,
                                     const std::string& removedBy, int userPowerLevel,
                                     std::string& error) {
     if (!canManagePins(userPowerLevel)) {
@@ -127,7 +127,7 @@ std::string PinManager::unpinEvent(const std::string& roomId, const std::string&
     return buildPinnedEventsContent(ids);
 }
 
-std::string PinManager::togglePin(const std::string& roomId, const std::string& eventId,
+std::string PinManagerFull::togglePin(const std::string& roomId, const std::string& eventId,
                                    const std::string& userId, int userPowerLevel,
                                    std::string& error) {
     if (isEventPinned(roomId, eventId)) {
@@ -138,7 +138,7 @@ std::string PinManager::togglePin(const std::string& roomId, const std::string& 
 
 // ====== State Loading ======
 
-void PinManager::loadState(const std::string& roomId, const std::string& stateContentJson) {
+void PinManagerFull::loadState(const std::string& roomId, const std::string& stateContentJson) {
     auto eventIds = parsePinnedEventIds(stateContentJson);
     auto& ids = getPinnedIds(roomId);
     ids.clear();
@@ -153,7 +153,7 @@ void PinManager::loadState(const std::string& roomId, const std::string& stateCo
     }
 }
 
-void PinManager::setEventMetadata(const std::string& roomId, const std::string& eventId,
+void PinManagerFull::setEventMetadata(const std::string& roomId, const std::string& eventId,
                                    const std::string& senderId, const std::string& senderName,
                                    const std::string& body, const std::string& eventType,
                                    int64_t originalTimestampMs, bool isEncrypted) {
@@ -188,7 +188,7 @@ void PinManager::setEventMetadata(const std::string& roomId, const std::string& 
 
 // ====== Queries ======
 
-std::vector<PinnedEventInfo> PinManager::getPinnedEvents(const std::string& roomId) const {
+std::vector<PinnedEventInfo> PinManagerFull::getPinnedEvents(const std::string& roomId) const {
     std::vector<PinnedEventInfo> result;
     auto pi = pinned_.find(roomId);
     if (pi == pinned_.end()) return result;
@@ -211,25 +211,25 @@ std::vector<PinnedEventInfo> PinManager::getPinnedEvents(const std::string& room
     return result;
 }
 
-bool PinManager::isEventPinned(const std::string& roomId, const std::string& eventId) const {
+bool PinManagerFull::isEventPinned(const std::string& roomId, const std::string& eventId) const {
     auto pi = pinned_.find(roomId);
     if (pi == pinned_.end()) return false;
     return std::find(pi->second.begin(), pi->second.end(), eventId) != pi->second.end();
 }
 
-int PinManager::getPinnedCount(const std::string& roomId) const {
+int PinManagerFull::getPinnedCount(const std::string& roomId) const {
     auto pi = pinned_.find(roomId);
     if (pi == pinned_.end()) return 0;
     return static_cast<int>(pi->second.size());
 }
 
-bool PinManager::canManagePins(int userPowerLevel) const {
+bool PinManagerFull::canManagePins(int userPowerLevel) const {
     return userPowerLevel >= REQUIRED_POWER_LEVEL;
 }
 
 // ====== Formatting ======
 
-std::string PinManager::formatPinnedList(const std::string& roomId) const {
+std::string PinManagerFull::formatPinnedList(const std::string& roomId) const {
     auto events = getPinnedEvents(roomId);
     std::ostringstream os;
     os << events.size() << " pinned message" << (events.size() != 1 ? "s" : "") << "\n";
@@ -239,13 +239,13 @@ std::string PinManager::formatPinnedList(const std::string& roomId) const {
     return os.str();
 }
 
-std::string PinManager::formatPinnedPreview(const PinnedEventInfo& event) const {
+std::string PinManagerFull::formatPinnedPreview(const PinnedEventInfo& event) const {
     return event.previewText.empty() ? event.body.substr(0, 80) : event.previewText;
 }
 
 // ====== Serialization ======
 
-std::string PinManager::pinnedEventsToJson(const std::string& roomId) const {
+std::string PinManagerFull::pinnedEventsToJson(const std::string& roomId) const {
     auto events = getPinnedEvents(roomId);
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
@@ -271,7 +271,7 @@ std::string PinManager::pinnedEventsToJson(const std::string& roomId) const {
     return os.str();
 }
 
-std::string PinManager::buildPinnedEventsContent(const std::vector<std::string>& eventIds) {
+std::string PinManagerFull::buildPinnedEventsContent(const std::vector<std::string>& eventIds) {
     std::ostringstream os;
     os << R"({"pinned":[)";
     for (size_t i = 0; i < eventIds.size(); i++) {
@@ -282,7 +282,7 @@ std::string PinManager::buildPinnedEventsContent(const std::vector<std::string>&
     return os.str();
 }
 
-std::vector<std::string> PinManager::parsePinnedEventIds(const std::string& stateContentJson) {
+std::vector<std::string> PinManagerFull::parsePinnedEventIds(const std::string& stateContentJson) {
     std::vector<std::string> ids;
     size_t pos = stateContentJson.find("\"pinned\"");
     if (pos == std::string::npos) return ids;
@@ -306,7 +306,7 @@ std::vector<std::string> PinManager::parsePinnedEventIds(const std::string& stat
     return ids;
 }
 
-int PinManager::totalPinnedEvents() const {
+int PinManagerFull::totalPinnedEvents() const {
     int total = 0;
     for (const auto& [roomId, ids] : pinned_) total += static_cast<int>(ids.size());
     return total;

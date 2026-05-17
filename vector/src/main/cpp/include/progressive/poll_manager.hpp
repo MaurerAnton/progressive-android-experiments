@@ -29,7 +29,7 @@ enum class PollKind {
 
 // ---- Poll Option ----
 
-struct PollOption {
+struct PollOptionFull {
     std::string id;            // "option_1", "option_2", etc.
     std::string text;          // Option text (max 340 chars)
     int voteCount = 0;         // Number of votes for this option
@@ -42,7 +42,7 @@ struct PollOption {
 struct PollContent {
     std::string pollId;                // Unique poll ID
     std::string question;              // Poll question text
-    std::vector<PollOption> options;   // 2-20 options
+    std::vector<PollOptionFull> options;   // 2-20 options
     PollKind kind = PollKind::DISCLOSED;
     int maxSelections = 1;             // How many options can be selected (default: 1)
     int64_t createdAtMs = 0;
@@ -77,9 +77,9 @@ struct PollEnd {
 
 // ---- Poll Result ----
 
-struct PollResult {
+struct PollResultFull {
     PollContent poll;
-    std::vector<PollOption> results;      // Options with vote counts
+    std::vector<PollOptionFull> results;      // Options with vote counts
     int totalVotes = 0;
     int totalVoters = 0;
     std::string myVote;                   // Which option(s) current user voted for
@@ -145,15 +145,15 @@ public:
 
     // Tally all votes for a poll (from stored vote events).
     // Takes the poll content and a list of all votes.
-    PollResult tallyVotes(const PollContent& poll, const std::vector<PollVote>& votes);
+    PollResultFull tallyVotes(const PollContent& poll, const std::vector<PollVote>& votes);
 
     // Set which option the current user voted for.
-    void setMyVote(PollResult& result, const std::string& userId);
+    void setMyVote(PollResultFull& result, const std::string& userId);
 
     // ====== Display Formatting ======
 
     // Format poll results for timeline display.
-    PollEventDisplay formatPollEvent(const PollResult& result);
+    PollEventDisplay formatPollEvent(const PollResultFull& result);
 
     // Format as plain text.
     std::string formatPollPlainText(const PollEventDisplay& display);
@@ -162,7 +162,7 @@ public:
     std::string formatPollHtml(const PollEventDisplay& display);
 
     // Get winner option text (or "Tie").
-    std::string getWinnerText(const PollResult& result) const;
+    std::string getWinnerText(const PollResultFull& result) const;
 
     // ====== Poll State ======
 

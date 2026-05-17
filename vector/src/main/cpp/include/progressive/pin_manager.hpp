@@ -52,9 +52,9 @@ struct PinnedEventsList {
 
 // ---- Pin Manager ----
 
-class PinManager {
+class PinManagerFull {
 public:
-    PinManager();
+    PinManagerFull();
 
     // ====== Pin/Unpin Lifecycle ======
 

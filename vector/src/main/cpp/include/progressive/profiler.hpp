@@ -29,7 +29,7 @@ namespace progressive {
 
 // ---- Profile Entry (single measurement) ----
 
-struct ProfileEntry {
+struct ProfilerEntry {
     std::string name;                // Function/module name
     int64_t startTimeNs = 0;         // Start timestamp (nanoseconds)
     int64_t endTimeNs = 0;           // End timestamp
@@ -251,7 +251,7 @@ private:
     Profiler& operator=(const Profiler&) = delete;
 
     bool profiling_ = false;
-    std::vector<ProfileEntry> entries_;
+    std::vector<ProfilerEntry> entries_;
     std::unordered_map<std::string, ProfileSummary> summaries_;
     std::vector<MemorySnapshot> memorySnapshots_;
     int64_t trackedMemory_ = 0;

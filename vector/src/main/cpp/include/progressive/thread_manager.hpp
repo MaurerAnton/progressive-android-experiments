@@ -37,7 +37,7 @@ enum class ThreadState {
 
 // ---- Thread Info (full) ----
 
-struct ThreadInfo {
+struct ThreadInfoFull {
     std::string threadId;            // Root event ID
     std::string roomId;
     std::string rootSenderId;
@@ -64,7 +64,7 @@ struct ThreadInfo {
 // ---- Thread List ----
 
 struct ThreadList {
-    std::vector<ThreadInfo> threads;
+    std::vector<ThreadInfoFull> threads;
     std::string nextBatch;           // Pagination token
     bool hasMore = false;            // More threads to load
     int totalCount = 0;
@@ -133,7 +133,7 @@ public:
     // ====== Thread Creation & Management ======
 
     // Add or update a thread (called when a new thread root event is seen).
-    void upsertThread(const ThreadInfo& thread);
+    void upsertThread(const ThreadInfoFull& thread);
 
     // Add a reply to a thread.
     void addReply(const std::string& threadId, const std::string& senderId,
@@ -149,10 +149,10 @@ public:
     // ====== Thread Queries ======
 
     // Get a thread by ID.
-    bool getThread(const std::string& threadId, ThreadInfo& out) const;
+    bool getThread(const std::string& threadId, ThreadInfoFull& out) const;
 
     // Get all threads for a room.
-    std::vector<ThreadInfo> getRoomThreads(const std::string& roomId) const;
+    std::vector<ThreadInfoFull> getRoomThreads(const std::string& roomId) const;
 
     // Get thread list (sorted: unread first, then by latest activity).
     ThreadList getThreadList(int limit = 20, int offset = 0) const;
@@ -185,12 +185,12 @@ public:
     // ====== Thread Ordering ======
 
     // Sort threads: unread first, then highlighted, then by lastReplyTimestamp (descending).
-    void sortThreads(std::vector<ThreadInfo>& threads) const;
+    void sortThreads(std::vector<ThreadInfoFull>& threads) const;
 
     // ====== Serialization ======
 
     // Format thread info as JSON.
-    std::string threadToJson(const ThreadInfo& thread) const;
+    std::string threadToJson(const ThreadInfoFull& thread) const;
 
     // Format thread list as JSON.
     std::string threadListToJson(const ThreadList& list) const;
@@ -207,7 +207,7 @@ public:
     int totalRoomsWithThreads() const;
 
 private:
-    std::unordered_map<std::string, ThreadInfo> threads_;     // threadId → ThreadInfo
+    std::unordered_map<std::string, ThreadInfoFull> threads_;     // threadId → ThreadInfoFull
     std::unordered_map<std::string, ThreadUnreadState> unread_; // threadId → unread state
     std::unordered_map<std::string, std::vector<ThreadEvent>> replies_; // threadId → replies
     std::unordered_map<std::string, int64_t> readReceipts_;   // threadId → last read index

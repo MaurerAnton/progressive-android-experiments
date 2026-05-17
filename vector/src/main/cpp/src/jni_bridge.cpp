@@ -5202,8 +5202,7 @@ JNI_FUNC(jstring, nativeCallAnswer)(JNIEnv* env, jclass, jstring jCallId, jstrin
 }
 
 JNI_FUNC(jstring, nativeCallReject)(JNIEnv* env, jclass, jstring jCallId) {
-    std::string error;
-    auto r = getCallMgr()->rejectCall(jStr(env, jCallId), "rejected", error);
+    auto r = getCallMgr()->rejectCall(jStr(env, jCallId), "rejected");
     return env->NewStringUTF(r.c_str());
 }
 
@@ -5529,10 +5528,10 @@ JNI_FUNC(void, nativeSpaceReset)(JNIEnv*, jclass) {
 // Pin Manager
 // ============================================================
 
-static std::unique_ptr<progressive::PinManager> g_pinMgr;
+static std::unique_ptr<progressive::PinManagerFull> g_pinMgr;
 
-static progressive::PinManager* getPinMgr() {
-    if (!g_pinMgr) g_pinMgr.reset(new progressive::PinManager());
+static progressive::PinManagerFull* getPinMgr() {
+    if (!g_pinMgr) g_pinMgr.reset(new progressive::PinManagerFull());
     return g_pinMgr.get();
 }
 
@@ -5584,7 +5583,7 @@ JNI_FUNC(jboolean, nativePinCanManage)(JNIEnv*, jclass, jint jPowerLevel) {
 }
 
 JNI_FUNC(void, nativePinReset)(JNIEnv*, jclass) {
-    g_pinMgr.reset(new progressive::PinManager());
+    g_pinMgr.reset(new progressive::PinManagerFull());
 }
 
 // ============================================================

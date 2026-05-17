@@ -37,24 +37,24 @@ static bool extractBool(const std::string& json, const std::string& key) {
 
 // ====== Login Type ======
 
-const char* loginTypeToString(LoginType type) {
+const char* loginTypeToString(OidcLoginType type) {
     switch (type) {
-        case LoginType::PASSWORD: return "m.login.password";
-        case LoginType::SSO: return "m.login.sso";
-        case LoginType::OIDC: return "m.login.oidc";
-        case LoginType::TOKEN: return "m.login.token";
-        case LoginType::CAS: return "m.login.cas";
+        case OidcLoginType::PASSWORD: return "m.login.password";
+        case OidcLoginType::SSO: return "m.login.sso";
+        case OidcLoginType::OIDC: return "m.login.oidc";
+        case OidcLoginType::TOKEN: return "m.login.token";
+        case OidcLoginType::CAS: return "m.login.cas";
         default: return "unknown";
     }
 }
 
-LoginType loginTypeFromString(const std::string& s) {
-    if (s == "m.login.password") return LoginType::PASSWORD;
-    if (s == "m.login.sso") return LoginType::SSO;
-    if (s == "m.login.oidc") return LoginType::OIDC;
-    if (s == "m.login.token") return LoginType::TOKEN;
-    if (s == "m.login.cas") return LoginType::CAS;
-    return LoginType::UNKNOWN;
+OidcLoginType loginTypeFromString(const std::string& s) {
+    if (s == "m.login.password") return OidcLoginType::PASSWORD;
+    if (s == "m.login.sso") return OidcLoginType::SSO;
+    if (s == "m.login.oidc") return OidcLoginType::OIDC;
+    if (s == "m.login.token") return OidcLoginType::TOKEN;
+    if (s == "m.login.cas") return OidcLoginType::CAS;
+    return OidcLoginType::UNKNOWN;
 }
 
 // ====== SSO Providers ======
@@ -126,8 +126,8 @@ static std::string base64UrlEncode(const std::string& input) {
     return result;
 }
 
-PkcePair generatePkce() {
-    PkcePair pair;
+OidcPkcePair generatePkce() {
+    OidcPkcePair pair;
     // Generate 64 random chars for code verifier
     static const char* valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
     srand(static_cast<unsigned>(time(nullptr)) * 100 + rand());
@@ -283,8 +283,8 @@ std::string buildTokenExchangeRequest(const OidcTokenRequest& req) {
     return os.str();
 }
 
-OidcTokenResponse parseTokenResponse(const std::string& json) {
-    OidcTokenResponse resp;
+OidcTokenResponseFull parseTokenResponse(const std::string& json) {
+    OidcTokenResponseFull resp;
     resp.accessToken = extractStr(json, "access_token");
     resp.refreshToken = extractStr(json, "refresh_token");
     resp.idToken = extractStr(json, "id_token");
@@ -381,8 +381,8 @@ std::string extractStateFromCallback(const std::string& callbackUrl) {
 
 // ====== Well-Known ======
 
-WellKnownResult parseWellKnown(const std::string& json) {
-    WellKnownResult result;
+OidcWellKnownResult parseWellKnown(const std::string& json) {
+    OidcWellKnownResult result;
     result.baseUrl = extractStr(json, "base_url");
     if (result.baseUrl.empty()) result.baseUrl = extractStr(json, "homeserver");
     result.idServer = extractStr(json, "identity_server");
@@ -417,25 +417,25 @@ WellKnownResult parseWellKnown(const std::string& json) {
     return result;
 }
 
-bool requiresOidc(const WellKnownResult& wellKnown) {
+bool requiresOidc(const OidcWellKnownResult& wellKnown) {
     return wellKnown.supportsOidc && !wellKnown.supportsPassword;
 }
 
 // ====== Login Flows ======
 
-std::vector<LoginFlow> parseLoginFlows(const std::string& json) {
-    std::vector<LoginFlow> flows;
+std::vector<OidcLoginFlow> parseLoginFlows(const std::string& json) {
+    std::vector<OidcLoginFlow> flows;
     size_t pos = 0;
 
     while ((pos = json.find("\"type\"", pos)) != std::string::npos) {
-        LoginFlow flow;
+        OidcLoginFlow flow;
         auto typeStr = extractStr(json.substr(pos), "type");
         flow.type = loginTypeFromString(typeStr);
 
-        if (flow.type == LoginType::UNKNOWN) { pos += 5; continue; }
+        if (flow.type == OidcLoginType::UNKNOWN) { pos += 5; continue; }
 
         // Extract identity_providers for SSO
-        if (flow.type == LoginType::SSO) {
+        if (flow.type == OidcLoginType::SSO) {
             auto ipPos = json.find("\"identity_providers\"", pos);
             if (ipPos != std::string::npos && ipPos - pos < 500) {
                 ipPos = json.find('[', ipPos);
@@ -459,9 +459,9 @@ std::vector<LoginFlow> parseLoginFlows(const std::string& json) {
     return flows;
 }
 
-bool hasOidcFlow(const std::vector<LoginFlow>& flows) {
+bool hasOidcFlow(const std::vector<OidcLoginFlow>& flows) {
     for (const auto& f : flows) {
-        if (f.type == LoginType::OIDC) return true;
+        if (f.type == OidcLoginType::OIDC) return true;
     }
     return false;
 }
