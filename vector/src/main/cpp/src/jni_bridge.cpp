@@ -2474,4 +2474,23 @@ JNI_FUNC(jstring, nativeBuildKnockBody)(JNIEnv* env, jclass, jstring jReason) {
     return env->NewStringUTF(result.c_str());
 }
 
+
+// ============================================================
+// Olm Account — required for login
+// ============================================================
+static progressive::OlmAccountData g_olmAccount;
+
+JNI_FUNC(jboolean, nativeOlmCreateAccount)(JNIEnv* env, jclass, jstring jUserId, jstring jDeviceId) {
+    g_olmAccount = progressive::createOlmAccount(jStr(env, jUserId), jStr(env, jDeviceId));
+    return g_olmAccount.valid ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jstring, nativeOlmGetIdentityKeys)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(progressive::getAccountIdentityKeys(g_olmAccount).c_str());
+}
+
+JNI_FUNC(jstring, nativeOlmGenerateOneTimeKeys)(JNIEnv* env, jclass, jint jCount) {
+    auto result = progressive::generateOneTimeKeys(g_olmAccount, jCount);
+    return env->NewStringUTF(result.c_str());
+}
 } // extern "C"
