@@ -4402,7 +4402,7 @@ object ProgressiveNative {
         nativeLiveLocationDistanceFallback(lat, lon, centerLat, centerLon) <= radiusMeters
 
     // --- Call Manager fallbacks ---
-    @JvmStatic fun nativeCallStartOutgoingFallback(roomId: String, calleeId: String, calleeName: String, callType: Int, sdpOffer: String): String =
+    @JvmStatic fun nativeCallStartOutgoingFallback(roomId: String, calleeId: String, _calleeName: String, _callType: Int, sdpOffer: String): String =
         """{"call_id":"call_1","offer":{"type":"offer","sdp":"$sdpOffer"},"version":1}"""
     @JvmStatic fun nativeCallHandleIncomingFallback(callId: String, roomId: String, callerId: String, callerName: String, callType: Int, sdpOffer: String, lifetimeSec: Int): String = callId
     @JvmStatic fun nativeCallAnswerFallback(callId: String, sdpAnswer: String): String =
