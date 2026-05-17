@@ -1,4 +1,4 @@
-#include "progressive/room_state.hpp"
+#include "progressive/room_content.hpp"
 #pragma once
 
 #include <string>
