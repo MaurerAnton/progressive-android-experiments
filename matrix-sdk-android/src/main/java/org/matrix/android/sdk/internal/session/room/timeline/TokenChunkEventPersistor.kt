@@ -171,16 +171,16 @@ internal class TokenChunkEventPersistor @Inject constructor(
 
                 // Progressive Chat: mirror event to native C++ timeline (Labs-gated)
                 val callback = nativeEventPersistCallback
-                if (callback != null) {
-                    val contentJson = org.matrix.android.sdk.api.util.toJsonString(event.content) ?: "{}"
-                    val relType = event.content?.get("m.relates_to")?.let { (it as? Map<*, *>)?.get("rel_type") as? String } ?: ""
-                    val relatesToId = event.content?.get("m.relates_to")?.let { (it as? Map<*, *>)?.get("event_id") as? String } ?: ""
-                    callback(
-                        roomId, event.eventId, event.type ?: "", event.senderId ?: "",
-                        contentJson, event.originServerTs ?: 0L,
-                        eventEntity.displayIndex, event.stateKey ?: "",
-                        event.redacts ?: "", relType, relatesToId
-                    )
+//                if (callback != null) {
+//                    val contentJson = org.matrix.android.sdk.api.util.toJsonString(event.content) ?: "{}"
+//                    val relType = event.content?.get("m.relates_to")?.let { (it as? Map<*, *>)?.get("rel_type") as? String } ?: ""
+//                    val relatesToId = event.content?.get("m.relates_to")?.let { (it as? Map<*, *>)?.get("event_id") as? String } ?: ""
+//                    callback(
+//                        roomId, event.eventId, event.type ?: "", event.senderId ?: "",
+//                        contentJson, event.originServerTs ?: 0L,
+//                        eventEntity.displayIndex, event.stateKey ?: "",
+//                        event.redacts ?: "", relType, relatesToId
+//                    )
                 }
 
                 if (event.type == EventType.STATE_ROOM_MEMBER && event.stateKey != null) {

@@ -26,7 +26,7 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-class InitialSyncResponseParser @Inject constructor(
+internal class InitialSyncResponseParser @Inject constructor(
         private val moshi: Moshi,
         private val roomSyncEphemeralTemporaryStore: RoomSyncEphemeralTemporaryStore
 ) {
