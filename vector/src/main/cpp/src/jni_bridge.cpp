@@ -1744,7 +1744,7 @@ JNI_FUNC(jstring, nativeParseWellKnown)(JNIEnv* env, jclass, jstring jJson) {
     std::ostringstream os;
     os << R"({"homeserver_url":")" << result.baseUrl
        << R"(","identity_server":")" << result.idServer
-       << R"(","valid":)" << (result.valid ? "true" : "false") << "}";
+       << R"(","valid":)" << ((!result.baseUrl.empty()) ? "true" : "false") << "}";
     return env->NewStringUTF(os.str().c_str());
 }
 
@@ -2608,7 +2608,7 @@ JNI_FUNC(jstring, nativeGenerateDeviceId)(JNIEnv* env, jclass) {
 JNI_FUNC(jstring, nativeValidatePassword)(JNIEnv* env, jclass, jstring jPassword) {
     auto result = progressive::validatePassword(jStr(env, jPassword));
     std::ostringstream os;
-    os << R"({"valid":)" << (result.valid ? "true" : "false")
+    os << R"({"valid":)" << ((!result.baseUrl.empty()) ? "true" : "false")
        << R"(,"strength":)" << result.strength
        << R"(,"strength_label":")" << result.strengthLabel
        << R"(","feedback":")" << result.feedback << "\"}";
