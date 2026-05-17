@@ -3474,14 +3474,6 @@ JNI_FUNC(jstring, nativeCanonicalizeJson)(JNIEnv* env, jclass, jstring jJson) {
     auto result = progressive::canonicalizeJson(jStr(env, jJson));
     return env->NewStringUTF(result.c_str());
 }
-    os << R"({"uploaded":)" << p.bytesUploaded
-       << R"(,"total":)" << p.totalBytes
-       << R"(,"chunks":)" << p.chunksCompleted
-       << R"(,"total_chunks":)" << p.totalChunks
-       << R"(,"done":)" << (p.done ? "true" : "false")
-       << R"(,"progress":)" << p.progress() << "}";
-    return env->NewStringUTF(os.str().c_str());
-}
 
 JNI_FUNC(jint, nativeSuggestChunkSizeMb)(JNIEnv* env, jclass, jlong jFileSize) {
     return progressive::ChunkedUploader::suggestChunkSizeMb(jFileSize);
