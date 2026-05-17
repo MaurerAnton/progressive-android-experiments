@@ -1,4 +1,3 @@
-#include "progressive/canonical_json.hpp"
 #include <jni.h>
 #include <string>
 #include <memory>
@@ -164,6 +163,7 @@
 #include "progressive/identity_server_manager.hpp"
 #include "progressive/event_relations_manager.hpp"
 #include "progressive/cross_signing_manager.hpp"
+#include "progressive/canonical_json.hpp"
 #include "progressive/room_state.hpp"
 #include "progressive/draft_manager_full.hpp"
 #include "progressive/room_state_manager.hpp"
