@@ -162,14 +162,12 @@
 #include "progressive/url_preview.hpp"
 #include "progressive/power_levels.hpp"
 #include "progressive/well_known.hpp"
-#include "progressive/room_sort.hpp"
 #include "progressive/key_backup.hpp"
 #include "progressive/content_utils.hpp"
 #include "progressive/room_state.hpp"
 #include "progressive/login_flow.hpp"
 #include "progressive/device_naming.hpp"
 #include "progressive/sync_filter.hpp"
-#include "progressive/room_name.hpp"
 #include "progressive/notif_format.hpp"
 #include "progressive/matrix_error.hpp"
 #include "progressive/agent_executor.hpp"
@@ -217,94 +215,64 @@
 using namespace progressive;
 
 // --- Singleton keyword filter ---
-static progressive::KeywordFilter g_keywordFilter;
 
 // --- Singleton network stats collector ---
-static progressive::NetworkStatsCollector g_netStats;
 
 // --- Singleton user mask registry ---
-static progressive::UserMaskRegistry g_userMasks;
 
 // --- Singleton chunked uploader ---
-static progressive::ChunkedUploader g_uploader;
 
 // --- Singleton invitation hide list ---
-static progressive::InvitationHideList g_inviteHide;
 
 // --- Singleton thread aggregator ---
-static progressive::ThreadAggregator g_threadAgg;
 
 // --- Singleton cache manager ---
-static progressive::CacheManager g_cacheMgr;
 
 // --- Singleton message aggregator ---
-static progressive::MessageAggregator g_msgAgg;
 
 // --- Singleton deleted archive ---
-static progressive::DeletedMessageArchive g_deletedArchive;
 
 // --- Singleton search index ---
-static progressive::SearchIndex g_searchIndex;
 
 // --- Singleton module loader ---
-static progressive::ModuleLoader g_moduleLoader;
 
 // --- Singleton notification keywords ---
-static progressive::NotificationKeywords g_notifKeywords;
 
 // --- Singleton room mirror manager ---
-static progressive::RoomMirrorManager g_mirrorMgr;
 
 // --- Singleton symbol bar ---
-static progressive::SymbolBar g_symbolBar;
 
 // --- Singleton replacement engine ---
-static progressive::ReplacementEngine g_replacementEngine;
 
 // --- Singleton user MXID visibility ---
-static progressive::UserMxidVisibility g_mxidVisibility;
 
 // --- Singleton user hide manager ---
-static progressive::UserHideManager g_userHide;
 
 // --- Singleton message queue ---
-static progressive::MessageQueue g_msgQueue;
 
 // --- Singleton language hide manager ---
-static progressive::LanguageHideManager g_langHide;
 
 // --- Singleton chat push down ---
-static progressive::ChatPushDownManager g_chatPushDown;
 
 // --- Singleton emoji blacklist ---
-static progressive::EmojiBlacklist g_emojiBlacklist;
 
 // --- Singleton avatar history ---
-static progressive::AvatarHistory g_avatarHistory;
 
 // --- Singleton lightweight call manager ---
-static progressive::LightweightCallManager g_lightCall;
 
 // --- Singleton scheduled edit queue ---
-static progressive::ScheduledEditQueue g_schedEdits;
 
 // --- Singleton drawing canvas ---
-static progressive::DrawingCanvas g_drawCanvas;
 
 // --- Singleton profile swiper ---
-static progressive::ProfileSwiper g_profileSwiper;
 
 // --- Singleton connection monitor ---
-static progressive::ConnectionMonitor g_connectionMonitor;
 
 // --- Singleton desync detector ---
-static progressive::DesyncDetector g_desyncDetector;
 
 // --- Singleton latency tracker ---
-static progressive::LatencyTracker g_latencyTracker;
 
 // --- Singleton location sharing manager ---
-static progressive::LocationSharingManager g_locationSharing;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -322,6 +290,80 @@ static std::string jStr(JNIEnv* env, jstring js) {
 }
 
 extern "C" {
+
+static progressive::LocationSharingManager g_locationSharing;
+
+static progressive::MegolmSessionManager g_megolmManager;
+
+static progressive::SasVerification g_sas;
+
+static progressive::OlmSessionManager g_olmSessionMgr;
+
+static progressive::OlmAccountData g_olmAccount;
+
+static progressive::EventDatabase g_eventDb;
+
+static progressive::EventCache g_eventCache;
+
+static progressive::LocationSharingManager g_locationSharing;
+
+static progressive::LatencyTracker g_latencyTracker;
+
+static progressive::DesyncDetector g_desyncDetector;
+
+static progressive::ConnectionMonitor g_connectionMonitor;
+
+static progressive::ProfileSwiper g_profileSwiper;
+
+static progressive::DrawingCanvas g_drawCanvas;
+
+static progressive::ScheduledEditQueue g_schedEdits;
+
+static progressive::LightweightCallManager g_lightCall;
+
+static progressive::AvatarHistory g_avatarHistory;
+
+static progressive::EmojiBlacklist g_emojiBlacklist;
+
+static progressive::ChatPushDownManager g_chatPushDown;
+
+static progressive::LanguageHideManager g_langHide;
+
+static progressive::MessageQueue g_msgQueue;
+
+static progressive::UserHideManager g_userHide;
+
+static progressive::UserMxidVisibility g_mxidVisibility;
+
+static progressive::ReplacementEngine g_replacementEngine;
+
+static progressive::SymbolBar g_symbolBar;
+
+static progressive::RoomMirrorManager g_mirrorMgr;
+
+static progressive::NotificationKeywords g_notifKeywords;
+
+static progressive::ModuleLoader g_moduleLoader;
+
+static progressive::SearchIndex g_searchIndex;
+
+static progressive::DeletedMessageArchive g_deletedArchive;
+
+static progressive::MessageAggregator g_msgAgg;
+
+static progressive::CacheManager g_cacheMgr;
+
+static progressive::ThreadAggregator g_threadAgg;
+
+static progressive::InvitationHideList g_inviteHide;
+
+static progressive::ChunkedUploader g_uploader;
+
+static progressive::UserMaskRegistry g_userMasks;
+
+static progressive::NetworkStatsCollector g_netStats;
+
+static progressive::KeywordFilter g_keywordFilter;
 
 /*
  * Class: chat.progressive.app.native.ProgressiveNative
@@ -659,7 +701,6 @@ hr { border: none; border-top: 1px solid #e0e0e0; margin: 16px 0; }
 }
 
 // --- Event Cache (global singleton for Stage 2 acceleration) ---
-static progressive::EventCache g_eventCache;
 
 /*
  * Class: chat.progressive.app.native.ProgressiveNative
@@ -1146,7 +1187,6 @@ JNI_FUNC(jstring, nativeCalculateThumbnailSize)(JNIEnv* env, jclass, jint jOw, j
 // --- Native SQLite Database (SqliteDB - replaces Realm for timeline storage) ---
 // Controlled by Labs: SETTINGS_LABS_NATIVE_DB
 
-static progressive::EventDatabase g_eventDb;
 static std::unordered_map<std::string, std::unique_ptr<progressive::SqliteDB>> g_sqliteDbs;
 
 // EventDatabase JNI (existing Kotlin signatures)
@@ -2509,8 +2549,6 @@ JNI_FUNC(jstring, nativeBuildKnockBody)(JNIEnv* env, jclass, jstring jReason) {
 // ============================================================
 // Olm Account + SAS (from commit f760516d)
 // ============================================================
-static progressive::OlmAccountData g_olmAccount;
-static progressive::OlmSessionManager g_olmSessionMgr;
 
 JNI_FUNC(jboolean, nativeOlmCreateAccount)(JNIEnv* env, jclass, jstring jUserId, jstring jDeviceId) {
     g_olmAccount = progressive::createOlmAccount(jStr(env, jUserId), jStr(env, jDeviceId));
@@ -2542,7 +2580,6 @@ JNI_FUNC(jstring, nativeComputeDeviceFingerprint)(JNIEnv* env, jclass, jstring j
 }
 
 // SAS Emoji Verification
-static progressive::SasVerification g_sas;
 
 JNI_FUNC(jstring, nativeSasCreate)(JNIEnv* env, jclass) {
     g_sas = progressive::sasCreate();
@@ -2568,7 +2605,6 @@ JNI_FUNC(jboolean, nativeSasVerifyMac)(JNIEnv* env, jclass, jstring jTheirMac, j
 }
 
 // --- Megolm Decryptor ---
-static progressive::MegolmSessionManager g_megolmManager;
 
 JNI_FUNC(jboolean, nativeMegolmAddSession)(JNIEnv* env, jclass, jstring jRoom, jstring jSenderKey, jstring jSessionId, jstring jSessionKey) {
     return g_megolmManager.addSession(jStr(env, jRoom), jStr(env, jSenderKey),
@@ -3899,7 +3935,6 @@ JNI_FUNC(jstring, nativeComputePollResults)(JNIEnv* env, jclass, jstring jPollJs
 }
 
 // --- Location Sharing ---
-static progressive::LocationSharingManager g_locationSharing;
 
 JNI_FUNC(jstring, nativeLocationStartSession)(JNIEnv* env, jclass, jstring jSessionId, jstring jRoomId, jstring jUserId, jint jInterval) {
     progressive::LocationSession session;
