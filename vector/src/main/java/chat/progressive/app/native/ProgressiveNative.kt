@@ -4082,11 +4082,7 @@ object ProgressiveNative {
     // --- Matrix Error fallbacks ---
     @JvmStatic fun nativeGetErrorDescriptionFallback(errorCode: String): String =
         errorCode.replace("M_", "").replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
-        errorCode == "M_FORBIDDEN" || errorCode == "M_USER_DEACTIVATED"
-        errorJson.contains("soft_logout")
-    @JvmStatic fun nativeNeedsConsentFallback(errorJson: String): Boolean =
         errorJson.contains("M_CONSENT_NOT_GIVEN")
-    @JvmStatic fun nativeIsUserDeactivatedFallback(errorJson: String): Boolean =
         errorJson.contains("M_USER_DEACTIVATED")
 
     // --- Notification Formatter fallbacks ---
