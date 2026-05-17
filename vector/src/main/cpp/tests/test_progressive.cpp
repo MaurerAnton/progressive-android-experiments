@@ -657,12 +657,6 @@ static void test_uploader_compute_chunks() {
     ASSERT_EQ(chunks, 2);
 }
 
-// static void test_uploader_suggest_chunk_size() {
-    ASSERT_EQ(mb, 10);
-    int mb2 = progressive::ChunkedUploader::suggestChunkSizeMb(500000000);
-    ASSERT_EQ(mb2, 20);
-}
-
 // ==== Audio support ====
 static void test_is_supported_audio_type() {
     ASSERT_TRUE(progressive::isSupportedAudioType("audio/ogg"));
