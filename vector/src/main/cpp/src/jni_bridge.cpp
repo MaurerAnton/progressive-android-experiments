@@ -219,6 +219,7 @@
 #include "progressive/raw_service.hpp"
 #include "progressive/json_parser.hpp"
 #include "progressive/content_utils.hpp"
+#include "progressive/signout_service.hpp"
 #include <sstream>
 #include <chrono>
 

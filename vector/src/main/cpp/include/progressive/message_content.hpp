@@ -182,6 +182,9 @@ struct MessageImageContent : EventMessageContent {
     std::string thumbnailUrl;    // convenience: mirrors info.thumbnailUrl
     std::string filename;        // original filename
     ThumbnailInfo thumbnailInfo; // mirrors info.thumbnailInfo
+    int width = 0;
+    int height = 0;
+    int64_t size = 0;
 
     // Original Kotlin: getFileUrl() = encryptedFile?.url ?: url
     std::string getFileUrl() const {
@@ -195,6 +198,12 @@ struct MessageVideoContent : EventMessageContent {
     std::string url;
     EncryptedFileInfo encryptedFile;
     std::string mimeType;        // derived: videoInfo.mimeType
+    std::string thumbnailUrl;
+    std::string filename;
+    int64_t duration = 0;
+    int width = 0;
+    int height = 0;
+    int64_t size = 0;
 
     std::string getFileUrl() const {
         if (!encryptedFile.url.empty()) return encryptedFile.url;
@@ -209,6 +218,9 @@ struct MessageAudioContent : EventMessageContent {
     AudioWaveformInfo audioWaveform;  // "org.matrix.msc1767.audio" key
     bool isVoiceMessage = false;      // "org.matrix.msc3245.voice" key presence
     std::string mimeType;        // derived: audioInfo.mimeType
+    std::string filename;
+    int64_t duration = 0;
+    int64_t size = 0;
 
     std::string getFileUrl() const {
         if (!encryptedFile.url.empty()) return encryptedFile.url;
@@ -222,6 +234,7 @@ struct MessageFileContent : EventMessageContent {
     std::string url;
     EncryptedFileInfo encryptedFile;
     std::string mimeType;        // derived: info.mimeType or extension-based
+    int64_t size = 0;
 
     std::string getFileUrl() const {
         if (!encryptedFile.url.empty()) return encryptedFile.url;
