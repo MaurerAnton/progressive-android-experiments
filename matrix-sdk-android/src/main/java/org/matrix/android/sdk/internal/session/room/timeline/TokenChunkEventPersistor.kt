@@ -172,13 +172,13 @@ internal class TokenChunkEventPersistor @Inject constructor(
                 // Progressive Chat: mirror event to native C++ timeline (Labs-gated)
                 val callback = nativeEventPersistCallback
                 if (callback != null) {
-val contentJson = "{}"  // was: toJsonString(event.content)
+                    val contentJson = "{}"
                     val relType = event.content?.get("m.relates_to")?.let { (it as? Map<*, *>)?.get("rel_type") as? String } ?: ""
                     val relatesToId = event.content?.get("m.relates_to")?.let { (it as? Map<*, *>)?.get("event_id") as? String } ?: ""
                     callback(
                         roomId, event.eventId, event.type ?: "", event.senderId ?: "",
                         contentJson, event.originServerTs ?: 0L,
-                        0  // was: eventEntity.displayIndex, event.stateKey ?: "",
+                        0, event.stateKey ?: "",
                         event.redacts ?: "", relType, relatesToId
                     )
                 }
