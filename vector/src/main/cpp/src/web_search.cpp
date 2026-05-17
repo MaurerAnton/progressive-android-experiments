@@ -390,7 +390,4 @@ SearchConfig searchConfigFromJson(const std::string& /*json*/) {
     return config;
 }
 
-std::string buildSearxngUrl(const std::string& /*query*/) { return ""; }
-std::string buildGoogleUrl(const std::string& /*query*/) { return ""; }
-
 } // namespace progressive
