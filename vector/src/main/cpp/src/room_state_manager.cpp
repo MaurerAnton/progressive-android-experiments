@@ -126,12 +126,10 @@ std::string buildJoinRulesContent(RoomJoinRule rule) {
     return R"({"join_rule":")" + std::string(joinRuleToString(rule)) + R"("})";
 }
 
-RSM_RoomHistoryVisibility parseHistoryVisibility(const std::string& contentJson) {
     auto vis = extractStr(contentJson, "history_visibility");
     return historyVisibilityFromString(vis);
 }
 
-RoomJoinRule parseJoinRules(const std::string& contentJson) {
     auto rule = extractStr(contentJson, "join_rule");
     return joinRuleFromString(rule);
 }

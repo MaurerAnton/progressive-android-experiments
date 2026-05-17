@@ -109,10 +109,8 @@ std::string buildHistoryVisibilityContent(RSM_RoomHistoryVisibility visibility);
 std::string buildJoinRulesContent(RoomJoinRule rule);
 
 // Parse history visibility from state event content.
-RSM_RoomHistoryVisibility parseHistoryVisibility(const std::string& contentJson);
 
 // Parse join rules from state event content.
-RoomJoinRule parseJoinRules(const std::string& contentJson);
 
 // ---- Room State Manager ----
 
@@ -159,7 +157,6 @@ public:
 
 private:
     std::unordered_map<std::string, RoomStateSummary> rooms_; // roomId → state
-    RoomStateSummary& getOrCreateState(const std::string& roomId);
 };
 
 } // namespace progressive
