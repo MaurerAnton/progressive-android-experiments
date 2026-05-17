@@ -183,7 +183,6 @@
 #include "progressive/content_utils.hpp"
 #include "progressive/login_flow.hpp"
 #include "progressive/sync_filter.hpp"
-#include "progressive/room_name.hpp"
 #include "progressive/notif_format.hpp"
 #include "progressive/matrix_error.hpp"
 #include "progressive/agent_executor.hpp"
