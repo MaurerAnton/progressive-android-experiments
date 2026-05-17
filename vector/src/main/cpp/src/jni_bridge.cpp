@@ -1626,12 +1626,12 @@ JNI_FUNC(jboolean, nativeIsPollEnded)(JNIEnv* env, jclass, jlong jCloseTs) {
 
 JNI_FUNC(jboolean, nativeCanReadMessages)(JNIEnv* env, jclass, jstring jMembership) {
     auto ms = jStr(env, jMembership);
-    progressive::Membership m = progressive::Membership::Leave;
-    if (ms == "join") m = progressive::Membership::Join;
-    else if (ms == "invite") m = progressive::Membership::Invite;
-    else if (ms == "knock") m = progressive::Membership::Knock;
-    else if (ms == "ban") m = progressive::Membership::Ban;
-    else if (ms == "leave") m = progressive::Membership::Leave;
+    progressive::MemberState m = progressive::MemberState::Leave;
+    if (ms == "join") m = progressive::MemberState::Join;
+    else if (ms == "invite") m = progressive::MemberState::Invite;
+    else if (ms == "knock") m = progressive::MemberState::Knock;
+    else if (ms == "ban") m = progressive::MemberState::Ban;
+    else if (ms == "leave") m = progressive::MemberState::Leave;
     return progressive::canReadMessages(m) ? JNI_TRUE : JNI_FALSE;
 }
 
@@ -2351,21 +2351,21 @@ JNI_FUNC(jstring, nativeExtractCurveKeyFromRecoveryKey)(JNIEnv* env, jclass, jst
 
 JNI_FUNC(jstring, nativeFormatMembership)(JNIEnv* env, jclass, jstring jMembership) {
     auto ms = jStr(env, jMembership);
-    progressive::Membership m = progressive::Membership::Leave;
-    if (ms == "join") m = progressive::Membership::Join;
-    else if (ms == "invite") m = progressive::Membership::Invite;
-    else if (ms == "knock") m = progressive::Membership::Knock;
-    else if (ms == "ban") m = progressive::Membership::Ban;
-    auto result = progressive::formatMembership(m);
+    progressive::MemberState m = progressive::MemberState::Leave;
+    if (ms == "join") m = progressive::MemberState::Join;
+    else if (ms == "invite") m = progressive::MemberState::Invite;
+    else if (ms == "knock") m = progressive::MemberState::Knock;
+    else if (ms == "ban") m = progressive::MemberState::Ban;
+    auto result = progressive::formatMemberState(m);
     return env->NewStringUTF(result.c_str());
 }
 
 JNI_FUNC(jboolean, nativeIsActiveMember)(JNIEnv* env, jclass, jstring jMembership) {
     auto ms = jStr(env, jMembership);
-    progressive::Membership m = progressive::Membership::Leave;
-    if (ms == "join") m = progressive::Membership::Join;
-    else if (ms == "invite") m = progressive::Membership::Invite;
-    else if (ms == "knock") m = progressive::Membership::Knock;
+    progressive::MemberState m = progressive::MemberState::Leave;
+    if (ms == "join") m = progressive::MemberState::Join;
+    else if (ms == "invite") m = progressive::MemberState::Invite;
+    else if (ms == "knock") m = progressive::MemberState::Knock;
     return progressive::isActiveMember(m) ? JNI_TRUE : JNI_FALSE;
 }
 
