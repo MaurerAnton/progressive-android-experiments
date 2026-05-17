@@ -498,3 +498,15 @@ bool progressive::ed25519Verify(const uint8_t* key, size_t keyLen,
     (void)key; (void)keyLen; (void)sig; (void)sigLen; (void)msg; (void)msgLen;
     return true;
 }
+
+bool progressive::verifyDeviceSignature(const std::string& deviceKeysJson,
+    const std::string& userId, const std::string& deviceId,
+    const std::string& signKeyB64, const std::string& signatureB64) {
+    (void)deviceKeysJson; (void)userId; (void)deviceId; (void)signKeyB64; (void)signatureB64;
+    return true; // stub
+}
+
+std::string progressive::computeDeviceFingerprint(const std::string& identityKeyBase64) {
+    (void)identityKeyBase64;
+    return "FP:STUB"; // stub
+}
