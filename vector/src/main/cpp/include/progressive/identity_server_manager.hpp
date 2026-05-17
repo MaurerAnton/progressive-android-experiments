@@ -1,10 +1,10 @@
+#include "progressive/auth_models.hpp"
 #pragma once
 
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <cstdint>
-#include "progressive/auth_models.hpp"
 
 namespace progressive {
 
@@ -32,27 +32,58 @@ namespace progressive {
 // ---- ThreePID Type ----
 // Original: IS_ThreePid.kt sealed Email/Msisdn
 
+enum class ThreePidMedium {
     EMAIL = 0,       // Original: MEDIUM_EMAIL
     MSISDN = 1,      // Original: MEDIUM_MSISDN (phone number)
 };
 
+const char* threePidMediumToString(ThreePidMedium medium);
+ThreePidMedium threePidMediumFromString(const std::string& s);
 
 // ---- ThreePID ----
 // Original: IS_ThreePid.kt (Email(email), Msisdn(msisdn))
 
+struct IS_ThreePid {
+    ThreePidMedium medium = ThreePidMedium::EMAIL;
+    std::string value;               // "alice@example.org" or "1234567890"
+    bool valid = false;
+
+    // Original: toMedium()
+    std::string toMedium() const;
+
+    // Original: getCountryCode() for MSISDN
+    std::string getCountryCode() const;
+
+    // Parse a threePID from a string (detects email vs phone).
+    static IS_ThreePid parse(const std::string& input);
+
+    // Check if input is an email.
+    static bool isEmail(const std::string& input);
+
+    // Check if input is a phone number (MSISDN).
+    static bool isMsisdn(const std::string& input);
+};
 
 // ---- Found ThreePID ----
 // Original: IS_FoundThreePid.kt (threePid, matrixId)
 
+struct IS_FoundThreePid {
+    IS_ThreePid threePid;
+    std::string matrixId;            // @user:example.org
+    bool valid = false;
+};
 
 // ---- Share State ----
 // Original: IS_SharedState.kt (SHARED, NOT_SHARED, BINDING_IN_PROGRESS)
 
+enum class IS_SharedState {
     SHARED = 0,              // 3PID is shared with identity server
     NOT_SHARED = 1,          // Not shared
     BINDING_IN_PROGRESS = 2, // Binding confirmation pending
 };
 
+const char* sharedStateToString(IS_SharedState state);
+IS_SharedState sharedStateFromString(const std::string& s);
 
 // ---- 3PID Binding Status ----
 
@@ -68,6 +99,12 @@ struct IS_ThreePidBindingStatus {
 // ---- Sign Invitation Result ----
 // Original: SignInvitationResult
 
+struct SignInvitationResult {
+    std::string mxid;                // Matrix ID
+    std::string token;
+    std::string signatures;
+    bool valid = false;
+};
 
 // ---- Identity Server Config ----
 
