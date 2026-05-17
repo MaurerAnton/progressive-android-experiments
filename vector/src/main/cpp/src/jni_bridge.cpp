@@ -5881,4 +5881,22 @@ JNI_FUNC(jstring, nativeSpoilerBuildContent)(JNIEnv* env, jclass, jstring jBody,
     auto sc = getSpoilerMgr()->buildImageSpoiler(jStr(env, jBody), jStr(env, jMxcUrl), "image/jpeg", 0, 0, 0, jStr(env, jReason));
     return env->NewStringUTF(getSpoilerMgr()->buildSpoilerMessageContent(sc, jStr(env, jMxcUrl), jStr(env, jMsgType)).c_str());
 }
+
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
+    JNIEnv* env = nullptr;
+    if (vm->GetEnv((void**)&env, JNI_VERSION_1_6) != JNI_OK)
+        return JNI_ERR;
+    jclass clazz = env->FindClass("chat/progressive/app/native/ProgressiveNative");
+    if (!clazz) return JNI_ERR;
+    JNINativeMethod methods[] = {
+        {(char*)"nativeOlmCreateAccount", (char*)"(Ljava/lang/String;Ljava/lang/String;)Z",
+         (void*)Java_chat_progressive_app_native_ProgressiveNative_nativeOlmCreateAccount},
+        {(char*)"nativeOlmGetIdentityKeys", (char*)"()Ljava/lang/String;",
+         (void*)Java_chat_progressive_app_native_ProgressiveNative_nativeOlmGetIdentityKeys},
+        {(char*)"nativeOlmGenerateOneTimeKeys", (char*)"(I)Ljava/lang/String;",
+         (void*)Java_chat_progressive_app_native_ProgressiveNative_nativeOlmGenerateOneTimeKeys},
+    };
+    env->RegisterNatives(clazz, methods, 3);
+    return JNI_VERSION_1_6;
+}
 } // extern "C"
