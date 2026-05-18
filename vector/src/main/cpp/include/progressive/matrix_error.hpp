@@ -253,7 +253,7 @@ enum class HumanErrorType {
 };
 
 inline HumanErrorType classifyError(const ErrorContext& ctx) {
-    using EC = ErrorCode;
+    namespace EC = ErrorCode;
     if (ctx.isNetworkError) {
         if (ctx.isUnknownHost) return HumanErrorType::NO_NETWORK;
         if (ctx.errorCode == "SSL_PEER_UNVERIFIED") return HumanErrorType::SSL_PEER_UNVERIFIED;
