@@ -133,4 +133,18 @@ private:
     std::unordered_map<std::string, bool> agreedPolicies_; // policyUrl → agreed
 };
 
+struct AcceptTermsBody {
+    std::vector<std::string> urls;
+};
+
+inline std::string acceptTermsBodyToJson(const AcceptTermsBody& body) {
+    std::string json = R"({"urls":[)";
+    for (size_t i = 0; i < body.urls.size(); i++) {
+        if (i > 0) json += ",";
+        json += "\"" + body.urls[i] + "\"";
+    }
+    json += "]}";
+    return json;
+}
+
 } // namespace progressive

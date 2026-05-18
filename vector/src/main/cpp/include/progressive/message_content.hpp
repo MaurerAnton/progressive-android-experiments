@@ -29,6 +29,7 @@ struct EventMessageContent {
     std::string msgType;              // "msgtype" key
     std::string body;                 // "body" key — required human-readable text
     RelationDefaultContent relatesTo; // "m.relates_to" key
+    std::string relatesToRaw;         // JNI compat: raw JSON for relates_to
     std::string newContent;           // "m.new_content" key (for edits) — raw JSON or empty
     bool hasRelation = false;
     bool isEdit = false;

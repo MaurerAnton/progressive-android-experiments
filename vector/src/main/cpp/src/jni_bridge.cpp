@@ -4373,7 +4373,7 @@ JNI_FUNC(jstring, nativeMessageTextToJson)(JNIEnv* env, jclass, jstring jContent
     auto json = jStr(env, jContentJson);
     progressive::MessageTextContent m;
     m.msgType = jExtractStr(json, "msgtype"); m.body = jExtractStr(json, "body"); m.formattedBody = jExtractStr(json, "formatted_body");
-    m.format = jExtractStr(json, "format"); m.relatesTo = jExtractStr(json, "m.relates_to");
+    m.format = jExtractStr(json, "format"); m.relatesToRaw = jExtractStr(json, "m.relates_to");
     m.isFallback = jExtractBool(json, "is_fallback");
     auto r = progressive::messageTextToJson(m);
     return env->NewStringUTF(r.c_str());
@@ -4527,27 +4527,27 @@ JNI_FUNC(jstring, nativeExtractFileKey)(JNIEnv* env, jclass, jstring jKeyJson) {
 }
 JNI_FUNC(jstring, nativeEncryptedFileInfoToJson)(JNIEnv* env, jclass, jstring jInfoJson) {
     auto json = jStr(env, jInfoJson);
-    progressive::EncryptedFileInfo i;
+    progressive::EncFileInfo i;
     i.url = jExtractStr(json, "url"); i.iv = jExtractStr(json, "iv"); i.version = jExtractStr(json, "version");
-    i.key.alg = jExtractStr(json, "alg"); i.key.kty = jExtractStr(json, "kty"); i.key.k = jExtractStr(json, "k");
-    i.key.ext = jExtractBool(json, "ext");
+    i.alg = jExtractStr(json, "alg"); i.kty = jExtractStr(json, "kty"); i.k = jExtractStr(json, "k");
+    i.ext = jExtractBool(json, "ext");
     auto r = progressive::encryptedFileInfoToJson(i);
     return env->NewStringUTF(r.c_str());
 }
 JNI_FUNC(jboolean, nativeIsValidEncryptedFile)(JNIEnv* env, jclass, jstring jInfoJson) {
     auto json = jStr(env, jInfoJson);
-    progressive::EncryptedFileInfo i;
+    progressive::EncFileInfo i;
     i.url = jExtractStr(json, "url"); i.iv = jExtractStr(json, "iv"); i.version = jExtractStr(json, "version");
-    i.key.alg = jExtractStr(json, "alg"); i.key.kty = jExtractStr(json, "kty"); i.key.k = jExtractStr(json, "k");
-    i.key.ext = jExtractBool(json, "ext");
+    i.alg = jExtractStr(json, "alg"); i.kty = jExtractStr(json, "kty"); i.k = jExtractStr(json, "k");
+    i.ext = jExtractBool(json, "ext");
     return progressive::isValidEncryptedFile(i) ? JNI_TRUE : JNI_FALSE;
 }
 JNI_FUNC(jstring, nativeExtractFileIv)(JNIEnv* env, jclass, jstring jInfoJson) {
     auto json = jStr(env, jInfoJson);
-    progressive::EncryptedFileInfo i;
+    progressive::EncFileInfo i;
     i.url = jExtractStr(json, "url"); i.iv = jExtractStr(json, "iv"); i.version = jExtractStr(json, "version");
-    i.key.alg = jExtractStr(json, "alg"); i.key.kty = jExtractStr(json, "kty"); i.key.k = jExtractStr(json, "k");
-    i.key.ext = jExtractBool(json, "ext");
+    i.alg = jExtractStr(json, "alg"); i.kty = jExtractStr(json, "kty"); i.k = jExtractStr(json, "k");
+    i.ext = jExtractBool(json, "ext");
     auto r = progressive::extractFileIv(i);
     return env->NewStringUTF(r.c_str());
 }
