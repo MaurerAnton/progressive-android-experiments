@@ -4396,7 +4396,7 @@ JNI_FUNC(jstring, nativeMessageEmoteToJson)(JNIEnv* env, jclass, jstring jConten
 JNI_FUNC(jstring, nativeMessageImageToJson)(JNIEnv* env, jclass, jstring jContentJson) {
     auto json = jStr(env, jContentJson);
     progressive::MessageImageContent m;
-    m.url = jExtractStr(json, "url"); m.thumbnailUrl = jExtractStr(json, "thumbnail_url"); m.thumbnailInfo = jExtractStr(json, "thumbnail_info");
+    m.url = jExtractStr(json, "url"); m.thumbnailUrl = jExtractStr(json, "thumbnail_url"); // thumbnailInfo skipped (struct, not string)
     m.mimeType = jExtractStr(json, "mimetype"); m.filename = jExtractStr(json, "filename"); m.body = jExtractStr(json, "body");
     m.width = static_cast<int>(jExtractInt(json, "w")); m.height = static_cast<int>(jExtractInt(json, "h"));
     m.size = static_cast<int>(jExtractInt(json, "size"));

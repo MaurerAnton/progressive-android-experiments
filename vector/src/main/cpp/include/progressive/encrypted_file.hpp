@@ -34,6 +34,12 @@ struct EncryptedFileKey {
 };
 
 struct EncFileInfo {
+    // JWK flat convenience fields (JNI compat)
+    std::string alg;
+    std::string kty;
+    std::string k;
+    std::string ext;
+    std::string keyOps;
     std::string url;                     // MXC URL to the encrypted file
     EncryptedFileKey key;                // JWK key object
     std::string iv;                      // Initialisation Vector (base64)

@@ -134,14 +134,14 @@ private:
 };
 
 struct AcceptTermsBody {
-    std::vector<std::string> urls;
+    std::vector<std::string> acceptedUrls;
 };
 
 inline std::string acceptTermsBodyToJson(const AcceptTermsBody& body) {
-    std::string json = R"({"urls":[)";
-    for (size_t i = 0; i < body.urls.size(); i++) {
+    std::string json = R"({"acceptedUrls":[)";
+    for (size_t i = 0; i < body.acceptedUrls.size(); i++) {
         if (i > 0) json += ",";
-        json += "\"" + body.urls[i] + "\"";
+        json += "\"" + body.acceptedUrls[i] + "\"";
     }
     json += "]}";
     return json;
