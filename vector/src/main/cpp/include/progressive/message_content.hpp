@@ -97,6 +97,13 @@ struct EncryptedFileInfo {
     std::string iv;        // Initialisation vector
     std::string hashes;    // JSON: {"sha256":"base64..."}
     std::string version;   // "v2"
+    // JWK convenience fields (JNI flat access from EncryptedFileKey)
+    std::string alg;
+    std::string kty;
+    std::string k;
+    std::string key;
+    std::string ext;
+    std::string keyOps;
 };
 
 struct ThumbnailInfo {

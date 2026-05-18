@@ -101,6 +101,10 @@ private:
     std::vector<std::string> hidden_;
 };
 
+inline bool hasToolCalls(const std::string& /*response*/) { return false; }
+inline std::string extractTextAnswer(const std::string& /*response*/) { return ""; }
+inline std::string getAgentToolsSchema() { return "[]"; }
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_LLM_HPP

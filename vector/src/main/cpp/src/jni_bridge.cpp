@@ -51,7 +51,6 @@
 #include "progressive/text_formats.hpp"
 #include "progressive/url_tools.hpp"
 #include "progressive/event_classifier.hpp"
-#include "progressive/terms_service.hpp"
 #include "progressive/live_draft.hpp"
 #include "progressive/encrypted_file.hpp"
 #include "progressive/notif_priority.hpp"
@@ -4150,9 +4149,6 @@ JNI_FUNC(jstring, nativeFormatRedactionNotice)(JNIEnv* env, jclass, jstring jRea
 }
 
 // --- Key Backup ---
-
-JNI_FUNC(jstring, nativeValidateAndFormatRecoveryKey)(JNIEnv* env, jclass, jstring jRawKey) {
-    }
 JNI_FUNC(jstring, nativeFormatRoomNameNotice)(JNIEnv* env, jclass, jstring jName, jstring jNewName, jboolean jSelf) {
     auto result = progressive::formatRoomNameNotice(jStr(env, jName), jStr(env, jNewName), jSelf);
     return env->NewStringUTF(result.c_str());
