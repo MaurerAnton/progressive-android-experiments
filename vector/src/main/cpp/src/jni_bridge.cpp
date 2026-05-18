@@ -50,6 +50,10 @@
 #include "progressive/rainbow.hpp"
 #include "progressive/text_formats.hpp"
 #include "progressive/url_tools.hpp"
+#include "progressive/event_classifier.hpp"
+#include "progressive/terms_service.hpp"
+#include "progressive/live_draft.hpp"
+#include "progressive/encrypted_file.hpp"
 #include "progressive/notif_priority.hpp"
 #include "progressive/matrix_patterns.hpp"
 #include "progressive/content_utils.hpp"
@@ -4059,7 +4063,6 @@ JNI_FUNC(jstring, nativeComputePollResults)(JNIEnv* env, jclass, jstring jPollJs
 }
 
 // --- Location Sharing ---
-static progressive::LocationSharingManager g_locationSharing;
 
 JNI_FUNC(jstring, nativeLocationStartSession)(JNIEnv* env, jclass, jstring jSessionId, jstring jRoomId, jstring jUserId, jint jInterval) {
     progressive::LocationSession session;
@@ -4149,9 +4152,6 @@ JNI_FUNC(jstring, nativeFormatRedactionNotice)(JNIEnv* env, jclass, jstring jRea
 // --- Key Backup ---
 
 JNI_FUNC(jstring, nativeValidateAndFormatRecoveryKey)(JNIEnv* env, jclass, jstring jRawKey) {
-    auto result = progressive::validateAndFormatRecoveryKey(jStr(env, jRawKey));
-    return env->NewStringUTF(result.c_str());
-}
     }
 JNI_FUNC(jstring, nativeFormatRoomNameNotice)(JNIEnv* env, jclass, jstring jName, jstring jNewName, jboolean jSelf) {
     auto result = progressive::formatRoomNameNotice(jStr(env, jName), jStr(env, jNewName), jSelf);

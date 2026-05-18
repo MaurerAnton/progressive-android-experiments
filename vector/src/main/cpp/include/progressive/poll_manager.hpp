@@ -27,6 +27,8 @@ enum class PollKind {
     UNDISCLOSED = 1,      // Votes hidden until poll ends
 };
 
+using PollType = PollKind;  // alias for JNI compat
+
 // ---- Poll Option ----
 
 struct PollOptionFull {
@@ -179,5 +181,18 @@ private:
     // Generate option IDs (option_1, option_2, ...).
     std::string optionIdFromIndex(int index) const;
 };
+
+inline const char* pollTypeToString(PollType t) {
+    switch (t) {
+        case PollType::DISCLOSED: return "disclosed";
+        case PollType::UNDISCLOSED: return "undisclosed";
+    }
+    return "unknown";
+}
+
+inline PollType pollTypeFromString(const std::string& s) {
+    if (s == "undisclosed") return PollType::UNDISCLOSED;
+    return PollType::DISCLOSED;
+}
 
 } // namespace progressive
