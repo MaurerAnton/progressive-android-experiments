@@ -118,4 +118,74 @@ bool isEmojiOnly(const std::string& text) {
     return true;
 }
 
+std::string formatCountToShortDecimal(int64_t value) {
+    try {
+        if (value < 0) return "-" + formatCountToShortDecimal(-value);
+        if (value < 1000) return std::to_string(value);
+
+        struct Suffix { int64_t threshold; std::string suffix; };
+        static const Suffix suffixes[] = {
+            {1000000000, "G"},
+            {1000000, "M"},
+            {1000, "k"},
+        };
+
+        for (auto& s : suffixes) {
+            if (value >= s.threshold) {
+                int64_t truncated = value / (s.threshold / 10);
+                bool hasDecimal = truncated < 100 && (truncated % 10) != 0;
+                if (hasDecimal) {
+                    auto str = std::to_string(truncated / 10) + "." + std::to_string(truncated % 10) + s.suffix;
+                    return str;
+                } else {
+                    return std::to_string(truncated / 10) + s.suffix;
+                }
+            }
+        }
+        return std::to_string(value);
+    } catch (...) {
+        return std::to_string(value);
+    }
+}
+
+std::string formatDuration(int64_t totalSeconds) {
+    int64_t hours = totalSeconds / 3600;
+    int64_t minutes = (totalSeconds % 3600) / 60;
+    int64_t seconds = totalSeconds % 60;
+
+    char buf[16];
+    if (hours > 0) {
+        snprintf(buf, sizeof(buf), "%lld:%02lld:%02lld",
+                 (long long)hours, (long long)minutes, (long long)seconds);
+    } else {
+        snprintf(buf, sizeof(buf), "%02lld:%02lld",
+                 (long long)minutes, (long long)seconds);
+    }
+    return std::string(buf);
+}
+
+std::string formatDurationWithUnits(int64_t totalSeconds, bool appendSeconds) {
+    int64_t hours = totalSeconds / 3600;
+    int64_t minutes = (totalSeconds % 3600) / 60;
+    int64_t seconds = totalSeconds % 60;
+
+    std::string result;
+    auto append = [&](int64_t val, const char* unit) {
+        if (!result.empty()) result += " ";
+        result += std::to_string(val) + unit;
+    };
+
+    if (hours > 0) {
+        append(hours, "h");
+        if (minutes > 0) append(minutes, "min");
+        if (appendSeconds && seconds > 0) append(seconds, "s");
+    } else if (minutes > 0) {
+        append(minutes, "min");
+        if (appendSeconds && seconds > 0) append(seconds, "s");
+    } else {
+        append(seconds, "s");
+    }
+    return result;
+}
+
 } // namespace progressive
