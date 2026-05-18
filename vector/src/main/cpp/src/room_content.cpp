@@ -561,7 +561,7 @@ bool canJoinRoom(const RoomJoinRulesContent& rules, bool userIsInvited,
     if (userIsInvited) return true;
 
     using JR = RoomJoinRules;
-    switch (rules.joinRule) {
+    switch (rules.joinRules) {
         case JR::PUBLIC:
             return true;
         case JR::INVITE:
@@ -571,8 +571,6 @@ bool canJoinRoom(const RoomJoinRulesContent& rules, bool userIsInvited,
             return true; // can knock (request to join)
         case JR::RESTRICTED:
             // Can join if member of an allowed room/space
-            return isMemberOfAllowedRoom;
-        case JR::KNOCK_RESTRICTED:
             return isMemberOfAllowedRoom;
     }
     return false;
