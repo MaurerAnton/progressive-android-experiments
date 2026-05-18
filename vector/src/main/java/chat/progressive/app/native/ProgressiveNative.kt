@@ -2049,7 +2049,6 @@ object ProgressiveNative {
     // --- Text Format Utilities ---
 
     @JvmStatic external fun nativeFormatCountToShortDecimal(value: Long): String
-    @JvmStatic external fun nativeFormatDuration(totalSeconds: Long): String
     @JvmStatic external fun nativeFormatDurationWithUnits(totalSeconds: Long, appendSeconds: Boolean): String
     @JvmStatic external fun nativeFormatUnreadJumpLabel(unreadCount: Int, unreadMentions: Int): String
     @JvmStatic external fun nativeShouldShowJumpToUnread(readMarkerJson: String): Boolean
