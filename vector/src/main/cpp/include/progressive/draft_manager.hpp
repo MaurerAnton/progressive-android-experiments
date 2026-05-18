@@ -19,6 +19,10 @@ struct MessageDraft {
     bool isReply = false;
     bool isEdit = false;
     bool isQuote = false;
+    int type = 0;
+    std::string content;
+    std::string linkedEventId;
+    bool isValidDraft = false;
     bool hasAttachment = false;
 
     // Check if draft is valid (from UserDraft.kt:33-38).

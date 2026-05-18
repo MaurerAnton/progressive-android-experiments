@@ -5465,7 +5465,7 @@ JNI_FUNC(jstring, nativeUploadBuildContent)(JNIEnv* env, jclass, jstring jAttach
     a.exifOrientation = static_cast<int>(jExtractInt(json, "exif_orientation"));
     a.name = jExtractStr(json, "name");
     a.mimeType = jExtractStr(json, "mime_type");
-    a.type = progressive::MediaMediaContentAttachmentData::detectType(a.mimeType);
+    a.type = progressive::MediaContentAttachmentData::detectType(a.mimeType);
     a.valid = true;
     return env->NewStringUTF(getUploadMgr()->buildMediaContent(a, jStr(env, jMxcUrl)).c_str());
 }
@@ -5587,7 +5587,7 @@ JNI_FUNC(void, nativeDraftSave)(JNIEnv* env, jclass, jstring jRoomId, jstring jC
     draft.content = jStr(env, jContent);
     draft.roomId = jStr(env, jRoomId);
     draft.linkedEventId = jStr(env, jLinkedId);
-    draft.isValid = true;
+    draft.isValidDraft = true;
     getDraftMgr()->saveDraft(jStr(env, jRoomId), draft);
 }
 JNI_FUNC(jstring, nativeDraftGet)(JNIEnv* env, jclass, jstring jRoomId) {
