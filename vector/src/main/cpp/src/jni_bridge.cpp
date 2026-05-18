@@ -4608,7 +4608,7 @@ JNI_FUNC(jstring, nativeValidateWidgetSecurity)(JNIEnv* env, jclass, jstring jUr
 }
 JNI_FUNC(jstring, nativeClassifyWidgetType)(JNIEnv* env, jclass, jstring jType) {
     auto wt = progressive::classifyWidgetType(jStr(env, jType));
-    return env->NewStringUTF(progressive::getWidgetTypeName(jStr(env, jType))).c_str();
+    return env->NewStringUTF(progressive::getWidgetTypeName(jStr(env, jType)).c_str());
 }
 JNI_FUNC(jboolean, nativeIsAutoApprovedCapability)(JNIEnv* env, jclass, jint jCap, jstring jWidgetType) {
     return progressive::isAutoApprovedCapability(

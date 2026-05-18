@@ -7,6 +7,8 @@
 
 namespace progressive {
 
+#ifndef PROGRESSIVE_REACTION_INFO_DEFINED
+#define PROGRESSIVE_REACTION_INFO_DEFINED
 struct ReactionInfo {
     std::string emoji;         // "👍"
     int count = 0;
