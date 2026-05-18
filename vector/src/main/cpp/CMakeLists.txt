@@ -106,6 +106,17 @@ add_library(
     src/event_utils.cpp
     src/room_directory.cpp
     src/widget_utils.cpp
+    src/server_notice_manager.cpp
+    src/room_state_manager.cpp
+    src/device_manager_full.cpp
+    src/cross_signing_manager.cpp
+    src/content_utils.cpp
+    src/composer_manager.cpp
+    src/login_flow.cpp
+    src/room_directory_manager.cpp
+    src/poll_manager.cpp
+    src/room_name.cpp
+    src/space_graph.cpp
     src/widget_manager.cpp
     src/call_manager.cpp
     src/sso_utils.cpp
