@@ -5583,16 +5583,16 @@ JNI_FUNC(void, nativeCrossSigningTrustMaster)(JNIEnv* env, jclass) {
 }
 JNI_FUNC(void, nativeDraftSave)(JNIEnv* env, jclass, jstring jRoomId, jstring jContent, jint jType, jstring jLinkedId) {
     progressive::UserDraft draft;
-    draft.type = static_cast<progressive::DraftType>(jType);
+    draft.type = static_cast<int>(jType);
     draft.content = jStr(env, jContent);
     draft.roomId = jStr(env, jRoomId);
     draft.linkedEventId = jStr(env, jLinkedId);
     draft.isValidDraft = true;
-    getDraftMgr()->saveDraft(jStr(env, jRoomId), draft);
+    draft.roomId = jStr(env, jRoomId); getDraftMgr()->saveDraft(draft);
 }
 JNI_FUNC(jstring, nativeDraftGet)(JNIEnv* env, jclass, jstring jRoomId) {
     progressive::UserDraft draft;
-    if (getDraftMgr()->getDraft(jStr(env, jRoomId), draft))
+    auto* d = getDraftMgr()->getDraft(jStr(env, jRoomId)); if (d) { draft = *d;
         return env->NewStringUTF(getDraftMgr()->draftToJson(draft).c_str());
     return env->NewStringUTF("{}");
 }
@@ -5610,11 +5610,11 @@ JNI_FUNC(jstring, nativeDraftStripPrefix)(JNIEnv* env, jclass, jstring jText) {
 }
 JNI_FUNC(jstring, nativeRoomStateParseVisibility)(JNIEnv* env, jclass, jstring jContent) {
     auto vis = progressive::parseRoomHistoryVisibilityContent(jStr(env, jContent));
-    return env->NewStringUTF(progressive::roomHistoryVisibilityToString(vis));
+    return env->NewStringUTF(progressive::roomHistoryVisibilityToString(vis.historyVisibility));
 }
 JNI_FUNC(jstring, nativeRoomStateParseJoinRules)(JNIEnv* env, jclass, jstring jContent) {
     auto rule = progressive::parseRoomJoinRulesContent(jStr(env, jContent));
-    return env->NewStringUTF(progressive::roomJoinRulesToString(rule));
+    return env->NewStringUTF(progressive::roomJoinRulesToString(rule.joinRules));
 }
 JNI_FUNC(jboolean, nativeRoomStateShouldShare)(JNIEnv* env, jclass, jstring jContent) {
     auto vis = progressive::parseRoomHistoryVisibilityContent(jStr(env, jContent));

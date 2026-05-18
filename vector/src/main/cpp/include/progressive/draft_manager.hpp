@@ -58,6 +58,8 @@ public:
 
     // Clear all drafts.
     void clear();
+    void autoSaveIfQualified(const std::string&, const std::string&) {}
+    std::string stripDraftPrefix(const std::string& t) { return t; }
 
 private:
     std::unordered_map<std::string, MessageDraft> drafts_;
