@@ -118,44 +118,6 @@ bool isEmojiOnly(const std::string& text) {
     return true;
 }
 
-std::string formatDuration(int64_t totalSeconds) {
-    int64_t hours = totalSeconds / 3600;
-    int64_t minutes = (totalSeconds % 3600) / 60;
-    int64_t seconds = totalSeconds % 60;
 
-    char buf[16];
-    if (hours > 0) {
-        snprintf(buf, sizeof(buf), "%lld:%02lld:%02lld",
-                 (long long)hours, (long long)minutes, (long long)seconds);
-    } else {
-        snprintf(buf, sizeof(buf), "%02lld:%02lld",
-                 (long long)minutes, (long long)seconds);
-    }
-    return std::string(buf);
-}
-
-std::string formatDurationWithUnits(int64_t totalSeconds, bool appendSeconds) {
-    int64_t hours = totalSeconds / 3600;
-    int64_t minutes = (totalSeconds % 3600) / 60;
-    int64_t seconds = totalSeconds % 60;
-
-    std::string result;
-    auto append = [&](int64_t val, const char* unit) {
-        if (!result.empty()) result += " ";
-        result += std::to_string(val) + unit;
-    };
-
-    if (hours > 0) {
-        append(hours, "h");
-        if (minutes > 0) append(minutes, "min");
-        if (appendSeconds && seconds > 0) append(seconds, "s");
-    } else if (minutes > 0) {
-        append(minutes, "min");
-        if (appendSeconds && seconds > 0) append(seconds, "s");
-    } else {
-        append(seconds, "s");
-    }
-    return result;
-}
 
 } // namespace progressive

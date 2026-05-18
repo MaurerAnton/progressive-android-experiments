@@ -668,20 +668,5 @@ std::string WidgetManager::buildGlobalCsp() const {
 }
 
 // Utility wrapper from widget_utils (kept for backward compat)
-std::string getWidgetTypeName(const std::string& type) {
-    switch (classifyWidgetType(type)) {
-        case WidgetType::JITSI: return "Video Conference";
-        case WidgetType::ETHERPAD: return "Collaborative Document";
-        case WidgetType::CUSTOM: return "Custom Widget";
-        case WidgetType::STICKERPICKER: return "Sticker Picker";
-        case WidgetType::CALCULATOR: return "Calculator";
-        case WidgetType::YOUTUBE: return "YouTube";
-        case WidgetType::SPOTIFY: return "Spotify";
-        case WidgetType::WHITEBOARD: return "Whiteboard";
-        case WidgetType::DIAGRAM: return "Diagram";
-        case WidgetType::GOOGLE_DOCS: return "Google Docs";
-        default: return type;
-    }
-}
 
 } // namespace progressive
