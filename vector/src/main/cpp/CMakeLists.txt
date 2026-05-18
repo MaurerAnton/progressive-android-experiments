@@ -107,7 +107,6 @@ add_library(
     src/room_directory.cpp
     src/widget_utils.cpp
     src/room_directory_manager.cpp
-    src/poll_manager.cpp
     src/room_name.cpp
     src/space_graph.cpp
     src/widget_manager.cpp
