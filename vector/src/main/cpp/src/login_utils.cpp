@@ -173,9 +173,13 @@ bool needsWellKnownDiscovery(const std::string& homeserverUrl) {
            homeserverUrl.find("://matrix") == std::string::npos;
 }
 
+#if 0 // Duplicate — moved to raw_service.cpp
+
 std::string buildWellKnownUrl(const std::string& domain) {
     return "https://" + domain + "/.well-known/matrix/client";
 }
+#endif
+
 
 // ==== Registration Flow Parser (from RegistrationFlowResponse.kt:78-115) ====
 
