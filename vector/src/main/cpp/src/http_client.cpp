@@ -14,8 +14,8 @@ namespace progressive {
 
 // ==== URL Parsing ====
 
-ParsedUrl parseUrl(const std::string& url) {
-    ParsedUrl result;
+HttpParsedUrl parseHttpUrl(const std::string& url) {
+    HttpParsedUrl result;
 
     // Find scheme
     auto schemeEnd = url.find("://");
@@ -48,7 +48,7 @@ ParsedUrl parseUrl(const std::string& url) {
 // ==== HTTP Protocol Formatting ====
 
 static std::string buildHttpRequest(const HttpRequest& req) {
-    auto parsed = parseUrl(req.url);
+    auto parsed = parseHttpUrl(req.url);
     if (!parsed.valid) return "";
 
     std::ostringstream os;
@@ -147,7 +147,7 @@ HttpResponse httpExecute(const HttpRequest& req) {
     }
 
     // Parse URL to get host/port
-    auto parsed = parseUrl(req.url);
+    auto parsed = parseHttpUrl(req.url);
     if (!parsed.valid) {
         return {0, "", {}, false, "Failed to parse URL: " + req.url};
     }
@@ -207,7 +207,7 @@ static std::string extractJsonString(const std::string& json, const std::string&
     return json.substr(pos, end - pos);
 }
 
-MatrixErrorResponse parseMatrixError(const std::string& responseBody) {
+MatrixErrorResponse parseHttpMatrixError(const std::string& responseBody) {
     MatrixErrorResponse err;
     err.errcode = extractJsonString(responseBody, "errcode");
     err.error = extractJsonString(responseBody, "error");

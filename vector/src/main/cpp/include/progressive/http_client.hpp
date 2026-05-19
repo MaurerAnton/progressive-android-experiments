@@ -39,7 +39,7 @@ struct HttpResponse {
 
 // ==== URL Parsing ====
 
-struct ParsedUrl {
+struct HttpParsedUrl {
     std::string scheme;          // "https" or "http"
     std::string host;            // "matrix.example.org"
     int port = 443;              // default: 443 for https, 80 for http
@@ -48,7 +48,7 @@ struct ParsedUrl {
 };
 
 // Parse URL into components. Handles matrix:// and https:// schemes.
-ParsedUrl parseUrl(const std::string& url);
+HttpParsedUrl parseHttpUrl(const std::string& url);
 
 // ==== HTTP Client ====
 
@@ -123,7 +123,7 @@ struct MatrixErrorResponse {
     int retryAfterMs = 0;    // From "retry_after_ms" field or 0
 };
 
-MatrixErrorResponse parseMatrixError(const std::string& responseBody);
+MatrixErrorResponse parseHttpMatrixError(const std::string& responseBody);
 
 // Check if an HTTP response indicates a rate limit (429 Too Many Requests).
 inline bool isRateLimited(const HttpResponse& resp) { return resp.statusCode == 429; }
