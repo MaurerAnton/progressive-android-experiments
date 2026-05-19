@@ -30,6 +30,7 @@ class VectorSettingsHelpAboutFragment :
 
     @Inject lateinit var versionProvider: VersionProvider
     @Inject lateinit var buildMeta: BuildMeta
+    @Inject lateinit var vectorPreferences: VectorPreferences
 
     override var titleRes = CommonStrings.preference_root_help_about
     override val preferenceXmlRes = R.xml.vector_settings_help_about
