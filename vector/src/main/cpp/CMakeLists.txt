@@ -45,7 +45,6 @@ add_library(
     src/module_loader.cpp
     src/notification.cpp
     src/room_mirror.cpp
-    src/room_name.cpp
     src/input_tools.cpp
     src/llm.cpp
     src/read_receipts.cpp
@@ -98,18 +97,15 @@ add_library(
     src/identity_utils.cpp
     src/notif_analyzer.cpp
     src/sync_analyzer.cpp
-    src/sync_filter.cpp
     src/sync_models.cpp
     src/user_rating.cpp
     src/event_timeline.cpp
     src/event_utils.cpp
-    src/eventdb.cpp
     src/room_directory.cpp
     src/widget_utils.cpp
     src/sso_utils.cpp
     src/backup_utils.cpp
     src/device_manager.cpp
-    src/device_naming.cpp
     src/presence_utils.cpp
     src/room_permissions.cpp
     src/room_summary.cpp
@@ -118,7 +114,6 @@ add_library(
     src/event_validator.cpp
     src/room_encryption.cpp
     src/login_utils.cpp
-    src/login_flow.cpp
     src/account_utils.cpp
     src/connection_monitor.cpp
     src/create_room.cpp
@@ -137,7 +132,6 @@ add_library(
     src/signout_service.cpp
     src/auth_utils.cpp
     src/content_scanner.cpp
-    src/content_utils.cpp
     src/event_encryption.cpp
     src/event_models.cpp
     src/federation_version.cpp
@@ -170,7 +164,6 @@ add_library(
     src/power_levels.cpp
     src/well_known.cpp
     src/room_sort.cpp
-    src/room_state.cpp
     src/key_backup.cpp
     src/notif_format.cpp
     src/notif_formatter.cpp
