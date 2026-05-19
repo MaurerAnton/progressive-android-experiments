@@ -14,7 +14,6 @@ add_library(
     src/translate.cpp
     src/proxy.cpp
     src/yggdrasil.cpp
-    src/markdown.cpp
     src/matrix_api.cpp
     src/account_data_utils.cpp
     src/account_export.cpp
@@ -99,7 +98,6 @@ add_library(
     src/identity_utils.cpp
     src/notif_analyzer.cpp
     src/sync_analyzer.cpp
-    src/sync_models.cpp
     src/user_rating.cpp
     src/event_timeline.cpp
     src/event_utils.cpp
