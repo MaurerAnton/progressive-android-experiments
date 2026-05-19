@@ -218,7 +218,7 @@ RoomSyncFilter getDefaultSyncFilter() {
         "m.room.tombstone"
     };
 
-    return buildRoomSyncFilter(params, false);
+    return buildSyncFilter(params, false);
 }
 
 bool hasActiveFiltering(const RoomSyncFilter& filter) {

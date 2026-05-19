@@ -841,10 +841,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeDecideRetry(retryCount: Int, errorCode: Int, retryAfterHeader: String): String
     @JvmStatic external fun nativeFormatMessageStatus(state: Int): String
 
-    // --- Sync Utils ---
-
-    @JvmStatic external fun nativeBuildSyncFilter(includeThreads: Boolean, includePresence: Boolean, timelineLimit: Int): String
-
     // --- Event Display ---
 
     @JvmStatic external fun nativeClassifyEvent(eventType: String, msgType: String): Int
@@ -1264,7 +1260,6 @@ object ProgressiveNative {
     // --- Media Utilities ---
 
     @JvmStatic external fun nativeCalculateThumbnailSize(origW: Int, origH: Int, maxW: Int, maxH: Int): String
-    @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
     @JvmStatic external fun nativeSanitizeFilename(name: String, maxLen: Int): String
 
     // --- Account Data ---
