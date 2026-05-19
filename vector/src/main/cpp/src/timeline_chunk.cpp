@@ -170,7 +170,7 @@ std::vector<int> TimelineChunkManager::computeDisplayIndices(
 
 // ==== Reply-Map Building ====
 
-std::unordered_map<std::string, std::vector<std::string>
+std::unordered_map<std::string, std::vector<std::string>>
 TimelineChunkManager::buildReplyMap() const {
     std::unordered_map<std::string, std::vector<std::string>> replyMap;
 
