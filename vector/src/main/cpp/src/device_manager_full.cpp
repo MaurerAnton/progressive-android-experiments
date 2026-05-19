@@ -1,6 +1,4 @@
 #include "progressive/device_manager_full.hpp"
-#include <unordered_map>
-#include "progressive/room_content.hpp"
 #include <sstream>
 #include <algorithm>
 #include <ctime>

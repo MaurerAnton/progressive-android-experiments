@@ -1,6 +1,4 @@
 #include "progressive/room_name.hpp"
-#include <unordered_map>
-#include "progressive/room_content.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
