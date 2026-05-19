@@ -1,7 +1,7 @@
 #include "progressive/well_known.hpp"
 #include <sstream>
 #include <cctype>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

@@ -1,7 +1,7 @@
 #include "progressive/translate.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

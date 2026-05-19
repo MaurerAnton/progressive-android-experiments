@@ -4,8 +4,8 @@
 #include <regex>
 #include <algorithm>
 #include <cctype>
-#include <<algorithm>>
-#include <<regex>>
+#include <algorithm>
+#include <regex>
 
 namespace progressive {
 

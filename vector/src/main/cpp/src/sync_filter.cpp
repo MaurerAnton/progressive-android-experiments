@@ -1,6 +1,6 @@
 #include "progressive/sync_filter.hpp"
 #include <sstream>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

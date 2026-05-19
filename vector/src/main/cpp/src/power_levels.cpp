@@ -1,6 +1,6 @@
 #include "progressive/power_levels.hpp"
 #include <sstream>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

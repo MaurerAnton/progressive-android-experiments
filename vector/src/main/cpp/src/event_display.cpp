@@ -1,6 +1,6 @@
 #include "progressive/event_display.hpp"
 #include <sstream>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

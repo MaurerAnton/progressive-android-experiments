@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <<map>>
+#include <map>
 
 namespace progressive {
 

@@ -3,7 +3,7 @@
 #include <sstream>
 #include <cstring>
 #include <vector>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

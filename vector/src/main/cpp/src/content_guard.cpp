@@ -1,7 +1,7 @@
 #include "progressive/content_guard.hpp"
 #include <sstream>
 #include <unordered_set>
-#include <<unordered_set>>
+#include <unordered_set>
 
 namespace progressive {
 

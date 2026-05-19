@@ -2,7 +2,7 @@
 #include <sstream>
 #include <ctime>
 #include <vector>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

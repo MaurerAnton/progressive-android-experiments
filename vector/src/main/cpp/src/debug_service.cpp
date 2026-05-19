@@ -1,6 +1,6 @@
 #include "progressive/debug_service.hpp"
 #include <sstream>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

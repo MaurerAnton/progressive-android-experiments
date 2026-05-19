@@ -1,7 +1,7 @@
 #include "progressive/string_order.hpp"
 #include <sstream>
 #include <algorithm>
-#include <<algorithm>>
+#include <algorithm>
 
 namespace progressive {
 

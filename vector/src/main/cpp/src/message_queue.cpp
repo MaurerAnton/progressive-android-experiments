@@ -4,10 +4,10 @@
 #include <cctype>
 #include <chrono>
 #include <unordered_set>
-#include <<algorithm>>
-#include <<chrono>>
-#include <<sstream>>
-#include <<unordered_set>>
+#include <algorithm>
+#include <chrono>
+#include <sstream>
+#include <unordered_set>
 
 namespace progressive {
 

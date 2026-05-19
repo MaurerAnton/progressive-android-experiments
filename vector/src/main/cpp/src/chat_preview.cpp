@@ -1,7 +1,7 @@
 #include "progressive/chat_preview.hpp"
 #include <sstream>
 #include <ctime>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

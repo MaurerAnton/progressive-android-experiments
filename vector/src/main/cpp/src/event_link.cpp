@@ -2,9 +2,9 @@
 #include <sstream>
 #include <regex>
 #include <ctime>
-#include <<algorithm>>
-#include <<regex>>
-#include <<sstream>>
+#include <algorithm>
+#include <regex>
+#include <sstream>
 
 namespace progressive {
 

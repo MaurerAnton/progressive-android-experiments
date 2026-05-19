@@ -2,7 +2,7 @@
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <iomanip>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

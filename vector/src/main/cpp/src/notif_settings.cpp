@@ -1,6 +1,6 @@
 #include "progressive/notif_settings.hpp"
 #include <sstream>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

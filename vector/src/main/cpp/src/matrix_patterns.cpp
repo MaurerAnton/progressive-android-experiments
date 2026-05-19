@@ -1,7 +1,7 @@
 #include "progressive/matrix_patterns.hpp"
 #include <regex>
 #include <algorithm>
-#include <<regex>>
+#include <regex>
 
 namespace progressive {
 

@@ -1,6 +1,6 @@
 #include "progressive/matrix_error.hpp"
 #include <sstream>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <ctime>
 #include <unordered_set>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 

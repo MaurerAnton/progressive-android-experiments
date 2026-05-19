@@ -2,8 +2,8 @@
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <algorithm>
-#include <<algorithm>>
-#include <<sstream>>
+#include <algorithm>
+#include <sstream>
 
 namespace progressive {
 

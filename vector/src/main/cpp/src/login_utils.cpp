@@ -5,7 +5,7 @@
 #include <regex>
 #include <algorithm>
 #include <random>
-#include <<sstream>>
+#include <sstream>
 
 namespace progressive {
 
