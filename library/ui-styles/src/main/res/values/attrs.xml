@@ -33,34 +33,18 @@
     <attr name="room_color_hash_02" format="reference|color" />
     <attr name="room_color_hash_03" format="reference|color" />
 
-    <!-- Location sharing custom attrs -->
-    <attr name="locLiveEndedBkgWithAlpha" format="reference|color" />
-    <attr name="locLiveEndedIconMarginStart" format="dimension" />
-    <attr name="locShareIcon" format="reference" />
-    <attr name="locShareIconBackground" format="reference|color" />
-    <attr name="locShareIconBackgroundTint" format="reference|color" />
-    <attr name="locShareIconDescription" format="string" />
-    <attr name="locShareIconPadding" format="dimension" />
-    <attr name="locShareTitle" format="string" />
-    <attr name="showLocateButton" format="boolean" />
-    <attr name="mapErrorDescription" format="string" />
-    <attr name="maplibre_renderTextureMode" format="boolean" />
-
     <!-- Custom Element/Progressive misc attrs -->
     <attr name="codeBlockBackgroundDrawable" format="reference" />
     <attr name="inlineCodeMultiLineBgLeft" format="reference" />
     <attr name="inlineCodeMultiLineBgMid" format="reference" />
     <attr name="inlineCodeMultiLineBgRight" format="reference" />
     <attr name="inlineCodeSingleLineBg" format="reference" />
-    <attr name="incoming_style" format="reference" />
     <attr name="unread_line_unimportant" format="reference" />
     <attr name="timestamp_overlay_bg" format="reference|color" />
     <attr name="timestamp_overlay_fg" format="reference|color" />
     <attr name="color_warning" format="reference|color" />
-    <attr name="isBarRounded" format="boolean" />
     <attr name="dense_dropdown_text_input" format="dimension" />
     <attr name="failureImageInitScaleType" format="reference" />
     <attr name="isPreferenceVisible" format="boolean" />
     <attr name="optimizeDisplay" format="boolean" />
-    <attr name="maxHeight" format="dimension" />
 </resources>
