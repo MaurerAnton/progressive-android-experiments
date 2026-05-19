@@ -109,8 +109,6 @@ add_library(
     src/voice_broadcast.cpp
     src/sync_handler.cpp
     src/decryptor_utils.cpp
-    src/cross_signing_manager.cpp
-    src/content_utils.cpp
     src/widget_manager.cpp
     src/user_directory.cpp
     src/transparent_overlay.cpp
