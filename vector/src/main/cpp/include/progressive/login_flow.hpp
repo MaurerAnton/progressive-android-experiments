@@ -48,7 +48,7 @@ struct SsoProvider {
     std::string iconUrl;         // optional icon URL
 };
 
-struct LoginAuthFlow {
+struct LoginFlow {
     LoginFlowType type = LoginFlowType::Unknown;
     std::string rawType;         // original string from JSON
     std::vector<SsoProvider> ssoProviders; // for SSO flows only
