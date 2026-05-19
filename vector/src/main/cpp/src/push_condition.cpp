@@ -1,6 +1,7 @@
 #include "progressive/push_condition.hpp"
 #include <sstream>
 #include <cctype>
+#include <sstream>
 
 namespace progressive {
 

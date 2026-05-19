@@ -2,6 +2,10 @@
 #include <algorithm>
 #include <sstream>
 #include <limits>
+#include <algorithm>
+#include <sstream>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace progressive {
 
@@ -166,7 +170,7 @@ std::vector<int> TimelineChunkManager::computeDisplayIndices(
 
 // ==== Reply-Map Building ====
 
-std::unordered_map<std::string, std::vector<std::string>>
+std::unordered_map<std::string, std::vector<std::string>
 TimelineChunkManager::buildReplyMap() const {
     std::unordered_map<std::string, std::vector<std::string>> replyMap;
 

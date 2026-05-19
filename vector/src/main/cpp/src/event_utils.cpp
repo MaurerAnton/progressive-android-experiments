@@ -1,6 +1,7 @@
 #include "progressive/event_utils.hpp"
 #include <algorithm>
 #include <sstream>
+#include <unordered_map>
 
 namespace progressive {
 

@@ -1,6 +1,9 @@
 #include "progressive/room_counter.hpp"
 #include <algorithm>
 #include <sstream>
+#include <algorithm>
+#include <sstream>
+#include <unordered_map>
 
 namespace progressive {
 

@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <regex>
+#include <unordered_set>
 
 namespace progressive {
 

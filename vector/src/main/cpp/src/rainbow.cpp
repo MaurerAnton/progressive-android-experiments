@@ -2,6 +2,7 @@
 #include <sstream>
 #include <cmath>
 #include <iomanip>
+#include <sstream>
 
 namespace progressive {
 

@@ -1,6 +1,8 @@
 #include "progressive/eventcache.hpp"
 #include <sstream>
 #include <android/log.h>
+#include <algorithm>
+#include <sstream>
 
 #define LOG_TAG "EventCache"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)

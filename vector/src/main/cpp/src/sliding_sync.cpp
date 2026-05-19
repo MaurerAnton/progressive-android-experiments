@@ -2,6 +2,8 @@
 #include "progressive/http_client.hpp"
 #include <sstream>
 #include <algorithm>
+#include <sstream>
+#include <unordered_map>
 
 namespace progressive {
 

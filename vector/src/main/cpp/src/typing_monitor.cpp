@@ -1,6 +1,7 @@
 #include "progressive/typing_monitor.hpp"
 #include <sstream>
 #include <algorithm>
+#include <sstream>
 
 namespace progressive {
 

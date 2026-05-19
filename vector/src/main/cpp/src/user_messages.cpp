@@ -1,6 +1,8 @@
 #include "progressive/user_messages.hpp"
 #include <algorithm>
 #include <sstream>
+#include <algorithm>
+#include <sstream>
 
 namespace progressive {
 

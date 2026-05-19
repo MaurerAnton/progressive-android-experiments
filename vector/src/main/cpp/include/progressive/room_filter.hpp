@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <algorithm>
+#include <unordered_map>
 
 namespace progressive {
 

@@ -1,6 +1,7 @@
 #include "progressive/room_sort.hpp"
 #include <sstream>
 #include <algorithm>
+#include <algorithm>
 
 namespace progressive {
 

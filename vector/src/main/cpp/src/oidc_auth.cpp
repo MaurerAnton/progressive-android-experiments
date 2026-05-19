@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
+#include <sstream>
 
 namespace progressive {
 

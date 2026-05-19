@@ -2,6 +2,8 @@
 #include "progressive/tls_bridge.hpp"
 #include <cstring>
 #include <sstream>
+#include <sstream>
+#include <unordered_map>
 
 // Note: Full implementation requires JNI bridge for TLS socket.
 // The C++ side handles HTTP protocol formatting and parsing.

@@ -5,6 +5,9 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace progressive {
 
@@ -72,7 +75,7 @@ public:
     // Detects ALL cycles in the graph (including disconnected components/forests)
     std::vector<GraphEdge> findBackwardEdges(const GraphNode* startFrom = nullptr);
 
-    // Original Kotlin: fun flattenDestination(): Map<GraphNode, Set<GraphNode>>
+    // Original Kotlin: fun flattenDestination(): Map<GraphNode, Set<GraphNode>
     // Transitive closure — for each vertex, returns ALL reachable nodes
     // Only call on acyclic graph!
     std::unordered_map<GraphNode, std::unordered_set<GraphNode, GraphNodeHash>, GraphNodeHash>

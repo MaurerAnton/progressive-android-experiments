@@ -4,6 +4,9 @@
 #include <cmath>
 #include <chrono>
 #include <iomanip>
+#include <algorithm>
+#include <chrono>
+#include <sstream>
 
 namespace progressive {
 

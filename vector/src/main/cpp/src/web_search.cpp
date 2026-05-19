@@ -1,5 +1,6 @@
 #include "progressive/web_search.hpp"
 #include <sstream>
+#include <sstream>
 
 namespace progressive {
 

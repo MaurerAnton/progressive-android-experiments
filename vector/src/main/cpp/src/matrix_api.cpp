@@ -1,6 +1,8 @@
 #include "progressive/matrix_api.hpp"
 #include "progressive/tls_bridge.hpp"
 #include <sstream>
+#include <sstream>
+#include <unordered_map>
 
 namespace progressive {
 

@@ -1,6 +1,8 @@
 #include "progressive/unified_push.hpp"
 #include "progressive/http_client.hpp"
 #include <sstream>
+#include <sstream>
+#include <unordered_map>
 
 namespace progressive {
 
