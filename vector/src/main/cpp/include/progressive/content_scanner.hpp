@@ -32,6 +32,8 @@ std::string formatScanResult(const ScanResult& result);
 
 // ---- Server Notice Management ----
 
+#ifndef PROGRESSIVE_SERVER_NOTICE_DEFINED
+#define PROGRESSIVE_SERVER_NOTICE_DEFINED
 struct ServerNotice {
     std::string eventId;
     std::string body;
@@ -41,6 +43,7 @@ struct ServerNotice {
     bool isRead = false;
     bool isDismissed = false;
 };
+#endif
 
 // Parse server notice from Matrix event.
 ServerNotice parseServerNotice(const std::string& eventContentJson, const std::string& eventId);
