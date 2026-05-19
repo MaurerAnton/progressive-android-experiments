@@ -101,16 +101,16 @@ bool setUnifiedPushPusher(const UnifiedPushPusherConfig& config,
 
 UnifiedPushMessage parseUnifiedPushMessage(const std::string& json) {
     // Helper: extract JSON string value
-    auto extract = [&](const std::string& key) -> std::string {
-        auto pos = json.find("\"" + key + "\"");
+    auto extract = [&](const std::string& source, const std::string& key) -> std::string {
+        auto pos = source.find("\"" + key + "\"");
         if (pos == std::string::npos) return "";
-        pos = json.find(':', pos);
+        pos = source.find(':', pos);
         if (pos == std::string::npos) return "";
         pos++;
-        while (pos < json.size() && (json[pos] == ' ' || json[pos] == '\t' || json[pos] == '"')) pos++;
+        while (pos < source.size() && (source[pos] == ' ' || source[pos] == '\t' || source[pos] == '"')) pos++;
         size_t end = pos;
-        while (end < json.size() && json[end] != '"') { if (json[end] == '\\') end++; end++; }
-        return json.substr(pos, end - pos);
+        while (end < source.size() && source[end] != '"') { if (source[end] == '\\') end++; end++; }
+        return source.substr(pos, end - pos);
     };
 
     UnifiedPushMessage msg;
