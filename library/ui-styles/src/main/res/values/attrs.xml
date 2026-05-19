@@ -40,8 +40,6 @@
     <attr name="inlineCodeMultiLineBgRight" format="reference" />
     <attr name="inlineCodeSingleLineBg" format="reference" />
     <attr name="unread_line_unimportant" format="reference" />
-    <attr name="timestamp_overlay_bg" format="reference|color" />
-    <attr name="timestamp_overlay_fg" format="reference|color" />
     <attr name="color_warning" format="reference|color" />
     <attr name="dense_dropdown_text_input" format="dimension" />
     <attr name="failureImageInitScaleType" format="reference" />
