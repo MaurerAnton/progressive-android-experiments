@@ -31,7 +31,7 @@ AccountData jsonToAccount(const std::string& json) {
     AccountData data;
     // Manual string parsing (no nlohmann/json dependency)
     auto getStr = [&](const std::string& key) -> std::string {
-        auto search = "\"" + key + "\": \"";
+        std::string search = "\"" + key + "\": \"";
         auto pos = json.find(search);
         if (pos == std::string::npos) return "";
         pos += search.size();

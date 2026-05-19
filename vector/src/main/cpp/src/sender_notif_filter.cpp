@@ -129,7 +129,7 @@ SenderNotifSettings parseSenderNotifSettings(const std::string& json) {
     SenderNotifSettings settings;
 
     auto extractStr = [&](const std::string& key) -> std::string {
-        auto search = "\"" + key + "\":\"";
+        std::string search = "\"" + key + "\":\"";
         auto pos = json.find(search);
         if (pos == std::string::npos) {
             search = "\"" + key + "\": \"";

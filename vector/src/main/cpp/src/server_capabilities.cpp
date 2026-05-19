@@ -143,7 +143,7 @@ ServerHomeServerCapabilities parseCapabilities(const std::string& json) {
 
     // Simple JSON extractors
     auto extractBool = [&](const std::string& key, bool defaultVal = false) -> bool {
-        auto search = "\"" + key + "\":";
+        std::string search = "\"" + key + "\":";
         auto pos = json.find(search);
         if (pos == std::string::npos) return defaultVal;
         pos += search.size();
@@ -153,7 +153,7 @@ ServerHomeServerCapabilities parseCapabilities(const std::string& json) {
     };
 
     auto extractStr = [&](const std::string& key) -> std::string {
-        auto search = "\"" + key + "\":\"";
+        std::string search = "\"" + key + "\":\"";
         auto pos = json.find(search);
         if (pos == std::string::npos) return "";
         pos += search.size();

@@ -5,7 +5,7 @@ namespace progressive {
 
 // Helper: extract integer value for a JSON key
 static int getInt(const std::string& json, const std::string& key, int defaultVal = 0) {
-    auto search = "\"" + key + "\":";
+    std::string search = "\"" + key + "\":";
     auto pos = json.find(search);
     if (pos == std::string::npos) return defaultVal;
     pos += search.size();

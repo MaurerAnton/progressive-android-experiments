@@ -2592,7 +2592,7 @@ JNI_FUNC(jstring, nativeBuildCallHangupContent)(JNIEnv* env, jclass, jstring jCa
 }
 
 JNI_FUNC(jstring, nativeFormatCallNotification)(JNIEnv* env, jclass, jstring jCallJson) {
-    // Parse CallInfo from JSON, format notification
+    // Parse CallSession from JSON, format notification
     auto json = jStr(env, jCallJson);
     progressive::CallSession call;
     auto extractStr = [&](const std::string& key) -> std::string {

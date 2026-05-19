@@ -182,7 +182,7 @@ RegistrationFlowResult parseRegistrationFlow(const std::string& json) {
     RegistrationFlowResult result;
 
     auto extractStr = [&](const std::string& key) -> std::string {
-        auto search = "\"" + key + "\":\"";
+        std::string search = "\"" + key + "\":\"";
         auto pos = json.find(search);
         if (pos == std::string::npos) { search = "\"" + key + "\": \""; pos = json.find(search); }
         if (pos == std::string::npos) return "";

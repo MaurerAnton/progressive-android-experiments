@@ -1,4 +1,5 @@
 #include "progressive/room_content.hpp"
+#include <sstream>
 
 namespace progressive {
 
@@ -574,6 +575,267 @@ bool canJoinRoom(const RoomJoinRulesContent& rules, bool userIsInvited,
             return isMemberOfAllowedRoom;
     }
     return false;
+}
+
+// ==== RoomTopicEventContent ====
+// Original Kotlin (RoomTopicContent.kt:26-27):
+//   data class RoomTopicContent(@Json(name="topic") topic: String?)
+
+RoomTopicEventContent parseRoomTopicEventContent(const std::string& contentJson) {
+    RoomTopicEventContent c;
+    c.topic = extractJsonString(contentJson, "topic");
+    return c;
+}
+
+std::string buildRoomTopicEventContent(const RoomTopicEventContent& content) {
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"topic":")" << esc(content.topic) << R"("})";
+    return json.str();
+}
+
+// ==== RoomAvatarEventContent ====
+// Original Kotlin (RoomAvatarContent.kt:26-27):
+//   data class RoomAvatarContent(@Json(name="url") avatarUrl: String?)
+// Event content: {"url": "mxc://...", "info": {"w": 100, "h": 100, "size": 1000, "mimetype": "image/png"}, "thumbnail_url": "mxc://...", "thumbnail_info": {...}}
+
+RoomAvatarEventContent parseRoomAvatarEventContent(const std::string& contentJson) {
+    RoomAvatarEventContent c;
+    c.url = extractJsonString(contentJson, "url");
+    c.thumbnailUrl = extractJsonString(contentJson, "thumbnail_url");
+
+    auto infoJson = extractJsonObject(contentJson, "thumbnail_info");
+    if (infoJson.empty()) {
+        infoJson = extractJsonObject(contentJson, "info");
+    }
+    if (!infoJson.empty()) {
+        c.thumbnailInfo.w = extractJsonInt(infoJson, "w");
+        c.thumbnailInfo.h = extractJsonInt(infoJson, "h");
+        c.thumbnailInfo.size = extractJsonInt(infoJson, "size");
+        c.thumbnailInfo.mimetype = extractJsonString(infoJson, "mimetype");
+    }
+
+    return c;
+}
+
+std::string buildRoomAvatarEventContent(const RoomAvatarEventContent& content) {
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"url":")" << esc(content.url) << R"(")";
+    if (!content.thumbnailUrl.empty())
+        json << R"(,"thumbnail_url":")" << esc(content.thumbnailUrl) << R"(")";
+    bool hasInfo = (content.thumbnailInfo.w > 0 || content.thumbnailInfo.h > 0 ||
+                    content.thumbnailInfo.size > 0 || !content.thumbnailInfo.mimetype.empty());
+    if (hasInfo) {
+        json << R"(,"thumbnail_info":{)";
+        bool first = true;
+        if (content.thumbnailInfo.w > 0) {
+            json << R"("w":)" << content.thumbnailInfo.w;
+            first = false;
+        }
+        if (content.thumbnailInfo.h > 0) {
+            if (!first) json << ",";
+            json << R"("h":)" << content.thumbnailInfo.h;
+            first = false;
+        }
+        if (content.thumbnailInfo.size > 0) {
+            if (!first) json << ",";
+            json << R"("size":)" << content.thumbnailInfo.size;
+            first = false;
+        }
+        if (!content.thumbnailInfo.mimetype.empty()) {
+            if (!first) json << ",";
+            json << R"("mimetype":")" << esc(content.thumbnailInfo.mimetype) << R"(")";
+        }
+        json << "}";
+    }
+    json << "}";
+    return json.str();
+}
+
+// ==== RoomNameEventContent ====
+// Original Kotlin (RoomNameContent.kt:26-27):
+//   data class RoomNameContent(@Json(name="name") name: String?)
+
+RoomNameEventContent parseRoomNameEventContent(const std::string& contentJson) {
+    RoomNameEventContent c;
+    c.name = extractJsonString(contentJson, "name");
+    return c;
+}
+
+std::string buildRoomNameEventContent(const RoomNameEventContent& content) {
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"name":")" << esc(content.name) << R"("})";
+    return json.str();
+}
+
+// ==== Room Aliases Event Content Builder ====
+// Original Kotlin (RoomAliasesContent.kt:28-30):
+//   data class RoomAliasesContent(@Json(name="aliases") aliases: List<String>)
+
+std::string buildRoomAliasesContent(const std::string& roomId, const std::vector<std::string>& aliases) {
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"type":"m.room.aliases","state_key":")" << esc(roomId) << R"(")";
+    json << R"(,"content":{"aliases":[)";
+    for (size_t i = 0; i < aliases.size(); i++) {
+        if (i > 0) json << ",";
+        json << R"(")" << esc(aliases[i]) << R"(")";
+    }
+    json << "]}}";
+    return json.str();
+}
+
+// ==== Room Canonical Alias Event Content Builder ====
+// Original Kotlin (RoomCanonicalAliasContent.kt:25-37):
+//   data class RoomCanonicalAliasContent(@Json(name="alias") canonicalAlias: String?,
+//       @Json(name="alt_aliases") alternativeAliases: List<String>?)
+
+std::string buildCanonicalAliasContent(const std::string& canonicalAlias, const std::vector<std::string>& altAliases) {
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"alias":")" << esc(canonicalAlias) << R"(")";
+    if (!altAliases.empty()) {
+        json << R"(,"alt_aliases":[)";
+        for (size_t i = 0; i < altAliases.size(); i++) {
+            if (i > 0) json << ",";
+            json << R"(")" << esc(altAliases[i]) << R"(")";
+        }
+        json << "]";
+    }
+    json << "}";
+    return json.str();
+}
+
+// ================================================================
+// Room Alias Resolution (EXPAND)
+//
+// Ported from GetRoomIdByAliasTask.kt, DirectoryAPI.kt,
+// RoomAliasDescription.kt
+// ================================================================
+
+RoomAliasMapping resolveRoomAlias(const std::string& roomAlias, const std::string& apiResponseJson) {
+    // Original Kotlin: GetRoomIdByAliasTask.execute() calls roomAPI.getAlias(alias)
+    // and returns RoomAliasDescription(roomId, servers)
+    return parseAliasResolveResponse(apiResponseJson);
+}
+
+std::string buildAliasResolveRequest(const std::string& roomAlias) {
+    // Original Kotlin: Retrofit @GET("directory/room/{alias}")
+    // URL-safe alias: the alias is URL-encoded by the networking layer.
+    // We return the path portion for manual HTTP construction.
+    std::ostringstream path;
+    path << "/_matrix/client/r0/directory/room/" << roomAlias;
+    return path.str();
+}
+
+RoomAliasMapping parseAliasResolveResponse(const std::string& responseJson) {
+    // Original Kotlin: API response → RoomAliasDescription(roomId, servers)
+    RoomAliasMapping mapping;
+    mapping.roomId = extractJsonString(responseJson, "room_id");
+
+    // Parse servers array
+    auto serversPos = responseJson.find("\"servers\"");
+    if (serversPos != std::string::npos) {
+        serversPos = responseJson.find('[', serversPos);
+        if (serversPos != std::string::npos) {
+            serversPos++;
+            while (serversPos < responseJson.size()) {
+                while (serversPos < responseJson.size() && (responseJson[serversPos] == ' ' || responseJson[serversPos] == ',' || responseJson[serversPos] == '\n')) serversPos++;
+                if (serversPos >= responseJson.size() || responseJson[serversPos] == ']') break;
+                if (responseJson[serversPos] == '"') {
+                    serversPos++;
+                    size_t end = serversPos;
+                    while (end < responseJson.size() && responseJson[end] != '"') end++;
+                    mapping.servers.push_back(responseJson.substr(serversPos, end - serversPos));
+                    serversPos = end + 1;
+                }
+            }
+        }
+    }
+
+    return mapping;
+}
+
+std::string buildCreateAliasRequest(const std::string& roomAlias, const std::string& roomId) {
+    // Original Kotlin: DirectoryAPI.setRoomAlias — PUT /directory/room/{alias}
+    // Body: {"room_id": "!abc:example.org"}
+    auto esc = [](const std::string& s) -> std::string {
+        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+    };
+    std::ostringstream json;
+    json << R"({"room_id":")" << esc(roomId) << R"("})";
+    return json.str();
+}
+
+std::string buildDeleteAliasRequest(const std::string& roomAlias) {
+    // Original Kotlin: DirectoryAPI.deleteRoomAlias — DELETE /directory/room/{alias}
+    std::ostringstream path;
+    path << "/_matrix/client/r0/directory/room/" << roomAlias;
+    return path.str();
+}
+
+// ==== Alias Parsing Utilities (EXPAND) ====
+
+RoomAliasLocalpart parseAliasLocalpart(const std::string& roomAlias) {
+    // Original Kotlin: split "#localpart:domain"
+    RoomAliasLocalpart result;
+    if (roomAlias.empty() || roomAlias[0] != '#') return result;
+
+    auto colonPos = roomAlias.find(':');
+    if (colonPos == std::string::npos || colonPos < 2) return result;
+
+    // localpart is between '#' and ':'
+    result.localpart = roomAlias.substr(1, colonPos - 1);
+
+    // domain is everything after ':'
+    result.domain = roomAlias.substr(colonPos + 1);
+
+    return result;
+}
+
+std::string formatRoomAlias(const std::string& localpart, const std::string& domain) {
+    // Original Kotlin: build "#localpart:domain"
+    if (localpart.empty() || domain.empty()) return "";
+    return "#" + localpart + ":" + domain;
+}
+
+bool isValidAlias(const std::string& roomAlias) {
+    // Original Kotlin: check alias format rules
+    if (roomAlias.empty() || roomAlias[0] != '#') return false;
+
+    auto colonPos = roomAlias.find(':');
+    if (colonPos == std::string::npos || colonPos < 2) return false;
+
+    // Must have non-empty localpart
+    if (colonPos == 1) return false;
+
+    // Must have non-empty domain
+    if (colonPos == roomAlias.size() - 1) return false;
+
+    // No internal spaces
+    if (roomAlias.find(' ') != std::string::npos) return false;
+
+    return true;
+}
+
+bool isAliasAvailable(const std::string& responseJson) {
+    // Original Kotlin: if the room_id field is empty/null, alias is available
+    // The server returns 404 with {"errcode":"M_NOT_FOUND"} if alias is available
+    // or returns {"room_id": "...", "servers": [...]} if it's taken.
+    auto roomId = extractJsonString(responseJson, "room_id");
+    return roomId.empty();
 }
 
 } // namespace progressive

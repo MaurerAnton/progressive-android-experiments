@@ -154,7 +154,7 @@ std::vector<SsoProvider> parseSsoProviders(const std::string& flowJson) {
         SsoProvider provider;
         // Extract fields
         auto extractStr = [&](const std::string& field) -> std::string {
-            auto search = "\"" + field + "\":\"";
+            std::string search = "\"" + field + "\":\"";
             auto p = providerJson.find(search);
             if (p == std::string::npos) return "";
             p += search.size();

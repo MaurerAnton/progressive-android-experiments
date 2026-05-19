@@ -113,7 +113,7 @@ ThreadMeta computeThreadMeta(
 
     // Parse root event: extract body and sender from content JSON
     auto extract = [](const std::string& json, const std::string& key) -> std::string {
-        auto search = "\"" + key + "\":\"";
+        std::string search = "\"" + key + "\":\"";
         auto pos = json.find(search);
         if (pos == std::string::npos) {
             search = "\"" + key + "\": \"";

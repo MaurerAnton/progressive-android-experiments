@@ -23,12 +23,14 @@ struct DeviceInfo {
 
     // Original Kotlin: getBestLastSeenUserAgent()
     std::string getBestLastSeenUserAgent() const { return lastSeenUserAgent; }
+    bool valid = true;  // JNI compat
 };
 
 // Original Kotlin (DevicesListResponse.kt:26-29):
 //   data class DevicesListResponse(@Json(name="devices") devices: List<DeviceInfo>?)
 struct DevicesListResponse {
     std::vector<DeviceInfo> devices;
+    int totalCount = 0;  // JNI compat
 };
 
 // Original Kotlin (UnsignedDeviceInfo.kt:25-31):

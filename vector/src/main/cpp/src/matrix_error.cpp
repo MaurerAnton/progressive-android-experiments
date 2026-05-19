@@ -8,7 +8,7 @@ MatrixError parseMatrixErrorJson(const std::string& json) {
     MatrixError error;
 
     auto extractStr = [&](const std::string& key) -> std::string {
-        auto search = "\"" + key + "\":\"";
+        std::string search = "\"" + key + "\":\"";
         auto pos = json.find(search);
         if (pos == std::string::npos) {
             search = "\"" + key + "\": \"";
