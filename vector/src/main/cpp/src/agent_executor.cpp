@@ -1,6 +1,7 @@
 #include "progressive/agent_executor.hpp"
 #include <sstream>
 #include <algorithm>
+#include <<sstream>>
 
 namespace progressive {
 

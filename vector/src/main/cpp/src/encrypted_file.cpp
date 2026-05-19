@@ -1,5 +1,6 @@
 #include "progressive/encrypted_file.hpp"
 #include <sstream>
+#include <<sstream>>
 
 namespace progressive {
 

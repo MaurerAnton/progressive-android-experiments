@@ -1,6 +1,7 @@
 #include "progressive/ram_monitor.hpp"
 #include <sstream>
 #include <fstream>
+#include <<sstream>>
 
 namespace progressive {
 

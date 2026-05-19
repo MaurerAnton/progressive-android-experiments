@@ -1,5 +1,6 @@
 #include "progressive/server_capabilities.hpp"
 #include <sstream>
+#include <<sstream>>
 
 namespace progressive {
 

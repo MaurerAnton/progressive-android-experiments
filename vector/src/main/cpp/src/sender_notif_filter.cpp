@@ -1,6 +1,8 @@
 #include "progressive/sender_notif_filter.hpp"
 #include <sstream>
 #include <algorithm>
+#include <<algorithm>>
+#include <<sstream>>
 
 namespace progressive {
 

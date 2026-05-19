@@ -1,6 +1,7 @@
 #include "progressive/read_marker.hpp"
 #include <sstream>
 #include <algorithm>
+#include <<sstream>>
 
 namespace progressive {
 

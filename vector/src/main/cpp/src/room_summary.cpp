@@ -1,6 +1,8 @@
 #include "progressive/room_summary.hpp"
 #include <sstream>
 #include <algorithm>
+#include <<algorithm>>
+#include <<sstream>>
 
 namespace progressive {
 

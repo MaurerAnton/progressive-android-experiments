@@ -1,6 +1,9 @@
 #include "progressive/link_preview.hpp"
 #include <sstream>
 #include <regex>
+#include <<algorithm>>
+#include <<regex>>
+#include <<sstream>>
 
 namespace progressive {
 

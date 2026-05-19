@@ -1,4 +1,6 @@
 #include <jni.h>
+
+#define JNI_FUNC(ret, name) JNIEXPORT ret JNICALL Java_im_vector_app_features_jumptodate_ProgressiveNative_##name
 #include <string>
 #include <android/log.h>
 #include "progressive/jumptodate.hpp"
@@ -145,6 +147,7 @@
 #include "progressive/account_utils.hpp"
 #include <sstream>
 #include <chrono>
+#include <<sstream>>
 
 using namespace progressive;
 

@@ -1,5 +1,6 @@
 #include "progressive/room_version.hpp"
 #include <sstream>
+#include <<sstream>>
 
 namespace progressive {
 

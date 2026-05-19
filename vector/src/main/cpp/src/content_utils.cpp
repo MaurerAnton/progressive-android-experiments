@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#include <<sstream>>
 
 namespace progressive {
 
@@ -86,7 +87,7 @@ std::string buildMxcUri(const std::string& serverName, const std::string& mediaI
 MessageType parseMessageType(const std::string& contentJson) {
     // Extract msgtype field:
     // {"msgtype":"m.text","body":"Hello"}
-    auto search = "\"msgtype\":\"";
+    std::string search = "\"msgtype\":\"";
     auto pos = contentJson.find(search);
     if (pos == std::string::npos) {
         search = "\"msgtype\": \"";

@@ -3,7 +3,7 @@ name: Code Quality Checks
 on:
   pull_request: { }
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, v0.0.4 ]
 
 permissions: {}
 

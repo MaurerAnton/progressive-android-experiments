@@ -3,6 +3,9 @@
 #include <algorithm>
 #include <unordered_map>
 #include <ctime>
+#include <<algorithm>>
+#include <<sstream>>
+#include <<unordered_map>>
 
 namespace progressive {
 

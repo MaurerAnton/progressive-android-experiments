@@ -3,6 +3,7 @@
 #include <android/log.h>
 #include <sstream>
 #include <cstring>
+#include <<sstream>>
 
 #define LOG_TAG "EventDB"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)

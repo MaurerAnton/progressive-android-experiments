@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <<algorithm>>
+#include <<sstream>>
 
 namespace progressive {
 

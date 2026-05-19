@@ -1,6 +1,7 @@
 #include "progressive/chunked_upload.hpp"
 #include <sstream>
 #include <cmath>
+#include <<sstream>>
 
 namespace progressive {
 

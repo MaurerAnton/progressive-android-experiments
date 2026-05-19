@@ -1,6 +1,8 @@
 #include "progressive/thread_aggregator.hpp"
 #include <sstream>
 #include <algorithm>
+#include <<algorithm>>
+#include <<sstream>>
 
 namespace progressive {
 

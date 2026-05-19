@@ -2,6 +2,7 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#include <<sstream>>
 
 namespace progressive {
 
@@ -188,7 +189,7 @@ std::string roomNameToJson(const RoomName& name) {
 
 std::string parseRoomNameContent(const std::string& contentJson) {
     // {"name": "My Room Name"}
-    auto search = "\"name\":\"";
+    std::string search = "\"name\":\"";
     auto pos = contentJson.find(search);
     if (pos == std::string::npos) {
         search = "\"name\": \"";

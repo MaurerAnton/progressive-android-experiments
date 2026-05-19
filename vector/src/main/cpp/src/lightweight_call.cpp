@@ -1,6 +1,7 @@
 #include "progressive/lightweight_call.hpp"
 #include <sstream>
 #include <fstream>
+#include <<sstream>>
 
 namespace progressive {
 
