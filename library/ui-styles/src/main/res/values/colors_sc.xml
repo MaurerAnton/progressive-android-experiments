@@ -106,5 +106,6 @@
     <color name="sc_alert_dark">@color/sc_alert</color>
     <color name="color_warning_sc">@color/sc_alert</color>
     <color name="shield_color_warning_sc">@color/color_warning_sc</color>
+    <color name="edit_text_outline_dark">#1AFFFFFF</color>
 
 </resources>
