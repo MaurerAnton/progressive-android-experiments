@@ -109,7 +109,6 @@ add_library(
     src/voice_broadcast.cpp
     src/sync_handler.cpp
     src/room_directory_manager.cpp
-    src/login_flow.cpp
     src/device_manager_full.cpp
     src/decryptor_utils.cpp
     src/cross_signing_manager.cpp
