@@ -48,7 +48,7 @@ struct SsoProvider {
     std::string iconUrl;         // optional icon URL
 };
 
-struct LoginFlow {
+struct LoginAuthFlow {
     LoginFlowType type = LoginFlowType::Unknown;
     std::string rawType;         // original string from JSON
     std::vector<SsoProvider> ssoProviders; // for SSO flows only
@@ -57,7 +57,7 @@ struct LoginFlow {
 };
 
 struct LoginAuthFlowsResult {
-    std::vector<LoginFlow> flows;
+    std::vector<LoginAuthFlow> flows;
     bool hasPassword = false;    // can login with password
     bool hasSso = false;         // can login via SSO
     bool hasToken = false;       // can login via token

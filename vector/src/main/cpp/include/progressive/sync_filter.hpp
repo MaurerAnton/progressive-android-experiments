@@ -66,13 +66,13 @@ struct RoomSyncFilter {
 //   fun build(homeServerCapabilities: HomeServerCapabilities): Filter {
 //       return Filter(room = buildRoomFilter(homeServerCapabilities))
 //   }
-RoomSyncFilter buildSyncFilter(
+RoomSyncFilter buildRoomSyncFilter(
     const SyncFilterParams& params,
     bool canUseThreadReadReceiptsAndNotifications = false
 );
 
 // Get the default sync filter (minimal data, lazy-load members).
-RoomSyncFilter getDefaultSyncFilter();
+RoomSyncFilter getDefaultRoomSyncFilter();
 
 // Check if a sync filter has any active filtering (non-empty).
 bool hasActiveFiltering(const RoomSyncFilter& filter);

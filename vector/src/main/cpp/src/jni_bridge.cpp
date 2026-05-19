@@ -1,4 +1,6 @@
 #include <jni.h>
+
+#define JNI_FUNC(ret, name) JNIEXPORT ret JNICALL Java_im_vector_app_features_jumptodate_ProgressiveNative_##name
 #include <string>
 #include <android/log.h>
 #include "progressive/jumptodate.hpp"
@@ -143,6 +145,11 @@
 #include "progressive/user_status.hpp"
 #include "progressive/verification_utils.hpp"
 #include "progressive/account_utils.hpp"
+#include "progressive/account_data_utils.hpp"
+#include "progressive/content_builder.hpp"
+#include "progressive/event_utils.hpp"
+#include "progressive/media_utils_extra.hpp"
+#include "progressive/relation_builder.hpp"
 #include <sstream>
 #include <chrono>
 #include <sstream>

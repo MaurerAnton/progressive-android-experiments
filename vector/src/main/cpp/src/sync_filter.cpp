@@ -140,7 +140,7 @@ std::string RoomSyncFilter::toJson() const {
 //   private fun buildStateFilter(): RoomEventFilter? =
 //       RoomEventFilter(lazyLoadMembers = lazyLoadMembersForStateEvents, types = supportedStateTypes).orNullIfEmpty()
 
-RoomSyncFilter buildSyncFilter(
+RoomSyncFilter buildRoomSyncFilter(
     const SyncFilterParams& params,
     bool canUseThreadReadReceiptsAndNotifications
 ) {
@@ -175,7 +175,7 @@ RoomSyncFilter buildSyncFilter(
     return filter;
 }
 
-RoomSyncFilter getDefaultSyncFilter() {
+RoomSyncFilter getDefaultRoomSyncFilter() {
     SyncFilterParams params;
     params.lazyLoadMembersForMessageEvents = true;
     params.lazyLoadMembersForStateEvents = true;
@@ -218,7 +218,7 @@ RoomSyncFilter getDefaultSyncFilter() {
         "m.room.tombstone"
     };
 
-    return buildSyncFilter(params, false);
+    return buildRoomSyncFilter(params, false);
 }
 
 bool hasActiveFiltering(const RoomSyncFilter& filter) {

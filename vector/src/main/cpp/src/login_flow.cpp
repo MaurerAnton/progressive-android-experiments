@@ -56,7 +56,7 @@ LoginAuthFlowsResult parseLoginFlows(const std::string& json) {
             currentFlow = json.substr(flowStart, pos - flowStart);
 
             // Parse the flow type
-            LoginFlow flow;
+            LoginAuthFlow flow;
             auto typePos = currentFlow.find("\"type\"");
             if (typePos != std::string::npos) {
                 auto colon = currentFlow.find(':', typePos);
