@@ -162,7 +162,6 @@ std::string getExtensionFromMimeType(const std::string& mime) { return ""; }
 std::string getLatestEditEventId(const std::string& json, const std::string& eventId) { return ""; }
 bool hasTextWithImage(const std::string& json) { return false; }
 std::string normalizeMimeType(const std::string& mime) { return mime; }
-bool visibilityToString(RoomDirectoryVisibility v) { return false; }
 
 // Constructors for missing modules
 CrossSigningManager::CrossSigningManager() {}
