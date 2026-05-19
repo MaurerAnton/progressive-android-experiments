@@ -564,7 +564,7 @@ class TimelineFragment :
             .setTitle(CommonStrings.translate_action)
             .setMessage(text)
             .setPositiveButton(CommonStrings.action_copy) { _, _ ->
-                copyToClipboard(requireContext(), text, false, stringProvider.getString(CommonStrings.translate_action))
+                copyToClipboard(requireContext(), text, false, getString(CommonStrings.translate_action))
             }
             .setNegativeButton(CommonStrings.action_cancel, null)
             .show()
