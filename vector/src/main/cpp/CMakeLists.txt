@@ -106,9 +106,6 @@ add_library(
     src/event_utils.cpp
     src/room_directory.cpp
     src/widget_utils.cpp
-    src/room_directory_manager.cpp
-    src/poll_manager.cpp
-    src/room_state_manager.cpp
     src/voice_broadcast.cpp
     src/sync_handler.cpp
     src/decryptor_utils.cpp
