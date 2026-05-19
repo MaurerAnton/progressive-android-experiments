@@ -1265,7 +1265,6 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeCalculateThumbnailSize(origW: Int, origH: Int, maxW: Int, maxH: Int): String
     @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
-    @JvmStatic external fun nativeFormatDuration(ms: Long): String
     @JvmStatic external fun nativeSanitizeFilename(name: String, maxLen: Int): String
 
     // --- Account Data ---

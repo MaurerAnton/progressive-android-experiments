@@ -140,8 +140,8 @@ std::string RoomSyncFilter::toJson() const {
 //   private fun buildStateFilter(): RoomEventFilter? =
 //       RoomEventFilter(lazyLoadMembers = lazyLoadMembersForStateEvents, types = supportedStateTypes).orNullIfEmpty()
 
-RoomSyncFilter buildRoomSyncFilter(
-    const RoomSyncFilterParams& params,
+RoomSyncFilter buildSyncFilter(
+    const SyncFilterParams& params,
     bool canUseThreadReadReceiptsAndNotifications
 ) {
     RoomSyncFilter filter;
@@ -175,8 +175,8 @@ RoomSyncFilter buildRoomSyncFilter(
     return filter;
 }
 
-RoomSyncFilter getDefaultRoomSyncFilter() {
-    RoomSyncFilterParams params;
+RoomSyncFilter getDefaultSyncFilter() {
+    SyncFilterParams params;
     params.lazyLoadMembersForMessageEvents = true;
     params.lazyLoadMembersForStateEvents = true;
 

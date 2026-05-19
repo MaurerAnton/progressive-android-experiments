@@ -554,6 +554,11 @@ class MessageComposerViewModel @AssistedInject constructor(
                             _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                             popDraft(room)
                         }
+                        is ParsedCommand.ProgressiveChatCommand -> {
+                            // Handled by native C++ slash command processor
+                            _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                            popDraft(room)
+                        }
                     }
                 }
                 is SendMode.Edit -> {

@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <optional>
-#include <optional>
 
 namespace progressive {
 
@@ -67,19 +66,19 @@ struct RoomSyncFilter {
 //   fun build(homeServerCapabilities: HomeServerCapabilities): Filter {
 //       return Filter(room = buildRoomFilter(homeServerCapabilities))
 //   }
-SyncFilter buildSyncFilter(
+RoomSyncFilter buildSyncFilter(
     const SyncFilterParams& params,
     bool canUseThreadReadReceiptsAndNotifications = false
 );
 
 // Get the default sync filter (minimal data, lazy-load members).
-SyncFilter getDefaultSyncFilter();
+RoomSyncFilter getDefaultSyncFilter();
 
 // Check if a sync filter has any active filtering (non-empty).
-bool hasActiveFiltering(const SyncFilter& filter);
+bool hasActiveFiltering(const RoomSyncFilter& filter);
 
 // Format filter as JSON for the sync request.
-std::string syncFilterToJson(const SyncFilter& filter);
+std::string syncFilterToJson(const RoomSyncFilter& filter);
 
 } // namespace progressive
 
