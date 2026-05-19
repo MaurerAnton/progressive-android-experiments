@@ -183,4 +183,10 @@ std::string getEditedTargetEventId(const std::string& contentJson) { return ""; 
 std::string getExtensionFromMimeType(const std::string& mimeType) { return ""; }
 std::string getLatestEditEventId(const std::string& contentJson, const std::string& eventId) { return ""; }
 std::string normalizeMimeType(const std::string& mimeType) { return mimeType; }
+std::string resolveMxcThumbnailUrl(const std::string& mxc, const std::string& hs, int w, int h, const std::string& m) { return ""; }
+bool visibilityToString(RoomDirectoryVisibility v) { return false; }
+std::vector<SpaceNode> SpaceGraph::getChildren(const std::string& spaceId) const { return {}; }
+std::vector<SpaceNode> SpaceGraph::getParents(const std::string& roomId) const { return {}; }
+std::vector<SpaceNode> SpaceGraph::searchSpaceRooms(const std::string& spaceId, const std::string& query) const { return {}; }
 } // namespace progressive
+// Exact-signature stubs (match linker symbol names)
