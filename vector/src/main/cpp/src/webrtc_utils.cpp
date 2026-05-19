@@ -158,10 +158,14 @@ std::string getCallState(const std::string& eventContentJson) {
     return "unknown";
 }
 
+#if 0 // Moved to event_classifier.cpp
+
 bool isCallEvent(const std::string& eventType) {
     return eventType == "m.call.invite" || eventType == "m.call.answer" ||
            eventType == "m.call.candidates" || eventType == "m.call.hangup" ||
            eventType == "m.call.reject";
 }
+#endif // isCallEvent
+
 
 } // namespace progressive

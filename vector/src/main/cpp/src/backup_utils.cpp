@@ -74,9 +74,13 @@ bool isValidRecoveryKey(const std::string& key) {
     return true;
 }
 
+#if 0 // Moved to key_backup.cpp
+
 bool isValidPassphrase(const std::string& passphrase) {
     return passphrase.size() >= 8;
 }
+#endif // isValidPassphrase
+
 
 std::string extractDefaultSecretKey(const std::string& accountDataJson) {
     // Parse m.secret_storage.default_key from account data

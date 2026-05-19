@@ -41,6 +41,8 @@ bool isEmojiCodePoint(int cp) {
     return false;
 }
 
+#if 0 // Moved to emoji_analyzer.cpp
+
 int countEmojis(const std::string& text) {
     int count = 0;
     size_t i = 0;
@@ -71,6 +73,8 @@ int countEmojis(const std::string& text) {
     }
     return count;
 }
+#endif // countEmojis
+
 
 int countUniqueEmojis(const std::string& text) {
     std::unordered_set<int> seen;
