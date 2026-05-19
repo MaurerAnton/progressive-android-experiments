@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Custom attributes not defined as colors elsewhere -->
     <attr name="colorAccentPale" format="reference|color" />
     <attr name="backgroundColorLight" format="reference|color" />
     <attr name="code_block_bg_color" format="reference|color" />
     <attr name="conference_animation_from" format="reference" />
+    <attr name="conference_animation_to" format="reference" />
     <attr name="message_highlight_bg_color" format="reference|color" />
     <attr name="quote_bar_color" format="reference|color" />
     <attr name="riotx_unread_unimportant_room_badge" format="reference|color" />
@@ -19,7 +21,6 @@
     <attr name="user_color_pl_100" format="reference|color" />
     <attr name="verification_request_background" format="reference|color" />
     <attr name="voice_message_playback_background_color" format="reference|color" />
-    <attr name="conference_animation_to" format="reference" />
     <attr name="user_color_hash_01" format="reference|color" />
     <attr name="user_color_hash_02" format="reference|color" />
     <attr name="user_color_hash_03" format="reference|color" />
@@ -32,65 +33,7 @@
     <attr name="room_color_hash_02" format="reference|color" />
     <attr name="room_color_hash_03" format="reference|color" />
 
-    <!-- Progressive Chat specific theme attributes (vctr_*) -->
-    <attr name="vctr_badge_color_border" format="reference|color" />
-    <attr name="vctr_bg_critical_subtle" format="reference|color" />
-    <attr name="vctr_border_critical_subtle" format="reference|color" />
-    <attr name="vctr_chat_effect_snow_background" format="reference|color" />
-    <attr name="vctr_content_primary" format="reference|color" />
-    <attr name="vctr_content_quaternary" format="reference|color" />
-    <attr name="vctr_content_quinary" format="reference|color" />
-    <attr name="vctr_content_secondary" format="reference|color" />
-    <attr name="vctr_content_tertiary" format="reference|color" />
-    <attr name="vctr_encrypting_message_text_color" format="reference|color" />
-    <attr name="vctr_fab_label_bg" format="reference|color" />
-    <attr name="vctr_fab_label_color" format="reference|color" />
-    <attr name="vctr_fab_label_stroke" format="reference|color" />
-    <attr name="vctr_header_background" format="reference|color" />
-    <attr name="vctr_jump_to_unread_style" format="reference|color" />
-    <attr name="vctr_keys_backup_banner_accent_color" format="reference|color" />
-    <attr name="vctr_keyword_style" format="reference|color" />
-    <attr name="vctr_list_separator" format="reference|color" />
-    <attr name="vctr_list_separator_on_surface" format="reference|color" />
-    <attr name="vctr_list_separator_system" format="reference|color" />
-    <attr name="vctr_live_location" format="reference|color" />
-    <attr name="vctr_markdown_block_background_color" format="reference|color" />
-    <attr name="vctr_message_bubble_inbound" format="reference|color" />
-    <attr name="vctr_message_bubble_outbound" format="reference|color" />
-    <attr name="vctr_message_text_color" format="reference|color" />
-    <attr name="vctr_notice_secondary" format="reference|color" />
-    <attr name="vctr_notice_text_color" format="reference|color" />
-    <attr name="vctr_presence_indicator_away" format="reference|color" />
-    <attr name="vctr_presence_indicator_busy" format="reference|color" />
-    <attr name="vctr_presence_indicator_offline" format="reference|color" />
-    <attr name="vctr_presence_indicator_online" format="reference|color" />
-    <attr name="vctr_reaction_background_off" format="reference|color" />
-    <attr name="vctr_reaction_background_on" format="reference|color" />
-    <attr name="vctr_rich_text_editor_menu_button_background" format="reference|color" />
-    <attr name="vctr_room_active_widgets_banner_bg" format="reference|color" />
-    <attr name="vctr_room_active_widgets_banner_text" format="reference|color" />
-    <attr name="vctr_sending_message_text_color" format="reference|color" />
-    <attr name="vctr_social_login_button_apple_style" format="reference|color" />
-    <attr name="vctr_social_login_button_facebook_style" format="reference|color" />
-    <attr name="vctr_social_login_button_github_style" format="reference|color" />
-    <attr name="vctr_social_login_button_gitlab_style" format="reference|color" />
-    <attr name="vctr_social_login_button_google_style" format="reference|color" />
-    <attr name="vctr_social_login_button_twitter_style" format="reference|color" />
-    <attr name="vctr_spoiler_background_color" format="reference|color" />
-    <attr name="vctr_system" format="reference|color" />
-    <attr name="vctr_toast_background" format="reference|color" />
-    <attr name="vctr_toolbar_background" format="reference|color" />
-    <attr name="vctr_touch_guard_bg" format="reference|color" />
-    <attr name="vctr_unread_background" format="reference|color" />
-    <attr name="vctr_unsent_message_text_color" format="reference|color" />
-    <attr name="vctr_waiting_background_color" format="reference|color" />
-
-    <!-- Custom Element/Progressive attrs -->
-    <attr name="codeBlockBackgroundDrawable" format="reference" />
-    <attr name="inlineCodeMultiLineBgLeft" format="reference" />
-    <attr name="inlineCodeMultiLineBgMid" format="reference" />
-    <attr name="inlineCodeMultiLineBgRight" format="reference" />
-    <attr name="inlineCodeSingleLineBg" format="reference" />
+    <!-- Location sharing custom attrs -->
     <attr name="locLiveEndedBkgWithAlpha" format="reference|color" />
     <attr name="locLiveEndedIconMarginStart" format="dimension" />
     <attr name="locShareIcon" format="reference" />
@@ -102,15 +45,20 @@
     <attr name="showLocateButton" format="boolean" />
     <attr name="mapErrorDescription" format="string" />
     <attr name="maplibre_renderTextureMode" format="boolean" />
+
+    <!-- Custom Element/Progressive misc attrs -->
+    <attr name="codeBlockBackgroundDrawable" format="reference" />
+    <attr name="inlineCodeMultiLineBgLeft" format="reference" />
+    <attr name="inlineCodeMultiLineBgMid" format="reference" />
+    <attr name="inlineCodeMultiLineBgRight" format="reference" />
+    <attr name="inlineCodeSingleLineBg" format="reference" />
     <attr name="incoming_style" format="reference" />
     <attr name="unread_line_unimportant" format="reference" />
     <attr name="timestamp_overlay_bg" format="reference|color" />
     <attr name="timestamp_overlay_fg" format="reference|color" />
-    <attr name="shield_color_warning" format="reference|color" />
     <attr name="color_warning" format="reference|color" />
     <attr name="isBarRounded" format="boolean" />
     <attr name="dense_dropdown_text_input" format="dimension" />
-    <attr name="dialog_width_ratio" format="reference" />
     <attr name="failureImageInitScaleType" format="reference" />
     <attr name="isPreferenceVisible" format="boolean" />
     <attr name="optimizeDisplay" format="boolean" />
