@@ -106,7 +106,6 @@ add_library(
     src/event_utils.cpp
     src/room_directory.cpp
     src/widget_utils.cpp
-    src/cross_signing_manager.cpp
     src/content_utils.cpp
     src/progressive_stubs.cpp
     src/progressive_stubs.cpp
