@@ -239,6 +239,8 @@ struct ServerNoticeAction {
 // ---- Server Notice ----
 // Original Kotlin: ServerNotice data class
 
+#ifndef PROGRESSIVE_SERVER_NOTICE_DEFINED
+#define PROGRESSIVE_SERVER_NOTICE_DEFINED
 struct ServerNotice {
     std::string noticeId;
     ServerNoticeType type = ServerNoticeType::MESSAGE;
@@ -252,6 +254,7 @@ struct ServerNotice {
     int64_t expiresAt = 0;           // Unix epoch millis, 0 = no expiry
     int64_t createdAt = 0;           // Unix epoch millis
 };
+#endif
 
 // ---- Server Notice List ----
 // Original Kotlin: ServerNoticeList wrapper
