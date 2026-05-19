@@ -263,7 +263,7 @@ void SpaceGraph::traverseDFS(const std::string& nodeId, int depth,
     }
 }
 
-SpaceGraphResult SpaceGraph::traverse(const SpaceTraversalOptions& options) {
+SpaceGraphResult SpaceGraph::traverse(const SpaceTraversalOptions& options) const {
     SpaceGraphResult result;
 
     if (rootId_.empty()) return result;
