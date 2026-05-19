@@ -842,6 +842,9 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatJumpToUnrea
 }
 
 // ==== Progressive Chat v0.2 JNI Bridges ====
+// NOTE: v0.2 bridges require jStr helper and parseJsonStringArray which
+// are not yet implemented. This section is temporarily disabled.
+#if 0
 
 // --- Event Summary ---
 JNI_FUNC(jstring, nativeFormatEventSummary)(JNIEnv* env, jclass,
@@ -942,5 +945,7 @@ JNI_FUNC(jstring, nativeBuildReactionRelation)(JNIEnv* env, jclass, jstring jId,
 JNI_FUNC(jstring, nativeWrapWithRelation)(JNIEnv* env, jclass, jstring jContent, jstring jRel) {
     return env->NewStringUTF(progressive::wrapWithRelation(jStr(env, jContent), jStr(env, jRel)).c_str());
 }
+
+#endif // v0.2 JNI Bridges
 
 } // extern "C"
