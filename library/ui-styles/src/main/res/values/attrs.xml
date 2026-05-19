@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorAccentPale" format="reference|color" />
+    <attr name="backgroundColorLight" format="reference|color" />
+    <attr name="code_block_bg_color" format="reference|color" />
+    <attr name="conference_animation_from" format="reference" />
+    <attr name="message_highlight_bg_color" format="reference|color" />
+    <attr name="quote_bar_color" format="reference|color" />
+    <attr name="riotx_unread_unimportant_room_badge" format="reference|color" />
+    <attr name="sc_message_bg_incoming" format="reference|color" />
+    <attr name="sc_message_bg_outgoing" format="reference|color" />
+    <attr name="sc_notice_bg_incoming" format="reference|color" />
+    <attr name="sc_notice_bg_outgoing" format="reference|color" />
+    <attr name="user_color_pl_0" format="reference|color" />
+    <attr name="user_color_pl_1" format="reference|color" />
+    <attr name="user_color_pl_50" format="reference|color" />
+    <attr name="user_color_pl_51" format="reference|color" />
+    <attr name="user_color_pl_95" format="reference|color" />
+    <attr name="user_color_pl_100" format="reference|color" />
+    <attr name="verification_request_background" format="reference|color" />
+    <attr name="voice_message_playback_background_color" format="reference|color" />
+</resources>
