@@ -330,7 +330,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeCacheStatsJson(): String
     @JvmStatic external fun nativeCacheGetByRoom(roomId: String): String
     @JvmStatic external fun nativeCacheGetOlderThan(beforeTs: Long): String
-    @JvmStatic external fun nativeCacheClear()
 
     // --- Message Aggregator (All Messages) ---
 
