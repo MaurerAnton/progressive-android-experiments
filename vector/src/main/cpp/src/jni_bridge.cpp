@@ -4585,7 +4585,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDecideRetry(
     std::ostringstream json;
     json << R"({"shouldRetry": )" << (decision.shouldRetry ? "true" : "false");
     json << R"(,"delayMs": )" << decision.delayMs;
-    json << R"(,"reason": ")" << esc(decision.reason) << R"(")"";
+    json << R"(,"reason": ")" << esc(decision.reason) << R"(")";
     json << "}";
     return env->NewStringUTF(json.str().c_str());
 }

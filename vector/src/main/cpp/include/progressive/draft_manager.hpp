@@ -58,6 +58,8 @@ private:
 
 // ---- Typing Indicator Logic ----
 
+
+#if 0 // Duplicate — defined in typing_monitor.hpp
 struct TypingState {
     std::string roomId;
     std::string userId;
@@ -66,6 +68,8 @@ struct TypingState {
     int64_t lastTypedAtMs = 0;
     bool isActive = false;
 };
+#endif
+
 
 struct TypingIndication {
     std::string text;            // "Alice is typing..." or "Alice, Bob are typing..."

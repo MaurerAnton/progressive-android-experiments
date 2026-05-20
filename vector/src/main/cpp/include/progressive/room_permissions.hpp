@@ -10,6 +10,8 @@ namespace progressive {
 
 // ---- Power Levels & Permissions ----
 
+
+#if 0 // Duplicate — defined in power_levels.hpp
 struct PowerLevels {
     int usersDefault = 0;
     int eventsDefault = 0;
@@ -22,6 +24,8 @@ struct PowerLevels {
     std::unordered_map<std::string, int> userOverrides;  // userId → PL
     std::unordered_map<std::string, int> eventOverrides; // eventType → PL
 };
+#endif
+
 
 struct RoomPermissions {
     std::string myUserId;
