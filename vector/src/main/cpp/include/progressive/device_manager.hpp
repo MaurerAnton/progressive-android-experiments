@@ -116,7 +116,7 @@ struct CryptoDeviceInfo {
     std::vector<std::string> algorithms;
     std::unordered_map<std::string, std::string> keys;
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> signatures;
-    UnsignedDeviceInfo unsigned;
+    UnsignedDeviceInfo unsignedInfo;
     std::optional<DeviceTrustLevel> trustLevel;
     bool isBlocked = false;
     int64_t firstTimeSeenLocalTs = 0;

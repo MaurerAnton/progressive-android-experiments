@@ -461,7 +461,7 @@ std::string cryptoDeviceInfoToJson(const CryptoDeviceInfo& info) {
 
     // unsigned
     json << ",\"unsigned\":{";
-    json << "\"device_display_name\":\"" << esc(info.unsigned.deviceDisplayName) << "\"";
+    json << "\"device_display_name\":\"" << esc(info.unsignedInfoInfo.deviceDisplayName) << "\"";
     json << "}";
 
     // trustLevel
@@ -507,7 +507,7 @@ CryptoDeviceInfo parseCryptoDeviceInfo(const std::string& json) {
     }
 
     // Parse display_name from unsigned
-    info.unsigned.deviceDisplayName = parseJsonStringValue(json, "device_display_name");
+    info.unsignedInfoInfo.deviceDisplayName = parseJsonStringValue(json, "device_display_name");
 
     // Parse is_blocked
     info.isBlocked = json.find("\"is_blocked\":true") != std::string::npos ||
