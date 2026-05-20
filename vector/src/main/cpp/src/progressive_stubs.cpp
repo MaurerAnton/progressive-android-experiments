@@ -86,8 +86,7 @@ RoomStateManager::RoomStateManager() {}
 SpaceChildEntry parseSpaceChild(const std::string& stateKey, const std::string& contentJson) { return {}; }
 std::string resolveMxcThumbnailUrl(const std::string& mxcUrl, const std::string& homeServerUrl, int width, int height, const std::string& method) { return ""; }
 const char* visibilityToString(RoomDirectoryVisibility) { return ""; }
-} // namespace progressive
-// SpaceGraph stubs (restored — needs type injection)
+// SpaceGraph stubs
 SpaceGraph::SpaceGraph() {}
 void SpaceGraph::setRoot(const std::string& spaceId, const std::string& name, const std::string& topic, const std::string& avatarUrl) {}
 void SpaceGraph::addChild(const std::string& parentId, const SpaceChildEntry& child) {}
@@ -108,3 +107,5 @@ std::string SpaceGraph::nodeToJson(const std::string& nodeId, int depthLeft, std
 std::vector<SpaceNode> SpaceGraph::getChildren(const std::string& spaceId) const { return {}; }
 std::vector<std::string> SpaceGraph::getParents(const std::string& roomId) const { return {}; }
 std::vector<SpaceNode> SpaceGraph::searchSpaceRooms(const std::string& spaceId, const std::string& query) const { return {}; }
+
+} 

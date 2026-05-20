@@ -47,7 +47,7 @@ int PollContent::totalVotes() const {
 int PollContent::voterCount() const {
     std::unordered_set<std::string> voters;
     for (const auto& o : options) {
-        for (const auto& v : o.voterIds) static_cast<void>(voters.insert(v);
+        for (const auto& v : o.voterIds) { voters.insert(v); }
     }
     return static_cast<int>(voters.size());
 }
