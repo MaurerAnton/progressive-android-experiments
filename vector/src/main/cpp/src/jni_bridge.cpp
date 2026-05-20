@@ -4142,7 +4142,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetSuggestedRole(
     if (jPlJson) env->ReleaseStringUTFChars(jPlJson, plJson.c_str());
     if (jUserId) env->ReleaseStringUTFChars(jUserId, userId.c_str());
 
-    auto pl = progressive::parsePowerLevels(plJson);
+    auto pl = progressive::parseRoomPowerLevels(plJson);
     auto role = progressive::getSuggestedRole(pl, userId);
     return env->NewStringUTF(role.c_str());
 }
@@ -5065,14 +5065,12 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUpdateTypingState
     return env->NewStringUTF(json.c_str());
 }
 
-#if 0 // v0.3 late-add JNI bridges — needs .str() fix + deduplication
+#if 0 // v0.3 late-add JNI bridges — duplicates, needs fixes
 
 JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatTypingText(
     JNIEnv* env, jclass, jstring jTypingStateJson
 ) {
-
-#endif // v0.3 duplicate
     // Quick-parse the typing state from JSON
     auto json = jTypingStateJson ? std::string(env->GetStringUTFChars(jTypingStateJson, nullptr)) : "{}";
     if (jTypingStateJson) env->ReleaseStringUTFChars(jTypingStateJson, json.c_str());
