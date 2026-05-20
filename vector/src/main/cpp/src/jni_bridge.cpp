@@ -204,12 +204,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidateAndBuild(
     if (!jIsEnabled) {
         const char* err = R"({"error":"/jumptodate is disabled. Enable it in Settings → Labs."})";
         return env->NewStringUTF(err);
-    }
-    if (!jRoomId || !jDateString || !jServerUrl || !jAccessToken) {
-        jclass exClass = env->FindClass("java/lang/IllegalArgumentException");
-        env->ThrowNew(exClass, "All parameters must be non-null");
-        return nullptr;
-    }
+}
 
     // Convert Java strings to C++ strings
     const char* roomIdCh     = env->GetStringUTFChars(jRoomId, nullptr);
@@ -3525,9 +3520,9 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetTrustBadge(
 
 JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeComputeThumbnail(
-    JNIEnv*, jclass, jint jSrcW, jint jSrcH, jint jMaxW, jint jMaxH, jboolean jUpscale, jint jQuality
+    JNIEnv* env, jclass, jint jSrcW, jint jSrcH, jint jMaxW, jint jMaxH, jboolean jUpscale, jint jQuality
 ) {
-    ThumbnailParams p{jSrcW, jSrcH, jMaxW, jMaxH, jUpscale, jQuality};
+    ThumbnailParams p{jSrcW, jSrcH, jMaxW, jMaxH, static_cast<bool>(jUpscale), jQuality};
     auto result = progressive::computeThumbnail(p);
     std::ostringstream json;
     json << R"({"targetW": )" << result.targetW;
@@ -3764,6 +3759,8 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatFileSize(
     auto s = progressive::formatFileSize(jBytes);
     return env->NewStringUTF(s.c_str());
 }
+
+#if 0 // Late-add duplicate JNI bridges
 
 JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeGetFileExtension(
@@ -4095,5 +4092,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeValidateHomeserve
     json << "}";
     return env->NewStringUTF(json.str().c_str());
 }
+
+#endif // Late-add JNI bridges
 
 } // extern "C"

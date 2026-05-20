@@ -25,7 +25,7 @@ std::string base64Encode(const std::string& input) {
     return out;
 }
 
-std::string base64Decode(const std::string& input) {
+std::string base64DecodeToString(const std::string& input) {
     std::vector<int> T(256, -1);
     for (int i = 0; i < 64; i++) T[BASE64_CHARS[i]] = i;
     std::string out;
@@ -114,7 +114,7 @@ std::string encryptAccountData(const AccountData& data, const std::string& passp
 }
 
 AccountData decryptAccountData(const std::string& encrypted, const std::string& passphrase) {
-    auto decoded = base64Decode(encrypted);
+    auto decoded = base64DecodeToString(encrypted);
     if (decoded.empty()) return {};
 
     for (size_t i = 0; i < decoded.size(); ++i) {

@@ -32,7 +32,7 @@ AccountData jsonToAccount(const std::string& json);
 
 // Simple base64 encode/decode (no external deps).
 std::string base64Encode(const std::string& input);
-std::string base64Decode(const std::string& input);
+std::string base64DecodeToString(const std::string& input);
 
 } // namespace progressive
 
