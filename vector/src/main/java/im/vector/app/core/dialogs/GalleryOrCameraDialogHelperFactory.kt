@@ -22,4 +22,4 @@ class GalleryOrCameraDialogHelperFactory @Inject constructor(
         return GalleryOrCameraDialogHelper(fragment, colorProvider, clock, vectorPreferences, skipCrop)
     }
 }
-}
+
