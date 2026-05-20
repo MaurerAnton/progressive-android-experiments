@@ -6,145 +6,143 @@
 
 namespace progressive {
 
-// ====== JSON helpers ======
-
-static std::string extractStr(const std::string& json, const std::string& key) {
-    auto pp = json.find("\"" + key + "\"");
-    if (pp == std::string::npos) return "";
-    pp = json.find('"', pp + key.size() + 2);
-    if (pp == std::string::npos) return "";
-    pp++;
-    size_t e = pp;
-    while (e < json.size() && json[e] != '"') e++;
-    return json.substr(pp, e - pp);
-}
-
-static bool extractBool(const std::string& json, const std::string& key) {
-    return json.find("\"" + key + "\":true") != std::string::npos;
-}
-
-// ====== Parsing ======
+// ================================================================
+// SpaceChildEntry parsing
+// ================================================================
 
 SpaceChildEntry parseSpaceChild(const std::string& stateKey, const std::string& contentJson) {
     SpaceChildEntry entry;
     entry.roomId = stateKey;
-    entry.suggested = !extractBool(contentJson, "suggested");
-    if (contentJson.find("\"suggested\"") == std::string::npos) entry.suggested = true; // default true
-    if (contentJson.find("\"suggested\":false") != std::string::npos) entry.suggested = false;
+    entry.valid = true;
 
-    entry.order = extractStr(contentJson, "order");
-
-    // Parse via array
-    size_t pos = contentJson.find("\"via\"");
+    auto pos = contentJson.find("\"suggested\"");
     if (pos != std::string::npos) {
-        pos = contentJson.find('[', pos);
-        if (pos != std::string::npos) {
-            pos++;
-            while (pos < contentJson.size()) {
-                while (pos < contentJson.size() && (contentJson[pos] == ' ' || contentJson[pos] == ',')) pos++;
-                if (pos >= contentJson.size() || contentJson[pos] == ']') break;
-                if (contentJson[pos] == '"') {
-                    pos++;
-                    size_t e = pos;
-                    while (e < contentJson.size() && contentJson[e] != '"') e++;
-                    entry.via.push_back(contentJson.substr(pos, e - pos));
-                    pos = e + 1;
-                } else pos++;
+        entry.suggested = contentJson.find("false", pos) == std::string::npos;
+    }
+    pos = contentJson.find("\"order\"");
+    if (pos != std::string::npos) {
+        auto start = contentJson.find('"', pos + 7);
+        auto end = contentJson.find('"', start + 1);
+        if (start != std::string::npos && end != std::string::npos) {
+            entry.order = contentJson.substr(start + 1, end - start - 1);
+        }
+    }
+    pos = contentJson.find("\"via\"");
+    if (pos != std::string::npos) {
+        auto arrStart = contentJson.find('[', pos);
+        auto arrEnd = contentJson.find(']', arrStart);
+        if (arrStart != std::string::npos && arrEnd != std::string::npos) {
+            std::string arr = contentJson.substr(arrStart + 1, arrEnd - arrStart - 1);
+            size_t s = 0;
+            while (s < arr.size()) {
+                auto q1 = arr.find('"', s);
+                if (q1 == std::string::npos) break;
+                auto q2 = arr.find('"', q1 + 1);
+                if (q2 == std::string::npos) break;
+                entry.via.push_back(arr.substr(q1 + 1, q2 - q1 - 1));
+                s = q2 + 1;
             }
         }
     }
-
-    entry.valid = !entry.roomId.empty();
     return entry;
 }
+
+// ================================================================
+// SpaceParentEntry parsing
+// ================================================================
 
 SpaceParentEntry parseSpaceParent(const std::string& contentJson) {
     SpaceParentEntry entry;
-    entry.spaceId = extractStr(contentJson, "room_id");
-    if (entry.spaceId.empty()) entry.spaceId = extractStr(contentJson, "space_id");
-    entry.canonical = extractBool(contentJson, "canonical");
-
-    // Parse via
-    size_t pos = contentJson.find("\"via\"");
+    auto pos = contentJson.find("\"room_id\"");
+    if (pos == std::string::npos) pos = contentJson.find("\"space_id\"");
     if (pos != std::string::npos) {
-        pos = contentJson.find('[', pos);
-        if (pos != std::string::npos) {
-            pos++;
-            while (pos < contentJson.size()) {
-                while (pos < contentJson.size() && (contentJson[pos] == ' ' || contentJson[pos] == ',')) pos++;
-                if (pos >= contentJson.size() || contentJson[pos] == ']') break;
-                if (contentJson[pos] == '"') {
-                    pos++;
-                    size_t e = pos;
-                    while (e < contentJson.size() && contentJson[e] != '"') e++;
-                    entry.via.push_back(contentJson.substr(pos, e - pos));
-                    pos = e + 1;
-                } else pos++;
+        auto start = contentJson.find('"', pos + 8);
+        auto end = contentJson.find('"', start + 1);
+        if (start != std::string::npos && end != std::string::npos) {
+            entry.spaceId = contentJson.substr(start + 1, end - start - 1);
+        }
+    }
+    pos = contentJson.find("\"canonical\"");
+    if (pos != std::string::npos) {
+        entry.canonical = contentJson.find("true", pos) != std::string::npos;
+    }
+    pos = contentJson.find("\"via\"");
+    if (pos != std::string::npos) {
+        auto arrStart = contentJson.find('[', pos);
+        auto arrEnd = contentJson.find(']', arrStart);
+        if (arrStart != std::string::npos && arrEnd != std::string::npos) {
+            std::string arr = contentJson.substr(arrStart + 1, arrEnd - arrStart - 1);
+            size_t s = 0;
+            while (s < arr.size()) {
+                auto q1 = arr.find('"', s);
+                if (q1 == std::string::npos) break;
+                auto q2 = arr.find('"', q1 + 1);
+                if (q2 == std::string::npos) break;
+                entry.via.push_back(arr.substr(q1 + 1, q2 - q1 - 1));
+                s = q2 + 1;
             }
         }
     }
-
     return entry;
 }
 
-// ====== SpaceGraph Implementation ======
+// ================================================================
+// SpaceGraph implementation
+// ================================================================
 
 SpaceGraph::SpaceGraph() {}
+
+void SpaceGraph::clear() {
+    rootId_.clear();
+    nodes_.clear();
+    childMap_.clear();
+    parentMap_.clear();
+    orderMap_.clear();
+}
+
+// ---- Setup ----
 
 void SpaceGraph::setRoot(const std::string& spaceId, const std::string& name,
                           const std::string& topic, const std::string& avatarUrl) {
     rootId_ = spaceId;
-    SpaceNode root;
-    root.roomId = spaceId;
-    root.name = name;
-    root.topic = topic;
-    root.avatarUrl = avatarUrl;
-    root.type = SpaceNodeType::SPACE;
-    root.depth = 0;
-    root.isSuggested = true;
-    root.valid = true;
-    nodes_[spaceId] = root;
+    SpaceNode& node = nodes_[spaceId];
+    node.roomId = spaceId;
+    node.name = name;
+    node.topic = topic;
+    node.avatarUrl = avatarUrl;
+    node.type = SpaceNodeType::SPACE;
+    node.depth = 0;
+    node.valid = true;
 }
 
 void SpaceGraph::addChild(const std::string& parentId, const SpaceChildEntry& child) {
+    if (!child.valid) return;
     childMap_[parentId].push_back(child);
-    parentMap_[child.roomId].push_back(parentId);
 
-    // Create node if it doesn't exist
-    if (nodes_.find(child.roomId) == nodes_.end()) {
-        SpaceNode node;
-        node.roomId = child.roomId;
-        node.isSuggested = child.suggested;
-        if (!child.via.empty()) node.viaServer = child.via[0];
-        node.type = SpaceNodeType::ROOM; // May be updated later
-        nodes_[child.roomId] = node;
-    }
+    SpaceNode& cn = nodes_[child.roomId];
+    cn.roomId = child.roomId;
+    cn.type = SpaceNodeType::ROOM;
+    cn.isSuggested = child.suggested;
+    cn.viaServer = child.via.empty() ? "" : child.via[0];
+    cn.valid = true;
 }
 
 void SpaceGraph::setNodeMetadata(const std::string& roomId, const std::string& name,
                                   const std::string& topic, const std::string& avatarUrl,
                                   const std::string& joinRule, bool isJoined) {
-    auto it = nodes_.find(roomId);
-    if (it == nodes_.end()) {
-        SpaceNode node;
-        node.roomId = roomId;
-        node.name = name;
-        node.topic = topic;
-        node.avatarUrl = avatarUrl;
-        node.joinRule = joinRule;
-        node.isJoined = isJoined;
-        node.valid = true;
-        nodes_[roomId] = node;
-    } else {
-        it->second.name = name;
-        it->second.topic = topic;
-        it->second.avatarUrl = avatarUrl;
-        it->second.joinRule = joinRule;
-        it->second.isJoined = isJoined;
-    }
+    SpaceNode& node = nodes_[roomId];
+    node.roomId = roomId;
+    if (!name.empty()) node.name = name;
+    if (!topic.empty()) node.topic = topic;
+    if (!avatarUrl.empty()) node.avatarUrl = avatarUrl;
+    if (!joinRule.empty()) node.joinRule = joinRule;
+    node.isJoined = isJoined;
+    node.canJoin = (joinRule == "public" || joinRule == "knock");
+    node.valid = true;
 }
 
 void SpaceGraph::addParent(const std::string& roomId, const SpaceParentEntry& parent) {
+    if (parent.spaceId.empty()) return;
     parentMap_[roomId].push_back(parent.spaceId);
 }
 
@@ -153,74 +151,134 @@ void SpaceGraph::setOrder(const std::string& parentId, const std::string& childI
     orderMap_[parentId][childId] = order;
 }
 
-// ====== Graph Traversal ======
+// ---- Traversal ----
+
+SpaceGraphResult SpaceGraph::traverse(const SpaceTraversalOptions& options) const {
+    SpaceGraphResult result;
+    if (options.mode == SpaceTraversal::DEPTH_FIRST) {
+        std::unordered_set<std::string> visited;
+        traverseDFS(rootId_, 0, options, result, visited);
+    } else {
+        traverseBFS(options, result);
+    }
+    return result;
+}
 
 void SpaceGraph::traverseBFS(const SpaceTraversalOptions& options, SpaceGraphResult& result) const {
-    std::queue<std::pair<std::string, int>> q; // (nodeId, depth)
     std::unordered_set<std::string> visited;
+    // Queue of (nodeId, depth)
+    using QueueEntry = std::pair<std::string, int>;
+    std::deque<QueueEntry> q;
 
-    q.push({rootId_, 0});
+    auto rootIt = nodes_.find(rootId_);
+    if (rootIt == nodes_.end()) return;
+    result.root = rootIt->second;
+    q.push_back({rootId_, 0});
     visited.insert(rootId_);
 
-    // Ensure root node exists
-    if (nodes_.find(rootId_) != nodes_.end()) {
-        result.root = nodes_[rootId_];
-        result.totalSpaces++;
-    }
-
-    while (!q.empty() && result.totalNodes < options.maxResults) {
-        auto [nodeId, depth] = q.front(); q.pop();
+    while (!q.empty() && (int)result.flatList.size() < options.maxResults) {
+        auto [nodeId, depth] = q.front();
+        q.pop_front();
 
         if (depth > options.maxDepth) continue;
 
-        // Get children
-        auto childIt = childMap_.find(nodeId);
-        if (childIt == childMap_.end()) continue;
+        auto nodeIt = nodes_.find(nodeId);
+        if (nodeIt == nodes_.end()) continue;
 
-        std::vector<SpaceChildEntry> sortedChildren = childIt->second;
+        SpaceNode node = nodeIt->second;
+        node.depth = depth;
 
-        // Sort by order if we have order data
-        auto orderIt = orderMap_.find(nodeId);
-        if (orderIt != orderMap_.end()) {
-            std::sort(sortedChildren.begin(), sortedChildren.end(),
-                [&](const SpaceChildEntry& a, const SpaceChildEntry& b) {
-                    auto oa = orderIt->second.find(a.roomId);
-                    auto ob = orderIt->second.find(b.roomId);
-                    std::string orderA = (oa != orderIt->second.end()) ? oa->second : "";
-                    std::string orderB = (ob != orderIt->second.end()) ? ob->second : "";
-                    return orderA < orderB;
-                });
+        // Apply filters
+        if (options.includeSuggestedOnly && !node.isSuggested) {
+            if (!options.filterByType || node.type != options.typeFilter) continue;
+        }
+        if (options.filterByType && node.type != options.typeFilter) {
+            // Skip this node but still traverse children
+            bool skip = true;
+            auto childIt = childMap_.find(nodeId);
+            if (childIt != childMap_.end()) {
+                for (const auto& child : childIt->second) {
+                    if (!visited.count(child.roomId)) {
+                        visited.insert(child.roomId);
+                        auto childNodeIt = nodes_.find(child.roomId);
+                        if (childNodeIt != nodes_.end()) {
+                            SpaceNode cn = childNodeIt->second;
+                            cn.depth = depth + 1;
+                            if (options.includeSuggestedOnly && !cn.isSuggested) continue;
+                            if (!options.filterByType || cn.type == options.typeFilter) {
+                                result.children[nodeId].push_back(cn);
+                            }
+                            if (options.includeSubspaces || cn.type != SpaceNodeType::SPACE) {
+                                q.push_back({child.roomId, depth + 1});
+                            }
+                        }
+                    }
+                }
+            }
+            if (skip) continue;
         }
 
-        for (const auto& child : sortedChildren) {
-            if (visited.find(child.roomId) != visited.end()) continue;
-            if (options.includeSuggestedOnly && !child.suggested) continue;
+        // Count types
+        if (node.type == SpaceNodeType::SPACE || node.type == SpaceNodeType::SUBSPACE) {
+            result.totalSpaces++;
+        } else {
+            result.totalRooms++;
+        }
+        result.totalNodes++;
+        if (depth > result.maxDepth) result.maxDepth = depth;
+        result.flatList.push_back(node);
 
-            visited.insert(child.roomId);
+        // Push children
+        auto childIt = childMap_.find(nodeId);
+        if (childIt != childMap_.end()) {
+            // Sort children by order
+            auto orderIt = orderMap_.find(nodeId);
+            std::vector<SpaceChildEntry> orderedChildren = childIt->second;
 
-            auto nodeIt = nodes_.find(child.roomId);
-            if (nodeIt == nodes_.end() || !nodeIt->second.valid) continue;
-
-            SpaceNode node = nodeIt->second;
-            node.depth = depth + 1;
-            node.valid = true;
-
-            // Update root's child count
-            if (nodeIt->second.type == SpaceNodeType::ROOM) {
-                nodes_[nodeId].childCount++;
-                nodes_[nodeId].totalDescendantCount++;
+            if (orderIt != orderMap_.end()) {
+                std::sort(orderedChildren.begin(), orderedChildren.end(),
+                    [&](const SpaceChildEntry& a, const SpaceChildEntry& b) {
+                        auto oa = orderIt->second.find(a.roomId);
+                        auto ob = orderIt->second.find(b.roomId);
+                        std::string sa = (oa != orderIt->second.end()) ? oa->second : "";
+                        std::string sb = (ob != orderIt->second.end()) ? ob->second : "";
+                        return sa < sb;
+                    });
             }
 
-            result.flatList.push_back(node);
-            result.children[nodeId].push_back(node);
-            result.totalNodes++;
-            result.maxDepth = std::max(result.maxDepth, depth + 1);
+            for (const auto& child : orderedChildren) {
+                if (!options.includeSuggestedOnly || child.suggested) {
+                    if (!visited.count(child.roomId)) {
+                        visited.insert(child.roomId);
+                        auto childNodeIt = nodes_.find(child.roomId);
+                        SpaceNode cn;
+                        if (childNodeIt != nodes_.end()) {
+                            cn = childNodeIt->second;
+                        } else {
+                            cn.roomId = child.roomId;
+                        }
+                        cn.depth = depth + 1;
+                        result.children[nodeId].push_back(cn);
 
-            if (node.type == SpaceNodeType::ROOM) result.totalRooms++;
-            else {
-                result.totalSpaces++;
-                if (options.includeSubspaces) {
-                    q.push({child.roomId, depth + 1});
+                        if (options.includeSubspaces || cn.type == SpaceNodeType::ROOM) {
+                            q.push_back({child.roomId, depth + 1});
+                        }
+                    }
+                }
+            }
+        }
+
+        // Also add children to q for subspaces
+        if (options.includeSubspaces) {
+            auto subIt = childMap_.find(nodeId);
+            if (subIt != childMap_.end()) {
+                for (const auto& child : subIt->second) {
+                    if (!visited.count(child.roomId)) {
+                        visited.insert(child.roomId);
+                        if (options.includeSubspaces) {
+                            q.push_back({child.roomId, depth + 1});
+                        }
+                    }
                 }
             }
         }
@@ -228,305 +286,226 @@ void SpaceGraph::traverseBFS(const SpaceTraversalOptions& options, SpaceGraphRes
 }
 
 void SpaceGraph::traverseDFS(const std::string& nodeId, int depth,
-                              const SpaceTraversalOptions& options,
-                              SpaceGraphResult& result,
-                              std::unordered_set<std::string>& visited) {
-    if (depth > options.maxDepth || result.totalNodes >= options.maxResults) return;
-    if (visited.find(nodeId) != visited.end()) return;
-
-    visited.insert(nodeId);
+                               const SpaceTraversalOptions& options,
+                               SpaceGraphResult& result,
+                               std::unordered_set<std::string>& visited) {
+    if (depth > options.maxDepth) return;
+    if ((int)result.flatList.size() >= options.maxResults) return;
 
     auto nodeIt = nodes_.find(nodeId);
-    if (nodeIt != nodes_.end() && nodeIt->second.valid) {
-        SpaceNode node = nodeIt->second;
-        node.depth = depth;
-        result.flatList.push_back(node);
-        result.totalNodes++;
-        result.maxDepth = std::max(result.maxDepth, depth);
+    if (nodeIt == nodes_.end()) return;
 
-        if (node.type == SpaceNodeType::ROOM) result.totalRooms++;
-        else result.totalSpaces++;
+    SpaceNode node = nodeIt->second;
+    node.depth = depth;
+
+    if (!options.filterByType || node.type == options.typeFilter) {
+        if (!options.includeSuggestedOnly || node.isSuggested) {
+            result.flatList.push_back(node);
+        }
     }
 
     auto childIt = childMap_.find(nodeId);
-    if (childIt == childMap_.end()) return;
+    if (childIt != childMap_.end()) {
+        // Sort children by order
+        std::vector<SpaceChildEntry> ordered = childIt->second;
+        auto orderIt = orderMap_.find(nodeId);
+        if (orderIt != orderMap_.end()) {
+            std::sort(ordered.begin(), ordered.end(),
+                [&](const SpaceChildEntry& a, const SpaceChildEntry& b) {
+                    auto oa = orderIt->second.find(a.roomId);
+                    auto ob = orderIt->second.find(b.roomId);
+                    std::string sa = (oa != orderIt->second.end()) ? oa->second : "";
+                    std::string sb = (ob != orderIt->second.end()) ? ob->second : "";
+                    return sa < sb;
+                });
+        }
 
-    for (const auto& child : childIt->second) {
-        if (options.includeSuggestedOnly && !child.suggested) continue;
-
-        auto cn = nodes_.find(child.roomId);
-        if (cn == nodes_.end()) continue;
-
-        if (cn->second.type == SpaceNodeType::ROOM || options.includeSubspaces) {
-            traverseDFS(child.roomId, depth + 1, options, result, visited);
+        for (const auto& child : ordered) {
+            if (!visited.count(child.roomId)) {
+                visited.insert(child.roomId);
+                traverseDFS(child.roomId, depth + 1, options, result, visited);
+            }
         }
     }
 }
 
-SpaceGraphResult SpaceGraph::traverse(const SpaceTraversalOptions& options) const {
-    SpaceGraphResult result;
-
-    if (rootId_.empty()) return result;
-
-    switch (options.mode) {
-        case SpaceTraversal::BREADTH_FIRST:
-            traverseBFS(options, result);
-            break;
-        case SpaceTraversal::DEPTH_FIRST:
-        case SpaceTraversal::ORDERED: {
-            std::unordered_set<std::string> visited;
-            traverseDFS(rootId_, 0, options, result, visited);
-            break;
-        }
-    }
-
-    return result;
-}
+// ---- Children / Parents ----
 
 std::vector<SpaceNode> SpaceGraph::getChildren(const std::string& spaceId) const {
     std::vector<SpaceNode> result;
     auto it = childMap_.find(spaceId);
     if (it == childMap_.end()) return result;
 
-    for (const auto& child : it->second) {
-        auto ni = nodes_.find(child.roomId);
-        if (ni != nodes_.end()) {
-            result.push_back(ni->second);
-        }
+    auto orderIt = orderMap_.find(spaceId);
+    std::vector<SpaceChildEntry> ordered = it->second;
+
+    if (orderIt != orderMap_.end()) {
+        std::sort(ordered.begin(), ordered.end(),
+            [&](const SpaceChildEntry& a, const SpaceChildEntry& b) {
+                auto oa = orderIt->second.find(a.roomId);
+                auto ob = orderIt->second.find(b.roomId);
+                std::string sa = (oa != orderIt->second.end()) ? oa->second : "";
+                std::string sb = (ob != orderIt->second.end()) ? ob->second : "";
+                return sa < sb;
+            });
     }
 
-    return sortByOrder(result, spaceId);
+    for (const auto& child : ordered) {
+        auto nodeIt = nodes_.find(child.roomId);
+        if (nodeIt != nodes_.end()) {
+            result.push_back(nodeIt->second);
+        } else {
+            SpaceNode n; n.roomId = child.roomId; result.push_back(n);
+        }
+    }
+    return result;
 }
 
 std::vector<std::string> SpaceGraph::getParents(const std::string& roomId) const {
+    std::vector<std::string> result;
     auto it = parentMap_.find(roomId);
     if (it != parentMap_.end()) return it->second;
-    return {};
+    return result;
 }
 
 std::vector<std::string> SpaceGraph::getAncestors(const std::string& roomId) const {
-    std::vector<std::string> ancestors;
+    std::vector<std::string> result;
     std::string current = roomId;
-    std::unordered_set<std::string> visited;
+    std::unordered_set<std::string> seen;
+    int maxLoop = 100;
 
-    while (true) {
-        visited.insert(current);
+    while (current != rootId_ && maxLoop-- > 0) {
+        seen.insert(current);
         auto it = parentMap_.find(current);
         if (it == parentMap_.end() || it->second.empty()) break;
-
-        // Take the first canonical parent, or first parent
-        std::string parent = it->second[0];
-        if (visited.find(parent) != visited.end()) break; // Cycle guard
-
-        ancestors.push_back(parent);
-        current = parent;
-        if (current == rootId_) break; // Reached root
+        std::string next = it->second[0];
+        if (seen.count(next)) break;
+        result.push_back(next);
+        current = next;
     }
-
-    return ancestors;
+    return result;
 }
 
 int SpaceGraph::getDepth(const std::string& roomId) const {
     if (roomId == rootId_) return 0;
-
-    std::string current = roomId;
-    int depth = 0;
-    std::unordered_set<std::string> visited;
-
-    while (depth < 50) { // Safety limit
-        visited.insert(current);
-        auto it = parentMap_.find(current);
-        if (it == parentMap_.end() || it->second.empty()) break;
-
-        current = it->second[0];
-        if (visited.find(current) != visited.end()) break;
-        depth++;
-        if (current == rootId_) return depth;
-    }
-
-    return -1; // Not in this space
+    auto ancestors = getAncestors(roomId);
+    return (int)ancestors.size();
 }
 
 bool SpaceGraph::isInSpace(const std::string& spaceId, const std::string& roomId) const {
     if (roomId == spaceId) return true;
-
-    std::queue<std::string> q;
-    std::unordered_set<std::string> visited;
-    q.push(spaceId);
-    visited.insert(spaceId);
-
-    int maxIter = 1000;
-    while (!q.empty() && maxIter-- > 0) {
-        auto current = q.front(); q.pop();
-        auto it = childMap_.find(current);
-        if (it == childMap_.end()) continue;
-
-        for (const auto& child : it->second) {
-            if (child.roomId == roomId) return true;
-            if (visited.find(child.roomId) == visited.end()) {
-                visited.insert(child.roomId);
-                q.push(child.roomId);
-            }
-        }
-    }
-
-    return false;
+    auto ancs = getAncestors(roomId);
+    return std::find(ancs.begin(), ancs.end(), spaceId) != ancs.end();
 }
 
-// ====== Queries ======
-
 std::vector<SpaceNode> SpaceGraph::getSpaceRooms(const std::string& spaceId) const {
-    std::vector<SpaceNode> rooms;
+    std::vector<SpaceNode> result;
     auto it = childMap_.find(spaceId);
-    if (it == childMap_.end()) return rooms;
+    if (it == childMap_.end()) return result;
 
     for (const auto& child : it->second) {
-        auto ni = nodes_.find(child.roomId);
-        if (ni != nodes_.end() && ni->second.type == SpaceNodeType::ROOM) {
-            rooms.push_back(ni->second);
+        auto nodeIt = nodes_.find(child.roomId);
+        if (nodeIt != nodes_.end()) {
+            SpaceNode node = nodeIt->second;
+            if (node.type == SpaceNodeType::ROOM) {
+                result.push_back(node);
+            }
+        } else {
+            SpaceNode n; n.roomId = child.roomId; n.type = SpaceNodeType::ROOM;
+            result.push_back(n);
         }
     }
-
-    return sortByOrder(rooms, spaceId);
+    return result;
 }
 
 std::vector<SpaceNode> SpaceGraph::getSubspaces(const std::string& spaceId) const {
-    std::vector<SpaceNode> subspaces;
+    std::vector<SpaceNode> result;
     auto it = childMap_.find(spaceId);
-    if (it == childMap_.end()) return subspaces;
+    if (it == childMap_.end()) return result;
 
     for (const auto& child : it->second) {
-        auto ni = nodes_.find(child.roomId);
-        if (ni != nodes_.end() &&
-            (ni->second.type == SpaceNodeType::SPACE || ni->second.type == SpaceNodeType::SUBSPACE)) {
-            subspaces.push_back(ni->second);
+        auto nodeIt = nodes_.find(child.roomId);
+        if (nodeIt != nodes_.end()) {
+            SpaceNode node = nodeIt->second;
+            if (node.type == SpaceNodeType::SPACE || node.type == SpaceNodeType::SUBSPACE) {
+                result.push_back(node);
+            }
         }
     }
-
-    return sortByOrder(subspaces, spaceId);
+    return result;
 }
 
 std::vector<SpaceNode> SpaceGraph::searchSpaceRooms(const std::string& spaceId,
-                                                      const std::string& query) const {
-    std::vector<SpaceNode> results;
-    if (query.empty()) return results;
-
-    std::string q;
-    for (char c : query) q += static_cast<char>(std::tolower(c));
+                                                       const std::string& query) const {
+    std::vector<SpaceNode> result;
+    if (query.empty()) return getChildren(spaceId);
 
     SpaceTraversalOptions opts;
     opts.mode = SpaceTraversal::BREADTH_FIRST;
     opts.includeSubspaces = true;
     opts.includeSuggestedOnly = false;
+    opts.maxResults = 200;
 
     auto traversal = traverse(opts);
+    std::string lowerQuery = query;
+    std::transform(lowerQuery.begin(), lowerQuery.end(), lowerQuery.begin(), ::tolower);
 
     for (const auto& node : traversal.flatList) {
-        if (node.type != SpaceNodeType::ROOM) continue;
+        if (node.roomId == spaceId) continue;
 
-        std::string name;
-        for (char c : node.name) name += static_cast<char>(std::tolower(c));
-        std::string topic;
-        for (char c : node.topic) topic += static_cast<char>(std::tolower(c));
+        std::string lowerName = node.name;
+        std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+        std::string lowerTopic = node.topic;
+        std::transform(lowerTopic.begin(), lowerTopic.end(), lowerTopic.begin(), ::tolower);
 
-        if (name.find(q) != std::string::npos || topic.find(q) != std::string::npos) {
-            results.push_back(node);
+        if (lowerName.find(lowerQuery) != std::string::npos ||
+            lowerTopic.find(lowerQuery) != std::string::npos ||
+            node.roomId.find(lowerQuery) != std::string::npos) {
+            result.push_back(node);
         }
     }
-
-    return results;
+    return result;
 }
 
-// ====== Statistics ======
+// ---- Depth ----
 
 int SpaceGraph::deepestDepth() const {
-    int maxd = 0;
+    int maxD = 0;
     for (const auto& [id, node] : nodes_) {
-        if (node.valid && node.depth > maxd) maxd = node.depth;
+        int d = getDepth(id);
+        if (d > maxD) maxD = d;
     }
-    return maxd;
+    return maxD;
 }
 
-// ====== Sorting ======
-
-std::vector<SpaceNode> SpaceGraph::sortByOrder(std::vector<SpaceNode> nodes, const std::string& parentId) const {
-    auto it = orderMap_.find(parentId);
-    if (it == orderMap_.end()) {
-        // Sort alphabetically by name
-        std::sort(nodes.begin(), nodes.end(), [](const SpaceNode& a, const SpaceNode& b) {
-            return a.name < b.name;
-        });
-        return nodes;
-    }
-
-    std::sort(nodes.begin(), nodes.end(), [&](const SpaceNode& a, const SpaceNode& b) {
-        auto oa = it->second.find(a.roomId);
-        auto ob = it->second.find(b.roomId);
-        std::string orderA = (oa != it->second.end()) ? oa->second : "z";
-        std::string orderB = (ob != it->second.end()) ? ob->second : "z";
-        if (orderA != orderB) return orderA < orderB;
-        return a.name < b.name;
-    });
-
-    return nodes;
-}
-
-// ====== Serialization ======
+// ---- Serialization ----
 
 std::string SpaceGraph::nodeToJson(const std::string& nodeId, int depthLeft,
-                                    std::unordered_set<std::string>& visited) const {
-    if (depthLeft <= 0 || visited.find(nodeId) != visited.end()) return "{}";
+                                     std::unordered_set<std::string>& visited) const {
+    std::ostringstream os;
+    if (depthLeft <= 0) return "null";
+    if (visited.count(nodeId)) return "null";
     visited.insert(nodeId);
 
-    auto it = nodes_.find(nodeId);
-    if (it == nodes_.end()) return "{}";
+    auto nodeIt = nodes_.find(nodeId);
+    if (nodeIt == nodes_.end()) return "null";
+    const SpaceNode& node = nodeIt->second;
 
-    auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
-    };
+    os << "{";
+    os << R"("room_id":")" << node.roomId << R"(")";
+    if (!node.name.empty()) os << R"(,"name":")" << node.name << R"(")";
+    os << R"(,"type":")" << (node.type == SpaceNodeType::SPACE ? "space" : "room") << R"(")";
+    if (node.isJoined) os << R"(,"joined":true)";
 
-    const auto& node = it->second;
-    std::ostringstream os;
-    os << R"({"id":")" << esc(node.roomId)
-       << R"(","name":")" << esc(node.name)
-       << R"(","type":")" << (node.type == SpaceNodeType::SPACE ? "space" :
-                                node.type == SpaceNodeType::SUBSPACE ? "subspace" : "room")
-       << R"(","depth":)" << node.depth
-       << R"(,"is_joined":)" << (node.isJoined ? "true" : "false")
-       << R"(,"can_join":)" << (node.canJoin ? "true" : "false");
-
-    // Children
     auto childIt = childMap_.find(nodeId);
     if (childIt != childMap_.end() && !childIt->second.empty()) {
         os << R"(,"children":[)";
         bool first = true;
         for (const auto& child : childIt->second) {
-            auto childNode = nodes_.find(child.roomId);
-            if (childNode == nodes_.end()) continue;
-            if (childNode->second.type == SpaceNodeType::ROOM) continue; // Rooms are leaves
-
-            if (!first) os << ","; first = false;
-            os << nodeToJson(child.roomId, depthLeft - 1, visited);
-        }
-        os << "]";
-    }
-
-    // Room children (leaf rooms)
-    if (childIt != childMap_.end()) {
-        os << R"(,"rooms":[)";
-        bool first = true;
-        for (const auto& child : childIt->second) {
-            auto childNode = nodes_.find(child.roomId);
-            if (childNode == nodes_.end()) continue;
-            if (childNode->second.type != SpaceNodeType::ROOM) continue;
-
-            if (!first) os << ","; first = false;
-            os << R"({"id":")" << esc(childNode->second.roomId)
-               << R"(","name":")" << esc(childNode->second.name)
-               << R"(","is_joined":)" << (childNode->second.isJoined ? "true" : "false")
-               << "}";
+            if (!first) os << ",";
+            first = false;
+            std::string childJson = nodeToJson(child.roomId, depthLeft - 1, visited);
+            if (childJson != "null") os << childJson;
         }
         os << "]";
     }
@@ -541,53 +520,53 @@ std::string SpaceGraph::spaceToTreeJson(const std::string& spaceId, int maxDepth
 }
 
 std::string SpaceGraph::flatListToJson(const std::vector<SpaceNode>& nodes) const {
-    auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
-    };
-
     std::ostringstream os;
     os << "[";
     for (size_t i = 0; i < nodes.size(); i++) {
         if (i > 0) os << ",";
-        os << R"({"id":")" << esc(nodes[i].roomId)
-           << R"(","name":")" << esc(nodes[i].name)
-           << R"(","type":")" << (nodes[i].type == SpaceNodeType::SPACE ? "space" :
-                                    nodes[i].type == SpaceNodeType::SUBSPACE ? "subspace" : "room")
-           << R"(,"depth":)" << nodes[i].depth
-           << R"(,"is_joined":)" << (nodes[i].isJoined ? "true" : "false")
-           << "}";
+        const auto& n = nodes[i];
+        os << "{";
+        os << R"("room_id":")" << n.roomId << R"(")";
+        if (!n.name.empty()) os << R"(,"name":")" << n.name << R"(")";
+        os << R"(,"type":)" << static_cast<int>(n.type);
+        os << R"(,"depth":)" << n.depth;
+        os << "}";
     }
     os << "]";
     return os.str();
 }
 
 std::string SpaceGraph::graphResultToJson(const SpaceGraphResult& result) const {
-    auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
-    };
-
     std::ostringstream os;
-    os << R"({"root_id":")" << esc(result.root.roomId)
-       << R"(","root_name":")" << esc(result.root.name)
-       << R"(,"total_nodes":)" << result.totalNodes
-       << R"(,"total_spaces":)" << result.totalSpaces
-       << R"(,"total_rooms":)" << result.totalRooms
-       << R"(,"max_depth":)" << result.maxDepth
-       << R"(,"nodes":)" << flatListToJson(result.flatList)
-       << "}";
+    os << "{";
+    os << R"("total_nodes":)" << result.totalNodes;
+    os << R"(,"total_spaces":)" << result.totalSpaces;
+    os << R"(,"total_rooms":)" << result.totalRooms;
+    os << R"(,"max_depth":)" << result.maxDepth;
+    os << R"(,"root":{)";
+    os << R"("room_id":")" << result.root.roomId << R"(")";
+    if (!result.root.name.empty()) os << R"(,"name":")" << result.root.name << R"(")";
+    os << "}";
+    os << R"(,"flat_list":)" << flatListToJson(result.flatList);
+    os << "}";
     return os.str();
 }
 
-void SpaceGraph::clear() {
-    rootId_.clear();
-    nodes_.clear();
-    childMap_.clear();
-    parentMap_.clear();
-    orderMap_.clear();
+// ---- Sort by Order ----
+
+std::vector<SpaceNode> SpaceGraph::sortByOrder(std::vector<SpaceNode> nodes, const std::string& parentId) const {
+    auto orderIt = orderMap_.find(parentId);
+    if (orderIt != orderMap_.end()) {
+        std::sort(nodes.begin(), nodes.end(),
+            [&](const SpaceNode& a, const SpaceNode& b) {
+                auto oa = orderIt->second.find(a.roomId);
+                auto ob = orderIt->second.find(b.roomId);
+                std::string sa = (oa != orderIt->second.end()) ? oa->second : "";
+                std::string sb = (ob != orderIt->second.end()) ? ob->second : "";
+                return sa < sb;
+            });
+    }
+    return nodes;
 }
 
 } // namespace progressive
