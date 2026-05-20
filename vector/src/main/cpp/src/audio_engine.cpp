@@ -6,6 +6,8 @@
 
 namespace progressive {
 
+#if 0 // Duplicate — defined in date_utils.cpp
+
 std::string formatDuration(int64_t ms) {
     if (ms < 0) ms = 0;
     int64_t totalSec = ms / 1000;
@@ -22,6 +24,8 @@ std::string formatDuration(int64_t ms) {
     }
     return oss.str();
 }
+#endif
+
 
 std::string formatPositionInfo(int64_t positionMs, int64_t durationMs) {
     return formatDuration(positionMs) + " / " + formatDuration(durationMs);
