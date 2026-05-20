@@ -1,8 +1,6 @@
 #include "progressive/pinned_events.hpp"
 #include <sstream>
 #include <regex>
-#include <regex>
-#include <sstream>
 
 namespace progressive {
 
@@ -22,7 +20,7 @@ std::vector<std::string> parsePinnedEventIds(const std::string& stateContentJson
     std::string array = stateContentJson.substr(bracket + 1, end - bracket - 1);
 
     // Extract each "$eventId"
-    std::regex idRe(R"("(\$[^"]+)")");
+    std::regex idRe(R"regex("(\$[^"]+)")regex");
     std::smatch match;
     std::string searchStr = array;
     while (std::regex_search(searchStr, match, idRe)) {
