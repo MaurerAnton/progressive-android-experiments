@@ -32,15 +32,6 @@ std::string buildPinnedEventsContent(const std::vector<std::string>& eventIds);
 // Check if pinning is supported (requires appropriate power level).
 // PL50 = moderator, PL100 = admin. Pin/unpin typically requires PL50.
 bool canManagePins(int userPowerLevel, int requiredLevel = 50);
-
-
-struct PinnedEventInfo {
-    std::string eventId;
-    std::string pinnedBy;
-    int64_t pinnedAt = 0;
-    bool isPinned = true;
-};
-
 // Parse Matrix m.room.pinned_events state content.
 // Content format: {"pinned": ["$ev1", "$ev2", ...]}
 std::vector<std::string> parsePinnedEventIds(const std::string& stateContentJson);
@@ -96,10 +87,6 @@ std::vector<std::string> pinEvent(const std::vector<std::string>& currentPins, c
 // Remove an event from the pinned list (returns new list).
 // Original Kotlin: unpinEvent()
 std::vector<std::string> unpinEvent(const std::vector<std::string>& currentPins, const std::string& eventId);
-
-// Get pinned event info list from state content JSON.
-// Original Kotlin: getPinnedEvents()
-std::vector<PinnedEventInfo> getPinnedEvents(const std::string& stateContentJson);
 
 // Format pinned events as a human-readable message.
 // Original Kotlin: formatPinnedEventsMessage()

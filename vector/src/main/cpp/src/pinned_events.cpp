@@ -126,22 +126,7 @@ std::vector<std::string> unpinEvent(const std::vector<std::string>& currentPins,
         if (id != eventId) result.push_back(id);
     }
     return result;
-}
-
-// Original Kotlin: getPinnedEvents()
-std::vector<PinnedEventInfo> getPinnedEvents(const std::string& stateContentJson) {
-    auto ids = parsePinnedEventIds(stateContentJson);
-    std::vector<PinnedEventInfo> result;
-    for (const auto& id : ids) {
-        PinnedEventInfo info;
-        info.eventId = id;
-        info.isPinned = true;
-        result.push_back(std::move(info));
-    }
-    return result;
-}
-
-// Original Kotlin: formatPinnedEventsMessage()
+}// Original Kotlin: formatPinnedEventsMessage()
 std::string formatPinnedEventsMessage(const std::vector<PinnedEvent>& events) {
     return formatPinnedEventsText(events);
 }
