@@ -5,6 +5,7 @@
 #include "progressive/room_state_manager.hpp"
 #include "progressive/server_notice_manager.hpp"
 #include "progressive/space_graph.hpp"
+#include <sstream>
 
 namespace progressive {
 
