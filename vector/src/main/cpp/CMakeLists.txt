@@ -96,10 +96,8 @@ add_library(
     src/emoji_analyzer.cpp
     src/identity_utils.cpp
     src/notif_analyzer.cpp
-    src/sync_analyzer.cpp
     src/sync_models.cpp
     src/user_rating.cpp
-    src/event_timeline.cpp
     src/event_utils.cpp
     src/room_directory.cpp
     src/widget_utils.cpp
@@ -211,7 +209,6 @@ add_library(
     src/push_condition.cpp
     src/sender_notif_filter.cpp
     src/string_order.cpp
-    src/event_classifier.cpp
     src/encrypted_file.cpp
     src/content_guard.cpp
     src/user_status.cpp
