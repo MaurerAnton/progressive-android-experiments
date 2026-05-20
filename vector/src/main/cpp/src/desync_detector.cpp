@@ -141,6 +141,7 @@ void DesyncDetector::clear() {
     eventTimestamps_.clear();
 }
 
+
 // ---- DesyncCheckResult ----
 
 DesyncCheckResult checkSyncDesynchronization(

@@ -62,7 +62,8 @@ private:
     std::unordered_map<std::string, std::unordered_set<std::string>> serverEvents_;
     // key: eventId → timestamp
     std::unordered_map<std::string, int64_t> eventTimestamps_;
-}
+};
+
 
 struct DesyncCheckResult {
     bool isDesynchronized = false;
@@ -111,3 +112,5 @@ std::string getDesyncRecoveryAction(DesyncCause cause);
 std::string getDesyncRecoveryAction(const DesyncCheckResult& result);
 
 } // namespace progressive
+
+#endif // PROGRESSIVE_DESYNC_DETECTOR_HPP
