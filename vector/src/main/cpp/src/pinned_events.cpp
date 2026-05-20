@@ -1,6 +1,8 @@
 #include "progressive/pinned_events.hpp"
 #include <sstream>
 #include <regex>
+#include <regex>
+#include <sstream>
 
 namespace progressive {
 

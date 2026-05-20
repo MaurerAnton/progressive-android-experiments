@@ -4,6 +4,9 @@
 #include <algorithm>
 #include <regex>
 #include <cctype>
+#include <algorithm>
+#include <regex>
+#include <sstream>
 
 namespace progressive {
 
@@ -167,9 +170,13 @@ std::string formatJumpTarget(const JumpToDateTarget& target) {
 // ---- Room Matching ----
 
 
+#if 0 // Duplicate — defined in matrix_patterns.cpp
+
 bool isRoomAlias(const std::string& input) {
     return input.size() > 1 && input[0] == '#' && input.find(':') != std::string::npos;
 }
+#endif
+
 
 double fuzzyScore(const std::string& query, const std::string& candidate) {
     if (query.empty()) return 0.0;

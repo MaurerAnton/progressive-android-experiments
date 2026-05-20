@@ -570,8 +570,6 @@ object ProgressiveNative {
     // --- Matrix Patterns ---
 
     @JvmStatic external fun nativeIsUserId(input: String): Boolean
-    @JvmStatic external fun nativeIsRoomAlias(input: String): Boolean
-    @JvmStatic external fun nativeIsEventId(input: String): Boolean
     @JvmStatic external fun nativeParseMatrixToPermalink(url: String): String
     @JvmStatic external fun nativeIsValidEmail(input: String): Boolean
 
@@ -666,7 +664,6 @@ object ProgressiveNative {
     // --- File Validator ---
 
     @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
-    @JvmStatic external fun nativeGetFileExtension(fileName: String): String
 
     // --- Date Utils ---
 

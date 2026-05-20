@@ -1,6 +1,7 @@
 #include "progressive/olm.hpp"
 #include <sstream>
 #include <cstring>
+#include <sstream>
 
 // libolm C API headers (from https://gitlab.matrix.org/matrix-org/olm)
 // To enable, add libolm to CMakeLists.txt:

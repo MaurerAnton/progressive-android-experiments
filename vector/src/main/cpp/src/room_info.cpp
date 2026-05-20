@@ -1,6 +1,7 @@
 #include "progressive/room_info.hpp"
 #include <sstream>
 #include <ctime>
+#include <sstream>
 
 namespace progressive {
 
