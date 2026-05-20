@@ -201,7 +201,6 @@ add_library(
     src/sender_notif_filter.cpp
     src/string_order.cpp
     src/event_classifier.cpp
-    src/encrypted_file.cpp
     src/content_guard.cpp
     src/user_status.cpp
     src/offline_cache.cpp
