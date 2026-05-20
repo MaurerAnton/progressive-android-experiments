@@ -1,4 +1,5 @@
 #include "progressive/poll_manager.hpp"
+#include <unordered_set>
 #include <sstream>
 #include <algorithm>
 #include <ctime>
