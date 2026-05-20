@@ -162,7 +162,6 @@ add_library(
     src/message_retry.cpp
     src/sync_utils.cpp
     src/event_display.cpp
-    src/permalink.cpp
     src/network_monitor.cpp
     src/client_info.cpp
     src/keyshare.cpp
