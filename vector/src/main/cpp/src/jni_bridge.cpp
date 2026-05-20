@@ -5062,13 +5062,17 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeUpdateTypingState
 
     auto state = progressive::updateTypingState(roomId, userIds, names, jNowMs);
     auto json = progressive::typingStateToJson(state);
-    return env->NewStringUTF(json.str().c_str());
+    return env->NewStringUTF(json.c_str());
 }
+
+#if 0 // v0.3 late-add JNI bridges — needs .str() fix + deduplication
 
 JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeFormatTypingText(
     JNIEnv* env, jclass, jstring jTypingStateJson
 ) {
+
+#endif // v0.3 duplicate
     // Quick-parse the typing state from JSON
     auto json = jTypingStateJson ? std::string(env->GetStringUTFChars(jTypingStateJson, nullptr)) : "{}";
     if (jTypingStateJson) env->ReleaseStringUTFChars(jTypingStateJson, json.c_str());
@@ -5160,5 +5164,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeStripHtmlTags(
     auto stripped = progressive::stripHtmlTags(html);
     return env->NewStringUTF(stripped.c_str());
 }
+
+#endif // v0.3 late-add JNI bridges
 
 } // extern "C"
