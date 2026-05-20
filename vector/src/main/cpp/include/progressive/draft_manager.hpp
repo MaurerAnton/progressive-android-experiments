@@ -68,7 +68,6 @@ struct DraftTypingState {
     int64_t lastTypedAtMs = 0;
     bool isActive = false;
 };
-#endif
 
 
 struct TypingIndication {
