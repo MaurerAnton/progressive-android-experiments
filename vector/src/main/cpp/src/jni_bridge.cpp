@@ -5320,7 +5320,9 @@ JNI_FUNC(jstring, nativeDeviceFormatFingerprint)(JNIEnv* env, jclass, jstring jR
     return env->NewStringUTF(getDeviceMgr()->formatFingerprint(jStr(env, jRawKey)).c_str());
 }
 JNI_FUNC(jstring, nativeDeviceGetTrustLabel)(JNIEnv* env, jclass, jboolean jCrossSigning, jboolean jLocal) {
-    progressive::DeviceTrustLevel tl; tl.crossSigningVerified = jCrossSigning; tl.locallyVerified = jLocal;
+    progressive::DeviceVerification tl = progressive::DeviceVerification::UNKNOWN;
+    if (jCrossSigning) tl = progressive::DeviceVerification::VERIFIED;
+    else if (jLocal) tl = progressive::DeviceVerification::UNVERIFIED;
     return env->NewStringUTF(getDeviceMgr()->getTrustLabel(tl).c_str());
 }
 JNI_FUNC(jstring, nativeDeviceFormatLastSeen)(JNIEnv* env, jclass, jlong jTs) {
