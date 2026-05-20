@@ -148,6 +148,8 @@ std::string resolveUrl(const std::string& baseUrl, const std::string& relative) 
     return baseUrl.substr(0, lastSlash + 1) + relative;
 }
 
+#if 0 // Duplicate — defined in another module
+
 bool isImageUrl(const std::string& url) {
     auto lower = url;
     for (char& c : lower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
@@ -159,6 +161,8 @@ bool isImageUrl(const std::string& url) {
            lower.find(".svg") != std::string::npos ||
            lower.find(".bmp") != std::string::npos;
 }
+#endif
+
 
 std::vector<std::string> extractUrls(const std::string& html) {
     std::vector<std::string> urls;
@@ -178,6 +182,8 @@ std::vector<std::string> extractUrls(const std::string& html) {
     }
     return urls;
 }
+
+#if 0 // Duplicate — defined in another module
 
 std::string stripHtmlTags(const std::string& html) {
     std::string result;
@@ -202,6 +208,8 @@ std::string stripHtmlTags(const std::string& html) {
     }
     return clean;
 }
+#endif
+
 
 std::string truncateDescription(const std::string& text, size_t maxLen) {
     if (text.size() <= maxLen) return text;
