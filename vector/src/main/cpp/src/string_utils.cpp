@@ -3,6 +3,9 @@
 #include <algorithm>
 #include <cctype>
 #include <regex>
+#include <algorithm>
+#include <regex>
+#include <sstream>
 
 namespace progressive {
 

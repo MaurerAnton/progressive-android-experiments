@@ -1,6 +1,7 @@
 #include "progressive/permalink.hpp"
 #include "progressive/url_tools.hpp"
 #include <sstream>
+#include <sstream>
 
 namespace progressive {
 

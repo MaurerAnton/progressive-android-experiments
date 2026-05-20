@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <cstring>
 #include <random>
+#include <sstream>
 
 namespace progressive {
 

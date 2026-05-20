@@ -7,6 +7,7 @@
 #include <olm/outbound_group_session.h>
 #include <olm/inbound_group_session.h>
 #include <olm/sas.h>
+#include <sstream>
 
 namespace progressive {
 

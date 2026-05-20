@@ -984,7 +984,6 @@ object ProgressiveNative {
     // Ported from: TypingUsersTracker.kt, TypingHelper.kt, TypingView.kt
 
     @JvmStatic external fun nativeUpdateTypingState(roomId: String, typingUserIds: Array<String>, displayNames: Array<String>, nowMs: Long): String
-    @JvmStatic external fun nativeFormatTypingText(typingStateJson: String): String
     @JvmStatic external fun nativeIsUserTyping(typingStateJson: String, userId: String, nowMs: Long): Boolean
 
     // --- URL Preview / OpenGraph ---
@@ -993,7 +992,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseUrlPreview(html: String, baseUrl: String): String
     @JvmStatic external fun nativeExtractHtmlTitle(html: String): String
     @JvmStatic external fun nativeResolveUrl(baseUrl: String, relative: String): String
-    @JvmStatic external fun nativeIsImageUrl(url: String): Boolean
     @JvmStatic external fun nativeStripHtmlTags(html: String): String
 
     // --- Power Levels / Room Permissions ---

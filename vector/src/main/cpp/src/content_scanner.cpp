@@ -1,6 +1,7 @@
 #include "progressive/content_scanner.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
+#include <sstream>
 
 namespace progressive {
 
