@@ -110,7 +110,7 @@ void DraftManager::clear() {
 
 // ---- Typing Indicator ----
 
-TypingIndication computeTypingIndicator(const std::vector<TypingState>& typists, int64_t nowMs) {
+TypingIndication computeTypingIndicator(const std::vector<DraftTypingState>& typists, int64_t nowMs) {
     TypingIndication result;
 
     std::vector<std::string> activeNames;
@@ -126,7 +126,7 @@ TypingIndication computeTypingIndicator(const std::vector<TypingState>& typists,
     return result;
 }
 
-bool isTypingExpired(const TypingState& state, int64_t nowMs, int64_t timeoutMs) {
+bool isTypingExpired(const DraftTypingState& state, int64_t nowMs, int64_t timeoutMs) {
     if (!state.isActive) return true;
     return (nowMs - state.lastTypedAtMs) > timeoutMs;
 }
