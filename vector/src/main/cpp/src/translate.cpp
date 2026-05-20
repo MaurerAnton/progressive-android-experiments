@@ -133,7 +133,7 @@ static std::string jsonEscape(const std::string& s) {
 // ============================================================================
 
 // Original Kotlin: TranslateManager.kt — JSON request body builder
-std::string buildTranslateRequest(const TranslateApiRequest& request, TranslateProvider provider) {
+std::string buildTranslateRequest(const TranslateRequest& request, TranslateProvider provider) {
     std::ostringstream json;
 
     switch (provider) {
@@ -141,7 +141,7 @@ std::string buildTranslateRequest(const TranslateApiRequest& request, TranslateP
             // Google Cloud Translation API v3
             json << "{";
             json << "\"q\": [\"" << jsonEscape(request.text) << "\"],";
-            json << "\"target\": \"" << jsonEscape(request.targetLang) << "\",";
+            json << "\"target\": \"" << jsonEscape(request.targetLanguage) << "\",";
             if (!request.sourceLang.empty())
                 json << "\"source\": \"" << jsonEscape(request.sourceLang) << "\",";
             json << "\"format\": \"" << (request.format == TranslateFormat::HTML ? "html" : "text") << "\"";
@@ -152,7 +152,7 @@ std::string buildTranslateRequest(const TranslateApiRequest& request, TranslateP
             // DeepL API
             json << "{";
             json << "\"text\": [\"" << jsonEscape(request.text) << "\"],";
-            json << "\"target_lang\": \"" << jsonEscape(request.targetLang) << "\",";
+            json << "\"target_lang\": \"" << jsonEscape(request.targetLanguage) << "\",";
             if (!request.sourceLang.empty())
                 json << "\"source_lang\": \"" << jsonEscape(request.sourceLang) << "\",";
             json << "\"preserve_formatting\": " << (request.format == TranslateFormat::HTML ? "true" : "false");
@@ -163,7 +163,7 @@ std::string buildTranslateRequest(const TranslateApiRequest& request, TranslateP
             // Yandex Translate API
             json << "{";
             json << "\"texts\": [\"" << jsonEscape(request.text) << "\"],";
-            json << "\"targetLanguageCode\": \"" << jsonEscape(request.targetLang) << "\",";
+            json << "\"targetLanguageCode\": \"" << jsonEscape(request.targetLanguage) << "\",";
             if (!request.sourceLang.empty())
                 json << "\"sourceLanguageCode\": \"" << jsonEscape(request.sourceLang) << "\"";
             json << "}";
@@ -264,7 +264,7 @@ std::string buildTranslateSettings(const TranslateConfig& config) {
     json << "\"enabled\": " << (config.enabled ? "true" : "false") << ",";
     json << "\"provider\": \"" << providerStr << "\",";
     json << "\"sourceLang\": \"" << jsonEscape(config.sourceLang) << "\",";
-    json << "\"targetLang\": \"" << jsonEscape(config.targetLang) << "\",";
+    json << "\"targetLanguage\": \"" << jsonEscape(config.targetLanguage) << "\",";
     json << "\"apiUrl\": \"" << jsonEscape(config.apiUrl) << "\"";
     json << "}";
 
@@ -637,8 +637,8 @@ TranslationCache::TranslationCache(size_t maxSize)
 std::string TranslationCache::makeKey(
     const std::string& sourceText,
     const std::string& sourceLang,
-    const std::string& targetLang) {
-    return sourceText + "|" + sourceLang + "|" + targetLang;
+    const std::string& targetLanguage) {
+    return sourceText + "|" + sourceLang + "|" + targetLanguage;
 }
 
 void TranslationCache::touch(const std::string& key) const {
@@ -652,8 +652,8 @@ void TranslationCache::touch(const std::string& key) const {
 std::string TranslationCache::getCachedTranslation(
     const std::string& sourceText,
     const std::string& sourceLang,
-    const std::string& targetLang) const {
-    auto key = makeKey(sourceText, sourceLang, targetLang);
+    const std::string& targetLanguage) const {
+    auto key = makeKey(sourceText, sourceLang, targetLanguage);
     touch(key);
 
     auto it = map_.find(key);
@@ -666,9 +666,9 @@ std::string TranslationCache::getCachedTranslation(
 void TranslationCache::putCachedTranslation(
     const std::string& sourceText,
     const std::string& sourceLang,
-    const std::string& targetLang,
+    const std::string& targetLanguage,
     const std::string& translatedText) {
-    auto key = makeKey(sourceText, sourceLang, targetLang);
+    auto key = makeKey(sourceText, sourceLang, targetLanguage);
 
     // If already in cache, update and move to back
     auto it = map_.find(key);
@@ -682,7 +682,7 @@ void TranslationCache::putCachedTranslation(
     // Evict oldest if at capacity
     if (list_.size() >= maxSize_) {
         auto& oldest = list_.front();
-        auto oldKey = makeKey(oldest.sourceText, oldest.sourceLang, oldest.targetLang);
+        auto oldKey = makeKey(oldest.sourceText, oldest.sourceLang, oldest.targetLanguage);
         map_.erase(oldKey);
         list_.pop_front();
     }
@@ -691,7 +691,7 @@ void TranslationCache::putCachedTranslation(
     TranslationCacheEntry entry;
     entry.sourceText = sourceText;
     entry.sourceLang = sourceLang;
-    entry.targetLang = targetLang;
+    entry.targetLanguage = targetLanguage;
     entry.translatedText = translatedText;
     entry.timestamp = static_cast<int64_t>(std::time(nullptr)) * 1000;
 
@@ -715,7 +715,7 @@ void TranslationCache::clear() {
 std::string translateMessage(
     const std::string& text,
     const std::string& sourceLang,
-    const std::string& targetLang,
+    const std::string& targetLanguage,
     TranslateProvider provider,
     const std::string& apiKey,
     const std::string& apiUrl) {
@@ -726,7 +726,7 @@ std::string translateMessage(
 
     // Check static cache
     static TranslationCache sCache(512);
-    auto cached = sCache.getCachedTranslation(text, sourceLang, targetLang);
+    auto cached = sCache.getCachedTranslation(text, sourceLang, targetLanguage);
     if (!cached.empty()) return cached;
 
     // Cache miss — return empty string to signal that a real API call is needed.
