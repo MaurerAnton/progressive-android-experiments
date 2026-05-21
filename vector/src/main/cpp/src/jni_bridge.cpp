@@ -39,6 +39,7 @@
 #include "progressive/llm.hpp"
 #include "progressive/alarm_engine.hpp"
 #include "progressive/notif_mode.hpp"
+#include "progressive/weather_utils.hpp"
 #include "progressive/read_receipts.hpp"
 #include "progressive/room_analytics.hpp"
 #include "progressive/chat_tools.hpp"
@@ -6091,6 +6092,25 @@ JNI_FUNC(jstring, nativeFormatLlmBroadcast)(JNIEnv* env, jclass, jstring jPrompt
     auto formatted = progressive::formatLlmBroadcastMessage(jStr(env, jPrompt), jStr(env, jResponse));
     return env->NewStringUTF(formatted.c_str());
 }
+// ============================================================
+// Weather Utils
+// ============================================================
+
+JNI_FUNC(jstring, nativeWeatherBuildUrl)(JNIEnv* env, jclass, jstring jLocation, jstring jToken) {
+    auto url = progressive::buildWeatherUrl(jStr(env, jLocation), jStr(env, jToken));
+    return env->NewStringUTF(url.c_str());
+}
+
+JNI_FUNC(jstring, nativeWeatherParseWttr)(JNIEnv* env, jclass, jstring jJson) {
+    auto result = progressive::parseWeatherResponse(jStr(env, jJson));
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeWeatherParseOwm)(JNIEnv* env, jclass, jstring jJson) {
+    auto result = progressive::parseOpenWeatherResponse(jStr(env, jJson));
+    return env->NewStringUTF(result.c_str());
+}
+
 // ============================================================
 // Alarm Engine
 // ============================================================

@@ -739,6 +739,12 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseLlmResponse(body: String, statusCode: Int, provider: Int): String
     @JvmStatic external fun nativeFormatLlmBroadcast(prompt: String, response: String): String
 
+    // --- Weather Utils ---
+
+    @JvmStatic external fun nativeWeatherBuildUrl(location: String, apiToken: String): String
+    @JvmStatic external fun nativeWeatherParseWttr(json: String): String
+    @JvmStatic external fun nativeWeatherParseOwm(json: String): String
+
     // --- Alarm Engine ---
 
     @JvmStatic external fun nativeAlarmCreate(agentText: String): String

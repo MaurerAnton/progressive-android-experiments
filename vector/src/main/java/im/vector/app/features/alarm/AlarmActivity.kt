@@ -16,6 +16,10 @@ import android.os.VibratorManager
 import android.speech.tts.TextToSpeech
 import android.view.View
 import android.view.WindowManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import android.widget.TextView
 import android.widget.Button
 import androidx.core.content.getSystemService
@@ -66,6 +70,7 @@ class AlarmActivity : VectorBaseActivity<ActivityAlarmBinding>() {
         ttsDelay = intent.getIntExtra("ALARM_TTS_DELAY", 5)
 
         setupUi()
+        fetchWeather()
         startRingtone()
         startVibration()
         scheduleTts()
@@ -160,6 +165,26 @@ class AlarmActivity : VectorBaseActivity<ActivityAlarmBinding>() {
             ProgressiveNative.nativeAlarmDismiss(alarmId)
         } catch (_: Exception) { }
         stopAndFinish()
+    }
+
+    private fun fetchWeather() {
+        val preAction = intent.getStringExtra("ALARM_PRE_ACTION") ?: return
+        if (preAction.isBlank()) return
+        val location = intent.getStringExtra("ALARM_PRE_ACTION_PARAM") ?: return
+        if (location.isBlank()) return
+
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+            try {
+                ProgressiveNative.ensureLoaded()
+                val url = ProgressiveNative.nativeWeatherBuildUrl(location, "")
+                val response = java.net.URL(url).readText()
+                val summary = ProgressiveNative.nativeWeatherParseWttr(response)
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                    views.alarmPreActionText.text = summary
+                    views.alarmPreActionText.visibility = View.VISIBLE
+                }
+            } catch (_: Exception) { }
+        }
     }
 
     private fun stopAndFinish() {
