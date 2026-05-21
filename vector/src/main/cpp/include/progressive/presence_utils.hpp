@@ -2,6 +2,8 @@
 #define PROGRESSIVE_PRESENCE_UTILS_HPP
 
 #include <string>
+#include <vector>
+#include <unordered_map>
 #include <cstdint>
 
 namespace progressive {
