@@ -63,9 +63,6 @@ std::string buildEncryptionContent(const EncryptionConfig& config);
 // Check if an encryption rotation is due.
 bool isRotationDue(const EncryptionConfig& config, int messageCount, int64_t sessionStartMs);
 
-
-
-
 } // namespace progressive
 
 #endif // PROGRESSIVE_ROOM_ENCRYPTION_HPP
