@@ -561,6 +561,19 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      vectorPreferences.toggleEmojiBlacklist()
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.TRANSLATE -> {
+                                     val args = parsedCommand.args.trim()
+                                     if (args.isNotBlank()) {
+                                         room.sendService().sendTextMessage(
+                                             "[Translation requested: $args]
+(Configure LLM API in Settings → Labs to enable)",
+                                             autoMarkdown = false
+                                         )
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     } else {
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     }
+                                 }
                                  Command.SCHEDULE -> {
                                      val args = parsedCommand.args.trim()
                                      if (args.isNotBlank()) {

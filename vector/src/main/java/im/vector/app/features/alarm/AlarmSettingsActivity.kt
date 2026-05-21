@@ -84,6 +84,19 @@ class AlarmSettingsActivity : VectorBaseActivity<ActivityAlarmSettingsBinding>()
         }
 
         // Save
+                // Night mode keywords
+        views.alarmKeywordInputLayout.visibility = View.VISIBLE
+        views.alarmAddKeywordButton.setOnClickListener {
+            val kw = views.alarmKeywordInput.text.toString().trim()
+            if (kw.isNotEmpty()) {
+                try {
+                    ProgressiveNative.nativeNotifAddKeyword(kw)
+                    views.alarmKeywordInput.text.clear()
+                    loadKeywords()
+                } catch (_: Exception) { }
+            }
+        }
+
         views.alarmSaveSettingsButton.setOnClickListener {
             saveSettings()
             Toast.makeText(this, "Alarm settings saved", Toast.LENGTH_SHORT).show()
@@ -91,6 +104,7 @@ class AlarmSettingsActivity : VectorBaseActivity<ActivityAlarmSettingsBinding>()
         }
     }
 
+    private fun loadKeywords() { }
     private fun saveSettings() {
         try {
             val json = ProgressiveNative.nativeAlarmListAll()
