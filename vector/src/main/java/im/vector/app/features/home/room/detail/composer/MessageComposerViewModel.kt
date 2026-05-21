@@ -561,6 +561,31 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      vectorPreferences.toggleEmojiBlacklist()
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.WEATHER -> {
+                                     val args = parsedCommand.args.trim()
+                                     if (args.isNotBlank()) {
+                                         // Send a placeholder, then fetch weather
+                                         room.sendService().sendTextMessage("Fetching weather for $args...", autoMarkdown = false)
+                                         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                                             try {
+                                                 ProgressiveNative.ensureLoaded()
+                                                 val url = ProgressiveNative.nativeWeatherBuildUrl(args, "")
+                                                 val response = java.net.URL(url).readText()
+                                                 val summary = ProgressiveNative.nativeWeatherParseWttr(response)
+                                                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                     room.sendService().sendTextMessage(summary, autoMarkdown = false)
+                                                 }
+                                             } catch (e: Exception) {
+                                                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                     room.sendService().sendTextMessage("Weather fetch failed: ${e.message}", autoMarkdown = false)
+                                                 }
+                                             }
+                                         }
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     } else {
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     }
+                                 }
                                  Command.TRANSLATE -> {
                                      val args = parsedCommand.args.trim()
                                      if (args.isNotBlank()) {

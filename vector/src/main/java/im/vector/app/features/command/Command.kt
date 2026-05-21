@@ -70,6 +70,7 @@ enum class Command(
     AGENT("/agent", null, "<task>", CommonStrings.command_description_agent, false, true),
     WEB("/web", arrayOf("/search"), "[engine] <query>", CommonStrings.command_description_web, false, true),
     HIDE_EMOJI("/hideemoji", null, "", CommonStrings.command_description_hide_emoji, false, true),
+    WEATHER("/weather", null, "<city>", CommonStrings.command_description_llm, false, true),
     TRANSLATE("/translate", null, "<lang> <text>", CommonStrings.command_description_llm, false, true),
     SCHEDULE("/schedule", null, "<HH:MM> <message>", CommonStrings.command_description_smsagent, false, true),
     SMSAGENT("/smsagent", null, "<message>", CommonStrings.command_description_smsagent, false, true);
