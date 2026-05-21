@@ -62,6 +62,9 @@ public:
     // Dismiss an alarm (disable it until re-enabled).
     void dismissAlarm(const std::string& id);
 
+    // Set ringtone for an alarm.
+    void setRingtone(const std::string& id, const std::string& uri);
+
     // Delete an alarm permanently.
     void deleteAlarm(const std::string& id);
 

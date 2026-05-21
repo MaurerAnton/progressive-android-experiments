@@ -753,6 +753,7 @@ object ProgressiveNative {
     @JvmStatic external fun nativeAlarmSnooze(id: String, minutes: Int)
     @JvmStatic external fun nativeAlarmDismiss(id: String)
     @JvmStatic external fun nativeAlarmDelete(id: String)
+    @JvmStatic external fun nativeAlarmSetRingtone(id: String, uri: String)
     @JvmStatic external fun nativeAlarmLoad(json: String)
 
     // --- Notification Mode (Night Mode) ---

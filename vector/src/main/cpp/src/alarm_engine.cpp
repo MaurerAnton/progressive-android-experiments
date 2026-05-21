@@ -207,6 +207,12 @@ void AlarmManager::snoozeAlarm(const std::string& id, int minutes) {
     }
 }
 
+void AlarmManager::setRingtone(const std::string& id, const std::string& uri) {
+    for (auto& a : alarms_) {
+        if (a.id == id) { a.ringtoneUri = uri; break; }
+    }
+}
+
 void AlarmManager::dismissAlarm(const std::string& id) {
     for (auto& a : alarms_) {
         if (a.id == id) {

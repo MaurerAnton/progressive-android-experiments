@@ -6141,6 +6141,10 @@ JNI_FUNC(void, nativeAlarmDismiss)(JNIEnv* env, jclass, jstring jId) {
     g_alarmMgr.dismissAlarm(jStr(env, jId));
 }
 
+JNI_FUNC(void, nativeAlarmSetRingtone)(JNIEnv* env, jclass, jstring jId, jstring jUri) {
+    g_alarmMgr.setRingtone(jStr(env, jId), jStr(env, jUri));
+}
+
 JNI_FUNC(void, nativeAlarmDelete)(JNIEnv* env, jclass, jstring jId) {
     g_alarmMgr.deleteAlarm(jStr(env, jId));
 }
