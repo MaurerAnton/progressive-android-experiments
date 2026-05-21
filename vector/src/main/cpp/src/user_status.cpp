@@ -153,20 +153,4 @@ std::vector<std::string> getStatusSuggestions() {
     };
 }
 
-
-std::string userStatusToString(UserStatusType t) {
-    switch (t) {
-        case UserStatusType::ONLINE: return "\U0001F7E2 Online";
-        case UserStatusType::OFFLINE: return "\U0001F534 Offline";
-        case UserStatusType::AWAY: return "\U0001F7E1 Away";
-        case UserStatusType::BUSY: return "\U0001F534 Busy";
-        default: return "Unknown";
-    }
-}
-UserStatusType userStatusFromString(const std::string& s) {
-    if (s == "online") return UserStatusType::ONLINE;
-    if (s == "offline") return UserStatusType::OFFLINE;
-    if (s == "unavailable") return UserStatusType::AWAY;
-    return UserStatusType::UNKNOWN;
-}
 } // namespace progressive
