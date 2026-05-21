@@ -142,9 +142,6 @@ std::vector<uint8_t> fromHexString(const std::string& hex);
 // Original Kotlin: base64Encode — simple base64 encoding
 std::string base64Encode(const std::string& input);
 
-// Original Kotlin: base64Decode — simple base64 decoding
-std::string base64Decode(const std::string& input);
-
 // Original Kotlin: StringSearchResult — occurrence match
 struct StringSearchResult {
     bool found = false;
