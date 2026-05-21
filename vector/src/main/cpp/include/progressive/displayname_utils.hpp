@@ -2,6 +2,7 @@
 #define PROGRESSIVE_DISPLAYNAME_UTILS_HPP
 
 #include <string>
+#include <map>
 #include <vector>
 
 namespace progressive {
