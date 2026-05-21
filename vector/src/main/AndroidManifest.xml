@@ -31,6 +31,7 @@
     <!-- Needed to show incoming calls activity in lock screen-->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <!-- Needed for incoming calls  -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
@@ -304,6 +305,10 @@
             android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             android:taskAffinity=".features.call.VectorCallActivity.${appTaskAffinitySuffix}" />
+        <receiver
+            android:name=".features.alarm.AlarmReceiver"
+            android:exported="false" />
+
         <activity
             android:name=".features.alarm.AlarmActivity"
             android:excludeFromRecents="true"

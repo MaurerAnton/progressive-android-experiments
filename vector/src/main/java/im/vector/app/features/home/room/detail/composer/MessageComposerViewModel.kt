@@ -562,14 +562,12 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
                                  Command.SMSAGENT -> {
-                                     // Send message text without /smsagent prefix
                                      val args = parsedCommand.args
                                      if (args.isNotBlank()) {
                                          room.sendService().sendTextMessage(args, autoMarkdown = false)
-                                         // Dispatch to alarm engine agent
                                          try {
                                              ProgressiveNative.ensureLoaded()
-                                             val alarmId = ProgressiveNative.nativeAlarmCreate(args)
+                                             ProgressiveNative.nativeAlarmCreate(args)
                                          } catch (_: Exception) { }
                                          _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                      } else {
