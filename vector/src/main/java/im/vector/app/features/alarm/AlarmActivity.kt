@@ -76,11 +76,29 @@ class AlarmActivity : VectorBaseActivity<ActivityAlarmBinding>() {
         scheduleTts()
     }
 
+    private var dismissed = false
+
     private fun setupUi() {
         views.alarmNoteText.text = alarmNote
 
         views.alarmDismissButton.setOnClickListener {
-            dismissAlarm()
+            if (!dismissed) {
+                dismissed = true
+                dismissAlarm()
+                // Stop sound but keep screen with weather
+                mediaPlayer?.stop()
+                mediaPlayer?.release()
+                mediaPlayer = null
+                vibrator?.cancel()
+                tts?.stop()
+                ttsTimer?.cancel()
+                // Change UI: Dismiss → Close
+                views.alarmDismissButton.text = "Close"
+                views.alarmSnoozeButton.visibility = View.GONE
+                views.alarmNoteText.text = "$alarmNote (dismissed)"
+            } else {
+                stopAndFinish()
+            }
         }
 
         views.alarmSnoozeButton.setOnClickListener {
@@ -164,7 +182,7 @@ class AlarmActivity : VectorBaseActivity<ActivityAlarmBinding>() {
             ProgressiveNative.ensureLoaded()
             ProgressiveNative.nativeAlarmDismiss(alarmId)
         } catch (_: Exception) { }
-        stopAndFinish()
+        // Don't finish — user stays on weather screen
     }
 
     private fun fetchWeather() {
@@ -203,7 +221,11 @@ class AlarmActivity : VectorBaseActivity<ActivityAlarmBinding>() {
     }
 
     override fun onBackPressed() {
-        snoozeAlarm(5)
+        if (dismissed) {
+            stopAndFinish()
+        } else {
+            snoozeAlarm(5)
+        }
     }
 
     companion object {
