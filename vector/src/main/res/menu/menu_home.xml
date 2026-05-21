@@ -37,4 +37,9 @@
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
 
+    <item
+        android:id="@+id/menu_home_night_mode"
+        android:title="🌙 Night mode"
+        app:showAsAction="ifRoom" />
+
 </menu>

@@ -89,6 +89,7 @@ import org.matrix.android.sdk.api.session.sync.SyncRequestState
 import org.matrix.android.sdk.api.session.sync.initialSyncStrategy
 import org.matrix.android.sdk.api.util.MatrixItem
 import timber.log.Timber
+import chat.progressive.app.native.ProgressiveNative
 import javax.inject.Inject
 
 @Parcelize
@@ -616,6 +617,35 @@ class HomeActivity :
     override fun handlePrepareMenu(menu: Menu) {
         menu.findItem(R.id.menu_home_init_sync_legacy).isVisible = vectorPreferences.developerMode()
         menu.findItem(R.id.menu_home_init_sync_optimized).isVisible = vectorPreferences.developerMode()
+        menu.findItem(R.id.menu_home_night_mode)?.let { item ->
+            try {
+                ProgressiveNative.ensureLoaded()
+                val mode = ProgressiveNative.nativeNotifGetMode()
+                item.title = if (mode == 1) "☀️ Day mode" else "🌙 Night mode"
+            } catch (_: Exception) { }
+        }
+    }
+
+    private fun toggleNightMode() {
+        try {
+            ProgressiveNative.ensureLoaded()
+            val currentMode = ProgressiveNative.nativeNotifGetMode()
+            val newMode = if (currentMode == 1) 0 else 1
+            ProgressiveNative.nativeNotifSetMode(newMode)
+            val msg = if (newMode == 1) "Night mode ON — only alarms & keywords ping"
+                        else "Night mode OFF — all notifications restored"
+            invalidateOptionsMenu()
+            showSnackbar(msg)
+        } catch (e: Exception) {
+            showSnackbar("Night mode error: ${e.message}")
+        }
+    }
+
+    private fun showSnackbar(msg: String) {
+        com.google.android.material.snackbar.Snackbar.make(
+            views.coordinatorLayout, msg,
+            com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     override fun handleMenuItemSelected(item: MenuItem): Boolean {
@@ -660,6 +690,10 @@ class HomeActivity :
             }
             R.id.menu_home_qr -> {
                 launchQrCode()
+                true
+            }
+            R.id.menu_home_night_mode -> {
+                toggleNightMode()
                 true
             }
             else -> false
