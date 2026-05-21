@@ -39,6 +39,7 @@
 #include "progressive/llm.hpp"
 #include "progressive/alarm_engine.hpp"
 #include "progressive/notif_mode.hpp"
+#include "progressive/message_scheduler.hpp"
 #include "progressive/weather_utils.hpp"
 #include "progressive/read_receipts.hpp"
 #include "progressive/room_analytics.hpp"
@@ -6115,6 +6116,8 @@ JNI_FUNC(jstring, nativeWeatherParseOwm)(JNIEnv* env, jclass, jstring jJson) {
 // Alarm Engine
 // ============================================================
 
+static progressive::MessageScheduler g_msgSched;
+
 static progressive::NightModeManager g_nightMode;
 
 static progressive::AlarmManager g_alarmMgr;
@@ -6151,6 +6154,46 @@ JNI_FUNC(void, nativeAlarmDelete)(JNIEnv* env, jclass, jstring jId) {
 
 JNI_FUNC(void, nativeAlarmLoad)(JNIEnv* env, jclass, jstring jJson) {
     g_alarmMgr.loadAlarmsFromJson(jStr(env, jJson));
+}
+
+// ============================================================
+// Message Scheduler
+
+JNI_FUNC(jstring, nativeSchedSchedule)(JNIEnv* env, jclass, jstring jRoomId, jstring jBody,
+                                         jstring jFormatted, jlong jTriggerMs) {
+    auto id = g_msgSched.schedule(jStr(env, jRoomId), jStr(env, jBody), jStr(env, jFormatted), jTriggerMs);
+    return env->NewStringUTF(id.c_str());
+}
+
+JNI_FUNC(void, nativeSchedCancel)(JNIEnv* env, jclass, jstring jId) {
+    g_msgSched.cancel(jStr(env, jId));
+}
+
+JNI_FUNC(jstring, nativeSchedGetPending)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(g_msgSched.toJson().c_str());
+}
+
+JNI_FUNC(jstring, nativeSchedGetForRoom)(JNIEnv* env, jclass, jstring jRoomId) {
+    auto msgs = g_msgSched.getForRoom(jStr(env, jRoomId));
+    // Serialize just these to JSON
+    std::string json = "[";
+    for (size_t i = 0; i < msgs.size(); i++) {
+        if (i > 0) json += ",";
+        json += "{\"id\":\"" + msgs[i].id + "\"";
+        json += ",\"body\":\"" + msgs[i].body + "\"";
+        json += ",\"scheduledAtMs\":" + std::to_string(msgs[i].scheduledAtMs);
+        json += "}";
+    }
+    json += "]";
+    return env->NewStringUTF(json.c_str());
+}
+
+JNI_FUNC(void, nativeSchedLoad)(JNIEnv* env, jclass, jstring jJson) {
+    g_msgSched.fromJson(jStr(env, jJson));
+}
+
+JNI_FUNC(void, nativeSchedCleanup)(JNIEnv* env, jclass) {
+    g_msgSched.cleanup();
 }
 
 // ============================================================

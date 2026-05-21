@@ -112,6 +112,7 @@ add_library(
     src/room_state_manager.cpp
     src/space_graph.cpp
     src/weather_utils.cpp
+    src/message_scheduler.cpp
     src/notif_mode.cpp
     src/alarm_engine.cpp
     src/progressive_stubs.cpp

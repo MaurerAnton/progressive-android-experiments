@@ -756,6 +756,15 @@ object ProgressiveNative {
     @JvmStatic external fun nativeAlarmSetRingtone(id: String, uri: String)
     @JvmStatic external fun nativeAlarmLoad(json: String)
 
+    // --- Message Scheduler ---
+
+    @JvmStatic external fun nativeSchedSchedule(roomId: String, body: String, formatted: String, triggerMs: Long): String
+    @JvmStatic external fun nativeSchedCancel(id: String)
+    @JvmStatic external fun nativeSchedGetPending(): String
+    @JvmStatic external fun nativeSchedGetForRoom(roomId: String): String
+    @JvmStatic external fun nativeSchedLoad(json: String)
+    @JvmStatic external fun nativeSchedCleanup()
+
     // --- Notification Mode (Night Mode) ---
 
     @JvmStatic external fun nativeNotifSetMode(mode: Int)
