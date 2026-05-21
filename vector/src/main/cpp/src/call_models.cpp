@@ -273,20 +273,4 @@ TurnServerResponse parseTurnServerResponse(const std::string& json) {
     return ts;
 }
 
-const char* callEndReasonToString(CallEndReason r) {
-    switch (r) {
-        case CallEndReason::UNKNOWN:             return "unknown";
-        case CallEndReason::HUNG_UP:             return "hung_up";
-        case CallEndReason::REJECTED:            return "rejected";
-        case CallEndReason::BUSY:                return "busy";
-        case CallEndReason::TIMEOUT:             return "timeout";
-        case CallEndReason::ANSWERED_ELSEWHERE:  return "answered_elsewhere";
-        case CallEndReason::ICE_FAILED:          return "ice_failed";
-        case CallEndReason::INVITE_EXPIRED:      return "invite_expired";
-    }
-    return "unknown";
-}
-
-}
-
 } // namespace progressive

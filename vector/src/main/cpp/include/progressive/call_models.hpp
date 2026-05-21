@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <cstdint>
 #include <vector>
 #include "progressive/message_content.hpp"
 
@@ -53,10 +52,7 @@ EndCallReason endCallReasonFromString(const std::string& s);
 // Original Kotlin (CallCapabilities.kt:25-32):
 //   data class CallCapabilities(@Json(name="m.call.transferee") transferee: Boolean?)
 struct CallCapabilities {
-    bool transferee = false;        // "m.call.transferee" — supports call transfer
-    bool supportsDtmf = false;      // "m.call.dtmf" — supports DTMF tones
-    bool useStereo = false;         // "m.call.use_stereo" — stereo audio support
-    bool supportsVideo = true;      // implicit — almost all clients support video
+    bool transferee = false;  // "m.call.transferee" — supports call transfer
 
     bool supportsCallTransfer() const { return transferee; }
 };
@@ -227,29 +223,4 @@ struct TurnServerResponse {
 
 TurnServerResponse parseTurnServerResponse(const std::string& json);
 
-
-// ==== CallEndReason ====
-enum class CallEndReason {
-    UNKNOWN = 0,
-    HUNG_UP = 1,
-    REJECTED = 2,
-    BUSY = 3,
-    TIMEOUT = 4,
-    ANSWERED_ELSEWHERE = 5,
-    ICE_FAILED = 6,
-    INVITE_EXPIRED = 7
-};
-const char* callEndReasonToString(CallEndReason r);
-CallEndReason callEndReasonFromString(const std::string& s);
-
-// ==== CallRingInfo ====
-struct CallRingInfo {
-    std::string callId;
-    std::string callerName;
-    std::string callerAvatar;
-    std::string roomName;
-    bool isVideoCall = false;
-    bool isGroupCall = false;
-    int inviteLifetimeMs = 120000;
-};
 } // namespace progressive
