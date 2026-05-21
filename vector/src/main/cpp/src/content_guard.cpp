@@ -183,4 +183,92 @@ std::string formatMediaCollapseLabel(int count) {
     return std::to_string(count) + " media omitted";
 }
 
+
+
+// ---- Content Trust & Guard Policies ----
+
+ContentTrustDecision evaluateContentTrust(
+    const std::string& contentJson,
+    ContentTrustPolicy policy,
+    const std::vector<ContentValidationRule>& rules
+) {
+    if (policy == ContentTrustPolicy::TRUST_ALL) return ContentTrustDecision::ALLOW;
+    if (policy == ContentTrustPolicy::BLOCK_ALL) return ContentTrustDecision::BLOCK;
+
+    for (const auto& rule : rules) {
+        if (!rule.enabled) continue;
+
+        // Check if content matches the rule pattern
+        bool matches = false;
+        if (!rule.pattern.empty()) {
+            matches = contentJson.find(rule.pattern) != std::string::npos;
+        }
+        if (!rule.mimePattern.empty()) {
+            matches = matches || contentJson.find(rule.mimePattern) != std::string::npos;
+        }
+
+        if (matches) {
+            switch (rule.action) {
+                case ContentRuleAction::BLOCK:    return ContentTrustDecision::BLOCK;
+                case ContentRuleAction::QUARANTINE: return ContentTrustDecision::QUARANTINE;
+                case ContentRuleAction::WARN:     return ContentTrustDecision::QUARANTINE;
+                case ContentRuleAction::REPORT:   return ContentTrustDecision::QUARANTINE;
+                default: break;
+            }
+        }
+    }
+
+    if (policy == ContentTrustPolicy::SCAN_REQUIRED) {
+        return ContentTrustDecision::SCAN_PENDING;
+    }
+
+    return ContentTrustDecision::ALLOW;
+}
+
+std::string buildContentWarning(
+    ContentWarningType type,
+    const std::string& reason,
+    const std::string& detail
+) {
+    std::ostringstream os;
+    os << "{";
+    os << R"("warning_type":)";
+    switch (type) {
+        case ContentWarningType::EXPLICIT:  os << R"("explicit")"; break;
+        case ContentWarningType::VIOLENCE:  os << R"("violence")"; break;
+        case ContentWarningType::SPAM:      os << R"("spam")"; break;
+        case ContentWarningType::PHISHING:  os << R"("phishing")"; break;
+        case ContentWarningType::NSFW:      os << R"("nsfw")"; break;
+        case ContentWarningType::CUSTOM:    os << R"("custom")"; break;
+    }
+    if (!reason.empty()) os << R"(,"reason":")" << reason << R"(")";
+    if (!detail.empty()) os << R"(,"detail":")" << detail << R"(")";
+    os << "}";
+    return os.str();
+}
+
+ContentWarningType classifyContentWarning(const std::string& scanResult) {
+    std::string lower;
+    std::transform(scanResult.begin(), scanResult.end(), std::back_inserter(lower), ::tolower);
+
+    if (lower.find("nudity") != std::string::npos ||
+        lower.find("explicit") != std::string::npos ||
+        lower.find("nsfw") != std::string::npos)
+        return ContentWarningType::EXPLICIT;
+
+    if (lower.find("violence") != std::string::npos ||
+        lower.find("gore") != std::string::npos)
+        return ContentWarningType::VIOLENCE;
+
+    if (lower.find("spam") != std::string::npos ||
+        lower.find("unsolicited") != std::string::npos)
+        return ContentWarningType::SPAM;
+
+    if (lower.find("phish") != std::string::npos ||
+        lower.find("impersonat") != std::string::npos)
+        return ContentWarningType::PHISHING;
+
+    return ContentWarningType::CUSTOM;
+}
+
 } // namespace progressive
