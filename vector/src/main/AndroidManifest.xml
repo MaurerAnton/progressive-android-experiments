@@ -310,6 +310,8 @@
             android:exported="false" />
 
         <activity
+            android:name=".features.alarm.AlarmSettingsActivity" />
+        <activity
             android:name=".features.alarm.AlarmListActivity" />
 
         <activity
