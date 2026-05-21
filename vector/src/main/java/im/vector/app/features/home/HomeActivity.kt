@@ -635,13 +635,13 @@ class HomeActivity :
             val msg = if (newMode == 1) "Night mode ON — only alarms & keywords ping"
                         else "Night mode OFF — all notifications restored"
             invalidateOptionsMenu()
-            showSnackbar(msg)
+            showNightSnackbar(msg)
         } catch (e: Exception) {
             showSnackbar("Night mode error: ${e.message}")
         }
     }
 
-    private fun showSnackbar(msg: String) {
+    private fun showNightSnackbar(msg: String) {
         com.google.android.material.snackbar.Snackbar.make(
             views.coordinatorLayout, msg,
             com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
