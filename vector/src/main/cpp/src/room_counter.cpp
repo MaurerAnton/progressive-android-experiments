@@ -1,4 +1,5 @@
 #include "progressive/room_counter.hpp"
+#include "progressive/room_summary.hpp"
 #include <algorithm>
 #include <sstream>
 
