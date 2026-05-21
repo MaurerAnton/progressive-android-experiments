@@ -68,18 +68,6 @@ enum class UrlPreviewType {
 // ---- URL Preview Data ----
 
 // Original Kotlin: UrlPreviewData.kt — full preview data model
-struct UrlPreviewData {
-    std::string url;
-    std::string title;
-    std::string description;
-    std::string imageUrl;
-    int imageWidth = 0;
-    int imageHeight = 0;
-    std::string siteName;
-    std::string type;           // og:type value
-    std::string mimeType;       // e.g. "text/html", "image/jpeg"
-    UrlPreviewType previewType = UrlPreviewType::LINK;
-};
 
 // ---- URL Match ----
 

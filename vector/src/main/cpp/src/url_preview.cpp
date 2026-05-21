@@ -224,67 +224,23 @@ std::string urlPreviewToJson(const UrlPreview& preview) {
 }
 
 
-
-// ---- URL Preview implementations ----
-
 std::vector<UrlMatch> extractUrls(const std::string& text) {
     std::vector<UrlMatch> matches;
     size_t pos = 0;
-
     while (pos < text.size()) {
         auto httpPos = text.find("http", pos);
         if (httpPos == std::string::npos) break;
-
-        size_t start = httpPos;
-        size_t end = start;
-
+        size_t start = httpPos, end = start;
         while (end < text.size() && text[end] != ' ' && text[end] != '
 ' &&
-               text[end] != '' && text[end] != '	' && text[end] != '"' &&
-               text[end] != ''' && text[end] != '>' && text[end] != '<' &&
-               text[end] != ')' && text[end] != ']' && text[end] != '}') {
-            end++;
-        }
-
+               text[end] != '"' && text[end] != '>' && text[end] != '<' &&
+               text[end] != ')') { end++; }
         std::string url = text.substr(start, end - start);
         if (url.size() > 7) {
-            UrlMatch m;
-            m.url = url;
-            m.startIndex = static_cast<int>(start);
-            m.endIndex = static_cast<int>(end);
-            matches.push_back(m);
+            matches.push_back({url, static_cast<int>(start), static_cast<int>(end)});
         }
-
         pos = end;
     }
-
     return matches;
 }
-
-UrlPreviewType classifyPreviewType(const UrlPreviewData& data) {
-    if (data.type.find("image") != std::string::npos || !data.imageUrl.empty()) {
-        return UrlPreviewType::OG_IMAGE;
-    }
-    if (data.type.find("video") != std::string::npos) {
-        return UrlPreviewType::OG_VIDEO;
-    }
-    if (data.type.find("article") != std::string::npos || !data.description.empty()) {
-        return UrlPreviewType::OG_ARTICLE;
-    }
-    return UrlPreviewType::LINK;
-}
-
-std::string urlPreviewToJson(const UrlPreviewData& data) {
-    std::ostringstream os;
-    os << "{";
-    os << R"("url":")" << data.url << R"(")";
-    if (!data.title.empty()) os << R"(,"title":")" << data.title << R"(")";
-    if (!data.description.empty()) os << R"(,"description":")" << data.description << R"(")";
-    if (!data.imageUrl.empty()) os << R"(,"image_url":")" << data.imageUrl << R"(")";
-    if (!data.siteName.empty()) os << R"(,"site_name":")" << data.siteName << R"(")";
-    os << R"(,"preview_type":)" << static_cast<int>(data.previewType);
-    os << "}";
-    return os.str();
-}
-
 } // namespace progressive
