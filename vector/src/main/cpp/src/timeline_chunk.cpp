@@ -538,4 +538,65 @@ TimelineChunkManager deserializeChunkManager(const std::string& /*json*/, const 
     return TimelineChunkManager(roomId);
 }
 
+
+
+// ---- Chunk Merge ----
+
+ChunkLoadResult mergeChunk(
+    TimelineChunkManager& manager,
+    const TimelineChunkData& incoming,
+    TimelineDirection direction,
+    const std::string& chunkId
+) {
+    ChunkLoadResult result;
+    result.chunk = incoming;
+    result.newEvents = static_cast<int>(incoming.events.size());
+    result.isLimited = incoming.isLimited;
+
+    if (direction == TimelineDirection::FORWARD) {
+        result.nextToken = incoming.nextToken;
+        result.prevToken = incoming.prevToken;
+        result.reachedForwardEnd = !incoming.isLimited;
+    } else {
+        result.prevToken = incoming.prevToken;
+        result.nextToken = incoming.nextToken;
+        result.reachedBackwardEnd = !incoming.isLimited;
+    }
+
+    return result;
+}
+
+// ---- Chunk Split ----
+
+std::pair<TimelineChunkData, TimelineChunkData> splitChunk(
+    const TimelineChunkData& chunk,
+    const std::string& splitEventId
+) {
+    TimelineChunkData before, after;
+
+    bool foundSplit = false;
+    for (const auto& event : chunk.events) {
+        if (event.eventId == splitEventId) {
+            foundSplit = true;
+        }
+        if (!foundSplit) {
+            before.events.push_back(event);
+        } else {
+            after.events.push_back(event);
+        }
+    }
+
+    before.prevToken = chunk.prevToken;
+    before.nextToken = chunk.nextToken;
+    before.chunkId = chunk.chunkId + "_before";
+    before.isLimited = chunk.isLimited;
+
+    after.prevToken = chunk.prevToken;
+    after.nextToken = chunk.nextToken;
+    after.chunkId = chunk.chunkId + "_after";
+    after.isLimited = chunk.isLimited;
+
+    return {before, after};
+}
+
 } // namespace progressive
