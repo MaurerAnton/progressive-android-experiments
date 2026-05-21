@@ -295,7 +295,7 @@ RoomCounters computeRoomCounters(
 ) {
     RoomCounters counters;
     for (const auto& room : rooms) {
-        if (room.membership == "invite") {
+        if (room.isInvited) {
             counters.totalInvites++;
             continue;
         }
