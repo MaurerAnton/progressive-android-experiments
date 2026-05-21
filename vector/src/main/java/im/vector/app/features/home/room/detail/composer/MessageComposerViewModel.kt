@@ -561,6 +561,35 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      vectorPreferences.toggleEmojiBlacklist()
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.SCHEDULE -> {
+                                     val args = parsedCommand.args.trim()
+                                     if (args.isNotBlank()) {
+                                         // Parse HH:MM from args
+                                         val parts = args.split(" ", limit = 2)
+                                         if (parts.size >= 2) {
+                                             val timeStr = parts[0]
+                                             val msgBody = parts[1]
+                                             val timeParts = timeStr.split(":")
+                                             if (timeParts.size == 2) {
+                                                 val hour = timeParts[0].toIntOrNull() ?: 0
+                                                 val minute = timeParts[1].toIntOrNull() ?: 0
+                                                 val now = java.util.Calendar.getInstance()
+                                                 val sched = java.util.Calendar.getInstance()
+                                                 sched.set(java.util.Calendar.HOUR_OF_DAY, hour)
+                                                 sched.set(java.util.Calendar.MINUTE, minute)
+                                                 sched.set(java.util.Calendar.SECOND, 0)
+                                                 if (sched.timeInMillis <= now.timeInMillis) sched.add(java.util.Calendar.DAY_OF_MONTH, 1)
+                                                 try {
+                                                     ProgressiveNative.ensureLoaded()
+                                                     ProgressiveNative.nativeSchedSchedule(room.roomId, msgBody, "", sched.timeInMillis)
+                                                 } catch (_: Exception) { }
+                                                 _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                             }
+                                         }
+                                     } else {
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     }
+                                 }
                                  Command.SMSAGENT -> {
                                      val args = parsedCommand.args
                                      if (args.isNotBlank()) {

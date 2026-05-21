@@ -418,8 +418,8 @@ class CommandParser @Inject constructor(
                 // Progressive Chat commands (delegated to native C++ layer)
                 Command.LLM.matches(slashCommand) || Command.LLMP.matches(slashCommand) ||
                         Command.AGENT.matches(slashCommand) || Command.WEB.matches(slashCommand) ||
-                        Command.HIDE_EMOJI.matches(slashCommand) || Command.SMSAGENT.matches(slashCommand) -> {
-                    val cmd = listOf(Command.LLM, Command.LLMP, Command.AGENT, Command.WEB, Command.HIDE_EMOJI, Command.SMSAGENT)
+                        Command.HIDE_EMOJI.matches(slashCommand) || Command.SMSAGENT.matches(slashCommand) || Command.SCHEDULE.matches(slashCommand) -> {
+                    val cmd = listOf(Command.LLM, Command.LLMP, Command.AGENT, Command.WEB, Command.HIDE_EMOJI, Command.SMSAGENT, Command.SCHEDULE)
                             .firstOrNull { it.matches(slashCommand) }
                     ParsedCommand.ProgressiveChatCommand(cmd ?: Command.LLM, message)
                 }
