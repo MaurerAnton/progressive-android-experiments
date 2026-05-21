@@ -207,4 +207,132 @@ bool isValidCrop(int imgW, int imgH, int cropX, int cropY, int cropW, int cropH)
     return true;
 }
 
+
+
+// ---- ChatTool implementations ----
+
+std::string getToolLabel(ChatTool tool) {
+    switch (tool) {
+        case ChatTool::SEARCH:          return "Search";
+        case ChatTool::MARK_UNREAD:     return "Mark Unread";
+        case ChatTool::COPY_LINK:       return "Copy Link";
+        case ChatTool::SHARE:           return "Share";
+        case ChatTool::FAVOURITE:       return "Favourite";
+        case ChatTool::NOTIFICATION_SETTINGS: return "Notifications";
+        case ChatTool::LEAVE_ROOM:      return "Leave Room";
+        case ChatTool::ROOM_SETTINGS:   return "Room Settings";
+        case ChatTool::INVITE_PEOPLE:   return "Invite People";
+        case ChatTool::REPORT_CONTENT:  return "Report Content";
+        case ChatTool::MARK_ALL_READ:   return "Mark All Read";
+        case ChatTool::JUMP_TO_DATE:    return "Jump to Date";
+        case ChatTool::MUTE:            return "Mute";
+        case ChatTool::UNMUTE:          return "Unmute";
+    }
+    return "Unknown";
+}
+
+std::string getToolIcon(ChatTool tool) {
+    switch (tool) {
+        case ChatTool::SEARCH:          return "ic_search";
+        case ChatTool::MARK_UNREAD:     return "ic_mark_unread";
+        case ChatTool::COPY_LINK:       return "ic_link";
+        case ChatTool::SHARE:           return "ic_share";
+        case ChatTool::FAVOURITE:       return "ic_favourite";
+        case ChatTool::NOTIFICATION_SETTINGS: return "ic_notifications";
+        case ChatTool::LEAVE_ROOM:      return "ic_leave";
+        case ChatTool::ROOM_SETTINGS:   return "ic_settings";
+        case ChatTool::INVITE_PEOPLE:   return "ic_invite";
+        case ChatTool::REPORT_CONTENT:  return "ic_report";
+        case ChatTool::MARK_ALL_READ:   return "ic_mark_all_read";
+        case ChatTool::JUMP_TO_DATE:    return "ic_date";
+        case ChatTool::MUTE:            return "ic_mute";
+        case ChatTool::UNMUTE:          return "ic_unmute";
+    }
+    return "ic_unknown";
+}
+
+std::string getToolDescription(ChatTool tool) {
+    switch (tool) {
+        case ChatTool::SEARCH:          return "Search messages in this room";
+        case ChatTool::MARK_UNREAD:     return "Mark this room as unread";
+        case ChatTool::COPY_LINK:       return "Copy room link to clipboard";
+        case ChatTool::SHARE:           return "Share this room";
+        case ChatTool::FAVOURITE:       return "Add to favourites";
+        case ChatTool::NOTIFICATION_SETTINGS: return "Custom notification settings";
+        case ChatTool::LEAVE_ROOM:      return "Leave this room";
+        case ChatTool::ROOM_SETTINGS:   return "Open room settings";
+        case ChatTool::INVITE_PEOPLE:   return "Invite people to this room";
+        case ChatTool::REPORT_CONTENT:  return "Report inappropriate content";
+        case ChatTool::MARK_ALL_READ:   return "Mark all messages as read";
+        case ChatTool::JUMP_TO_DATE:    return "Jump to a specific date";
+        case ChatTool::MUTE:            return "Mute notifications";
+        case ChatTool::UNMUTE:          return "Unmute notifications";
+    }
+    return "";
+}
+
+bool isToolAvailable(ChatTool tool, const ChatToolContext& ctx) {
+    switch (tool) {
+        case ChatTool::SEARCH:
+        case ChatTool::COPY_LINK:
+        case ChatTool::SHARE:
+            return ctx.isJoinedRoom;
+        case ChatTool::MARK_UNREAD:
+            return ctx.isJoinedRoom;
+        case ChatTool::FAVOURITE:
+            return true;
+        case ChatTool::NOTIFICATION_SETTINGS:
+            return ctx.isJoinedRoom;
+        case ChatTool::LEAVE_ROOM:
+            return ctx.isJoinedRoom;
+        case ChatTool::ROOM_SETTINGS:
+            return ctx.isJoinedRoom && ctx.userPowerLevel >= 50;
+        case ChatTool::INVITE_PEOPLE:
+            return ctx.isJoinedRoom && ctx.userPowerLevel >= 0;
+        case ChatTool::REPORT_CONTENT:
+            return true;
+        case ChatTool::MARK_ALL_READ:
+            return ctx.isJoinedRoom;
+        case ChatTool::JUMP_TO_DATE:
+            return ctx.isJoinedRoom;
+        case ChatTool::MUTE:
+            return ctx.isJoinedRoom && !ctx.isMuted;
+        case ChatTool::UNMUTE:
+            return ctx.isJoinedRoom && ctx.isMuted;
+    }
+    return false;
+}
+
+std::vector<ChatToolInfo> getAvailableTools(const ChatToolContext& ctx) {
+    std::vector<ChatToolInfo> tools;
+    for (int i = 0; i <= static_cast<int>(ChatTool::UNMUTE); i++) {
+        ChatTool tool = static_cast<ChatTool>(i);
+        if (isToolAvailable(tool, ctx)) {
+            ChatToolInfo info;
+            info.tool = tool;
+            info.label = getToolLabel(tool);
+            info.icon = getToolIcon(tool);
+            tools.push_back(info);
+        }
+    }
+    return tools;
+}
+
+void sortToolsByOrder(std::vector<ChatToolInfo>& tools) {
+    std::sort(tools.begin(), tools.end(),
+        [](const ChatToolInfo& a, const ChatToolInfo& b) {
+            return static_cast<int>(a.tool) < static_cast<int>(b.tool);
+        });
+}
+
+std::string contextToJson(const ChatToolContext& ctx) {
+    std::ostringstream os;
+    os << "{";
+    os << R"("roomId":")" << ctx.roomId << R"(")";
+    os << R"(,"isJoinedRoom":)" << (ctx.isJoinedRoom ? "true" : "false");
+    os << R"(,"userPowerLevel":)" << ctx.userPowerLevel;
+    os << "}";
+    return os.str();
+}
+
 } // namespace progressive
