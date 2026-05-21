@@ -2,6 +2,7 @@
 #define PROGRESSIVE_CONTENT_GUARD_HPP
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 namespace progressive {
