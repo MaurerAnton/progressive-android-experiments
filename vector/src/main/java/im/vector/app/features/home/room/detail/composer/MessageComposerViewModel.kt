@@ -642,21 +642,29 @@ class MessageComposerViewModel @AssistedInject constructor(
                                          _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                      }
                                  }
-                                 Command.AGENT -> {
+                                 Command.LLM, Command.LLMP, Command.AGENT -> {
                                      val args = parsedCommand.args.trim()
                                      if (args.isNotBlank()) {
-                                         // Agent: analyze task, call LLM, respond in chat
+                                         var systemPrompt = ""
+                                         when (parsedCommand.command) {
+                                             Command.AGENT -> systemPrompt = "You are a helpful assistant. Be concise."
+                                             Command.LLMP -> systemPrompt = "Answer briefly in plain text."
+                                             else -> {}
+                                         }
+                                         val prompt = if (systemPrompt.isEmpty()) args else "$systemPrompt
+
+User: $args"
+                                         
                                          viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
                                              try {
                                                  ProgressiveNative.ensureLoaded()
-                                                 val config = vectorPreferences
-                                                 val provider = config.getLlmProvider()
-                                                 val endpoint = config.getLlmEndpoint()
-                                                 val token = config.getLlmToken()
-                                                 val model = config.getLlmModel()
+                                                 val provider = vectorPreferences.getLlmProvider()
+                                                 val endpoint = vectorPreferences.getLlmEndpoint()
+                                                 val token = vectorPreferences.getLlmToken()
+                                                 val model = vectorPreferences.getLlmModel()
                                                  
                                                  val requestBody = ProgressiveNative.nativeBuildLlmRequest(
-                                                     "You are a helpful assistant. $args", provider, endpoint, token, model, "", 0.7f, 1024
+                                                     prompt, provider, endpoint, token, model, systemPrompt, 0.7f, 1024
                                                  )
                                                  val headers = ProgressiveNative.nativeBuildLlmHeaders(provider, token)
                                                  
@@ -686,7 +694,7 @@ class MessageComposerViewModel @AssistedInject constructor(
                                                  }
                                              } catch (e: Exception) {
                                                  kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                                                     room.sendService().sendTextMessage("Agent error: ${e.message}", autoMarkdown = false)
+                                                     room.sendService().sendTextMessage("Error: ${e.message}", autoMarkdown = false)
                                                  }
                                              }
                                          }
