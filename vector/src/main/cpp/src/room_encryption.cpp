@@ -120,4 +120,30 @@ bool isRotationDue(const EncryptionConfig& config, int messageCount, int64_t ses
     return false;
 }
 
+
+std::string encryptionAlgorithmToString(EncryptionAlgorithm algo) {
+    switch (algo) {
+        case EncryptionAlgorithm::MEGOLM: return "m.megolm.v1.aes-sha2";
+        case EncryptionAlgorithm::OLM: return "m.olm.v1.curve25519-aes-sha2";
+        default: return "unknown";
+    }
+}
+EncryptionAlgorithm encryptionAlgorithmFromString(const std::string& s) {
+    if (s.find("megolm") != std::string::npos) return EncryptionAlgorithm::MEGOLM;
+    if (s.find("olm") != std::string::npos) return EncryptionAlgorithm::OLM;
+    return EncryptionAlgorithm::UNKNOWN;
+}
+RoomEncryptionConfig detectRoomEncryption(const std::string& stateJson) {
+    RoomEncryptionConfig cfg;
+    cfg.isEncrypted = stateJson.find("\"algorithm\"") != std::string::npos;
+    if (cfg.isEncrypted) {
+        auto algo = stateJson.find("\"algorithm\":\"");
+        if (algo != std::string::npos) {
+            algo += 13;
+            auto e = stateJson.find('"', algo);
+            cfg.algorithm = encryptionAlgorithmFromString(stateJson.substr(algo, e - algo));
+        }
+    }
+    return cfg;
+}
 } // namespace progressive
