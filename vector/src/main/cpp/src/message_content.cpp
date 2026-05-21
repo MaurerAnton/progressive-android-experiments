@@ -394,4 +394,63 @@ std::string messageFileToJson(const MessageFileContent& msg) {
     return json;
 }
 
+
+
+// ---- ContentType detection ----
+
+ContentType MessageContentTypeDetector::detectContentType(const std::string& contentJson) {
+    if (contentJson.empty()) return ContentType::UNKNOWN;
+
+    auto hasType = [&](const std::string& t) { return contentJson.find("\"msgtype\":\"" + t + "\"") != std::string::npos; };
+    auto hasEvent = [&](const std::string& t) { return contentJson.find(t) != std::string::npos; };
+
+    if (hasType("m.text")) return ContentType::TEXT;
+    if (hasType("m.notice")) return ContentType::NOTICE;
+    if (hasType("m.emote")) return ContentType::EMOTE;
+    if (hasType("m.image")) return ContentType::IMAGE;
+    if (hasType("m.video")) return ContentType::VIDEO;
+    if (hasType("m.audio")) return ContentType::AUDIO;
+    if (hasType("m.file")) return ContentType::FILE;
+    if (hasType("m.location")) return ContentType::LOCATION;
+    if (hasEvent("poll.start") || hasEvent("m.poll.start")) return ContentType::POLL_START;
+    if (hasEvent("poll.response") || hasEvent("m.poll.response")) return ContentType::POLL_RESPONSE;
+    if (hasEvent("poll.end") || hasEvent("m.poll.end")) return ContentType::POLL_END;
+    if (hasType("m.sticker")) return ContentType::STICKER;
+    if (hasEvent("m.call.invite")) return ContentType::CALL_INVITE;
+    if (hasEvent("m.call.answer")) return ContentType::CALL_ANSWER;
+    if (hasEvent("m.call.hangup")) return ContentType::CALL_HANGUP;
+    if (hasEvent("m.call.reject")) return ContentType::CALL_REJECT;
+    if (hasEvent("m.call.candidates")) return ContentType::CALL_CANDIDATES;
+    if (hasEvent("m.key.verification")) return ContentType::VERIFICATION_REQUEST;
+    if (hasEvent("io.element.voice_broadcast_info")) return ContentType::VOICE_BROADCAST_INFO;
+    if (contentJson.find("\"state_key\"") != std::string::npos) return ContentType::STATE_EVENT;
+    return ContentType::UNKNOWN;
+}
+
+MessageContentStats computeContentStats(const std::vector<std::string>& eventBodies) {
+    MessageContentStats stats;
+    for (const auto& body : eventBodies) {
+        auto t = MessageContentTypeDetector::detectContentType(body);
+        switch (t) {
+            case ContentType::TEXT:     stats.textCount++; break;
+            case ContentType::NOTICE:   stats.textCount++; break;
+            case ContentType::EMOTE:    stats.textCount++; break;
+            case ContentType::IMAGE:    stats.imageCount++; break;
+            case ContentType::VIDEO:    stats.videoCount++; break;
+            case ContentType::AUDIO:    stats.audioCount++; break;
+            case ContentType::FILE:     stats.fileCount++; break;
+            case ContentType::LOCATION: stats.locationCount++; break;
+            case ContentType::POLL_START: case ContentType::POLL_RESPONSE: case ContentType::POLL_END: stats.pollCount++; break;
+            case ContentType::STICKER:  stats.stickerCount++; break;
+            case ContentType::CALL_INVITE: case ContentType::CALL_ANSWER: case ContentType::CALL_HANGUP:
+            case ContentType::CALL_REJECT: case ContentType::CALL_CANDIDATES: stats.callCount++; break;
+            case ContentType::VERIFICATION_REQUEST: case ContentType::VERIFICATION_DONE:
+                stats.verificationCount++; break;
+            default: stats.otherCount++; break;
+        }
+        stats.totalCount++;
+    }
+    return stats;
+}
+
 } // namespace progressive
