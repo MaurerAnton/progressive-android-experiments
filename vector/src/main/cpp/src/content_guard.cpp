@@ -200,11 +200,11 @@ ContentTrustDecision evaluateContentTrust(
 
         // Check if content matches the rule pattern
         bool matches = false;
-        if (!rule.pattern.empty()) {
-            matches = contentJson.find(rule.pattern) != std::string::npos;
+        if (!rule.condition.empty()) {
+            matches = contentJson.find(rule.condition) != std::string::npos;
         }
-        if (!rule.mimePattern.empty()) {
-            matches = matches || contentJson.find(rule.mimePattern) != std::string::npos;
+        if (!rule.condition.empty()) {
+            matches = matches || contentJson.find(rule.condition) != std::string::npos;
         }
 
         if (matches) {
