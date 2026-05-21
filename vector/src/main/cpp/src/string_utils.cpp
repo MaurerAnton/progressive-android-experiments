@@ -95,4 +95,25 @@ std::string formatCountToShortDecimal(int64_t value) {
     return std::to_string(value);
 }
 
+
+int levenshteinDistance(const std::string& a, const std::string& b) {
+    std::vector<std::vector<int>> dp(a.size() + 1, std::vector<int>(b.size() + 1));
+    for (size_t i = 0; i <= a.size(); i++) dp[i][0] = (int)i;
+    for (size_t j = 0; j <= b.size(); j++) dp[0][j] = (int)j;
+    for (size_t i = 1; i <= a.size(); i++)
+        for (size_t j = 1; j <= b.size(); j++)
+            dp[i][j] = std::min({dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+(a[i-1]!=b[j-1])});
+    return dp[a.size()][b.size()];
+}
+std::string truncateWithEllipsis(const std::string& s, size_t maxLen) {
+    if (s.size() <= maxLen) return s;
+    return s.substr(0, maxLen - 3) + "...";
+}
+StringSearchResult searchString(const std::string& haystack, const std::string& needle) {
+    StringSearchResult r;
+    r.found = haystack.find(needle) != std::string::npos;
+    r.count = 0; size_t p = 0;
+    while ((p = haystack.find(needle, p)) != std::string::npos) { r.count++; p++; }
+    return r;
+}
 } // namespace progressive
