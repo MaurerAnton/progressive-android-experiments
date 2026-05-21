@@ -160,4 +160,55 @@ std::string UserActivityTimer::elapsedFormatted() const {
     return out.str();
 }
 
+
+
+// ---- Presence implementations ----
+
+UserPresence userPresenceFromString(const std::string& s) {
+    if (s == "online") return UserPresence::ONLINE;
+    if (s == "offline") return UserPresence::OFFLINE;
+    if (s == "unavailable") return UserPresence::UNAVAILABLE;
+    return UserPresence::UNKNOWN;
+}
+
+std::string buildPresenceEvent(UserPresence presence, const std::string& statusMsg) {
+    const char* p = "offline";
+    if (presence == UserPresence::ONLINE) p = "online";
+    else if (presence == UserPresence::UNAVAILABLE) p = "unavailable";
+    std::string json = R"({"presence":")" + std::string(p) + R"(")";
+    if (!statusMsg.empty()) json += R"(,"status_msg":")" + statusMsg + R"(")";
+    json += "}";
+    return json;
+}
+
+PresenceUserInfo parsePresenceEvent(const std::string& userId, const std::string& json) {
+    PresenceUserInfo info;
+    info.userId = userId;
+    auto pos = json.find("\"presence\":\"");
+    if (pos != std::string::npos) {
+        pos += 12;
+        auto end = json.find('"', pos);
+        info.presence = userPresenceFromString(json.substr(pos, end - pos));
+    }
+    pos = json.find("\"status_msg\":\"");
+    if (pos != std::string::npos) {
+        pos += 14;
+        auto end = json.find('"', pos);
+        info.statusMsg = json.substr(pos, end - pos);
+    }
+    info.currentlyActive = json.find("\"currently_active\":true") != std::string::npos;
+    return info;
+}
+
+std::string formatLastActiveTime(int64_t lastActiveAgoMs, bool currentlyActive) {
+    if (currentlyActive) return "Active now";
+    int64_t seconds = lastActiveAgoMs / 1000;
+    if (seconds < 60) return "Just now";
+    int64_t minutes = seconds / 60;
+    if (minutes < 60) return std::to_string(minutes) + "m ago";
+    int64_t hours = minutes / 60;
+    if (hours < 24) return std::to_string(hours) + "h ago";
+    return std::to_string(hours / 24) + "d ago";
+}
+
 } // namespace progressive
