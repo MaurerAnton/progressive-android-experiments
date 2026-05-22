@@ -124,6 +124,9 @@ add_library(
     src/permalink_utils.cpp
     src/profile_utils.cpp
     src/read_marker_utils.cpp
+    src/message_edit_utils.cpp
+    src/call_event_formatter.cpp
+    src/space_navigation.cpp
     src/notification_grouping.cpp
     src/event_display_formatter.cpp
     src/room_summary_formatter.cpp
