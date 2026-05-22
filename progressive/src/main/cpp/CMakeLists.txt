@@ -87,6 +87,7 @@ add_library(
     src/hash_utils.cpp
     src/http_client.cpp
     src/room_stats.cpp
+    src/room_settings_utils.cpp
     src/sas_verification_utils.cpp
     src/media_utils_ext.cpp
     src/crypto_device_utils.cpp
