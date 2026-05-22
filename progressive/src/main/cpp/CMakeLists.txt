@@ -126,6 +126,10 @@ add_library(
     src/read_marker_utils.cpp
     src/message_edit_utils.cpp
     src/call_event_formatter.cpp
+    src/poll_display.cpp
+    src/encryption_status_formatter.cpp
+    src/sliding_sync_utils.cpp
+    src/timeline_render_utils.cpp
     src/space_navigation.cpp
     src/notification_grouping.cpp
     src/event_display_formatter.cpp
