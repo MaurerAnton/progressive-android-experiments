@@ -15,7 +15,7 @@ import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.detail.RoomDetailActivity
 import im.vector.app.features.home.room.detail.arguments.TimelineArgs
 import im.vector.app.features.popup.PopupAlertManager
-import im.vector.app.features.popup.VerificationVectorAlert
+import im.vector.app.features.popup.VerificationProgressiveAlert
 import im.vector.app.features.session.coroutineScope
 import im.vector.lib.core.utils.compat.getParcelableCompat
 import im.vector.lib.core.utils.timer.Clock
@@ -89,7 +89,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
                 // Add a notification for every incoming request
 //                val user = session.getUserOrDefault(tx.otherUserId).toMatrixItem()
 //                val name = user.getBestName()
-//                val alert = VerificationVectorAlert(
+//                val alert = VerificationProgressiveAlert(
 //                        uid,
 //                        context.getString(CommonStrings.sas_incoming_request_notif_title),
 //                        context.getString(CommonStrings.sas_incoming_request_notif_content, name),
@@ -106,7 +106,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
 //                        }
 //                )
 //                        .apply {
-//                            viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer.get())
+//                            viewBinder = VerificationProgressiveAlert.ViewBinder(user, avatarRenderer.get())
 //                            contentAction = Runnable {
 //                                (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
 //                                    it.navigator.performDeviceVerification(it, tx.otherUserId, tx.transactionId)
@@ -132,7 +132,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
 //                            // 10mn expiration
 //                            expirationTimestamp = clock.epochMillis() + (10 * 60 * 1000L)
 //                        }
-//                popupAlertManager.postVectorAlert(alert)
+//                popupAlertManager.postProgressiveAlert(alert)
             }
             is SasTransactionState.Done -> {
                 // cancel related notification
@@ -158,7 +158,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
                 "$name (${pr.otherUserId})"
             }
 
-            val alert = VerificationVectorAlert(
+            val alert = VerificationProgressiveAlert(
                     uid = uniqueIdForVerificationRequest(pr),
                     title = context.getString(CommonStrings.sas_incoming_request_notif_title),
                     description = description,
@@ -173,7 +173,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
                     },
             )
                     .apply {
-                        viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer.get())
+                        viewBinder = VerificationProgressiveAlert.ViewBinder(user, avatarRenderer.get())
                         contentAction = Runnable {
                             cancelAnyVerifySessionAlerts(pr)
                             (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
@@ -202,7 +202,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
                         // 5mn expiration
                         expirationTimestamp = clock.epochMillis() + (5 * 60 * 1000L)
                     }
-            popupAlertManager.postVectorAlert(alert)
+            popupAlertManager.postProgressiveAlert(alert)
         }
     }
 

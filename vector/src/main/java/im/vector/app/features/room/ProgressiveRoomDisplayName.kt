@@ -17,7 +17,7 @@ import org.matrix.android.sdk.api.session.getRoom
 import javax.inject.Inject
 import javax.inject.Provider
 
-class VectorRoomDisplayNameFallbackProvider @Inject constructor(
+class ProgressiveRoomDisplayName @Inject constructor(
         private val context: Context,
         private val activeSessionHolder: Provider<ActiveSessionHolder>,
 ) : RoomDisplayNameFallbackProvider {

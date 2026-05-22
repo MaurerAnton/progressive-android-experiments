@@ -11,7 +11,7 @@ import im.vector.app.core.platform.ProgressiveViewModelAction
 
 sealed class JitsiCallViewActions : ProgressiveViewModelAction {
     data class SwitchTo(
-            val args: VectorJitsiActivity.Args,
+            val args: ProgressiveJitsiActivity.Args,
             val withConfirmation: Boolean
     ) : JitsiCallViewActions()
 

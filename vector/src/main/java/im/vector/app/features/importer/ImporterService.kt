@@ -21,7 +21,7 @@ import com.bumptech.glide.load.DecodeFormat
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.di.ActiveSessionHolder
-import im.vector.app.core.services.VectorAndroidService
+import im.vector.app.core.services.ProgressiveService
 import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ImporterService : VectorAndroidService() {
+class ImporterService : ProgressiveService() {
     private companion object {
         /**
          * Command to the service to get the data.

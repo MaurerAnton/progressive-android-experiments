@@ -21,7 +21,7 @@ import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.devices.v2.GetDeviceFullInfoListUseCase
 import im.vector.app.features.settings.devices.v2.RefreshDevicesUseCase
 import im.vector.app.features.settings.devices.v2.ToggleIpAddressVisibilityUseCase
-import im.vector.app.features.settings.devices.v2.VectorSessionsListViewModel
+import im.vector.app.features.settings.devices.v2.ProgressiveSessionsList
 import im.vector.app.features.settings.devices.v2.filter.DeviceManagerFilterType
 import im.vector.app.features.settings.devices.v2.signout.SignoutSessionsReAuthNeeded
 import im.vector.app.features.settings.devices.v2.signout.SignoutSessionsUseCase
@@ -40,7 +40,7 @@ class OtherSessionsViewModel @AssistedInject constructor(
         refreshDevicesUseCase: RefreshDevicesUseCase,
         private val vectorPreferences: VectorPreferences,
         private val toggleIpAddressVisibilityUseCase: ToggleIpAddressVisibilityUseCase,
-) : VectorSessionsListViewModel<OtherSessionsViewState, OtherSessionsAction, OtherSessionsViewEvents>(
+) : ProgressiveSessionsList<OtherSessionsViewState, OtherSessionsAction, OtherSessionsViewEvents>(
         initialState, activeSessionHolder, refreshDevicesUseCase
 ), SharedPreferences.OnSharedPreferenceChangeListener {
 

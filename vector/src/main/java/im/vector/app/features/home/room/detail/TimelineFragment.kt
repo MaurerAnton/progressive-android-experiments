@@ -110,7 +110,7 @@ import im.vector.app.features.analytics.plan.Interaction
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.attachments.ShareIntentHandler
 import im.vector.app.features.call.SharedKnownCallsViewModel
-import im.vector.app.features.call.VectorCallActivity
+import im.vector.app.features.call.ProgressiveCallActivity
 import im.vector.app.features.call.conference.ConferenceEvent
 import im.vector.app.features.call.conference.ConferenceEventEmitter
 import im.vector.app.features.call.conference.ConferenceEventObserver
@@ -451,10 +451,10 @@ class TimelineFragment :
     }
 
     private fun acceptIncomingCall(event: RoomDetailViewEvents.DisplayAndAcceptCall) {
-        val intent = VectorCallActivity.newIntent(
+        val intent = ProgressiveCallActivity.newIntent(
                 context = vectorBaseActivity,
                 call = event.call,
-                mode = VectorCallActivity.INCOMING_ACCEPT
+                mode = ProgressiveCallActivity.INCOMING_ACCEPT
         )
         startActivity(intent)
     }
@@ -2151,7 +2151,7 @@ class TimelineFragment :
 
     override fun onTapToReturnToCall() {
         callManager.getCurrentCall()?.let { call ->
-            VectorCallActivity.newIntent(
+            ProgressiveCallActivity.newIntent(
                     context = requireContext(),
                     callId = call.callId,
                     signalingRoomId = call.signalingRoomId,

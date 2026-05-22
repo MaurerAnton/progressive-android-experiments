@@ -26,7 +26,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class VectorFileLogger @Inject constructor(
+class ProgressiveFileLogger @Inject constructor(
         context: Context,
         private val vectorPreferences: VectorPreferences
 ) : Timber.Tree() {

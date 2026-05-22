@@ -35,7 +35,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VectorSyncAndroidService : SyncAndroidService() {
+class ProgressiveSyncService : SyncAndroidService() {
 
     companion object {
 
@@ -43,7 +43,7 @@ class VectorSyncAndroidService : SyncAndroidService() {
                 context: Context,
                 sessionId: String
         ): Intent {
-            return Intent(context, VectorSyncAndroidService::class.java).also {
+            return Intent(context, ProgressiveSyncService::class.java).also {
                 it.putExtra(EXTRA_SESSION_ID, sessionId)
                 it.putExtra(EXTRA_TIMEOUT_SECONDS, 0)
                 it.putExtra(EXTRA_PERIODIC, false)
@@ -57,7 +57,7 @@ class VectorSyncAndroidService : SyncAndroidService() {
                 syncDelaySeconds: Int,
                 isNetworkBack: Boolean
         ): Intent {
-            return Intent(context, VectorSyncAndroidService::class.java).also {
+            return Intent(context, ProgressiveSyncService::class.java).also {
                 it.putExtra(EXTRA_SESSION_ID, sessionId)
                 it.putExtra(EXTRA_TIMEOUT_SECONDS, syncTimeoutSeconds)
                 it.putExtra(EXTRA_PERIODIC, true)
@@ -67,7 +67,7 @@ class VectorSyncAndroidService : SyncAndroidService() {
         }
 
         fun stopIntent(context: Context): Intent {
-            return Intent(context, VectorSyncAndroidService::class.java).also {
+            return Intent(context, ProgressiveSyncService::class.java).also {
                 it.action = ACTION_STOP
             }
         }
@@ -201,7 +201,7 @@ private fun Context.rescheduleSyncService(
 ) {
     Timber.d("## Sync: rescheduleSyncService")
     val intent = if (isPeriodic) {
-        VectorSyncAndroidService.newPeriodicIntent(
+        ProgressiveSyncService.newPeriodicIntent(
                 context = this,
                 sessionId = sessionId,
                 syncTimeoutSeconds = syncTimeoutSeconds,
@@ -209,7 +209,7 @@ private fun Context.rescheduleSyncService(
                 isNetworkBack = isNetworkBack
         )
     } else {
-        VectorSyncAndroidService.newOneShotIntent(
+        ProgressiveSyncService.newOneShotIntent(
                 context = this,
                 sessionId = sessionId
         )

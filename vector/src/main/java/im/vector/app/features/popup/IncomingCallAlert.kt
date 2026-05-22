@@ -21,7 +21,7 @@ import org.matrix.android.sdk.api.util.MatrixItem
 class IncomingCallAlert(
         uid: String,
         override val shouldBeDisplayedIn: ((Activity) -> Boolean) = { true }
-) : DefaultVectorAlert(uid, "", "", 0, shouldBeDisplayedIn) {
+) : DefaultProgressiveAlert(uid, "", "", 0, shouldBeDisplayedIn) {
 
     override val priority = PopupAlertManager.INCOMING_CALL_PRIORITY
     override val layoutRes = R.layout.alerter_incoming_call_layout
@@ -35,7 +35,7 @@ class IncomingCallAlert(
             private val isVideoCall: Boolean,
             private val onAccept: () -> Unit,
             private val onReject: () -> Unit
-    ) : VectorAlert.ViewBinder {
+    ) : ProgressiveAlert.ViewBinder {
 
         override fun bind(view: View) {
             val views = AlerterIncomingCallLayoutBinding.bind(view)

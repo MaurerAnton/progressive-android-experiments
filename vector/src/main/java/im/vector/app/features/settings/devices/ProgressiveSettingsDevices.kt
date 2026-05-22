@@ -40,7 +40,7 @@ import javax.inject.Inject
  * Display the list of the user's device.
  */
 @AndroidEntryPoint
-class VectorSettingsDevicesFragment :
+class ProgressiveSettingsDevices :
         ProgressiveFragment<FragmentGenericRecyclerBinding>(),
         DevicesController.Callback {
 

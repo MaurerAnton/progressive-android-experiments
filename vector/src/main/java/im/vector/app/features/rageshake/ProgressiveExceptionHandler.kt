@@ -22,7 +22,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class VectorUncaughtExceptionHandler @Inject constructor(
+class ProgressiveExceptionHandler @Inject constructor(
         @DefaultPreferences
         private val preferences: SharedPreferences,
         private val bugReporter: BugReporter,

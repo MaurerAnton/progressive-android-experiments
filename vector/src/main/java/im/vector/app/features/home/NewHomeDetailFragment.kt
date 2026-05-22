@@ -37,7 +37,7 @@ import im.vector.app.core.ui.views.VerifyDeviceBanner
 import im.vector.app.core.utils.openUrlInChromeCustomTab
 import im.vector.app.databinding.FragmentNewHomeDetailBinding
 import im.vector.app.features.call.SharedKnownCallsViewModel
-import im.vector.app.features.call.VectorCallActivity
+import im.vector.app.features.call.ProgressiveCallActivity
 import im.vector.app.features.call.dialpad.PstnDialActivity
 import im.vector.app.features.call.webrtc.WebRtcCallManager
 import im.vector.app.features.crypto.verification.self.SelfVerificationBottomSheet
@@ -47,7 +47,7 @@ import im.vector.app.features.home.room.list.actions.RoomListSharedActionViewMod
 import im.vector.app.features.home.room.list.home.HomeRoomListFragment
 import im.vector.app.features.home.room.list.home.NewChatBottomSheet
 import im.vector.app.features.popup.PopupAlertManager
-import im.vector.app.features.popup.VerificationVectorAlert
+import im.vector.app.features.popup.VerificationProgressiveAlert
 import im.vector.app.features.qrcode.QrCodeScannerActivity
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.VectorSettingsActivity.Companion.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
@@ -245,14 +245,14 @@ class NewHomeDetailFragment :
 
     private fun promptForNewUnknownDevices(uid: String, state: UnknownDevicesState, newest: DeviceInfo) {
         val user = state.myMatrixItem
-        alertManager.postVectorAlert(
-                VerificationVectorAlert(
+        alertManager.postProgressiveAlert(
+                VerificationProgressiveAlert(
                         uid = uid,
                         title = getString(CommonStrings.new_session),
                         description = getString(CommonStrings.verify_this_session, newest.displayName ?: newest.deviceId ?: ""),
                         iconId = R.drawable.ic_shield_warning
                 ).apply {
-                    viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer)
+                    viewBinder = VerificationProgressiveAlert.ViewBinder(user, avatarRenderer)
                     colorInt = colorProvider.getColorFromAttribute(com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
                         (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let { vectorBaseActivity ->
@@ -274,8 +274,8 @@ class NewHomeDetailFragment :
 
     private fun promptToReviewChanges(uid: String, state: UnknownDevicesState, oldUnverified: List<DeviceInfo>) {
         val user = state.myMatrixItem
-        alertManager.postVectorAlert(
-                VerificationVectorAlert(
+        alertManager.postProgressiveAlert(
+                VerificationProgressiveAlert(
                         uid = uid,
                         title = getString(CommonStrings.review_unverified_sessions_title),
                         description = getString(CommonStrings.review_unverified_sessions_description),
@@ -288,7 +288,7 @@ class NewHomeDetailFragment :
                             } else true
                         }
                 ).apply {
-                    viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer)
+                    viewBinder = VerificationProgressiveAlert.ViewBinder(user, avatarRenderer)
                     colorInt = colorProvider.getColorFromAttribute(com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
                         (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let { activity ->
@@ -403,7 +403,7 @@ class NewHomeDetailFragment :
 
     override fun onTapToReturnToCall() {
         callManager.getCurrentCall()?.let { call ->
-            VectorCallActivity.newIntent(
+            ProgressiveCallActivity.newIntent(
                     context = requireContext(),
                     callId = call.callId,
                     signalingRoomId = call.signalingRoomId,

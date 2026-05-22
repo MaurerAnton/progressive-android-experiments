@@ -16,7 +16,7 @@ import im.vector.app.databinding.AlerterVerificationLayoutBinding
 import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.util.MatrixItem
 
-class VerificationVectorAlert(
+class VerificationProgressiveAlert(
         uid: String,
         title: String,
         override val description: String,
@@ -26,13 +26,13 @@ class VerificationVectorAlert(
          * Alert are displayed by default, but let this lambda return false to prevent displaying.
          */
         override val shouldBeDisplayedIn: ((Activity) -> Boolean) = { true }
-) : DefaultVectorAlert(uid, title, description, iconId, shouldBeDisplayedIn) {
+) : DefaultProgressiveAlert(uid, title, description, iconId, shouldBeDisplayedIn) {
     override val layoutRes = R.layout.alerter_verification_layout
 
     class ViewBinder(
             private val matrixItem: MatrixItem,
             private val avatarRenderer: AvatarRenderer
-    ) : VectorAlert.ViewBinder {
+    ) : ProgressiveAlert.ViewBinder {
 
         override fun bind(view: View) {
             val views = AlerterVerificationLayoutBinding.bind(view)

@@ -10,6 +10,6 @@ package im.vector.app.features.media
 import im.vector.app.core.platform.ProgressiveViewModelAction
 import java.io.File
 
-sealed class VectorAttachmentViewerAction : ProgressiveViewModelAction {
-    data class DownloadMedia(val file: File) : VectorAttachmentViewerAction()
+sealed class ProgressiveAttachmentAction : ProgressiveViewModelAction {
+    data class DownloadMedia(val file: File) : ProgressiveAttachmentAction()
 }

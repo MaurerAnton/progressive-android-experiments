@@ -20,7 +20,7 @@ import im.vector.app.features.auth.PendingAuthHandler
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.app.features.settings.devices.v2.RefreshDevicesUseCase
 import im.vector.app.features.settings.devices.v2.ToggleIpAddressVisibilityUseCase
-import im.vector.app.features.settings.devices.v2.VectorSessionsListViewModel
+import im.vector.app.features.settings.devices.v2.ProgressiveSessionsList
 import im.vector.app.features.settings.devices.v2.notification.GetNotificationsStatusUseCase
 import im.vector.app.features.settings.devices.v2.notification.ToggleNotificationsUseCase
 import im.vector.app.features.settings.devices.v2.signout.SignoutSessionsReAuthNeeded
@@ -48,7 +48,7 @@ class SessionOverviewViewModel @AssistedInject constructor(
         refreshDevicesUseCase: RefreshDevicesUseCase,
         private val vectorPreferences: VectorPreferences,
         private val toggleIpAddressVisibilityUseCase: ToggleIpAddressVisibilityUseCase,
-) : VectorSessionsListViewModel<SessionOverviewViewState, SessionOverviewAction, SessionOverviewViewEvent>(
+) : ProgressiveSessionsList<SessionOverviewViewState, SessionOverviewAction, SessionOverviewViewEvent>(
         initialState, activeSessionHolder, refreshDevicesUseCase
 ), SharedPreferences.OnSharedPreferenceChangeListener {
 

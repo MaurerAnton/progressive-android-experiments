@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.singletonEntryPoint
 import im.vector.app.core.extensions.startForegroundCompat
 import im.vector.app.features.call.CallArgs
-import im.vector.app.features.call.VectorCallActivity
+import im.vector.app.features.call.ProgressiveCallActivity
 import im.vector.app.features.call.audio.MicrophoneAccessService
 import im.vector.app.features.call.telecom.CallConnection
 import im.vector.app.features.call.webrtc.WebRtcCall
@@ -49,7 +49,7 @@ private val loggerTag = LoggerTag("CallService", LoggerTag.VOIP)
  * Foreground service to manage calls.
  */
 @AndroidEntryPoint
-class CallAndroidService : VectorAndroidService() {
+class CallAndroidService : ProgressiveService() {
 
     private val connections = mutableMapOf<String, CallConnection>()
     private val knownCalls = mutableMapOf<String, CallInformation>()
@@ -156,7 +156,7 @@ class CallAndroidService : VectorAndroidService() {
         val incomingCallAlert = IncomingCallAlert(
                 callId,
                 shouldBeDisplayedIn = { activity ->
-                    if (activity is VectorCallActivity) {
+                    if (activity is ProgressiveCallActivity) {
                         activity.intent.getParcelableExtraCompat<CallArgs>(Mavericks.KEY_ARG)?.callId != call.callId
                     } else true
                 }
@@ -165,13 +165,13 @@ class CallAndroidService : VectorAndroidService() {
                     matrixItem = callInformation.opponentMatrixItem,
                     avatarRenderer = avatarRenderer,
                     isVideoCall = isVideoCall,
-                    onAccept = { showCallScreen(call, VectorCallActivity.INCOMING_ACCEPT) },
+                    onAccept = { showCallScreen(call, ProgressiveCallActivity.INCOMING_ACCEPT) },
                     onReject = { call.endCall() }
             )
             dismissedAction = Runnable { call.endCall() }
-            contentAction = Runnable { showCallScreen(call, VectorCallActivity.INCOMING_RINGING) }
+            contentAction = Runnable { showCallScreen(call, ProgressiveCallActivity.INCOMING_RINGING) }
         }
-        alertManager.postVectorAlert(incomingCallAlert)
+        alertManager.postProgressiveAlert(incomingCallAlert)
         val notification = notificationUtils.buildIncomingCallNotification(
                 call = call,
                 title = callInformation.opponentMatrixItem?.getBestName() ?: callInformation.opponentUserId,
@@ -220,7 +220,7 @@ class CallAndroidService : VectorAndroidService() {
     }
 
     private fun showCallScreen(call: WebRtcCall, mode: String) {
-        val intent = VectorCallActivity.newIntent(
+        val intent = ProgressiveCallActivity.newIntent(
                 context = this,
                 call = call,
                 mode = mode

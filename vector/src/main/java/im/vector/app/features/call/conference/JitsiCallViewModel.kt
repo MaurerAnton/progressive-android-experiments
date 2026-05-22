@@ -44,7 +44,7 @@ class JitsiCallViewModel @AssistedInject constructor(
     private val widgetService = session.widgetService()
 
     private var confIsJoined = false
-    private var pendingArgs: VectorJitsiActivity.Args? = null
+    private var pendingArgs: ProgressiveJitsiActivity.Args? = null
 
     init {
         observeWidget(initialState.roomId, initialState.widgetId)

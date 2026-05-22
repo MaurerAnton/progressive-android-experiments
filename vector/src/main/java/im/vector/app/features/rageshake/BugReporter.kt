@@ -65,7 +65,7 @@ class BugReporter @Inject constructor(
         private val activeSessionHolder: ActiveSessionHolder,
         private val versionProvider: VersionProvider,
         private val vectorPreferences: VectorPreferences,
-        private val vectorFileLogger: VectorFileLogger,
+        private val vectorFileLogger: ProgressiveFileLogger,
         private val systemLocaleProvider: SystemLocaleProvider,
         private val matrix: Matrix,
         private val buildMeta: BuildMeta,

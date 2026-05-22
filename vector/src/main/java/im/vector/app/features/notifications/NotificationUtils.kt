@@ -47,7 +47,7 @@ import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.services.CallAndroidService
 import im.vector.app.core.utils.startNotificationChannelSettingsIntent
 import im.vector.app.features.MainActivity
-import im.vector.app.features.call.VectorCallActivity
+import im.vector.app.features.call.ProgressiveCallActivity
 import im.vector.app.features.call.service.CallHeadsUpActionReceiver
 import im.vector.app.features.call.webrtc.WebRtcCall
 import im.vector.app.features.displayname.getBestName
@@ -313,10 +313,10 @@ class NotificationUtils @Inject constructor(
                 .setLights(accentColor, 500, 500)
                 .setOngoing(true)
 
-        val contentIntent = VectorCallActivity.newIntent(
+        val contentIntent = ProgressiveCallActivity.newIntent(
                 context = context,
                 call = call,
-                mode = VectorCallActivity.INCOMING_RINGING
+                mode = ProgressiveCallActivity.INCOMING_RINGING
         ).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             data = createIgnoredUri(call.callId)
@@ -331,10 +331,10 @@ class NotificationUtils @Inject constructor(
         val answerCallPendingIntent = TaskStackBuilder.create(context)
                 .addNextIntentWithParentStack(HomeActivity.newIntent(context, firstStartMainActivity = false))
                 .addNextIntent(
-                        VectorCallActivity.newIntent(
+                        ProgressiveCallActivity.newIntent(
                                 context = context,
                                 call = call,
-                                mode = VectorCallActivity.INCOMING_ACCEPT
+                                mode = ProgressiveCallActivity.INCOMING_ACCEPT
                         )
                 )
                 .getPendingIntent(clock.epochMillis().toInt(), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntentCompat.FLAG_IMMUTABLE)
@@ -385,7 +385,7 @@ class NotificationUtils @Inject constructor(
                 .setColor(ThemeUtils.getColor(context, android.R.attr.colorPrimary))
                 .setOngoing(true)
 
-        val contentIntent = VectorCallActivity.newIntent(
+        val contentIntent = ProgressiveCallActivity.newIntent(
                 context = context,
                 call = call,
                 mode = null
@@ -453,7 +453,7 @@ class NotificationUtils @Inject constructor(
 
         val contentPendingIntent = TaskStackBuilder.create(context)
                 .addNextIntentWithParentStack(HomeActivity.newIntent(context, firstStartMainActivity = false))
-                .addNextIntent(VectorCallActivity.newIntent(context, call, null))
+                .addNextIntent(ProgressiveCallActivity.newIntent(context, call, null))
                 .getPendingIntent(clock.epochMillis().toInt(), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntentCompat.FLAG_IMMUTABLE)
 
         builder.setContentIntent(contentPendingIntent)

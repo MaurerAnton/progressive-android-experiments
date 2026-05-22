@@ -17,7 +17,7 @@ import androidx.core.app.NotificationManagerCompat
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.extensions.startForegroundCompat
-import im.vector.app.core.services.VectorAndroidService
+import im.vector.app.core.services.ProgressiveService
 import im.vector.app.core.utils.PermissionChecker
 import im.vector.app.features.location.LocationData
 import im.vector.app.features.location.LocationTracker
@@ -42,7 +42,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LocationSharingAndroidService : VectorAndroidService(), LocationTracker.Callback {
+class LocationSharingAndroidService : ProgressiveService(), LocationTracker.Callback {
 
     @Parcelize
     data class RoomArgs(

@@ -55,15 +55,15 @@ class PopupAlertManager @Inject constructor(
     }
 
     private var weakCurrentActivity: WeakReference<Activity>? = null
-    private var currentAlerter: VectorAlert? = null
+    private var currentAlerter: ProgressiveAlert? = null
 
-    private val alertQueue = mutableListOf<VectorAlert>()
+    private val alertQueue = mutableListOf<ProgressiveAlert>()
 
     fun hasAlertsToShow(): Boolean {
         return currentAlerter != null || alertQueue.isNotEmpty()
     }
 
-    fun postVectorAlert(alert: VectorAlert) {
+    fun postProgressiveAlert(alert: ProgressiveAlert) {
         synchronized(alertQueue) {
             alertQueue.add(alert)
         }
@@ -151,7 +151,7 @@ class PopupAlertManager @Inject constructor(
             // will retry later
             return
         }
-        val next: VectorAlert?
+        val next: ProgressiveAlert?
         synchronized(alertQueue) {
             next = alertQueue.maxByOrNull { it.priority }
             // If next alert with highest priority is higher than the current one, we should display it
@@ -218,7 +218,7 @@ class PopupAlertManager @Inject constructor(
         }
     }
 
-    private fun showAlert(alert: VectorAlert, activity: Activity, animate: Boolean = true) {
+    private fun showAlert(alert: ProgressiveAlert, activity: Activity, animate: Boolean = true) {
         if (!alert.isLight) {
             clearLightStatusBar()
         }
@@ -330,7 +330,7 @@ class PopupAlertManager @Inject constructor(
         }, 500)
     }
 
-    private fun shouldBeDisplayedIn(alert: VectorAlert?, activity: Activity): Boolean {
+    private fun shouldBeDisplayedIn(alert: ProgressiveAlert?, activity: Activity): Boolean {
         return alert != null &&
                 activity !is MainActivity &&
                 activity !is PinActivity &&

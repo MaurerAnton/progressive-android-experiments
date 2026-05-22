@@ -91,10 +91,10 @@ data class CallArgs(
         val isVideoCall: Boolean
 ) : Parcelable
 
-private val loggerTag = LoggerTag("VectorCallActivity", LoggerTag.VOIP)
+private val loggerTag = LoggerTag("ProgressiveCallActivity", LoggerTag.VOIP)
 
 @AndroidEntryPoint
-class VectorCallActivity :
+class ProgressiveCallActivity :
         ProgressiveActivity<ActivityCallBinding>(),
         CallControlsView.InteractionListener,
         VectorMenuProvider {
@@ -462,7 +462,7 @@ class VectorCallActivity :
 
     private fun handleCallEnded(callState: CallState.Ended) {
         if (isInPictureInPictureModeSafe()) {
-            val startIntent = Intent(this, VectorCallActivity::class.java).apply {
+            val startIntent = Intent(this, ProgressiveCallActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
             }
             startActivity(startIntent)
@@ -694,7 +694,7 @@ class VectorCallActivity :
 
         with(getSystemService<KeyguardManager>()!!) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                requestDismissKeyguard(this@VectorCallActivity, null)
+                requestDismissKeyguard(this@ProgressiveCallActivity, null)
             }
         }
     }
@@ -771,7 +771,7 @@ class VectorCallActivity :
 
         fun newIntent(context: Context, call: WebRtcCall, mode: String?): Intent {
             val callArgs = CallArgs(call.nativeRoomId, call.callId, call.mxCall.opponentUserId, !call.mxCall.isOutgoing, call.mxCall.isVideoCall)
-            return Intent(context, VectorCallActivity::class.java).apply {
+            return Intent(context, ProgressiveCallActivity::class.java).apply {
                 // what could be the best flags?
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 putExtra(Mavericks.KEY_ARG, callArgs)
@@ -789,7 +789,7 @@ class VectorCallActivity :
                 mode: String?
         ): Intent {
             val callArgs = CallArgs(signalingRoomId, callId, otherUserId, isIncomingCall, isVideoCall)
-            return Intent(context, VectorCallActivity::class.java).apply {
+            return Intent(context, ProgressiveCallActivity::class.java).apply {
                 // what could be the best flags?
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 putExtra(Mavericks.KEY_ARG, callArgs)

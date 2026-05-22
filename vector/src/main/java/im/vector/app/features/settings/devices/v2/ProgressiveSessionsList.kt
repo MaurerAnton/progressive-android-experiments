@@ -21,7 +21,7 @@ import org.matrix.android.sdk.api.session.crypto.verification.VerificationServic
 import org.matrix.android.sdk.api.session.crypto.verification.VerificationTransaction
 import kotlin.time.Duration.Companion.seconds
 
-abstract class VectorSessionsListViewModel<S : MavericksState, VA : ProgressiveViewModelAction, VE : VectorViewEvents>(
+abstract class ProgressiveSessionsList<S : MavericksState, VA : ProgressiveViewModelAction, VE : VectorViewEvents>(
         initialState: S,
         private val activeSessionHolder: ActiveSessionHolder,
         private val refreshDevicesUseCase: RefreshDevicesUseCase,

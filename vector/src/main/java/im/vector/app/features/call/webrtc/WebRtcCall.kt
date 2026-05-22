@@ -17,7 +17,7 @@ import im.vector.app.features.call.CameraEventsHandlerAdapter
 import im.vector.app.features.call.CameraProxy
 import im.vector.app.features.call.CameraType
 import im.vector.app.features.call.CaptureFormat
-import im.vector.app.features.call.VectorCallActivity
+import im.vector.app.features.call.ProgressiveCallActivity
 import im.vector.app.features.call.lookup.sipNativeLookup
 import im.vector.app.features.call.utils.asWebRTC
 import im.vector.app.features.call.utils.awaitCreateAnswer
@@ -370,14 +370,14 @@ class WebRtcCall(
             localSurfaceRenderers.addIfNeeded(localViewRenderer)
             remoteSurfaceRenderers.addIfNeeded(remoteViewRenderer)
             when (mode) {
-                VectorCallActivity.INCOMING_ACCEPT -> {
+                ProgressiveCallActivity.INCOMING_ACCEPT -> {
                     internalAcceptIncomingCall()
                 }
-                VectorCallActivity.INCOMING_RINGING -> {
+                ProgressiveCallActivity.INCOMING_RINGING -> {
                     // wait until accepted to create peer connection
                     // TODO eventually we could already display local stream in PIP?
                 }
-                VectorCallActivity.OUTGOING_CREATED -> {
+                ProgressiveCallActivity.OUTGOING_CREATED -> {
                     setupOutgoingCall()
                 }
                 else -> {

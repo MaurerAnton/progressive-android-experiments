@@ -16,7 +16,7 @@ import timber.log.Timber
 /**
  * Parent class for all Android Services.
  */
-abstract class VectorAndroidService : Service() {
+abstract class ProgressiveService : Service() {
 
     /**
      * Tells if the service self destroyed.

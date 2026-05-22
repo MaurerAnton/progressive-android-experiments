@@ -37,7 +37,7 @@ import javax.inject.Inject
         super.onShowIncomingCallUi()
         Timber.i("onShowIncomingCallUi")
         /*
-        VectorCallActivity.newIntent(context, roomId).let {
+        ProgressiveCallActivity.newIntent(context, roomId).let {
             context.startActivity(it)
         }
          */

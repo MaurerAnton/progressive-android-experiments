@@ -16,7 +16,7 @@ import im.vector.app.core.services.CallAndroidService
 import im.vector.app.features.analytics.AnalyticsTracker
 import im.vector.app.features.analytics.plan.CallEnded
 import im.vector.app.features.analytics.plan.CallStarted
-import im.vector.app.features.call.VectorCallActivity
+import im.vector.app.features.call.ProgressiveCallActivity
 import im.vector.app.features.call.audio.CallAudioManager
 import im.vector.app.features.call.lookup.CallProtocolsChecker
 import im.vector.app.features.call.lookup.CallUserMapper
@@ -307,7 +307,7 @@ class WebRtcCallManager @Inject constructor(
         )
 
         // start the activity now
-        context.startActivity(VectorCallActivity.newIntent(context, webRtcCall, VectorCallActivity.OUTGOING_CREATED))
+        context.startActivity(ProgressiveCallActivity.newIntent(context, webRtcCall, ProgressiveCallActivity.OUTGOING_CREATED))
     }
 
     override fun onCallIceCandidateReceived(mxCall: MxCall, iceCandidatesContent: CallCandidatesContent) {

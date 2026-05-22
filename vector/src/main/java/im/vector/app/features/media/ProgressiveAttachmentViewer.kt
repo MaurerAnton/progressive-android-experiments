@@ -51,7 +51,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VectorAttachmentViewerActivity : AttachmentViewerActivity(), AttachmentInteractionListener {
+class ProgressiveAttachmentViewer : AttachmentViewerActivity(), AttachmentInteractionListener {
 
     @Parcelize
     data class Args(
@@ -64,7 +64,7 @@ class VectorAttachmentViewerActivity : AttachmentViewerActivity(), AttachmentInt
     @Inject lateinit var dataSourceFactory: AttachmentProviderFactory
     @Inject lateinit var imageContentRenderer: ImageContentRenderer
 
-    private val viewModel: VectorAttachmentViewerViewModel by viewModel()
+    private val viewModel: ProgressiveAttachmentViewModel by viewModel()
     private val errorFormatter by lazy(LazyThreadSafetyMode.NONE) { singletonEntryPoint().errorFormatter() }
     private var initialIndex = 0
     private var isAnimatingOut = false
@@ -244,9 +244,9 @@ class VectorAttachmentViewerActivity : AttachmentViewerActivity(), AttachmentInt
         }
     }
 
-    private fun handleViewEvents(event: VectorAttachmentViewerViewEvents) {
+    private fun handleViewEvents(event: ProgressiveAttachmentEvents) {
         when (event) {
-            is VectorAttachmentViewerViewEvents.ErrorDownloadingMedia -> showSnackBarError(event.error)
+            is ProgressiveAttachmentEvents.ErrorDownloadingMedia -> showSnackBarError(event.error)
         }
     }
 
@@ -276,9 +276,9 @@ class VectorAttachmentViewerActivity : AttachmentViewerActivity(), AttachmentInt
 
             withContext(Dispatchers.Main) {
                 shareMedia(
-                        this@VectorAttachmentViewerActivity,
+                        this@ProgressiveAttachmentViewer,
                         file,
-                        getMimeTypeFromUri(this@VectorAttachmentViewerActivity, file.toUri())
+                        getMimeTypeFromUri(this@ProgressiveAttachmentViewer, file.toUri())
                 )
             }
         }
@@ -292,9 +292,9 @@ class VectorAttachmentViewerActivity : AttachmentViewerActivity(), AttachmentInt
 
             val file = currentSourceProvider?.getFileForSharing(currentPosition) ?: return@launch
             if (hasWritePermission) {
-                viewModel.handle(VectorAttachmentViewerAction.DownloadMedia(file))
+                viewModel.handle(ProgressiveAttachmentAction.DownloadMedia(file))
             } else {
-                viewModel.pendingAction = VectorAttachmentViewerAction.DownloadMedia(file)
+                viewModel.pendingAction = ProgressiveAttachmentAction.DownloadMedia(file)
             }
         }
     }
@@ -311,7 +311,7 @@ class VectorAttachmentViewerActivity : AttachmentViewerActivity(), AttachmentInt
                 eventId: String,
                 inMemoryData: List<AttachmentData>,
                 sharedTransitionName: String?
-        ) = Intent(context, VectorAttachmentViewerActivity::class.java).also {
+        ) = Intent(context, ProgressiveAttachmentViewer::class.java).also {
             it.putExtra(EXTRA_ARGS, Args(roomId, eventId, sharedTransitionName))
             it.putExtra(EXTRA_IMAGE_DATA, mediaData)
             if (inMemoryData.isNotEmpty()) {

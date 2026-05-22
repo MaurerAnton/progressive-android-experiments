@@ -48,7 +48,7 @@ import timber.log.Timber
 import java.net.URL
 
 @AndroidEntryPoint
-class VectorJitsiActivity : ProgressiveActivity<ActivityJitsiBinding>(), JitsiMeetActivityInterface {
+class ProgressiveJitsiActivity : ProgressiveActivity<ActivityJitsiBinding>(), JitsiMeetActivityInterface {
 
     @Parcelize
     data class Args(
@@ -268,7 +268,7 @@ class VectorJitsiActivity : ProgressiveActivity<ActivityJitsiBinding>(), JitsiMe
 
     companion object {
         fun newIntent(context: Context, roomId: String, widgetId: String, enableVideo: Boolean): Intent {
-            return Intent(context, VectorJitsiActivity::class.java).apply {
+            return Intent(context, ProgressiveJitsiActivity::class.java).apply {
                 putExtra(Mavericks.KEY_ARG, Args(roomId, widgetId, enableVideo))
             }
         }

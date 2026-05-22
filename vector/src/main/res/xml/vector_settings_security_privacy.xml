@@ -60,12 +60,12 @@
         <im.vector.app.core.preference.VectorPreference
             android:key="SETTINGS_SHOW_DEVICES_LIST_PREFERENCE_KEY"
             android:title="@string/settings_active_sessions_show_all"
-            app:fragment="im.vector.app.features.settings.devices.VectorSettingsDevicesFragment" />
+            app:fragment="im.vector.app.features.settings.devices.ProgressiveSettingsDevices" />
 
         <im.vector.app.core.preference.VectorPreference
             android:key="SETTINGS_SHOW_DEVICES_LIST_V2_PREFERENCE_KEY"
             android:title="@string/settings_active_sessions_show_all"
-            app:fragment="im.vector.app.features.settings.devices.v2.VectorSettingsDevicesFragment" />
+            app:fragment="im.vector.app.features.settings.devices.v2.ProgressiveSettingsDevices" />
 
     </im.vector.app.core.preference.ProgressivePreferenceCategory>
 

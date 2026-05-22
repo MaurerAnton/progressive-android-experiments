@@ -20,33 +20,33 @@ import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
 
-class VectorAttachmentViewerViewModel @AssistedInject constructor(
+class ProgressiveAttachmentViewModel @AssistedInject constructor(
         @Assisted initialState: ProgressiveDummyViewState,
         private val session: Session,
         private val downloadMediaUseCase: DownloadMediaUseCase
-) : ProgressiveViewModel<ProgressiveDummyViewState, VectorAttachmentViewerAction, VectorAttachmentViewerViewEvents>(initialState) {
+) : ProgressiveViewModel<ProgressiveDummyViewState, ProgressiveAttachmentAction, ProgressiveAttachmentEvents>(initialState) {
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<VectorAttachmentViewerViewModel, ProgressiveDummyViewState> {
-        override fun create(initialState: ProgressiveDummyViewState): VectorAttachmentViewerViewModel
+    interface Factory : MavericksAssistedViewModelFactory<ProgressiveAttachmentViewModel, ProgressiveDummyViewState> {
+        override fun create(initialState: ProgressiveDummyViewState): ProgressiveAttachmentViewModel
     }
 
-    companion object : MavericksViewModelFactory<VectorAttachmentViewerViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<ProgressiveAttachmentViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
 
-    var pendingAction: VectorAttachmentViewerAction? = null
+    var pendingAction: ProgressiveAttachmentAction? = null
 
-    override fun handle(action: VectorAttachmentViewerAction) {
+    override fun handle(action: ProgressiveAttachmentAction) {
         when (action) {
-            is VectorAttachmentViewerAction.DownloadMedia -> handleDownloadAction(action)
+            is ProgressiveAttachmentAction.DownloadMedia -> handleDownloadAction(action)
         }
     }
 
-    private fun handleDownloadAction(action: VectorAttachmentViewerAction.DownloadMedia) {
+    private fun handleDownloadAction(action: ProgressiveAttachmentAction.DownloadMedia) {
         // launch in the coroutine scope session to avoid binding the coroutine to the lifecycle of the VM
         session.coroutineScope.launch {
             // Success event is handled via a notification inside the use case
             downloadMediaUseCase.execute(action.file)
-                    .onFailure { _viewEvents.post(VectorAttachmentViewerViewEvents.ErrorDownloadingMedia(it)) }
+                    .onFailure { _viewEvents.post(ProgressiveAttachmentEvents.ErrorDownloadingMedia(it)) }
         }
     }
 }

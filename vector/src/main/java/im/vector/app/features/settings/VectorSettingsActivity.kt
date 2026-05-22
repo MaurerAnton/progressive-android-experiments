@@ -23,7 +23,7 @@ import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityVectorSettingsBinding
 import im.vector.app.features.discovery.DiscoverySettingsFragment
 import im.vector.app.features.navigation.SettingsActivityPayload
-import im.vector.app.features.settings.devices.VectorSettingsDevicesFragment
+import im.vector.app.features.settings.devices.ProgressiveSettingsDevices
 import im.vector.app.features.settings.notifications.VectorSettingsNotificationFragment
 import im.vector.app.features.settings.threepids.ThreePidsSettingsFragment
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
@@ -75,9 +75,9 @@ class VectorSettingsActivity : ProgressiveActivity<ActivityVectorSettingsBinding
                     replaceFragment(views.vectorSettingsPage, VectorSettingsSecurityPrivacyFragment::class.java, null, FRAGMENT_TAG)
                 SettingsActivityPayload.SecurityPrivacyManageSessions -> {
                     val fragmentClass = if (vectorPreferences.isNewSessionManagerEnabled()) {
-                        im.vector.app.features.settings.devices.v2.VectorSettingsDevicesFragment::class.java
+                        im.vector.app.features.settings.devices.v2.ProgressiveSettingsDevices::class.java
                     } else {
-                        VectorSettingsDevicesFragment::class.java
+                        ProgressiveSettingsDevices::class.java
                     }
                     replaceFragment(
                             views.vectorSettingsPage,

@@ -35,7 +35,7 @@ import im.vector.app.features.analytics.extensions.toAnalyticsViewRoom
 import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.analytics.ui.consent.AnalyticsOptInActivity
 import im.vector.app.features.call.conference.JitsiCallViewModel
-import im.vector.app.features.call.conference.VectorJitsiActivity
+import im.vector.app.features.call.conference.ProgressiveJitsiActivity
 import im.vector.app.features.call.transfer.CallTransferActivity
 import im.vector.app.features.createdirect.CreateDirectRoomActivity
 import im.vector.app.features.crypto.keysbackup.settings.KeysBackupManageActivity
@@ -66,7 +66,7 @@ import im.vector.app.features.matrixto.MatrixToBottomSheet
 import im.vector.app.features.matrixto.OriginOfMatrixTo
 import im.vector.app.features.media.AttachmentData
 import im.vector.app.features.media.BigImageViewerActivity
-import im.vector.app.features.media.VectorAttachmentViewerActivity
+import im.vector.app.features.media.ProgressiveAttachmentViewer
 import im.vector.app.features.onboarding.OnboardingActivity
 import im.vector.app.features.pin.PinActivity
 import im.vector.app.features.pin.PinArgs
@@ -455,7 +455,7 @@ class DefaultNavigator @Inject constructor(
                         .show()
             } else {
                 val enableVideo = options?.get(JitsiCallViewModel.ENABLE_VIDEO_OPTION) == true
-                context.startActivity(VectorJitsiActivity.newIntent(context, roomId = roomId, widgetId = widget.widgetId, enableVideo = enableVideo))
+                context.startActivity(ProgressiveJitsiActivity.newIntent(context, roomId = roomId, widgetId = widget.widgetId, enableVideo = enableVideo))
             }
         } else if (widget.type is WidgetType.ElementCall) {
             val widgetArgs = widgetArgsBuilder.buildElementCallWidgetArgs(roomId, widget)
@@ -483,7 +483,7 @@ class DefaultNavigator @Inject constructor(
             inMemory: List<AttachmentData>,
             options: ((MutableList<Pair<View, String>>) -> Unit)?
     ) {
-        VectorAttachmentViewerActivity.newIntent(
+        ProgressiveAttachmentViewer.newIntent(
                 activity,
                 mediaData,
                 roomId,

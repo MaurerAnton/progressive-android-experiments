@@ -38,7 +38,7 @@ import im.vector.app.features.pin.UnlockedActivity
 import im.vector.app.features.pin.lockscreen.crypto.LockScreenKeyRepository
 import im.vector.app.features.pin.lockscreen.pincode.PinCodeHelper
 import im.vector.app.features.popup.PopupAlertManager
-import im.vector.app.features.session.VectorSessionStore
+import im.vector.app.features.session.ProgressiveSessionStore
 import im.vector.app.features.signout.hard.SignedOutActivity
 import im.vector.app.features.start.StartAppAction
 import im.vector.app.features.start.StartAppAndroidService
@@ -281,7 +281,7 @@ class MainActivity : ProgressiveActivity<ActivityMainBinding>(), UnlockedActivit
 
     private fun signout(
             session: Session,
-            onboardingStore: VectorSessionStore,
+            onboardingStore: ProgressiveSessionStore,
             ignoreServerError: Boolean,
     ) {
         lifecycleScope.launch {
@@ -304,7 +304,7 @@ class MainActivity : ProgressiveActivity<ActivityMainBinding>(), UnlockedActivit
         Timber.w("Ignoring invalid token global error")
     }
 
-    private suspend fun doLocalCleanup(clearPreferences: Boolean, vectorSessionStore: VectorSessionStore) {
+    private suspend fun doLocalCleanup(clearPreferences: Boolean, vectorSessionStore: ProgressiveSessionStore) {
         // On UI Thread
         Glide.get(this@MainActivity).clearMemory()
 
@@ -328,7 +328,7 @@ class MainActivity : ProgressiveActivity<ActivityMainBinding>(), UnlockedActivit
 
     private fun displaySignOutFailedDialog(
             session: Session,
-            onboardingStore: VectorSessionStore,
+            onboardingStore: ProgressiveSessionStore,
     ) {
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             MaterialAlertDialogBuilder(this)

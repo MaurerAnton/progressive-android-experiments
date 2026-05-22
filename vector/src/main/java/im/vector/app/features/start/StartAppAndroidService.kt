@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.di.NamedGlobalScope
 import im.vector.app.core.extensions.startForegroundCompat
-import im.vector.app.core.services.VectorAndroidService
+import im.vector.app.core.services.ProgressiveService
 import im.vector.app.features.notifications.NotificationUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -26,7 +26,7 @@ import kotlin.time.Duration.Companion.seconds
  * Will self stop itself once the active session is set.
  */
 @AndroidEntryPoint
-class StartAppAndroidService : VectorAndroidService() {
+class StartAppAndroidService : ProgressiveService() {
 
     @NamedGlobalScope @Inject lateinit var globalScope: CoroutineScope
     @Inject lateinit var notificationUtils: NotificationUtils

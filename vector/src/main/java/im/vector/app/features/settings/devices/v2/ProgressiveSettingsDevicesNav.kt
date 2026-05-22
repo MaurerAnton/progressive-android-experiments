@@ -14,7 +14,7 @@ import im.vector.app.features.settings.devices.v2.overview.SessionOverviewActivi
 import im.vector.app.features.settings.devices.v2.rename.RenameSessionActivity
 import javax.inject.Inject
 
-class VectorSettingsDevicesViewNavigator @Inject constructor() {
+class ProgressiveSettingsDevicesNav @Inject constructor() {
 
     fun navigateToSessionOverview(context: Context, deviceId: String) {
         context.startActivity(SessionOverviewActivity.newIntent(context, deviceId))

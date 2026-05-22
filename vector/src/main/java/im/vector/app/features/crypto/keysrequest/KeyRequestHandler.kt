@@ -11,7 +11,7 @@ import android.content.Context
 import im.vector.app.R
 import im.vector.app.core.date.DateFormatKind
 import im.vector.app.core.date.ProgressiveDateFormatter
-import im.vector.app.features.popup.DefaultVectorAlert
+import im.vector.app.features.popup.DefaultProgressiveAlert
 import im.vector.app.features.popup.PopupAlertManager
 import im.vector.app.features.session.coroutineScope
 import im.vector.lib.strings.CommonStrings
@@ -197,7 +197,7 @@ class KeyRequestHandler @Inject constructor(
             }
         }
 
-        val alert = DefaultVectorAlert(
+        val alert = DefaultProgressiveAlert(
                 alertManagerId(userId, deviceId),
                 context.getString(CommonStrings.key_share_request),
                 dialogText,
@@ -219,7 +219,7 @@ class KeyRequestHandler @Inject constructor(
             denyAllRequests(mappingKey)
         })
 
-        popupAlertManager.postVectorAlert(alert)
+        popupAlertManager.postProgressiveAlert(alert)
     }
 
     private fun denyAllRequests(mappingKey: String) {

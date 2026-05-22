@@ -42,7 +42,7 @@ class DevicesViewModel @AssistedInject constructor(
         refreshDevicesUseCase: RefreshDevicesUseCase,
         private val vectorPreferences: VectorPreferences,
         private val toggleIpAddressVisibilityUseCase: ToggleIpAddressVisibilityUseCase,
-) : VectorSessionsListViewModel<DevicesViewState,
+) : ProgressiveSessionsList<DevicesViewState,
         DevicesAction,
         DevicesViewEvent>(initialState, activeSessionHolder, refreshDevicesUseCase),
         SharedPreferences.OnSharedPreferenceChangeListener {

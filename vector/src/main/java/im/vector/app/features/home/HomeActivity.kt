@@ -60,11 +60,11 @@ import im.vector.app.features.permalink.PermalinkHandler
 import im.vector.app.features.permalink.PermalinkHandler.Companion.MATRIX_TO_CUSTOM_SCHEME_URL_BASE
 import im.vector.app.features.permalink.PermalinkHandler.Companion.ROOM_LINK_PREFIX
 import im.vector.app.features.permalink.PermalinkHandler.Companion.USER_LINK_PREFIX
-import im.vector.app.features.popup.DefaultVectorAlert
+import im.vector.app.features.popup.DefaultProgressiveAlert
 import im.vector.app.features.popup.PopupAlertManager
-import im.vector.app.features.popup.VerificationVectorAlert
+import im.vector.app.features.popup.VerificationProgressiveAlert
 import im.vector.app.features.rageshake.ReportType
-import im.vector.app.features.rageshake.VectorUncaughtExceptionHandler
+import im.vector.app.features.rageshake.ProgressiveExceptionHandler
 import im.vector.app.features.session.coroutineScope
 import im.vector.app.features.settings.VectorSettingsActivity
 import im.vector.app.features.spaces.SpaceCreationActivity
@@ -121,7 +121,7 @@ class HomeActivity :
 
     private val serverBackupStatusViewModel: ServerBackupStatusViewModel by viewModel()
 
-    @Inject lateinit var vectorUncaughtExceptionHandler: VectorUncaughtExceptionHandler
+    @Inject lateinit var vectorUncaughtExceptionHandler: ProgressiveExceptionHandler
     @Inject lateinit var notificationDrawerManager: NotificationDrawerManager
     @Inject lateinit var popupAlertManager: PopupAlertManager
     @Inject lateinit var shortcutsHandler: ShortcutsHandler
@@ -498,8 +498,8 @@ class HomeActivity :
     }
 
     private fun handlePromptToEnablePush() {
-        popupAlertManager.postVectorAlert(
-                DefaultVectorAlert(
+        popupAlertManager.postProgressiveAlert(
+                DefaultProgressiveAlert(
                         uid = PopupAlertManager.ENABLE_PUSH_UID,
                         title = getString(CommonStrings.alert_push_are_disabled_title),
                         description = getString(CommonStrings.alert_push_are_disabled_description),
@@ -540,14 +540,14 @@ class HomeActivity :
             descRes: Int,
             action: ((ProgressiveActivity<*>) -> Unit),
     ) {
-        popupAlertManager.postVectorAlert(
-                VerificationVectorAlert(
+        popupAlertManager.postProgressiveAlert(
+                VerificationProgressiveAlert(
                         uid = uid,
                         title = getString(titleRes),
                         description = getString(descRes),
                         iconId = R.drawable.ic_shield_warning
                 ).apply {
-                    viewBinder = VerificationVectorAlert.ViewBinder(userItem, avatarRenderer)
+                    viewBinder = VerificationProgressiveAlert.ViewBinder(userItem, avatarRenderer)
                     colorInt = ThemeUtils.getColor(this@HomeActivity, com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
                         (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {

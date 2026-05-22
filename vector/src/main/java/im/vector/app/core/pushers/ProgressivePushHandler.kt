@@ -39,7 +39,7 @@ import javax.inject.Inject
 
 private val loggerTag = LoggerTag("Push", LoggerTag.SYNC)
 
-class VectorPushHandler @Inject constructor(
+class ProgressivePushHandler @Inject constructor(
     private val notificationDrawerManager: NotificationDrawerManager,
     private val notifiableEventResolver: NotifiableEventResolver,
     private val activeSessionHolder: ActiveSessionHolder,

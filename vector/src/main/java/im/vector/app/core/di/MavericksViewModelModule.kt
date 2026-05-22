@@ -53,7 +53,7 @@ import im.vector.app.features.location.live.map.LiveLocationMapViewModel
 import im.vector.app.features.location.preview.LocationPreviewViewModel
 import im.vector.app.features.login.LoginViewModel
 import im.vector.app.features.matrixto.MatrixToBottomSheetViewModel
-import im.vector.app.features.media.VectorAttachmentViewerViewModel
+import im.vector.app.features.media.ProgressiveAttachmentViewModel
 import im.vector.app.features.onboarding.OnboardingViewModel
 import im.vector.app.features.poll.create.CreatePollViewModel
 import im.vector.app.features.qrcode.QrCodeScannerViewModel
@@ -610,8 +610,8 @@ interface MavericksViewModelModule {
 
     @Binds
     @IntoMap
-    @MavericksViewModelKey(VectorAttachmentViewerViewModel::class)
-    fun vectorAttachmentViewerViewModelFactory(factory: VectorAttachmentViewerViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
+    @MavericksViewModelKey(ProgressiveAttachmentViewModel::class)
+    fun vectorAttachmentViewerViewModelFactory(factory: ProgressiveAttachmentViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
 
     @Binds
     @IntoMap

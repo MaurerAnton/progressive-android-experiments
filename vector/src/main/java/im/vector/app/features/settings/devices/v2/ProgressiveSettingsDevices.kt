@@ -51,11 +51,11 @@ import javax.inject.Inject
  * Display the list of the user's devices and sessions.
  */
 @AndroidEntryPoint
-class VectorSettingsDevicesFragment :
+class ProgressiveSettingsDevices :
         ProgressiveFragment<FragmentSettingsDevicesBinding>(),
         OtherSessionsView.Callback {
 
-    @Inject lateinit var viewNavigator: VectorSettingsDevicesViewNavigator
+    @Inject lateinit var viewNavigator: ProgressiveSettingsDevicesNav
 
     @Inject lateinit var dateFormatter: ProgressiveDateFormatter
 

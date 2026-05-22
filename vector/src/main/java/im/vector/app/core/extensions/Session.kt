@@ -11,8 +11,8 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
-import im.vector.app.core.services.VectorSyncAndroidService
-import im.vector.app.features.session.VectorSessionStore
+import im.vector.app.core.services.ProgressiveSyncService
+import im.vector.app.features.session.ProgressiveSessionStore
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.crypto.keysbackup.KeysBackupState
 import timber.log.Timber
@@ -25,7 +25,7 @@ fun Session.startSyncing(context: Context) {
 
     if (!syncService().hasAlreadySynced()) {
         // initial sync is done as a service so it can continue below app lifecycle
-        VectorSyncAndroidService.newOneShotIntent(
+        ProgressiveSyncService.newOneShotIntent(
                 context = applicationContext,
                 sessionId = sessionId
         )
@@ -61,4 +61,4 @@ suspend fun Session.cannotLogoutSafely(): Boolean {
                     !sharedSecretStorageService().isRecoverySetup())
 }
 
-fun Session.vectorStore(context: Context) = VectorSessionStore(context, myUserId)
+fun Session.vectorStore(context: Context) = ProgressiveSessionStore(context, myUserId)

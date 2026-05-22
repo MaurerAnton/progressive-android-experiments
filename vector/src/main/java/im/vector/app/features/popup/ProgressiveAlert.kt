@@ -16,7 +16,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import java.lang.ref.WeakReference
 
-interface VectorAlert {
+interface ProgressiveAlert {
     val uid: String
     val title: String
     val description: String
@@ -61,7 +61,7 @@ interface VectorAlert {
 /**
  * Dataclass to describe an important alert with actions.
  */
-open class DefaultVectorAlert(
+open class DefaultProgressiveAlert(
         override val uid: String,
         override val title: String,
         override val description: String,
@@ -70,12 +70,12 @@ open class DefaultVectorAlert(
          * Alert are displayed by default, but let this lambda return false to prevent displaying.
          */
         override val shouldBeDisplayedIn: ((Activity) -> Boolean) = { true }
-) : VectorAlert {
+) : ProgressiveAlert {
 
     // will be set by manager, and accessible by actions at runtime
     override var weakCurrentActivity: WeakReference<Activity>? = null
 
-    override val actions = ArrayList<VectorAlert.Button>()
+    override val actions = ArrayList<ProgressiveAlert.Button>()
 
     override var contentAction: Runnable? = null
     override var dismissedAction: Runnable? = null
@@ -101,5 +101,5 @@ open class DefaultVectorAlert(
     @AttrRes
     override var colorAttribute: Int? = null
 
-    override var viewBinder: VectorAlert.ViewBinder? = null
+    override var viewBinder: ProgressiveAlert.ViewBinder? = null
 }
