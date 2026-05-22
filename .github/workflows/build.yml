@@ -48,7 +48,7 @@ jobs:
         with:
           name: vector-${{ matrix.target }}-debug
           path: |
-            vector-app/build/outputs/apk/*/debug/*.apk
+            progressive-app/build/outputs/apk/*/debug/*.apk
 
   release:
     name: Build unsigned GPlay APKs
@@ -87,7 +87,7 @@ jobs:
         with:
           name: progressive-v0.2.0-fdroid-arm32
           path: |
-            vector-app/build/outputs/apk/fdroid/release/*.apk
+            progressive-app/build/outputs/apk/fdroid/release/*.apk
       - name: Publish to GitHub Release
         if: github.ref == 'refs/heads/main'
         run: |
@@ -109,7 +109,7 @@ jobs:
 
           APK: $VERSION-nightly — armeabi-v7a, F-Droid, unsigned" \
             --prerelease \
-            vector-app/build/outputs/apk/fdroid/release/*.apk
+            progressive-app/build/outputs/apk/fdroid/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -130,7 +130,7 @@ jobs:
         uses: docker://exodusprivacy/exodus-standalone:latest
         with:
           # Don't fail when finding trackers so they can be reported later
-          args: /github/workspace/fdroid/release/vector-fdroid-armeabi-v7a-release-unsigned.apk -j -o /github/workspace/exodus.json -e 0
+          args: /github/workspace/fdroid/release/progressive-fdroid-armeabi-v7a-release-unsigned.apk -j -o /github/workspace/exodus.json -e 0
       - name: Upload exodus json report
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
