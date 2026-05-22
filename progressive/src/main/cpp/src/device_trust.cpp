@@ -61,4 +61,26 @@ std::string formatDeviceTrust(const DeviceTrustInfo& info) {
     return os.str();
 }
 
+
+
+bool isDeviceBlacklisted(const std::string& deviceId, const std::vector<std::string>& blacklist) {
+    return std::find(blacklist.begin(), blacklist.end(), deviceId) != blacklist.end();
+}
+
+DeviceTrustLevel getWorstTrust(const std::vector<DeviceTrustInfo>& devices) {
+    DeviceTrustLevel worst = DeviceTrustLevel::VERIFIED;
+    for (const auto& d : devices) {
+        if (d.level < worst) worst = d.level;
+    }
+    return worst;
+}
+
+bool areAllDevicesVerified(const std::vector<DeviceTrustInfo>& devices) {
+    return getWorstTrust(devices) == DeviceTrustLevel::VERIFIED;
+}
+
+std::string buildTrustBadge(const DeviceTrustInfo& info) {
+    return trustLevelToEmoji(info.level) + " " + trustLevelToString(info.level);
+}
+
 } // namespace progressive

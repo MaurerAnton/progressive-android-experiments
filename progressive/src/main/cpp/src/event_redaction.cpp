@@ -50,4 +50,24 @@ std::string formatRedactionNotice(const RedactionInfo& info, const std::string& 
     return os.str();
 }
 
+
+
+std::string getRedactionReason(const std::string& json) {
+    return parseRedaction(json).reason;
+}
+
+bool canRedactEvent(const std::string& senderId, const std::string& myUserId,
+                      const std::string& roomId, int myPowerLevel, int requiredPl) {
+    if (senderId == myUserId) return true;
+    return myPowerLevel >= requiredPl;
+}
+
+bool isRedactedByServer(const std::string& json) {
+    return json.find(""redacted_because"") != std::string::npos;
+}
+
+std::string formatRedactedContent(const std::string& originalSender) {
+    return originalSender + " removed a message";
+}
+
 } // namespace progressive

@@ -68,4 +68,31 @@ bool isRecent(int64_t ms, int minutes) {
     return (getCurrentTimeMs() - ms) < (minutes * 60000LL);
 }
 
+
+
+int64_t parseEventTimestamp(const std::string& json) {
+    auto tsPos = json.find(""origin_server_ts":");
+    if (tsPos == std::string::npos) return 0;
+    tsPos += 18;
+    while (tsPos < json.size() && json[tsPos] == ' ') tsPos++;
+    try { return std::stoll(json.substr(tsPos)); } catch(...) { return 0; }
+}
+
+std::string formatEventAge(int64_t ms) {
+    int64_t now = getCurrentTimeMs();
+    int64_t age = now - ms;
+    if (age < 60000) return "just now";
+    if (age < 3600000) return std::to_string(age / 60000) + " minutes ago";
+    if (age < 86400000) return std::to_string(age / 3600000) + " hours ago";
+    return std::to_string(age / 86400000) + " days ago";
+}
+
+std::string getWeekdayName(int64_t ms) {
+    time_t t = ms / 1000;
+    struct tm tm;
+    localtime_r(&t, &tm);
+    static const char* days[] = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+    return days[tm.tm_wday];
+}
+
 } // namespace progressive
