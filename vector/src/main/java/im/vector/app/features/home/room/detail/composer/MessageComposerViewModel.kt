@@ -562,6 +562,14 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      vectorPreferences.toggleEmojiBlacklist()
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.STATS -> {
+                                     val stats = room.roomSummary()
+                                     val msg = if (stats != null) {
+                                         "Room stats: ${stats.joinedMembersCount ?: 0} members, ${stats.isEncrypted?.let { if (it) "encrypted" else "unencrypted" } ?: "unknown"}"
+                                     } else "Room stats unavailable"
+                                     room.sendService().sendTextMessage(msg, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.REMIND -> {
                                      val args = parsedCommand.args.trim()
                                      if (args.isNotBlank()) {
