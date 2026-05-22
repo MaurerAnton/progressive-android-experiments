@@ -3,134 +3,235 @@
 
 namespace progressive {
 
+// Helper: extract integer value for a JSON key
+static int getInt(const std::string& json, const std::string& key, int defaultVal = 0) {
+    auto search = "\"" + key + "\":";
+    auto pos = json.find(search);
+    if (pos == std::string::npos) return defaultVal;
+    pos += search.size();
+    while (pos < json.size() && (json[pos] == ' ' || json[pos] == '\t')) pos++;
+    // Skip negative sign if present
+    bool neg = false;
+    if (pos < json.size() && json[pos] == '-') { neg = true; pos++; }
+    if (pos >= json.size() || json[pos] < '0' || json[pos] > '9') return defaultVal;
+    int val = 0;
+    while (pos < json.size() && json[pos] >= '0' && json[pos] <= '9') {
+        val = val * 10 + (json[pos] - '0');
+        pos++;
+    }
+    return neg ? -val : val;
+}
+
 PowerLevels parsePowerLevels(const std::string& json) {
     PowerLevels pl;
-    auto extractInt = [&](const std::string& key) -> int {
-        auto p = json.find("\"" + key + "\":");
-        if (p == std::string::npos) return -1;
-        p += key.size() + 2;
-        while (p < json.size() && json[p] == ' ') p++;
-        try { return std::stoi(json.substr(p)); } catch(...) { return -1; }
-    };
-    
-    if (extractInt("ban") >= 0) pl.ban = extractInt("ban");
-    if (extractInt("invite") >= 0) pl.invite = extractInt("invite");
-    if (extractInt("kick") >= 0) pl.kick = extractInt("kick");
-    if (extractInt("redact") >= 0) pl.redact = extractInt("redact");
-    if (extractInt("state_default") >= 0) pl.stateDefault = extractInt("state_default");
-    if (extractInt("events_default") >= 0) pl.eventsDefault = extractInt("events_default");
-    if (extractInt("users_default") >= 0) pl.usersDefault = extractInt("users_default");
-    
-    // Parse users
+    pl.rawJson = json;
+
+    pl.usersDefault = getInt(json, "users_default", 0);
+    pl.eventsDefault = getInt(json, "events_default", 0);
+    pl.stateDefault = getInt(json, "state_default", 50);
+    pl.inviteLevel = getInt(json, "invite", 0);
+    pl.kickLevel = getInt(json, "kick", 50);
+    pl.banLevel = getInt(json, "ban", 50);
+    pl.redactLevel = getInt(json, "redact", 50);
+
+    // notifications → room
+    auto notifPos = json.find("\"notifications\"");
+    if (notifPos != std::string::npos) {
+        auto roomPos = json.find("\"room\"", notifPos);
+        if (roomPos != std::string::npos) {
+            auto colonPos = json.find(':', roomPos);
+            if (colonPos != std::string::npos) {
+                colonPos++;
+                while (colonPos < json.size() && (json[colonPos] == ' ' || json[colonPos] == '\t')) colonPos++;
+                int val = 0;
+                while (colonPos < json.size() && json[colonPos] >= '0' && json[colonPos] <= '9') {
+                    val = val * 10 + (json[colonPos] - '0');
+                    colonPos++;
+                }
+                pl.notificationsRoomLevel = val;
+            }
+        }
+    }
+
+    // Parse "users" object: {"@alice:server": 100, "@bob:server": 50, ...}
     auto usersPos = json.find("\"users\"");
     if (usersPos != std::string::npos) {
-        auto objStart = json.find('{', usersPos);
-        if (objStart != std::string::npos) {
-            size_t pos = objStart + 1;
-            while (pos < json.size()) {
-                auto keyStart = json.find('"', pos);
-                if (keyStart == std::string::npos || keyStart >= json.find('}', objStart)) break;
-                auto keyEnd = json.find('"', keyStart + 1);
-                if (keyEnd == std::string::npos) break;
-                auto valStart = json.find(':', keyEnd);
-                if (valStart == std::string::npos) break;
-                valStart++;
-                while (valStart < json.size() && json[valStart] == ' ') valStart++;
-                try {
-                    pl.users[json.substr(keyStart + 1, keyEnd - keyStart - 1)] = std::stoi(json.substr(valStart));
-                } catch(...) {}
-                pos = valStart + 1;
+        auto openPos = json.find('{', usersPos);
+        if (openPos != std::string::npos) {
+            int braceDepth = 1;
+            size_t pos = openPos + 1;
+            while (pos < json.size() && braceDepth > 0) {
+                if (json[pos] == '"') {
+                    // Found a key
+                    size_t keyEnd = json.find('"', pos + 1);
+                    if (keyEnd == std::string::npos) break;
+                    std::string userId = json.substr(pos + 1, keyEnd - pos - 1);
+                    auto colon = json.find(':', keyEnd);
+                    if (colon == std::string::npos) break;
+                    size_t valPos = colon + 1;
+                    while (valPos < json.size() && (json[valPos] == ' ' || json[valPos] == '\t')) valPos++;
+                    int level = 0;
+                    while (valPos < json.size() && json[valPos] >= '0' && json[valPos] <= '9') {
+                        level = level * 10 + (json[valPos] - '0');
+                        valPos++;
+                    }
+                    pl.userOverrides.push_back({userId, level});
+                    pos = valPos;
+                } else if (json[pos] == '{') {
+                    braceDepth++;
+                    pos++;
+                } else if (json[pos] == '}') {
+                    braceDepth--;
+                    pos++;
+                } else {
+                    pos++;
+                }
             }
         }
     }
-    
-    // Parse events
+
+    // Parse "events" object
     auto eventsPos = json.find("\"events\"");
     if (eventsPos != std::string::npos) {
-        auto objStart = json.find('{', eventsPos);
-        if (objStart != std::string::npos) {
-            size_t pos = objStart + 1;
-            while (pos < json.size()) {
-                auto keyStart = json.find('"', pos);
-                if (keyStart == std::string::npos || keyStart >= json.find('}', objStart)) break;
-                auto keyEnd = json.find('"', keyStart + 1);
-                if (keyEnd == std::string::npos) break;
-                auto valStart = json.find(':', keyEnd);
-                if (valStart == std::string::npos) break;
-                valStart++;
-                while (valStart < json.size() && json[valStart] == ' ') valStart++;
-                try {
-                    pl.events[json.substr(keyStart + 1, keyEnd - keyStart - 1)] = std::stoi(json.substr(valStart));
-                } catch(...) {}
-                pos = valStart + 1;
+        auto openPos = json.find('{', eventsPos);
+        if (openPos != std::string::npos) {
+            int braceDepth = 1;
+            size_t pos = openPos + 1;
+            while (pos < json.size() && braceDepth > 0) {
+                if (json[pos] == '"') {
+                    size_t keyEnd = json.find('"', pos + 1);
+                    if (keyEnd == std::string::npos) break;
+                    std::string eventType = json.substr(pos + 1, keyEnd - pos - 1);
+                    auto colon = json.find(':', keyEnd);
+                    if (colon == std::string::npos) break;
+                    size_t valPos = colon + 1;
+                    while (valPos < json.size() && (json[valPos] == ' ' || json[valPos] == '\t')) valPos++;
+                    int level = 0;
+                    while (valPos < json.size() && json[valPos] >= '0' && json[valPos] <= '9') {
+                        level = level * 10 + (json[valPos] - '0');
+                        valPos++;
+                    }
+                    pl.eventOverrides.push_back({eventType, level});
+                    pos = valPos;
+                } else if (json[pos] == '{') {
+                    braceDepth++;
+                    pos++;
+                } else if (json[pos] == '}') {
+                    braceDepth--;
+                    pos++;
+                } else {
+                    pos++;
+                }
             }
         }
     }
-    
+
     return pl;
 }
 
 int getUserPowerLevel(const PowerLevels& pl, const std::string& userId) {
-    auto it = pl.users.find(userId);
-    return it != pl.users.end() ? it->second : pl.usersDefault;
+    for (const auto& u : pl.userOverrides) {
+        if (u.userId == userId) return u.level;
+    }
+    return pl.usersDefault;
 }
 
+UserPermissions computeUserPermissions(const PowerLevels& pl, const std::string& userId) {
+    UserPermissions perms;
+    perms.userId = userId;
+    perms.powerLevel = getUserPowerLevel(pl, userId);
+    int plv = perms.powerLevel;
+
+    // State events default
+    perms.canSendState = plv >= pl.stateDefault;
+
+    // Specific state events: check event overrides first, fall back to state_default
+    auto getEventLevel = [&](const std::string& eventType) -> int {
+        for (const auto& e : pl.eventOverrides) {
+            if (e.eventType == eventType) return e.level;
+        }
+        return pl.stateDefault;
+    };
+
+    perms.canChangeName = plv >= getEventLevel("m.room.name");
+    perms.canChangeTopic = plv >= getEventLevel("m.room.topic");
+    perms.canChangeAvatar = plv >= getEventLevel("m.room.avatar");
+    perms.canChangeCanonicalAlias = plv >= getEventLevel("m.room.canonical_alias");
+    perms.canChangeHistoryVisibility = plv >= getEventLevel("m.room.history_visibility");
+    perms.canChangeJoinRules = plv >= getEventLevel("m.room.join_rules");
+    perms.canChangeGuestAccess = plv >= getEventLevel("m.room.guest_access");
+    perms.canChangePowerLevels = plv >= getEventLevel("m.room.power_levels");
+    perms.canChangeServerACL = plv >= getEventLevel("m.room.server_acl");
+
+    // Messages
+    perms.canSendMessages = plv >= pl.eventsDefault;
+
+    // Redaction
+    perms.canSendRedacted = plv >= pl.redactLevel;  // simplified: own messages always, others check below
+    perms.canRedactOthers = plv >= pl.redactLevel;
+
+    // Moderation
+    perms.canInvite = plv >= pl.inviteLevel;
+    perms.canKick = plv >= pl.kickLevel;
+    perms.canBan = plv >= pl.banLevel;
+
+    // Notifications
+    perms.canNotifyRoom = plv >= pl.notificationsRoomLevel;
+
+    // Roles
+    perms.isAdmin = plv >= pl.stateDefault;
+    perms.isOwner = plv >= 100;
+
+    return perms;
+}
+
+bool isValidPowerLevels(const PowerLevels& pl) {
+    return !pl.rawJson.empty() && pl.rawJson.find("users") != std::string::npos;
+}
+
+std::string formatPowerLevel(int level, const PowerLevels& pl) {
+    if (level >= 100) return "Admin (Owner)";
+    if (level >= pl.stateDefault) return "Admin";
+    if (level >= 50 && pl.stateDefault == 50) return "Moderator";
+    if (level > pl.usersDefault) return "Custom (" + std::to_string(level) + ")";
+    return "Default (" + std::to_string(level) + ")";
+}
+
+std::string getUserRole(const UserPermissions& perms) {
+    if (perms.isOwner) return "Owner";
+    if (perms.isAdmin) return "Admin";
+    if (perms.canKick || perms.canBan) return "Moderator";
+    return "Member";
+}
+
+std::string permissionsToJson(const UserPermissions& perms) {
+    std::ostringstream json;
+    json << R"({"userId": ")" << perms.userId << R"(",)";
+    json << R"("powerLevel": )" << perms.powerLevel << ",";
+    json << R"("role": ")" << getUserRole(perms) << R"(",)";
+    json << R"("canSendState": )" << (perms.canSendState ? "true" : "false") << ",";
+    json << R"("canSendMessages": )" << (perms.canSendMessages ? "true" : "false") << ",";
+    json << R"("canChangeName": )" << (perms.canChangeName ? "true" : "false") << ",";
+    json << R"("canChangeTopic": )" << (perms.canChangeTopic ? "true" : "false") << ",";
+    json << R"("canChangeAvatar": )" << (perms.canChangeAvatar ? "true" : "false") << ",";
+    json << R"("canInvite": )" << (perms.canInvite ? "true" : "false") << ",";
+    json << R"("canKick": )" << (perms.canKick ? "true" : "false") << ",";
+    json << R"("canBan": )" << (perms.canBan ? "true" : "false") << ",";
+    json << R"("canRedactOthers": )" << (perms.canRedactOthers ? "true" : "false") << ",";
+    json << R"("isAdmin": )" << (perms.isAdmin ? "true" : "false") << ",";
+    json << R"("isOwner": )" << (perms.isOwner ? "true" : "false") << "}";
+    return json.str();
+}
+
+
+// ---- Permission helpers (convenience) ----
 bool canSendStateEvent(const PowerLevels& pl, const std::string& userId, const std::string& eventType) {
-    int userPl = getUserPowerLevel(pl, userId);
-    auto it = pl.events.find(eventType);
-    int required = it != pl.events.end() ? it->second : pl.stateDefault;
-    return userPl >= required;
+    return getUserPowerLevel(pl, userId) >= getEventPowerLevel(pl, eventType);
 }
-
 bool canSendMessage(const PowerLevels& pl, const std::string& userId) {
     return getUserPowerLevel(pl, userId) >= pl.eventsDefault;
 }
-
-bool canRedact(const PowerLevels& pl, const std::string& userId) {
-    return getUserPowerLevel(pl, userId) >= pl.redact;
-}
-
-bool canBan(const PowerLevels& pl, const std::string& userId) {
-    return getUserPowerLevel(pl, userId) >= pl.ban;
-}
-
-bool canInvite(const PowerLevels& pl, const std::string& userId) {
-    return getUserPowerLevel(pl, userId) >= pl.invite;
-}
-
-bool canKick(const PowerLevels& pl, const std::string& userId) {
-    return getUserPowerLevel(pl, userId) >= pl.kick;
-}
-
 bool canChangePowerLevels(const PowerLevels& pl, const std::string& userId) {
     return getUserPowerLevel(pl, userId) >= pl.stateDefault;
 }
-
-std::string buildPowerLevelsContent(const PowerLevels& pl) {
-    std::ostringstream os;
-    os << "{";
-    os << R"("ban":)" << pl.ban;
-    os << R"(,"invite":)" << pl.invite;
-    os << R"(,"kick":)" << pl.kick;
-    os << R"(,"redact":)" << pl.redact;
-    os << R"(,"state_default":)" << pl.stateDefault;
-    os << R"(,"events_default":)" << pl.eventsDefault;
-    os << R"(,"users_default":)" << pl.usersDefault;
-    os << R"(,"users":{)";
-    bool first = true;
-    for (const auto& [uid, level] : pl.users) {
-        if (!first) os << ","; first = false;
-        os << R"(")" << uid << R"(":)" << level;
-    }
-    os << "}";
-    os << "}";
-    return os.str();
-}
-
-std::string buildPowerLevelChange(const std::string& userId, int newLevel) {
-    std::ostringstream os;
-    os << R"({"users":{")" << userId << R"(":)" << newLevel << "}}";
-    return os.str();
-}
-
 } // namespace progressive
