@@ -73,7 +73,7 @@ std::string DeletedMessageArchive::exportJson() const {
 // ---- Deleted event helpers ----
 
 bool isDeletedPermanently(const std::string& archiveJson) {
-    return archiveJson.find("\"deleted\":true") != std::string::npos;
+    return archiveJson.find(""deleted":true") != std::string::npos;
 }
 
 std::string buildArchiveEntry(const std::string& eventId, const std::string& roomId,
@@ -91,7 +91,7 @@ std::string buildArchiveEntry(const std::string& eventId, const std::string& roo
 int countDeletedEvents(const std::string& archiveJson) {
     int count = 0;
     size_t pos = 0;
-    while ((pos = archiveJson.find("\"event_id\":\"", pos)) != std::string::npos) {
+    while ((pos = archiveJson.find(""event_id":"", pos)) != std::string::npos) {
         count++; pos++;
     }
     return count;

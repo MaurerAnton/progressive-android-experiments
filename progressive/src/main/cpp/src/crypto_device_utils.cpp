@@ -65,7 +65,6 @@ std::string formatDeviceInfo(const CryptoDeviceInfo& d) {
     if (d.isBlocked) os << " 🚫";
     os << " [" << d.algorithms.size() << " algos]";
     return os.str();
-}
 
 std::string getDeviceDisplayName(const CryptoDeviceInfo& d) {
     return d.deviceName.empty() ? d.deviceId : d.deviceName;

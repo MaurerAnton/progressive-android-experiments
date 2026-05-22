@@ -71,7 +71,7 @@ bool isRecent(int64_t ms, int minutes) {
 
 
 int64_t parseEventTimestamp(const std::string& json) {
-    auto tsPos = json.find("\"origin_server_ts\":");
+    auto tsPos = json.find(""origin_server_ts":");
     if (tsPos == std::string::npos) return 0;
     tsPos += 18;
     while (tsPos < json.size() && json[tsPos] == ' ') tsPos++;
