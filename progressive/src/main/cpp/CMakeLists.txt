@@ -87,6 +87,8 @@ add_library(
     src/hash_utils.cpp
     src/http_client.cpp
     src/room_stats.cpp
+    src/rainbow_utils.cpp
+    src/spoiler_utils.cpp
     src/mention_parser.cpp
     src/poll_utils.cpp
     src/reaction_utils.cpp
