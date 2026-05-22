@@ -1,65 +1,42 @@
-#ifndef PROGRESSIVE_WIDGET_UTILS_HPP
-#define PROGRESSIVE_WIDGET_UTILS_HPP
-
+#pragma once
 #include <string>
 #include <vector>
 
 namespace progressive {
 
-// ---- Matrix Widget Utilities ----
-
 struct WidgetInfo {
     std::string widgetId;
+    std::string type;           // e.g. "m.custom", "jitsi"
     std::string name;
-    std::string type;          // "m.custom", "m.jitsi", "m.ethan", etc.
     std::string url;
     std::string creatorUserId;
-    std::string roomId;
     std::string avatarUrl;
-    bool waitForIframeLoad = false;
-    int width = 0;
-    int height = 0;
+    bool waitForIframeLoad = true;
 };
 
-// Parse widget data from m.widget state event content.
-WidgetInfo parseWidgetStateContent(const std::string& stateContentJson, const std::string& widgetId, const std::string& roomId);
+struct WidgetAction {
+    std::string action;         // e.g. "send_event", "open_id"
+    std::string widgetId;
+    std::string data;
+    std::string requestId;
+};
 
-// Build m.widget state content JSON for creating/updating a widget.
+// Parse widget from m.widget state event
+WidgetInfo parseWidget(const std::string& stateKey, const std::string& contentJson);
+
+// Build widget state event content
 std::string buildWidgetContent(const WidgetInfo& widget);
 
-// Validate a widget URL (must be https).
+// Parse widget action from widget API request
+WidgetAction parseWidgetAction(const std::string& apiJson);
+
+// Build widget action response
+std::string buildWidgetActionResponse(const WidgetAction& action, const std::string& result);
+
+// Format widget for display
+std::string formatWidgetInfo(const WidgetInfo& widget);
+
+// Validate widget URL (must be HTTPS)
 bool isValidWidgetUrl(const std::string& url);
 
-// Check if a widget type is a Jitsi conference.
-bool isJitsiWidget(const std::string& type);
-
-// Check if a widget type is an Etherpad.
-bool isEtherpadWidget(const std::string& type);
-
-// Get a human-readable widget type name.
-std::string getWidgetTypeName(const std::string& type);
-
-// List all widgets for a room from state events.
-std::vector<WidgetInfo> listRoomWidgets(const std::string& stateEventsJson);
-
-// Format widget info as JSON.
-std::string widgetToJson(const WidgetInfo& widget);
-
-// ---- Widget Permission Model ----
-
-struct WidgetPermission {
-    std::string roomId;
-    std::string widgetId;
-    std::string permission;    // "camera", "microphone", "screen_sharing"
-    bool granted = false;
-};
-
-// Check if a widget permission request is reasonable.
-bool isReasonablePermission(const std::string& permission, const std::string& widgetType);
-
-// Format permission request for display.
-std::string formatPermissionRequest(const std::string& widgetName, const std::string& permission);
-
 } // namespace progressive
-
-#endif // PROGRESSIVE_WIDGET_UTILS_HPP
