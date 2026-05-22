@@ -73,6 +73,8 @@ enum class Command(
     PIN("/pin", null, "", CommonStrings.command_description_weather, false, true),
     UNPIN("/unpin", null, "", CommonStrings.command_description_weather, false, true),
     MENTION("/mention", null, "<user> <message>", CommonStrings.command_description_weather, false, true),
+    SHRUG("/shrug", null, "<message>", CommonStrings.command_description_weather, false, true),
+    LENNY("/lenny", null, "<message>", CommonStrings.command_description_weather, false, true),
     STATS("/stats", null, "", CommonStrings.command_description_weather, false, true),
     REMIND("/remind", null, "<N> <unit> <message>", CommonStrings.command_description_weather, false, true),
     WEATHER("/weather", null, "<city>", CommonStrings.command_description_weather, false, true),

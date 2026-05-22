@@ -580,6 +580,16 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      )
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.SHRUG -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " ¯\_(ツ)_/¯", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.LENNY -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " ( ͡° ͜ʖ ͡°)", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.STATS -> {
                                      val stats = room.roomSummary()
                                      val msg = if (stats != null) {
