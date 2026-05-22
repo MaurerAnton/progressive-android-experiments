@@ -205,6 +205,8 @@ add_library(
     src/unified_push.cpp
     src/url_preview.cpp
     src/web_search.cpp
+    src/event_reminder.cpp
+    src/presence_monitor.cpp
     src/notification_filter.cpp
     src/room_preview.cpp
     src/highlight_formatter.cpp
