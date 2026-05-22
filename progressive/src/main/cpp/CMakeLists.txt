@@ -184,6 +184,7 @@ add_library(
     src/client_info.cpp
     src/keyshare.cpp
     src/displayname_utils.cpp
+    src/member_list.cpp
     src/message_location.cpp
     src/timeline_chunk.cpp
     src/timeline_utils.cpp
