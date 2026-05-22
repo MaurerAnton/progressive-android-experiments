@@ -50,11 +50,11 @@ std::string mimeToExtension(const std::string& mimeType) {
 // ---- Audio helpers ----
 
 bool isAudioMessage(const std::string& json) {
-    return json.find(""msgtype":"m.audio"") != std::string::npos;
+    return json.find("\"msgtype\":\"m.audio\"") != std::string::npos;
 }
 
 int parseAudioDuration(const std::string& json) {
-    auto durPos = json.find(""duration":");
+    auto durPos = json.find("\"duration\":");
     if (durPos == std::string::npos) return 0;
     durPos += 11;
     try { return std::stoi(json.substr(durPos)); } catch(...) { return 0; }
