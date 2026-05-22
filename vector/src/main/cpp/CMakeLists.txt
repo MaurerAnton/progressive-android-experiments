@@ -83,6 +83,7 @@ add_library(
     src/spellcheck.cpp
     src/draft_manager.cpp
     src/link_preview.cpp
+    src/text_stats.cpp
     src/hash_utils.cpp
     src/http_client.cpp
     src/room_stats.cpp

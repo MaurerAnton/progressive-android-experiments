@@ -76,6 +76,7 @@
 #include "progressive/draft_manager.hpp"
 #include "progressive/link_preview.hpp"
 #include "progressive/hash_utils.hpp"
+#include "progressive/text_stats.hpp"
 #include "progressive/room_stats.hpp"
 #include "progressive/mention_parser.hpp"
 #include "progressive/poll_utils.hpp"
@@ -6093,6 +6094,11 @@ JNI_FUNC(jstring, nativeFormatLlmBroadcast)(JNIEnv* env, jclass, jstring jPrompt
     auto formatted = progressive::formatLlmBroadcastMessage(jStr(env, jPrompt), jStr(env, jResponse));
     return env->NewStringUTF(formatted.c_str());
 }
+JNI_FUNC(jstring, nativeTextStats)(JNIEnv* env, jclass, jstring jText) {
+    auto stats = progressive::computeTextStats(jStr(env, jText));
+    return env->NewStringUTF(progressive::textStatsToJson(stats).c_str());
+}
+
 // ============================================================
 // Weather Utils
 // ============================================================
