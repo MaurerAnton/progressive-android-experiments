@@ -205,6 +205,8 @@ add_library(
     src/unified_push.cpp
     src/url_preview.cpp
     src/web_search.cpp
+    src/room_invite_utils.cpp
+    src/message_search.cpp
     src/notification_summary.cpp
     src/session_restore.cpp
     src/device_naming_helper.cpp
