@@ -562,6 +562,24 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      progressivePreferences.toggleEmojiBlacklist()
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.PIN, Command.UNPIN -> {
+                                     val args = parsedCommand.args.trim()
+                                     room.sendService().sendTextMessage(
+                                         if (parsedCommand.command == Command.PIN) "📌 $args" else "📌 removed pin: $args",
+                                         autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.MENTION -> {
+                                     val args = parsedCommand.args.trim()
+                                     val parts = args.split(" ", limit = 2)
+                                     val user = parts.getOrNull(0) ?: ""
+                                     val msg = parts.getOrNull(1) ?: ""
+                                     room.sendService().sendFormattedTextMessage(
+                                         msg,
+                                         "<a href="https://matrix.to/#/$user">$user</a> $msg"
+                                     )
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.STATS -> {
                                      val stats = room.roomSummary()
                                      val msg = if (stats != null) {
