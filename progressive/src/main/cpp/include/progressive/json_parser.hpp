@@ -2,6 +2,7 @@
 #define PROGRESSIVE_JSON_PARSER_HPP
 
 #include <string>
+#include <vector>
 #include <cstdint>
 
 namespace progressive {
