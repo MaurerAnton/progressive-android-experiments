@@ -44,7 +44,7 @@ bool shouldShowEncryptionBadge(const EncryptionStatus& s) {
 
 
 std::string parseEncryptionAlgorithm(const std::string& json) {
-    auto algoPos = json.find(""algorithm":"");
+    auto algoPos = json.find("\"algorithm\":\"");
     if (algoPos == std::string::npos) return "";
     algoPos += 13;
     auto end = json.find('"', algoPos);
@@ -52,7 +52,7 @@ std::string parseEncryptionAlgorithm(const std::string& json) {
 }
 
 bool isOlmEncrypted(const std::string& json) {
-    return json.find(""algorithm":"m.olm") != std::string::npos;
+    return json.find("\"algorithm\":\"m.olm") != std::string::npos;
 }
 
 EncryptionStatus checkRoomEncryption(const std::string& stateJson) {

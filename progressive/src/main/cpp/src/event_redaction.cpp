@@ -63,7 +63,7 @@ bool canRedactEvent(const std::string& senderId, const std::string& myUserId,
 }
 
 bool isRedactedByServer(const std::string& json) {
-    return json.find(""redacted_because"") != std::string::npos;
+    return json.find("\"redacted_because\"") != std::string::npos;
 }
 
 std::string formatRedactedContent(const std::string& originalSender) {

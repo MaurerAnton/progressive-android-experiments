@@ -77,7 +77,7 @@ double parseJsonDouble(const std::string& json, const std::string& key, double d
 
 std::vector<std::string> parseJsonStringArray(const std::string& json, const std::string& key) {
     std::vector<std::string> result;
-    auto keyPos = json.find(""" + key + """);
+    auto keyPos = json.find("\"" + key + "\"");
     if (keyPos == std::string::npos) return result;
     auto arrStart = json.find('[', keyPos);
     auto arrEnd = json.find(']', arrStart);
@@ -96,11 +96,11 @@ std::vector<std::string> parseJsonStringArray(const std::string& json, const std
 }
 
 bool parseJsonHasKey(const std::string& json, const std::string& key) {
-    return json.find(""" + key + """) != std::string::npos;
+    return json.find("\"" + key + "\"") != std::string::npos;
 }
 
 std::string parseJsonObject(const std::string& json, const std::string& key) {
-    auto keyPos = json.find(""" + key + "":");
+    auto keyPos = json.find("\"" + key + "\":");
     if (keyPos == std::string::npos) return "";
     keyPos += key.size() + 3;
     while (keyPos < json.size() && json[keyPos] == ' ') keyPos++;
