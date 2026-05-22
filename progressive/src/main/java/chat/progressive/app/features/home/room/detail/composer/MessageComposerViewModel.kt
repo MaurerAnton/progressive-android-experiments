@@ -627,6 +627,18 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      room.sendService().sendTextMessage("Invited " + parsedCommand.args, autoMarkdown = false)
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.LEAVE -> {
+                                     room.sendService().sendTextMessage("Leaving room...", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.BAN -> {
+                                     room.sendService().sendTextMessage("Banned " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.UNBAN -> {
+                                     room.sendService().sendTextMessage("Unbanned " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.JOIN -> {
                                      room.sendService().sendTextMessage("Joining " + parsedCommand.args + "...", autoMarkdown = false)
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
