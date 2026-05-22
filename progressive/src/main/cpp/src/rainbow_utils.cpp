@@ -17,7 +17,7 @@ static std::string hslToHex(double h, double s, double l) {
     else if (h < 300) { r = x; b = c; }
     else { r = c; b = x; }
     
-    auto toHex = [](double v) -> int { return (int)((v + m) * 255); };
+    auto toHex = [&](double v) -> int { return (int)((v + m) * 255); };
     
     char buf[8];
     snprintf(buf, sizeof(buf), "#%02X%02X%02X", toHex(r), toHex(g), toHex(b));
