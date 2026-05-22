@@ -58,27 +58,4 @@ std::string buildAliasJoinUrl(const std::string& alias) {
     return "https://matrix.to/#/" + alias;
 }
 
-
-
-// ---- Alias helpers ----
-
-std::string extractLocalpartFromAlias(const std::string& alias) {
-    if (alias.size() < 2 || alias[0] != '#') return "";
-    auto colon = alias.find(':');
-    if (colon == std::string::npos) return alias.substr(1);
-    return alias.substr(1, colon - 1);
-}
-
-std::string buildAliasFromLocalpart(const std::string& localpart, const std::string& server) {
-    return "#" + localpart + ":" + server;
-}
-
-std::string buildCanonicalAliasEvent(const std::string& alias) {
-    return R"({"alt_aliases":[")" + alias + R"("]})";
-}
-
-bool isAliasAvailable(const std::string& responseJson) {
-    return responseJson.find(""available":true") != std::string::npos;
-}
-
 } // namespace progressive

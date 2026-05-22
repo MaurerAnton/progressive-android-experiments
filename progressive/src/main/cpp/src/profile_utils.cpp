@@ -48,16 +48,6 @@ std::string formatProfileSummary(const UserProfile& p) {
     os << (p.displayName.empty() ? p.userId : p.displayName);
     if (!p.avatarUrl.empty()) os << " [avatar set]";
     return os.str();
-
-bool hasCustomAvatar(const UserProfile& p) { return !p.avatarUrl.empty(); }
-bool hasDisplayName(const UserProfile& p) { return !p.displayName.empty(); }
-std::string buildProfileBatchRequest(const std::vector<std::string>& userIds) {
-    // /profile API is per-user — no batch
-    return "{}";
-}
-std::string formatProfileUrl(const std::string& userId, const std::string& homeserver) {
-    return homeserver + "/_matrix/client/v3/profile/" + userId;
-}
 }
 
 } // namespace progressive

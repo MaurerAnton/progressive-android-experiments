@@ -41,29 +41,4 @@ bool shouldShowEncryptionBadge(const EncryptionStatus& s) {
     return s.isEncrypted;
 }
 
-
-
-std::string parseEncryptionAlgorithm(const std::string& json) {
-    auto algoPos = json.find(""algorithm":"");
-    if (algoPos == std::string::npos) return "";
-    algoPos += 13;
-    auto end = json.find('"', algoPos);
-    return end != std::string::npos ? json.substr(algoPos, end - algoPos) : "";
-}
-
-bool isOlmEncrypted(const std::string& json) {
-    return json.find(""algorithm":"m.olm") != std::string::npos;
-}
-
-EncryptionStatus checkRoomEncryption(const std::string& stateJson) {
-    EncryptionStatus s;
-    s.isEncrypted = stateJson.find(""algorithm":"m.megolm") != std::string::npos;
-    s.algorithm = parseEncryptionAlgorithm(stateJson);
-    return s;
-}
-
-bool requiresEncryption(const std::string& roomId, const std::vector<std::string>& encryptedRooms) {
-    return std::find(encryptedRooms.begin(), encryptedRooms.end(), roomId) != encryptedRooms.end();
-}
-
 } // namespace progressive

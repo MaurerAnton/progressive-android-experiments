@@ -43,23 +43,6 @@ std::string formatMembershipEvent(const std::string& membership, const std::stri
     os << name << " " << membershipToString(membership) << " the room";
     if (!reason.empty()) os << ": " << reason;
     return os.str();
-
-std::string getJoinRuleEmoji(const std::string& rule) {
-    if (rule == "public") return "🌐"; if (rule == "invite") return "✉️";
-    if (rule == "knock") return "🚪"; return "🔒";
-}
-bool isMember(const std::string& membership) { return membership == "join"; }
-bool isInvited(const std::string& membership) { return membership == "invite"; }
-bool isBanned(const std::string& membership) { return membership == "ban"; }
-std::string buildKickContent(const std::string& userId, const std::string& reason) {
-    return R"({"membership":"leave","reason":")" + reason + R"(","user_id":")" + userId + R"("})";
-}
-std::string buildBanContent(const std::string& userId, const std::string& reason) {
-    return R"({"membership":"ban","reason":")" + reason + R"(","user_id":")" + userId + R"("})";
-}
-std::string buildInviteContent(const std::string& userId) {
-    return R"({"membership":"invite","user_id":")" + userId + R"("})";
-}
 }
 
 } // namespace progressive

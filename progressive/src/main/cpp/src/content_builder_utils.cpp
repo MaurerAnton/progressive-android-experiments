@@ -61,24 +61,6 @@ std::string buildContentJson(const std::string& msgType, const std::string& body
     if (!extra.empty()) os << "," << extra;
     os << "}";
     return os.str();
-
-std::string buildHtmlContent(const std::string& body, const std::string& html) {
-    return buildTextContent(body, html);
-}
-std::string buildReplyFallback(const std::string& repliedBody) {
-    std::istringstream iss(repliedBody); std::string line; std::ostringstream os;
-    while (std::getline(iss, line)) os << "> " << line << "
-";
-    return os.str() + "
-";
-}
-std::string buildLocationShareContent(const std::string& geoUri, const std::string& description) {
-    std::ostringstream os;
-    os << R"({"msgtype":"m.location","body":")" << description << R"(")";
-    os << R"(,"geo_uri":")" << geoUri << R"(")";
-    os << R"(,"org.matrix.msc3488.asset":{"type":"m.self"}})";
-    return os.str();
-}
 }
 
 } // namespace progressive

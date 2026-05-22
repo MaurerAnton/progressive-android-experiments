@@ -53,21 +53,6 @@ std::string formatDirectoryEntry(const RoomDirectoryEntry& e) {
     os << (e.name.empty() ? e.roomId : e.name);
     os << " (" << e.memberCount << " members)";
     return os.str();
-
-std::string buildDirectoryPagination(const std::string& since, int limit) {
-    std::ostringstream os;
-    os << R"({"limit":)" << limit;
-    if (!since.empty()) os << R"(,"since":")" << since << R"(")";
-    os << "}";
-    return os.str();
-}
-bool hasMoreDirectoryPages(const std::string& responseJson) {
-    return responseJson.find(""next_batch"") != std::string::npos ||
-           responseJson.find(""total_room_count_estimate"") != std::string::npos;
-}
-std::string buildRoomVisibilityRequest(const std::string& roomId, const std::string& visibility) {
-    return R"({"visibility":")" + visibility + R"("})";
-}
 }
 
 } // namespace progressive
