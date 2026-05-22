@@ -6162,6 +6162,18 @@ JNI_FUNC(jstring, nativeSmartDefaultReplies)(JNIEnv* env, jclass, jstring jLastM
     return env->NewStringUTF(json.c_str());
 }
 
+JNI_FUNC(jstring, nativeAlarmGetWeatherAction)(JNIEnv* env, jclass, jstring jAlarmId) {
+    auto alarms = g_alarmMgr.getActiveAlarms();
+    for (auto& a : alarms) {
+        if (a.id == jStr(env, jAlarmId) && a.preAction != progressive::AlarmAction::NONE) {
+            std::string json = "{\"type\":" + std::to_string(static_cast<int>(a.preAction));
+            json += ",\"param\":\"" + a.preActionParam + "\"}";
+            return env->NewStringUTF(json.c_str());
+        }
+    }
+    return env->NewStringUTF("{}");
+}
+
 JNI_FUNC(jstring, nativeFormatRoomSummary)(JNIEnv* env, jclass, jstring jRoomId, jstring jName,
                                                     jstring jBody, jstring jSender, jlong jTs,
                                                     jint jNotif, jint jHl, jboolean jDirect) {

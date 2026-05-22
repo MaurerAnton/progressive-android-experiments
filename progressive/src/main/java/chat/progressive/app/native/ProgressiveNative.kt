@@ -741,6 +741,8 @@ object ProgressiveNative {
 
     // --- Room Summary ---
 
+    @JvmStatic external fun nativeAlarmGetWeatherAction(alarmId: String): String
+
     @JvmStatic external fun nativeFormatRoomSummary(roomId: String, name: String, body: String, sender: String, ts: Long, notif: Int, hl: Int, direct: Boolean): String
     @JvmStatic external fun nativeFormatNotifBadge(count: Int, highlight: Int): String
 

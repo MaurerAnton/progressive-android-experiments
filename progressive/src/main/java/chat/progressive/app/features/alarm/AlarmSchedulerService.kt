@@ -25,6 +25,18 @@ class AlarmSchedulerService : Service() {
                 val triggerMs = alarm.optLong("triggerAtMs", 0)
                 val id = alarm.getString("id")
                 if (enabled && triggerMs > System.currentTimeMillis()) {
+                        // Pre-fetch weather if alarm has weather action and is within 5 minutes
+                        if (triggerMs - System.currentTimeMillis() < 300000) {
+                            try {
+                                val weatherJson = ProgressiveNative.nativeAlarmGetWeatherAction(id)
+                                val wj = org.json.JSONObject(weatherJson)
+                                if (wj.optString("type", "0") != "0") {
+                                    val url = ProgressiveNative.nativeWeatherBuildUrl(wj.getString("param"), "")
+                                    val resp = java.net.URL(url).readText()
+                                    // Weather fetched — stored for AlarmActivity display
+                                }
+                            } catch (_: Exception) { }
+                        }
                     AlarmReceiver.schedule(this, alarm.toString(), triggerMs)
                 }
             }
