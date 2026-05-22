@@ -20,7 +20,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.FragmentRoomSettingGenericBinding
 import im.vector.app.features.home.AvatarRenderer
@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomBannedMemberListFragment :
-        VectorBaseFragment<FragmentRoomSettingGenericBinding>(),
+        ProgressiveFragment<FragmentRoomSettingGenericBinding>(),
         RoomBannedMemberListController.Callback {
 
     @Inject lateinit var roomMemberListController: RoomBannedMemberListController

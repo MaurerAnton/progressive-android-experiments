@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.mvrx.fragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentDeactivateAccountBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
@@ -30,7 +30,7 @@ import org.matrix.android.sdk.api.session.uia.exceptions.UiaCancelledException
 
 @AndroidEntryPoint
 class DeactivateAccountFragment :
-        VectorBaseFragment<FragmentDeactivateAccountBinding>() {
+        ProgressiveFragment<FragmentDeactivateAccountBinding>() {
 
     private val viewModel: DeactivateAccountViewModel by fragmentViewModel()
 

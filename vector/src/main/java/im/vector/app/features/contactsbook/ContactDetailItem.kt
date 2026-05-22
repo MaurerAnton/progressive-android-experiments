@@ -12,13 +12,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class ContactDetailItem : VectorEpoxyModel<ContactDetailItem.Holder>(R.layout.item_contact_detail) {
+abstract class ContactDetailItem : ProgressiveEpoxyModel<ContactDetailItem.Holder>(R.layout.item_contact_detail) {
 
     @EpoxyAttribute lateinit var threePid: String
     @EpoxyAttribute var matrixId: String? = null
@@ -33,7 +33,7 @@ abstract class ContactDetailItem : VectorEpoxyModel<ContactDetailItem.Holder>(R.
         holder.matrixIdView.setTextOrHide(matrixId)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val nameView by bind<TextView>(R.id.contactDetailName)
         val matrixIdView by bind<TextView>(R.id.contactDetailMatrixId)
     }

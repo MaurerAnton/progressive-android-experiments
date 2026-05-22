@@ -19,7 +19,7 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.PERMISSIONS_FOR_FOREGROUND_LOCATION_SHARING
 import im.vector.app.core.utils.checkPermissions
@@ -43,7 +43,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class LocationPreviewFragment :
-        VectorBaseFragment<FragmentLocationPreviewBinding>(),
+        ProgressiveFragment<FragmentLocationPreviewBinding>(),
         VectorMenuProvider {
 
     @Inject lateinit var urlMapProvider: UrlMapProvider

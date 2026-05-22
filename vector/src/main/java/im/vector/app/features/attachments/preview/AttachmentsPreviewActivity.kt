@@ -12,7 +12,7 @@ import android.content.Intent
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.themes.ActivityOtherThemes
 import im.vector.lib.core.utils.compat.getParcelableArrayListExtraCompat
@@ -20,7 +20,7 @@ import im.vector.lib.core.utils.compat.getParcelableCompat
 import org.matrix.android.sdk.api.session.content.ContentAttachmentData
 
 @AndroidEntryPoint
-class AttachmentsPreviewActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class AttachmentsPreviewActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     companion object {
         private const val EXTRA_FRAGMENT_ARGS = "EXTRA_FRAGMENT_ARGS"

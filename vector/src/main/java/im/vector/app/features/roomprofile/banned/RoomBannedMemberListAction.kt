@@ -7,10 +7,10 @@
 
 package im.vector.app.features.roomprofile.banned
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.RoomMemberSummary
 
-sealed class RoomBannedMemberListAction : VectorViewModelAction {
+sealed class RoomBannedMemberListAction : ProgressiveViewModelAction {
     data class QueryInfo(val roomMemberSummary: RoomMemberSummary) : RoomBannedMemberListAction()
     data class UnBanUser(val roomMemberSummary: RoomMemberSummary) : RoomBannedMemberListAction()
     data class Filter(val filter: String) : RoomBannedMemberListAction()

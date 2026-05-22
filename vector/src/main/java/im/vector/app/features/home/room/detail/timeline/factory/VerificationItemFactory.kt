@@ -6,7 +6,7 @@
  */
 package im.vector.app.features.home.room.detail.timeline.factory
 
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.resources.UserPreferencesProvider
 import im.vector.app.features.home.room.detail.timeline.MessageColorProvider
@@ -45,7 +45,7 @@ class VerificationItemFactory @Inject constructor(
         private val session: Session
 ) {
 
-    fun create(params: TimelineItemFactoryParams): VectorEpoxyModel<*>? {
+    fun create(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*>? {
         val event = params.event
         if (event.root.eventId == null) return null
 
@@ -138,7 +138,7 @@ class VerificationItemFactory @Inject constructor(
         return null
     }
 
-    private fun ignoredConclusion(params: TimelineItemFactoryParams): VectorEpoxyModel<*>? {
+    private fun ignoredConclusion(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*>? {
         if (userPreferencesProvider.shouldShowHiddenEvents()) return noticeItemFactory.create(params)
         return null
     }

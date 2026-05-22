@@ -24,7 +24,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.addFragment
 import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.core.extensions.toMvRxBundle
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.home.room.detail.upgrade.MigrateRoomBottomSheet
@@ -37,7 +37,7 @@ import im.vector.app.features.roomprofile.settings.joinrule.advanced.RoomJoinRul
 import im.vector.lib.core.utils.compat.getParcelableCompat
 
 @AndroidEntryPoint
-class RoomJoinRuleActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class RoomJoinRuleActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     override fun getBinding() = ActivitySimpleBinding.inflate(layoutInflater)
 

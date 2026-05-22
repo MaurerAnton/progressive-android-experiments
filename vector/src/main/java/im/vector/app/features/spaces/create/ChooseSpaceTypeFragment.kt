@@ -14,13 +14,13 @@ import android.view.ViewGroup
 import com.airbnb.mvrx.activityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.epoxy.onClick
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSpaceCreateChooseTypeBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 
 @AndroidEntryPoint
 class ChooseSpaceTypeFragment :
-        VectorBaseFragment<FragmentSpaceCreateChooseTypeBinding>() {
+        ProgressiveFragment<FragmentSpaceCreateChooseTypeBinding>() {
 
     private val sharedViewModel: CreateSpaceViewModel by activityViewModel()
 

@@ -15,7 +15,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -45,7 +45,7 @@ class RoomMemberListViewModel @AssistedInject constructor(
         private val roomMemberListComparator: RoomMemberListComparator,
         private val session: Session
 ) :
-        VectorViewModel<RoomMemberListViewState, RoomMemberListAction, EmptyViewEvents>(initialState) {
+        ProgressiveViewModel<RoomMemberListViewState, RoomMemberListAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<RoomMemberListViewModel, RoomMemberListViewState> {

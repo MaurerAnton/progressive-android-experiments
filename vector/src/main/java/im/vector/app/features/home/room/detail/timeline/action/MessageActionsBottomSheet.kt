@@ -15,7 +15,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListBinding
 import im.vector.app.features.home.room.detail.timeline.item.MessageInformationData
 import javax.inject.Inject
@@ -25,7 +25,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class MessageActionsBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListBinding>(),
         MessageActionsEpoxyController.MessageActionsEpoxyControllerListener {
 
     @Inject lateinit var messageActionsEpoxyController: MessageActionsEpoxyController

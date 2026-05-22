@@ -14,15 +14,15 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.displayname.getBestName
 import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class DisplayReadReceiptItem : VectorEpoxyModel<DisplayReadReceiptItem.Holder>(R.layout.item_display_read_receipt) {
+abstract class DisplayReadReceiptItem : ProgressiveEpoxyModel<DisplayReadReceiptItem.Holder>(R.layout.item_display_read_receipt) {
 
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
     @EpoxyAttribute var timestamp: String? = null
@@ -42,7 +42,7 @@ abstract class DisplayReadReceiptItem : VectorEpoxyModel<DisplayReadReceiptItem.
         holder.view.onClick(userClicked)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarView by bind<ImageView>(R.id.readReceiptAvatar)
         val displayNameView by bind<TextView>(R.id.readReceiptName)
         val timestampView by bind<TextView>(R.id.readReceiptDate)

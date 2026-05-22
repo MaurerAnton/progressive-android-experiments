@@ -28,7 +28,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.trackItemsVisibilityChange
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.DimensionConverter
 import im.vector.app.databinding.FragmentGenericStateViewRecyclerBinding
 import im.vector.app.features.media.AttachmentData
@@ -48,7 +48,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomUploadsMediaFragment :
-        VectorBaseFragment<FragmentGenericStateViewRecyclerBinding>(),
+        ProgressiveFragment<FragmentGenericStateViewRecyclerBinding>(),
         UploadsMediaController.Listener,
         StateView.EventCallback {
 

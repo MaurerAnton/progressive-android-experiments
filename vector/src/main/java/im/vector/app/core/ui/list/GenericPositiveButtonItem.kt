@@ -13,15 +13,15 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.google.android.material.button.MaterialButton
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 /**
  * A generic button list item.
  */
 @EpoxyModelClass
-abstract class GenericPositiveButtonItem : VectorEpoxyModel<GenericPositiveButtonItem.Holder>(R.layout.item_positive_button) {
+abstract class GenericPositiveButtonItem : ProgressiveEpoxyModel<GenericPositiveButtonItem.Holder>(R.layout.item_positive_button) {
 
     @EpoxyAttribute
     var text: String? = null
@@ -48,7 +48,7 @@ abstract class GenericPositiveButtonItem : VectorEpoxyModel<GenericPositiveButto
         holder.button.onClick(buttonClickAction)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val button by bind<MaterialButton>(R.id.itemGenericItemButton)
     }
 }

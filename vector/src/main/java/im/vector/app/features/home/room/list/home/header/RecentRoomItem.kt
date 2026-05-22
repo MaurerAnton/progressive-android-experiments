@@ -16,8 +16,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.displayname.getBestName
 import im.vector.app.features.home.AvatarRenderer
@@ -25,7 +25,7 @@ import im.vector.app.features.home.room.list.UnreadCounterBadgeView
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class RecentRoomItem : VectorEpoxyModel<RecentRoomItem.Holder>(R.layout.item_recent_room) {
+abstract class RecentRoomItem : ProgressiveEpoxyModel<RecentRoomItem.Holder>(R.layout.item_recent_room) {
 
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
@@ -60,7 +60,7 @@ abstract class RecentRoomItem : VectorEpoxyModel<RecentRoomItem.Holder>(R.layout
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val unreadCounterBadgeView by bind<UnreadCounterBadgeView>(R.id.recentUnreadCounterBadgeView)
         val avatarImageView by bind<ImageView>(R.id.recentImageView)
         val title by bind<TextView>(R.id.recentTitle)

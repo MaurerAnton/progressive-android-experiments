@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class UserDirectoryLetterHeaderItem : VectorEpoxyModel<UserDirectoryLetterHeaderItem.Holder>(R.layout.item_user_directory_letter_header) {
+abstract class UserDirectoryLetterHeaderItem : ProgressiveEpoxyModel<UserDirectoryLetterHeaderItem.Holder>(R.layout.item_user_directory_letter_header) {
 
     @EpoxyAttribute var letter: String = ""
 
@@ -24,7 +24,7 @@ abstract class UserDirectoryLetterHeaderItem : VectorEpoxyModel<UserDirectoryLet
         holder.letterView.text = letter
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val letterView by bind<TextView>(R.id.userDirectoryLetterView)
     }
 }

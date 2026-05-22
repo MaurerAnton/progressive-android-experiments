@@ -46,7 +46,7 @@ class VectorSettingsHelpAboutFragment :
         findPreference<VectorPreference>(VectorPreferences.SETTINGS_HELP_PREFERENCE_KEY)!!
                 .onPreferenceClickListener = Preference.OnPreferenceClickListener {
             if (firstThrottler.canHandle() is FirstThrottler.CanHandlerResult.Yes) {
-                openUrlInChromeCustomTab(requireContext(), null, VectorSettingsUrls.HELP)
+                openUrlInChromeCustomTab(requireContext(), null, ProgressiveSettingsUrls.HELP)
             }
             false
         }

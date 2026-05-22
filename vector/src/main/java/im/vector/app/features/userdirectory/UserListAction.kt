@@ -7,9 +7,9 @@
 
 package im.vector.app.features.userdirectory
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class UserListAction : VectorViewModelAction {
+sealed class UserListAction : ProgressiveViewModelAction {
     data class SearchUsers(val value: String) : UserListAction()
     object ClearSearchUsers : UserListAction()
     data class AddPendingSelection(val pendingSelection: PendingSelection) : UserListAction()

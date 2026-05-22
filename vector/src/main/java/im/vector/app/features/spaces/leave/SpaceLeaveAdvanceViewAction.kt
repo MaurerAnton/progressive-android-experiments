@@ -7,9 +7,9 @@
 
 package im.vector.app.features.spaces.leave
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SpaceLeaveAdvanceViewAction : VectorViewModelAction {
+sealed class SpaceLeaveAdvanceViewAction : ProgressiveViewModelAction {
     data class ToggleSelection(val roomId: String) : SpaceLeaveAdvanceViewAction()
     data class UpdateFilter(val filter: String) : SpaceLeaveAdvanceViewAction()
     data class SetFilteringEnabled(val isEnabled: Boolean) : SpaceLeaveAdvanceViewAction()

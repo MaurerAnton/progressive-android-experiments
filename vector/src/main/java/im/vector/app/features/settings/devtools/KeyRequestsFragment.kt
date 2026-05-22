@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.safeOpenOutputStream
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.selectTxtFileToWrite
 import im.vector.app.databinding.FragmentDevtoolKeyrequestsBinding
@@ -36,7 +36,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class KeyRequestsFragment :
-        VectorBaseFragment<FragmentDevtoolKeyrequestsBinding>(),
+        ProgressiveFragment<FragmentDevtoolKeyrequestsBinding>(),
         VectorMenuProvider {
 
     @Inject lateinit var clock: Clock

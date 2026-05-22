@@ -15,7 +15,7 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.StringProvider
 import im.vector.lib.attachmentviewer.AttachmentInfo
 import im.vector.lib.attachmentviewer.AttachmentSourceProvider
@@ -36,7 +36,7 @@ abstract class BaseAttachmentProvider<Type>(
         private val imageContentRenderer: ImageContentRenderer,
         protected val fileService: FileService,
         private val coroutineScope: CoroutineScope,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val stringProvider: StringProvider
 ) : AttachmentSourceProvider {
 

@@ -9,7 +9,7 @@ package im.vector.app.features.home.room.detail.timeline.factory
 
 import im.vector.app.core.epoxy.TimelineEmptyItem
 import im.vector.app.core.epoxy.TimelineEmptyItem_
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.analytics.DecryptionFailureTracker
 import im.vector.app.features.home.room.detail.timeline.helper.TimelineEventVisibilityHelper
 import im.vector.app.features.voicebroadcast.VoiceBroadcastConstants
@@ -41,7 +41,7 @@ class TimelineItemFactory @Inject constructor(
     /**
      * Reminder: nextEvent is older and prevEvent is newer.
      */
-    fun create(params: TimelineItemFactoryParams): VectorEpoxyModel<*> {
+    fun create(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*> {
         val event = params.event
         val computedModel = try {
             if (!timelineEventVisibilityHelper.shouldShowEvent(

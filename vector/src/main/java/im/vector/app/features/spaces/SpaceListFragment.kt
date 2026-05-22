@@ -24,7 +24,7 @@ import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSpaceListBinding
 import im.vector.app.features.home.HomeActivitySharedAction
 import im.vector.app.features.home.HomeSharedActionViewModel
@@ -43,7 +43,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SpaceListFragment :
-        VectorBaseFragment<FragmentSpaceListBinding>(),
+        ProgressiveFragment<FragmentSpaceListBinding>(),
         SpaceSummaryController.Callback,
         NewSpaceSummaryController.Callback {
 

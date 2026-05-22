@@ -7,9 +7,9 @@
 
 package im.vector.app.features.discovery.change
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SetIdentityServerAction : VectorViewModelAction {
+sealed class SetIdentityServerAction : ProgressiveViewModelAction {
     object UseDefaultIdentityServer : SetIdentityServerAction()
 
     data class UseCustomIdentityServer(val url: String) : SetIdentityServerAction()

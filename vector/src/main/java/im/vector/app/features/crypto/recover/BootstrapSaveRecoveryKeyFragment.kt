@@ -21,7 +21,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.safeOpenOutputStream
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.startSharePlainTextIntent
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.FragmentBootstrapSaveKeyBinding
@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BootstrapSaveRecoveryKeyFragment :
-        VectorBaseFragment<FragmentBootstrapSaveKeyBinding>() {
+        ProgressiveFragment<FragmentBootstrapSaveKeyBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBootstrapSaveKeyBinding {
         return FragmentBootstrapSaveKeyBinding.inflate(inflater, container, false)

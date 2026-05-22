@@ -11,12 +11,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 @EpoxyModelClass
-abstract class SettingsContinueCancelItem : VectorEpoxyModel<SettingsContinueCancelItem.Holder>(R.layout.item_settings_continue_cancel) {
+abstract class SettingsContinueCancelItem : ProgressiveEpoxyModel<SettingsContinueCancelItem.Holder>(R.layout.item_settings_continue_cancel) {
 
     @EpoxyAttribute
     var continueText: String? = null
@@ -40,7 +40,7 @@ abstract class SettingsContinueCancelItem : VectorEpoxyModel<SettingsContinueCan
         holder.continueButton.isEnabled = canContinue
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val cancelButton by bind<Button>(R.id.settings_item_cancel_button)
         val continueButton by bind<Button>(R.id.settings_item_continue_button)
     }

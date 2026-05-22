@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListWithTitleBinding
 import im.vector.app.features.home.room.detail.timeline.action.TimelineEventFragmentArgs
 import im.vector.app.features.home.room.detail.timeline.item.MessageInformationData
@@ -28,7 +28,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class ViewEditHistoryBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListWithTitleBinding>() {
+        ProgressiveBottomSheet<BottomSheetGenericListWithTitleBinding>() {
 
     private val viewModel: ViewEditHistoryViewModel by fragmentViewModel(ViewEditHistoryViewModel::class)
 

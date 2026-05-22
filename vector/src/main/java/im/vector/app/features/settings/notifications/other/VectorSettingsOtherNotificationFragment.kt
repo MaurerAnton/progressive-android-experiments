@@ -8,7 +8,7 @@
 package im.vector.app.features.settings.notifications.other
 
 import im.vector.app.R
-import im.vector.app.core.preference.VectorPreferenceCategory
+import im.vector.app.core.preference.ProgressivePreferenceCategory
 import im.vector.app.features.settings.notifications.VectorSettingsPushRuleNotificationFragment
 import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.session.pushrules.RuleIds
@@ -29,7 +29,7 @@ class VectorSettingsOtherNotificationFragment :
 
     override fun bindPref() {
         super.bindPref()
-        val category = findPreference<VectorPreferenceCategory>("SETTINGS_OTHER")!!
+        val category = findPreference<ProgressivePreferenceCategory>("SETTINGS_OTHER")!!
         category.isIconSpaceReserved = false
     }
 }

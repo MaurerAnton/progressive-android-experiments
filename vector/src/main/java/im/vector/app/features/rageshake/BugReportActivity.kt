@@ -19,7 +19,7 @@ import com.airbnb.mvrx.viewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.databinding.ActivityBugReportBinding
 import im.vector.lib.strings.CommonStrings
@@ -31,7 +31,7 @@ import timber.log.Timber
  */
 @AndroidEntryPoint
 class BugReportActivity :
-        VectorBaseActivity<ActivityBugReportBinding>(),
+        ProgressiveActivity<ActivityBugReportBinding>(),
         VectorMenuProvider {
 
     override fun getBinding() = ActivityBugReportBinding.inflate(layoutInflater)

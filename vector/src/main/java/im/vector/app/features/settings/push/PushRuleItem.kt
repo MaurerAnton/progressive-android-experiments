@@ -17,8 +17,8 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.notifications.toNotificationAction
 import im.vector.app.features.themes.ThemeUtils
 import im.vector.lib.strings.CommonStrings
@@ -26,7 +26,7 @@ import org.matrix.android.sdk.api.session.pushrules.getActions
 import org.matrix.android.sdk.api.session.pushrules.rest.PushRule
 
 @EpoxyModelClass
-abstract class PushRuleItem : VectorEpoxyModel<PushRuleItem.Holder>(R.layout.item_pushrule_raw) {
+abstract class PushRuleItem : ProgressiveEpoxyModel<PushRuleItem.Holder>(R.layout.item_pushrule_raw) {
 
     @EpoxyAttribute
     lateinit var pushRule: PushRule
@@ -77,7 +77,7 @@ abstract class PushRuleItem : VectorEpoxyModel<PushRuleItem.Holder>(R.layout.ite
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val ruleId by bind<TextView>(R.id.pushRuleId)
         val description by bind<TextView>(R.id.pushRuleDescription)
         val actionIcon by bind<ImageView>(R.id.pushRuleActionIcon)

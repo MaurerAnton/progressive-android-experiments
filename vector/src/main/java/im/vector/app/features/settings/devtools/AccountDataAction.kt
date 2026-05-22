@@ -7,8 +7,8 @@
 
 package im.vector.app.features.settings.devtools
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class AccountDataAction : VectorViewModelAction {
+sealed class AccountDataAction : ProgressiveViewModelAction {
     data class DeleteAccountData(val type: String) : AccountDataAction()
 }

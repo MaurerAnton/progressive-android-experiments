@@ -14,7 +14,7 @@ import androidx.transition.ChangeTransform
 import androidx.transition.Fade
 import androidx.transition.TransitionSet
 
-class VectorFullTransitionSet : TransitionSet {
+class ProgressiveTransitionSet : TransitionSet {
 
     constructor() {
         init()

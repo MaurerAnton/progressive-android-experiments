@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.mvrx.Mavericks
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.spaces.preview.SpacePreviewArgs
 import im.vector.app.features.spaces.preview.SpacePreviewFragment
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class SpacePreviewActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class SpacePreviewActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     lateinit var sharedActionViewModel: SpacePreviewSharedActionViewModel
 

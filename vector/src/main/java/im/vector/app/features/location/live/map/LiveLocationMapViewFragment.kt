@@ -26,7 +26,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.addChildFragment
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.DrawableProvider
 import im.vector.app.core.utils.DimensionConverter
 import im.vector.app.core.utils.PERMISSIONS_FOR_FOREGROUND_LOCATION_SHARING
@@ -65,7 +65,7 @@ private const val USER_LOCATION_PIN_ID = "user-location-pin-id"
  */
 @AndroidEntryPoint
 class LiveLocationMapViewFragment :
-        VectorBaseFragment<FragmentLiveLocationMapViewBinding>() {
+        ProgressiveFragment<FragmentLiveLocationMapViewBinding>() {
 
     @Inject lateinit var urlMapProvider: UrlMapProvider
     @Inject lateinit var bottomSheetController: LiveLocationBottomSheetController

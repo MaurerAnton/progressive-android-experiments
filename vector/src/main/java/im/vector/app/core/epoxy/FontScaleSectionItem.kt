@@ -13,7 +13,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 
 @EpoxyModelClass
-abstract class FontScaleSectionItem : VectorEpoxyModel<FontScaleSectionItem.Holder>(R.layout.item_font_scale_section) {
+abstract class FontScaleSectionItem : ProgressiveEpoxyModel<FontScaleSectionItem.Holder>(R.layout.item_font_scale_section) {
 
     @EpoxyAttribute var sectionName: String = ""
 
@@ -22,7 +22,7 @@ abstract class FontScaleSectionItem : VectorEpoxyModel<FontScaleSectionItem.Hold
         holder.textView.text = sectionName
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.font_scale_section_name)
     }
 }

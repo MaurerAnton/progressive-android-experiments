@@ -7,9 +7,9 @@
 
 package im.vector.app.features.home.room.detail.search
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SearchAction : VectorViewModelAction {
+sealed class SearchAction : ProgressiveViewModelAction {
     data class SearchWith(val searchTerm: String) : SearchAction()
     object LoadMore : SearchAction()
     object Retry : SearchAction()

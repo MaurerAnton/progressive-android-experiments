@@ -16,20 +16,20 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.FirstThrottler
 import im.vector.app.core.utils.displayInWebView
 import im.vector.app.core.utils.openUrlInChromeCustomTab
 import im.vector.app.databinding.FragmentGenericRecyclerBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.discovery.ServerPolicy
-import im.vector.app.features.settings.VectorSettingsUrls
+import im.vector.app.features.settings.ProgressiveSettingsUrls
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LegalsFragment :
-        VectorBaseFragment<FragmentGenericRecyclerBinding>(),
+        ProgressiveFragment<FragmentGenericRecyclerBinding>(),
         LegalsController.Listener {
 
     @Inject lateinit var controller: LegalsController
@@ -79,7 +79,7 @@ class LegalsFragment :
     }
 
     override fun openThirdPartyNotice() {
-        openUrl(VectorSettingsUrls.THIRD_PARTY_LICENSES)
+        openUrl(ProgressiveSettingsUrls.THIRD_PARTY_LICENSES)
     }
 
     private fun openUrl(url: String) {

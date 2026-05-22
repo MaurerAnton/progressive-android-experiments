@@ -17,7 +17,7 @@ import im.vector.app.core.contacts.ContactsDataSource
 import im.vector.app.core.contacts.MappedContact
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.discovery.fetchIdentityServerWithTerms
 import im.vector.lib.strings.CommonStrings
@@ -33,7 +33,7 @@ class ContactsBookViewModel @AssistedInject constructor(
         private val contactsDataSource: ContactsDataSource,
         private val stringProvider: StringProvider,
         private val session: Session
-) : VectorViewModel<ContactsBookViewState, ContactsBookAction, ContactsBookViewEvents>(initialState) {
+) : ProgressiveViewModel<ContactsBookViewState, ContactsBookAction, ContactsBookViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<ContactsBookViewModel, ContactsBookViewState> {

@@ -7,8 +7,8 @@
 
 package im.vector.app.features.reactions
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class EmojiSearchAction : VectorViewModelAction {
+sealed class EmojiSearchAction : ProgressiveViewModelAction {
     data class UpdateQuery(val queryString: String) : EmojiSearchAction()
 }

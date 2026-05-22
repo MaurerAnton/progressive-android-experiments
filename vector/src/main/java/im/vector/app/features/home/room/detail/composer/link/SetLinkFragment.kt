@@ -20,7 +20,7 @@ import com.airbnb.mvrx.args
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseDialogFragment
+import im.vector.app.core.platform.ProgressiveDialog
 import im.vector.app.databinding.FragmentSetLinkBinding
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.flow.launchIn
@@ -30,7 +30,7 @@ import reactivecircus.flowbinding.android.widget.textChanges
 
 @AndroidEntryPoint
 class SetLinkFragment :
-        VectorBaseDialogFragment<FragmentSetLinkBinding>() {
+        ProgressiveDialog<FragmentSetLinkBinding>() {
 
     @Parcelize
     data class Args(

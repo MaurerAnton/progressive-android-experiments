@@ -7,9 +7,9 @@
 
 package im.vector.app.features.settings.labs
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class VectorSettingsLabsAction : VectorViewModelAction {
+sealed class VectorSettingsLabsAction : ProgressiveViewModelAction {
     object UpdateClientInfo : VectorSettingsLabsAction()
     object DeleteRecordedClientInfo : VectorSettingsLabsAction()
 }

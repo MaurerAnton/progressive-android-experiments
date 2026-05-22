@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.hideKeyboard
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.showIdentityServerConsentDialog
 import im.vector.app.databinding.FragmentContactsBookBinding
 import im.vector.app.features.userdirectory.PendingSelection
@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ContactsBookFragment :
-        VectorBaseFragment<FragmentContactsBookBinding>(),
+        ProgressiveFragment<FragmentContactsBookBinding>(),
         ContactsBookController.Callback {
 
     @Inject lateinit var contactsBookController: ContactsBookController

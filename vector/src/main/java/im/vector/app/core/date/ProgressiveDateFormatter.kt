@@ -20,7 +20,7 @@ import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
-class VectorDateFormatter @Inject constructor(
+class ProgressiveDateFormatter @Inject constructor(
         private val context: Context,
         private val localeProvider: LocaleProvider,
         private val dateFormatterProviders: DateFormatterProviders,

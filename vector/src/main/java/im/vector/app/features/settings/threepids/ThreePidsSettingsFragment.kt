@@ -24,7 +24,7 @@ import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.isMsisdn
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentGenericRecyclerBinding
 import im.vector.app.features.auth.ReAuthActivity
 import im.vector.lib.strings.CommonStrings
@@ -35,7 +35,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ThreePidsSettingsFragment :
-        VectorBaseFragment<FragmentGenericRecyclerBinding>(),
+        ProgressiveFragment<FragmentGenericRecyclerBinding>(),
         OnBackPressed,
         ThreePidsSettingsController.InteractionListener {
 

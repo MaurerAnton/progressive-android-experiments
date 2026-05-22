@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.preference.CheckBoxPreference
 import androidx.preference.PreferenceViewHolder
 
-class VectorCheckboxPreference : CheckBoxPreference {
+class ProgressiveCheckboxPreference : CheckBoxPreference {
     // Note: @JvmOverload does not work here...
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 

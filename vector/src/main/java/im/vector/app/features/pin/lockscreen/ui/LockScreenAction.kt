@@ -8,9 +8,9 @@
 package im.vector.app.features.pin.lockscreen.ui
 
 import androidx.fragment.app.FragmentActivity
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class LockScreenAction : VectorViewModelAction {
+sealed class LockScreenAction : ProgressiveViewModelAction {
     data class PinCodeEntered(val value: String) : LockScreenAction()
     data class ShowBiometricPrompt(val callingActivity: FragmentActivity) : LockScreenAction()
     object OnUIReady : LockScreenAction()

@@ -9,7 +9,7 @@ package im.vector.app.features.location.live.map
 
 import com.airbnb.epoxy.EpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.DateProvider
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.resources.toTimestamp
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class LiveLocationBottomSheetController @Inject constructor(
         private val avatarRenderer: AvatarRenderer,
-        private val vectorDateFormatter: VectorDateFormatter,
+        private val vectorDateFormatter: ProgressiveDateFormatter,
         private val stringProvider: StringProvider,
         private val clock: Clock,
 ) : EpoxyController() {

@@ -11,7 +11,7 @@ import com.airbnb.mvrx.Success
 import im.vector.app.EmojiCompatFontProvider
 import im.vector.app.R
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.epoxy.bottomSheetDividerItem
 import im.vector.app.core.epoxy.bottomsheet.BottomSheetQuickReactionsItem
 import im.vector.app.core.epoxy.bottomsheet.bottomSheetActionItem
@@ -58,7 +58,7 @@ class MessageActionsEpoxyController @Inject constructor(
         private val spanUtils: SpanUtils,
         private val eventDetailsFormatter: EventDetailsFormatter,
         private val vectorPreferences: VectorPreferences,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val urlMapProvider: UrlMapProvider,
         private val locationPinProvider: LocationPinProvider
 ) : TypedEpoxyController<MessageActionState>() {

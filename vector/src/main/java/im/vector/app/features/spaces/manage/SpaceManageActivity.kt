@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragmentToBackstack
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleLoadingBinding
 import im.vector.app.features.roomdirectory.RoomDirectorySharedAction
 import im.vector.app.features.roomdirectory.RoomDirectorySharedActionViewModel
@@ -44,7 +44,7 @@ data class SpaceManageArgs(
 ) : Parcelable
 
 @AndroidEntryPoint
-class SpaceManageActivity : VectorBaseActivity<ActivitySimpleLoadingBinding>() {
+class SpaceManageActivity : ProgressiveActivity<ActivitySimpleLoadingBinding>() {
 
     private lateinit var sharedDirectoryActionViewModel: RoomDirectorySharedActionViewModel
 

@@ -13,7 +13,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.roomprofile.polls.list.domain.DisposePollHistoryUseCase
 import im.vector.app.features.roomprofile.polls.list.domain.GetPollsUseCase
 import im.vector.app.features.roomprofile.polls.list.domain.LoadMorePollsUseCase
@@ -31,7 +31,7 @@ class RoomPollsViewModel @AssistedInject constructor(
         private val syncPollsUseCase: SyncPollsUseCase,
         private val disposePollHistoryUseCase: DisposePollHistoryUseCase,
         private val pollSummaryMapper: PollSummaryMapper,
-) : VectorViewModel<RoomPollsViewState, RoomPollsAction, RoomPollsViewEvent>(initialState) {
+) : ProgressiveViewModel<RoomPollsViewState, RoomPollsAction, RoomPollsViewEvent>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<RoomPollsViewModel, RoomPollsViewState> {

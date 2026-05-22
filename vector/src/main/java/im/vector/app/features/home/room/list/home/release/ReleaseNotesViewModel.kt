@@ -13,19 +13,19 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorDummyViewState
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveDummyViewState
+import im.vector.app.core.platform.ProgressiveViewModel
 
 class ReleaseNotesViewModel @AssistedInject constructor(
-        @Assisted initialState: VectorDummyViewState,
-) : VectorViewModel<VectorDummyViewState, ReleaseNotesAction, ReleaseNotesViewEvents>(initialState) {
+        @Assisted initialState: ProgressiveDummyViewState,
+) : ProgressiveViewModel<ProgressiveDummyViewState, ReleaseNotesAction, ReleaseNotesViewEvents>(initialState) {
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<ReleaseNotesViewModel, VectorDummyViewState> {
-        override fun create(initialState: VectorDummyViewState): ReleaseNotesViewModel
+    interface Factory : MavericksAssistedViewModelFactory<ReleaseNotesViewModel, ProgressiveDummyViewState> {
+        override fun create(initialState: ProgressiveDummyViewState): ReleaseNotesViewModel
     }
 
-    companion object : MavericksViewModelFactory<ReleaseNotesViewModel, VectorDummyViewState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<ReleaseNotesViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
 
     private var selectedPageIndex = 0
 

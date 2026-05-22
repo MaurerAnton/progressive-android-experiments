@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentRoomDirectoryPickerBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.roomdirectory.RoomDirectoryAction
@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomDirectoryPickerFragment :
-        VectorBaseFragment<FragmentRoomDirectoryPickerBinding>(),
+        ProgressiveFragment<FragmentRoomDirectoryPickerBinding>(),
         OnBackPressed,
         RoomDirectoryPickerController.Callback {
 

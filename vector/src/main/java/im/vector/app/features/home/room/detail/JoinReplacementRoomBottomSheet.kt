@@ -20,14 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.epoxy.ClickListener
 import im.vector.app.core.error.ErrorFormatter
 import im.vector.app.core.platform.ButtonStateView
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetTombstoneJoinBinding
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class JoinReplacementRoomBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetTombstoneJoinBinding>() {
+        ProgressiveBottomSheet<BottomSheetTombstoneJoinBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?) =
             BottomSheetTombstoneJoinBinding.inflate(inflater, container, false)

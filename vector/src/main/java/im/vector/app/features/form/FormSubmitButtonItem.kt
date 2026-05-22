@@ -12,13 +12,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class FormSubmitButtonItem : VectorEpoxyModel<FormSubmitButtonItem.Holder>(R.layout.item_form_submit_button) {
+abstract class FormSubmitButtonItem : ProgressiveEpoxyModel<FormSubmitButtonItem.Holder>(R.layout.item_form_submit_button) {
 
     @EpoxyAttribute
     var enabled: Boolean = true
@@ -45,7 +45,7 @@ abstract class FormSubmitButtonItem : VectorEpoxyModel<FormSubmitButtonItem.Hold
         holder.button.onClick(buttonClickListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val button by bind<Button>(R.id.form_submit_button)
     }
 }

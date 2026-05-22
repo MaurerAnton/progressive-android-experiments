@@ -7,9 +7,9 @@
 
 package im.vector.app.features.location
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class LocationSharingAction : VectorViewModelAction {
+sealed class LocationSharingAction : ProgressiveViewModelAction {
     object CurrentUserLocationSharing : LocationSharingAction()
     data class PinnedLocationSharing(val locationData: LocationData?) : LocationSharingAction()
     data class LocationTargetChange(val locationData: LocationData) : LocationSharingAction()

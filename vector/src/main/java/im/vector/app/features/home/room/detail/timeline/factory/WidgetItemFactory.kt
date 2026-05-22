@@ -7,7 +7,7 @@
 
 package im.vector.app.features.home.room.detail.timeline.factory
 
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.resources.UserPreferencesProvider
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.detail.timeline.MessageColorProvider
@@ -31,7 +31,7 @@ class WidgetItemFactory @Inject constructor(
         private val userPreferencesProvider: UserPreferencesProvider
 ) {
 
-    fun create(params: TimelineItemFactoryParams): VectorEpoxyModel<*>? {
+    fun create(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*>? {
         val event = params.event
         val widgetContent: WidgetContent = event.root.content.toModel() ?: return null
         val previousWidgetContent: WidgetContent? = event.root.resolvedPrevContent().toModel()
@@ -43,7 +43,7 @@ class WidgetItemFactory @Inject constructor(
         }
     }
 
-    private fun createJitsiItem(params: TimelineItemFactoryParams, widgetContent: WidgetContent): VectorEpoxyModel<*>? {
+    private fun createJitsiItem(params: TimelineItemFactoryParams, widgetContent: WidgetContent): ProgressiveEpoxyModel<*>? {
         val informationData = informationDataFactory.create(params)
         val userOfInterest = params.partialState.roomSummary?.toMatrixItem() ?: return null
         val isActiveTile = widgetContent.isActive()

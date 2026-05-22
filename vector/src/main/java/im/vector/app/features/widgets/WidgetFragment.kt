@@ -33,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.CheckWebViewPermissionsUseCase
 import im.vector.app.core.utils.openUrlInExternalBrowser
@@ -62,7 +62,7 @@ data class WidgetArgs(
 
 @AndroidEntryPoint
 class WidgetFragment :
-        VectorBaseFragment<FragmentRoomWidgetBinding>(),
+        ProgressiveFragment<FragmentRoomWidgetBinding>(),
         WebEventListener,
         OnBackPressed,
         VectorMenuProvider {

@@ -16,8 +16,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.clearDrawables
 import im.vector.app.core.extensions.setLeftDrawable
@@ -30,7 +30,7 @@ import org.matrix.android.sdk.api.session.threads.ThreadNotificationState
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class ThreadListItem : VectorEpoxyModel<ThreadListItem.Holder>(R.layout.item_thread) {
+abstract class ThreadListItem : ProgressiveEpoxyModel<ThreadListItem.Holder>(R.layout.item_thread) {
 
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
@@ -87,7 +87,7 @@ abstract class ThreadListItem : VectorEpoxyModel<ThreadListItem.Holder>(R.layout
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarImageView by bind<ImageView>(R.id.threadSummaryAvatarImageView)
         val titleTextView by bind<TextView>(R.id.threadSummaryTitleTextView)
         val dateTextView by bind<TextView>(R.id.threadSummaryDateTextView)

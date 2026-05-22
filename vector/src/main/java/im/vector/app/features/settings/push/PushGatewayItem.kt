@@ -12,13 +12,13 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextOrHide
 import org.matrix.android.sdk.api.session.pushers.Pusher
 
 @EpoxyModelClass
-abstract class PushGatewayItem : VectorEpoxyModel<PushGatewayItem.Holder>(R.layout.item_pushgateway) {
+abstract class PushGatewayItem : ProgressiveEpoxyModel<PushGatewayItem.Holder>(R.layout.item_pushgateway) {
 
     @EpoxyAttribute
     lateinit var pusher: Pusher
@@ -48,7 +48,7 @@ abstract class PushGatewayItem : VectorEpoxyModel<PushGatewayItem.Holder>(R.layo
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val kind by bind<TextView>(R.id.pushGatewayKind)
         val pushKey by bind<TextView>(R.id.pushGatewayKeyValue)
         val deviceName by bind<TextView>(R.id.pushGatewayDeviceNameValue)

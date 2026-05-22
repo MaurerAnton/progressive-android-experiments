@@ -18,7 +18,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListWithTitleBinding
 import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
@@ -31,7 +31,7 @@ data class DeviceVerificationInfoArgs(
 
 @AndroidEntryPoint
 class DeviceVerificationInfoBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListWithTitleBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListWithTitleBinding>(),
         DeviceVerificationInfoBottomSheetController.Callback {
 
     private val viewModel: DeviceVerificationInfoBottomSheetViewModel by fragmentViewModel(DeviceVerificationInfoBottomSheetViewModel::class)

@@ -7,9 +7,9 @@
 
 package im.vector.app.features.spaces.invite
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SpaceInviteBottomSheetAction : VectorViewModelAction {
+sealed class SpaceInviteBottomSheetAction : ProgressiveViewModelAction {
     object DoJoin : SpaceInviteBottomSheetAction()
     object DoReject : SpaceInviteBottomSheetAction()
 }

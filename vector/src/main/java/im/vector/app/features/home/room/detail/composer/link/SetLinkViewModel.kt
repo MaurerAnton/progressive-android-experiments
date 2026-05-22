@@ -13,11 +13,11 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 
 class SetLinkViewModel @AssistedInject constructor(
         @Assisted private val initialState: SetLinkViewState,
-) : VectorViewModel<SetLinkViewState, SetLinkAction, SetLinkViewEvents>(initialState) {
+) : ProgressiveViewModel<SetLinkViewState, SetLinkAction, SetLinkViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<SetLinkViewModel, SetLinkViewState> {

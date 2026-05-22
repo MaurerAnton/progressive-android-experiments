@@ -7,10 +7,10 @@
 
 package im.vector.app.features.settings.devices.v2.othersessions
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.settings.devices.v2.filter.DeviceManagerFilterType
 
-sealed class OtherSessionsAction : VectorViewModelAction {
+sealed class OtherSessionsAction : ProgressiveViewModelAction {
     // ReAuth
     object SsoAuthDone : OtherSessionsAction()
     data class PasswordAuthDone(val password: String) : OtherSessionsAction()

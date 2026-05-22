@@ -17,12 +17,12 @@ import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentBootstrapReauthBinding
 
 @AndroidEntryPoint
 class BootstrapReAuthFragment :
-        VectorBaseFragment<FragmentBootstrapReauthBinding>() {
+        ProgressiveFragment<FragmentBootstrapReauthBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBootstrapReauthBinding {
         return FragmentBootstrapReauthBinding.inflate(inflater, container, false)

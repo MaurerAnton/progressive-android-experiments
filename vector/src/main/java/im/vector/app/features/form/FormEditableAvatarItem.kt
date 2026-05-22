@@ -15,15 +15,15 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.bumptech.glide.request.RequestOptions
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.glide.GlideApp
 import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class FormEditableAvatarItem : VectorEpoxyModel<FormEditableAvatarItem.Holder>(R.layout.item_editable_avatar) {
+abstract class FormEditableAvatarItem : ProgressiveEpoxyModel<FormEditableAvatarItem.Holder>(R.layout.item_editable_avatar) {
 
     @EpoxyAttribute
     var avatarRenderer: AvatarRenderer? = null
@@ -58,7 +58,7 @@ abstract class FormEditableAvatarItem : VectorEpoxyModel<FormEditableAvatarItem.
         holder.delete.onClick(deleteListener?.takeIf { enabled })
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val imageContainer by bind<View>(R.id.itemEditableAvatarImageContainer)
         val image by bind<ImageView>(R.id.itemEditableAvatarImage)
         val delete by bind<View>(R.id.itemEditableAvatarDelete)

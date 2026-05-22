@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListWithTitleBinding
 import im.vector.app.features.home.room.detail.timeline.action.EventSharedAction
 import im.vector.app.features.home.room.detail.timeline.action.MessageSharedActionViewModel
@@ -31,7 +31,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class ViewReactionsBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListWithTitleBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListWithTitleBinding>(),
         ViewReactionsEpoxyController.Listener {
 
     private val viewModel: ViewReactionsViewModel by fragmentViewModel(ViewReactionsViewModel::class)

@@ -10,6 +10,6 @@ import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 
 @EpoxyModelClass
-abstract class BottomSheetDividerItem : VectorEpoxyModel<BottomSheetDividerItem.Holder>(R.layout.item_divider_on_surface) {
-    class Holder : VectorEpoxyHolder()
+abstract class BottomSheetDividerItem : ProgressiveEpoxyModel<BottomSheetDividerItem.Holder>(R.layout.item_divider_on_surface) {
+    class Holder : ProgressiveEpoxyHolder()
 }

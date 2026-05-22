@@ -7,7 +7,7 @@
 
 package im.vector.app.features.media
 
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.StringProvider
 import im.vector.lib.attachmentviewer.AttachmentInfo
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +23,7 @@ class DataAttachmentRoomProvider(
         attachments: List<AttachmentData>,
         private val room: Room?,
         imageContentRenderer: ImageContentRenderer,
-        dateFormatter: VectorDateFormatter,
+        dateFormatter: ProgressiveDateFormatter,
         fileService: FileService,
         coroutineScope: CoroutineScope,
         stringProvider: StringProvider

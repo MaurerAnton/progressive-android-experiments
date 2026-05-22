@@ -14,7 +14,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.utils.PermissionChecker
 import im.vector.app.features.home.room.detail.timeline.helper.LocationPinProvider
 import im.vector.app.features.location.LocationData
@@ -33,7 +33,7 @@ class LocationPreviewViewModel @AssistedInject constructor(
         private val locationPinProvider: LocationPinProvider,
         private val locationTracker: LocationTracker,
         private val permissionChecker: PermissionChecker,
-) : VectorViewModel<LocationPreviewViewState, LocationPreviewAction, LocationPreviewViewEvents>(initialState), LocationTracker.Callback {
+) : ProgressiveViewModel<LocationPreviewViewState, LocationPreviewAction, LocationPreviewViewEvents>(initialState), LocationTracker.Callback {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<LocationPreviewViewModel, LocationPreviewViewState> {

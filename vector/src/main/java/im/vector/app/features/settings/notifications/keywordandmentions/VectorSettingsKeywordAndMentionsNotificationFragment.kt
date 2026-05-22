@@ -13,9 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import im.vector.app.R
 import im.vector.app.core.preference.KeywordPreference
-import im.vector.app.core.preference.VectorCheckboxPreference
+import im.vector.app.core.preference.ProgressiveCheckboxPreference
 import im.vector.app.core.preference.VectorPreference
-import im.vector.app.core.preference.VectorPreferenceCategory
+import im.vector.app.core.preference.ProgressivePreferenceCategory
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.settings.notifications.NotificationIndex
 import im.vector.app.features.settings.notifications.StandardActions
@@ -51,10 +51,10 @@ class VectorSettingsKeywordAndMentionsNotificationFragment :
 
     override fun bindPref() {
         super.bindPref()
-        val mentionCategory = findPreference<VectorPreferenceCategory>("SETTINGS_KEYWORDS_AND_MENTIONS")!!
+        val mentionCategory = findPreference<ProgressivePreferenceCategory>("SETTINGS_KEYWORDS_AND_MENTIONS")!!
         mentionCategory.isIconSpaceReserved = false
 
-        val yourKeywordsCategory = findPreference<VectorPreferenceCategory>("SETTINGS_YOUR_KEYWORDS")!!
+        val yourKeywordsCategory = findPreference<ProgressivePreferenceCategory>("SETTINGS_YOUR_KEYWORDS")!!
         yourKeywordsCategory.isIconSpaceReserved = false
 
         val keywordRules = session.pushRuleService().getPushRules().content?.filter { !it.ruleId.startsWith(".") }.orEmpty()
@@ -63,7 +63,7 @@ class VectorSettingsKeywordAndMentionsNotificationFragment :
         val editKeywordPreference = findPreference<KeywordPreference>("SETTINGS_KEYWORD_EDIT")!!
         editKeywordPreference.isEnabled = enableKeywords
 
-        val keywordPreference = findPreference<VectorCheckboxPreference>("SETTINGS_PUSH_RULE_MESSAGES_CONTAINING_KEYWORDS_PREFERENCE_KEY")!!
+        val keywordPreference = findPreference<ProgressiveCheckboxPreference>("SETTINGS_PUSH_RULE_MESSAGES_CONTAINING_KEYWORDS_PREFERENCE_KEY")!!
         keywordPreference.isIconSpaceReserved = false
         keywordPreference.isChecked = enableKeywords
 

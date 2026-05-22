@@ -15,11 +15,11 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 
 class SessionLearnMoreViewModel @AssistedInject constructor(
         @Assisted initialState: SessionLearnMoreViewState,
-) : VectorViewModel<SessionLearnMoreViewState, EmptyAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<SessionLearnMoreViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<SessionLearnMoreViewModel, SessionLearnMoreViewState> {

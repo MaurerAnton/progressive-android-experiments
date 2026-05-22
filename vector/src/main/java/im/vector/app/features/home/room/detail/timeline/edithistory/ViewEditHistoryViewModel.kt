@@ -17,7 +17,7 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.crypto.MXCryptoError
@@ -30,7 +30,7 @@ import java.util.UUID
 class ViewEditHistoryViewModel @AssistedInject constructor(
         @Assisted initialState: ViewEditHistoryViewState,
         private val session: Session
-) : VectorViewModel<ViewEditHistoryViewState, EmptyAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<ViewEditHistoryViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     private val roomId = initialState.roomId
     private val eventId = initialState.eventId

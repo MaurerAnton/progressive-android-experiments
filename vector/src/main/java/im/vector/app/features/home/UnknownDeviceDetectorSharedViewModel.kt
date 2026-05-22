@@ -20,8 +20,8 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.SingletonEntryPoint
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModel
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.core.session.clientinfo.DeleteUnusedClientInformationUseCase
 import im.vector.lib.core.utils.timer.Clock
 import kotlinx.coroutines.flow.combine
@@ -59,9 +59,9 @@ class UnknownDeviceDetectorSharedViewModel @AssistedInject constructor(
         private val isNewLoginAlertShownUseCase: IsNewLoginAlertShownUseCase,
         private val setNewLoginAlertShownUseCase: SetNewLoginAlertShownUseCase,
         private val deleteUnusedClientInformationUseCase: DeleteUnusedClientInformationUseCase,
-) : VectorViewModel<UnknownDevicesState, UnknownDeviceDetectorSharedViewModel.Action, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<UnknownDevicesState, UnknownDeviceDetectorSharedViewModel.Action, EmptyViewEvents>(initialState) {
 
-    sealed class Action : VectorViewModelAction {
+    sealed class Action : ProgressiveViewModelAction {
         data class IgnoreDevice(val deviceIds: List<String>) : Action()
         data class IgnoreNewLogin(val deviceIds: List<String>) : Action()
     }

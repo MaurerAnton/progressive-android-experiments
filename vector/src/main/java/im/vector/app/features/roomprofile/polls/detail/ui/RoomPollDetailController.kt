@@ -9,12 +9,12 @@ package im.vector.app.features.roomprofile.polls.detail.ui
 
 import com.airbnb.epoxy.TypedEpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import java.util.UUID
 import javax.inject.Inject
 
 class RoomPollDetailController @Inject constructor(
-        val dateFormatter: VectorDateFormatter,
+        val dateFormatter: ProgressiveDateFormatter,
 ) : TypedEpoxyController<RoomPollDetailViewState>() {
 
     interface Callback {

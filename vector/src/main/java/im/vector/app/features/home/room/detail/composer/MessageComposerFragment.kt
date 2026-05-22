@@ -42,7 +42,7 @@ import im.vector.app.core.extensions.orEmpty
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.showKeyboard
 import im.vector.app.core.glide.GlideApp
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.lifecycleAwareLazy
 import im.vector.app.core.platform.showOptimizedSnackbar
 import im.vector.app.core.resources.BuildMeta
@@ -102,7 +102,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MessageComposerFragment : VectorBaseFragment<FragmentComposerBinding>(), AttachmentsHelper.Callback, AttachmentTypeSelectorView.Callback {
+class MessageComposerFragment : ProgressiveFragment<FragmentComposerBinding>(), AttachmentsHelper.Callback, AttachmentTypeSelectorView.Callback {
 
     companion object {
         private const val ircPattern = " (IRC)"

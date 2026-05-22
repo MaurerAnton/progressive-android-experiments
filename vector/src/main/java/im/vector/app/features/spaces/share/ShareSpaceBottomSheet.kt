@@ -18,7 +18,7 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.core.utils.startSharePlainTextIntent
 import im.vector.app.databinding.BottomSheetSpaceInviteBinding
 import im.vector.app.features.invite.InviteUsersToRoomActivity
@@ -26,7 +26,7 @@ import im.vector.lib.strings.CommonStrings
 import kotlinx.parcelize.Parcelize
 
 @AndroidEntryPoint
-class ShareSpaceBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetSpaceInviteBinding>() {
+class ShareSpaceBottomSheet : ProgressiveBottomSheet<BottomSheetSpaceInviteBinding>() {
 
     @Parcelize
     data class Args(

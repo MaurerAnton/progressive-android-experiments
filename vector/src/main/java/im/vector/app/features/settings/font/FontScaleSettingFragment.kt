@@ -16,14 +16,14 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.restart
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSettingsFontScalingBinding
 import im.vector.app.features.settings.FontScaleValue
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class FontScaleSettingFragment :
-        VectorBaseFragment<FragmentSettingsFontScalingBinding>(),
+        ProgressiveFragment<FragmentSettingsFontScalingBinding>(),
         FontScaleSettingController.Callback {
 
     @Inject lateinit var fontListController: FontScaleSettingController

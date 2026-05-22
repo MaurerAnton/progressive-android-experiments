@@ -27,7 +27,7 @@ import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.setupAsSearch
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.DimensionConverter
 import im.vector.app.core.utils.showIdentityServerConsentDialog
@@ -46,7 +46,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserListFragment :
-        VectorBaseFragment<FragmentUserListBinding>(),
+        ProgressiveFragment<FragmentUserListBinding>(),
         UserListController.Callback,
         VectorMenuProvider {
 

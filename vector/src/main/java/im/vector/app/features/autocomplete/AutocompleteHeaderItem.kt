@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class AutocompleteHeaderItem : VectorEpoxyModel<AutocompleteHeaderItem.Holder>(R.layout.item_autocomplete_header_item) {
+abstract class AutocompleteHeaderItem : ProgressiveEpoxyModel<AutocompleteHeaderItem.Holder>(R.layout.item_autocomplete_header_item) {
 
     @EpoxyAttribute var title: String? = null
 
@@ -24,7 +24,7 @@ abstract class AutocompleteHeaderItem : VectorEpoxyModel<AutocompleteHeaderItem.
         holder.titleView.text = title
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleView by bind<TextView>(R.id.headerItemAutocompleteTitle)
     }
 }

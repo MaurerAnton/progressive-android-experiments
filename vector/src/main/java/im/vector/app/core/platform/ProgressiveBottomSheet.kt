@@ -43,7 +43,7 @@ import timber.log.Timber
 /**
  * Add Mavericks capabilities, handle DI and bindings.
  */
-abstract class VectorBaseBottomSheetDialogFragment<VB : ViewBinding> : BottomSheetDialogFragment(), MavericksView {
+abstract class ProgressiveBottomSheet<VB : ViewBinding> : BottomSheetDialogFragment(), MavericksView {
     /* ==========================================================================================
      * Analytics
      * ========================================================================================== */
@@ -82,8 +82,8 @@ abstract class VectorBaseBottomSheetDialogFragment<VB : ViewBinding> : BottomShe
 
     private var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>? = null
 
-    val vectorBaseActivity: VectorBaseActivity<*> by lazy {
-        activity as VectorBaseActivity<*>
+    val vectorBaseActivity: ProgressiveActivity<*> by lazy {
+        activity as ProgressiveActivity<*>
     }
 
     open val showExpanded = false
@@ -193,10 +193,10 @@ abstract class VectorBaseBottomSheetDialogFragment<VB : ViewBinding> : BottomShe
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> VectorViewModel<*, *, T>.observeViewEvents(
+    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
-        val tag = this@VectorBaseBottomSheetDialogFragment::class.simpleName.toString()
+        val tag = this@ProgressiveBottomSheet::class.simpleName.toString()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewEvents

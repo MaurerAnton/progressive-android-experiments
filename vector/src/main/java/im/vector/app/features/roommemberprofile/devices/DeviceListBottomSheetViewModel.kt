@@ -18,7 +18,7 @@ import dagger.hilt.EntryPoints
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.SingletonEntryPoint
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.extensions.tryOrNull
 import org.matrix.android.sdk.api.session.Session
@@ -43,7 +43,7 @@ class DeviceListBottomSheetViewModel @AssistedInject constructor(
         @Assisted private val initialState: DeviceListViewState,
         private val session: Session
 ) :
-        VectorViewModel<DeviceListViewState, DeviceListAction, DeviceListBottomSheetViewEvents>(initialState) {
+        ProgressiveViewModel<DeviceListViewState, DeviceListAction, DeviceListBottomSheetViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<DeviceListBottomSheetViewModel, DeviceListViewState> {

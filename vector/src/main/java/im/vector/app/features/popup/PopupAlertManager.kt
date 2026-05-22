@@ -16,7 +16,7 @@ import androidx.core.view.ViewCompat
 import com.tapadoo.alerter.Alerter
 import im.vector.app.R
 import im.vector.app.core.extensions.giveAccessibilityFocus
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.utils.isAnimationEnabled
 import im.vector.app.features.MainActivity
@@ -337,7 +337,7 @@ class PopupAlertManager @Inject constructor(
                 activity !is SignedOutActivity &&
                 activity !is AnalyticsOptInActivity &&
                 activity !is ReleaseNotesActivity &&
-                activity is VectorBaseActivity<*> &&
+                activity is ProgressiveActivity<*> &&
                 alert.shouldBeDisplayedIn.invoke(activity)
     }
 }

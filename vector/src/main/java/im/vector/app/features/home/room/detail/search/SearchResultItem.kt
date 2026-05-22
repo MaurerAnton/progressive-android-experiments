@@ -16,8 +16,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.displayname.getBestName
@@ -27,7 +27,7 @@ import org.matrix.android.sdk.api.session.threads.ThreadDetails
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class SearchResultItem : VectorEpoxyModel<SearchResultItem.Holder>(R.layout.item_search_result) {
+abstract class SearchResultItem : ProgressiveEpoxyModel<SearchResultItem.Holder>(R.layout.item_search_result) {
 
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute var formattedDate: String? = null
@@ -81,7 +81,7 @@ abstract class SearchResultItem : VectorEpoxyModel<SearchResultItem.Holder>(R.la
         holder.fromThreadConstraintLayout.isVisible = show
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarImageView by bind<ImageView>(R.id.messageAvatarImageView)
         val memberNameView by bind<TextView>(R.id.messageMemberNameView)
         val timeView by bind<TextView>(R.id.messageTimeView)

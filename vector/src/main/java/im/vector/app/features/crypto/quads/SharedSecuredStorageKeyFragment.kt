@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.mvrx.activityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.startImportTextFromFileIntent
 import im.vector.app.databinding.FragmentSsssAccessFromKeyBinding
 import im.vector.lib.core.utils.flow.throttleFirst
@@ -30,7 +30,7 @@ import reactivecircus.flowbinding.android.widget.textChanges
 
 @AndroidEntryPoint
 class SharedSecuredStorageKeyFragment :
-        VectorBaseFragment<FragmentSsssAccessFromKeyBinding>() {
+        ProgressiveFragment<FragmentSsssAccessFromKeyBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSsssAccessFromKeyBinding {
         return FragmentSsssAccessFromKeyBinding.inflate(inflater, container, false)

@@ -30,7 +30,7 @@ import com.airbnb.mvrx.viewModel
 import com.facebook.react.modules.core.PermissionListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityJitsiBinding
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
 import im.vector.lib.strings.CommonStrings
@@ -48,7 +48,7 @@ import timber.log.Timber
 import java.net.URL
 
 @AndroidEntryPoint
-class VectorJitsiActivity : VectorBaseActivity<ActivityJitsiBinding>(), JitsiMeetActivityInterface {
+class VectorJitsiActivity : ProgressiveActivity<ActivityJitsiBinding>(), JitsiMeetActivityInterface {
 
     @Parcelize
     data class Args(

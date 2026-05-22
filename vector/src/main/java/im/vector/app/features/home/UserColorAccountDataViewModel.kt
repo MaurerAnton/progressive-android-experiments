@@ -15,8 +15,8 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorDummyViewState
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveDummyViewState
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.home.room.detail.timeline.helper.MatrixItemColorProvider
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -29,17 +29,17 @@ import org.matrix.android.sdk.flow.unwrap
 import timber.log.Timber
 
 class UserColorAccountDataViewModel @AssistedInject constructor(
-        @Assisted initialState: VectorDummyViewState,
+        @Assisted initialState: ProgressiveDummyViewState,
         private val session: Session,
         private val matrixItemColorProvider: MatrixItemColorProvider
-) : VectorViewModel<VectorDummyViewState, EmptyAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<ProgressiveDummyViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<UserColorAccountDataViewModel, VectorDummyViewState> {
-        override fun create(initialState: VectorDummyViewState): UserColorAccountDataViewModel
+    interface Factory : MavericksAssistedViewModelFactory<UserColorAccountDataViewModel, ProgressiveDummyViewState> {
+        override fun create(initialState: ProgressiveDummyViewState): UserColorAccountDataViewModel
     }
 
-    companion object : MavericksViewModelFactory<UserColorAccountDataViewModel, VectorDummyViewState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<UserColorAccountDataViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
 
     init {
         observeAccountData()

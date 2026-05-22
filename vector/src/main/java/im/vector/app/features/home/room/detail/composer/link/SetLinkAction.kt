@@ -7,9 +7,9 @@
 
 package im.vector.app.features.home.room.detail.composer.link
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SetLinkAction : VectorViewModelAction {
+sealed class SetLinkAction : ProgressiveViewModelAction {
     data class LinkChanged(
             val newLink: String
     ) : SetLinkAction()

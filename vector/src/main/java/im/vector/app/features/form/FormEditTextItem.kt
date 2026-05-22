@@ -19,14 +19,14 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import im.vector.app.R
 import im.vector.app.core.epoxy.TextListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.addTextChangedListenerOnce
 import im.vector.app.core.epoxy.setValueOnce
 import im.vector.app.core.platform.SimpleTextWatcher
 
 @EpoxyModelClass
-abstract class FormEditTextItem : VectorEpoxyModel<FormEditTextItem.Holder>(R.layout.item_form_text_input) {
+abstract class FormEditTextItem : ProgressiveEpoxyModel<FormEditTextItem.Holder>(R.layout.item_form_text_input) {
 
     @EpoxyAttribute
     var hint: String? = null
@@ -158,7 +158,7 @@ abstract class FormEditTextItem : VectorEpoxyModel<FormEditTextItem.Holder>(R.la
         holder.textInputEditText.removeTextChangedListener(onTextChangeListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textInputLayout by bind<TextInputLayout>(R.id.formTextInputTextInputLayout)
         val textInputEditText by bind<TextInputEditText>(R.id.formTextInputTextInputEditText)
     }

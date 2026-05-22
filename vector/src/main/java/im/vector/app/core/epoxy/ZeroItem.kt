@@ -15,7 +15,7 @@ import im.vector.app.R
  * It can be useful to avoid automatic scroll of RecyclerView with Epoxy controller, when the first valuable item changes.
  */
 @EpoxyModelClass
-abstract class ZeroItem : VectorEpoxyModel<ZeroItem.Holder>(R.layout.item_zero) {
+abstract class ZeroItem : ProgressiveEpoxyModel<ZeroItem.Holder>(R.layout.item_zero) {
 
-    class Holder : VectorEpoxyHolder()
+    class Holder : ProgressiveEpoxyHolder()
 }

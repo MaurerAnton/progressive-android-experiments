@@ -7,8 +7,8 @@
 
 package im.vector.app.features.home.room.detail.timeline.action
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class MessageActionsAction : VectorViewModelAction {
+sealed class MessageActionsAction : ProgressiveViewModelAction {
     object ToggleReportMenu : MessageActionsAction()
 }

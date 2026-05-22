@@ -15,12 +15,12 @@ import com.airbnb.epoxy.SimpleEpoxyController
 import com.airbnb.mvrx.activityViewModel
 import im.vector.app.core.epoxy.bottomsheet.BottomSheetActionItem_
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListBinding
 import im.vector.app.features.call.audio.CallAudioManager
 import im.vector.app.features.home.room.list.actions.RoomListQuickActionsBottomSheet
 
-class CallSoundDeviceChooserBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetGenericListBinding>() {
+class CallSoundDeviceChooserBottomSheet : ProgressiveBottomSheet<BottomSheetGenericListBinding>() {
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): BottomSheetGenericListBinding {
         return BottomSheetGenericListBinding.inflate(inflater, container, false)
     }

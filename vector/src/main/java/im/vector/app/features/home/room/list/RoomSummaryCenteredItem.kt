@@ -18,8 +18,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.amulyakhare.textdrawable.TextDrawable
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.ui.views.PresenceStateImageView
 import im.vector.app.core.ui.views.ShieldImageView
@@ -32,7 +32,7 @@ import org.matrix.android.sdk.api.session.presence.model.UserPresence
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class RoomSummaryCenteredItem : VectorEpoxyModel<RoomSummaryCenteredItem.Holder>(R.layout.item_room_centered) {
+abstract class RoomSummaryCenteredItem : ProgressiveEpoxyModel<RoomSummaryCenteredItem.Holder>(R.layout.item_room_centered) {
 
     @EpoxyAttribute
     lateinit var avatarRenderer: AvatarRenderer
@@ -112,7 +112,7 @@ abstract class RoomSummaryCenteredItem : VectorEpoxyModel<RoomSummaryCenteredIte
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleView by bind<TextView>(R.id.roomNameView)
         val avatarCheckedImageView by bind<ImageView>(R.id.roomAvatarCheckedImageView)
         val avatarImageView by bind<ImageView>(R.id.roomAvatarImageView)

@@ -16,12 +16,12 @@ import androidx.activity.result.ActivityResultLauncher
 import com.airbnb.mvrx.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.lib.strings.CommonStrings
 
 @AndroidEntryPoint
-class QrCodeScannerActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class QrCodeScannerActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     override fun getBinding() = ActivitySimpleBinding.inflate(layoutInflater)
 

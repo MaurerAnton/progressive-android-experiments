@@ -20,9 +20,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import im.vector.app.R
 import im.vector.app.core.error.ErrorFormatter
 import im.vector.app.core.extensions.singletonEntryPoint
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.platform.VectorViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.utils.toast
 import im.vector.app.features.analytics.AnalyticsTracker
 import im.vector.app.features.analytics.plan.MobileScreen
@@ -47,8 +47,8 @@ abstract class VectorSettingsBaseFragment : PreferenceFragmentCompat(), Maverick
      * Activity
      * ========================================================================================== */
 
-    val vectorActivity: VectorBaseActivity<*> by lazy {
-        activity as VectorBaseActivity<*>
+    val vectorActivity: ProgressiveActivity<*> by lazy {
+        activity as ProgressiveActivity<*>
     }
 
     private var mLoadingView: View? = null
@@ -61,7 +61,7 @@ abstract class VectorSettingsBaseFragment : PreferenceFragmentCompat(), Maverick
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> VectorViewModel<*, *, T>.observeViewEvents(
+    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
         val tag = this@VectorSettingsBaseFragment::class.simpleName.toString()

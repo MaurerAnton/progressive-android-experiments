@@ -19,7 +19,7 @@ import im.vector.app.SpaceStateHandler
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.powerlevel.isLastAdminFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -39,7 +39,7 @@ class SpaceLeaveAdvancedViewModel @AssistedInject constructor(
         @Assisted val initialState: SpaceLeaveAdvanceViewState,
         private val session: Session,
         private val spaceStateHandler: SpaceStateHandler
-) : VectorViewModel<SpaceLeaveAdvanceViewState, SpaceLeaveAdvanceViewAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<SpaceLeaveAdvanceViewState, SpaceLeaveAdvanceViewAction, EmptyViewEvents>(initialState) {
 
     init {
         val space = session.getRoom(initialState.spaceId)

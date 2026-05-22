@@ -17,7 +17,7 @@ import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSpaceCreateGenericEpoxyFormBinding
 import im.vector.app.features.settings.VectorSettingsActivity
 import im.vector.lib.strings.CommonStrings
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateSpaceAdd3pidInvitesFragment :
-        VectorBaseFragment<FragmentSpaceCreateGenericEpoxyFormBinding>(),
+        ProgressiveFragment<FragmentSpaceCreateGenericEpoxyFormBinding>(),
         SpaceAdd3pidEpoxyController.Listener,
         OnBackPressed {
 

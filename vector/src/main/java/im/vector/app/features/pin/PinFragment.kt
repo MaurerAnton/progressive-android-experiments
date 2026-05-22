@@ -20,7 +20,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.FragmentPinBinding
 import im.vector.app.features.MainActivity
@@ -45,7 +45,7 @@ data class PinArgs(
 
 @AndroidEntryPoint
 class PinFragment :
-        VectorBaseFragment<FragmentPinBinding>() {
+        ProgressiveFragment<FragmentPinBinding>() {
 
     @Inject lateinit var pinCodeStore: PinCodeStore
     @Inject lateinit var vectorPreferences: VectorPreferences

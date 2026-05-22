@@ -7,10 +7,10 @@
 
 package im.vector.app.features.attachments.preview
 
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 
 class AttachmentsPreviewViewModel(initialState: AttachmentsPreviewViewState) :
-        VectorViewModel<AttachmentsPreviewViewState, AttachmentsPreviewAction, AttachmentsPreviewViewEvents>(initialState) {
+        ProgressiveViewModel<AttachmentsPreviewViewState, AttachmentsPreviewAction, AttachmentsPreviewViewEvents>(initialState) {
 
     override fun handle(action: AttachmentsPreviewAction) {
         when (action) {

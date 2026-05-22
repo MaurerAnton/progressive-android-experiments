@@ -6,10 +6,10 @@
  */
 package im.vector.app.features.home.room.list.actions
 
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 /**
  * Activity shared view model to handle room list quick actions.
  */
-class RoomListQuickActionsSharedActionViewModel @Inject constructor() : VectorSharedActionViewModel<RoomListQuickActionsSharedAction>()
+class RoomListQuickActionsSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomListQuickActionsSharedAction>()

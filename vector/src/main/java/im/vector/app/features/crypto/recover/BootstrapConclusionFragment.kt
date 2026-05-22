@@ -15,7 +15,7 @@ import androidx.core.text.toSpannable
 import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.utils.colorizeMatchingText
 import im.vector.app.databinding.FragmentBootstrapConclusionBinding
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BootstrapConclusionFragment :
-        VectorBaseFragment<FragmentBootstrapConclusionBinding>() {
+        ProgressiveFragment<FragmentBootstrapConclusionBinding>() {
 
     @Inject lateinit var colorProvider: ColorProvider
 

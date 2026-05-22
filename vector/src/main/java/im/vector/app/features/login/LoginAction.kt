@@ -7,13 +7,13 @@
 
 package im.vector.app.features.login
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.auth.data.Credentials
 import org.matrix.android.sdk.api.auth.data.SsoIdentityProvider
 import org.matrix.android.sdk.api.auth.registration.RegisterThreePid
 import org.matrix.android.sdk.api.network.ssl.Fingerprint
 
-sealed class LoginAction : VectorViewModelAction {
+sealed class LoginAction : ProgressiveViewModelAction {
     data class OnGetStarted(val resetLoginConfig: Boolean) : LoginAction()
 
     data class UpdateServerType(val serverType: ServerType) : LoginAction()

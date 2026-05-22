@@ -17,8 +17,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.themes.ThemeUtils
@@ -28,7 +28,7 @@ import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
  * A generic list item with a rounded corner background and an optional icon.
  */
 @EpoxyModelClass
-abstract class GenericPillItem : VectorEpoxyModel<GenericPillItem.Holder>(R.layout.item_generic_pill_footer) {
+abstract class GenericPillItem : ProgressiveEpoxyModel<GenericPillItem.Holder>(R.layout.item_generic_pill_footer) {
 
     @EpoxyAttribute
     var text: EpoxyCharSequence? = null
@@ -73,7 +73,7 @@ abstract class GenericPillItem : VectorEpoxyModel<GenericPillItem.Holder>(R.layo
         holder.view.onClick(itemClickAction)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val imageView by bind<ImageView>(R.id.itemGenericPillImage)
         val textView by bind<TextView>(R.id.itemGenericPillText)
     }

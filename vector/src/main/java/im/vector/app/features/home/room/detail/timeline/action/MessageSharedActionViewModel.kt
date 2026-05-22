@@ -6,12 +6,12 @@
  */
 package im.vector.app.features.home.room.detail.timeline.action
 
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 /**
  * Activity shared view model to handle message actions.
  */
-class MessageSharedActionViewModel @Inject constructor() : VectorSharedActionViewModel<EventSharedAction>() {
+class MessageSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<EventSharedAction>() {
     var pendingAction: EventSharedAction? = null
 }

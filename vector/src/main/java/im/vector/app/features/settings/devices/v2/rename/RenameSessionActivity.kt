@@ -15,7 +15,7 @@ import android.view.WindowManager
 import com.airbnb.mvrx.Mavericks
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
 
@@ -23,7 +23,7 @@ import im.vector.lib.core.utils.compat.getParcelableExtraCompat
  * Display the screen to rename a Session.
  */
 @AndroidEntryPoint
-class RenameSessionActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class RenameSessionActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     override fun getBinding() = ActivitySimpleBinding.inflate(layoutInflater)
 

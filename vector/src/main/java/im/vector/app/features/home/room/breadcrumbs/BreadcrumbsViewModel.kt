@@ -15,7 +15,7 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import org.matrix.android.sdk.api.query.QueryStringValue
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.room.model.Membership
@@ -26,7 +26,7 @@ class BreadcrumbsViewModel @AssistedInject constructor(
         @Assisted initialState: BreadcrumbsViewState,
         private val session: Session
 ) :
-        VectorViewModel<BreadcrumbsViewState, EmptyAction, EmptyViewEvents>(initialState) {
+        ProgressiveViewModel<BreadcrumbsViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<BreadcrumbsViewModel, BreadcrumbsViewState> {

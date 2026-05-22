@@ -7,7 +7,7 @@
 
 package im.vector.app.features.home.room.list.actions
 
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
-class RoomListSharedActionViewModel @Inject constructor() : VectorSharedActionViewModel<RoomListSharedAction>()
+class RoomListSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomListSharedAction>()

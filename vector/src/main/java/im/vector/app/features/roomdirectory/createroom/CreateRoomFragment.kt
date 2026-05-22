@@ -27,7 +27,7 @@ import im.vector.app.core.dialogs.GalleryOrCameraDialogHelperFactory
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentCreateRoomBinding
 import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.navigation.Navigator
@@ -54,7 +54,7 @@ data class CreateRoomArgs(
 
 @AndroidEntryPoint
 class CreateRoomFragment :
-        VectorBaseFragment<FragmentCreateRoomBinding>(),
+        ProgressiveFragment<FragmentCreateRoomBinding>(),
         CreateRoomController.Listener,
         GalleryOrCameraDialogHelper.Listener,
         OnBackPressed {

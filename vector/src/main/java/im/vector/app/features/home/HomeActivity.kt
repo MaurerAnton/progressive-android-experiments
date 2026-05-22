@@ -34,7 +34,7 @@ import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.replaceFragment
 import im.vector.app.core.extensions.restart
 import im.vector.app.core.extensions.validateBackPressed
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.pushers.UnifiedPushHelper
 import im.vector.app.core.utils.registerForPermissionsResult
@@ -102,7 +102,7 @@ data class HomeActivityArgs(
 
 @AndroidEntryPoint
 class HomeActivity :
-        VectorBaseActivity<ActivityHomeBinding>(),
+        ProgressiveActivity<ActivityHomeBinding>(),
         NavigationInterceptor,
         SpaceInviteBottomSheet.InteractionListener,
         MatrixToBottomSheet.InteractionListener,
@@ -510,7 +510,7 @@ class HomeActivity :
                 ).apply {
                     colorInt = ThemeUtils.getColor(this@HomeActivity, im.vector.lib.ui.styles.R.attr.vctr_notice_secondary)
                     contentAction = Runnable {
-                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let {
+                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
                             // action(it)
                             homeActivityViewModel.handle(HomeActivityViewActions.PushPromptHasBeenReviewed)
                             it.navigator.openSettings(it, VectorSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
@@ -523,7 +523,7 @@ class HomeActivity :
                         homeActivityViewModel.handle(HomeActivityViewActions.PushPromptHasBeenReviewed)
                     }, true)
                     addButton(getString(CommonStrings.settings), {
-                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let {
+                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
                             // action(it)
                             homeActivityViewModel.handle(HomeActivityViewActions.PushPromptHasBeenReviewed)
                             it.navigator.openSettings(it, VectorSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
@@ -538,7 +538,7 @@ class HomeActivity :
             userItem: MatrixItem.UserItem,
             titleRes: Int,
             descRes: Int,
-            action: ((VectorBaseActivity<*>) -> Unit),
+            action: ((ProgressiveActivity<*>) -> Unit),
     ) {
         popupAlertManager.postVectorAlert(
                 VerificationVectorAlert(
@@ -550,7 +550,7 @@ class HomeActivity :
                     viewBinder = VerificationVectorAlert.ViewBinder(userItem, avatarRenderer)
                     colorInt = ThemeUtils.getColor(this@HomeActivity, com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
-                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let {
+                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
                             action(it)
                         }
                     }

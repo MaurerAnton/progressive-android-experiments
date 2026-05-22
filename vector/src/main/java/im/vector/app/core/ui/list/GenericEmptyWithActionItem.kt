@@ -18,8 +18,8 @@ import androidx.core.widget.ImageViewCompat
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
@@ -27,7 +27,7 @@ import im.vector.app.core.extensions.setTextOrHide
  * A generic list item to display when there is no results, with an optional CTA.
  */
 @EpoxyModelClass
-abstract class GenericEmptyWithActionItem : VectorEpoxyModel<GenericEmptyWithActionItem.Holder>(R.layout.item_generic_empty_state) {
+abstract class GenericEmptyWithActionItem : ProgressiveEpoxyModel<GenericEmptyWithActionItem.Holder>(R.layout.item_generic_empty_state) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -68,7 +68,7 @@ abstract class GenericEmptyWithActionItem : VectorEpoxyModel<GenericEmptyWithAct
         holder.actionButton.onClick(buttonAction?.listener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val root by bind<View>(R.id.item_generic_root)
         val titleText by bind<TextView>(R.id.emptyItemTitleView)
         val descriptionText by bind<TextView>(R.id.emptyItemMessageView)

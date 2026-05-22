@@ -17,13 +17,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.airbnb.mvrx.parentFragmentViewModel
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetThreadListBinding
 import im.vector.app.features.home.room.threads.list.viewmodel.ThreadListViewModel
 import im.vector.app.features.home.room.threads.list.viewmodel.ThreadListViewState
 import im.vector.app.features.themes.ThemeUtils
 
-class ThreadListBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetThreadListBinding>() {
+class ThreadListBottomSheet : ProgressiveBottomSheet<BottomSheetThreadListBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): BottomSheetThreadListBinding {
         return BottomSheetThreadListBinding.inflate(inflater, container, false)

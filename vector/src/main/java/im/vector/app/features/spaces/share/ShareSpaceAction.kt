@@ -7,9 +7,9 @@
 
 package im.vector.app.features.spaces.share
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class ShareSpaceAction : VectorViewModelAction {
+sealed class ShareSpaceAction : ProgressiveViewModelAction {
     object InviteByMxId : ShareSpaceAction()
     object InviteByLink : ShareSpaceAction()
 }

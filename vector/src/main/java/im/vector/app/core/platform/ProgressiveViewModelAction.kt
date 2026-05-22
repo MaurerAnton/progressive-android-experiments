@@ -7,9 +7,9 @@
 
 package im.vector.app.core.platform
 
-interface VectorViewModelAction
+interface ProgressiveViewModelAction
 
 /**
  * To use when no action is associated to the ViewModel.
  */
-object EmptyAction : VectorViewModelAction
+object EmptyAction : ProgressiveViewModelAction

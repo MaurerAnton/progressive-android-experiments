@@ -18,8 +18,8 @@ import com.google.android.material.textfield.TextInputLayout
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
 import im.vector.app.core.epoxy.TextListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.addTextChangedListenerOnce
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.epoxy.setValueOnce
@@ -27,7 +27,7 @@ import im.vector.app.core.platform.SimpleTextWatcher
 import im.vector.app.core.resources.StringProvider
 
 @EpoxyModelClass
-abstract class LoginPasswordFormItem : VectorEpoxyModel<LoginPasswordFormItem.Holder>(R.layout.item_login_password_form) {
+abstract class LoginPasswordFormItem : ProgressiveEpoxyModel<LoginPasswordFormItem.Holder>(R.layout.item_login_password_form) {
 
     @EpoxyAttribute var passwordValue: String = ""
     @EpoxyAttribute var submitEnabled: Boolean = false
@@ -66,7 +66,7 @@ abstract class LoginPasswordFormItem : VectorEpoxyModel<LoginPasswordFormItem.Ho
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val passwordField by bind<TextInputEditText>(R.id.itemLoginPasswordFormPasswordField)
         val passwordFieldTil by bind<TextInputLayout>(R.id.itemLoginPasswordFormPasswordFieldTil)
         val forgetPassword by bind<Button>(R.id.itemLoginPasswordFormForgetPasswordButton)

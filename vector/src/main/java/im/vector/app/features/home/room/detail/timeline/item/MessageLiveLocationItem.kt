@@ -12,7 +12,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.toTimestamp
 import im.vector.app.core.utils.DimensionConverter
 import im.vector.app.features.home.room.detail.RoomDetailAction
@@ -31,7 +31,7 @@ abstract class MessageLiveLocationItem : AbsMessageLocationItem<MessageLiveLocat
     var endOfLiveDateTime: LocalDateTime? = null
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-    lateinit var vectorDateFormatter: VectorDateFormatter
+    lateinit var vectorDateFormatter: ProgressiveDateFormatter
 
     override fun bind(holder: Holder) {
         super.bind(holder)

@@ -12,13 +12,13 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.lib.strings.CommonStrings
 
 @EpoxyModelClass
-abstract class FilteredRoomFooterItem : VectorEpoxyModel<FilteredRoomFooterItem.Holder>(R.layout.item_room_filter_footer) {
+abstract class FilteredRoomFooterItem : ProgressiveEpoxyModel<FilteredRoomFooterItem.Holder>(R.layout.item_room_filter_footer) {
 
     @EpoxyAttribute
     var listener: Listener? = null
@@ -43,7 +43,7 @@ abstract class FilteredRoomFooterItem : VectorEpoxyModel<FilteredRoomFooterItem.
         holder.createRoomButton.isVisible = !inSpace
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val createRoomButton by bind<Button>(R.id.roomFilterFooterCreateRoom)
         val createDirectChat by bind<Button>(R.id.roomFilterFooterCreateDirect)
         val openRoomDirectory by bind<Button>(R.id.roomFilterFooterOpenRoomDirectory)

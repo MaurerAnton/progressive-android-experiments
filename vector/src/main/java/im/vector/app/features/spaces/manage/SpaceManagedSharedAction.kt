@@ -7,9 +7,9 @@
 
 package im.vector.app.features.spaces.manage
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SpaceManagedSharedAction : VectorViewModelAction {
+sealed class SpaceManagedSharedAction : ProgressiveViewModelAction {
     object HandleBack : SpaceManagedSharedAction()
     object ShowLoading : SpaceManagedSharedAction()
     object HideLoading : SpaceManagedSharedAction()

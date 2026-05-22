@@ -7,12 +7,12 @@
 
 package im.vector.app.features.roomprofile.settings
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.GuestAccess
 import org.matrix.android.sdk.api.session.room.model.RoomHistoryVisibility
 import org.matrix.android.sdk.api.session.room.model.RoomJoinRules
 
-sealed class RoomSettingsAction : VectorViewModelAction {
+sealed class RoomSettingsAction : ProgressiveViewModelAction {
     data class SetAvatarAction(val avatarAction: RoomSettingsViewState.AvatarAction) : RoomSettingsAction()
     data class SetRoomName(val newName: String) : RoomSettingsAction()
     data class SetRoomTopic(val newTopic: String) : RoomSettingsAction()

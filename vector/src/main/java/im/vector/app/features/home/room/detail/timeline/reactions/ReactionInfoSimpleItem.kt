@@ -13,8 +13,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
 
@@ -22,7 +22,7 @@ import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
  * Item displaying an emoji reaction (single line with emoji, author, time).
  */
 @EpoxyModelClass
-abstract class ReactionInfoSimpleItem : VectorEpoxyModel<ReactionInfoSimpleItem.Holder>(R.layout.item_simple_reaction_info) {
+abstract class ReactionInfoSimpleItem : ProgressiveEpoxyModel<ReactionInfoSimpleItem.Holder>(R.layout.item_simple_reaction_info) {
 
     @EpoxyAttribute
     lateinit var reactionKey: EpoxyCharSequence
@@ -49,7 +49,7 @@ abstract class ReactionInfoSimpleItem : VectorEpoxyModel<ReactionInfoSimpleItem.
         holder.view.onClick(userClicked)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val emojiReactionView by bind<TextView>(R.id.itemSimpleReactionInfoKey)
         val displayNameView by bind<TextView>(R.id.itemSimpleReactionInfoMemberName)
         val timeStampView by bind<TextView>(R.id.itemSimpleReactionInfoTime)

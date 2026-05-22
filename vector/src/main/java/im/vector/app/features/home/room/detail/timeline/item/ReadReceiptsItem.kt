@@ -12,14 +12,14 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.ui.views.ReadReceiptsView
 import im.vector.app.features.home.AvatarRenderer
 
 @EpoxyModelClass
-abstract class ReadReceiptsItem : VectorEpoxyModel<ReadReceiptsItem.Holder>(R.layout.item_timeline_event_read_receipts), ItemWithEvents {
+abstract class ReadReceiptsItem : ProgressiveEpoxyModel<ReadReceiptsItem.Holder>(R.layout.item_timeline_event_read_receipts), ItemWithEvents {
 
     @EpoxyAttribute lateinit var eventId: String
     @EpoxyAttribute lateinit var readReceipts: List<ReadReceiptData>
@@ -43,7 +43,7 @@ abstract class ReadReceiptsItem : VectorEpoxyModel<ReadReceiptsItem.Holder>(R.la
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val readReceiptsView by bind<ReadReceiptsView>(R.id.readReceiptsView)
     }
 }

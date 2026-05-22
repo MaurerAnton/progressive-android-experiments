@@ -26,7 +26,7 @@ import im.vector.app.core.extensions.addFragmentToBackstack
 import im.vector.app.core.extensions.popBackstack
 import im.vector.app.core.extensions.replaceFragment
 import im.vector.app.core.platform.ScreenOrientationLocker
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.databinding.ActivityLoginBinding
 import im.vector.app.features.VectorFeatures
@@ -59,7 +59,7 @@ private const val FRAGMENT_EDIT_HOMESERVER_TAG = "FRAGMENT_EDIT_HOMESERVER"
 class FtueAuthVariant(
         private val views: ActivityLoginBinding,
         private val onboardingViewModel: OnboardingViewModel,
-        private val activity: VectorBaseActivity<ActivityLoginBinding>,
+        private val activity: ProgressiveActivity<ActivityLoginBinding>,
         private val supportFragmentManager: FragmentManager,
         private val vectorFeatures: VectorFeatures,
         private val orientationLocker: ScreenOrientationLocker,

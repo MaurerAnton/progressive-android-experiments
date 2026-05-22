@@ -7,10 +7,10 @@
 
 package im.vector.app.features.roomdirectory.picker
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.roomdirectory.RoomDirectoryServer
 
-sealed class RoomDirectoryPickerAction : VectorViewModelAction {
+sealed class RoomDirectoryPickerAction : ProgressiveViewModelAction {
     object Retry : RoomDirectoryPickerAction()
     object EnterEditMode : RoomDirectoryPickerAction()
     object ExitEditMode : RoomDirectoryPickerAction()

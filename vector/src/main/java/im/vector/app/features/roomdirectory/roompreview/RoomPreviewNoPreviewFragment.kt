@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.platform.ButtonStateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.styleMatchingText
 import im.vector.app.core.utils.tappableMatchingText
 import im.vector.app.databinding.FragmentRoomPreviewNoPreviewBinding
@@ -47,7 +47,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class RoomPreviewNoPreviewFragment :
-        VectorBaseFragment<FragmentRoomPreviewNoPreviewBinding>() {
+        ProgressiveFragment<FragmentRoomPreviewNoPreviewBinding>() {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
 

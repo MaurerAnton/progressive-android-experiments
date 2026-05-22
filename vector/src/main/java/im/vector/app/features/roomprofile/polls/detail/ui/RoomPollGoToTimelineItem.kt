@@ -12,12 +12,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 @EpoxyModelClass
-abstract class RoomPollGoToTimelineItem : VectorEpoxyModel<RoomPollGoToTimelineItem.Holder>(R.layout.item_poll_go_to_timeline) {
+abstract class RoomPollGoToTimelineItem : ProgressiveEpoxyModel<RoomPollGoToTimelineItem.Holder>(R.layout.item_poll_go_to_timeline) {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     var clickListener: ClickListener? = null
@@ -27,7 +27,7 @@ abstract class RoomPollGoToTimelineItem : VectorEpoxyModel<RoomPollGoToTimelineI
         holder.goToTimelineButton.onClick(clickListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val goToTimelineButton by bind<Button>(R.id.roomPollGoToTimeline)
     }
 }

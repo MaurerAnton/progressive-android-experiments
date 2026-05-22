@@ -19,7 +19,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.SpaceStateHandler
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.analytics.AnalyticsTracker
 import im.vector.app.features.analytics.extensions.toAnalyticsJoinedRoom
@@ -55,7 +55,7 @@ class RoomListViewModel @AssistedInject constructor(
         vectorPreferences: VectorPreferences,
         autoAcceptInvites: AutoAcceptInvites,
         private val analyticsTracker: AnalyticsTracker
-) : VectorViewModel<RoomListViewState, RoomListAction, RoomListViewEvents>(initialState) {
+) : ProgressiveViewModel<RoomListViewState, RoomListAction, RoomListViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<RoomListViewModel, RoomListViewState> {

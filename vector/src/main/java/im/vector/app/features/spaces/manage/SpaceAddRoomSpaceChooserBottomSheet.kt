@@ -12,10 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResult
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetAddRoomsOrSpacesToSpaceBinding
 
-class SpaceAddRoomSpaceChooserBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetAddRoomsOrSpacesToSpaceBinding>() {
+class SpaceAddRoomSpaceChooserBottomSheet : ProgressiveBottomSheet<BottomSheetAddRoomsOrSpacesToSpaceBinding>() {
 
     override val showExpanded = true
 

@@ -12,14 +12,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
 import im.vector.app.core.ui.views.PresenceStateImageView
 import im.vector.app.core.ui.views.ShieldImageView
 
 @EpoxyModelClass
 abstract class ProfileMatrixItem : BaseProfileMatrixItem<ProfileMatrixItem.Holder>(R.layout.item_profile_matrix_item) {
 
-    open class Holder : VectorEpoxyHolder() {
+    open class Holder : ProgressiveEpoxyHolder() {
         val titleView by bind<TextView>(R.id.matrixItemTitle)
         val subtitleView by bind<TextView>(R.id.matrixItemSubtitle)
         val ignoredUserView by bind<ImageView>(R.id.matrixItemIgnored)

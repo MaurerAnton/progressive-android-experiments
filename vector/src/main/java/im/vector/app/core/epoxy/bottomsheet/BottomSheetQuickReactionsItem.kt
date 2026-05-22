@@ -12,15 +12,15 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.EmojiCompatFontProvider
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 /**
  * A quick reaction list for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetQuickReactionsItem : VectorEpoxyModel<BottomSheetQuickReactionsItem.Holder>(R.layout.item_bottom_sheet_quick_reaction) {
+abstract class BottomSheetQuickReactionsItem : ProgressiveEpoxyModel<BottomSheetQuickReactionsItem.Holder>(R.layout.item_bottom_sheet_quick_reaction) {
 
     @EpoxyAttribute
     lateinit var fontProvider: EmojiCompatFontProvider
@@ -47,7 +47,7 @@ abstract class BottomSheetQuickReactionsItem : VectorEpoxyModel<BottomSheetQuick
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         private val quickReaction0 by bind<TextView>(R.id.quickReaction0)
         private val quickReaction1 by bind<TextView>(R.id.quickReaction1)
         private val quickReaction2 by bind<TextView>(R.id.quickReaction2)

@@ -12,7 +12,7 @@ import androidx.annotation.LayoutRes
 import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.displayname.getBestName
@@ -20,7 +20,7 @@ import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.session.crypto.model.UserVerificationLevel
 import org.matrix.android.sdk.api.util.MatrixItem
 
-abstract class BaseProfileMatrixItem<T : ProfileMatrixItem.Holder>(@LayoutRes layoutId: Int) : VectorEpoxyModel<T>(layoutId) {
+abstract class BaseProfileMatrixItem<T : ProfileMatrixItem.Holder>(@LayoutRes layoutId: Int) : ProgressiveEpoxyModel<T>(layoutId) {
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
     @EpoxyAttribute var editable: Boolean = true

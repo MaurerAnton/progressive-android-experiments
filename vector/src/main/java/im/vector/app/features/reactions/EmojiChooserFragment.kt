@@ -13,13 +13,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.EmojiChooserFragmentBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EmojiChooserFragment :
-        VectorBaseFragment<EmojiChooserFragmentBinding>(),
+        ProgressiveFragment<EmojiChooserFragmentBinding>(),
         EmojiRecyclerAdapter.InteractionListener,
         ReactionClickListener {
 

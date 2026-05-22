@@ -19,7 +19,7 @@ import im.vector.app.features.themes.ThemeUtils
 /**
  * Customize PreferenceCategory class to redefine some attributes.
  */
-class VectorPreferenceCategory : PreferenceCategory {
+class ProgressivePreferenceCategory : PreferenceCategory {
 
     constructor(context: Context) : super(context)
 

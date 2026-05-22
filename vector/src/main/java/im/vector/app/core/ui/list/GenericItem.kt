@@ -17,8 +17,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
@@ -30,7 +30,7 @@ import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
  * If provided with an action, will display a button at the bottom of the list item.
  */
 @EpoxyModelClass
-abstract class GenericItem : VectorEpoxyModel<GenericItem.Holder>(R.layout.item_generic_list) {
+abstract class GenericItem : ProgressiveEpoxyModel<GenericItem.Holder>(R.layout.item_generic_list) {
 
     @EpoxyAttribute
     var title: EpoxyCharSequence? = null
@@ -98,7 +98,7 @@ abstract class GenericItem : VectorEpoxyModel<GenericItem.Holder>(R.layout.item_
         holder.root.onClick(itemClickAction)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val root by bind<View>(R.id.item_generic_root)
         val titleIcon by bind<ImageView>(R.id.item_generic_title_image)
         val titleText by bind<TextView>(R.id.item_generic_title_text)

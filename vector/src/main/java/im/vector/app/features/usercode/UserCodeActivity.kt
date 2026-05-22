@@ -22,7 +22,7 @@ import com.airbnb.mvrx.viewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.utils.onPermissionDeniedSnackbar
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.analytics.plan.ViewRoom
@@ -37,7 +37,7 @@ import kotlinx.parcelize.Parcelize
 import kotlin.reflect.KClass
 
 @AndroidEntryPoint
-class UserCodeActivity : VectorBaseActivity<ActivitySimpleBinding>(),
+class UserCodeActivity : ProgressiveActivity<ActivitySimpleBinding>(),
         MatrixToBottomSheet.InteractionListener {
 
     val sharedViewModel: UserCodeSharedViewModel by viewModel()

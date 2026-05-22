@@ -18,15 +18,15 @@ import com.google.android.material.textfield.TextInputLayout
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
 import im.vector.app.core.epoxy.TextListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.addTextChangedListenerOnce
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextIfDifferent
 import im.vector.app.core.platform.SimpleTextWatcher
 
 @EpoxyModelClass
-abstract class FormEditTextWithDeleteItem : VectorEpoxyModel<FormEditTextWithDeleteItem.Holder>(R.layout.item_form_text_input_with_delete) {
+abstract class FormEditTextWithDeleteItem : ProgressiveEpoxyModel<FormEditTextWithDeleteItem.Holder>(R.layout.item_form_text_input_with_delete) {
 
     @EpoxyAttribute
     var hint: String? = null
@@ -94,7 +94,7 @@ abstract class FormEditTextWithDeleteItem : VectorEpoxyModel<FormEditTextWithDel
         holder.textInputEditText.removeTextChangedListener(onTextChangeListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textInputLayout by bind<TextInputLayout>(R.id.formTextInputTextInputLayout)
         val textInputEditText by bind<TextInputEditText>(R.id.formTextInputTextInputEditText)
         val textInputDeleteButton by bind<ImageButton>(R.id.formTextInputDeleteButton)

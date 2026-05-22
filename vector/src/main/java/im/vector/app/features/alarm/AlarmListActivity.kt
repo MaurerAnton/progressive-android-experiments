@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityAlarmListBinding
 import chat.progressive.app.native.ProgressiveNative
 import org.json.JSONArray
@@ -18,7 +18,7 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-class AlarmListActivity : VectorBaseActivity<ActivityAlarmListBinding>() {
+class AlarmListActivity : ProgressiveActivity<ActivityAlarmListBinding>() {
 
     override fun getBinding() = ActivityAlarmListBinding.inflate(layoutInflater)
     override fun getCoordinatorLayout() = views.coordinatorLayout

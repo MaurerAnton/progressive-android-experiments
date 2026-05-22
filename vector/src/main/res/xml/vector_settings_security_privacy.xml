@@ -14,7 +14,7 @@
     </im.vector.app.core.preference.VectorPreference>
 
     <!-- ************ Cryptography section ************ -->
-    <im.vector.app.core.preference.VectorPreferenceCategory
+    <im.vector.app.core.preference.ProgressivePreferenceCategory
         android:key="SETTINGS_CRYPTOGRAPHY_PREFERENCE_KEY"
         android:title="@string/settings_cryptography">
 
@@ -44,16 +44,16 @@
             android:title="@string/encryption_information_device_key"
             tools:summary="3To0 8c/K VRJd 4Njb DUgv 6r8A SNp9 ETZt pMwU CpE4 XJE" />
 
-        <im.vector.app.core.preference.VectorSwitchPreference
+        <im.vector.app.core.preference.ProgressiveSwitchPreference
             android:enabled="true"
             android:key="SETTINGS_ENCRYPTION_NEVER_SENT_TO_PREFERENCE_KEY"
             android:summary="@string/encryption_never_send_to_unverified_devices_summary"
             android:title="@string/encryption_never_send_to_unverified_devices_title" />
 
-    </im.vector.app.core.preference.VectorPreferenceCategory>
+    </im.vector.app.core.preference.ProgressivePreferenceCategory>
 
     <!-- devices list entry point -->
-    <im.vector.app.core.preference.VectorPreferenceCategory
+    <im.vector.app.core.preference.ProgressivePreferenceCategory
         android:key="SETTINGS_DEVICES_LIST_PREFERENCE_KEY"
         android:title="@string/settings_active_sessions_list">
 
@@ -67,9 +67,9 @@
             android:title="@string/settings_active_sessions_show_all"
             app:fragment="im.vector.app.features.settings.devices.v2.VectorSettingsDevicesFragment" />
 
-    </im.vector.app.core.preference.VectorPreferenceCategory>
+    </im.vector.app.core.preference.ProgressivePreferenceCategory>
 
-    <im.vector.app.core.preference.VectorPreferenceCategory
+    <im.vector.app.core.preference.ProgressivePreferenceCategory
         android:key="SETTINGS_CRYPTOGRAPHY_MANAGE_4S_CATEGORY_KEY"
         android:title="@string/settings_secure_backup_section_title">
 
@@ -83,9 +83,9 @@
             android:focusable="false"
             android:persistent="false"
             android:summary="@string/settings_secure_backup_section_info" />
-    </im.vector.app.core.preference.VectorPreferenceCategory>
+    </im.vector.app.core.preference.ProgressivePreferenceCategory>
 
-    <im.vector.app.core.preference.VectorPreferenceCategory
+    <im.vector.app.core.preference.ProgressivePreferenceCategory
         android:key="SETTINGS_CRYPTOGRAPHY_MANAGE_PREFERENCE_KEY"
         android:title="@string/settings_cryptography_manage_keys">
 
@@ -104,9 +104,9 @@
             android:summary="@string/encryption_import_room_keys_summary"
             android:title="@string/encryption_import_e2e_room_keys" />
 
-    </im.vector.app.core.preference.VectorPreferenceCategory>
+    </im.vector.app.core.preference.ProgressivePreferenceCategory>
 
-    <im.vector.app.core.preference.VectorPreferenceCategory
+    <im.vector.app.core.preference.ProgressivePreferenceCategory
         android:key="SETTINGS_IGNORED_USERS_PREFERENCE_CATEGORY_KEY"
         android:title="@string/settings_ignored_users"
         app:isPreferenceVisible="@bool/settings_ignored_users_visible">
@@ -117,21 +117,21 @@
             android:title="@string/settings_ignored_users"
             app:fragment="im.vector.app.features.settings.ignored.VectorSettingsIgnoredUsersFragment" />
 
-    </im.vector.app.core.preference.VectorPreferenceCategory>
+    </im.vector.app.core.preference.ProgressivePreferenceCategory>
 
-    <im.vector.app.core.preference.VectorPreferenceCategory
+    <im.vector.app.core.preference.ProgressivePreferenceCategory
         android:key="SETTINGS_ANALYTICS_PREFERENCE_KEY"
         android:title="@string/settings_analytics">
 
-        <im.vector.app.core.preference.VectorSwitchPreference
+        <im.vector.app.core.preference.ProgressiveSwitchPreference
             android:defaultValue="false"
             android:key="SETTINGS_USER_ANALYTICS_CONSENT_KEY"
             android:summary="@string/settings_opt_in_of_analytics_summary"
             android:title="@string/settings_opt_in_of_analytics" />
 
-    </im.vector.app.core.preference.VectorPreferenceCategory>
+    </im.vector.app.core.preference.ProgressivePreferenceCategory>
 
-    <im.vector.app.core.preference.VectorPreferenceCategory
+    <im.vector.app.core.preference.ProgressivePreferenceCategory
         android:key="SETTINGS_SECURITY_OTHER_CATEGORY"
         android:title="@string/settings_other">
 
@@ -141,18 +141,18 @@
             android:summary="@string/settings_security_application_protection_summary"
             android:title="@string/settings_security_application_protection_title" />
 
-        <im.vector.app.core.preference.VectorSwitchPreference
+        <im.vector.app.core.preference.ProgressiveSwitchPreference
             android:defaultValue="false"
             android:key="SETTINGS_SECURITY_INCOGNITO_KEYBOARD_PREFERENCE_KEY"
             android:summary="@string/settings_security_incognito_keyboard_summary"
             android:title="@string/settings_security_incognito_keyboard_title" />
 
-        <im.vector.app.core.preference.VectorSwitchPreference
+        <im.vector.app.core.preference.ProgressiveSwitchPreference
             android:defaultValue="false"
             android:key="SETTINGS_SECURITY_USE_FLAG_SECURE"
             android:summary="@string/settings_security_prevent_screenshots_summary"
             android:title="@string/settings_security_prevent_screenshots_title" />
 
-    </im.vector.app.core.preference.VectorPreferenceCategory>
+    </im.vector.app.core.preference.ProgressivePreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

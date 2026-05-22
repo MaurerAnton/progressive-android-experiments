@@ -16,8 +16,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.home.AvatarRenderer
@@ -25,7 +25,7 @@ import im.vector.app.features.themes.ThemeUtils
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class ProfileActionItem : VectorEpoxyModel<ProfileActionItem.Holder>(R.layout.item_profile_action) {
+abstract class ProfileActionItem : ProgressiveEpoxyModel<ProfileActionItem.Holder>(R.layout.item_profile_action) {
 
     @EpoxyAttribute
     lateinit var title: String
@@ -119,7 +119,7 @@ abstract class ProfileActionItem : VectorEpoxyModel<ProfileActionItem.Holder>(R.
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val icon by bind<ImageView>(R.id.actionIcon)
         val title by bind<TextView>(R.id.actionTitle)
         val subtitle by bind<TextView>(R.id.actionSubtitle)

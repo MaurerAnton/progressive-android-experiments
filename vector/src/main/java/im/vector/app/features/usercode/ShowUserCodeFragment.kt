@@ -15,7 +15,7 @@ import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.PERMISSIONS_FOR_TAKING_PHOTO
 import im.vector.app.core.utils.checkPermissions
 import im.vector.app.core.utils.registerForPermissionsResult
@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShowUserCodeFragment :
-        VectorBaseFragment<FragmentUserCodeShowBinding>() {
+        ProgressiveFragment<FragmentUserCodeShowBinding>() {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
 

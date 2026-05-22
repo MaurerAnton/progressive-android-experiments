@@ -29,7 +29,7 @@ import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.utils.colorizeMatchingText
@@ -56,7 +56,7 @@ data class SpaceDirectoryArgs(
 
 @AndroidEntryPoint
 class SpaceDirectoryFragment :
-        VectorBaseFragment<FragmentSpaceDirectoryBinding>(),
+        ProgressiveFragment<FragmentSpaceDirectoryBinding>(),
         SpaceDirectoryController.InteractionListener,
         TimelineEventController.UrlClickCallback,
         OnBackPressed,

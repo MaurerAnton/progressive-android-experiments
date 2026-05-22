@@ -15,7 +15,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doOnTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.startImportTextFromFileIntent
 import im.vector.app.databinding.FragmentKeysBackupRestoreFromKeyBinding
 import im.vector.lib.strings.CommonStrings
@@ -23,7 +23,7 @@ import org.matrix.android.sdk.api.extensions.tryOrNull
 
 @AndroidEntryPoint
 class KeysBackupRestoreFromKeyFragment :
-        VectorBaseFragment<FragmentKeysBackupRestoreFromKeyBinding>() {
+        ProgressiveFragment<FragmentKeysBackupRestoreFromKeyBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentKeysBackupRestoreFromKeyBinding {
         return FragmentKeysBackupRestoreFromKeyBinding.inflate(inflater, container, false)

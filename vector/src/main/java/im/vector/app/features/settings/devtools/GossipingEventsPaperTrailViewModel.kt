@@ -21,7 +21,7 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.crypto.model.AuditTrail
 
@@ -33,7 +33,7 @@ class GossipingEventsPaperTrailViewModel @AssistedInject constructor(
         @Assisted initialState: GossipingEventsPaperTrailState,
         private val session: Session
 ) :
-        VectorViewModel<GossipingEventsPaperTrailState, EmptyAction, EmptyViewEvents>(initialState) {
+        ProgressiveViewModel<GossipingEventsPaperTrailState, EmptyAction, EmptyViewEvents>(initialState) {
 
     init {
         refresh()

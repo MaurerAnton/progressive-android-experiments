@@ -13,12 +13,12 @@ import android.view.View
 import com.airbnb.mvrx.Mavericks
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.lib.core.utils.compat.getParcelableCompat
 
 @AndroidEntryPoint
-class PinActivity : VectorBaseActivity<ActivitySimpleBinding>(), UnlockedActivity {
+class PinActivity : ProgressiveActivity<ActivitySimpleBinding>(), UnlockedActivity {
 
     companion object {
         fun newIntent(context: Context, args: PinArgs): Intent {

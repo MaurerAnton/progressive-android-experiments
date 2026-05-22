@@ -14,7 +14,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.utils.PermissionChecker
 import im.vector.app.features.location.LocationData
 import im.vector.app.features.location.LocationTracker
@@ -36,7 +36,7 @@ class LiveLocationMapViewModel @AssistedInject constructor(
         private val locationTracker: LocationTracker,
         private val permissionChecker: PermissionChecker,
 ) :
-        VectorViewModel<LiveLocationMapViewState, LiveLocationMapAction, LiveLocationMapViewEvents>(initialState),
+        ProgressiveViewModel<LiveLocationMapViewState, LiveLocationMapAction, LiveLocationMapViewEvents>(initialState),
         LocationSharingServiceConnection.Callback,
         LocationTracker.Callback {
 

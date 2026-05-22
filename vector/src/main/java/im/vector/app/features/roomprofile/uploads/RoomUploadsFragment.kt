@@ -20,7 +20,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.intent.getMimeTypeFromUri
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.saveMedia
 import im.vector.app.core.utils.shareMedia
 import im.vector.app.databinding.FragmentRoomUploadsBinding
@@ -36,7 +36,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomUploadsFragment :
-        VectorBaseFragment<FragmentRoomUploadsBinding>() {
+        ProgressiveFragment<FragmentRoomUploadsBinding>() {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
     @Inject lateinit var notificationUtils: NotificationUtils

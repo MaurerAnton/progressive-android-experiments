@@ -16,8 +16,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.resources.ColorProvider
@@ -31,7 +31,7 @@ import org.matrix.android.sdk.api.util.MatrixItem
  * A room preview for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetRoomPreviewItem : VectorEpoxyModel<BottomSheetRoomPreviewItem.Holder>(R.layout.item_bottom_sheet_room_preview) {
+abstract class BottomSheetRoomPreviewItem : ProgressiveEpoxyModel<BottomSheetRoomPreviewItem.Holder>(R.layout.item_bottom_sheet_room_preview) {
 
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
@@ -113,7 +113,7 @@ abstract class BottomSheetRoomPreviewItem : VectorEpoxyModel<BottomSheetRoomPrev
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatar by bind<ImageView>(R.id.bottomSheetRoomPreviewAvatar)
         val roomName by bind<TextView>(R.id.bottomSheetRoomPreviewName)
         val roomLowPriority by bind<ImageView>(R.id.bottomSheetRoomPreviewLowPriority)

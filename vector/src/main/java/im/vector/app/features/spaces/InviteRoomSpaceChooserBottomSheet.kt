@@ -17,14 +17,14 @@ import androidx.fragment.app.FragmentManager
 import com.airbnb.mvrx.args
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.di.ActiveSessionHolder
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetSpaceInviteChooserBinding
 import im.vector.lib.strings.CommonStrings
 import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InviteRoomSpaceChooserBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetSpaceInviteChooserBinding>() {
+class InviteRoomSpaceChooserBottomSheet : ProgressiveBottomSheet<BottomSheetSpaceInviteChooserBinding>() {
 
     @Parcelize
     data class Args(

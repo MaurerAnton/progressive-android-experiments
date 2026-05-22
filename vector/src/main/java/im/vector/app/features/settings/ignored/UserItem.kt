@@ -13,8 +13,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.home.AvatarRenderer
@@ -24,7 +24,7 @@ import org.matrix.android.sdk.api.util.MatrixItem
  * A list item for User.
  */
 @EpoxyModelClass
-abstract class UserItem : VectorEpoxyModel<UserItem.Holder>(R.layout.item_user) {
+abstract class UserItem : ProgressiveEpoxyModel<UserItem.Holder>(R.layout.item_user) {
 
     @EpoxyAttribute
     lateinit var avatarRenderer: AvatarRenderer
@@ -44,7 +44,7 @@ abstract class UserItem : VectorEpoxyModel<UserItem.Holder>(R.layout.item_user) 
         holder.displayNameText.setTextOrHide(matrixItem.displayName)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val root by bind<View>(R.id.itemUserRoot)
         val avatarImage by bind<ImageView>(R.id.itemUserAvatar)
         val userIdText by bind<TextView>(R.id.itemUserId)

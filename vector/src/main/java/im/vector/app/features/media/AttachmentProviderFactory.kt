@@ -7,7 +7,7 @@
 
 package im.vector.app.features.media
 
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.StringProvider
 import kotlinx.coroutines.CoroutineScope
 import org.matrix.android.sdk.api.session.Session
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class AttachmentProviderFactory @Inject constructor(
         private val imageContentRenderer: ImageContentRenderer,
-        private val vectorDateFormatter: VectorDateFormatter,
+        private val vectorDateFormatter: ProgressiveDateFormatter,
         private val stringProvider: StringProvider,
         private val session: Session
 ) {

@@ -10,14 +10,14 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 /**
  * A action for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetVerificationDecimalCodeItem : VectorEpoxyModel<BottomSheetVerificationDecimalCodeItem.Holder>(
+abstract class BottomSheetVerificationDecimalCodeItem : ProgressiveEpoxyModel<BottomSheetVerificationDecimalCodeItem.Holder>(
         R.layout.item_verification_decimal_code
 ) {
 
@@ -29,7 +29,7 @@ abstract class BottomSheetVerificationDecimalCodeItem : VectorEpoxyModel<BottomS
         holder.code.text = code
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val code by bind<TextView>(R.id.itemVerificationDecimalCode)
     }
 }

@@ -16,14 +16,14 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.extensions.tryOrNull
 
 class BugReportViewModel @AssistedInject constructor(
         @Assisted initialState: BugReportState,
         val activeSessionHolder: ActiveSessionHolder
-) : VectorViewModel<BugReportState, EmptyAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<BugReportState, EmptyAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<BugReportViewModel, BugReportState> {

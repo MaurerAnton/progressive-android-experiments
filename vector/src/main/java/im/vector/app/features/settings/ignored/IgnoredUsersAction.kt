@@ -7,8 +7,8 @@
 
 package im.vector.app.features.settings.ignored
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class IgnoredUsersAction : VectorViewModelAction {
+sealed class IgnoredUsersAction : ProgressiveViewModelAction {
     data class UnIgnore(val userId: String) : IgnoredUsersAction()
 }

@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.platform.ButtonStateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentMatrixToRoomSpaceCardBinding
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.lib.strings.CommonPlurals
@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MatrixToRoomSpaceFragment :
-        VectorBaseFragment<FragmentMatrixToRoomSpaceCardBinding>() {
+        ProgressiveFragment<FragmentMatrixToRoomSpaceCardBinding>() {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
     @Inject lateinit var spaceCardRenderer: SpaceCardRenderer

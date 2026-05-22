@@ -13,7 +13,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
 import im.vector.app.core.ui.views.TypingMessageView
 import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.session.room.sender.SenderInfo
@@ -61,7 +61,7 @@ abstract class TypingItem : EpoxyModelWithHolder<TypingItem.TypingHolder>() {
         }
     }
 
-    class TypingHolder : VectorEpoxyHolder() {
+    class TypingHolder : ProgressiveEpoxyHolder() {
         val typingView by bind<TypingMessageView>(R.id.typingMessageView)
     }
 }

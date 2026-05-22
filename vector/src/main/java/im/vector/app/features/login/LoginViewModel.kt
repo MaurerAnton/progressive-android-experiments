@@ -20,7 +20,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.session.ConfigureAndStartSessionUseCase
 import im.vector.app.core.utils.ensureTrailingSlash
@@ -58,7 +58,7 @@ class LoginViewModel @AssistedInject constructor(
         private val stringProvider: StringProvider,
         private val homeServerHistoryService: HomeServerHistoryService,
         private val configureAndStartSessionUseCase: ConfigureAndStartSessionUseCase,
-) : VectorViewModel<LoginViewState, LoginAction, LoginViewEvents>(initialState) {
+) : ProgressiveViewModel<LoginViewState, LoginAction, LoginViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<LoginViewModel, LoginViewState> {

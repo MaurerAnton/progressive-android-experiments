@@ -7,10 +7,10 @@
 
 package im.vector.app.features.spaces.people
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.RoomMemberSummary
 
-sealed class SpacePeopleViewAction : VectorViewModelAction {
+sealed class SpacePeopleViewAction : ProgressiveViewModelAction {
     data class ChatWith(val member: RoomMemberSummary) : SpacePeopleViewAction()
     object InviteToSpace : SpacePeopleViewAction()
 }

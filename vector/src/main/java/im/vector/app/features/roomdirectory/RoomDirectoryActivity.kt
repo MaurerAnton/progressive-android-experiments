@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
 import im.vector.app.core.extensions.addFragmentToBackstack
 import im.vector.app.core.extensions.popBackstack
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.analytics.plan.ViewRoom
@@ -32,7 +32,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RoomDirectoryActivity : VectorBaseActivity<ActivitySimpleBinding>(), MatrixToBottomSheet.InteractionListener {
+class RoomDirectoryActivity : ProgressiveActivity<ActivitySimpleBinding>(), MatrixToBottomSheet.InteractionListener {
 
     @Inject lateinit var roomDirectoryViewModelFactory: RoomDirectoryViewModel.Factory
     private val roomDirectoryViewModel: RoomDirectoryViewModel by viewModel()

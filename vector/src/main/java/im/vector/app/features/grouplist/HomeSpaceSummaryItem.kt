@@ -17,8 +17,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.platform.CheckableConstraintLayout
 import im.vector.app.features.home.room.list.UnreadCounterBadgeView
@@ -26,7 +26,7 @@ import im.vector.app.features.themes.ThemeUtils
 import im.vector.lib.strings.CommonStrings
 
 @EpoxyModelClass
-abstract class HomeSpaceSummaryItem : VectorEpoxyModel<HomeSpaceSummaryItem.Holder>(R.layout.item_space) {
+abstract class HomeSpaceSummaryItem : ProgressiveEpoxyModel<HomeSpaceSummaryItem.Holder>(R.layout.item_space) {
 
     @EpoxyAttribute var text: String = ""
     @EpoxyAttribute var selected: Boolean = false
@@ -57,7 +57,7 @@ abstract class HomeSpaceSummaryItem : VectorEpoxyModel<HomeSpaceSummaryItem.Hold
         holder.bottomSeparator.isVisible = showSeparator
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarImageView by bind<ImageView>(R.id.groupAvatarImageView)
         val groupNameView by bind<TextView>(R.id.groupNameView)
         val rootView by bind<CheckableConstraintLayout>(R.id.itemGroupLayout)

@@ -18,7 +18,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.error.ErrorFormatter
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,7 +34,7 @@ class SpaceInviteBottomSheetViewModel @AssistedInject constructor(
         @Assisted private val initialState: SpaceInviteBottomSheetState,
         private val session: Session,
         private val errorFormatter: ErrorFormatter
-) : VectorViewModel<SpaceInviteBottomSheetState, SpaceInviteBottomSheetAction, SpaceInviteBottomSheetEvents>(initialState) {
+) : ProgressiveViewModel<SpaceInviteBottomSheetState, SpaceInviteBottomSheetAction, SpaceInviteBottomSheetEvents>(initialState) {
 
     init {
         session.getRoomSummary(initialState.spaceId)?.let { roomSummary ->

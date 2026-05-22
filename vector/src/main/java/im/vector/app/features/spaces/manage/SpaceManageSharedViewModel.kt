@@ -13,13 +13,13 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import org.matrix.android.sdk.api.session.Session
 
 class SpaceManageSharedViewModel @AssistedInject constructor(
         @Assisted initialState: SpaceManageViewState,
         private val session: Session
-) : VectorViewModel<SpaceManageViewState, SpaceManagedSharedAction, SpaceManagedSharedViewEvents>(initialState) {
+) : ProgressiveViewModel<SpaceManageViewState, SpaceManagedSharedAction, SpaceManagedSharedViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<SpaceManageSharedViewModel, SpaceManageViewState> {

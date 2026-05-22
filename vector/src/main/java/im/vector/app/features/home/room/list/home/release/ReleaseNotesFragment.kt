@@ -19,13 +19,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.epoxy.onClick
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.BottomSheetReleaseNotesBinding
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ReleaseNotesFragment : VectorBaseFragment<BottomSheetReleaseNotesBinding>() {
+class ReleaseNotesFragment : ProgressiveFragment<BottomSheetReleaseNotesBinding>() {
 
     @Inject lateinit var carouselController: ReleaseNotesCarouselController
     private var tabLayoutMediator: TabLayoutMediator? = null

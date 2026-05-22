@@ -97,7 +97,7 @@ import reactivecircus.flowbinding.android.view.clicks
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), MavericksView {
+abstract class ProgressiveActivity<VB : ViewBinding> : AppCompatActivity(), MavericksView {
     /* ==========================================================================================
      * Analytics
      * ========================================================================================== */
@@ -121,10 +121,10 @@ abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), Maver
     protected val viewModelProvider
         get() = ViewModelProvider(this, viewModelFactory)
 
-    fun <T : VectorViewEvents> VectorViewModel<*, *, T>.observeViewEvents(
+    fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
-        val tag = this@VectorBaseActivity::class.simpleName.toString()
+        val tag = this@ProgressiveActivity::class.simpleName.toString()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewEvents
@@ -223,7 +223,7 @@ abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), Maver
             }
         }
         pinLocker.getLiveState().observeNotNull(this) {
-            if (this@VectorBaseActivity !is UnlockedActivity && it == PinLocker.State.LOCKED) {
+            if (this@ProgressiveActivity !is UnlockedActivity && it == PinLocker.State.LOCKED) {
                 navigator.openPinCode(this, pinStartForActivityResult, PinMode.AUTH)
             }
         }
@@ -500,7 +500,7 @@ abstract class VectorBaseActivity<VB : ViewBinding> : AppCompatActivity(), Maver
     }
 
     private fun recursivelyDispatchOnBackPressed(fm: FragmentManager, fromToolbar: Boolean): Boolean {
-        val reverseOrder = fm.fragments.filterIsInstance<VectorBaseFragment<*>>().reversed()
+        val reverseOrder = fm.fragments.filterIsInstance<ProgressiveFragment<*>>().reversed()
         for (f in reverseOrder) {
             val handledByChildFragments = recursivelyDispatchOnBackPressed(f.childFragmentManager, fromToolbar)
             if (handledByChildFragments) {

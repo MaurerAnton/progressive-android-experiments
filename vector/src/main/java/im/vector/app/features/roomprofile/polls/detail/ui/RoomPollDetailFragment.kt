@@ -18,7 +18,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentRoomPollDetailBinding
 import im.vector.lib.strings.CommonStrings
 import kotlinx.parcelize.Parcelize
@@ -33,7 +33,7 @@ data class RoomPollDetailArgs(
 
 @AndroidEntryPoint
 class RoomPollDetailFragment :
-        VectorBaseFragment<FragmentRoomPollDetailBinding>(),
+        ProgressiveFragment<FragmentRoomPollDetailBinding>(),
         RoomPollDetailController.Callback {
 
     @Inject lateinit var viewNavigator: RoomPollDetailNavigator

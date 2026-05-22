@@ -20,7 +20,7 @@ import com.airbnb.mvrx.withState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.commitTransaction
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetMatrixToCardBinding
 import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.home.AvatarRenderer
@@ -32,7 +32,7 @@ import kotlin.reflect.KClass
 
 @AndroidEntryPoint
 class MatrixToBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetMatrixToCardBinding>() {
+        ProgressiveBottomSheet<BottomSheetMatrixToCardBinding>() {
 
     @Parcelize
     data class MatrixToArgs(

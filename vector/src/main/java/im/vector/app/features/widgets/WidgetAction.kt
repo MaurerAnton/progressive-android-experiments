@@ -7,9 +7,9 @@
 
 package im.vector.app.features.widgets
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class WidgetAction : VectorViewModelAction {
+sealed class WidgetAction : ProgressiveViewModelAction {
     data class OnWebViewStartedToLoad(val url: String) : WidgetAction()
     data class OnWebViewLoadingError(val url: String, val isHttpError: Boolean, val errorCode: Int, val errorDescription: String) : WidgetAction()
     data class OnWebViewLoadingSuccess(val url: String) : WidgetAction()

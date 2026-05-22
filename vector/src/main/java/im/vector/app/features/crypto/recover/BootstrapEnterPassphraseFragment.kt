@@ -16,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentBootstrapEnterPassphraseBinding
 import im.vector.app.features.settings.VectorLocaleProvider
 import im.vector.lib.core.utils.flow.throttleFirst
@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BootstrapEnterPassphraseFragment :
-        VectorBaseFragment<FragmentBootstrapEnterPassphraseBinding>() {
+        ProgressiveFragment<FragmentBootstrapEnterPassphraseBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBootstrapEnterPassphraseBinding {
         return FragmentBootstrapEnterPassphraseBinding.inflate(inflater, container, false)

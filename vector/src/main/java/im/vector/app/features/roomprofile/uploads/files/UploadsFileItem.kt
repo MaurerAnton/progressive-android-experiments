@@ -12,12 +12,12 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class UploadsFileItem : VectorEpoxyModel<UploadsFileItem.Holder>(R.layout.item_uploads_file) {
+abstract class UploadsFileItem : ProgressiveEpoxyModel<UploadsFileItem.Holder>(R.layout.item_uploads_file) {
 
     @EpoxyAttribute var title: String? = null
     @EpoxyAttribute var subtitle: String? = null
@@ -33,7 +33,7 @@ abstract class UploadsFileItem : VectorEpoxyModel<UploadsFileItem.Holder>(R.layo
         holder.shareView.setOnClickListener { listener?.onShareClicked() }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleView by bind<TextView>(R.id.uploadsFileTitle)
         val subtitleView by bind<TextView>(R.id.uploadsFileSubtitle)
         val downloadView by bind<View>(R.id.uploadsFileActionDownload)

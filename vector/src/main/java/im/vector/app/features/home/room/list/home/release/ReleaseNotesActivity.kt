@@ -12,13 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
 import im.vector.app.core.platform.ScreenOrientationLocker
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ReleaseNotesActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class ReleaseNotesActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     @Inject lateinit var orientationLocker: ScreenOrientationLocker
     @Inject lateinit var releaseNotesPreferencesStore: ReleaseNotesPreferencesStore

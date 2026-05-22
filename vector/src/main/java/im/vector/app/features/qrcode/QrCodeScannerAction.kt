@@ -7,9 +7,9 @@
 
 package im.vector.app.features.qrcode
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class QrCodeScannerAction : VectorViewModelAction {
+sealed class QrCodeScannerAction : ProgressiveViewModelAction {
     data class CodeDecoded(
             val result: String,
             val isQrCode: Boolean

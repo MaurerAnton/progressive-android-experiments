@@ -14,12 +14,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 @EpoxyModelClass
-abstract class RoomPollLoadMoreItem : VectorEpoxyModel<RoomPollLoadMoreItem.Holder>(R.layout.item_poll_load_more) {
+abstract class RoomPollLoadMoreItem : ProgressiveEpoxyModel<RoomPollLoadMoreItem.Holder>(R.layout.item_poll_load_more) {
 
     @EpoxyAttribute
     var loadingMore: Boolean = false
@@ -34,7 +34,7 @@ abstract class RoomPollLoadMoreItem : VectorEpoxyModel<RoomPollLoadMoreItem.Hold
         holder.loadMoreProgressBar.isVisible = loadingMore
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val loadMoreButton by bind<Button>(R.id.roomPollsLoadMore)
         val loadMoreProgressBar by bind<ProgressBar>(R.id.roomPollsLoadMoreProgress)
     }

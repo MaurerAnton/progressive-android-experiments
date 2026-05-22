@@ -18,7 +18,7 @@ import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.hideKeyboard
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentBootstrapEnterPassphraseBinding
 import im.vector.lib.core.utils.flow.throttleFirst
 import im.vector.lib.strings.CommonStrings
@@ -29,7 +29,7 @@ import reactivecircus.flowbinding.android.widget.textChanges
 
 @AndroidEntryPoint
 class BootstrapConfirmPassphraseFragment :
-        VectorBaseFragment<FragmentBootstrapEnterPassphraseBinding>() {
+        ProgressiveFragment<FragmentBootstrapEnterPassphraseBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBootstrapEnterPassphraseBinding {
         return FragmentBootstrapEnterPassphraseBinding.inflate(inflater, container, false)

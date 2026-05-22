@@ -16,7 +16,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class LoadingItem : VectorEpoxyModel<LoadingItem.Holder>(R.layout.item_loading) {
+abstract class LoadingItem : ProgressiveEpoxyModel<LoadingItem.Holder>(R.layout.item_loading) {
 
     @EpoxyAttribute var loadingText: String? = null
     @EpoxyAttribute var showLoader: Boolean = true
@@ -27,7 +27,7 @@ abstract class LoadingItem : VectorEpoxyModel<LoadingItem.Holder>(R.layout.item_
         holder.textView.setTextOrHide(loadingText)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.loadingText)
         val progressBar by bind<ProgressBar>(R.id.loadingProgress)
     }

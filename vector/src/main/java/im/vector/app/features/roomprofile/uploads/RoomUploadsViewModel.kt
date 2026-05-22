@@ -16,7 +16,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.voicebroadcast.isVoiceBroadcast
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
@@ -29,7 +29,7 @@ import org.matrix.android.sdk.flow.unwrap
 class RoomUploadsViewModel @AssistedInject constructor(
         @Assisted initialState: RoomUploadsViewState,
         private val session: Session
-) : VectorViewModel<RoomUploadsViewState, RoomUploadsAction, RoomUploadsViewEvents>(initialState) {
+) : ProgressiveViewModel<RoomUploadsViewState, RoomUploadsAction, RoomUploadsViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<RoomUploadsViewModel, RoomUploadsViewState> {

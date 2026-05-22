@@ -7,10 +7,10 @@
 
 package im.vector.app.features.matrixto
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.util.MatrixItem
 
-sealed class MatrixToAction : VectorViewModelAction {
+sealed class MatrixToAction : ProgressiveViewModelAction {
     data class StartChattingWithUser(val matrixItem: MatrixItem) : MatrixToAction()
     object FailedToResolveUser : MatrixToAction()
     object FailedToStartChatting : MatrixToAction()

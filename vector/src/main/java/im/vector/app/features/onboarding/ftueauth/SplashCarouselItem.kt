@@ -12,11 +12,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class SplashCarouselItem : VectorEpoxyModel<SplashCarouselItem.Holder>(R.layout.item_splash_carousel) {
+abstract class SplashCarouselItem : ProgressiveEpoxyModel<SplashCarouselItem.Holder>(R.layout.item_splash_carousel) {
 
     @EpoxyAttribute
     lateinit var item: SplashCarouselState.Item
@@ -30,7 +30,7 @@ abstract class SplashCarouselItem : VectorEpoxyModel<SplashCarouselItem.Holder>(
         holder.body.setText(item.body)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val image by bind<ImageView>(R.id.carousel_item_image)
         val title by bind<TextView>(R.id.carousel_item_title)
         val body by bind<TextView>(R.id.carousel_item_body)

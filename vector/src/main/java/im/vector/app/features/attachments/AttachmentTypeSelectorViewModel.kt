@@ -15,8 +15,8 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModel
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.VectorFeatures
 import im.vector.app.features.settings.VectorPreferences
 
@@ -24,7 +24,7 @@ class AttachmentTypeSelectorViewModel @AssistedInject constructor(
         @Assisted initialState: AttachmentTypeSelectorViewState,
         private val vectorFeatures: VectorFeatures,
         private val vectorPreferences: VectorPreferences,
-) : VectorViewModel<AttachmentTypeSelectorViewState, AttachmentTypeSelectorAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<AttachmentTypeSelectorViewState, AttachmentTypeSelectorAction, EmptyViewEvents>(initialState) {
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<AttachmentTypeSelectorViewModel, AttachmentTypeSelectorViewState> {
         override fun create(initialState: AttachmentTypeSelectorViewState): AttachmentTypeSelectorViewModel
@@ -62,6 +62,6 @@ data class AttachmentTypeSelectorViewState(
         val isTextFormattingEnabled: Boolean = false,
 ) : MavericksState
 
-sealed interface AttachmentTypeSelectorAction : VectorViewModelAction {
+sealed interface AttachmentTypeSelectorAction : ProgressiveViewModelAction {
     data class ToggleTextFormatting(val isEnabled: Boolean) : AttachmentTypeSelectorAction
 }

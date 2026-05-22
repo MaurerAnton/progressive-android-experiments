@@ -15,13 +15,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.google.android.material.textfield.TextInputLayout
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.extensions.showKeyboard
 
 @EpoxyModelClass
-abstract class SettingsEditTextItem : VectorEpoxyModel<SettingsEditTextItem.Holder>(R.layout.item_settings_edit_text) {
+abstract class SettingsEditTextItem : ProgressiveEpoxyModel<SettingsEditTextItem.Holder>(R.layout.item_settings_edit_text) {
 
     @EpoxyAttribute var hint: String? = null
     @EpoxyAttribute var value: String? = null
@@ -72,7 +72,7 @@ abstract class SettingsEditTextItem : VectorEpoxyModel<SettingsEditTextItem.Hold
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.settings_item_edit_text_description)
         val editText by bind<EditText>(R.id.settings_item_edit_text)
         val textInputLayout by bind<TextInputLayout>(R.id.settings_item_edit_text_til)

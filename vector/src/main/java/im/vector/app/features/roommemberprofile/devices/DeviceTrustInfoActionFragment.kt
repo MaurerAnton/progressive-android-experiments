@@ -15,14 +15,14 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.DimensionConverter
 import im.vector.app.databinding.BottomSheetGenericListBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class DeviceTrustInfoActionFragment :
-        VectorBaseFragment<BottomSheetGenericListBinding>(),
+        ProgressiveFragment<BottomSheetGenericListBinding>(),
         DeviceTrustInfoEpoxyController.InteractionListener {
 
     @Inject lateinit var dimensionConverter: DimensionConverter

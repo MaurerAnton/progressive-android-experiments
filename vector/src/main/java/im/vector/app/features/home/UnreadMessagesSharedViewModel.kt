@@ -18,7 +18,7 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.invite.AutoAcceptInvites
 import im.vector.app.features.settings.VectorPreferences
 import im.vector.lib.core.utils.flow.throttleFirst
@@ -52,7 +52,7 @@ class UnreadMessagesSharedViewModel @AssistedInject constructor(
         spaceStateHandler: SpaceStateHandler,
         private val autoAcceptInvites: AutoAcceptInvites
 ) :
-        VectorViewModel<UnreadMessagesState, EmptyAction, EmptyViewEvents>(initialState) {
+        ProgressiveViewModel<UnreadMessagesState, EmptyAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<UnreadMessagesSharedViewModel, UnreadMessagesState> {

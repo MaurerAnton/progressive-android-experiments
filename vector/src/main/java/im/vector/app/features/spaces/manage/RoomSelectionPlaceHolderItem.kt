@@ -9,10 +9,10 @@ package im.vector.app.features.spaces.manage
 
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class RoomSelectionPlaceHolderItem : VectorEpoxyModel<RoomSelectionPlaceHolderItem.Holder>(R.layout.item_room_to_add_in_space_placeholder) {
-    class Holder : VectorEpoxyHolder()
+abstract class RoomSelectionPlaceHolderItem : ProgressiveEpoxyModel<RoomSelectionPlaceHolderItem.Holder>(R.layout.item_room_to_add_in_space_placeholder) {
+    class Holder : ProgressiveEpoxyHolder()
 }

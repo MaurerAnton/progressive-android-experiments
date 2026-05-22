@@ -7,10 +7,10 @@
 
 package im.vector.app.features.settings.font
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.settings.FontScaleValue
 
-sealed class FontScaleSettingAction : VectorViewModelAction {
+sealed class FontScaleSettingAction : ProgressiveViewModelAction {
     data class UseSystemSettingChangedAction(val useSystemSettings: Boolean) : FontScaleSettingAction()
     data class FontScaleChangedAction(val fontScale: FontScaleValue) : FontScaleSettingAction()
 }

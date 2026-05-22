@@ -28,7 +28,7 @@ import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.intent.getFilenameFromUri
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.FragmentRoomSettingGenericBinding
@@ -50,7 +50,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomSettingsFragment :
-        VectorBaseFragment<FragmentRoomSettingGenericBinding>(),
+        ProgressiveFragment<FragmentRoomSettingGenericBinding>(),
         RoomSettingsController.Callback,
         OnBackPressed,
         GalleryOrCameraDialogHelper.Listener,

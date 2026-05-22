@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.EmojiCompatFontProvider
 import im.vector.app.R
 import im.vector.app.core.extensions.observeEvent
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.databinding.ActivityEmojiReactionPickerBinding
 import im.vector.app.features.reactions.data.EmojiDataSource
@@ -42,7 +42,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class EmojiReactionPickerActivity :
-        VectorBaseActivity<ActivityEmojiReactionPickerBinding>(),
+        ProgressiveActivity<ActivityEmojiReactionPickerBinding>(),
         EmojiCompatFontProvider.FontProviderListener,
         VectorMenuProvider {
 

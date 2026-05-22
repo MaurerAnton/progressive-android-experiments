@@ -14,7 +14,7 @@ import im.vector.app.R
 import im.vector.app.features.home.room.detail.timeline.item.ItemWithEvents
 
 @EpoxyModelClass
-abstract class TimelineEmptyItem : VectorEpoxyModel<TimelineEmptyItem.Holder>(R.layout.item_timeline_empty), ItemWithEvents {
+abstract class TimelineEmptyItem : ProgressiveEpoxyModel<TimelineEmptyItem.Holder>(R.layout.item_timeline_empty), ItemWithEvents {
 
     @EpoxyAttribute lateinit var eventId: String
     @EpoxyAttribute var notBlank: Boolean = false
@@ -33,5 +33,5 @@ abstract class TimelineEmptyItem : VectorEpoxyModel<TimelineEmptyItem.Holder>(R.
         return listOf(eventId)
     }
 
-    class Holder : VectorEpoxyHolder()
+    class Holder : ProgressiveEpoxyHolder()
 }

@@ -13,8 +13,8 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.databinding.ItemEmojiVerifBinding
 import me.gujun.android.span.Span
 import me.gujun.android.span.image
@@ -25,7 +25,7 @@ import org.matrix.android.sdk.api.session.crypto.verification.EmojiRepresentatio
  * A emoji list for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetVerificationEmojisItem : VectorEpoxyModel<BottomSheetVerificationEmojisItem.Holder>(R.layout.item_verification_emojis) {
+abstract class BottomSheetVerificationEmojisItem : ProgressiveEpoxyModel<BottomSheetVerificationEmojisItem.Holder>(R.layout.item_verification_emojis) {
 
     @EpoxyAttribute lateinit var emojiRepresentation0: EmojiRepresentation
     @EpoxyAttribute lateinit var emojiRepresentation1: EmojiRepresentation
@@ -71,7 +71,7 @@ abstract class BottomSheetVerificationEmojisItem : VectorEpoxyModel<BottomSheetV
         views.itemEmojiNameTv.setText(rep.nameResId)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val emoji0View by bind<ViewGroup>(R.id.emoji0)
         val emoji1View by bind<ViewGroup>(R.id.emoji1)
         val emoji2View by bind<ViewGroup>(R.id.emoji2)

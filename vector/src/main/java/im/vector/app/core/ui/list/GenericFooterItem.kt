@@ -13,8 +13,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.themes.ThemeUtils
@@ -27,7 +27,7 @@ import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
  * If provided with an action, will display a button at the bottom of the list item.
  */
 @EpoxyModelClass
-abstract class GenericFooterItem : VectorEpoxyModel<GenericFooterItem.Holder>(R.layout.item_generic_footer) {
+abstract class GenericFooterItem : ProgressiveEpoxyModel<GenericFooterItem.Holder>(R.layout.item_generic_footer) {
 
     @EpoxyAttribute
     var text: EpoxyCharSequence? = null
@@ -62,7 +62,7 @@ abstract class GenericFooterItem : VectorEpoxyModel<GenericFooterItem.Holder>(R.
         holder.view.onClick(itemClickAction)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val text by bind<TextView>(R.id.itemGenericFooterText)
     }
 }

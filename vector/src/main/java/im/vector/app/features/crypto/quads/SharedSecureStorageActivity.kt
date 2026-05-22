@@ -23,7 +23,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.replaceFragment
 import im.vector.app.core.platform.SimpleFragmentActivity
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.features.crypto.recover.SetupMode
 import im.vector.lib.strings.CommonStrings
 import kotlinx.parcelize.Parcelize
@@ -32,7 +32,7 @@ import kotlin.reflect.KClass
 @AndroidEntryPoint
 class SharedSecureStorageActivity :
         SimpleFragmentActivity(),
-        VectorBaseBottomSheetDialogFragment.ResultListener,
+        ProgressiveBottomSheet.ResultListener,
         FragmentOnAttachListener {
 
     @Parcelize
@@ -120,7 +120,7 @@ class SharedSecureStorageActivity :
     }
 
     override fun onAttachFragment(fragmentManager: FragmentManager, fragment: Fragment) {
-        if (fragment is VectorBaseBottomSheetDialogFragment<*>) {
+        if (fragment is ProgressiveBottomSheet<*>) {
             fragment.resultListener = this
         }
     }
@@ -185,7 +185,7 @@ class SharedSecureStorageActivity :
     }
 
     override fun onBottomSheetResult(resultCode: Int, data: Any?) {
-        if (resultCode == VectorBaseBottomSheetDialogFragment.ResultListener.RESULT_OK) {
+        if (resultCode == ProgressiveBottomSheet.ResultListener.RESULT_OK) {
             // the 4S has been reset
             setResult(Activity.RESULT_OK, Intent().apply { putExtra(EXTRA_DATA_RESET, true) })
             finish()

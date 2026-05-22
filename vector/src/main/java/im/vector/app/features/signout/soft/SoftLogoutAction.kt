@@ -7,10 +7,10 @@
 
 package im.vector.app.features.signout.soft
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.auth.data.Credentials
 
-sealed class SoftLogoutAction : VectorViewModelAction {
+sealed class SoftLogoutAction : ProgressiveViewModelAction {
     // In case of failure to get the login flow
     object RetryLoginFlow : SoftLogoutAction()
 

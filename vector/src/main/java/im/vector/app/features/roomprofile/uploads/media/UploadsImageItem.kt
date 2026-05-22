@@ -13,13 +13,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.media.ImageContentRenderer
 
 @EpoxyModelClass
-abstract class UploadsImageItem : VectorEpoxyModel<UploadsImageItem.Holder>(R.layout.item_uploads_image) {
+abstract class UploadsImageItem : ProgressiveEpoxyModel<UploadsImageItem.Holder>(R.layout.item_uploads_image) {
 
     @EpoxyAttribute lateinit var imageContentRenderer: ImageContentRenderer
     @EpoxyAttribute lateinit var data: ImageContentRenderer.Data
@@ -32,7 +32,7 @@ abstract class UploadsImageItem : VectorEpoxyModel<UploadsImageItem.Holder>(R.la
         ViewCompat.setTransitionName(holder.imageView, "imagePreview_${id()}")
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val imageView by bind<ImageView>(R.id.uploadsImagePreview)
     }
 }

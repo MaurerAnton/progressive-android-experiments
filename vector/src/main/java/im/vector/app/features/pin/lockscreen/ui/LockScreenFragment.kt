@@ -19,7 +19,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.hardware.vibrate
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentLockScreenBinding
 import im.vector.app.features.pin.lockscreen.configuration.LockScreenConfiguration
 import im.vector.app.features.pin.lockscreen.configuration.LockScreenMode
@@ -27,7 +27,7 @@ import im.vector.app.features.pin.lockscreen.views.LockScreenCodeView
 
 @AndroidEntryPoint
 class LockScreenFragment :
-        VectorBaseFragment<FragmentLockScreenBinding>() {
+        ProgressiveFragment<FragmentLockScreenBinding>() {
 
     var lockScreenListener: LockScreenListener? = null
     var onLeftButtonClickedListener: View.OnClickListener? = null

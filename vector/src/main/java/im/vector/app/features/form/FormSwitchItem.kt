@@ -12,13 +12,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.google.android.material.switchmaterial.SwitchMaterial
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.setValueOnce
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class FormSwitchItem : VectorEpoxyModel<FormSwitchItem.Holder>(R.layout.item_form_switch) {
+abstract class FormSwitchItem : ProgressiveEpoxyModel<FormSwitchItem.Holder>(R.layout.item_form_switch) {
 
     @EpoxyAttribute
     var listener: ((Boolean) -> Unit)? = null
@@ -63,7 +63,7 @@ abstract class FormSwitchItem : VectorEpoxyModel<FormSwitchItem.Holder>(R.layout
         holder.switchView.setOnCheckedChangeListener(null)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleView by bind<TextView>(R.id.formSwitchTitle)
         val summaryView by bind<TextView>(R.id.formSwitchSummary)
         val switchView by bind<SwitchMaterial>(R.id.formSwitchSwitch)

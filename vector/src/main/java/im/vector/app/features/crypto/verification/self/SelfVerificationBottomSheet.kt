@@ -25,7 +25,7 @@ import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.singletonEntryPoint
 import im.vector.app.core.extensions.toMvRxBundle
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetVerificationBinding
 import im.vector.app.features.crypto.quads.SharedSecureStorageActivity
 import im.vector.app.features.crypto.quads.SharedSecureStorageViewState
@@ -40,7 +40,7 @@ import org.matrix.android.sdk.api.session.crypto.crosssigning.SELF_SIGNING_KEY_S
 import org.matrix.android.sdk.api.session.crypto.crosssigning.USER_SIGNING_KEY_SSSS_NAME
 import kotlin.reflect.KClass
 
-class SelfVerificationBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetVerificationBinding>() {
+class SelfVerificationBottomSheet : ProgressiveBottomSheet<BottomSheetVerificationBinding>() {
 
     override val showExpanded = true
 
@@ -181,7 +181,7 @@ class SelfVerificationBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSh
 //                }
 //                VerificationBottomSheetViewEvents.GoToSettings -> {
 //                    dismiss()
-//                    (activity as? VectorBaseActivity<*>)?.let { activity ->
+//                    (activity as? ProgressiveActivity<*>)?.let { activity ->
 //                        activity.navigator.openSettings(activity, VectorSettingsActivity.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY)
 //                    }
 //                }

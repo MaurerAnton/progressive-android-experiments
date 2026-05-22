@@ -7,9 +7,9 @@
 
 package im.vector.app.features.location.preview
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class LocationPreviewAction : VectorViewModelAction {
+sealed class LocationPreviewAction : ProgressiveViewModelAction {
     object ShowMapLoadingError : LocationPreviewAction()
     object ZoomToUserLocation : LocationPreviewAction()
 }

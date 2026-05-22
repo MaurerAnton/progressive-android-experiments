@@ -14,7 +14,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.extensions.toggle
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.attachments.isPreviewable
 import im.vector.app.features.attachments.toGroupedContentAttachmentData
 import im.vector.app.features.home.room.list.BreadcrumbsRoomComparator
@@ -36,7 +36,7 @@ class IncomingShareViewModel @AssistedInject constructor(
         private val session: Session,
         private val breadcrumbsRoomComparator: BreadcrumbsRoomComparator
 ) :
-        VectorViewModel<IncomingShareViewState, IncomingShareAction, IncomingShareViewEvents>(initialState) {
+        ProgressiveViewModel<IncomingShareViewState, IncomingShareAction, IncomingShareViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<IncomingShareViewModel, IncomingShareViewState> {

@@ -15,12 +15,12 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.home.room.detail.timeline.action.TimelineEventFragmentArgs
 import kotlinx.coroutines.flow.map
 import org.matrix.android.sdk.api.session.Session
@@ -53,8 +53,8 @@ data class ReactionInfo(
 class ViewReactionsViewModel @AssistedInject constructor(
         @Assisted initialState: DisplayReactionsViewState,
         session: Session,
-        private val dateFormatter: VectorDateFormatter
-) : VectorViewModel<DisplayReactionsViewState, EmptyAction, EmptyViewEvents>(initialState) {
+        private val dateFormatter: ProgressiveDateFormatter
+) : ProgressiveViewModel<DisplayReactionsViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     private val roomId = initialState.roomId
     private val eventId = initialState.eventId

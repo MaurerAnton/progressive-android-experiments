@@ -19,14 +19,14 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.commitTransaction
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetWithFragmentsBinding
 import kotlinx.parcelize.Parcelize
 import kotlin.reflect.KClass
 
 @AndroidEntryPoint
 class DeviceListBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetWithFragmentsBinding>() {
+        ProgressiveBottomSheet<BottomSheetWithFragmentsBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): BottomSheetWithFragmentsBinding {
         return BottomSheetWithFragmentsBinding.inflate(inflater, container, false)

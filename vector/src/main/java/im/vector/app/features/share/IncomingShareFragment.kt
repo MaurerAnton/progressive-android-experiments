@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentIncomingShareBinding
 import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.attachments.ShareIntentHandler
@@ -40,7 +40,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class IncomingShareFragment :
-        VectorBaseFragment<FragmentIncomingShareBinding>(),
+        ProgressiveFragment<FragmentIncomingShareBinding>(),
         IncomingShareController.Callback {
 
     @Inject lateinit var incomingShareController: IncomingShareController

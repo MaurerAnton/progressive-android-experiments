@@ -7,9 +7,9 @@
 
 package im.vector.app.features.spaces
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SpaceLeaveViewAction : VectorViewModelAction {
+sealed class SpaceLeaveViewAction : ProgressiveViewModelAction {
     object SetAutoLeaveAll : SpaceLeaveViewAction()
     object SetAutoLeaveNone : SpaceLeaveViewAction()
     object SetAutoLeaveSelected : SpaceLeaveViewAction()

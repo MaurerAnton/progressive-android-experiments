@@ -11,12 +11,12 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class LoginTitleSmallItem : VectorEpoxyModel<LoginTitleSmallItem.Holder>(R.layout.item_login_title_small) {
+abstract class LoginTitleSmallItem : ProgressiveEpoxyModel<LoginTitleSmallItem.Holder>(R.layout.item_login_title_small) {
 
     @EpoxyAttribute var text: String? = null
 
@@ -26,7 +26,7 @@ abstract class LoginTitleSmallItem : VectorEpoxyModel<LoginTitleSmallItem.Holder
         holder.textView.setTextOrHide(text)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.itemLoginTitleSmallText)
     }
 }

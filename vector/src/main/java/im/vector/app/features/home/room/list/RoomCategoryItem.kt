@@ -15,13 +15,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.themes.ThemeUtils
 
 @EpoxyModelClass
-abstract class RoomCategoryItem : VectorEpoxyModel<RoomCategoryItem.Holder>(R.layout.item_room_category) {
+abstract class RoomCategoryItem : ProgressiveEpoxyModel<RoomCategoryItem.Holder>(R.layout.item_room_category) {
 
     @EpoxyAttribute lateinit var title: String
     @EpoxyAttribute var itemCount: Int = 0
@@ -44,7 +44,7 @@ abstract class RoomCategoryItem : VectorEpoxyModel<RoomCategoryItem.Holder>(R.la
         holder.rootView.onClick(listener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val unreadCounterBadgeView by bind<UnreadCounterBadgeView>(R.id.roomCategoryUnreadCounterBadgeView)
         val titleView by bind<TextView>(R.id.roomCategoryTitleView)
         val counterView by bind<TextView>(R.id.roomCategoryCounterView)

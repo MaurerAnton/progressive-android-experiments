@@ -7,9 +7,9 @@
 
 package im.vector.app.features.settings.locale
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import java.util.Locale
 
-sealed class LocalePickerAction : VectorViewModelAction {
+sealed class LocalePickerAction : ProgressiveViewModelAction {
     data class SelectLocale(val locale: Locale) : LocalePickerAction()
 }

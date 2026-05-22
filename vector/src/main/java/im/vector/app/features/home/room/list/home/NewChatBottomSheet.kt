@@ -13,13 +13,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.FragmentNewChatBottomSheetBinding
 import im.vector.app.features.navigation.Navigator
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NewChatBottomSheet : VectorBaseBottomSheetDialogFragment<FragmentNewChatBottomSheetBinding>() {
+class NewChatBottomSheet : ProgressiveBottomSheet<FragmentNewChatBottomSheetBinding>() {
 
     @Inject lateinit var navigator: Navigator
 

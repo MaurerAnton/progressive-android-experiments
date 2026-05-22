@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.LiveEvent
 import im.vector.app.databinding.FragmentKeysBackupRestoreSuccessBinding
 import im.vector.lib.strings.CommonPlurals
@@ -20,7 +20,7 @@ import im.vector.lib.strings.CommonStrings
 
 @AndroidEntryPoint
 class KeysBackupRestoreSuccessFragment :
-        VectorBaseFragment<FragmentKeysBackupRestoreSuccessBinding>() {
+        ProgressiveFragment<FragmentKeysBackupRestoreSuccessBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentKeysBackupRestoreSuccessBinding {
         return FragmentKeysBackupRestoreSuccessBinding.inflate(inflater, container, false)

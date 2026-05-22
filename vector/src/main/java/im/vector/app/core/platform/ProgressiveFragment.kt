@@ -50,7 +50,7 @@ import kotlinx.coroutines.launch
 import reactivecircus.flowbinding.android.view.clicks
 import timber.log.Timber
 
-abstract class VectorBaseFragment<VB : ViewBinding> : Fragment(), MavericksView {
+abstract class ProgressiveFragment<VB : ViewBinding> : Fragment(), MavericksView {
     /* ==========================================================================================
      * Analytics
      * ========================================================================================== */
@@ -63,8 +63,8 @@ abstract class VectorBaseFragment<VB : ViewBinding> : Fragment(), MavericksView 
      * Activity
      * ========================================================================================== */
 
-    protected val vectorBaseActivity: VectorBaseActivity<*> by lazy {
-        activity as VectorBaseActivity<*>
+    protected val vectorBaseActivity: ProgressiveActivity<*> by lazy {
+        activity as ProgressiveActivity<*>
     }
 
     /* ==========================================================================================
@@ -81,7 +81,7 @@ abstract class VectorBaseFragment<VB : ViewBinding> : Fragment(), MavericksView 
      * [ToolbarConfig] instance from host activity.
      * */
     protected var toolbar: ToolbarConfig? = null
-        get() = (activity as? VectorBaseActivity<*>)?.toolbar
+        get() = (activity as? ProgressiveActivity<*>)?.toolbar
         private set
     /* ==========================================================================================
      * View model
@@ -266,10 +266,10 @@ abstract class VectorBaseFragment<VB : ViewBinding> : Fragment(), MavericksView 
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> VectorViewModel<*, *, T>.observeViewEvents(
+    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
-        val tag = this@VectorBaseFragment::class.simpleName.toString()
+        val tag = this@ProgressiveFragment::class.simpleName.toString()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewEvents

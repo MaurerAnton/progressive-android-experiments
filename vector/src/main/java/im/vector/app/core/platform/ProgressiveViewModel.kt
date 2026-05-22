@@ -12,7 +12,7 @@ import com.airbnb.mvrx.MavericksViewModel
 import im.vector.app.core.utils.EventQueue
 import im.vector.app.core.utils.SharedEvents
 
-abstract class VectorViewModel<S : MavericksState, VA : VectorViewModelAction, VE : VectorViewEvents>(initialState: S) :
+abstract class ProgressiveViewModel<S : MavericksState, VA : ProgressiveViewModelAction, VE : VectorViewEvents>(initialState: S) :
         MavericksViewModel<S>(initialState) {
 
     // Used to post transient events to the View

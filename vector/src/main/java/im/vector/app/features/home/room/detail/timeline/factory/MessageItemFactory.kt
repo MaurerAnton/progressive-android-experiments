@@ -18,7 +18,7 @@ import android.view.View
 import dagger.Lazy
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.getVectorLastMessageContent
 import im.vector.app.core.files.LocalFilesHelper
 import im.vector.app.core.resources.ColorProvider
@@ -154,7 +154,7 @@ class MessageItemFactory @Inject constructor(
     private val useRichTextEditorStyle: Boolean
         get() = vectorPreferences.isRichTextEditorEnabled()
 
-    fun create(params: TimelineItemFactoryParams): VectorEpoxyModel<*>? {
+    fun create(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*>? {
         val event = params.event
         val highlight = params.isHighlighted
         val callback = params.callback
@@ -599,7 +599,7 @@ class MessageItemFactory @Inject constructor(
             highlight: Boolean,
             callback: TimelineEventController.Callback?,
             attributes: AbsMessageItem.Attributes,
-    ): VectorEpoxyModel<*>? {
+    ): ProgressiveEpoxyModel<*>? {
         val matrixFormattedBody = messageContent.matrixFormattedBody
         return if (matrixFormattedBody != null) {
             val replyToContent = messageContent.relatesTo?.inReplyTo

@@ -7,9 +7,9 @@
 
 package im.vector.app.features.home
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class HomeDetailAction : VectorViewModelAction {
+sealed class HomeDetailAction : ProgressiveViewModelAction {
     data class SwitchTab(val tab: HomeTab) : HomeDetailAction()
     object MarkAllRoomsRead : HomeDetailAction()
     data class StartCallWithPhoneNumber(val phoneNumber: String) : HomeDetailAction()

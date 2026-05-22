@@ -7,9 +7,9 @@
 
 package im.vector.app.features.media
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import java.io.File
 
-sealed class VectorAttachmentViewerAction : VectorViewModelAction {
+sealed class VectorAttachmentViewerAction : ProgressiveViewModelAction {
     data class DownloadMedia(val file: File) : VectorAttachmentViewerAction()
 }

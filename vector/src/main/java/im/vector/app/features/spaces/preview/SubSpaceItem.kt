@@ -12,13 +12,13 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class SubSpaceItem : VectorEpoxyModel<SubSpaceItem.Holder>(R.layout.item_space_subspace) {
+abstract class SubSpaceItem : ProgressiveEpoxyModel<SubSpaceItem.Holder>(R.layout.item_space_subspace) {
 
     @EpoxyAttribute
     lateinit var roomId: String
@@ -51,7 +51,7 @@ abstract class SubSpaceItem : VectorEpoxyModel<SubSpaceItem.Holder>(R.layout.ite
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarImageView by bind<ImageView>(R.id.childSpaceAvatar)
         val nameText by bind<TextView>(R.id.childSpaceName)
         val tabView by bind<SpaceTabView>(R.id.childSpaceTab)

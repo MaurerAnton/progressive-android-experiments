@@ -7,9 +7,9 @@
 
 package im.vector.app.features.workers.signout
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface ServerBackupStatusAction : VectorViewModelAction {
+sealed interface ServerBackupStatusAction : ProgressiveViewModelAction {
     data class OnRecoverDoneForVersion(val version: String) : ServerBackupStatusAction
     object OnBannerDisplayed : ServerBackupStatusAction
     object OnBannerClosed : ServerBackupStatusAction

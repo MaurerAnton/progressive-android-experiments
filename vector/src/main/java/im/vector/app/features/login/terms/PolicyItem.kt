@@ -14,13 +14,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setHorizontalPadding
 
 @EpoxyModelClass
-abstract class PolicyItem : VectorEpoxyModel<PolicyItem.Holder>(R.layout.item_policy) {
+abstract class PolicyItem : ProgressiveEpoxyModel<PolicyItem.Holder>(R.layout.item_policy) {
     @EpoxyAttribute
     var checked: Boolean = false
 
@@ -55,7 +55,7 @@ abstract class PolicyItem : VectorEpoxyModel<PolicyItem.Holder>(R.layout.item_po
         holder.checkbox.setOnCheckedChangeListener(null)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val checkbox by bind<CheckBox>(R.id.adapter_item_policy_checkbox)
         val title by bind<TextView>(R.id.adapter_item_policy_title)
         val subtitle by bind<TextView>(R.id.adapter_item_policy_subtitle)

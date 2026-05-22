@@ -17,7 +17,7 @@ import com.airbnb.mvrx.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
 import im.vector.app.core.extensions.addFragmentToBackstack
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.home.room.detail.RoomDetailPendingActionStore
 import im.vector.app.features.room.RequireActiveMembershipViewEvents
@@ -37,7 +37,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomProfileActivity :
-        VectorBaseActivity<ActivitySimpleBinding>() {
+        ProgressiveActivity<ActivitySimpleBinding>() {
 
     companion object {
 

@@ -22,7 +22,7 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.SingletonEntryPoint
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.extensions.hasUnsavedKeys
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.displayname.getBestName
 import im.vector.app.features.login.LoginMode
 import im.vector.app.features.login.toSsoState
@@ -40,7 +40,7 @@ class SoftLogoutViewModel @AssistedInject constructor(
         private val session: Session,
         private val activeSessionHolder: ActiveSessionHolder,
         private val authenticationService: AuthenticationService
-) : VectorViewModel<SoftLogoutViewState, SoftLogoutAction, SoftLogoutViewEvents>(initialState) {
+) : ProgressiveViewModel<SoftLogoutViewState, SoftLogoutAction, SoftLogoutViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<SoftLogoutViewModel, SoftLogoutViewState> {

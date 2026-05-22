@@ -17,7 +17,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.extensions.toggle
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.discovery.fetchIdentityServerWithTerms
 import im.vector.app.features.raw.wellknown.getElementWellknown
@@ -54,7 +54,7 @@ class UserListViewModel @AssistedInject constructor(
         private val stringProvider: StringProvider,
         private val rawService: RawService,
         private val session: Session
-) : VectorViewModel<UserListViewState, UserListAction, UserListViewEvents>(initialState) {
+) : ProgressiveViewModel<UserListViewState, UserListAction, UserListViewEvents>(initialState) {
 
     private val knownUsersSearch = MutableStateFlow("")
     private val directoryUsersSearch = MutableStateFlow("")

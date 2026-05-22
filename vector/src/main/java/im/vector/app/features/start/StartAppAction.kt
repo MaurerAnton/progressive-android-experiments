@@ -7,8 +7,8 @@
 
 package im.vector.app.features.start
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface StartAppAction : VectorViewModelAction {
+sealed interface StartAppAction : ProgressiveViewModelAction {
     object StartApp : StartAppAction
 }

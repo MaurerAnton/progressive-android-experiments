@@ -19,8 +19,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.google.android.material.switchmaterial.SwitchMaterial
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.attributes.ButtonStyle
 import im.vector.app.core.epoxy.attributes.ButtonType
 import im.vector.app.core.epoxy.attributes.IconMode
@@ -31,7 +31,7 @@ import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.themes.ThemeUtils
 
 @EpoxyModelClass
-abstract class SettingsTextButtonSingleLineItem : VectorEpoxyModel<SettingsTextButtonSingleLineItem.Holder>(R.layout.item_settings_button_single_line) {
+abstract class SettingsTextButtonSingleLineItem : ProgressiveEpoxyModel<SettingsTextButtonSingleLineItem.Holder>(R.layout.item_settings_button_single_line) {
 
     @EpoxyAttribute
     lateinit var colorProvider: ColorProvider
@@ -147,7 +147,7 @@ abstract class SettingsTextButtonSingleLineItem : VectorEpoxyModel<SettingsTextB
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.settings_item_text)
         val mainButton by bind<Button>(R.id.settings_item_button)
         val switchButton by bind<SwitchMaterial>(R.id.settings_item_switch)

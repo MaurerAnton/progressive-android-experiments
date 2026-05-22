@@ -16,7 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentKeysBackupSettingsBinding
 import im.vector.app.features.crypto.keysbackup.restore.KeysBackupRestoreActivity
 import im.vector.lib.strings.CommonStrings
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class KeysBackupSettingsFragment :
-        VectorBaseFragment<FragmentKeysBackupSettingsBinding>(),
+        ProgressiveFragment<FragmentKeysBackupSettingsBinding>(),
         KeysBackupSettingsRecyclerViewController.Listener {
 
     @Inject lateinit var keysBackupSettingsRecyclerViewController: KeysBackupSettingsRecyclerViewController

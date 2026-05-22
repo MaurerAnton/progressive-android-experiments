@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSpaceRestrictedSelectBinding
 import im.vector.app.features.home.AvatarRenderer
 import kotlinx.coroutines.flow.debounce
@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomJoinRuleChooseRestrictedFragment :
-        VectorBaseFragment<FragmentSpaceRestrictedSelectBinding>(),
+        ProgressiveFragment<FragmentSpaceRestrictedSelectBinding>(),
         ChooseRestrictedController.Listener,
         OnBackPressed {
 

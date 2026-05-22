@@ -15,7 +15,7 @@ import dagger.hilt.EntryPoints
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.SingletonEntryPoint
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.utils.ensureProtocol
 import im.vector.lib.strings.CommonStrings
@@ -31,7 +31,7 @@ class SetIdentityServerViewModel @AssistedInject constructor(
         private val mxSession: Session,
         stringProvider: StringProvider
 ) :
-        VectorViewModel<SetIdentityServerState, SetIdentityServerAction, SetIdentityServerViewEvents>(initialState) {
+        ProgressiveViewModel<SetIdentityServerState, SetIdentityServerAction, SetIdentityServerViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<SetIdentityServerViewModel, SetIdentityServerState> {

@@ -25,7 +25,7 @@ import im.vector.app.core.extensions.endKeepScreenOn
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.keepScreenOn
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityRoomDetailBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.analytics.plan.MobileScreen
@@ -45,7 +45,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomDetailActivity :
-        VectorBaseActivity<ActivityRoomDetailBinding>(),
+        ProgressiveActivity<ActivityRoomDetailBinding>(),
         MatrixToBottomSheet.InteractionListener {
 
     override fun getBinding(): ActivityRoomDetailBinding {

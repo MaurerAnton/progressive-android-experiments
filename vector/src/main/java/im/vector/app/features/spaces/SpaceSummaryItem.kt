@@ -18,8 +18,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.platform.CheckableConstraintLayout
@@ -28,7 +28,7 @@ import im.vector.app.features.home.room.list.UnreadCounterBadgeView
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class SpaceSummaryItem : VectorEpoxyModel<SpaceSummaryItem.Holder>(R.layout.item_space) {
+abstract class SpaceSummaryItem : ProgressiveEpoxyModel<SpaceSummaryItem.Holder>(R.layout.item_space) {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
@@ -78,7 +78,7 @@ abstract class SpaceSummaryItem : VectorEpoxyModel<SpaceSummaryItem.Holder>(R.la
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarImageView by bind<ImageView>(R.id.groupAvatarImageView)
         val groupNameView by bind<TextView>(R.id.groupNameView)
         val secondLineText by bind<TextView>(R.id.groupDescView)

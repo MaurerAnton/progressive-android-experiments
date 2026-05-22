@@ -16,7 +16,7 @@ import com.airbnb.mvrx.fragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentInvitesBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.analytics.plan.ViewRoom
@@ -29,7 +29,7 @@ import org.matrix.android.sdk.api.session.room.model.SpaceChildInfo
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InvitesFragment : VectorBaseFragment<FragmentInvitesBinding>(), RoomListListener {
+class InvitesFragment : ProgressiveFragment<FragmentInvitesBinding>(), RoomListListener {
 
     @Inject lateinit var controller: InvitesController
     @Inject lateinit var notificationDrawerManager: NotificationDrawerManager

@@ -15,7 +15,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.DimensionConverter
 import im.vector.app.databinding.BottomSheetGenericListBinding
 import org.matrix.android.sdk.api.session.crypto.model.CryptoDeviceInfo
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DeviceListFragment :
-        VectorBaseFragment<BottomSheetGenericListBinding>(),
+        ProgressiveFragment<BottomSheetGenericListBinding>(),
         DeviceListEpoxyController.InteractionListener {
 
     @Inject lateinit var dimensionConverter: DimensionConverter

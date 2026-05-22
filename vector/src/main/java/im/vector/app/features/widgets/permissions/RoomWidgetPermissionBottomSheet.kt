@@ -17,7 +17,7 @@ import android.view.ViewGroup
 import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetRoomWidgetPermissionBinding
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.widgets.WidgetArgs
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomWidgetPermissionBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetRoomWidgetPermissionBinding>() {
+        ProgressiveBottomSheet<BottomSheetRoomWidgetPermissionBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): BottomSheetRoomWidgetPermissionBinding {
         return BottomSheetRoomWidgetPermissionBinding.inflate(inflater, container, false)

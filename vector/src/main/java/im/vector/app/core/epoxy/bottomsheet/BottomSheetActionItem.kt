@@ -21,8 +21,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.themes.ThemeUtils
 
@@ -30,7 +30,7 @@ import im.vector.app.features.themes.ThemeUtils
  * A action for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetActionItem : VectorEpoxyModel<BottomSheetActionItem.Holder>(R.layout.item_bottom_sheet_action) {
+abstract class BottomSheetActionItem : ProgressiveEpoxyModel<BottomSheetActionItem.Holder>(R.layout.item_bottom_sheet_action) {
 
     @EpoxyAttribute
     @DrawableRes
@@ -102,7 +102,7 @@ abstract class BottomSheetActionItem : VectorEpoxyModel<BottomSheetActionItem.Ho
         holder.betaLabel.isVisible = showBetaLabel
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val startSpace by bind<View>(R.id.actionStartSpace)
         val icon by bind<ImageView>(R.id.actionIcon)
         val text by bind<TextView>(R.id.actionTitle)

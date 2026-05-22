@@ -7,10 +7,10 @@
 
 package im.vector.app.features.settings.devices.v2
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.crypto.model.CryptoDeviceInfo
 
-sealed class DevicesAction : VectorViewModelAction {
+sealed class DevicesAction : ProgressiveViewModelAction {
     // ReAuth
     object SsoAuthDone : DevicesAction()
     data class PasswordAuthDone(val password: String) : DevicesAction()

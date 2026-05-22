@@ -8,7 +8,7 @@ package im.vector.app.features.crypto.verification
 
 import android.content.Context
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.displayname.getBestName
 import im.vector.app.features.home.AvatarRenderer
@@ -95,7 +95,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
 //                        context.getString(CommonStrings.sas_incoming_request_notif_content, name),
 //                        R.drawable.ic_shield_black,
 //                        shouldBeDisplayedIn = { activity ->
-//                            if (activity is VectorBaseActivity<*>) {
+//                            if (activity is ProgressiveActivity<*>) {
 //                                // TODO a bit too ugly :/
 //                                activity.supportFragmentManager.findFragmentByTag(VerificationBottomSheet.WAITING_SELF_VERIF_TAG)?.let {
 //                                    false.also {
@@ -108,7 +108,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
 //                        .apply {
 //                            viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer.get())
 //                            contentAction = Runnable {
-//                                (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let {
+//                                (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
 //                                    it.navigator.performDeviceVerification(it, tx.otherUserId, tx.transactionId)
 //                                }
 //                            }
@@ -124,7 +124,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
 //                            addButton(
 //                                    context.getString(CommonStrings.action_open),
 //                                    {
-//                                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let {
+//                                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
 //                                            it.navigator.performDeviceVerification(it, tx.otherUserId, tx.transactionId)
 //                                        }
 //                                    }
@@ -176,7 +176,7 @@ class IncomingVerificationRequestHandler @Inject constructor(
                         viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer.get())
                         contentAction = Runnable {
                             cancelAnyVerifySessionAlerts(pr)
-                            (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let {
+                            (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
                                 val roomId = pr.roomId
                                 if (roomId.isNullOrBlank()) {
                                     if (pr.otherUserId == session?.myUserId) {

@@ -11,14 +11,14 @@ import androidx.core.view.updateLayoutParams
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 /**
  * A generic item with empty space.
  */
 @EpoxyModelClass
-abstract class VerticalMarginItem : VectorEpoxyModel<VerticalMarginItem.Holder>(R.layout.item_vertical_margin) {
+abstract class VerticalMarginItem : ProgressiveEpoxyModel<VerticalMarginItem.Holder>(R.layout.item_vertical_margin) {
 
     @EpoxyAttribute
     var heightInPx: Int = 0
@@ -30,7 +30,7 @@ abstract class VerticalMarginItem : VectorEpoxyModel<VerticalMarginItem.Holder>(
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val space by bind<View>(R.id.item_vertical_margin_space)
     }
 }

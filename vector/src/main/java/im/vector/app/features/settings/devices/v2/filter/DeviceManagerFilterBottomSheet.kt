@@ -15,8 +15,8 @@ import android.view.ViewGroup
 import com.airbnb.mvrx.args
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment.ResultListener.Companion.RESULT_OK
+import im.vector.app.core.platform.ProgressiveBottomSheet
+import im.vector.app.core.platform.ProgressiveBottomSheet.ResultListener.Companion.RESULT_OK
 import im.vector.app.databinding.BottomSheetDeviceManagerFilterBinding
 import im.vector.app.features.settings.devices.v2.list.SESSION_IS_MARKED_AS_INACTIVE_AFTER_DAYS
 import im.vector.lib.strings.CommonPlurals
@@ -28,7 +28,7 @@ data class DeviceManagerFilterBottomSheetArgs(
 ) : Parcelable
 
 @AndroidEntryPoint
-class DeviceManagerFilterBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetDeviceManagerFilterBinding>() {
+class DeviceManagerFilterBottomSheet : ProgressiveBottomSheet<BottomSheetDeviceManagerFilterBinding>() {
 
     private val args: DeviceManagerFilterBottomSheetArgs by args()
 

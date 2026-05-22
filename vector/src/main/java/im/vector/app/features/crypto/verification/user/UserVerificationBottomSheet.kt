@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.core.extensions.toMvRxBundle
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.core.utils.colorizeMatchingText
 import im.vector.app.databinding.BottomSheetVerificationBinding
 import im.vector.app.features.crypto.verification.VerificationAction
@@ -41,7 +41,7 @@ import kotlin.reflect.KClass
  * Specific to other users verification (not self verification).
  */
 @AndroidEntryPoint
-class UserVerificationBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetVerificationBinding>() {
+class UserVerificationBottomSheet : ProgressiveBottomSheet<BottomSheetVerificationBinding>() {
     @Parcelize
     data class Args(
             val otherUserId: String,

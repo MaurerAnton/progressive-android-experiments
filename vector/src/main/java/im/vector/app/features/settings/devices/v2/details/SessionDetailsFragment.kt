@@ -20,7 +20,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.showOptimizedSnackbar
 import im.vector.app.databinding.FragmentSessionDetailsBinding
 import im.vector.app.features.settings.devices.v2.DeviceFullInfo
@@ -32,7 +32,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SessionDetailsFragment :
-        VectorBaseFragment<FragmentSessionDetailsBinding>() {
+        ProgressiveFragment<FragmentSessionDetailsBinding>() {
 
     @Inject lateinit var sessionDetailsController: SessionDetailsController
 

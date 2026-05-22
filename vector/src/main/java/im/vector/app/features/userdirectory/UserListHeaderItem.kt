@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class UserListHeaderItem : VectorEpoxyModel<UserListHeaderItem.Holder>(R.layout.item_user_list_header) {
+abstract class UserListHeaderItem : ProgressiveEpoxyModel<UserListHeaderItem.Holder>(R.layout.item_user_list_header) {
 
     @EpoxyAttribute var header: String = ""
 
@@ -24,7 +24,7 @@ abstract class UserListHeaderItem : VectorEpoxyModel<UserListHeaderItem.Holder>(
         holder.headerTextView.text = header
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val headerTextView by bind<TextView>(R.id.userListHeaderView)
     }
 }

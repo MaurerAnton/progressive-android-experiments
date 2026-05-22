@@ -26,9 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.setTextColor
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment.ResultListener.Companion.RESULT_OK
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
+import im.vector.app.core.platform.ProgressiveBottomSheet.ResultListener.Companion.RESULT_OK
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.resources.StringProvider
@@ -50,8 +50,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OtherSessionsFragment :
-        VectorBaseFragment<FragmentOtherSessionsBinding>(),
-        VectorBaseBottomSheetDialogFragment.ResultListener,
+        ProgressiveFragment<FragmentOtherSessionsBinding>(),
+        ProgressiveBottomSheet.ResultListener,
         OtherSessionsView.Callback,
         VectorMenuProvider {
 

@@ -23,7 +23,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSpacePreviewBinding
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.spaces.SpacePreviewSharedAction
@@ -44,7 +44,7 @@ data class SpacePreviewArgs(
 
 @AndroidEntryPoint
 class SpacePreviewFragment :
-        VectorBaseFragment<FragmentSpacePreviewBinding>() {
+        ProgressiveFragment<FragmentSpacePreviewBinding>() {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
     @Inject lateinit var epoxyController: SpacePreviewController

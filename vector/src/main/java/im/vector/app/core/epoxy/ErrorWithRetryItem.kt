@@ -15,7 +15,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 
 @EpoxyModelClass
-abstract class ErrorWithRetryItem : VectorEpoxyModel<ErrorWithRetryItem.Holder>(R.layout.item_error_retry) {
+abstract class ErrorWithRetryItem : ProgressiveEpoxyModel<ErrorWithRetryItem.Holder>(R.layout.item_error_retry) {
 
     @EpoxyAttribute
     var text: String? = null
@@ -30,7 +30,7 @@ abstract class ErrorWithRetryItem : VectorEpoxyModel<ErrorWithRetryItem.Holder>(
         holder.buttonView.onClick(listener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.itemErrorRetryText)
         val buttonView by bind<Button>(R.id.itemErrorRetryButton)
     }

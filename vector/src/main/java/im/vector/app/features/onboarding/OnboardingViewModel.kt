@@ -22,7 +22,7 @@ import im.vector.app.core.extensions.inferNoConnectivity
 import im.vector.app.core.extensions.isMatrixId
 import im.vector.app.core.extensions.toReducedUrl
 import im.vector.app.core.extensions.vectorStore
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.session.ConfigureAndStartSessionUseCase
 import im.vector.app.core.utils.ensureProtocol
@@ -88,7 +88,7 @@ class OnboardingViewModel @AssistedInject constructor(
         private val sdkIntProvider: BuildVersionSdkIntProvider,
         private val configureAndStartSessionUseCase: ConfigureAndStartSessionUseCase,
         mdmService: MdmService,
-) : VectorViewModel<OnboardingViewState, OnboardingAction, OnboardingViewEvents>(initialState) {
+) : ProgressiveViewModel<OnboardingViewState, OnboardingAction, OnboardingViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<OnboardingViewModel, OnboardingViewState> {

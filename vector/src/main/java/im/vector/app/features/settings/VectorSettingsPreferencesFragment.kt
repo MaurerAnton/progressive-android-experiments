@@ -17,9 +17,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.dialogs.PhotoOrVideoDialog
 import im.vector.app.core.extensions.restart
-import im.vector.app.core.preference.VectorListPreference
+import im.vector.app.core.preference.ProgressiveListPreference
 import im.vector.app.core.preference.VectorPreference
-import im.vector.app.core.preference.VectorSwitchPreference
+import im.vector.app.core.preference.ProgressiveSwitchPreference
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
 import im.vector.app.features.VectorFeatures
@@ -63,7 +63,7 @@ class VectorSettingsPreferencesFragment :
         setUserInterfacePreferences()
 
         // Themes
-        findPreference<VectorListPreference>(ThemeUtils.APPLICATION_THEME_KEY)!!
+        findPreference<ProgressiveListPreference>(ThemeUtils.APPLICATION_THEME_KEY)!!
                 .onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
                 ThemeUtils.setApplicationTheme(requireContext().applicationContext, newValue)
@@ -75,7 +75,7 @@ class VectorSettingsPreferencesFragment :
             }
         }
 
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_PRESENCE_USER_ALWAYS_APPEARS_OFFLINE)!!.let { pref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_PRESENCE_USER_ALWAYS_APPEARS_OFFLINE)!!.let { pref ->
             pref.isChecked = vectorPreferences.userAlwaysAppearsOffline()
             pref.setOnPreferenceChangeListener { _, newValue ->
                 val presenceOfflineModeEnabled = newValue as? Boolean ?: false
@@ -86,7 +86,7 @@ class VectorSettingsPreferencesFragment :
             }
         }
 
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_PREF_SPACE_SHOW_ALL_ROOM_IN_HOME)!!.let { pref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_PREF_SPACE_SHOW_ALL_ROOM_IN_HOME)!!.let { pref ->
             pref.isChecked = vectorPreferences.prefSpacesShowAllRoomInHome()
             pref.setOnPreferenceChangeListener { _, _ ->
                 MainActivity.restartApp(requireActivity(), MainActivityArgs(clearCache = false))

@@ -24,7 +24,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.utils.colorizeMatchingText
 import im.vector.app.core.utils.startImportTextFromFileIntent
@@ -41,7 +41,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BootstrapMigrateBackupFragment :
-        VectorBaseFragment<FragmentBootstrapMigrateBackupBinding>() {
+        ProgressiveFragment<FragmentBootstrapMigrateBackupBinding>() {
 
     @Inject lateinit var colorProvider: ColorProvider
 

@@ -14,7 +14,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.settings.devices.v2.overview.GetDeviceFullInfoUseCase
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class RenameSessionViewModel @AssistedInject constructor(
         @Assisted val initialState: RenameSessionViewState,
         private val getDeviceFullInfoUseCase: GetDeviceFullInfoUseCase,
         private val renameSessionUseCase: RenameSessionUseCase,
-) : VectorViewModel<RenameSessionViewState, RenameSessionAction, RenameSessionViewEvent>(initialState) {
+) : ProgressiveViewModel<RenameSessionViewState, RenameSessionAction, RenameSessionViewEvent>(initialState) {
 
     companion object : MavericksViewModelFactory<RenameSessionViewModel, RenameSessionViewState> by hiltMavericksViewModelFactory()
 

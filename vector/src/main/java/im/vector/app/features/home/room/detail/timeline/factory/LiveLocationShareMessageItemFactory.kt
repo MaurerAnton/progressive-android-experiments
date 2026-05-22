@@ -7,8 +7,8 @@
 
 package im.vector.app.features.home.room.detail.timeline.factory
 
-import im.vector.app.core.date.VectorDateFormatter
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.date.ProgressiveDateFormatter
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.resources.DateProvider
 import im.vector.app.core.utils.DimensionConverter
 import im.vector.app.features.home.room.detail.timeline.helper.AvatarSizeProvider
@@ -36,14 +36,14 @@ class LiveLocationShareMessageItemFactory @Inject constructor(
         private val avatarSizeProvider: AvatarSizeProvider,
         private val urlMapProvider: UrlMapProvider,
         private val locationPinProvider: LocationPinProvider,
-        private val vectorDateFormatter: VectorDateFormatter,
+        private val vectorDateFormatter: ProgressiveDateFormatter,
 ) {
 
     fun create(
             event: TimelineEvent,
             highlight: Boolean,
             attributes: AbsMessageItem.Attributes,
-    ): VectorEpoxyModel<*>? {
+    ): ProgressiveEpoxyModel<*>? {
         val liveLocationShareSummaryData = getLiveLocationShareSummaryData(event)
         val item = when (val currentState = getViewState(liveLocationShareSummaryData)) {
             LiveLocationShareViewState.Inactive -> buildInactiveItem(highlight, attributes)

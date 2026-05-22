@@ -19,7 +19,7 @@ import im.vector.app.SpaceStateHandler
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -40,7 +40,7 @@ class SpaceMenuViewModel @AssistedInject constructor(
         @Assisted val initialState: SpaceMenuState,
         val session: Session,
         val spaceStateHandler: SpaceStateHandler
-) : VectorViewModel<SpaceMenuState, SpaceLeaveViewAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<SpaceMenuState, SpaceLeaveViewAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<SpaceMenuViewModel, SpaceMenuState> {

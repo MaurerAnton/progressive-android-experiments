@@ -17,7 +17,7 @@ import com.airbnb.mvrx.withState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import im.vector.app.core.dialogs.UnrecognizedCertificateDialog
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.features.onboarding.OnboardingAction
 import im.vector.app.features.onboarding.OnboardingViewEvents
 import im.vector.app.features.onboarding.OnboardingViewModel
@@ -28,7 +28,7 @@ import kotlinx.coroutines.CancellationException
 /**
  * Parent Fragment for all the login/registration screens.
  */
-abstract class AbstractFtueAuthFragment<VB : ViewBinding> : VectorBaseFragment<VB>(), OnBackPressed {
+abstract class AbstractFtueAuthFragment<VB : ViewBinding> : ProgressiveFragment<VB>(), OnBackPressed {
 
     protected val viewModel: OnboardingViewModel by activityViewModel()
 

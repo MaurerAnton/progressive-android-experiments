@@ -8,10 +8,10 @@
 package im.vector.app.features.crypto.quads
 
 import im.vector.app.core.platform.VectorViewEvents
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.core.platform.WaitingViewData
 
-sealed class SharedSecureStorageAction : VectorViewModelAction {
+sealed class SharedSecureStorageAction : ProgressiveViewModelAction {
     object UseKey : SharedSecureStorageAction()
     object Back : SharedSecureStorageAction()
     object Cancel : SharedSecureStorageAction()

@@ -18,7 +18,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.mvrx.runCatchingToAsync
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ import org.matrix.android.sdk.api.session.getRoomSummary
 class SpaceManageRoomsViewModel @AssistedInject constructor(
         @Assisted val initialState: SpaceManageRoomViewState,
         private val session: Session
-) : VectorViewModel<SpaceManageRoomViewState, SpaceManageRoomViewAction, SpaceManageRoomViewEvents>(initialState) {
+) : ProgressiveViewModel<SpaceManageRoomViewState, SpaceManageRoomViewAction, SpaceManageRoomViewEvents>(initialState) {
 
     private val paginationLimit = 10
 

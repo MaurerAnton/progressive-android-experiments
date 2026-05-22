@@ -17,7 +17,7 @@ import com.airbnb.mvrx.withState
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.databinding.FragmentRoomPollsListBinding
 import im.vector.app.features.roomprofile.polls.RoomPollsAction
@@ -29,7 +29,7 @@ import im.vector.app.features.roomprofile.polls.RoomPollsViewState
 import javax.inject.Inject
 
 abstract class RoomPollsListFragment :
-        VectorBaseFragment<FragmentRoomPollsListBinding>(),
+        ProgressiveFragment<FragmentRoomPollsListBinding>(),
         RoomPollsController.Listener {
 
     @Inject

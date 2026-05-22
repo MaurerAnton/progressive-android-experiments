@@ -14,8 +14,8 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.utils.TextUtils
@@ -27,7 +27,7 @@ import org.matrix.android.sdk.api.util.MatrixItem
 import org.threeten.bp.Duration
 
 @EpoxyModelClass
-abstract class LiveLocationUserItem : VectorEpoxyModel<LiveLocationUserItem.Holder>(R.layout.item_live_location_users_bottom_sheet) {
+abstract class LiveLocationUserItem : ProgressiveEpoxyModel<LiveLocationUserItem.Holder>(R.layout.item_live_location_users_bottom_sheet) {
 
     interface Callback {
         fun onUserSelected(userId: String)
@@ -98,7 +98,7 @@ abstract class LiveLocationUserItem : VectorEpoxyModel<LiveLocationUserItem.Hold
         return stringProvider.getString(CommonStrings.live_location_bottom_sheet_last_updated_at, formattedDuration)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val timer: CountUpTimer = CountUpTimer(intervalInMs = 1000)
         val itemUserAvatarImageView by bind<ImageView>(R.id.itemUserAvatarImageView)
         val itemUserDisplayNameTextView by bind<TextView>(R.id.itemUserDisplayNameTextView)

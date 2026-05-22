@@ -7,10 +7,10 @@
 
 package im.vector.app.features.roomdirectory
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.roomdirectory.PublicRoom
 
-sealed class RoomDirectoryAction : VectorViewModelAction {
+sealed class RoomDirectoryAction : ProgressiveViewModelAction {
     data class SetRoomDirectoryData(val roomDirectoryData: RoomDirectoryData) : RoomDirectoryAction()
     data class FilterWith(val filter: String) : RoomDirectoryAction()
     object LoadMore : RoomDirectoryAction()

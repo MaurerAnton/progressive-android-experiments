@@ -13,11 +13,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentLoadingBinding
 
 @AndroidEntryPoint
-class LoadingFragment : VectorBaseFragment<FragmentLoadingBinding>() {
+class LoadingFragment : ProgressiveFragment<FragmentLoadingBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLoadingBinding {
         return FragmentLoadingBinding.inflate(inflater, container, false)

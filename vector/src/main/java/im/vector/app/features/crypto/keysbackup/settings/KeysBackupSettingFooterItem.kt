@@ -13,13 +13,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class KeysBackupSettingFooterItem : VectorEpoxyModel<KeysBackupSettingFooterItem.Holder>(R.layout.item_keys_backup_settings_button_footer) {
+abstract class KeysBackupSettingFooterItem : ProgressiveEpoxyModel<KeysBackupSettingFooterItem.Holder>(R.layout.item_keys_backup_settings_button_footer) {
 
     @EpoxyAttribute
     var textButton1: String? = null
@@ -42,7 +42,7 @@ abstract class KeysBackupSettingFooterItem : VectorEpoxyModel<KeysBackupSettingF
         holder.button2.onClick(clickOnButton2)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val button1 by bind<Button>(R.id.keys_backup_settings_footer_button1)
         val button2 by bind<TextView>(R.id.keys_backup_settings_footer_button2)
     }

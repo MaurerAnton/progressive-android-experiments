@@ -19,7 +19,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentGenericRecyclerBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.lib.strings.CommonStrings
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class VectorSettingsIgnoredUsersFragment :
-        VectorBaseFragment<FragmentGenericRecyclerBinding>(),
+        ProgressiveFragment<FragmentGenericRecyclerBinding>(),
         IgnoredUsersController.Callback {
 
     @Inject lateinit var ignoredUsersController: IgnoredUsersController

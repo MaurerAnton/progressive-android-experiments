@@ -17,7 +17,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.pin.lockscreen.biometrics.BiometricAuthError
 import im.vector.app.features.pin.lockscreen.biometrics.BiometricHelper
 import im.vector.app.features.pin.lockscreen.configuration.LockScreenMode
@@ -43,7 +43,7 @@ class LockScreenViewModel @AssistedInject constructor(
         private val lockScreenKeysMigrator: LockScreenKeysMigrator,
         private val versionProvider: BuildVersionSdkIntProvider,
         private val keyguardManager: KeyguardManager,
-) : VectorViewModel<LockScreenViewState, LockScreenAction, LockScreenViewEvent>(initialState) {
+) : ProgressiveViewModel<LockScreenViewState, LockScreenAction, LockScreenViewEvent>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<LockScreenViewModel, LockScreenViewState> {

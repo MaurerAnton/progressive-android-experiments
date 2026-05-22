@@ -12,11 +12,11 @@ import androidx.annotation.StringRes
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class TextHeaderItem : VectorEpoxyModel<TextHeaderItem.Holder>(R.layout.item_text_header) {
+abstract class TextHeaderItem : ProgressiveEpoxyModel<TextHeaderItem.Holder>(R.layout.item_text_header) {
 
     @EpoxyAttribute
     var text: String? = null
@@ -35,7 +35,7 @@ abstract class TextHeaderItem : VectorEpoxyModel<TextHeaderItem.Holder>(R.layout
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.headerText)
     }
 }

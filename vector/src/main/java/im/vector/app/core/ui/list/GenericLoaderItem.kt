@@ -9,16 +9,16 @@ package im.vector.app.core.ui.list
 
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 /**
  * A generic list item header left aligned with notice color.
  */
 @EpoxyModelClass
-abstract class GenericLoaderItem : VectorEpoxyModel<GenericLoaderItem.Holder>(R.layout.item_generic_loader) {
+abstract class GenericLoaderItem : ProgressiveEpoxyModel<GenericLoaderItem.Holder>(R.layout.item_generic_loader) {
 
     // Maybe/Later add some style configuration, SMALL/BIG ?
 
-    class Holder : VectorEpoxyHolder()
+    class Holder : ProgressiveEpoxyHolder()
 }

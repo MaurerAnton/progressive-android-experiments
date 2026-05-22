@@ -7,9 +7,9 @@
 
 package im.vector.app.features.spaces.preview
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SpacePreviewViewAction : VectorViewModelAction {
+sealed class SpacePreviewViewAction : ProgressiveViewModelAction {
     object ViewReady : SpacePreviewViewAction()
     object AcceptInvite : SpacePreviewViewAction()
     object DismissInvite : SpacePreviewViewAction()

@@ -22,8 +22,8 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.PERMISSIONS_FOR_FOREGROUND_LOCATION_SHARING
 import im.vector.app.core.utils.checkPermissions
 import im.vector.app.core.utils.onPermissionDeniedDialog
@@ -48,9 +48,9 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class LocationSharingFragment :
-        VectorBaseFragment<FragmentLocationSharingBinding>(),
+        ProgressiveFragment<FragmentLocationSharingBinding>(),
         LocationTargetChangeListener,
-        VectorBaseBottomSheetDialogFragment.ResultListener {
+        ProgressiveBottomSheet.ResultListener {
 
     @Inject lateinit var urlMapProvider: UrlMapProvider
     @Inject lateinit var avatarRenderer: AvatarRenderer
@@ -249,7 +249,7 @@ class LocationSharingFragment :
     }
 
     override fun onBottomSheetResult(resultCode: Int, data: Any?) {
-        if (resultCode == VectorBaseBottomSheetDialogFragment.ResultListener.RESULT_OK) {
+        if (resultCode == ProgressiveBottomSheet.ResultListener.RESULT_OK) {
             (data as? Long)?.let { viewModel.handle(LocationSharingAction.StartLiveLocationSharing(it)) }
         }
     }

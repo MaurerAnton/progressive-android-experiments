@@ -16,12 +16,12 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.platform.CheckableImageView
 import org.matrix.android.sdk.api.session.content.ContentAttachmentData
 
-abstract class AttachmentPreviewItem<H : AttachmentPreviewItem.Holder>(@LayoutRes layoutId: Int) : VectorEpoxyModel<H>(layoutId) {
+abstract class AttachmentPreviewItem<H : AttachmentPreviewItem.Holder>(@LayoutRes layoutId: Int) : ProgressiveEpoxyModel<H>(layoutId) {
 
     abstract val attachment: ContentAttachmentData
 
@@ -39,7 +39,7 @@ abstract class AttachmentPreviewItem<H : AttachmentPreviewItem.Holder>(@LayoutRe
         }
     }
 
-    abstract class Holder : VectorEpoxyHolder() {
+    abstract class Holder : ProgressiveEpoxyHolder() {
         abstract val imageView: ImageView
     }
 }

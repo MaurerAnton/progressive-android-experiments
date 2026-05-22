@@ -11,11 +11,11 @@ import androidx.annotation.DrawableRes
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class SettingsCenteredImageItem : VectorEpoxyModel<SettingsCenteredImageItem.Holder>(R.layout.item_settings_centered_image) {
+abstract class SettingsCenteredImageItem : ProgressiveEpoxyModel<SettingsCenteredImageItem.Holder>(R.layout.item_settings_centered_image) {
 
     @EpoxyAttribute
     @DrawableRes
@@ -26,7 +26,7 @@ abstract class SettingsCenteredImageItem : VectorEpoxyModel<SettingsCenteredImag
         holder.image.setImageResource(drawableRes)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val image by bind<ImageView>(R.id.itemSettingsImage)
     }
 }

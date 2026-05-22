@@ -14,13 +14,13 @@ import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.addChildFragment
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetCallDialPadBinding
 import im.vector.app.features.settings.VectorLocaleProvider
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CallDialPadBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetCallDialPadBinding>() {
+class CallDialPadBottomSheet : ProgressiveBottomSheet<BottomSheetCallDialPadBinding>() {
 
     companion object {
 

@@ -9,7 +9,7 @@ package im.vector.app.features.roomprofile.polls.list.ui
 
 import com.airbnb.epoxy.TypedEpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.roomprofile.polls.RoomPollsViewState
 import im.vector.lib.strings.CommonPlurals
@@ -17,7 +17,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 class RoomPollsController @Inject constructor(
-        val dateFormatter: VectorDateFormatter,
+        val dateFormatter: ProgressiveDateFormatter,
         val stringProvider: StringProvider,
 ) : TypedEpoxyController<RoomPollsViewState>() {
 

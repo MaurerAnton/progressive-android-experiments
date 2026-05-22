@@ -7,9 +7,9 @@
 
 package im.vector.app.features.settings.account.deactivation
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class DeactivateAccountAction : VectorViewModelAction {
+sealed class DeactivateAccountAction : ProgressiveViewModelAction {
     data class DeactivateAccount(val eraseAllData: Boolean) : DeactivateAccountAction()
 
     object SsoAuthDone : DeactivateAccountAction()

@@ -14,7 +14,7 @@ import android.view.View
 import com.airbnb.mvrx.Mavericks
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
 
@@ -22,7 +22,7 @@ import im.vector.lib.core.utils.compat.getParcelableExtraCompat
  * Display the details of a given poll.
  */
 @AndroidEntryPoint
-class RoomPollDetailActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class RoomPollDetailActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     override fun getBinding() = ActivitySimpleBinding.inflate(layoutInflater)
 

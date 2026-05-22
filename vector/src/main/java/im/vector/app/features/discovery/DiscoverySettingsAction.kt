@@ -7,10 +7,10 @@
 
 package im.vector.app.features.discovery
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.identity.ThreePid
 
-sealed class DiscoverySettingsAction : VectorViewModelAction {
+sealed class DiscoverySettingsAction : ProgressiveViewModelAction {
     object RetrieveBinding : DiscoverySettingsAction()
     object Refresh : DiscoverySettingsAction()
 

@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.safeOpenOutputStream
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.LiveEvent
 import im.vector.app.core.utils.copyToClipboard
 import im.vector.app.core.utils.selectTxtFileToWrite
@@ -39,7 +39,7 @@ import java.util.Locale
 
 @AndroidEntryPoint
 class KeysBackupSetupStep3Fragment :
-        VectorBaseFragment<FragmentKeysBackupSetupStep3Binding>() {
+        ProgressiveFragment<FragmentKeysBackupSetupStep3Binding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentKeysBackupSetupStep3Binding {
         return FragmentKeysBackupSetupStep3Binding.inflate(inflater, container, false)

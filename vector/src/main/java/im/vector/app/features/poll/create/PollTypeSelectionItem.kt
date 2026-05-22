@@ -11,12 +11,12 @@ import android.widget.RadioGroup
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import org.matrix.android.sdk.api.session.room.model.message.PollType
 
 @EpoxyModelClass
-abstract class PollTypeSelectionItem : VectorEpoxyModel<PollTypeSelectionItem.Holder>(R.layout.item_poll_type_selection) {
+abstract class PollTypeSelectionItem : ProgressiveEpoxyModel<PollTypeSelectionItem.Holder>(R.layout.item_poll_type_selection) {
 
     @EpoxyAttribute
     var pollType: PollType = PollType.DISCLOSED_UNSTABLE
@@ -42,7 +42,7 @@ abstract class PollTypeSelectionItem : VectorEpoxyModel<PollTypeSelectionItem.Ho
         holder.pollTypeRadioGroup.setOnCheckedChangeListener(null)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val pollTypeRadioGroup by bind<RadioGroup>(R.id.pollTypeRadioGroup)
     }
 }

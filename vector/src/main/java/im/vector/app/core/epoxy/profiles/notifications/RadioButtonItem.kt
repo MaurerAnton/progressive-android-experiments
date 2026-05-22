@@ -15,14 +15,14 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setAttributeTintedImageResource
 import im.vector.lib.strings.CommonStrings
 
 @EpoxyModelClass
-abstract class RadioButtonItem : VectorEpoxyModel<RadioButtonItem.Holder>(R.layout.item_radio) {
+abstract class RadioButtonItem : ProgressiveEpoxyModel<RadioButtonItem.Holder>(R.layout.item_radio) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -55,7 +55,7 @@ abstract class RadioButtonItem : VectorEpoxyModel<RadioButtonItem.Holder>(R.layo
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleText by bind<TextView>(R.id.actionTitle)
         val radioImage by bind<ImageView>(R.id.radioIcon)
     }

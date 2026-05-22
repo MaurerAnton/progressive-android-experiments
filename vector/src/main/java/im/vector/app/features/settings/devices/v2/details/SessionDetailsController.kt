@@ -11,7 +11,7 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.airbnb.epoxy.TypedEpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.session.clientinfo.MatrixClientInfoContent
 import im.vector.app.core.utils.DimensionConverter
@@ -26,7 +26,7 @@ class SessionDetailsController @Inject constructor(
         private val checkIfSectionDeviceIsVisibleUseCase: CheckIfSectionDeviceIsVisibleUseCase,
         private val checkIfSectionApplicationIsVisibleUseCase: CheckIfSectionApplicationIsVisibleUseCase,
         private val stringProvider: StringProvider,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val dimensionConverter: DimensionConverter,
 ) : TypedEpoxyController<DeviceFullInfo>() {
 

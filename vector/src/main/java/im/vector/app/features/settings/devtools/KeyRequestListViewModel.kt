@@ -20,7 +20,7 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.crypto.OutgoingKeyRequest
@@ -35,7 +35,7 @@ class KeyRequestListViewModel @AssistedInject constructor(
         @Assisted initialState: KeyRequestListViewState,
         private val session: Session
 ) :
-        VectorViewModel<KeyRequestListViewState, EmptyAction, EmptyViewEvents>(initialState) {
+        ProgressiveViewModel<KeyRequestListViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     init {
         refresh()

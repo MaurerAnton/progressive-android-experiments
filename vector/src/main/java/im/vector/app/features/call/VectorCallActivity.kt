@@ -45,7 +45,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.PERMISSIONS_FOR_AUDIO_IP_CALL
 import im.vector.app.core.utils.PERMISSIONS_FOR_VIDEO_IP_CALL
@@ -95,7 +95,7 @@ private val loggerTag = LoggerTag("VectorCallActivity", LoggerTag.VOIP)
 
 @AndroidEntryPoint
 class VectorCallActivity :
-        VectorBaseActivity<ActivityCallBinding>(),
+        ProgressiveActivity<ActivityCallBinding>(),
         CallControlsView.InteractionListener,
         VectorMenuProvider {
 

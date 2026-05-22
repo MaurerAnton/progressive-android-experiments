@@ -6,10 +6,10 @@
  */
 package im.vector.app.features.roomprofile.alias.detail
 
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 /**
  * Activity shared view model to handle room alias quick actions.
  */
-class RoomAliasBottomSheetSharedActionViewModel @Inject constructor() : VectorSharedActionViewModel<RoomAliasBottomSheetSharedAction>()
+class RoomAliasBottomSheetSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomAliasBottomSheetSharedAction>()

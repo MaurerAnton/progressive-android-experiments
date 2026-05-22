@@ -7,7 +7,7 @@
 
 package im.vector.app.features.webview
 
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import org.matrix.android.sdk.api.session.Session
 
 interface WebViewEventListenerFactory {
@@ -15,5 +15,5 @@ interface WebViewEventListenerFactory {
     /**
      * @return an instance of WebViewEventListener
      */
-    fun eventListener(activity: VectorBaseActivity<*>, session: Session): WebViewEventListener
+    fun eventListener(activity: ProgressiveActivity<*>, session: Session): WebViewEventListener
 }

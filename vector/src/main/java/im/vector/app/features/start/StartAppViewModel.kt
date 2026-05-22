@@ -15,7 +15,7 @@ import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.dispatchers.CoroutineDispatchers
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class StartAppViewModel @AssistedInject constructor(
         @Assisted val initialState: StartAppViewState,
         private val sessionHolder: ActiveSessionHolder,
         private val dispatchers: CoroutineDispatchers,
-) : VectorViewModel<StartAppViewState, StartAppAction, StartAppViewEvent>(initialState) {
+) : ProgressiveViewModel<StartAppViewState, StartAppAction, StartAppViewEvent>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<StartAppViewModel, StartAppViewState> {

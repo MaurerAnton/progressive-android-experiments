@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.lib.strings.CommonStrings
 
 // Permissions sets
@@ -152,7 +152,7 @@ private fun permissionsDeniedPermanently(
             }
 }
 
-fun VectorBaseActivity<*>.onPermissionDeniedSnackbar(@StringRes rationaleMessage: Int) {
+fun ProgressiveActivity<*>.onPermissionDeniedSnackbar(@StringRes rationaleMessage: Int) {
     showSnackbar(getString(rationaleMessage), CommonStrings.settings) {
         openAppSettingsPage(this)
     }

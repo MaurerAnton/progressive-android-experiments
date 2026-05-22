@@ -13,7 +13,7 @@ import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.Uninitialized
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.epoxy.errorWithRetryItem
 import im.vector.app.core.epoxy.loadingItem
 import im.vector.app.core.error.ErrorFormatter
@@ -31,7 +31,7 @@ class DevicesController @Inject constructor(
         private val errorFormatter: ErrorFormatter,
         private val stringProvider: StringProvider,
         private val colorProvider: ColorProvider,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val dimensionConverter: DimensionConverter,
         private val vectorPreferences: VectorPreferences
 ) : EpoxyController() {

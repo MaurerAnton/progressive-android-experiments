@@ -16,7 +16,7 @@ import com.airbnb.mvrx.Mavericks
 import com.airbnb.mvrx.viewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityCallTransferBinding
 import im.vector.lib.core.utils.compat.getParcelableCompat
 import im.vector.lib.strings.CommonStrings
@@ -28,7 +28,7 @@ data class CallTransferArgs(val callId: String) : Parcelable
 private const val USER_LIST_FRAGMENT_TAG = "USER_LIST_FRAGMENT_TAG"
 
 @AndroidEntryPoint
-class CallTransferActivity : VectorBaseActivity<ActivityCallTransferBinding>() {
+class CallTransferActivity : ProgressiveActivity<ActivityCallTransferBinding>() {
 
     private lateinit var sectionsPagerAdapter: CallTransferPagerAdapter
 

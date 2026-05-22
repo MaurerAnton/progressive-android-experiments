@@ -18,12 +18,12 @@ import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetAttachmentTypeSelectorBinding
 import im.vector.app.features.home.room.detail.TimelineViewModel
 
 @AndroidEntryPoint
-class AttachmentTypeSelectorBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetAttachmentTypeSelectorBinding>() {
+class AttachmentTypeSelectorBottomSheet : ProgressiveBottomSheet<BottomSheetAttachmentTypeSelectorBinding>() {
 
     private val viewModel: AttachmentTypeSelectorViewModel by parentFragmentViewModel()
     private val timelineViewModel: TimelineViewModel by parentFragmentViewModel()

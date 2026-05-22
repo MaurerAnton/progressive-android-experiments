@@ -19,13 +19,13 @@ import im.vector.app.core.dialogs.GalleryOrCameraDialogHelperFactory
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSpaceCreateGenericEpoxyFormBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateSpaceDetailsFragment :
-        VectorBaseFragment<FragmentSpaceCreateGenericEpoxyFormBinding>(),
+        ProgressiveFragment<FragmentSpaceCreateGenericEpoxyFormBinding>(),
         SpaceDetailEpoxyController.Listener,
         GalleryOrCameraDialogHelper.Listener,
         OnBackPressed {

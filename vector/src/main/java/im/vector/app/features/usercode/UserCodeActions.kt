@@ -7,10 +7,10 @@
 
 package im.vector.app.features.usercode
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.util.MatrixItem
 
-sealed class UserCodeActions : VectorViewModelAction {
+sealed class UserCodeActions : ProgressiveViewModelAction {
     object DismissAction : UserCodeActions()
     data class SwitchMode(val mode: UserCodeState.Mode) : UserCodeActions()
     data class DecodedQRCode(val code: String) : UserCodeActions()

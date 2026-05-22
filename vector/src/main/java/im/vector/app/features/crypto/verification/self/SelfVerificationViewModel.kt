@@ -20,7 +20,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.crypto.verification.SupportedVerificationMethodsProvider
 import im.vector.app.features.crypto.verification.VerificationAction
@@ -94,7 +94,7 @@ class SelfVerificationViewModel @AssistedInject constructor(
         private val stringProvider: StringProvider,
         private val matrix: Matrix,
 ) :
-        VectorViewModel<SelfVerificationViewState, VerificationAction, VerificationBottomSheetViewEvents>(initialState) {
+        ProgressiveViewModel<SelfVerificationViewState, VerificationAction, VerificationBottomSheetViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<SelfVerificationViewModel, SelfVerificationViewState> {

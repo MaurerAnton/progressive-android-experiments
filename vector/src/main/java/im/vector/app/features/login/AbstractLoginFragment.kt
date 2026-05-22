@@ -17,7 +17,7 @@ import com.airbnb.mvrx.withState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import im.vector.app.core.dialogs.UnrecognizedCertificateDialog
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.CancellationException
 import org.matrix.android.sdk.api.failure.Failure
@@ -27,7 +27,7 @@ import javax.net.ssl.HttpsURLConnection
 /**
  * Parent Fragment for all the login/registration screens.
  */
-abstract class AbstractLoginFragment<VB : ViewBinding> : VectorBaseFragment<VB>(), OnBackPressed {
+abstract class AbstractLoginFragment<VB : ViewBinding> : ProgressiveFragment<VB>(), OnBackPressed {
 
     protected val loginViewModel: LoginViewModel by activityViewModel()
 

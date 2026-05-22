@@ -15,14 +15,14 @@ import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSsssResetAllBinding
 import im.vector.app.features.roommemberprofile.devices.DeviceListBottomSheet
 import im.vector.lib.strings.CommonPlurals
 
 @AndroidEntryPoint
 class SharedSecuredStorageResetAllFragment :
-        VectorBaseFragment<FragmentSsssResetAllBinding>() {
+        ProgressiveFragment<FragmentSsssResetAllBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSsssResetAllBinding {
         return FragmentSsssResetAllBinding.inflate(inflater, container, false)

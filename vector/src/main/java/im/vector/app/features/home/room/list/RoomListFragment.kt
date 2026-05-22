@@ -31,7 +31,7 @@ import im.vector.app.core.epoxy.LayoutManagerStateRestorer
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.platform.OnBackPressed
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.UserPreferencesProvider
 import im.vector.app.databinding.FragmentRoomListBinding
 import im.vector.app.features.analytics.plan.MobileScreen
@@ -65,7 +65,7 @@ data class RoomListParams(
 
 @AndroidEntryPoint
 class RoomListFragment :
-        VectorBaseFragment<FragmentRoomListBinding>(),
+        ProgressiveFragment<FragmentRoomListBinding>(),
         RoomListListener,
         OnBackPressed,
         FilteredRoomFooterItem.Listener,

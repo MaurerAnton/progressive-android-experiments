@@ -15,7 +15,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.utils.PermissionChecker
 import im.vector.app.features.home.room.detail.timeline.helper.LocationPinProvider
 import im.vector.app.features.location.domain.usecase.CompareLocationsUseCase
@@ -50,7 +50,7 @@ class LocationSharingViewModel @AssistedInject constructor(
         private val compareLocationsUseCase: CompareLocationsUseCase,
         private val vectorPreferences: VectorPreferences,
         private val permissionChecker: PermissionChecker,
-) : VectorViewModel<LocationSharingViewState, LocationSharingAction, LocationSharingViewEvents>(initialState), LocationTracker.Callback {
+) : ProgressiveViewModel<LocationSharingViewState, LocationSharingAction, LocationSharingViewEvents>(initialState), LocationTracker.Callback {
 
     private val room = session.getRoom(initialState.roomId)!!
 

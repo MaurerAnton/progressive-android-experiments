@@ -10,7 +10,7 @@ package im.vector.app.features.roomprofile.uploads.files
 import com.airbnb.epoxy.TypedEpoxyController
 import com.airbnb.epoxy.VisibilityState
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.epoxy.loadingItem
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.roomprofile.uploads.RoomUploadsViewState
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class UploadsFileController @Inject constructor(
         private val stringProvider: StringProvider,
-        private val dateFormatter: VectorDateFormatter
+        private val dateFormatter: ProgressiveDateFormatter
 ) : TypedEpoxyController<RoomUploadsViewState>() {
 
     interface Listener {

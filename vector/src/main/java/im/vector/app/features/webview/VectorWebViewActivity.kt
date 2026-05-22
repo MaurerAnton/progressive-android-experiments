@@ -13,7 +13,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityVectorWebViewBinding
 import im.vector.lib.core.utils.compat.getSerializableCompat
 import org.matrix.android.sdk.api.session.Session
@@ -25,7 +25,7 @@ import org.matrix.android.sdk.api.session.Session
  * This class shouldn't be extended. To add new behaviors, you might create a new WebViewMode and a new WebViewEventListener
  */
 @AndroidEntryPoint
-class VectorWebViewActivity : VectorBaseActivity<ActivityVectorWebViewBinding>() {
+class VectorWebViewActivity : ProgressiveActivity<ActivityVectorWebViewBinding>() {
 
     override fun getBinding() = ActivityVectorWebViewBinding.inflate(layoutInflater)
 

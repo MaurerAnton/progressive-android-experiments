@@ -11,11 +11,11 @@ import androidx.annotation.ColorInt
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class SettingsInformationItem : VectorEpoxyModel<SettingsInformationItem.Holder>(R.layout.item_settings_information) {
+abstract class SettingsInformationItem : ProgressiveEpoxyModel<SettingsInformationItem.Holder>(R.layout.item_settings_information) {
 
     @EpoxyAttribute
     lateinit var message: String
@@ -31,7 +31,7 @@ abstract class SettingsInformationItem : VectorEpoxyModel<SettingsInformationIte
         holder.textView.setTextColor(textColor)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.settings_item_information)
     }
 }

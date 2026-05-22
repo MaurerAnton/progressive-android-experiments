@@ -14,11 +14,11 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class InviteByEmailItem : VectorEpoxyModel<InviteByEmailItem.Holder>(R.layout.item_invite_by_mail) {
+abstract class InviteByEmailItem : ProgressiveEpoxyModel<InviteByEmailItem.Holder>(R.layout.item_invite_by_mail) {
 
     @EpoxyAttribute lateinit var foundItem: ThreePidUser
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var clickListener: ClickListener? = null
@@ -39,7 +39,7 @@ abstract class InviteByEmailItem : VectorEpoxyModel<InviteByEmailItem.Holder>(R.
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val itemTitleText by bind<TextView>(R.id.itemTitle)
         val avatarImageView by bind<ImageView>(R.id.itemAvatar)
         val checkedImageView by bind<ImageView>(R.id.itemAvatarChecked)

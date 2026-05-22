@@ -23,9 +23,9 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.resources.DrawableProvider
@@ -50,12 +50,12 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SessionOverviewFragment :
-        VectorBaseFragment<FragmentSessionOverviewBinding>(),
+        ProgressiveFragment<FragmentSessionOverviewBinding>(),
         VectorMenuProvider {
 
     @Inject lateinit var viewNavigator: SessionOverviewViewNavigator
 
-    @Inject lateinit var dateFormatter: VectorDateFormatter
+    @Inject lateinit var dateFormatter: ProgressiveDateFormatter
 
     @Inject lateinit var drawableProvider: DrawableProvider
 

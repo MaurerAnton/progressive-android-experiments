@@ -7,7 +7,7 @@
 
 package im.vector.app.features.webview
 
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.utils.weak
 import org.matrix.android.sdk.api.MatrixCallback
 import org.matrix.android.sdk.api.session.Session
@@ -21,13 +21,13 @@ private const val RIOT_BOT_ID = "@riot-bot:matrix.org"
  * It is used to manage the consent agreement flow.
  */
 class ConsentWebViewEventListener(
-        activity: VectorBaseActivity<*>,
+        activity: ProgressiveActivity<*>,
         private val session: Session,
         private val delegate: WebViewEventListener
 ) :
         WebViewEventListener by delegate {
 
-    private val safeActivity: VectorBaseActivity<*>? by weak(activity)
+    private val safeActivity: ProgressiveActivity<*>? by weak(activity)
 
     override fun onPageFinished(url: String) {
         delegate.onPageFinished(url)

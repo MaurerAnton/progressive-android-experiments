@@ -15,7 +15,7 @@ import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.session.clientinfo.DeleteMatrixClientInfoUseCase
 import im.vector.app.core.session.clientinfo.UpdateMatrixClientInfoUseCase
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class VectorSettingsLabsViewModel @AssistedInject constructor(
         private val activeSessionHolder: ActiveSessionHolder,
         private val updateMatrixClientInfoUseCase: UpdateMatrixClientInfoUseCase,
         private val deleteMatrixClientInfoUseCase: DeleteMatrixClientInfoUseCase,
-) : VectorViewModel<VectorSettingsLabsViewState, VectorSettingsLabsAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<VectorSettingsLabsViewState, VectorSettingsLabsAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<VectorSettingsLabsViewModel, VectorSettingsLabsViewState> {

@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragmentToBackstack
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityThreadsBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.analytics.extensions.toAnalyticsInteraction
@@ -30,7 +30,7 @@ import im.vector.lib.core.utils.compat.getParcelableCompat
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ThreadsActivity : VectorBaseActivity<ActivityThreadsBinding>() {
+class ThreadsActivity : ProgressiveActivity<ActivityThreadsBinding>() {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
 

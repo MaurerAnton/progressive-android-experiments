@@ -13,14 +13,14 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 /**
  * A send state for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetSendStateItem : VectorEpoxyModel<BottomSheetSendStateItem.Holder>(R.layout.item_bottom_sheet_message_status) {
+abstract class BottomSheetSendStateItem : ProgressiveEpoxyModel<BottomSheetSendStateItem.Holder>(R.layout.item_bottom_sheet_message_status) {
 
     @EpoxyAttribute
     var showProgress: Boolean = false
@@ -39,7 +39,7 @@ abstract class BottomSheetSendStateItem : VectorEpoxyModel<BottomSheetSendStateI
         holder.text.text = text
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val progress by bind<View>(R.id.messageStatusProgress)
         val text by bind<TextView>(R.id.messageStatusText)
     }

@@ -7,9 +7,9 @@
 
 package im.vector.app.features.contactsbook
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class ContactsBookAction : VectorViewModelAction {
+sealed class ContactsBookAction : ProgressiveViewModelAction {
     data class FilterWith(val filter: String) : ContactsBookAction()
     data class OnlyBoundContacts(val onlyBoundContacts: Boolean) : ContactsBookAction()
     object UserConsentRequest : ContactsBookAction()

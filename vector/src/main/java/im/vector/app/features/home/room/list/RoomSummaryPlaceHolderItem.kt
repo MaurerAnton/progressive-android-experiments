@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class RoomSummaryPlaceHolderItem : VectorEpoxyModel<RoomSummaryPlaceHolderItem.Holder>(R.layout.item_room_placeholder) {
+abstract class RoomSummaryPlaceHolderItem : ProgressiveEpoxyModel<RoomSummaryPlaceHolderItem.Holder>(R.layout.item_room_placeholder) {
 
     @EpoxyAttribute
     var useSingleLineForLastEvent: Boolean = false
@@ -27,7 +27,7 @@ abstract class RoomSummaryPlaceHolderItem : VectorEpoxyModel<RoomSummaryPlaceHol
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val subtitleView by bind<TextView>(R.id.subtitleView)
     }
 }

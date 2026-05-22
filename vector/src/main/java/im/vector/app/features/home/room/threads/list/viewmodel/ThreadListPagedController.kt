@@ -10,7 +10,7 @@ package im.vector.app.features.home.room.threads.list.viewmodel
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging.PagedListEpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.utils.createUIHandler
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.detail.timeline.format.DisplayableEventFormatter
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 class ThreadListPagedController @Inject constructor(
         private val avatarRenderer: AvatarRenderer,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val displayableEventFormatter: DisplayableEventFormatter,
 ) : PagedListEpoxyController<ThreadSummary>(
         // Important it must match the PageList builder notify Looper

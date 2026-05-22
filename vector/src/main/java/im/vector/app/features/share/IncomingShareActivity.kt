@@ -14,13 +14,13 @@ import com.airbnb.mvrx.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.start.StartAppViewModel
 
 @AndroidEntryPoint
-class IncomingShareActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class IncomingShareActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     private val startAppViewModel: StartAppViewModel by viewModel()
 

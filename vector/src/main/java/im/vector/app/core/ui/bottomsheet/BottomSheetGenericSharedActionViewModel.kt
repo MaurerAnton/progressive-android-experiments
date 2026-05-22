@@ -7,9 +7,9 @@
 package im.vector.app.core.ui.bottomsheet
 
 import im.vector.app.core.platform.VectorSharedAction
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 
 /**
  * Activity shared view model to handle bottom sheet quick actions.
  */
-abstract class BottomSheetGenericSharedActionViewModel<Action : VectorSharedAction> : VectorSharedActionViewModel<Action>()
+abstract class BottomSheetGenericSharedActionViewModel<Action : VectorSharedAction> : ProgressiveSharedAction<Action>()

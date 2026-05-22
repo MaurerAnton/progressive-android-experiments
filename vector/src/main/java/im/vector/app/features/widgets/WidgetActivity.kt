@@ -30,7 +30,7 @@ import com.airbnb.mvrx.Mavericks
 import com.airbnb.mvrx.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityWidgetBinding
 import im.vector.app.features.widgets.permissions.RoomWidgetPermissionBottomSheet
 import im.vector.app.features.widgets.permissions.RoomWidgetPermissionViewEvents
@@ -44,7 +44,7 @@ import org.matrix.android.sdk.api.session.events.model.Content
 import java.io.Serializable
 
 @AndroidEntryPoint
-class WidgetActivity : VectorBaseActivity<ActivityWidgetBinding>() {
+class WidgetActivity : ProgressiveActivity<ActivityWidgetBinding>() {
 
     companion object {
         private const val WIDGET_FRAGMENT_TAG = "WIDGET_FRAGMENT_TAG"

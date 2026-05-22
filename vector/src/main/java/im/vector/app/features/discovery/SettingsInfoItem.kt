@@ -13,13 +13,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class SettingsInfoItem : VectorEpoxyModel<SettingsInfoItem.Holder>(R.layout.item_settings_helper_info) {
+abstract class SettingsInfoItem : ProgressiveEpoxyModel<SettingsInfoItem.Holder>(R.layout.item_settings_helper_info) {
 
     @EpoxyAttribute
     var helperText: String? = null
@@ -56,7 +56,7 @@ abstract class SettingsInfoItem : VectorEpoxyModel<SettingsInfoItem.Holder>(R.la
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val text by bind<TextView>(R.id.settings_helper_text)
     }
 }

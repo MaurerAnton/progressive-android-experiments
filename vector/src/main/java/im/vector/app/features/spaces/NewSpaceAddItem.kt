@@ -13,13 +13,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.themes.ThemeUtils
 
 @EpoxyModelClass
-abstract class NewSpaceAddItem : VectorEpoxyModel<NewSpaceAddItem.Holder>(R.layout.item_new_space_add) {
+abstract class NewSpaceAddItem : ProgressiveEpoxyModel<NewSpaceAddItem.Holder>(R.layout.item_new_space_add) {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var listener: ClickListener? = null
 
@@ -30,7 +30,7 @@ abstract class NewSpaceAddItem : VectorEpoxyModel<NewSpaceAddItem.Holder>(R.layo
         holder.plus.imageTintList = ColorStateList.valueOf(ThemeUtils.getColor(holder.view.context, im.vector.lib.ui.styles.R.attr.vctr_content_primary))
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val plus by bind<ImageView>(R.id.plus)
     }
 }

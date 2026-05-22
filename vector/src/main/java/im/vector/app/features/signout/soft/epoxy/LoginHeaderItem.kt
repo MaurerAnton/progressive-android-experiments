@@ -9,10 +9,10 @@ package im.vector.app.features.signout.soft.epoxy
 
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class LoginHeaderItem : VectorEpoxyModel<LoginHeaderItem.Holder>(R.layout.item_login_header) {
-    class Holder : VectorEpoxyHolder()
+abstract class LoginHeaderItem : ProgressiveEpoxyModel<LoginHeaderItem.Holder>(R.layout.item_login_header) {
+    class Holder : ProgressiveEpoxyHolder()
 }

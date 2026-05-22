@@ -12,14 +12,14 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.reactions.data.EmojiItem
 
 @EpoxyModelClass
-abstract class EmojiSearchResultItem : VectorEpoxyModel<EmojiSearchResultItem.Holder>(R.layout.item_emoji_result) {
+abstract class EmojiSearchResultItem : ProgressiveEpoxyModel<EmojiSearchResultItem.Holder>(R.layout.item_emoji_result) {
 
     @EpoxyAttribute
     lateinit var emojiItem: EmojiItem
@@ -43,7 +43,7 @@ abstract class EmojiSearchResultItem : VectorEpoxyModel<EmojiSearchResultItem.Ho
         holder.view.onClick(onClickListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val emojiText by bind<TextView>(R.id.item_emoji_tv)
         val emojiNameText by bind<TextView>(R.id.item_emoji_name)
         val emojiKeywordText by bind<TextView>(R.id.item_emoji_keyword)

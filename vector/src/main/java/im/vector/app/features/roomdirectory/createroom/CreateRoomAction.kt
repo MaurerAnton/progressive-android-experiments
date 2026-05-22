@@ -8,10 +8,10 @@
 package im.vector.app.features.roomdirectory.createroom
 
 import android.net.Uri
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.RoomJoinRules
 
-sealed class CreateRoomAction : VectorViewModelAction {
+sealed class CreateRoomAction : ProgressiveViewModelAction {
     data class SetAvatar(val imageUri: Uri?) : CreateRoomAction()
     data class SetName(val name: String) : CreateRoomAction()
     data class SetTopic(val topic: String) : CreateRoomAction()

@@ -16,7 +16,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.databinding.BottomSheetGenericListWithTitleBinding
 import im.vector.app.features.home.room.detail.RoomDetailAction
@@ -32,7 +32,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class RoomWidgetsBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListWithTitleBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListWithTitleBinding>(),
         RoomWidgetsController.Listener {
 
     @Inject lateinit var epoxyController: RoomWidgetsController

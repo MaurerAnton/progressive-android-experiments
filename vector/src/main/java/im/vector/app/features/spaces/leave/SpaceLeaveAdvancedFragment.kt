@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.ToggleableAppBarLayoutBehavior
 import im.vector.app.databinding.FragmentSpaceLeaveAdvancedBinding
@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SpaceLeaveAdvancedFragment :
-        VectorBaseFragment<FragmentSpaceLeaveAdvancedBinding>(),
+        ProgressiveFragment<FragmentSpaceLeaveAdvancedBinding>(),
         SelectChildrenController.Listener,
         VectorMenuProvider {
 

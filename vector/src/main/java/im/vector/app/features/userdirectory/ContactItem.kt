@@ -13,12 +13,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.contacts.MappedContact
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.home.AvatarRenderer
 
 @EpoxyModelClass
-abstract class ContactItem : VectorEpoxyModel<ContactItem.Holder>(R.layout.item_contact_main) {
+abstract class ContactItem : ProgressiveEpoxyModel<ContactItem.Holder>(R.layout.item_contact_main) {
 
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var mappedContact: MappedContact
@@ -30,7 +30,7 @@ abstract class ContactItem : VectorEpoxyModel<ContactItem.Holder>(R.layout.item_
         avatarRenderer.render(mappedContact, holder.avatarImageView)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val nameView by bind<TextView>(R.id.contactDisplayName)
         val avatarImageView by bind<ImageView>(R.id.contactAvatar)
     }

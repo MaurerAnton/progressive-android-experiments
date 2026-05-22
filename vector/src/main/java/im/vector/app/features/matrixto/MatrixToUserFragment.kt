@@ -21,14 +21,14 @@ import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentMatrixToUserCardBinding
 import im.vector.app.features.home.AvatarRenderer
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MatrixToUserFragment :
-        VectorBaseFragment<FragmentMatrixToUserCardBinding>() {
+        ProgressiveFragment<FragmentMatrixToUserCardBinding>() {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
 

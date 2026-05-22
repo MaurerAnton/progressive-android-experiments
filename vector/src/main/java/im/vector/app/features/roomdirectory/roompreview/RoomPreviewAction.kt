@@ -7,9 +7,9 @@
 
 package im.vector.app.features.roomdirectory.roompreview
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class RoomPreviewAction : VectorViewModelAction {
+sealed class RoomPreviewAction : ProgressiveViewModelAction {
     object Join : RoomPreviewAction()
     object JoinThirdParty : RoomPreviewAction()
 }

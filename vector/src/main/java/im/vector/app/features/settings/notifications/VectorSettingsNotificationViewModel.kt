@@ -15,8 +15,8 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorDummyViewState
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveDummyViewState
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.pushers.EnsureFcmTokenIsRetrievedUseCase
 import im.vector.app.core.pushers.PushersManager
 import im.vector.app.core.pushers.RegisterUnifiedPushUseCase
@@ -28,7 +28,7 @@ import im.vector.app.features.settings.notifications.usecase.ToggleNotifications
 import kotlinx.coroutines.launch
 
 class VectorSettingsNotificationViewModel @AssistedInject constructor(
-        @Assisted initialState: VectorDummyViewState,
+        @Assisted initialState: ProgressiveDummyViewState,
         private val pushersManager: PushersManager,
         private val vectorPreferences: VectorPreferences,
         private val enableNotificationsForCurrentSessionUseCase: EnableNotificationsForCurrentSessionUseCase,
@@ -37,14 +37,14 @@ class VectorSettingsNotificationViewModel @AssistedInject constructor(
         private val registerUnifiedPushUseCase: RegisterUnifiedPushUseCase,
         private val ensureFcmTokenIsRetrievedUseCase: EnsureFcmTokenIsRetrievedUseCase,
         private val toggleNotificationsForCurrentSessionUseCase: ToggleNotificationsForCurrentSessionUseCase,
-) : VectorViewModel<VectorDummyViewState, VectorSettingsNotificationViewAction, VectorSettingsNotificationViewEvent>(initialState) {
+) : ProgressiveViewModel<ProgressiveDummyViewState, VectorSettingsNotificationViewAction, VectorSettingsNotificationViewEvent>(initialState) {
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<VectorSettingsNotificationViewModel, VectorDummyViewState> {
-        override fun create(initialState: VectorDummyViewState): VectorSettingsNotificationViewModel
+    interface Factory : MavericksAssistedViewModelFactory<VectorSettingsNotificationViewModel, ProgressiveDummyViewState> {
+        override fun create(initialState: ProgressiveDummyViewState): VectorSettingsNotificationViewModel
     }
 
-    companion object : MavericksViewModelFactory<VectorSettingsNotificationViewModel, VectorDummyViewState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<VectorSettingsNotificationViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
 
     @VisibleForTesting
     val notificationsPreferenceListener: SharedPreferences.OnSharedPreferenceChangeListener =

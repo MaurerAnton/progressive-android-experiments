@@ -11,8 +11,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.google.android.material.button.MaterialButton
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
 
@@ -20,7 +20,7 @@ import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
  * A generic button list item.
  */
 @EpoxyModelClass
-abstract class ButtonPositiveDestructiveButtonBarItem : VectorEpoxyModel<ButtonPositiveDestructiveButtonBarItem.Holder>(
+abstract class ButtonPositiveDestructiveButtonBarItem : ProgressiveEpoxyModel<ButtonPositiveDestructiveButtonBarItem.Holder>(
         R.layout.item_positive_destrutive_buttons
 ) {
 
@@ -45,7 +45,7 @@ abstract class ButtonPositiveDestructiveButtonBarItem : VectorEpoxyModel<ButtonP
         holder.destructiveButton.onClick(destructiveButtonClickAction)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val destructiveButton by bind<MaterialButton>(R.id.destructive_button)
         val positiveButton by bind<MaterialButton>(R.id.positive_button)
     }

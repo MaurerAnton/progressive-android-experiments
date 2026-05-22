@@ -34,7 +34,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.insertBeforeLast
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.utils.OnSnapPositionChangeListener
@@ -58,7 +58,7 @@ data class AttachmentsPreviewArgs(
 
 @AndroidEntryPoint
 class AttachmentsPreviewFragment :
-        VectorBaseFragment<FragmentAttachmentsPreviewBinding>(),
+        ProgressiveFragment<FragmentAttachmentsPreviewBinding>(),
         AttachmentMiniaturePreviewController.Callback,
         VectorMenuProvider {
 

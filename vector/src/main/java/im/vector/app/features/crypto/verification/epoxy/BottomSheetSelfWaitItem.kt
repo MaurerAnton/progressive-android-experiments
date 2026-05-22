@@ -8,13 +8,13 @@ package im.vector.app.features.crypto.verification.epoxy
 
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 /**
  * A action for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetSelfWaitItem : VectorEpoxyModel<BottomSheetSelfWaitItem.Holder>(R.layout.item_verification_wait) {
-    class Holder : VectorEpoxyHolder()
+abstract class BottomSheetSelfWaitItem : ProgressiveEpoxyModel<BottomSheetSelfWaitItem.Holder>(R.layout.item_verification_wait) {
+    class Holder : ProgressiveEpoxyHolder()
 }

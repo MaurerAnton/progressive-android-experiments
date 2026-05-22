@@ -36,7 +36,7 @@ import timber.log.Timber
 /**
  * Add Mavericks capabilities, handle DI and bindings.
  */
-abstract class VectorBaseDialogFragment<VB : ViewBinding> : DialogFragment(), MavericksView {
+abstract class ProgressiveDialog<VB : ViewBinding> : DialogFragment(), MavericksView {
     /* ==========================================================================================
      * Analytics
      * ========================================================================================== */
@@ -69,8 +69,8 @@ abstract class VectorBaseDialogFragment<VB : ViewBinding> : DialogFragment(), Ma
     protected val fragmentViewModelProvider
         get() = ViewModelProvider(this, viewModelFactory)
 
-    val vectorBaseActivity: VectorBaseActivity<*> by lazy {
-        activity as VectorBaseActivity<*>
+    val vectorBaseActivity: ProgressiveActivity<*> by lazy {
+        activity as ProgressiveActivity<*>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,8 +137,8 @@ abstract class VectorBaseDialogFragment<VB : ViewBinding> : DialogFragment(), Ma
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> VectorViewModel<*, *, T>.observeViewEvents(observer: (T) -> Unit) {
-        val tag = this@VectorBaseDialogFragment::class.simpleName.toString()
+    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(observer: (T) -> Unit) {
+        val tag = this@ProgressiveDialog::class.simpleName.toString()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewEvents

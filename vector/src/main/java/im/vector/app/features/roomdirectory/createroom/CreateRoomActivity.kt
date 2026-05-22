@@ -16,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.mvrx.Mavericks
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.roomdirectory.RoomDirectorySharedAction
@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.onEach
  * Simple container for [CreateRoomFragment].
  */
 @AndroidEntryPoint
-class CreateRoomActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class CreateRoomActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     private lateinit var sharedActionViewModel: RoomDirectorySharedActionViewModel
 

@@ -7,9 +7,9 @@
 
 package im.vector.app.features.invite
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.userdirectory.PendingSelection
 
-sealed class InviteUsersToRoomAction : VectorViewModelAction {
+sealed class InviteUsersToRoomAction : ProgressiveViewModelAction {
     data class InviteSelectedUsers(val selections: Set<PendingSelection>) : InviteUsersToRoomAction()
 }

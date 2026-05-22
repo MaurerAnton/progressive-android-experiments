@@ -15,14 +15,14 @@ import androidx.core.view.isVisible
 import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentBootstrapSetupRecoveryBinding
 import im.vector.app.features.raw.wellknown.SecureBackupMethod
 import im.vector.lib.strings.CommonStrings
 
 @AndroidEntryPoint
 class BootstrapSetupRecoveryKeyFragment :
-        VectorBaseFragment<FragmentBootstrapSetupRecoveryBinding>() {
+        ProgressiveFragment<FragmentBootstrapSetupRecoveryBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBootstrapSetupRecoveryBinding {
         return FragmentBootstrapSetupRecoveryBinding.inflate(inflater, container, false)

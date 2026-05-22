@@ -19,7 +19,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentBreadcrumbsBinding
 import im.vector.app.features.home.room.detail.RoomDetailSharedAction
 import im.vector.app.features.home.room.detail.RoomDetailSharedActionViewModel
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BreadcrumbsFragment :
-        VectorBaseFragment<FragmentBreadcrumbsBinding>(),
+        ProgressiveFragment<FragmentBreadcrumbsBinding>(),
         BreadcrumbsController.Listener {
 
     @Inject lateinit var breadcrumbsController: BreadcrumbsController

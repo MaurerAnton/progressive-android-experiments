@@ -7,9 +7,9 @@
 
 package im.vector.app.features.terms
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class ReviewTermsAction : VectorViewModelAction {
+sealed class ReviewTermsAction : ProgressiveViewModelAction {
     data class LoadTerms(val preferredLanguageCode: String) : ReviewTermsAction()
     data class MarkTermAsAccepted(val url: String, val accepted: Boolean) : ReviewTermsAction()
     object Accept : ReviewTermsAction()

@@ -17,8 +17,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.resources.ColorProvider
@@ -28,7 +28,7 @@ import im.vector.app.core.ui.views.ShieldImageView
 import org.matrix.android.sdk.api.session.crypto.model.RoomEncryptionTrustLevel
 
 @EpoxyModelClass
-abstract class OtherSessionItem : VectorEpoxyModel<OtherSessionItem.Holder>(R.layout.item_other_session) {
+abstract class OtherSessionItem : ProgressiveEpoxyModel<OtherSessionItem.Holder>(R.layout.item_other_session) {
 
     @EpoxyAttribute
     var deviceType: DeviceType = DeviceType.UNKNOWN
@@ -99,7 +99,7 @@ abstract class OtherSessionItem : VectorEpoxyModel<OtherSessionItem.Holder>(R.la
         holder.otherSessionItemBackgroundView.isSelected = selected
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val otherSessionDeviceTypeImageView by bind<ImageView>(R.id.otherSessionDeviceTypeImageView)
         val otherSessionVerificationStatusImageView by bind<ShieldImageView>(R.id.otherSessionVerificationStatusImageView)
         val otherSessionNameTextView by bind<TextView>(R.id.otherSessionNameTextView)

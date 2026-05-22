@@ -15,14 +15,14 @@ import androidx.annotation.LayoutRes
 import androidx.core.view.updateLayoutParams
 import com.airbnb.epoxy.EpoxyAttribute
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.platform.CheckableView
 
 /**
  * Children must override getViewType().
  */
-abstract class BaseEventItem<H : BaseEventItem.BaseHolder>(@LayoutRes layoutId: Int) : VectorEpoxyModel<H>(layoutId), ItemWithEvents {
+abstract class BaseEventItem<H : BaseEventItem.BaseHolder>(@LayoutRes layoutId: Int) : ProgressiveEpoxyModel<H>(layoutId), ItemWithEvents {
 
     // To use for instance when opening a permalink with an eventId
     @EpoxyAttribute
@@ -53,7 +53,7 @@ abstract class BaseEventItem<H : BaseEventItem.BaseHolder>(@LayoutRes layoutId: 
         holder.checkableBackground.isChecked = highlighted
     }
 
-    abstract class BaseHolder(@IdRes val stubId: Int) : VectorEpoxyHolder() {
+    abstract class BaseHolder(@IdRes val stubId: Int) : ProgressiveEpoxyHolder() {
         val leftGuideline by bind<View>(R.id.messageStartGuideline)
         val contentContainer by bind<View>(R.id.viewStubContainer)
         val checkableBackground by bind<CheckableView>(R.id.messageSelectedBackground)

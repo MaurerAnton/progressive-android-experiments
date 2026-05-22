@@ -7,9 +7,9 @@
 
 package im.vector.app.features.settings.devices.v2.overview
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SessionOverviewAction : VectorViewModelAction {
+sealed class SessionOverviewAction : ProgressiveViewModelAction {
 
     object VerifySession : SessionOverviewAction()
     object SignoutOtherSession : SessionOverviewAction()

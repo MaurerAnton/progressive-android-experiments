@@ -18,7 +18,7 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.preference.VectorSwitchPreference
+import im.vector.app.core.preference.ProgressiveSwitchPreference
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
 import im.vector.app.features.VectorFeatures
@@ -50,13 +50,13 @@ class VectorSettingsLabsFragment :
     }
 
     override fun bindPref() {
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_LABS_AUTO_REPORT_UISI)?.let { pref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_LABS_AUTO_REPORT_UISI)?.let { pref ->
             // ensure correct default
             pref.isChecked = vectorPreferences.labsAutoReportUISI()
         }
 
         // clear cache
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_LABS_ENABLE_THREAD_MESSAGES)?.let { vectorPref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_LABS_ENABLE_THREAD_MESSAGES)?.let { vectorPref ->
             vectorPref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 onThreadsPreferenceClickedInterceptor(vectorPref)
                 false
@@ -79,7 +79,7 @@ class VectorSettingsLabsFragment :
             }
         }
 
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_LABS_NEW_APP_LAYOUT_KEY)?.let { pref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_LABS_NEW_APP_LAYOUT_KEY)?.let { pref ->
             pref.isVisible = vectorFeatures.isNewAppLayoutFeatureEnabled()
 
             pref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
@@ -88,7 +88,7 @@ class VectorSettingsLabsFragment :
             }
         }
 
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_LABS_VOICE_BROADCAST_KEY)?.let { pref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_LABS_VOICE_BROADCAST_KEY)?.let { pref ->
             // Voice Broadcast recording is not available on Android < 10
             pref.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && vectorFeatures.isVoiceBroadcastEnabled()
         }
@@ -98,7 +98,7 @@ class VectorSettingsLabsFragment :
     }
 
     private fun configureUnreadNotificationsAsTabPreference() {
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_LABS_UNREAD_NOTIFICATIONS_AS_TAB)?.let { pref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_LABS_UNREAD_NOTIFICATIONS_AS_TAB)?.let { pref ->
             pref.isVisible = !vectorFeatures.isNewAppLayoutFeatureEnabled()
             pref.isEnabled = !vectorPreferences.isNewAppLayoutEnabled()
         }
@@ -107,7 +107,7 @@ class VectorSettingsLabsFragment :
     /**
      * Intercept the click to display a user friendly dialog when their homeserver do not support threads.
      */
-    private fun onThreadsPreferenceClickedInterceptor(vectorSwitchPreference: VectorSwitchPreference) {
+    private fun onThreadsPreferenceClickedInterceptor(vectorSwitchPreference: ProgressiveSwitchPreference) {
         val userEnabledThreads = vectorPreferences.areThreadMessagesEnabled()
         if (!session.homeServerCapabilitiesService().getHomeServerCapabilities().canUseThreading && userEnabledThreads) {
             activity?.let {
@@ -153,7 +153,7 @@ class VectorSettingsLabsFragment :
     }
 
     private fun configureEnableClientInfoRecordingPreference() {
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_LABS_CLIENT_INFO_RECORDING_KEY)?.onPreferenceChangeListener =
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_LABS_CLIENT_INFO_RECORDING_KEY)?.onPreferenceChangeListener =
                 OnPreferenceChangeListener { _, newValue ->
                     when (newValue as? Boolean) {
                         false -> viewModel.handle(VectorSettingsLabsAction.DeleteRecordedClientInfo)

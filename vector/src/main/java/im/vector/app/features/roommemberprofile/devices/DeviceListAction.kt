@@ -7,10 +7,10 @@
 
 package im.vector.app.features.roommemberprofile.devices
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.crypto.model.CryptoDeviceInfo
 
-sealed class DeviceListAction : VectorViewModelAction {
+sealed class DeviceListAction : ProgressiveViewModelAction {
     data class SelectDevice(val device: CryptoDeviceInfo) : DeviceListAction()
     object DeselectDevice : DeviceListAction()
 }

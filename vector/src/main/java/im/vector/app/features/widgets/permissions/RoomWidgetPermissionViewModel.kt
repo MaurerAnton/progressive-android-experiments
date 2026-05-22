@@ -12,7 +12,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
@@ -30,7 +30,7 @@ class RoomWidgetPermissionViewModel @AssistedInject constructor(
         @Assisted val initialState: RoomWidgetPermissionViewState,
         private val session: Session
 ) :
-        VectorViewModel<RoomWidgetPermissionViewState, RoomWidgetPermissionActions, RoomWidgetPermissionViewEvents>(initialState) {
+        ProgressiveViewModel<RoomWidgetPermissionViewState, RoomWidgetPermissionActions, RoomWidgetPermissionViewEvents>(initialState) {
 
     private val widgetService = session.widgetService()
     private val integrationManagerService = session.integrationManagerService()

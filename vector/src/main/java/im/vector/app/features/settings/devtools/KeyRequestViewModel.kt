@@ -21,13 +21,13 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.VectorViewEvents
-import im.vector.app.core.platform.VectorViewModel
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModel
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
 
-sealed class KeyRequestAction : VectorViewModelAction {
+sealed class KeyRequestAction : ProgressiveViewModelAction {
     data class ExportAudit(val uri: Uri) : KeyRequestAction()
 }
 
@@ -43,7 +43,7 @@ class KeyRequestViewModel @AssistedInject constructor(
         @Assisted initialState: KeyRequestViewState,
         private val session: Session
 ) :
-        VectorViewModel<KeyRequestViewState, KeyRequestAction, KeyRequestEvents>(initialState) {
+        ProgressiveViewModel<KeyRequestViewState, KeyRequestAction, KeyRequestEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<KeyRequestViewModel, KeyRequestViewState> {

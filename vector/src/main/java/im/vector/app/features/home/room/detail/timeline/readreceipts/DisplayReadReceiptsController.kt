@@ -9,7 +9,7 @@ package im.vector.app.features.home.room.detail.timeline.readreceipts
 
 import com.airbnb.epoxy.TypedEpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.detail.timeline.item.ReadReceiptData
 import im.vector.app.features.home.room.detail.timeline.item.toMatrixItem
@@ -20,7 +20,7 @@ import javax.inject.Inject
  * Epoxy controller for read receipt event list.
  */
 class DisplayReadReceiptsController @Inject constructor(
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val session: Session,
         private val avatarRender: AvatarRenderer
 ) :

@@ -7,8 +7,8 @@
 
 package im.vector.app.features.settings.homeserver
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class HomeserverSettingsAction : VectorViewModelAction {
+sealed class HomeserverSettingsAction : ProgressiveViewModelAction {
     object Refresh : HomeserverSettingsAction()
 }

@@ -7,9 +7,9 @@
 
 package im.vector.app.features.home.room.list.home.release
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class ReleaseNotesAction : VectorViewModelAction {
+sealed class ReleaseNotesAction : ProgressiveViewModelAction {
     data class NextPressed(
             val isLastItemSelected: Boolean = false
     ) : ReleaseNotesAction()

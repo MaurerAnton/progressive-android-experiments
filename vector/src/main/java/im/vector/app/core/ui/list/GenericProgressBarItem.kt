@@ -10,14 +10,14 @@ import android.widget.ProgressBar
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 /**
  * A generic progress bar item.
  */
 @EpoxyModelClass
-abstract class GenericProgressBarItem : VectorEpoxyModel<GenericProgressBarItem.Holder>(R.layout.item_generic_progress) {
+abstract class GenericProgressBarItem : ProgressiveEpoxyModel<GenericProgressBarItem.Holder>(R.layout.item_generic_progress) {
 
     @EpoxyAttribute
     var progress: Int = 0
@@ -35,7 +35,7 @@ abstract class GenericProgressBarItem : VectorEpoxyModel<GenericProgressBarItem.
         holder.progressbar.isIndeterminate = indeterminate
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val progressbar by bind<ProgressBar>(R.id.genericProgressBar)
     }
 }

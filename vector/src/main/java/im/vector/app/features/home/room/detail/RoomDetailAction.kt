@@ -9,7 +9,7 @@ package im.vector.app.features.home.room.detail
 
 import android.net.Uri
 import android.view.View
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.call.conference.ConferenceEvent
 import im.vector.app.features.voicebroadcast.model.VoiceBroadcast
 import org.matrix.android.sdk.api.session.content.ContentAttachmentData
@@ -20,7 +20,7 @@ import org.matrix.android.sdk.api.session.room.timeline.TimelineEvent
 import org.matrix.android.sdk.api.session.widgets.model.Widget
 import org.matrix.android.sdk.api.util.MatrixItem
 
-sealed class RoomDetailAction : VectorViewModelAction {
+sealed class RoomDetailAction : ProgressiveViewModelAction {
     data class SendSticker(val stickerContent: MessageStickerContent) : RoomDetailAction()
     data class SendMedia(val attachments: List<ContentAttachmentData>, val compressBeforeSending: Boolean) : RoomDetailAction()
     data class TimelineEventTurnsVisible(val event: TimelineEvent) : RoomDetailAction()

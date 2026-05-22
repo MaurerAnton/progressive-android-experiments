@@ -17,7 +17,7 @@ import im.vector.app.R
 import im.vector.app.features.settings.FontScaleValue
 
 @EpoxyModelClass
-abstract class FontScaleItem : VectorEpoxyModel<FontScaleItem.Holder>(R.layout.item_font_scale) {
+abstract class FontScaleItem : ProgressiveEpoxyModel<FontScaleItem.Holder>(R.layout.item_font_scale) {
 
     companion object {
         const val MINIMAL_TEXT_SIZE_DP = 10f
@@ -48,7 +48,7 @@ abstract class FontScaleItem : VectorEpoxyModel<FontScaleItem.Holder>(R.layout.i
         holder.button.setOnCheckedChangeListener(checkChangeListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val button by bind<RadioButton>(R.id.font_scale_radio_button)
         val textView by bind<TextView>(R.id.font_scale_text)
     }

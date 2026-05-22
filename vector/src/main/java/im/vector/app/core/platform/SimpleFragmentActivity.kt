@@ -15,7 +15,7 @@ import im.vector.app.databinding.ActivityBinding
 /**
  * Simple activity with a toolbar, a waiting overlay, and a fragment container and a session.
  */
-abstract class SimpleFragmentActivity : VectorBaseActivity<ActivityBinding>() {
+abstract class SimpleFragmentActivity : ProgressiveActivity<ActivityBinding>() {
 
     final override fun getBinding() = ActivityBinding.inflate(layoutInflater)
 

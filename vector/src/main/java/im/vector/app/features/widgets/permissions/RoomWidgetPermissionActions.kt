@@ -7,9 +7,9 @@
 
 package im.vector.app.features.widgets.permissions
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class RoomWidgetPermissionActions : VectorViewModelAction {
+sealed class RoomWidgetPermissionActions : ProgressiveViewModelAction {
     object AllowWidget : RoomWidgetPermissionActions()
     object BlockWidget : RoomWidgetPermissionActions()
 }

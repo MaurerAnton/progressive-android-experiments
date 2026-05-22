@@ -11,13 +11,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.google.android.material.tabs.TabLayout
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.analytics.AnalyticsTracker
 import im.vector.app.features.analytics.plan.Interaction
 
 @EpoxyModelClass
-abstract class RoomFilterHeaderItem : VectorEpoxyModel<RoomFilterHeaderItem.Holder>(R.layout.item_home_filter_tabs) {
+abstract class RoomFilterHeaderItem : ProgressiveEpoxyModel<RoomFilterHeaderItem.Holder>(R.layout.item_home_filter_tabs) {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     var onFilterChangedListener: ((HomeRoomFilter) -> Unit)? = null
@@ -80,7 +80,7 @@ abstract class RoomFilterHeaderItem : VectorEpoxyModel<RoomFilterHeaderItem.Hold
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val tabLayout by bind<TabLayout>(R.id.home_filter_tabs_tabs)
     }
 }

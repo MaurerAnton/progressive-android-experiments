@@ -11,13 +11,13 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
 import me.saket.bettermovementmethod.BetterLinkMovementMethod
 
 @EpoxyModelClass
-abstract class RoomCreateItem : VectorEpoxyModel<RoomCreateItem.Holder>(R.layout.item_timeline_event_create) {
+abstract class RoomCreateItem : ProgressiveEpoxyModel<RoomCreateItem.Holder>(R.layout.item_timeline_event_create) {
 
     @EpoxyAttribute lateinit var text: EpoxyCharSequence
 
@@ -27,7 +27,7 @@ abstract class RoomCreateItem : VectorEpoxyModel<RoomCreateItem.Holder>(R.layout
         holder.description.text = text.charSequence
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val description by bind<TextView>(R.id.roomCreateItemDescription)
     }
 }

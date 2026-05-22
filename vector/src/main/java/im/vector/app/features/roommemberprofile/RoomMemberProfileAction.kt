@@ -7,10 +7,10 @@
 
 package im.vector.app.features.roommemberprofile
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.powerlevels.UserPowerLevel
 
-sealed class RoomMemberProfileAction : VectorViewModelAction {
+sealed class RoomMemberProfileAction : ProgressiveViewModelAction {
     object RetryFetchingInfo : RoomMemberProfileAction()
     object IgnoreUser : RoomMemberProfileAction()
     object ReportUser : RoomMemberProfileAction()

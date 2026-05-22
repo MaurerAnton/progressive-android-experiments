@@ -9,7 +9,7 @@ package im.vector.app.features.home.room.threads.list.viewmodel
 
 import com.airbnb.epoxy.EpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.home.room.detail.timeline.format.DisplayableEventFormatter
 import im.vector.app.features.home.room.threads.list.model.threadListItem
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class ThreadListController @Inject constructor(
         private val avatarRenderer: AvatarRenderer,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val displayableEventFormatter: DisplayableEventFormatter,
 ) : EpoxyController() {
 

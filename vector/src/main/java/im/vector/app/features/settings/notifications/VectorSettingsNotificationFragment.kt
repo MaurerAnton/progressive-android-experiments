@@ -26,10 +26,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.preference.VectorEditTextPreference
+import im.vector.app.core.preference.ProgressiveEditTextPreference
 import im.vector.app.core.preference.VectorPreference
-import im.vector.app.core.preference.VectorPreferenceCategory
-import im.vector.app.core.preference.VectorSwitchPreference
+import im.vector.app.core.preference.ProgressivePreferenceCategory
+import im.vector.app.core.preference.ProgressiveSwitchPreference
 import im.vector.app.core.pushers.EnsureFcmTokenIsRetrievedUseCase
 import im.vector.app.core.pushers.FcmHelper
 import im.vector.app.core.pushers.PushersManager
@@ -118,7 +118,7 @@ class VectorSettingsNotificationFragment :
     }
 
     override fun bindPref() {
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_ENABLE_ALL_NOTIF_PREFERENCE_KEY)!!.let { pref ->
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_ENABLE_ALL_NOTIF_PREFERENCE_KEY)!!.let { pref ->
             val pushRuleService = session.pushRuleService()
             val mRuleMaster = pushRuleService.getPushRules().getAllRules()
                     .find { it.ruleId == RuleIds.RULE_ID_DISABLE_ALL }
@@ -157,7 +157,7 @@ class VectorSettingsNotificationFragment :
             }
         }
 
-        findPreference<VectorEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_TIMEOUT_PREFERENCE_KEY)?.let {
+        findPreference<ProgressiveEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_TIMEOUT_PREFERENCE_KEY)?.let {
             it.isEnabled = vectorPreferences.isBackgroundSyncEnabled()
             it.summary = secondsToText(vectorPreferences.backgroundSyncTimeOut())
             it.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
@@ -170,7 +170,7 @@ class VectorSettingsNotificationFragment :
             }
         }
 
-        findPreference<VectorEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_DELAY_PREFERENCE_KEY)?.let {
+        findPreference<ProgressiveEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_DELAY_PREFERENCE_KEY)?.let {
             it.isEnabled = vectorPreferences.isBackgroundSyncEnabled()
             it.summary = secondsToText(vectorPreferences.backgroundSyncDelay())
             it.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
@@ -248,7 +248,7 @@ class VectorSettingsNotificationFragment :
     }
 
     private fun bindEmailNotificationCategory(emails: List<Pair<ThreePid.Email, Boolean>>) {
-        findPreference<VectorPreferenceCategory>(VectorPreferences.SETTINGS_EMAIL_NOTIFICATION_CATEGORY_PREFERENCE_KEY)?.let { category ->
+        findPreference<ProgressivePreferenceCategory>(VectorPreferences.SETTINGS_EMAIL_NOTIFICATION_CATEGORY_PREFERENCE_KEY)?.let { category ->
             category.removeAll()
             if (emails.isEmpty()) {
                 val vectorPreference = VectorPreference(requireContext())
@@ -260,7 +260,7 @@ class VectorSettingsNotificationFragment :
                 }
             } else {
                 emails.forEach { (emailPid, isEnabled) ->
-                    val pref = VectorSwitchPreference(requireContext())
+                    val pref = ProgressiveSwitchPreference(requireContext())
                     pref.title = resources.getString(CommonStrings.settings_notification_emails_enable_for_email, emailPid.email)
                     pref.isChecked = isEnabled
                     pref.setTransactionalSwitchChangeListener(lifecycleScope) { isChecked ->
@@ -304,16 +304,16 @@ class VectorSettingsNotificationFragment :
             }
         }
 
-        findPreference<VectorPreferenceCategory>(VectorPreferences.SETTINGS_BACKGROUND_SYNC_PREFERENCE_KEY)?.let {
+        findPreference<ProgressivePreferenceCategory>(VectorPreferences.SETTINGS_BACKGROUND_SYNC_PREFERENCE_KEY)?.let {
             it.isVisible = unifiedPushHelper.isBackgroundSync()
         }
 
         val backgroundSyncEnabled = vectorPreferences.isBackgroundSyncEnabled()
-        findPreference<VectorEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_TIMEOUT_PREFERENCE_KEY)?.let {
+        findPreference<ProgressiveEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_TIMEOUT_PREFERENCE_KEY)?.let {
             it.isEnabled = backgroundSyncEnabled
             it.summary = secondsToText(vectorPreferences.backgroundSyncTimeOut())
         }
-        findPreference<VectorEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_DELAY_PREFERENCE_KEY)?.let {
+        findPreference<ProgressiveEditTextPreference>(VectorPreferences.SETTINGS_SET_SYNC_DELAY_PREFERENCE_KEY)?.let {
             it.isEnabled = backgroundSyncEnabled
             it.summary = secondsToText(vectorPreferences.backgroundSyncDelay())
         }
@@ -405,7 +405,7 @@ class VectorSettingsNotificationFragment :
 
         interactionListener?.requestedKeyToHighlight()?.let { key ->
             interactionListener?.requestHighlightPreferenceKeyOnResume(null)
-            val preference = findPreference<VectorSwitchPreference>(key)
+            val preference = findPreference<ProgressiveSwitchPreference>(key)
             preference?.isHighlighted = true
         }
 
@@ -415,7 +415,7 @@ class VectorSettingsNotificationFragment :
     private fun refreshPref() {
         // This pref may have change from troubleshoot pref fragment
         if (unifiedPushHelper.isBackgroundSync()) {
-            findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_START_ON_BOOT_PREFERENCE_KEY)
+            findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_START_ON_BOOT_PREFERENCE_KEY)
                     ?.isChecked = vectorPreferences.autoStartOnBoot()
         }
     }

@@ -7,9 +7,9 @@
 
 package im.vector.app.features.roomprofile.members
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class RoomMemberListAction : VectorViewModelAction {
+sealed class RoomMemberListAction : ProgressiveViewModelAction {
     data class RevokeThreePidInvite(val stateKey: String) : RoomMemberListAction()
     data class FilterMemberList(val searchTerm: String) : RoomMemberListAction()
 }

@@ -12,7 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResult
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetLiveLocationLabsFlagPromotionBinding
 
 /**
@@ -20,7 +20,7 @@ import im.vector.app.databinding.BottomSheetLiveLocationLabsFlagPromotionBinding
  * This should not be shown if the user already enabled the labs flag.
  */
 class LiveLocationLabsFlagPromotionBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetLiveLocationLabsFlagPromotionBinding>() {
+        ProgressiveBottomSheet<BottomSheetLiveLocationLabsFlagPromotionBinding>() {
 
     override val showExpanded = true
 

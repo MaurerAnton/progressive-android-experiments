@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import chat.progressive.app.native.ProgressiveNative
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityFilteredRoomsBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.home.RoomListDisplayMode
@@ -32,7 +32,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 @AndroidEntryPoint
-class FilteredRoomsActivity : VectorBaseActivity<ActivityFilteredRoomsBinding>() {
+class FilteredRoomsActivity : ProgressiveActivity<ActivityFilteredRoomsBinding>() {
 
     private val roomListFragment: RoomListFragment?
         get() {

@@ -8,10 +8,10 @@ package im.vector.app.features.home.room.detail.timeline.item
 
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class BlankItem : VectorEpoxyModel<BlankItem.BlankHolder>(R.layout.item_timeline_event_blank_stub) {
-    class BlankHolder : VectorEpoxyHolder()
+abstract class BlankItem : ProgressiveEpoxyModel<BlankItem.BlankHolder>(R.layout.item_timeline_event_blank_stub) {
+    class BlankHolder : ProgressiveEpoxyHolder()
 }

@@ -26,7 +26,7 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.extensions.isVoiceBroadcast
 import im.vector.app.core.mvrx.runCatchingToAsync
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.utils.BehaviorDataSource
@@ -150,7 +150,7 @@ class TimelineViewModel @AssistedInject constructor(
         private val spaceStateHandler: SpaceStateHandler,
         private val voiceBroadcastHelper: VoiceBroadcastHelper,
         private val voteToPollUseCase: VoteToPollUseCase,
-) : VectorViewModel<RoomDetailViewState, RoomDetailAction, RoomDetailViewEvents>(initialState),
+) : ProgressiveViewModel<RoomDetailViewState, RoomDetailAction, RoomDetailViewEvents>(initialState),
         Timeline.Listener, ChatEffectManager.Delegate, CallProtocolsChecker.Listener, LocationSharingServiceConnection.Callback {
 
     private val room = session.getRoom(initialState.roomId)

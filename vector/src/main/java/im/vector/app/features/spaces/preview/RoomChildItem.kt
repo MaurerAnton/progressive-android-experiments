@@ -12,14 +12,14 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class RoomChildItem : VectorEpoxyModel<RoomChildItem.Holder>(R.layout.item_space_roomchild) {
+abstract class RoomChildItem : ProgressiveEpoxyModel<RoomChildItem.Holder>(R.layout.item_space_roomchild) {
 
     @EpoxyAttribute
     lateinit var roomId: String
@@ -60,7 +60,7 @@ abstract class RoomChildItem : VectorEpoxyModel<RoomChildItem.Holder>(R.layout.i
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarImageView by bind<ImageView>(R.id.childRoomAvatar)
         val roomNameText by bind<TextView>(R.id.childRoomName)
         val roomTopicText by bind<TextView>(R.id.childRoomTopic)

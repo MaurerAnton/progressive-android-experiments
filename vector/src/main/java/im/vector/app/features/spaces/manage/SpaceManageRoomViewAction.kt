@@ -7,9 +7,9 @@
 
 package im.vector.app.features.spaces.manage
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SpaceManageRoomViewAction : VectorViewModelAction {
+sealed class SpaceManageRoomViewAction : ProgressiveViewModelAction {
     data class ToggleSelection(val roomId: String) : SpaceManageRoomViewAction()
     data class UpdateFilter(val filter: String) : SpaceManageRoomViewAction()
     object ClearSelection : SpaceManageRoomViewAction()

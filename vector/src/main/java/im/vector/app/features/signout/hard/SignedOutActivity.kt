@@ -12,7 +12,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySignedOutBinding
 import im.vector.app.features.MainActivity
 import im.vector.app.features.MainActivityArgs
@@ -23,7 +23,7 @@ import timber.log.Timber
  * In this screen, the user is viewing a message informing that he has been logged out.
  */
 @AndroidEntryPoint
-class SignedOutActivity : VectorBaseActivity<ActivitySignedOutBinding>() {
+class SignedOutActivity : ProgressiveActivity<ActivitySignedOutBinding>() {
 
     override fun getBinding() = ActivitySignedOutBinding.inflate(layoutInflater)
 

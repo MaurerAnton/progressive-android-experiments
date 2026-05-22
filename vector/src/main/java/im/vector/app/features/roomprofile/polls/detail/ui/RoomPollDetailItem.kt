@@ -13,13 +13,13 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.home.room.detail.timeline.item.PollOptionView
 import im.vector.app.features.home.room.detail.timeline.item.PollOptionViewState
 
 @EpoxyModelClass
-abstract class RoomPollDetailItem : VectorEpoxyModel<RoomPollDetailItem.Holder>(R.layout.item_poll_detail) {
+abstract class RoomPollDetailItem : ProgressiveEpoxyModel<RoomPollDetailItem.Holder>(R.layout.item_poll_detail) {
 
     @EpoxyAttribute
     lateinit var formattedDate: String
@@ -70,7 +70,7 @@ abstract class RoomPollDetailItem : VectorEpoxyModel<RoomPollDetailItem.Holder>(
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val date by bind<TextView>(R.id.pollDetailDate)
         val questionTextView by bind<TextView>(R.id.questionTextView)
         val optionsContainer by bind<LinearLayout>(R.id.optionsContainer)

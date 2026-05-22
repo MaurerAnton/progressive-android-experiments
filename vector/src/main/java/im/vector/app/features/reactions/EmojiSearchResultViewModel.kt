@@ -14,7 +14,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.reactions.data.EmojiDataSource
 import im.vector.app.features.reactions.data.EmojiItem
 import kotlinx.coroutines.launch
@@ -28,7 +28,7 @@ class EmojiSearchResultViewModel @AssistedInject constructor(
         @Assisted initialState: EmojiSearchResultViewState,
         private val dataSource: EmojiDataSource
 ) :
-        VectorViewModel<EmojiSearchResultViewState, EmojiSearchAction, EmptyViewEvents>(initialState) {
+        ProgressiveViewModel<EmojiSearchResultViewState, EmojiSearchAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<EmojiSearchResultViewModel, EmojiSearchResultViewState> {

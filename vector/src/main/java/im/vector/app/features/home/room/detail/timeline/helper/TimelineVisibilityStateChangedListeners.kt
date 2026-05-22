@@ -8,12 +8,12 @@
 package im.vector.app.features.home.room.detail.timeline.helper
 
 import com.airbnb.epoxy.VisibilityState
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.home.room.detail.timeline.TimelineEventController
 import org.matrix.android.sdk.api.session.room.timeline.TimelineEvent
 
 class ReadMarkerVisibilityStateChangedListener(private val callback: TimelineEventController.Callback?) :
-        VectorEpoxyModel.OnVisibilityStateChangedListener {
+        ProgressiveEpoxyModel.OnVisibilityStateChangedListener {
 
     override fun onVisibilityStateChanged(visibilityState: Int) {
         if (visibilityState == VisibilityState.VISIBLE) {
@@ -26,7 +26,7 @@ class TimelineEventVisibilityStateChangedListener(
         private val callback: TimelineEventController.Callback?,
         private val event: TimelineEvent
 ) :
-        VectorEpoxyModel.OnVisibilityStateChangedListener {
+        ProgressiveEpoxyModel.OnVisibilityStateChangedListener {
 
     override fun onVisibilityStateChanged(visibilityState: Int) {
         if (visibilityState == VisibilityState.VISIBLE) {
@@ -41,7 +41,7 @@ class MergedTimelineEventVisibilityStateChangedListener(
         private val callback: TimelineEventController.Callback?,
         private val events: List<TimelineEvent>
 ) :
-        VectorEpoxyModel.OnVisibilityStateChangedListener {
+        ProgressiveEpoxyModel.OnVisibilityStateChangedListener {
 
     override fun onVisibilityStateChanged(visibilityState: Int) {
         if (visibilityState == VisibilityState.VISIBLE) {

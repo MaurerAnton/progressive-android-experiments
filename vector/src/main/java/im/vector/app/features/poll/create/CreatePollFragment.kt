@@ -18,7 +18,7 @@ import com.airbnb.mvrx.args
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentCreatePollBinding
 import im.vector.app.features.poll.PollMode
 import im.vector.app.features.poll.create.CreatePollViewModel.Companion.MAX_OPTIONS_COUNT
@@ -37,7 +37,7 @@ data class CreatePollArgs(
 
 @AndroidEntryPoint
 class CreatePollFragment :
-        VectorBaseFragment<FragmentCreatePollBinding>(),
+        ProgressiveFragment<FragmentCreatePollBinding>(),
         CreatePollController.Callback {
 
     @Inject lateinit var controller: CreatePollController

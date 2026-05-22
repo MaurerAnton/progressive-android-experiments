@@ -27,7 +27,7 @@ import im.vector.app.core.extensions.POP_BACK_STACK_EXCLUSIVE
 import im.vector.app.core.extensions.addFragment
 import im.vector.app.core.extensions.addFragmentToBackstack
 import im.vector.app.core.extensions.validateBackPressed
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.utils.openUrlInChromeCustomTab
 import im.vector.app.databinding.ActivityLoginBinding
 import im.vector.app.features.analytics.plan.MobileScreen
@@ -48,7 +48,7 @@ import org.matrix.android.sdk.api.extensions.tryOrNull
  * The LoginActivity manages the fragment navigation and also display the loading View.
  */
 @AndroidEntryPoint
-open class LoginActivity : VectorBaseActivity<ActivityLoginBinding>(), UnlockedActivity {
+open class LoginActivity : ProgressiveActivity<ActivityLoginBinding>(), UnlockedActivity {
 
     private val loginViewModel: LoginViewModel by viewModel()
 

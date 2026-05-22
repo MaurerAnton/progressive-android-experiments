@@ -7,10 +7,10 @@
 
 package im.vector.app.features.spaces.explore
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.SpaceChildInfo
 
-sealed class SpaceDirectoryViewAction : VectorViewModelAction {
+sealed class SpaceDirectoryViewAction : ProgressiveViewModelAction {
     data class ExploreSubSpace(val spaceChildInfo: SpaceChildInfo) : SpaceDirectoryViewAction()
     data class JoinOrOpen(val spaceChildInfo: SpaceChildInfo) : SpaceDirectoryViewAction()
     data class FilterRooms(val query: String?) : SpaceDirectoryViewAction()

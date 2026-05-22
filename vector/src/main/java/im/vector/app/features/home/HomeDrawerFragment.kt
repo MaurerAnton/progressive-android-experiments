@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.observeK
 import im.vector.app.core.extensions.replaceChildFragment
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.utils.startSharePlainTextIntent
 import im.vector.app.databinding.FragmentHomeDrawerBinding
@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeDrawerFragment :
-        VectorBaseFragment<FragmentHomeDrawerBinding>() {
+        ProgressiveFragment<FragmentHomeDrawerBinding>() {
 
     @Inject lateinit var session: Session
     @Inject lateinit var vectorPreferences: VectorPreferences

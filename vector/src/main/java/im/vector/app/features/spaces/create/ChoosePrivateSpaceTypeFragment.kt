@@ -15,7 +15,7 @@ import com.airbnb.mvrx.activityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.databinding.FragmentSpaceCreateChoosePrivateModelBinding
 import im.vector.lib.strings.CommonStrings
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChoosePrivateSpaceTypeFragment :
-        VectorBaseFragment<FragmentSpaceCreateChoosePrivateModelBinding>(),
+        ProgressiveFragment<FragmentSpaceCreateChoosePrivateModelBinding>(),
         OnBackPressed {
 
     @Inject lateinit var stringProvider: StringProvider

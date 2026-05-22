@@ -21,7 +21,7 @@ import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.observeEvent
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.ensureProtocol
 import im.vector.app.core.utils.openUrlInChromeCustomTab
 import im.vector.app.core.utils.showIdentityServerConsentDialog
@@ -37,7 +37,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DiscoverySettingsFragment :
-        VectorBaseFragment<FragmentGenericRecyclerBinding>(),
+        ProgressiveFragment<FragmentGenericRecyclerBinding>(),
         DiscoverySettingsController.Listener {
 
     @Inject lateinit var controller: DiscoverySettingsController

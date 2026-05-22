@@ -17,12 +17,12 @@ import androidx.fragment.app.FragmentManager
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetSessionLearnMoreBinding
 import kotlinx.parcelize.Parcelize
 
 @AndroidEntryPoint
-class SessionLearnMoreBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetSessionLearnMoreBinding>() {
+class SessionLearnMoreBottomSheet : ProgressiveBottomSheet<BottomSheetSessionLearnMoreBinding>() {
 
     @Parcelize
     data class Args(

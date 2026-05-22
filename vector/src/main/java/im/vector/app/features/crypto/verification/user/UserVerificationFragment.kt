@@ -24,7 +24,7 @@ import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.giveAccessibilityFocus
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.PERMISSIONS_FOR_TAKING_PHOTO
 import im.vector.app.core.utils.checkPermissions
 import im.vector.app.core.utils.onPermissionDeniedDialog
@@ -38,7 +38,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserVerificationFragment : VectorBaseFragment<BottomSheetVerificationChildFragmentBinding>(),
+class UserVerificationFragment : ProgressiveFragment<BottomSheetVerificationChildFragmentBinding>(),
         BaseEpoxyVerificationController.InteractionListener {
 
     @Inject lateinit var controller: UserVerificationController

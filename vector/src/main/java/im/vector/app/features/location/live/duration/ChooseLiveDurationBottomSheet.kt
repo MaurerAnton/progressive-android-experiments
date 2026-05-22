@@ -13,8 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment.ResultListener.Companion.RESULT_OK
+import im.vector.app.core.platform.ProgressiveBottomSheet
+import im.vector.app.core.platform.ProgressiveBottomSheet.ResultListener.Companion.RESULT_OK
 import im.vector.app.databinding.BottomSheetChooseLiveLocationShareDurationBinding
 
 /**
@@ -37,7 +37,7 @@ private const val DURATION_IN_MS_OPTION_3 = 8 * 60 * 60_000L
  */
 @AndroidEntryPoint
 class ChooseLiveDurationBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetChooseLiveLocationShareDurationBinding>() {
+        ProgressiveBottomSheet<BottomSheetChooseLiveLocationShareDurationBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): BottomSheetChooseLiveLocationShareDurationBinding {
         return BottomSheetChooseLiveLocationShareDurationBinding.inflate(inflater, container, false)

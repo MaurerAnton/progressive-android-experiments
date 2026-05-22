@@ -13,12 +13,12 @@ import androidx.core.view.isVisible
 import com.airbnb.mvrx.parentFragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentBootstrapWaitingBinding
 
 @AndroidEntryPoint
 class BootstrapWaitingFragment :
-        VectorBaseFragment<FragmentBootstrapWaitingBinding>() {
+        ProgressiveFragment<FragmentBootstrapWaitingBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBootstrapWaitingBinding {
         return FragmentBootstrapWaitingBinding.inflate(inflater, container, false)

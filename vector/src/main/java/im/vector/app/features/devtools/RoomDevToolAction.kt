@@ -7,10 +7,10 @@
 
 package im.vector.app.features.devtools
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.events.model.Event
 
-sealed class RoomDevToolAction : VectorViewModelAction {
+sealed class RoomDevToolAction : ProgressiveViewModelAction {
     object ExploreRoomState : RoomDevToolAction()
     object OnBackPressed : RoomDevToolAction()
     object MenuEdit : RoomDevToolAction()

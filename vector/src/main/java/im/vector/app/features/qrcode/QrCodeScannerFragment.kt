@@ -24,7 +24,7 @@ import com.google.zxing.ResultMetadataType
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.PERMISSIONS_FOR_TAKING_PHOTO
 import im.vector.app.core.utils.checkPermissions
 import im.vector.app.core.utils.onPermissionDeniedDialog
@@ -46,7 +46,7 @@ data class QrScannerArgs(
 
 @AndroidEntryPoint
 class QrCodeScannerFragment :
-        VectorBaseFragment<FragmentQrCodeScannerBinding>(),
+        ProgressiveFragment<FragmentQrCodeScannerBinding>(),
         ZXingScannerView.ResultHandler {
 
     private val qrViewModel: QrCodeScannerViewModel by activityViewModel()

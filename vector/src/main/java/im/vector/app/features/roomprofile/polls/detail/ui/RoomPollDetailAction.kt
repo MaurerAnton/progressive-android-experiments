@@ -7,8 +7,8 @@
 
 package im.vector.app.features.roomprofile.polls.detail.ui
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface RoomPollDetailAction : VectorViewModelAction {
+sealed interface RoomPollDetailAction : ProgressiveViewModelAction {
     data class Vote(val pollEventId: String, val optionId: String) : RoomPollDetailAction
 }

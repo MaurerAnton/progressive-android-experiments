@@ -13,7 +13,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.userdirectory.PendingSelection
 import im.vector.lib.strings.CommonPlurals
@@ -30,7 +30,7 @@ class InviteUsersToRoomViewModel @AssistedInject constructor(
         @Assisted initialState: InviteUsersToRoomViewState,
         session: Session,
         val stringProvider: StringProvider
-) : VectorViewModel<InviteUsersToRoomViewState, InviteUsersToRoomAction, InviteUsersToRoomViewEvents>(initialState) {
+) : ProgressiveViewModel<InviteUsersToRoomViewState, InviteUsersToRoomAction, InviteUsersToRoomViewEvents>(initialState) {
 
     private val room = session.getRoom(initialState.roomId)!!
 

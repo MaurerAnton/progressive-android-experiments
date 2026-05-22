@@ -7,11 +7,11 @@
 
 package im.vector.app.features.home.room.list
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.RoomSummary
 import org.matrix.android.sdk.api.session.room.notification.RoomNotificationState
 
-sealed class RoomListAction : VectorViewModelAction {
+sealed class RoomListAction : ProgressiveViewModelAction {
     data class SelectRoom(val roomSummary: RoomSummary) : RoomListAction()
     data class ToggleSection(val section: RoomsSection) : RoomListAction()
     data class AcceptInvitation(val roomSummary: RoomSummary) : RoomListAction()

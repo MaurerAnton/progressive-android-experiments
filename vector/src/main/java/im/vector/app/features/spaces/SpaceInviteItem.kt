@@ -13,8 +13,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.platform.CheckableConstraintLayout
 import im.vector.app.features.home.AvatarRenderer
@@ -23,7 +23,7 @@ import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class SpaceInviteItem : VectorEpoxyModel<SpaceInviteItem.Holder>(R.layout.item_space_invite) {
+abstract class SpaceInviteItem : ProgressiveEpoxyModel<SpaceInviteItem.Holder>(R.layout.item_space_invite) {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute var inviter: String = ""
@@ -50,7 +50,7 @@ abstract class SpaceInviteItem : VectorEpoxyModel<SpaceInviteItem.Holder>(R.layo
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val root by bind<CheckableConstraintLayout>(R.id.root)
         val avatar by bind<ImageView>(R.id.avatar)
         val name by bind<TextView>(R.id.name)

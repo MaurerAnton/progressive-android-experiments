@@ -10,11 +10,11 @@ package im.vector.app.features.settings.font
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 
 @AndroidEntryPoint
-class FontScaleSettingActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class FontScaleSettingActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     override fun getBinding() = ActivitySimpleBinding.inflate(layoutInflater)
 

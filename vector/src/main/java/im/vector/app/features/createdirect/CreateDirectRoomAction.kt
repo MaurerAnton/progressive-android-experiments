@@ -7,10 +7,10 @@
 
 package im.vector.app.features.createdirect
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.userdirectory.PendingSelection
 
-sealed class CreateDirectRoomAction : VectorViewModelAction {
+sealed class CreateDirectRoomAction : ProgressiveViewModelAction {
     data class PrepareRoomWithSelectedUsers(
             val selections: Set<PendingSelection>
     ) : CreateDirectRoomAction()

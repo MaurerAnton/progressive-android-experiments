@@ -14,12 +14,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentReauthConfirmBinding
 import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.auth.data.LoginFlowTypes
 
-class PromptFragment : VectorBaseFragment<FragmentReauthConfirmBinding>() {
+class PromptFragment : ProgressiveFragment<FragmentReauthConfirmBinding>() {
 
     private val viewModel: ReAuthViewModel by activityViewModel()
 

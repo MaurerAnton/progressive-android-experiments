@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class ProfileSectionItem : VectorEpoxyModel<ProfileSectionItem.Holder>(R.layout.item_profile_section) {
+abstract class ProfileSectionItem : ProgressiveEpoxyModel<ProfileSectionItem.Holder>(R.layout.item_profile_section) {
 
     @EpoxyAttribute
     lateinit var title: String
@@ -25,7 +25,7 @@ abstract class ProfileSectionItem : VectorEpoxyModel<ProfileSectionItem.Holder>(
         holder.sectionView.text = title
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val sectionView by bind<TextView>(R.id.itemProfileSectionView)
     }
 }

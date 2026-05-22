@@ -11,12 +11,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.features.home.room.list.UnreadCounterBadgeView
 
 @EpoxyModelClass
-abstract class InviteCounterItem : VectorEpoxyModel<InviteCounterItem.Holder>(R.layout.item_invites_count) {
+abstract class InviteCounterItem : ProgressiveEpoxyModel<InviteCounterItem.Holder>(R.layout.item_invites_count) {
 
     @EpoxyAttribute var invitesCount: Int = 0
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var listener: ClickListener? = null
@@ -27,7 +27,7 @@ abstract class InviteCounterItem : VectorEpoxyModel<InviteCounterItem.Holder>(R.
         holder.unreadCounterBadgeView.render(UnreadCounterBadgeView.State.Count(invitesCount, true))
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val unreadCounterBadgeView by bind<UnreadCounterBadgeView>(R.id.invites_count_badge)
     }
 }

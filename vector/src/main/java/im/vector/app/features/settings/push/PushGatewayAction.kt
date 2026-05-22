@@ -7,10 +7,10 @@
 
 package im.vector.app.features.settings.push
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.pushers.Pusher
 
-sealed class PushGatewayAction : VectorViewModelAction {
+sealed class PushGatewayAction : ProgressiveViewModelAction {
     object Refresh : PushGatewayAction()
     data class RemovePusher(val pusher: Pusher) : PushGatewayAction()
 }

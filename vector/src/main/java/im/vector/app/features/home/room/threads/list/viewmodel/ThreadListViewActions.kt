@@ -7,8 +7,8 @@
 
 package im.vector.app.features.home.room.threads.list.viewmodel
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface ThreadListViewActions : VectorViewModelAction {
+sealed interface ThreadListViewActions : ProgressiveViewModelAction {
     object TryAgain : ThreadListViewActions
 }

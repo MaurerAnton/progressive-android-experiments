@@ -15,7 +15,7 @@ import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListBinding
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ import javax.inject.Inject
  * Generic Bottom sheet with actions.
  */
 abstract class BottomSheetGeneric<STATE : BottomSheetGenericState, ACTION : BottomSheetGenericRadioAction> :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListBinding>(),
         BottomSheetGenericController.Listener<ACTION> {
 
     @Inject lateinit var sharedViewPool: RecyclerView.RecycledViewPool

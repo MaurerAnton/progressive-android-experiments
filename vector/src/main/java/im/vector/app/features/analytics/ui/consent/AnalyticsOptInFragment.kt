@@ -15,7 +15,7 @@ import com.airbnb.mvrx.activityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.setTextWithColoredPart
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.openUrlInChromeCustomTab
 import im.vector.app.databinding.FragmentAnalyticsOptinBinding
 import im.vector.app.features.analytics.AnalyticsConfig
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AnalyticsOptInFragment :
-        VectorBaseFragment<FragmentAnalyticsOptinBinding>(),
+        ProgressiveFragment<FragmentAnalyticsOptinBinding>(),
         OnBackPressed {
 
     @Inject lateinit var analyticsConfig: AnalyticsConfig

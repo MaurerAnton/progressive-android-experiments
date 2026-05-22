@@ -23,7 +23,7 @@ import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.trackItemsVisibilityChange
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentGenericStateViewRecyclerBinding
 import im.vector.app.features.roomprofile.uploads.RoomUploadsAction
 import im.vector.app.features.roomprofile.uploads.RoomUploadsViewModel
@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomUploadsFilesFragment :
-        VectorBaseFragment<FragmentGenericStateViewRecyclerBinding>(),
+        ProgressiveFragment<FragmentGenericStateViewRecyclerBinding>(),
         UploadsFileController.Listener,
         StateView.EventCallback {
 

@@ -8,14 +8,14 @@
 package im.vector.app.features.onboarding
 
 import android.net.Uri
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.login.LoginConfig
 import im.vector.app.features.login.ServerType
 import im.vector.app.features.login.SignMode
 import org.matrix.android.sdk.api.auth.data.Credentials
 import org.matrix.android.sdk.api.network.ssl.Fingerprint
 
-sealed interface OnboardingAction : VectorViewModelAction {
+sealed interface OnboardingAction : ProgressiveViewModelAction {
     sealed interface SplashAction : OnboardingAction {
         val onboardingFlow: OnboardingFlow
 

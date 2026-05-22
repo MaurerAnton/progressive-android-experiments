@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.dialogs.ExportKeysDialog
 import im.vector.app.core.extensions.queryExportKeys
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.databinding.BottomSheetLogoutAndBackupBinding
 import im.vector.app.features.crypto.keysbackup.setup.KeysBackupSetupActivity
@@ -39,7 +39,7 @@ import javax.inject.Inject
 // TODO this needs to be refactored to current standard and remove legacy
 @AndroidEntryPoint
 class SignOutBottomSheetDialogFragment :
-        VectorBaseBottomSheetDialogFragment<BottomSheetLogoutAndBackupBinding>() {
+        ProgressiveBottomSheet<BottomSheetLogoutAndBackupBinding>() {
 
     @Inject lateinit var buildMeta: BuildMeta
 

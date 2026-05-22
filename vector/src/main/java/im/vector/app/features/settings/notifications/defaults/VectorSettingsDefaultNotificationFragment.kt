@@ -9,7 +9,7 @@ package im.vector.app.features.settings.notifications.defaults
 
 import android.os.Bundle
 import im.vector.app.R
-import im.vector.app.core.preference.VectorPreferenceCategory
+import im.vector.app.core.preference.ProgressivePreferenceCategory
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.settings.notifications.VectorSettingsPushRuleNotificationFragment
 import im.vector.lib.strings.CommonStrings
@@ -36,7 +36,7 @@ class VectorSettingsDefaultNotificationFragment :
 
     override fun bindPref() {
         super.bindPref()
-        val category = findPreference<VectorPreferenceCategory>("SETTINGS_DEFAULT")!!
+        val category = findPreference<ProgressivePreferenceCategory>("SETTINGS_DEFAULT")!!
         category.isIconSpaceReserved = false
     }
 }

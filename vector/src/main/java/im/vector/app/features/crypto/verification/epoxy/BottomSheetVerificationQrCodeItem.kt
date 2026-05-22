@@ -9,15 +9,15 @@ package im.vector.app.features.crypto.verification.epoxy
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.ui.views.QrCodeImageView
 
 /**
  * An Epoxy item displaying a QR code.
  */
 @EpoxyModelClass
-abstract class BottomSheetVerificationQrCodeItem : VectorEpoxyModel<BottomSheetVerificationQrCodeItem.Holder>(R.layout.item_verification_qr_code) {
+abstract class BottomSheetVerificationQrCodeItem : ProgressiveEpoxyModel<BottomSheetVerificationQrCodeItem.Holder>(R.layout.item_verification_qr_code) {
 
     @EpoxyAttribute
     lateinit var data: String
@@ -27,7 +27,7 @@ abstract class BottomSheetVerificationQrCodeItem : VectorEpoxyModel<BottomSheetV
         holder.qsrCodeImage.setData(data)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val qsrCodeImage by bind<QrCodeImageView>(R.id.itemVerificationQrCodeImage)
     }
 }

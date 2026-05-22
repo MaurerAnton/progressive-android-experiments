@@ -13,25 +13,25 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorDummyViewState
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveDummyViewState
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.media.domain.usecase.DownloadMediaUseCase
 import im.vector.app.features.session.coroutineScope
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
 
 class VectorAttachmentViewerViewModel @AssistedInject constructor(
-        @Assisted initialState: VectorDummyViewState,
+        @Assisted initialState: ProgressiveDummyViewState,
         private val session: Session,
         private val downloadMediaUseCase: DownloadMediaUseCase
-) : VectorViewModel<VectorDummyViewState, VectorAttachmentViewerAction, VectorAttachmentViewerViewEvents>(initialState) {
+) : ProgressiveViewModel<ProgressiveDummyViewState, VectorAttachmentViewerAction, VectorAttachmentViewerViewEvents>(initialState) {
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<VectorAttachmentViewerViewModel, VectorDummyViewState> {
-        override fun create(initialState: VectorDummyViewState): VectorAttachmentViewerViewModel
+    interface Factory : MavericksAssistedViewModelFactory<VectorAttachmentViewerViewModel, ProgressiveDummyViewState> {
+        override fun create(initialState: ProgressiveDummyViewState): VectorAttachmentViewerViewModel
     }
 
-    companion object : MavericksViewModelFactory<VectorAttachmentViewerViewModel, VectorDummyViewState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<VectorAttachmentViewerViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
 
     var pendingAction: VectorAttachmentViewerAction? = null
 

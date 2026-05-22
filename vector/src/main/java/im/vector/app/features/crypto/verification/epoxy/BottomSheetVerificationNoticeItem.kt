@@ -10,15 +10,15 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.lib.core.utils.epoxy.charsequence.EpoxyCharSequence
 
 /**
  * A action for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetVerificationNoticeItem : VectorEpoxyModel<BottomSheetVerificationNoticeItem.Holder>(R.layout.item_verification_notice) {
+abstract class BottomSheetVerificationNoticeItem : ProgressiveEpoxyModel<BottomSheetVerificationNoticeItem.Holder>(R.layout.item_verification_notice) {
 
     @EpoxyAttribute
     lateinit var notice: EpoxyCharSequence
@@ -28,7 +28,7 @@ abstract class BottomSheetVerificationNoticeItem : VectorEpoxyModel<BottomSheetV
         holder.notice.text = notice.charSequence
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val notice by bind<TextView>(R.id.itemVerificationNoticeText)
     }
 }

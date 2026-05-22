@@ -7,7 +7,7 @@
 
 package im.vector.app.features.home.room.detail.timeline.factory
 
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.resources.UserPreferencesProvider
 import im.vector.app.features.home.room.detail.timeline.item.RoomCreateItem_
@@ -26,7 +26,7 @@ class RoomCreateItemFactory @Inject constructor(
         private val noticeItemFactory: NoticeItemFactory
 ) {
 
-    fun create(params: TimelineItemFactoryParams): VectorEpoxyModel<*>? {
+    fun create(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*>? {
         val event = params.event
         val createRoomContent = event.root.content.toModel<RoomCreateContent>() ?: return null
         val predecessorId = createRoomContent.predecessor?.roomId ?: return defaultRendering(params)
@@ -43,7 +43,7 @@ class RoomCreateItemFactory @Inject constructor(
                 .text(text.toEpoxyCharSequence())
     }
 
-    private fun defaultRendering(params: TimelineItemFactoryParams): VectorEpoxyModel<*>? {
+    private fun defaultRendering(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*>? {
         return if (userPreferencesProvider.shouldShowHiddenEvents()) {
             noticeItemFactory.create(params)
         } else {

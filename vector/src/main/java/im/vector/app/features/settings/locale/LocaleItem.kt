@@ -12,13 +12,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class LocaleItem : VectorEpoxyModel<LocaleItem.Holder>(R.layout.item_locale) {
+abstract class LocaleItem : ProgressiveEpoxyModel<LocaleItem.Holder>(R.layout.item_locale) {
 
     @EpoxyAttribute var title: String? = null
     @EpoxyAttribute var subtitle: String? = null
@@ -31,7 +31,7 @@ abstract class LocaleItem : VectorEpoxyModel<LocaleItem.Holder>(R.layout.item_lo
         holder.subtitleView.setTextOrHide(subtitle)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleView by bind<TextView>(R.id.localeTitle)
         val subtitleView by bind<TextView>(R.id.localeSubtitle)
     }

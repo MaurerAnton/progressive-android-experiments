@@ -9,10 +9,10 @@ package im.vector.app.features.home.room.list
 
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class SpaceDirectoryFilterNoResultsItem : VectorEpoxyModel<SpaceDirectoryFilterNoResultsItem.Holder>(R.layout.item_space_directory_filter_no_results) {
-    class Holder : VectorEpoxyHolder()
+abstract class SpaceDirectoryFilterNoResultsItem : ProgressiveEpoxyModel<SpaceDirectoryFilterNoResultsItem.Holder>(R.layout.item_space_directory_filter_no_results) {
+    class Holder : ProgressiveEpoxyHolder()
 }

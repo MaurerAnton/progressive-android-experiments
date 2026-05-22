@@ -32,7 +32,7 @@ import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.copyOnLongClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.utils.startSharePlainTextIntent
 import im.vector.app.databinding.DialogBaseEditTextBinding
@@ -63,7 +63,7 @@ data class RoomMemberProfileArgs(
 
 @AndroidEntryPoint
 class RoomMemberProfileFragment :
-        VectorBaseFragment<FragmentMatrixProfileBinding>(),
+        ProgressiveFragment<FragmentMatrixProfileBinding>(),
         RoomMemberProfileController.Callback,
         VectorMenuProvider {
 

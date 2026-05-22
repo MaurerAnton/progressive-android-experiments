@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetHomeLayoutSettingsBinding
 import im.vector.app.features.analytics.plan.Interaction
 import im.vector.app.features.home.room.list.home.HomeLayoutPreferencesStore
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeLayoutSettingBottomDialogFragment : VectorBaseBottomSheetDialogFragment<BottomSheetHomeLayoutSettingsBinding>() {
+class HomeLayoutSettingBottomDialogFragment : ProgressiveBottomSheet<BottomSheetHomeLayoutSettingsBinding>() {
 
     @Inject lateinit var preferencesStore: HomeLayoutPreferencesStore
 

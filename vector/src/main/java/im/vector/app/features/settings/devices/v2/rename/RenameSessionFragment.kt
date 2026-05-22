@@ -17,7 +17,7 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.showKeyboard
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSessionRenameBinding
 import im.vector.app.features.settings.devices.v2.more.SessionLearnMoreBottomSheet
 import im.vector.lib.strings.CommonStrings
@@ -28,7 +28,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class RenameSessionFragment :
-        VectorBaseFragment<FragmentSessionRenameBinding>() {
+        ProgressiveFragment<FragmentSessionRenameBinding>() {
 
     private val viewModel: RenameSessionViewModel by fragmentViewModel()
 

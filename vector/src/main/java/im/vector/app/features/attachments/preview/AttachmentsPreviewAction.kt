@@ -8,9 +8,9 @@
 package im.vector.app.features.attachments.preview
 
 import android.net.Uri
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class AttachmentsPreviewAction : VectorViewModelAction {
+sealed class AttachmentsPreviewAction : ProgressiveViewModelAction {
     object RemoveCurrentAttachment : AttachmentsPreviewAction()
     data class SetCurrentAttachment(val index: Int) : AttachmentsPreviewAction()
     data class UpdatePathOfCurrentAttachment(val newUri: Uri) : AttachmentsPreviewAction()

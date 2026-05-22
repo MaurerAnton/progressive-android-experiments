@@ -10,7 +10,7 @@ package im.vector.app.features.crypto.keysrequest
 import android.content.Context
 import im.vector.app.R
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.features.popup.DefaultVectorAlert
 import im.vector.app.features.popup.PopupAlertManager
 import im.vector.app.features.session.coroutineScope
@@ -53,7 +53,7 @@ import javax.inject.Singleton
 class KeyRequestHandler @Inject constructor(
         private val context: Context,
         private val popupAlertManager: PopupAlertManager,
-        private val dateFormatter: VectorDateFormatter
+        private val dateFormatter: ProgressiveDateFormatter
 ) : GossipingRequestListener,
         VerificationService.Listener {
 

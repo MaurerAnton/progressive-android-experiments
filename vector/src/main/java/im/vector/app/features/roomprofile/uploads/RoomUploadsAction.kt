@@ -7,10 +7,10 @@
 
 package im.vector.app.features.roomprofile.uploads
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.uploads.UploadEvent
 
-sealed class RoomUploadsAction : VectorViewModelAction {
+sealed class RoomUploadsAction : ProgressiveViewModelAction {
     data class Download(val uploadEvent: UploadEvent) : RoomUploadsAction()
     data class Share(val uploadEvent: UploadEvent) : RoomUploadsAction()
 

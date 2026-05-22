@@ -11,12 +11,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 @EpoxyModelClass
-abstract class SpaceAddItem : VectorEpoxyModel<SpaceAddItem.Holder>(R.layout.item_space_add) {
+abstract class SpaceAddItem : ProgressiveEpoxyModel<SpaceAddItem.Holder>(R.layout.item_space_add) {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var listener: ClickListener? = null
 
@@ -25,5 +25,5 @@ abstract class SpaceAddItem : VectorEpoxyModel<SpaceAddItem.Holder>(R.layout.ite
         holder.view.onClick(listener)
     }
 
-    class Holder : VectorEpoxyHolder()
+    class Holder : ProgressiveEpoxyHolder()
 }

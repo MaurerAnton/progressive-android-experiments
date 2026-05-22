@@ -16,7 +16,7 @@ import androidx.core.text.toSpannable
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.mvrx.activityViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSsssAccessFromPassphraseBinding
 import im.vector.lib.core.utils.flow.throttleFirst
 import im.vector.lib.strings.CommonStrings
@@ -27,7 +27,7 @@ import reactivecircus.flowbinding.android.widget.textChanges
 
 @AndroidEntryPoint
 class SharedSecuredStoragePassphraseFragment :
-        VectorBaseFragment<FragmentSsssAccessFromPassphraseBinding>() {
+        ProgressiveFragment<FragmentSsssAccessFromPassphraseBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSsssAccessFromPassphraseBinding {
         return FragmentSsssAccessFromPassphraseBinding.inflate(inflater, container, false)

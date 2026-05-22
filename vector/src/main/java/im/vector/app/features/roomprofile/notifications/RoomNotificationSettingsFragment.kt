@@ -17,7 +17,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentRoomSettingGenericBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.home.AvatarRenderer
@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomNotificationSettingsFragment :
-        VectorBaseFragment<FragmentRoomSettingGenericBinding>(),
+        ProgressiveFragment<FragmentRoomSettingGenericBinding>(),
         RoomNotificationSettingsController.Callback {
 
     @Inject lateinit var viewModelFactory: RoomNotificationSettingsViewModel.Factory

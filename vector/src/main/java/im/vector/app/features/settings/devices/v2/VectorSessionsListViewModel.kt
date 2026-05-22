@@ -10,8 +10,8 @@ package im.vector.app.features.settings.devices.v2
 import com.airbnb.mvrx.MavericksState
 import im.vector.app.core.di.ActiveSessionHolder
 import im.vector.app.core.platform.VectorViewEvents
-import im.vector.app.core.platform.VectorViewModel
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModel
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.core.utils.PublishDataSource
 import im.vector.lib.core.utils.flow.throttleFirst
 import kotlinx.coroutines.flow.launchIn
@@ -21,11 +21,11 @@ import org.matrix.android.sdk.api.session.crypto.verification.VerificationServic
 import org.matrix.android.sdk.api.session.crypto.verification.VerificationTransaction
 import kotlin.time.Duration.Companion.seconds
 
-abstract class VectorSessionsListViewModel<S : MavericksState, VA : VectorViewModelAction, VE : VectorViewEvents>(
+abstract class VectorSessionsListViewModel<S : MavericksState, VA : ProgressiveViewModelAction, VE : VectorViewEvents>(
         initialState: S,
         private val activeSessionHolder: ActiveSessionHolder,
         private val refreshDevicesUseCase: RefreshDevicesUseCase,
-) : VectorViewModel<S, VA, VE>(initialState), VerificationService.Listener {
+) : ProgressiveViewModel<S, VA, VE>(initialState), VerificationService.Listener {
 
     private val refreshSource = PublishDataSource<Unit>()
     private val refreshThrottleDelayMs = 4.seconds.inWholeMilliseconds

@@ -7,9 +7,9 @@
 
 package im.vector.app.features.settings.notifications
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface VectorSettingsNotificationViewAction : VectorViewModelAction {
+sealed interface VectorSettingsNotificationViewAction : ProgressiveViewModelAction {
     data class EnableNotificationsForDevice(val pushDistributor: String) : VectorSettingsNotificationViewAction
     object DisableNotificationsForDevice : VectorSettingsNotificationViewAction
     data class RegisterPushDistributor(val pushDistributor: String) : VectorSettingsNotificationViewAction

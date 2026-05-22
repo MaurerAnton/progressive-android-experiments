@@ -21,7 +21,7 @@ import im.vector.app.core.di.DefaultPreferences
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -70,7 +70,7 @@ class ServerBackupStatusViewModel @AssistedInject constructor(
         @DefaultPreferences
         private val sharedPreferences: SharedPreferences,
 ) :
-        VectorViewModel<ServerBackupStatusViewState, ServerBackupStatusAction, EmptyViewEvents>(initialState), KeysBackupStateListener {
+        ProgressiveViewModel<ServerBackupStatusViewState, ServerBackupStatusAction, EmptyViewEvents>(initialState), KeysBackupStateListener {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<ServerBackupStatusViewModel, ServerBackupStatusViewState> {

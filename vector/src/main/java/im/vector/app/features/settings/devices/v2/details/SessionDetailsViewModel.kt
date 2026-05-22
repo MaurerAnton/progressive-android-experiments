@@ -14,7 +14,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.utils.CopyToClipboardUseCase
 import im.vector.app.features.settings.devices.v2.overview.GetDeviceFullInfoUseCase
 import kotlinx.coroutines.flow.launchIn
@@ -24,7 +24,7 @@ class SessionDetailsViewModel @AssistedInject constructor(
         @Assisted val initialState: SessionDetailsViewState,
         private val getDeviceFullInfoUseCase: GetDeviceFullInfoUseCase,
         private val copyToClipboardUseCase: CopyToClipboardUseCase,
-) : VectorViewModel<SessionDetailsViewState, SessionDetailsAction, SessionDetailsViewEvent>(initialState) {
+) : ProgressiveViewModel<SessionDetailsViewState, SessionDetailsAction, SessionDetailsViewEvent>(initialState) {
 
     companion object : MavericksViewModelFactory<SessionDetailsViewModel, SessionDetailsViewState> by hiltMavericksViewModelFactory()
 

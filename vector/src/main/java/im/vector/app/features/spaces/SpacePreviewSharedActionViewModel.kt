@@ -7,7 +7,7 @@
 
 package im.vector.app.features.spaces
 
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
-class SpacePreviewSharedActionViewModel @Inject constructor() : VectorSharedActionViewModel<SpacePreviewSharedAction>()
+class SpacePreviewSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<SpacePreviewSharedAction>()

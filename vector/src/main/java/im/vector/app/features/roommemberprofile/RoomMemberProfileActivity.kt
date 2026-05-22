@@ -15,14 +15,14 @@ import com.airbnb.mvrx.Mavericks
 import com.airbnb.mvrx.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.room.RequireActiveMembershipViewEvents
 import im.vector.app.features.room.RequireActiveMembershipViewModel
 import im.vector.lib.core.utils.compat.getParcelableCompat
 
 @AndroidEntryPoint
-class RoomMemberProfileActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class RoomMemberProfileActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     companion object {
         fun newIntent(context: Context, args: RoomMemberProfileArgs): Intent {

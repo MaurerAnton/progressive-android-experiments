@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class DaySeparatorItem : VectorEpoxyModel<DaySeparatorItem.Holder>(R.layout.item_timeline_event_day_separator) {
+abstract class DaySeparatorItem : ProgressiveEpoxyModel<DaySeparatorItem.Holder>(R.layout.item_timeline_event_day_separator) {
 
     @EpoxyAttribute lateinit var formattedDay: String
 
@@ -24,7 +24,7 @@ abstract class DaySeparatorItem : VectorEpoxyModel<DaySeparatorItem.Holder>(R.la
         holder.dayTextView.text = formattedDay
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val dayTextView by bind<TextView>(R.id.itemDayTextView)
     }
 }

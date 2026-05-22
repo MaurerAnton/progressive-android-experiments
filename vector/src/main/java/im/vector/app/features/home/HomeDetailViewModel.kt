@@ -17,7 +17,7 @@ import im.vector.app.SpaceStateHandler
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.extensions.singletonEntryPoint
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.VectorOverrides
 import im.vector.app.features.call.dialpad.DialPadLookup
 import im.vector.app.features.call.lookup.CallProtocolsChecker
@@ -62,7 +62,7 @@ class HomeDetailViewModel @AssistedInject constructor(
         private val spaceStateHandler: SpaceStateHandler,
         private val autoAcceptInvites: AutoAcceptInvites,
         private val vectorOverrides: VectorOverrides
-) : VectorViewModel<HomeDetailViewState, HomeDetailAction, HomeDetailViewEvents>(initialState),
+) : ProgressiveViewModel<HomeDetailViewState, HomeDetailAction, HomeDetailViewEvents>(initialState),
         CallProtocolsChecker.Listener {
 
     @AssistedFactory

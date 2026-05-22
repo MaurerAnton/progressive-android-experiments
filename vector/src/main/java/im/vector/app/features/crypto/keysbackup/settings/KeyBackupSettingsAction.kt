@@ -7,9 +7,9 @@
 
 package im.vector.app.features.crypto.keysbackup.settings
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class KeyBackupSettingsAction : VectorViewModelAction {
+sealed class KeyBackupSettingsAction : ProgressiveViewModelAction {
     object Init : KeyBackupSettingsAction()
     object GetKeyBackupTrust : KeyBackupSettingsAction()
     object DeleteKeyBackup : KeyBackupSettingsAction()

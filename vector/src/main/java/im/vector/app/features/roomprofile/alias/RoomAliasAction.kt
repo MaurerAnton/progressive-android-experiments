@@ -7,10 +7,10 @@
 
 package im.vector.app.features.roomprofile.alias
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.RoomDirectoryVisibility
 
-sealed class RoomAliasAction : VectorViewModelAction {
+sealed class RoomAliasAction : ProgressiveViewModelAction {
     // Canonical
     object ToggleManualPublishForm : RoomAliasAction()
     data class SetNewAlias(val alias: String) : RoomAliasAction()

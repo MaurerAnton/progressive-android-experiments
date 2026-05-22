@@ -7,10 +7,10 @@
 
 package im.vector.app.features.crypto.recover
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import java.io.OutputStream
 
-sealed class BootstrapActions : VectorViewModelAction {
+sealed class BootstrapActions : ProgressiveViewModelAction {
     object Retry : BootstrapActions()
 
     // Navigation

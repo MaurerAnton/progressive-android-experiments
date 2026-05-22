@@ -10,14 +10,14 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 /**
  * A action for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetVerificationWaitingItem : VectorEpoxyModel<BottomSheetVerificationWaitingItem.Holder>(R.layout.item_verification_waiting) {
+abstract class BottomSheetVerificationWaitingItem : ProgressiveEpoxyModel<BottomSheetVerificationWaitingItem.Holder>(R.layout.item_verification_waiting) {
 
     @EpoxyAttribute
     var title: String = ""
@@ -27,7 +27,7 @@ abstract class BottomSheetVerificationWaitingItem : VectorEpoxyModel<BottomSheet
         holder.title.text = title
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val title by bind<TextView>(R.id.itemVerificationWaitingTitle)
     }
 }

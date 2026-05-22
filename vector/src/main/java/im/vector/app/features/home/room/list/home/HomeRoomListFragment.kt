@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.epoxy.LayoutManagerStateRestorer
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.UserPreferencesProvider
 import im.vector.app.core.utils.FirstItemUpdatedObserver
 import im.vector.app.databinding.FragmentRoomListBinding
@@ -46,7 +46,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeRoomListFragment :
-        VectorBaseFragment<FragmentRoomListBinding>(),
+        ProgressiveFragment<FragmentRoomListBinding>(),
         RoomListListener {
 
     @Inject lateinit var userPreferencesProvider: UserPreferencesProvider

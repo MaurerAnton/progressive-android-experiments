@@ -6,7 +6,7 @@
  */
 package im.vector.app.features.home.room.detail.timeline.factory
 
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.resources.UserPreferencesProvider
 import im.vector.app.features.home.room.detail.timeline.MessageColorProvider
 import im.vector.app.features.home.room.detail.timeline.TimelineEventController
@@ -34,7 +34,7 @@ class CallItemFactory @Inject constructor(
         private val noticeItemFactory: NoticeItemFactory
 ) {
 
-    fun create(params: TimelineItemFactoryParams): VectorEpoxyModel<*>? {
+    fun create(params: TimelineItemFactoryParams): ProgressiveEpoxyModel<*>? {
         val event = params.event
         if (event.root.eventId == null) return null
         val showHiddenEvents = userPreferencesProvider.shouldShowHiddenEvents()

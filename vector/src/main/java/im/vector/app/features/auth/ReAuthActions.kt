@@ -7,9 +7,9 @@
 
 package im.vector.app.features.auth
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class ReAuthActions : VectorViewModelAction {
+sealed class ReAuthActions : ProgressiveViewModelAction {
     object StartSSOFallback : ReAuthActions()
     object FallBackPageLoaded : ReAuthActions()
     object FallBackPageClosed : ReAuthActions()

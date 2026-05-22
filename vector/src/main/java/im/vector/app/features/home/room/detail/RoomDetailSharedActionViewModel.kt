@@ -6,10 +6,10 @@
  */
 package im.vector.app.features.home.room.detail
 
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 /**
  * Activity shared view model.
  */
-class RoomDetailSharedActionViewModel @Inject constructor() : VectorSharedActionViewModel<RoomDetailSharedAction>()
+class RoomDetailSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomDetailSharedAction>()

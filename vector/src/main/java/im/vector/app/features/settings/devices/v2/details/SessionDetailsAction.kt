@@ -7,8 +7,8 @@
 
 package im.vector.app.features.settings.devices.v2.details
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class SessionDetailsAction : VectorViewModelAction {
+sealed class SessionDetailsAction : ProgressiveViewModelAction {
     data class CopyToClipboard(val content: String) : SessionDetailsAction()
 }

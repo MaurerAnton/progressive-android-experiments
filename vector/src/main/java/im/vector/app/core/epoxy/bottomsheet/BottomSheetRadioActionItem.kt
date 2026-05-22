@@ -14,8 +14,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setAttributeTintedImageResource
 import im.vector.app.core.extensions.setTextOrHide
@@ -25,7 +25,7 @@ import im.vector.lib.strings.CommonStrings
  * A action for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetRadioActionItem : VectorEpoxyModel<BottomSheetRadioActionItem.Holder>(R.layout.item_bottom_sheet_radio) {
+abstract class BottomSheetRadioActionItem : ProgressiveEpoxyModel<BottomSheetRadioActionItem.Holder>(R.layout.item_bottom_sheet_radio) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -62,7 +62,7 @@ abstract class BottomSheetRadioActionItem : VectorEpoxyModel<BottomSheetRadioAct
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleText by bind<TextView>(R.id.actionTitle)
         val descriptionText by bind<TextView>(R.id.actionDescription)
         val radioImage by bind<ImageView>(R.id.radioIcon)

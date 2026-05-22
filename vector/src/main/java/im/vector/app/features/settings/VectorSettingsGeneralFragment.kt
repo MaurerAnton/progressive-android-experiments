@@ -36,8 +36,8 @@ import im.vector.app.core.intent.getFilenameFromUri
 import im.vector.app.core.platform.SimpleTextWatcher
 import im.vector.app.core.preference.UserAvatarPreference
 import im.vector.app.core.preference.VectorPreference
-import im.vector.app.core.preference.VectorPreferenceCategory
-import im.vector.app.core.preference.VectorSwitchPreference
+import im.vector.app.core.preference.ProgressivePreferenceCategory
+import im.vector.app.core.preference.ProgressiveSwitchPreference
 import im.vector.app.core.utils.TextUtils
 import im.vector.app.core.utils.getSizeOfFiles
 import im.vector.app.core.utils.openUrlInChromeCustomTab
@@ -104,7 +104,7 @@ class VectorSettingsGeneralFragment :
         findPreference<VectorPreference>(VectorPreferences.SETTINGS_EXTERNAL_ACCOUNT_MANAGEMENT_KEY)!!
     }
     private val mDeactivateAccountCategory by lazy {
-        findPreference<VectorPreferenceCategory>("SETTINGS_DEACTIVATE_ACCOUNT_CATEGORY_KEY")!!
+        findPreference<ProgressivePreferenceCategory>("SETTINGS_DEACTIVATE_ACCOUNT_CATEGORY_KEY")!!
     }
 
     // Local contacts
@@ -264,7 +264,7 @@ class VectorSettingsGeneralFragment :
             }
         }
 
-        (findPreference(VectorPreferences.SETTINGS_ALLOW_INTEGRATIONS_KEY) as? VectorSwitchPreference)?.let {
+        (findPreference(VectorPreferences.SETTINGS_ALLOW_INTEGRATIONS_KEY) as? ProgressiveSwitchPreference)?.let {
             it.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
                 // Disable it while updating the state, will be re-enabled by the account data listener.
                 it.isEnabled = false

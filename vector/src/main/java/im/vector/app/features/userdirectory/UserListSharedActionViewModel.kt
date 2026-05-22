@@ -7,7 +7,7 @@
 
 package im.vector.app.features.userdirectory
 
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
-class UserListSharedActionViewModel @Inject constructor() : VectorSharedActionViewModel<UserListSharedAction>()
+class UserListSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<UserListSharedAction>()

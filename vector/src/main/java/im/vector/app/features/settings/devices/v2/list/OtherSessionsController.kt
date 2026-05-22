@@ -11,7 +11,7 @@ import android.view.View
 import com.airbnb.epoxy.TypedEpoxyController
 import im.vector.app.R
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.epoxy.noResultItem
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.resources.DrawableProvider
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 class OtherSessionsController @Inject constructor(
         private val stringProvider: StringProvider,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val drawableProvider: DrawableProvider,
         private val colorProvider: ColorProvider,
 ) : TypedEpoxyController<List<DeviceFullInfo>>() {

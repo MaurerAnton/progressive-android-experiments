@@ -8,7 +8,7 @@
 package im.vector.app.features.home.room.detail.timeline.helper
 
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.extensions.getVectorLastMessageContent
 import im.vector.app.core.extensions.localDateTime
 import im.vector.app.features.home.room.detail.timeline.factory.TimelineItemFactoryParams
@@ -42,7 +42,7 @@ import javax.inject.Inject
  */
 class MessageInformationDataFactory @Inject constructor(
         private val session: Session,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val messageLayoutFactory: TimelineMessageLayoutFactory,
         private val reactionsSummaryFactory: ReactionsSummaryFactory,
         private val pollResponseDataFactory: PollResponseDataFactory,

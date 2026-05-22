@@ -14,12 +14,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 @EpoxyModelClass
-abstract class TermItem : VectorEpoxyModel<TermItem.Holder>(R.layout.item_tos) {
+abstract class TermItem : ProgressiveEpoxyModel<TermItem.Holder>(R.layout.item_tos) {
 
     @EpoxyAttribute
     var checked: Boolean = false
@@ -45,7 +45,7 @@ abstract class TermItem : VectorEpoxyModel<TermItem.Holder>(R.layout.item_tos) {
         holder.view.onClick(clickListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val checkbox by bind<CheckBox>(R.id.term_accept_checkbox)
         val title by bind<TextView>(R.id.term_name)
         val description by bind<TextView>(R.id.term_description)

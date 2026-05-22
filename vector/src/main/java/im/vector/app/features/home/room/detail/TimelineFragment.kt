@@ -71,7 +71,7 @@ import im.vector.app.core.glide.GlideApp
 import im.vector.app.core.glide.GlideRequests
 import im.vector.app.core.intent.getFilenameFromUri
 import im.vector.app.core.intent.getMimeTypeFromUri
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.platform.showOptimizedSnackbar
 import im.vector.app.core.resources.ColorProvider
@@ -220,7 +220,7 @@ import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class TimelineFragment :
-        VectorBaseFragment<FragmentTimelineBinding>(),
+        ProgressiveFragment<FragmentTimelineBinding>(),
         TimelineEventController.Callback,
         VectorInviteView.Callback,
         GalleryOrCameraDialogHelper.Listener,

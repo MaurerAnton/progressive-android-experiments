@@ -13,7 +13,7 @@ import android.os.Parcelable
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityLocationSharingBinding
 import im.vector.app.features.location.preview.LocationPreviewFragment
 import im.vector.lib.core.utils.compat.getParcelableCompat
@@ -28,7 +28,7 @@ data class LocationSharingArgs(
 ) : Parcelable
 
 @AndroidEntryPoint
-class LocationSharingActivity : VectorBaseActivity<ActivityLocationSharingBinding>() {
+class LocationSharingActivity : ProgressiveActivity<ActivityLocationSharingBinding>() {
 
     override fun getBinding() = ActivityLocationSharingBinding.inflate(layoutInflater)
 

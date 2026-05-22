@@ -13,7 +13,7 @@ import android.os.Parcelable
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 import im.vector.app.features.roomdirectory.RoomDirectoryData
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
@@ -44,7 +44,7 @@ data class RoomPreviewData(
 }
 
 @AndroidEntryPoint
-class RoomPreviewActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class RoomPreviewActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     companion object {
         private const val ARG = "ARG"

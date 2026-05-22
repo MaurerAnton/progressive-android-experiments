@@ -11,12 +11,12 @@ import androidx.annotation.StringRes
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class SettingsSectionTitleItem : VectorEpoxyModel<SettingsSectionTitleItem.Holder>(R.layout.item_settings_section_title) {
+abstract class SettingsSectionTitleItem : ProgressiveEpoxyModel<SettingsSectionTitleItem.Holder>(R.layout.item_settings_section_title) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -35,7 +35,7 @@ abstract class SettingsSectionTitleItem : VectorEpoxyModel<SettingsSectionTitleI
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.settings_section_title_text)
     }
 }

@@ -20,11 +20,11 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.dialogs.ManuallyVerifyDialog
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.setTextColor
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.resources.DrawableProvider
 import im.vector.app.core.resources.StringProvider
@@ -52,12 +52,12 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class VectorSettingsDevicesFragment :
-        VectorBaseFragment<FragmentSettingsDevicesBinding>(),
+        ProgressiveFragment<FragmentSettingsDevicesBinding>(),
         OtherSessionsView.Callback {
 
     @Inject lateinit var viewNavigator: VectorSettingsDevicesViewNavigator
 
-    @Inject lateinit var dateFormatter: VectorDateFormatter
+    @Inject lateinit var dateFormatter: ProgressiveDateFormatter
 
     @Inject lateinit var drawableProvider: DrawableProvider
 

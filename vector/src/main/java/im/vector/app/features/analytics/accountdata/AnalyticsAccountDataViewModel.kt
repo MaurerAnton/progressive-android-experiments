@@ -15,8 +15,8 @@ import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorDummyViewState
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveDummyViewState
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.analytics.VectorAnalytics
 import im.vector.app.features.analytics.log.analyticsTag
 import kotlinx.coroutines.flow.combine
@@ -33,19 +33,19 @@ import timber.log.Timber
 import java.util.UUID
 
 class AnalyticsAccountDataViewModel @AssistedInject constructor(
-        @Assisted initialState: VectorDummyViewState,
+        @Assisted initialState: ProgressiveDummyViewState,
         private val session: Session,
         private val analytics: VectorAnalytics
-) : VectorViewModel<VectorDummyViewState, EmptyAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<ProgressiveDummyViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     private var checkDone: Boolean = false
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<AnalyticsAccountDataViewModel, VectorDummyViewState> {
-        override fun create(initialState: VectorDummyViewState): AnalyticsAccountDataViewModel
+    interface Factory : MavericksAssistedViewModelFactory<AnalyticsAccountDataViewModel, ProgressiveDummyViewState> {
+        override fun create(initialState: ProgressiveDummyViewState): AnalyticsAccountDataViewModel
     }
 
-    companion object : MavericksViewModelFactory<AnalyticsAccountDataViewModel, VectorDummyViewState> by hiltMavericksViewModelFactory() {
+    companion object : MavericksViewModelFactory<AnalyticsAccountDataViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory() {
         private const val ANALYTICS_EVENT_TYPE = "im.vector.analytics"
     }
 

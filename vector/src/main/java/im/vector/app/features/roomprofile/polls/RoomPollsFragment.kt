@@ -15,13 +15,13 @@ import com.airbnb.mvrx.args
 import com.airbnb.mvrx.fragmentViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentRoomPollsBinding
 import im.vector.app.features.roomprofile.RoomProfileArgs
 import im.vector.lib.strings.CommonStrings
 
 @AndroidEntryPoint
-class RoomPollsFragment : VectorBaseFragment<FragmentRoomPollsBinding>() {
+class RoomPollsFragment : ProgressiveFragment<FragmentRoomPollsBinding>() {
 
     private val roomProfileArgs: RoomProfileArgs by args()
 

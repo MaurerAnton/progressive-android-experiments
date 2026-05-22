@@ -7,10 +7,10 @@
 
 package im.vector.app.features.spaces
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import org.matrix.android.sdk.api.session.room.model.RoomSummary
 
-sealed class SpaceListAction : VectorViewModelAction {
+sealed class SpaceListAction : ProgressiveViewModelAction {
     data class SelectSpace(val spaceSummary: RoomSummary?, val isSubSpace: Boolean) : SpaceListAction()
     data class OpenSpaceInvite(val spaceSummary: RoomSummary) : SpaceListAction()
     data class LeaveSpace(val spaceSummary: RoomSummary) : SpaceListAction()

@@ -7,13 +7,13 @@
 
 package im.vector.app.features.home.room.detail.composer
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.command.ParsedCommand
 import im.vector.app.features.home.room.detail.composer.voice.VoiceMessageRecorderView
 import org.matrix.android.sdk.api.session.content.ContentAttachmentData
 import org.matrix.android.sdk.api.session.room.model.message.MessageAudioContent
 
-sealed class MessageComposerAction : VectorViewModelAction {
+sealed class MessageComposerAction : ProgressiveViewModelAction {
     data class SendMessage(val text: CharSequence, val formattedText: String?, val autoMarkdown: Boolean) : MessageComposerAction()
     data class EnterEditMode(val eventId: String) : MessageComposerAction()
     data class EnterQuoteMode(val eventId: String) : MessageComposerAction()

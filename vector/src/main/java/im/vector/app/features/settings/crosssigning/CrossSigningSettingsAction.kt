@@ -7,9 +7,9 @@
 
 package im.vector.app.features.settings.crosssigning
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class CrossSigningSettingsAction : VectorViewModelAction {
+sealed class CrossSigningSettingsAction : ProgressiveViewModelAction {
     object InitializeCrossSigning : CrossSigningSettingsAction()
     object SsoAuthDone : CrossSigningSettingsAction()
     data class PasswordAuthDone(val password: String) : CrossSigningSettingsAction()

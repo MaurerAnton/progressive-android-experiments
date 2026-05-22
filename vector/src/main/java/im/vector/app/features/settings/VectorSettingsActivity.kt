@@ -19,7 +19,7 @@ import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.replaceFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityVectorSettingsBinding
 import im.vector.app.features.discovery.DiscoverySettingsFragment
 import im.vector.app.features.navigation.SettingsActivityPayload
@@ -39,7 +39,7 @@ private const val KEY_ACTIVITY_PAYLOAD = "settings-activity-payload"
  * Displays the client settings.
  */
 @AndroidEntryPoint
-class VectorSettingsActivity : VectorBaseActivity<ActivityVectorSettingsBinding>(),
+class VectorSettingsActivity : ProgressiveActivity<ActivityVectorSettingsBinding>(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
         FragmentManager.OnBackStackChangedListener,
         VectorSettingsFragmentInteractionListener {

@@ -19,7 +19,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.core.utils.styleMatchingText
 import im.vector.app.features.displayname.getBestName
@@ -48,7 +48,7 @@ class RoomJoinRuleChooseRestrictedViewModel @AssistedInject constructor(
         private val session: Session,
         private val vectorPreferences: VectorPreferences,
         private val stringProvider: StringProvider
-) : VectorViewModel<RoomJoinRuleChooseRestrictedState, RoomJoinRuleChooseRestrictedActions, RoomJoinRuleChooseRestrictedEvents>(initialState) {
+) : ProgressiveViewModel<RoomJoinRuleChooseRestrictedState, RoomJoinRuleChooseRestrictedActions, RoomJoinRuleChooseRestrictedEvents>(initialState) {
 
     var room = session.getRoom(initialState.roomId)!!
 

@@ -17,7 +17,7 @@ import androidx.transition.TransitionManager
 import com.nulabinc.zxcvbn.Zxcvbn
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.hidePassword
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentKeysBackupSetupStep2Binding
 import im.vector.app.features.settings.VectorLocaleProvider
 import im.vector.lib.strings.CommonStrings
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class KeysBackupSetupStep2Fragment :
-        VectorBaseFragment<FragmentKeysBackupSetupStep2Binding>() {
+        ProgressiveFragment<FragmentKeysBackupSetupStep2Binding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentKeysBackupSetupStep2Binding {
         return FragmentKeysBackupSetupStep2Binding.inflate(inflater, container, false)

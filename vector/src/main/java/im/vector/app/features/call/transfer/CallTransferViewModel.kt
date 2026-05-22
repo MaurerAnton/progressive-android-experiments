@@ -14,7 +14,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyAction
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.call.webrtc.WebRtcCall
 import im.vector.app.features.call.webrtc.WebRtcCallManager
 import org.matrix.android.sdk.api.session.call.CallState
@@ -24,7 +24,7 @@ class CallTransferViewModel @AssistedInject constructor(
         @Assisted initialState: CallTransferViewState,
         private val callManager: WebRtcCallManager
 ) :
-        VectorViewModel<CallTransferViewState, EmptyAction, CallTransferViewEvents>(initialState) {
+        ProgressiveViewModel<CallTransferViewState, EmptyAction, CallTransferViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<CallTransferViewModel, CallTransferViewState> {

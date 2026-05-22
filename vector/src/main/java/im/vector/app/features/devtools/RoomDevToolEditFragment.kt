@@ -16,7 +16,7 @@ import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.hideKeyboard
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentDevtoolsEditorBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -24,7 +24,7 @@ import reactivecircus.flowbinding.android.widget.textChanges
 
 @AndroidEntryPoint
 class RoomDevToolEditFragment :
-        VectorBaseFragment<FragmentDevtoolsEditorBinding>() {
+        ProgressiveFragment<FragmentDevtoolsEditorBinding>() {
 
     private val sharedViewModel: RoomDevToolViewModel by activityViewModel()
 

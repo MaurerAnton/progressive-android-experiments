@@ -15,12 +15,12 @@ import androidx.appcompat.widget.SearchView
 import com.airbnb.mvrx.Mavericks
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySearchBinding
 import im.vector.lib.core.utils.compat.getParcelableCompat
 
 @AndroidEntryPoint
-class SearchActivity : VectorBaseActivity<ActivitySearchBinding>() {
+class SearchActivity : ProgressiveActivity<ActivitySearchBinding>() {
 
     private val searchFragment: SearchFragment?
         get() {

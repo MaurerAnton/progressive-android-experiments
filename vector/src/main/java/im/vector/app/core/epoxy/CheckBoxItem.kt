@@ -14,7 +14,7 @@ import com.google.android.material.checkbox.MaterialCheckBox
 import im.vector.app.R
 
 @EpoxyModelClass
-abstract class CheckBoxItem : VectorEpoxyModel<CheckBoxItem.Holder>(R.layout.item_checkbox) {
+abstract class CheckBoxItem : ProgressiveEpoxyModel<CheckBoxItem.Holder>(R.layout.item_checkbox) {
 
     @EpoxyAttribute
     var checked: Boolean = false
@@ -31,7 +31,7 @@ abstract class CheckBoxItem : VectorEpoxyModel<CheckBoxItem.Holder>(R.layout.ite
         holder.checkbox.setOnCheckedChangeListener(checkChangeListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val checkbox by bind<MaterialCheckBox>(R.id.checkbox)
     }
 }

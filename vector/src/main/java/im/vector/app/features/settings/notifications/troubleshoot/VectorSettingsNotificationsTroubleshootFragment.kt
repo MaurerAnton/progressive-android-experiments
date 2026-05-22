@@ -23,7 +23,7 @@ import androidx.transition.TransitionManager
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.registerForPermissionsResult
 import im.vector.app.core.utils.startNotificationSettingsIntent
 import im.vector.app.databinding.FragmentSettingsNotificationsTroubleshootBinding
@@ -40,7 +40,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class VectorSettingsNotificationsTroubleshootFragment :
-        VectorBaseFragment<FragmentSettingsNotificationsTroubleshootBinding>() {
+        ProgressiveFragment<FragmentSettingsNotificationsTroubleshootBinding>() {
 
     @Inject lateinit var bugReporter: BugReporter
     @Inject lateinit var testManagerFactory: NotificationTroubleshootTestManagerFactory

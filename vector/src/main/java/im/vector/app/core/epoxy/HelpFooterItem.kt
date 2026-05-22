@@ -13,7 +13,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 
 @EpoxyModelClass
-abstract class HelpFooterItem : VectorEpoxyModel<HelpFooterItem.Holder>(R.layout.item_help_footer) {
+abstract class HelpFooterItem : ProgressiveEpoxyModel<HelpFooterItem.Holder>(R.layout.item_help_footer) {
 
     @EpoxyAttribute
     var text: String? = null
@@ -23,7 +23,7 @@ abstract class HelpFooterItem : VectorEpoxyModel<HelpFooterItem.Holder>(R.layout
         holder.textView.text = text
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.itemHelpText)
     }
 }

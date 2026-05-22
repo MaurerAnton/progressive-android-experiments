@@ -25,8 +25,8 @@ import im.vector.app.SpaceStateHandler
 import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.core.extensions.toMvRxBundle
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseActivity
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveActivity
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.ui.views.CurrentCallsView
@@ -56,7 +56,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeDetailFragment :
-        VectorBaseFragment<FragmentHomeDetailBinding>(),
+        ProgressiveFragment<FragmentHomeDetailBinding>(),
         KeysBackupBanner.Delegate,
         CurrentCallsView.Callback,
         OnBackPressed,
@@ -226,7 +226,7 @@ class HomeDetailFragment :
                     viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer)
                     colorInt = colorProvider.getColorFromAttribute(com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
-                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let { vectorBaseActivity ->
+                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let { vectorBaseActivity ->
                             vectorBaseActivity.navigator
                                     .requestSessionVerification(vectorBaseActivity, newest.deviceId ?: "")
                         }
@@ -255,7 +255,7 @@ class HomeDetailFragment :
                     viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer)
                     colorInt = colorProvider.getColorFromAttribute(com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
-                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let { activity ->
+                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let { activity ->
                             // mark as ignored to avoid showing it again
                             unknownDeviceDetectorSharedViewModel.handle(
                                     UnknownDeviceDetectorSharedViewModel.Action.IgnoreDevice(oldUnverified.mapNotNull { it.deviceId })

@@ -14,7 +14,7 @@ import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.lazyViewModel
 import im.vector.app.core.extensions.validateBackPressed
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.platform.lifecycleAwareLazy
 import im.vector.app.databinding.ActivityLoginBinding
 import im.vector.app.features.login.LoginConfig
@@ -22,7 +22,7 @@ import im.vector.app.features.pin.UnlockedActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class OnboardingActivity : VectorBaseActivity<ActivityLoginBinding>(), UnlockedActivity {
+class OnboardingActivity : ProgressiveActivity<ActivityLoginBinding>(), UnlockedActivity {
 
     private val onboardingVariant by lifecycleAwareLazy {
         onboardingVariantFactory.create(this, views = views, onboardingViewModel = lazyViewModel())

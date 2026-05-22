@@ -14,7 +14,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import im.vector.app.R
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.extensions.setTextWithColoredPart
 import im.vector.app.core.resources.ColorProvider
@@ -49,7 +49,7 @@ class SessionInfoView @JvmOverloads constructor(
 
     fun render(
             sessionInfoViewState: SessionInfoViewState,
-            dateFormatter: VectorDateFormatter,
+            dateFormatter: ProgressiveDateFormatter,
             drawableProvider: DrawableProvider,
             colorProvider: ColorProvider,
             stringProvider: StringProvider,
@@ -164,7 +164,7 @@ class SessionInfoView @JvmOverloads constructor(
             deviceInfo: DeviceInfo,
             isLastSeenDetailsVisible: Boolean,
             isShowingIpAddress: Boolean,
-            dateFormatter: VectorDateFormatter,
+            dateFormatter: ProgressiveDateFormatter,
             drawableProvider: DrawableProvider,
             colorProvider: ColorProvider,
     ) {

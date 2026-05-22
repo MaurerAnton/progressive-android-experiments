@@ -13,7 +13,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 
 @EpoxyModelClass
-abstract class NoResultItem : VectorEpoxyModel<NoResultItem.Holder>(R.layout.item_no_result) {
+abstract class NoResultItem : ProgressiveEpoxyModel<NoResultItem.Holder>(R.layout.item_no_result) {
 
     @EpoxyAttribute
     var text: String? = null
@@ -23,7 +23,7 @@ abstract class NoResultItem : VectorEpoxyModel<NoResultItem.Holder>(R.layout.ite
         holder.textView.text = text
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.itemNoResultText)
     }
 }

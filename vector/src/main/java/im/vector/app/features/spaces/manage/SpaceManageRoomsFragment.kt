@@ -28,7 +28,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.FragmentSpaceAddRoomsBinding
 import im.vector.lib.strings.CommonPlurals
@@ -42,7 +42,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SpaceManageRoomsFragment :
-        VectorBaseFragment<FragmentSpaceAddRoomsBinding>(),
+        ProgressiveFragment<FragmentSpaceAddRoomsBinding>(),
         OnBackPressed,
         SpaceManageRoomsController.Listener,
         Callback {

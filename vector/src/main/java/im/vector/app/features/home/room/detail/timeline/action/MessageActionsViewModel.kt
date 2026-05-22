@@ -17,7 +17,7 @@ import im.vector.app.core.error.ErrorFormatter
 import im.vector.app.core.extensions.canReact
 import im.vector.app.core.extensions.getVectorLastMessageContent
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.home.room.detail.timeline.format.NoticeEventFormatter
 import im.vector.app.features.html.EventHtmlRenderer
@@ -72,7 +72,7 @@ class MessageActionsViewModel @AssistedInject constructor(
         private val vectorPreferences: VectorPreferences,
         private val checkIfCanReplyEventUseCase: CheckIfCanReplyEventUseCase,
         private val checkIfCanRedactEventUseCase: CheckIfCanRedactEventUseCase,
-) : VectorViewModel<MessageActionState, MessageActionsAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<MessageActionState, MessageActionsAction, EmptyViewEvents>(initialState) {
 
     private val informationData = initialState.informationData
     private val room = session.getRoom(initialState.roomId)

@@ -11,8 +11,8 @@ import com.airbnb.mvrx.Async
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.date.ProgressiveDateFormatter
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.error.ErrorFormatter
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.home.AvatarRenderer
@@ -35,7 +35,7 @@ import javax.inject.Inject
 
 class RoomSummaryItemFactory @Inject constructor(
         private val displayableEventFormatter: DisplayableEventFormatter,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val stringProvider: StringProvider,
         private val typingHelper: TypingHelper,
         private val avatarRenderer: AvatarRenderer,
@@ -50,7 +50,7 @@ class RoomSummaryItemFactory @Inject constructor(
             displayMode: RoomListDisplayMode,
             listener: RoomListListener?,
             singleLineLastEvent: Boolean = false
-    ): VectorEpoxyModel<*> {
+    ): ProgressiveEpoxyModel<*> {
         return when (roomSummary.membership) {
             Membership.INVITE -> {
                 val changeMembershipState = roomChangeMembershipStates[roomSummary.roomId] ?: ChangeMembershipState.Unknown
@@ -66,7 +66,7 @@ class RoomSummaryItemFactory @Inject constructor(
             spaceChildInfo: SpaceChildInfo,
             suggestedRoomJoiningStates: Map<String, Async<Unit>>,
             listener: RoomListListener?
-    ): VectorEpoxyModel<*> {
+    ): ProgressiveEpoxyModel<*> {
         val error = (suggestedRoomJoiningStates[spaceChildInfo.childRoomId] as? Fail)?.error
         return SpaceChildInfoItem_()
                 .id("sug_${spaceChildInfo.childRoomId}")
@@ -92,7 +92,7 @@ class RoomSummaryItemFactory @Inject constructor(
             roomSummary: RoomSummary,
             changeMembershipState: ChangeMembershipState,
             listener: RoomListListener?
-    ): VectorEpoxyModel<*> {
+    ): ProgressiveEpoxyModel<*> {
         val secondLine = if (roomSummary.isDirect) {
             roomSummary.inviterId
         } else {
@@ -119,7 +119,7 @@ class RoomSummaryItemFactory @Inject constructor(
             singleLineLastEvent: Boolean,
             onClick: ((RoomSummary) -> Unit)?,
             onLongClick: ((RoomSummary) -> Boolean)?,
-    ): VectorEpoxyModel<*> {
+    ): ProgressiveEpoxyModel<*> {
         val subtitle = getSearchResultSubtitle(roomSummary)
         val unreadCount = roomSummary.notificationCount
         val showHighlighted = roomSummary.highlightCount > 0

@@ -18,7 +18,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListBinding
 import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
@@ -37,7 +37,7 @@ data class RoomAliasBottomSheetArgs(
  */
 @AndroidEntryPoint
 class RoomAliasBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListBinding>(),
         RoomAliasBottomSheetController.Listener {
 
     private lateinit var sharedActionViewModel: RoomAliasBottomSheetSharedActionViewModel

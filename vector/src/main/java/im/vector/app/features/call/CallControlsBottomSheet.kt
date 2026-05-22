@@ -16,14 +16,14 @@ import androidx.core.view.isVisible
 import com.airbnb.mvrx.activityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetCallControlsBinding
 import im.vector.app.features.VectorFeatures
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CallControlsBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetCallControlsBinding>() {
+class CallControlsBottomSheet : ProgressiveBottomSheet<BottomSheetCallControlsBinding>() {
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): BottomSheetCallControlsBinding {
         return BottomSheetCallControlsBinding.inflate(inflater, container, false)
     }

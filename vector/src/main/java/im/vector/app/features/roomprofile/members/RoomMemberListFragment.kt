@@ -22,7 +22,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentRoomMemberListBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import im.vector.app.features.home.AvatarRenderer
@@ -37,7 +37,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoomMemberListFragment :
-        VectorBaseFragment<FragmentRoomMemberListBinding>(),
+        ProgressiveFragment<FragmentRoomMemberListBinding>(),
         RoomMemberListController.Callback {
 
     @Inject lateinit var roomMemberListController: RoomMemberListController

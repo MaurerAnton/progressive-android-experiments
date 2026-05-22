@@ -13,11 +13,11 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 
 @EpoxyModelClass
-abstract class SessionDetailsContentItem : VectorEpoxyModel<SessionDetailsContentItem.Holder>(R.layout.item_session_details_content) {
+abstract class SessionDetailsContentItem : ProgressiveEpoxyModel<SessionDetailsContentItem.Holder>(R.layout.item_session_details_content) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -40,7 +40,7 @@ abstract class SessionDetailsContentItem : VectorEpoxyModel<SessionDetailsConten
         holder.sessionDetailsContentDivider.isVisible = hasDivider
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val sessionDetailsContentTitle by bind<TextView>(R.id.sessionDetailsContentTitle)
         val sessionDetailsContentDescription by bind<TextView>(R.id.sessionDetailsContentDescription)
         val sessionDetailsContentDivider by bind<View>(R.id.sessionDetailsContentDivider)

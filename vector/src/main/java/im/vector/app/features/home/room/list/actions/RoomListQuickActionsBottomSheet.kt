@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.error.ErrorFormatter
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListBinding
 import im.vector.app.features.navigation.Navigator
 import im.vector.app.features.roomprofile.notifications.RoomNotificationSettingsAction
@@ -42,7 +42,7 @@ data class RoomListActionsArgs(
  */
 @AndroidEntryPoint
 class RoomListQuickActionsBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListBinding>(),
         RoomListQuickActionsEpoxyController.Listener {
 
     private lateinit var sharedActionViewModel: RoomListQuickActionsSharedActionViewModel

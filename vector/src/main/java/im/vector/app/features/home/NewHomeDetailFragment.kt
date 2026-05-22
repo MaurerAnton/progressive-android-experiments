@@ -25,8 +25,8 @@ import im.vector.app.R
 import im.vector.app.SpaceStateHandler
 import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseActivity
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveActivity
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.resources.ColorProvider
@@ -64,7 +64,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewHomeDetailFragment :
-        VectorBaseFragment<FragmentNewHomeDetailBinding>(),
+        ProgressiveFragment<FragmentNewHomeDetailBinding>(),
         KeysBackupBanner.Delegate,
         CurrentCallsView.Callback,
         OnBackPressed,
@@ -255,7 +255,7 @@ class NewHomeDetailFragment :
                     viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer)
                     colorInt = colorProvider.getColorFromAttribute(com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
-                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let { vectorBaseActivity ->
+                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let { vectorBaseActivity ->
                             vectorBaseActivity.navigator
                                     .requestSessionVerification(vectorBaseActivity, newest.deviceId ?: "")
                         }
@@ -282,7 +282,7 @@ class NewHomeDetailFragment :
                         iconId = R.drawable.ic_shield_warning,
                         shouldBeDisplayedIn = { activity ->
                             // do not show when there is an ongoing verification flow
-                            if (activity is VectorBaseActivity<*>) {
+                            if (activity is ProgressiveActivity<*>) {
                                 activity.supportFragmentManager.findFragmentByTag(SelfVerificationBottomSheet.TAG) == null &&
                                         activity !is QrCodeScannerActivity
                             } else true
@@ -291,7 +291,7 @@ class NewHomeDetailFragment :
                     viewBinder = VerificationVectorAlert.ViewBinder(user, avatarRenderer)
                     colorInt = colorProvider.getColorFromAttribute(com.google.android.material.R.attr.colorPrimary)
                     contentAction = Runnable {
-                        (weakCurrentActivity?.get() as? VectorBaseActivity<*>)?.let { activity ->
+                        (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let { activity ->
                             // mark as ignored to avoid showing it again
                             unknownDeviceDetectorSharedViewModel.handle(
                                     UnknownDeviceDetectorSharedViewModel.Action.IgnoreDevice(oldUnverified.mapNotNull { it.deviceId })
@@ -436,7 +436,7 @@ class NewHomeDetailFragment :
     }
 
     override fun onVerifySession() {
-        (activity as? VectorBaseActivity<*>)?.let { vectorBaseActivity ->
+        (activity as? ProgressiveActivity<*>)?.let { vectorBaseActivity ->
             vectorBaseActivity.navigator
                     .requestSelfSessionVerification(vectorBaseActivity)
         }

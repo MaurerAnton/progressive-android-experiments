@@ -14,7 +14,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 
 @EpoxyModelClass
-abstract class FontScaleUseSystemSettingsItem : VectorEpoxyModel<FontScaleUseSystemSettingsItem.Holder>(R.layout.item_font_scale_system) {
+abstract class FontScaleUseSystemSettingsItem : ProgressiveEpoxyModel<FontScaleUseSystemSettingsItem.Holder>(R.layout.item_font_scale_system) {
 
     @EpoxyAttribute var useSystemSettings: Boolean = true
 
@@ -30,7 +30,7 @@ abstract class FontScaleUseSystemSettingsItem : VectorEpoxyModel<FontScaleUseSys
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val checkBox by bind<CheckBox>(R.id.font_scale_use_system_checkbox)
     }
 }

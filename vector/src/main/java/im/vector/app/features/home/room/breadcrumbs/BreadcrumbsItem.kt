@@ -15,8 +15,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.displayname.getBestName
 import im.vector.app.features.home.AvatarRenderer
@@ -24,7 +24,7 @@ import im.vector.app.features.home.room.list.UnreadCounterBadgeView
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class BreadcrumbsItem : VectorEpoxyModel<BreadcrumbsItem.Holder>(R.layout.item_breadcrumbs) {
+abstract class BreadcrumbsItem : ProgressiveEpoxyModel<BreadcrumbsItem.Holder>(R.layout.item_breadcrumbs) {
 
     @EpoxyAttribute var hasTypingUsers: Boolean = false
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
@@ -46,7 +46,7 @@ abstract class BreadcrumbsItem : VectorEpoxyModel<BreadcrumbsItem.Holder>(R.layo
         holder.typingIndicator.isVisible = hasTypingUsers
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val unreadCounterBadgeView by bind<UnreadCounterBadgeView>(R.id.breadcrumbsUnreadCounterBadgeView)
         val unreadIndentIndicator by bind<View>(R.id.breadcrumbsUnreadIndicator)
         val draftIndentIndicator by bind<View>(R.id.breadcrumbsDraftBadge)

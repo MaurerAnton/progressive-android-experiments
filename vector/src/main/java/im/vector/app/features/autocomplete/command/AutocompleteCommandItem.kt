@@ -12,12 +12,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 @EpoxyModelClass
-abstract class AutocompleteCommandItem : VectorEpoxyModel<AutocompleteCommandItem.Holder>(R.layout.item_autocomplete_command) {
+abstract class AutocompleteCommandItem : ProgressiveEpoxyModel<AutocompleteCommandItem.Holder>(R.layout.item_autocomplete_command) {
 
     @EpoxyAttribute
     var name: String? = null
@@ -39,7 +39,7 @@ abstract class AutocompleteCommandItem : VectorEpoxyModel<AutocompleteCommandIte
         holder.descriptionView.text = description
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val nameView by bind<TextView>(R.id.commandName)
         val parametersView by bind<TextView>(R.id.commandParameter)
         val descriptionView by bind<TextView>(R.id.commandDescription)

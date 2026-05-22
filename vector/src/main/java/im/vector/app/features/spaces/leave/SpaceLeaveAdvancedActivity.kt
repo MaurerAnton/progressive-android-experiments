@@ -23,14 +23,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.replaceFragment
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleLoadingBinding
 import im.vector.app.features.spaces.SpaceBottomSheetSettingsArgs
 import im.vector.lib.core.utils.compat.getParcelableExtraCompat
 import im.vector.lib.strings.CommonStrings
 
 @AndroidEntryPoint
-class SpaceLeaveAdvancedActivity : VectorBaseActivity<ActivitySimpleLoadingBinding>() {
+class SpaceLeaveAdvancedActivity : ProgressiveActivity<ActivitySimpleLoadingBinding>() {
 
     override fun getBinding(): ActivitySimpleLoadingBinding = ActivitySimpleLoadingBinding.inflate(layoutInflater)
 

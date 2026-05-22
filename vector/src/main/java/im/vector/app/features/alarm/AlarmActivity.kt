@@ -25,7 +25,7 @@ import android.widget.Button
 import androidx.core.content.getSystemService
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityAlarmBinding
 import chat.progressive.app.native.ProgressiveNative
 import java.util.Locale
@@ -33,7 +33,7 @@ import java.util.Timer
 import java.util.TimerTask
 
 @AndroidEntryPoint
-class AlarmActivity : VectorBaseActivity<ActivityAlarmBinding>() {
+class AlarmActivity : ProgressiveActivity<ActivityAlarmBinding>() {
 
     private var mediaPlayer: MediaPlayer? = null
     private var vibrator: Vibrator? = null

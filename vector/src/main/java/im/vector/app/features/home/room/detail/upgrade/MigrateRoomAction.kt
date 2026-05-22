@@ -7,9 +7,9 @@
 
 package im.vector.app.features.home.room.detail.upgrade
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class MigrateRoomAction : VectorViewModelAction {
+sealed class MigrateRoomAction : ProgressiveViewModelAction {
     data class SetAutoInvite(val autoInvite: Boolean) : MigrateRoomAction()
     data class SetUpdateKnownParentSpace(val update: Boolean) : MigrateRoomAction()
     object UpgradeRoom : MigrateRoomAction()

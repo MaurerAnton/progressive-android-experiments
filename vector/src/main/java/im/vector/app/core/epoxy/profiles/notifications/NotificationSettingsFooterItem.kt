@@ -12,13 +12,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextWithColoredPart
 import im.vector.lib.strings.CommonStrings
 
 @EpoxyModelClass
-abstract class NotificationSettingsFooterItem : VectorEpoxyModel<NotificationSettingsFooterItem.Holder>(R.layout.item_notifications_footer) {
+abstract class NotificationSettingsFooterItem : ProgressiveEpoxyModel<NotificationSettingsFooterItem.Holder>(R.layout.item_notifications_footer) {
 
     @EpoxyAttribute
     var encrypted: Boolean = false
@@ -48,7 +48,7 @@ abstract class NotificationSettingsFooterItem : VectorEpoxyModel<NotificationSet
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textView by bind<TextView>(R.id.footerText)
     }
 }

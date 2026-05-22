@@ -9,6 +9,6 @@ package im.vector.app.core.platform
 
 import com.airbnb.mvrx.MavericksState
 
-data class VectorDummyViewState(
+data class ProgressiveDummyViewState(
         val isDummy: Unit = Unit
 ) : MavericksState

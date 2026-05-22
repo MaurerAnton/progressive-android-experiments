@@ -12,7 +12,7 @@ import android.view.View
 import androidx.preference.Preference
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
-import im.vector.app.core.preference.VectorCheckboxPreference
+import im.vector.app.core.preference.ProgressiveCheckboxPreference
 import im.vector.app.features.settings.VectorSettingsBaseFragment
 import im.vector.app.features.themes.ThemeUtils
 import im.vector.lib.strings.CommonStrings
@@ -48,7 +48,7 @@ abstract class VectorSettingsPushRuleNotificationFragment :
 
     override fun bindPref() {
         prefKeyToPushRuleId.forEach { (preferenceKey, ruleId) ->
-            findPreference<VectorCheckboxPreference>(preferenceKey)?.apply {
+            findPreference<ProgressiveCheckboxPreference>(preferenceKey)?.apply {
                 isIconSpaceReserved = false
                 onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
                     viewModel.handle(VectorSettingsPushRuleNotificationViewAction.UpdatePushRule(ruleId, newValue as Boolean))
@@ -73,7 +73,7 @@ abstract class VectorSettingsPushRuleNotificationFragment :
     private fun refreshErrors(rulesWithError: Set<String>) {
         if (withState(viewModel, VectorSettingsPushRuleNotificationViewState::isLoading)) return
         prefKeyToPushRuleId.forEach { (preferenceKey, ruleId) ->
-            findPreference<VectorCheckboxPreference>(preferenceKey)?.apply {
+            findPreference<ProgressiveCheckboxPreference>(preferenceKey)?.apply {
                 if (ruleId in rulesWithError) {
                     summaryTextColor = ThemeUtils.getColor(context, com.google.android.material.R.attr.colorError)
                     setSummary(CommonStrings.settings_notification_error_on_update)
@@ -91,7 +91,7 @@ abstract class VectorSettingsPushRuleNotificationFragment :
 
     private fun updatePreference(ruleId: String, checked: Boolean) {
         val preferenceKey = prefKeyToPushRuleId.entries.find { it.value == ruleId }?.key ?: return
-        val preference = findPreference<VectorCheckboxPreference>(preferenceKey) ?: return
+        val preference = findPreference<ProgressiveCheckboxPreference>(preferenceKey) ?: return
         val ruleIds = withState(viewModel) { state -> state.allRules.map { it.ruleId } }
         preference.isVisible = ruleId in ruleIds
         preference.isChecked = checked

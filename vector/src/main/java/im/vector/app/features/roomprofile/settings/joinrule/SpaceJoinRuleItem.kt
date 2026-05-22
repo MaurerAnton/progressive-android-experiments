@@ -16,8 +16,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setAttributeTintedImageResource
 import im.vector.app.core.utils.DebouncedClickListener
@@ -26,7 +26,7 @@ import im.vector.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class SpaceJoinRuleItem : VectorEpoxyModel<SpaceJoinRuleItem.Holder>(R.layout.item_bottom_sheet_joinrule_restricted) {
+abstract class SpaceJoinRuleItem : ProgressiveEpoxyModel<SpaceJoinRuleItem.Holder>(R.layout.item_bottom_sheet_joinrule_restricted) {
 
     @EpoxyAttribute
     var selected: Boolean = false
@@ -83,7 +83,7 @@ abstract class SpaceJoinRuleItem : VectorEpoxyModel<SpaceJoinRuleItem.Holder>(R.
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val radioImage by bind<ImageView>(R.id.radioIcon)
         val actionTitle by bind<TextView>(R.id.actionTitle)
         val actionDescription by bind<TextView>(R.id.actionDescription)

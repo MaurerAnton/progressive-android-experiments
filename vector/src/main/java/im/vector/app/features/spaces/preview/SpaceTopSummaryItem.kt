@@ -11,12 +11,12 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class SpaceTopSummaryItem : VectorEpoxyModel<SpaceTopSummaryItem.Holder>(R.layout.item_space_top_summary) {
+abstract class SpaceTopSummaryItem : ProgressiveEpoxyModel<SpaceTopSummaryItem.Holder>(R.layout.item_space_top_summary) {
 
     @EpoxyAttribute
     var topic: String? = null
@@ -30,7 +30,7 @@ abstract class SpaceTopSummaryItem : VectorEpoxyModel<SpaceTopSummaryItem.Holder
         holder.memberCountText.text = formattedMemberCount
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val memberCountText by bind<TextView>(R.id.spaceSummaryMemberCountText)
         val spaceTopicText by bind<TextView>(R.id.spaceSummaryTopic)
     }

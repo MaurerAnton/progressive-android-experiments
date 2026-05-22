@@ -14,7 +14,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.extensions.getVectorLastMessageContent
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.poll.PollMode
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.getRoom
@@ -25,7 +25,7 @@ import org.matrix.android.sdk.api.session.room.model.message.PollType
 class CreatePollViewModel @AssistedInject constructor(
         @Assisted private val initialState: CreatePollViewState,
         session: Session
-) : VectorViewModel<CreatePollViewState, CreatePollAction, CreatePollViewEvents>(initialState) {
+) : ProgressiveViewModel<CreatePollViewState, CreatePollAction, CreatePollViewEvents>(initialState) {
 
     private val room = session.getRoom(initialState.roomId)!!
 

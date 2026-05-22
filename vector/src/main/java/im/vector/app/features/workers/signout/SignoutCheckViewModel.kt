@@ -20,8 +20,8 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModel
+import im.vector.app.core.platform.ProgressiveViewModelAction
 import im.vector.app.features.crypto.keys.KeysExporter
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -47,9 +47,9 @@ class SignoutCheckViewModel @AssistedInject constructor(
         @Assisted initialState: SignoutCheckViewState,
         private val session: Session,
         private val keysExporter: KeysExporter
-) : VectorViewModel<SignoutCheckViewState, SignoutCheckViewModel.Actions, EmptyViewEvents>(initialState), KeysBackupStateListener {
+) : ProgressiveViewModel<SignoutCheckViewState, SignoutCheckViewModel.Actions, EmptyViewEvents>(initialState), KeysBackupStateListener {
 
-    sealed class Actions : VectorViewModelAction {
+    sealed class Actions : ProgressiveViewModelAction {
         data class ExportKeys(val passphrase: String, val uri: Uri) : Actions()
         object KeySuccessfullyManuallyExported : Actions()
     }

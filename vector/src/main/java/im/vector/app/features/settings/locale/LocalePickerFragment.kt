@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.restart
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentLocalePickerBinding
 import im.vector.lib.strings.CommonStrings
 import java.util.Locale
@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LocalePickerFragment :
-        VectorBaseFragment<FragmentLocalePickerBinding>(),
+        ProgressiveFragment<FragmentLocalePickerBinding>(),
         LocalePickerController.Listener {
 
     @Inject lateinit var controller: LocalePickerController

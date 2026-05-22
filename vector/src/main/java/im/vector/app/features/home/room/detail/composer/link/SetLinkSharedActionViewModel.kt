@@ -7,11 +7,11 @@
 package im.vector.app.features.home.room.detail.composer.link
 
 import im.vector.app.core.platform.VectorSharedAction
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 class SetLinkSharedActionViewModel @Inject constructor() :
-        VectorSharedActionViewModel<SetLinkSharedAction>()
+        ProgressiveSharedAction<SetLinkSharedAction>()
 
 sealed interface SetLinkSharedAction : VectorSharedAction {
     data class Set(

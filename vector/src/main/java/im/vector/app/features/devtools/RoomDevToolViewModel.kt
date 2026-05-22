@@ -18,7 +18,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.error.ErrorFormatter
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.lib.strings.CommonStrings
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ class RoomDevToolViewModel @AssistedInject constructor(
         private val errorFormatter: ErrorFormatter,
         private val stringProvider: StringProvider,
         private val session: Session
-) : VectorViewModel<RoomDevToolViewState, RoomDevToolAction, DevToolsViewEvents>(initialState) {
+) : ProgressiveViewModel<RoomDevToolViewState, RoomDevToolAction, DevToolsViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<RoomDevToolViewModel, RoomDevToolViewState> {

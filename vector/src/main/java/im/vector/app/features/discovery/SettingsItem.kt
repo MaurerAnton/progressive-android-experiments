@@ -14,13 +14,13 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.google.android.material.switchmaterial.SwitchMaterial
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class SettingsItem : VectorEpoxyModel<SettingsItem.Holder>(R.layout.item_settings_simple_item) {
+abstract class SettingsItem : ProgressiveEpoxyModel<SettingsItem.Holder>(R.layout.item_settings_simple_item) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -58,7 +58,7 @@ abstract class SettingsItem : VectorEpoxyModel<SettingsItem.Holder>(R.layout.ite
         holder.view.onClick(itemClickListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val titleText by bind<TextView>(R.id.settings_item_title)
         val descriptionText by bind<TextView>(R.id.settings_item_description)
         val switchButton by bind<SwitchMaterial>(R.id.settings_item_switch)

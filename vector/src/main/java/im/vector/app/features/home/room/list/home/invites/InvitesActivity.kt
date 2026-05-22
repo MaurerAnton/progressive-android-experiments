@@ -10,11 +10,11 @@ package im.vector.app.features.home.room.list.home.invites
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.addFragment
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivitySimpleBinding
 
 @AndroidEntryPoint
-class InvitesActivity : VectorBaseActivity<ActivitySimpleBinding>() {
+class InvitesActivity : ProgressiveActivity<ActivitySimpleBinding>() {
 
     override fun getBinding() = ActivitySimpleBinding.inflate(layoutInflater)
 

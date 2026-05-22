@@ -19,7 +19,7 @@ import kotlinx.coroutines.cancelChildren
 /**
  * EpoxyModelWithHolder which can listen to visibility state change.
  */
-abstract class VectorEpoxyModel<H : VectorEpoxyHolder>(
+abstract class ProgressiveEpoxyModel<H : ProgressiveEpoxyHolder>(
         @LayoutRes private val layoutId: Int
 ) : EpoxyModelWithHolder<H>() {
 
@@ -45,7 +45,7 @@ abstract class VectorEpoxyModel<H : VectorEpoxyHolder>(
         super.onVisibilityStateChanged(visibilityState, view)
     }
 
-    fun setOnVisibilityStateChanged(listener: OnVisibilityStateChangedListener): VectorEpoxyModel<H> {
+    fun setOnVisibilityStateChanged(listener: OnVisibilityStateChangedListener): ProgressiveEpoxyModel<H> {
         this.onModelVisibilityStateChangedListener = listener
         return this
     }

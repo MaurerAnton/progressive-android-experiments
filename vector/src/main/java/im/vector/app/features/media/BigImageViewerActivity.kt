@@ -14,7 +14,7 @@ import android.view.View
 import androidx.core.net.toUri
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.di.ActiveSessionHolder
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityBigImageViewerBinding
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ import javax.inject.Inject
  * Simple Activity to display an avatar in fullscreen.
  */
 @AndroidEntryPoint
-class BigImageViewerActivity : VectorBaseActivity<ActivityBigImageViewerBinding>() {
+class BigImageViewerActivity : ProgressiveActivity<ActivityBigImageViewerBinding>() {
     @Inject lateinit var sessionHolder: ActiveSessionHolder
 
     override fun getBinding() = ActivityBigImageViewerBinding.inflate(layoutInflater)

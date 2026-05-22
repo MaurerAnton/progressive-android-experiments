@@ -16,8 +16,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.bumptech.glide.request.RequestOptions
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.glide.GlideApp
@@ -34,7 +34,7 @@ import org.matrix.android.sdk.api.util.MatrixItem
  * A message preview for bottom sheet.
  */
 @EpoxyModelClass
-abstract class BottomSheetMessagePreviewItem : VectorEpoxyModel<BottomSheetMessagePreviewItem.Holder>(R.layout.item_bottom_sheet_message_preview) {
+abstract class BottomSheetMessagePreviewItem : ProgressiveEpoxyModel<BottomSheetMessagePreviewItem.Holder>(R.layout.item_bottom_sheet_message_preview) {
 
     @EpoxyAttribute
     lateinit var avatarRenderer: AvatarRenderer
@@ -106,7 +106,7 @@ abstract class BottomSheetMessagePreviewItem : VectorEpoxyModel<BottomSheetMessa
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatar by bind<ImageView>(R.id.bottom_sheet_message_preview_avatar)
         val sender by bind<TextView>(R.id.bottom_sheet_message_preview_sender)
         val body by bind<TextView>(R.id.bottom_sheet_message_preview_body)

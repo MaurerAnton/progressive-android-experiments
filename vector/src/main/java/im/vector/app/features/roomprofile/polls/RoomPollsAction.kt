@@ -7,8 +7,8 @@
 
 package im.vector.app.features.roomprofile.polls
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface RoomPollsAction : VectorViewModelAction {
+sealed interface RoomPollsAction : ProgressiveViewModelAction {
     object LoadMorePolls : RoomPollsAction
 }

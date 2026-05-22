@@ -21,7 +21,7 @@ import im.vector.app.core.extensions.copyOnLongClick
 import im.vector.lib.strings.CommonStrings
 
 @EpoxyModelClass
-abstract class ExpandableTextItem : VectorEpoxyModel<ExpandableTextItem.Holder>(R.layout.item_expandable_textview) {
+abstract class ExpandableTextItem : ProgressiveEpoxyModel<ExpandableTextItem.Holder>(R.layout.item_expandable_textview) {
 
     @EpoxyAttribute
     lateinit var content: String
@@ -84,7 +84,7 @@ abstract class ExpandableTextItem : VectorEpoxyModel<ExpandableTextItem.Holder>(
         isExpanded = false
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val content by bind<TextView>(R.id.expandableContent)
         val arrow by bind<ImageView>(R.id.expandableArrow)
     }

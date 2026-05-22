@@ -15,15 +15,15 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.amulyakhare.textdrawable.TextDrawable
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.themes.ThemeUtils
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class UserDirectoryUserItem : VectorEpoxyModel<UserDirectoryUserItem.Holder>(R.layout.item_known_user) {
+abstract class UserDirectoryUserItem : ProgressiveEpoxyModel<UserDirectoryUserItem.Holder>(R.layout.item_known_user) {
 
     @EpoxyAttribute lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
@@ -57,7 +57,7 @@ abstract class UserDirectoryUserItem : VectorEpoxyModel<UserDirectoryUserItem.Ho
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val userIdView by bind<TextView>(R.id.knownUserID)
         val nameView by bind<TextView>(R.id.knownUserName)
         val avatarImageView by bind<ImageView>(R.id.knownUserAvatar)

@@ -17,13 +17,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentGenericRecyclerBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class OutgoingKeyRequestListFragment :
-        VectorBaseFragment<FragmentGenericRecyclerBinding>() {
+        ProgressiveFragment<FragmentGenericRecyclerBinding>() {
 
     @Inject lateinit var epoxyController: OutgoingKeyRequestPagedController
 

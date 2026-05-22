@@ -8,9 +8,9 @@
 package im.vector.app.features.spaces.create
 
 import android.net.Uri
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class CreateSpaceAction : VectorViewModelAction {
+sealed class CreateSpaceAction : ProgressiveViewModelAction {
     data class SetRoomType(val type: SpaceType) : CreateSpaceAction()
     data class NameChanged(val name: String) : CreateSpaceAction()
     data class TopicChanged(val topic: String) : CreateSpaceAction()

@@ -7,11 +7,11 @@
 package im.vector.app.features.attachments
 
 import im.vector.app.core.platform.VectorSharedAction
-import im.vector.app.core.platform.VectorSharedActionViewModel
+import im.vector.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 class AttachmentTypeSelectorSharedActionViewModel @Inject constructor() :
-        VectorSharedActionViewModel<AttachmentTypeSelectorSharedAction>()
+        ProgressiveSharedAction<AttachmentTypeSelectorSharedAction>()
 
 sealed interface AttachmentTypeSelectorSharedAction : VectorSharedAction {
     data class SelectAttachmentTypeAction(

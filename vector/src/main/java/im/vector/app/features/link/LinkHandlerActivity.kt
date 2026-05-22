@@ -16,7 +16,7 @@ import com.airbnb.mvrx.viewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.registerStartForActivityResult
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.utils.toast
 import im.vector.app.databinding.ActivityProgressBinding
 import im.vector.app.features.MainActivity
@@ -34,7 +34,7 @@ import javax.inject.Inject
  * Dummy activity used to dispatch the vector URL links.
  */
 @AndroidEntryPoint
-class LinkHandlerActivity : VectorBaseActivity<ActivityProgressBinding>() {
+class LinkHandlerActivity : ProgressiveActivity<ActivityProgressBinding>() {
 
     @Inject lateinit var permalinkHandler: PermalinkHandler
 

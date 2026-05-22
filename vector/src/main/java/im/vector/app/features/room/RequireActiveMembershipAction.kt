@@ -7,8 +7,8 @@
 
 package im.vector.app.features.room
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class RequireActiveMembershipAction : VectorViewModelAction {
+sealed class RequireActiveMembershipAction : ProgressiveViewModelAction {
     data class ChangeRoom(val roomId: String) : RequireActiveMembershipAction()
 }

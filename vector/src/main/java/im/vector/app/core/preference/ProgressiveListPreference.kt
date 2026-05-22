@@ -18,7 +18,7 @@ import im.vector.app.R
 /**
  * Customize ListPreference class to add a warning icon to the right side of the list.
  */
-class VectorListPreference : ListPreference {
+class ProgressiveListPreference : ListPreference {
 
     //
     private var mWarningIconView: View? = null
@@ -59,7 +59,7 @@ class VectorListPreference : ListPreference {
 
         mWarningIconView!!.setOnClickListener {
             if (null != mWarningIconClickListener) {
-                mWarningIconClickListener!!.onWarningIconClick(this@VectorListPreference)
+                mWarningIconClickListener!!.onWarningIconClick(this@ProgressiveListPreference)
             }
         }
     }

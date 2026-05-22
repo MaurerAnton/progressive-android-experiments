@@ -10,7 +10,7 @@ package im.vector.app.features.settings.devtools
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging.PagedListEpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.ui.list.GenericItem_
 import im.vector.app.core.utils.createUIHandler
 import im.vector.lib.core.utils.epoxy.charsequence.toEpoxyCharSequence
@@ -19,7 +19,7 @@ import org.matrix.android.sdk.api.session.crypto.model.IncomingRoomKeyRequest
 import javax.inject.Inject
 
 class IncomingKeyRequestPagedController @Inject constructor(
-        private val vectorDateFormatter: VectorDateFormatter
+        private val vectorDateFormatter: ProgressiveDateFormatter
 ) : PagedListEpoxyController<IncomingRoomKeyRequest>(
         // Important it must match the PageList builder notify Looper
         modelBuildingHandler = createUIHandler()

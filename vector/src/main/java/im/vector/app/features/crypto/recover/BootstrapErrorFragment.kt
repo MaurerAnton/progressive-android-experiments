@@ -14,13 +14,13 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentBootstrapErrorBinding
 import im.vector.lib.strings.CommonStrings
 
 @AndroidEntryPoint
 class BootstrapErrorFragment :
-        VectorBaseFragment<FragmentBootstrapErrorBinding>() {
+        ProgressiveFragment<FragmentBootstrapErrorBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentBootstrapErrorBinding {
         return FragmentBootstrapErrorBinding.inflate(inflater, container, false)

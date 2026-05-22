@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.utils.openUrlInChromeCustomTab
 import im.vector.app.databinding.FragmentReviewTermsBinding
 import im.vector.lib.strings.CommonStrings
@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReviewTermsFragment :
-        VectorBaseFragment<FragmentReviewTermsBinding>(),
+        ProgressiveFragment<FragmentReviewTermsBinding>(),
         TermsController.Listener {
 
     @Inject lateinit var termsController: TermsController

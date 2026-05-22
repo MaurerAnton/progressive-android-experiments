@@ -7,8 +7,8 @@
 
 package im.vector.app.features.settings.legals
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface LegalsAction : VectorViewModelAction {
+sealed interface LegalsAction : ProgressiveViewModelAction {
     object Refresh : LegalsAction
 }

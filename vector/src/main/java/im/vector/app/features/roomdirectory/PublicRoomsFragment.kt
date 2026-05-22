@@ -21,7 +21,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.trackItemsVisibilityChange
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.platform.VectorMenuProvider
 import im.vector.app.core.platform.showOptimizedSnackbar
 import im.vector.app.core.utils.toast
@@ -46,7 +46,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class PublicRoomsFragment :
-        VectorBaseFragment<FragmentPublicRoomsBinding>(),
+        ProgressiveFragment<FragmentPublicRoomsBinding>(),
         PublicRoomsController.Callback,
         VectorMenuProvider {
 

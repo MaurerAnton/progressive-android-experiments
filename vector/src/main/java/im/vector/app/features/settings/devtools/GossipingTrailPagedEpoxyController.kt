@@ -10,7 +10,7 @@ package im.vector.app.features.settings.devtools
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging.PagedListEpoxyController
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.ui.list.GenericItem_
 import im.vector.app.core.utils.createUIHandler
@@ -23,7 +23,7 @@ import org.matrix.android.sdk.api.session.crypto.model.WithheldInfo
 import javax.inject.Inject
 
 class GossipingTrailPagedEpoxyController @Inject constructor(
-        private val vectorDateFormatter: VectorDateFormatter,
+        private val vectorDateFormatter: ProgressiveDateFormatter,
         private val colorProvider: ColorProvider
 ) : PagedListEpoxyController<AuditTrail>(
         // Important it must match the PageList builder notify Looper

@@ -14,11 +14,11 @@ import android.view.View
 import android.view.ViewGroup
 import im.vector.app.R
 import im.vector.app.core.extensions.replaceChildFragment
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.FragmentSpacesBottomSheetBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 
-class SpaceListBottomSheet : VectorBaseBottomSheetDialogFragment<FragmentSpacesBottomSheetBinding>() {
+class SpaceListBottomSheet : ProgressiveBottomSheet<FragmentSpacesBottomSheetBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentSpacesBottomSheetBinding {
         return FragmentSpacesBottomSheetBinding.inflate(inflater, container, false)

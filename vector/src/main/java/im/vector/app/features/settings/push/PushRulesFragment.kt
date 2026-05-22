@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.R
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentGenericRecyclerBinding
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject
@@ -25,7 +25,7 @@ import javax.inject.Inject
 // Referenced in vector_settings_notifications.xml
 @AndroidEntryPoint
 class PushRulesFragment :
-        VectorBaseFragment<FragmentGenericRecyclerBinding>() {
+        ProgressiveFragment<FragmentGenericRecyclerBinding>() {
 
     @Inject lateinit var epoxyController: PushRulesController
 

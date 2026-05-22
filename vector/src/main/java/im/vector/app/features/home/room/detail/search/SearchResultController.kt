@@ -15,7 +15,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.TypedEpoxyController
 import com.airbnb.epoxy.VisibilityState
 import im.vector.app.core.date.DateFormatKind
-import im.vector.app.core.date.VectorDateFormatter
+import im.vector.app.core.date.ProgressiveDateFormatter
 import im.vector.app.core.epoxy.loadingItem
 import im.vector.app.core.epoxy.noResultItem
 import im.vector.app.core.resources.StringProvider
@@ -37,7 +37,7 @@ class SearchResultController @Inject constructor(
         private val session: Session,
         private val avatarRenderer: AvatarRenderer,
         private val stringProvider: StringProvider,
-        private val dateFormatter: VectorDateFormatter,
+        private val dateFormatter: ProgressiveDateFormatter,
         private val displayableEventFormatter: DisplayableEventFormatter,
         private val userPreferencesProvider: UserPreferencesProvider,
         private val clock: Clock,

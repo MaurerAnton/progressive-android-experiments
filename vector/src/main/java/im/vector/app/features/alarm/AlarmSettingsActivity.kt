@@ -10,13 +10,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import dagger.hilt.android.AndroidEntryPoint
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.databinding.ActivityAlarmSettingsBinding
 import chat.progressive.app.native.ProgressiveNative
 import java.util.Locale
 
 @AndroidEntryPoint
-class AlarmSettingsActivity : VectorBaseActivity<ActivityAlarmSettingsBinding>() {
+class AlarmSettingsActivity : ProgressiveActivity<ActivityAlarmSettingsBinding>() {
 
     private var selectedRingtoneUri: String = ""
     private var ttsEngine: TextToSpeech? = null

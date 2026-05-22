@@ -7,9 +7,9 @@
 
 package im.vector.app.features.call.conference
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class JitsiCallViewActions : VectorViewModelAction {
+sealed class JitsiCallViewActions : ProgressiveViewModelAction {
     data class SwitchTo(
             val args: VectorJitsiActivity.Args,
             val withConfirmation: Boolean

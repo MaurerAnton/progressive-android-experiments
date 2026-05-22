@@ -23,7 +23,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.startSyncing
 import im.vector.app.core.extensions.vectorStore
-import im.vector.app.core.platform.VectorBaseActivity
+import im.vector.app.core.platform.ProgressiveActivity
 import im.vector.app.core.utils.deleteAllFiles
 import im.vector.app.databinding.ActivityMainBinding
 import im.vector.app.features.analytics.VectorAnalytics
@@ -74,7 +74,7 @@ data class MainActivityArgs(
  * clears cache, is logged out, or is soft logged out.
  */
 @AndroidEntryPoint
-class MainActivity : VectorBaseActivity<ActivityMainBinding>(), UnlockedActivity {
+class MainActivity : ProgressiveActivity<ActivityMainBinding>(), UnlockedActivity {
 
     companion object {
         private const val EXTRA_ARGS = "EXTRA_ARGS"

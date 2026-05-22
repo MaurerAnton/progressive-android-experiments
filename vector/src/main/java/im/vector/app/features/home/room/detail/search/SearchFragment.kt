@@ -27,7 +27,7 @@ import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.extensions.trackItemsVisibilityChange
 import im.vector.app.core.platform.StateView
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSearchBinding
 import im.vector.app.features.analytics.plan.ViewRoom
 import im.vector.app.features.home.room.threads.arguments.ThreadTimelineArgs
@@ -46,7 +46,7 @@ data class SearchArgs(
 
 @AndroidEntryPoint
 class SearchFragment :
-        VectorBaseFragment<FragmentSearchBinding>(),
+        ProgressiveFragment<FragmentSearchBinding>(),
         StateView.EventCallback,
         SearchResultController.Listener {
 

@@ -15,12 +15,12 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 
 @EpoxyModelClass
-abstract class ThreePidItem : VectorEpoxyModel<ThreePidItem.Holder>(R.layout.item_settings_three_pid) {
+abstract class ThreePidItem : ProgressiveEpoxyModel<ThreePidItem.Holder>(R.layout.item_settings_three_pid) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -47,7 +47,7 @@ abstract class ThreePidItem : VectorEpoxyModel<ThreePidItem.Holder>(R.layout.ite
         holder.delete.isVisible = deleteClickListener != null
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val icon by bind<ImageView>(R.id.item_settings_three_pid_icon)
         val title by bind<TextView>(R.id.item_settings_three_pid_title)
         val delete by bind<View>(R.id.item_settings_three_pid_delete)

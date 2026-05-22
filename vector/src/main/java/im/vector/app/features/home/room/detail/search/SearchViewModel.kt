@@ -16,7 +16,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ import org.matrix.android.sdk.api.session.search.SearchResult
 class SearchViewModel @AssistedInject constructor(
         @Assisted private val initialState: SearchViewState,
         private val session: Session
-) : VectorViewModel<SearchViewState, SearchAction, SearchViewEvents>(initialState) {
+) : ProgressiveViewModel<SearchViewState, SearchAction, SearchViewEvents>(initialState) {
 
     private val room = session.getRoom(initialState.roomId)
 

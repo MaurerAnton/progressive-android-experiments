@@ -14,14 +14,14 @@ import androidx.core.view.updateMargins
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.utils.DimensionConverter
 
 private const val EXTRA_TOP_MARGIN_DP = 32
 
 @EpoxyModelClass
-abstract class SessionDetailsHeaderItem : VectorEpoxyModel<SessionDetailsHeaderItem.Holder>(R.layout.item_session_details_header) {
+abstract class SessionDetailsHeaderItem : ProgressiveEpoxyModel<SessionDetailsHeaderItem.Holder>(R.layout.item_session_details_header) {
 
     @EpoxyAttribute
     var title: String? = null
@@ -45,7 +45,7 @@ abstract class SessionDetailsHeaderItem : VectorEpoxyModel<SessionDetailsHeaderI
         }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val sessionDetailsHeaderTitle by bind<TextView>(R.id.sessionDetailsHeaderTitle)
     }
 }

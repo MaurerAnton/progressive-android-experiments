@@ -16,7 +16,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.discovery.fetchHomeserverWithTerms
 import im.vector.app.features.discovery.fetchIdentityServerWithTerms
@@ -28,7 +28,7 @@ class LegalsViewModel @AssistedInject constructor(
         @Assisted initialState: LegalsState,
         private val session: Session,
         private val stringProvider: StringProvider
-) : VectorViewModel<LegalsState, LegalsAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<LegalsState, LegalsAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<LegalsViewModel, LegalsState> {

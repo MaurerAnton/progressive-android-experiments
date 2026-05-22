@@ -37,8 +37,8 @@ import im.vector.app.core.intent.analyseIntent
 import im.vector.app.core.intent.getFilenameFromUri
 import im.vector.app.core.platform.SimpleTextWatcher
 import im.vector.app.core.preference.VectorPreference
-import im.vector.app.core.preference.VectorPreferenceCategory
-import im.vector.app.core.preference.VectorSwitchPreference
+import im.vector.app.core.preference.ProgressivePreferenceCategory
+import im.vector.app.core.preference.ProgressiveSwitchPreference
 import im.vector.app.core.resources.BuildMeta
 import im.vector.app.core.utils.copyToClipboard
 import im.vector.app.core.utils.openFileSelection
@@ -150,15 +150,15 @@ class VectorSettingsSecurityPrivacyFragment :
     }
 
     private val analyticsCategory by lazy {
-        findPreference<VectorPreferenceCategory>("SETTINGS_ANALYTICS_PREFERENCE_KEY")!!
+        findPreference<ProgressivePreferenceCategory>("SETTINGS_ANALYTICS_PREFERENCE_KEY")!!
     }
 
     private val analyticsConsent by lazy {
-        findPreference<VectorSwitchPreference>("SETTINGS_USER_ANALYTICS_CONSENT_KEY")!!
+        findPreference<ProgressiveSwitchPreference>("SETTINGS_USER_ANALYTICS_CONSENT_KEY")!!
     }
 
     private val incognitoKeyboardPref by lazy {
-        findPreference<VectorSwitchPreference>(VectorPreferences.SETTINGS_SECURITY_INCOGNITO_KEYBOARD_PREFERENCE_KEY)!!
+        findPreference<ProgressiveSwitchPreference>(VectorPreferences.SETTINGS_SECURITY_INCOGNITO_KEYBOARD_PREFERENCE_KEY)!!
     }
 
     override fun onCreateRecyclerView(inflater: LayoutInflater, parent: ViewGroup, savedInstanceState: Bundle?): RecyclerView {
@@ -192,7 +192,7 @@ class VectorSettingsSecurityPrivacyFragment :
     }
 
     private val secureBackupCategory by lazy {
-        findPreference<VectorPreferenceCategory>("SETTINGS_CRYPTOGRAPHY_MANAGE_4S_CATEGORY_KEY")!!
+        findPreference<ProgressivePreferenceCategory>("SETTINGS_CRYPTOGRAPHY_MANAGE_4S_CATEGORY_KEY")!!
     }
     private val secureBackupPreference by lazy {
         findPreference<VectorPreference>("SETTINGS_SECURE_BACKUP_RECOVERY_PREFERENCE_KEY")!!

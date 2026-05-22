@@ -18,15 +18,15 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.glide.GlideApp
 import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class FormEditableSquareAvatarItem : VectorEpoxyModel<FormEditableSquareAvatarItem.Holder>(R.layout.item_editable_square_avatar) {
+abstract class FormEditableSquareAvatarItem : ProgressiveEpoxyModel<FormEditableSquareAvatarItem.Holder>(R.layout.item_editable_square_avatar) {
 
     @EpoxyAttribute
     var avatarRenderer: AvatarRenderer? = null
@@ -77,7 +77,7 @@ abstract class FormEditableSquareAvatarItem : VectorEpoxyModel<FormEditableSquar
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val imageContainer by bind<View>(R.id.itemEditableAvatarImageContainer)
         val image by bind<ImageView>(R.id.itemEditableAvatarImage)
         val delete by bind<View>(R.id.itemEditableAvatarDelete)

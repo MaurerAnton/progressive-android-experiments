@@ -29,7 +29,7 @@ import im.vector.app.R
 import im.vector.app.core.extensions.commitTransaction
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.toMvRxBundle
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetBootstrapBinding
 import im.vector.app.features.auth.ReAuthActivity
 import im.vector.lib.strings.CommonStrings
@@ -38,7 +38,7 @@ import org.matrix.android.sdk.api.auth.data.LoginFlowTypes
 import kotlin.reflect.KClass
 
 @AndroidEntryPoint
-class BootstrapBottomSheet : VectorBaseBottomSheetDialogFragment<BottomSheetBootstrapBinding>() {
+class BootstrapBottomSheet : ProgressiveBottomSheet<BottomSheetBootstrapBinding>() {
 
     @Parcelize
     data class Args(

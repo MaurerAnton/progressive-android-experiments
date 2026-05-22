@@ -16,7 +16,7 @@ import com.airbnb.mvrx.args
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.cleanup
 import im.vector.app.core.extensions.configureWith
-import im.vector.app.core.platform.VectorBaseBottomSheetDialogFragment
+import im.vector.app.core.platform.ProgressiveBottomSheet
 import im.vector.app.databinding.BottomSheetGenericListWithTitleBinding
 import im.vector.app.features.home.room.detail.timeline.action.EventSharedAction
 import im.vector.app.features.home.room.detail.timeline.action.MessageSharedActionViewModel
@@ -35,7 +35,7 @@ data class DisplayReadReceiptArgs(
  */
 @AndroidEntryPoint
 class DisplayReadReceiptsBottomSheet :
-        VectorBaseBottomSheetDialogFragment<BottomSheetGenericListWithTitleBinding>(),
+        ProgressiveBottomSheet<BottomSheetGenericListWithTitleBinding>(),
         DisplayReadReceiptsController.Listener {
 
     @Inject lateinit var epoxyController: DisplayReadReceiptsController

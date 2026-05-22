@@ -7,9 +7,9 @@
 
 package im.vector.app.features.location.live.map
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class LiveLocationMapAction : VectorViewModelAction {
+sealed class LiveLocationMapAction : ProgressiveViewModelAction {
     data class AddMapSymbol(val key: String, val value: Long) : LiveLocationMapAction()
     data class RemoveMapSymbol(val key: String) : LiveLocationMapAction()
     object StopSharing : LiveLocationMapAction()

@@ -17,8 +17,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.platform.CheckableConstraintLayout
 import im.vector.app.features.home.AvatarRenderer
@@ -26,7 +26,7 @@ import im.vector.app.features.home.room.list.UnreadCounterBadgeView
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class SubSpaceSummaryItem : VectorEpoxyModel<SubSpaceSummaryItem.Holder>(R.layout.item_sub_space) {
+abstract class SubSpaceSummaryItem : ProgressiveEpoxyModel<SubSpaceSummaryItem.Holder>(R.layout.item_sub_space) {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) lateinit var avatarRenderer: AvatarRenderer
     @EpoxyAttribute lateinit var matrixItem: MatrixItem
@@ -70,7 +70,7 @@ abstract class SubSpaceSummaryItem : VectorEpoxyModel<SubSpaceSummaryItem.Holder
         super.unbind(holder)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val avatarImageView by bind<ImageView>(R.id.groupAvatarImageView)
         val groupNameView by bind<TextView>(R.id.groupNameView)
         val rootView by bind<CheckableConstraintLayout>(R.id.itemGroupLayout)

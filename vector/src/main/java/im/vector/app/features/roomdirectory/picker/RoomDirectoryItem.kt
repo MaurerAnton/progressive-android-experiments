@@ -17,14 +17,14 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.glide.GlideApp
 
 @EpoxyModelClass
-abstract class RoomDirectoryItem : VectorEpoxyModel<RoomDirectoryItem.Holder>(R.layout.item_room_directory) {
+abstract class RoomDirectoryItem : ProgressiveEpoxyModel<RoomDirectoryItem.Holder>(R.layout.item_room_directory) {
 
     @EpoxyAttribute
     var directoryAvatarUrl: String? = null
@@ -66,7 +66,7 @@ abstract class RoomDirectoryItem : VectorEpoxyModel<RoomDirectoryItem.Holder>(R.
         holder.checkedView.isVisible = checked
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val rootView by bind<ViewGroup>(R.id.itemRoomDirectoryLayout)
 
         val avatarView by bind<ImageView>(R.id.itemRoomDirectoryAvatar)

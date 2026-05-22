@@ -18,7 +18,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.error.ErrorFormatter
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.session.Session
@@ -34,7 +34,7 @@ class SpacePreviewViewModel @AssistedInject constructor(
         @Assisted private val initialState: SpacePreviewState,
         private val errorFormatter: ErrorFormatter,
         private val session: Session
-) : VectorViewModel<SpacePreviewState, SpacePreviewViewAction, SpacePreviewViewEvents>(initialState) {
+) : ProgressiveViewModel<SpacePreviewState, SpacePreviewViewAction, SpacePreviewViewEvents>(initialState) {
 
     private var initialized = false
 

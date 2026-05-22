@@ -16,15 +16,15 @@ import com.google.android.material.textfield.TextInputLayout
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
 import im.vector.app.core.epoxy.TextListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.addTextChangedListenerOnce
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.epoxy.setValueOnce
 import im.vector.app.core.platform.SimpleTextWatcher
 
 @EpoxyModelClass
-abstract class FormEditTextWithButtonItem : VectorEpoxyModel<FormEditTextWithButtonItem.Holder>(R.layout.item_form_text_input_with_button) {
+abstract class FormEditTextWithButtonItem : ProgressiveEpoxyModel<FormEditTextWithButtonItem.Holder>(R.layout.item_form_text_input_with_button) {
 
     @EpoxyAttribute
     var hint: String? = null
@@ -74,7 +74,7 @@ abstract class FormEditTextWithButtonItem : VectorEpoxyModel<FormEditTextWithBut
         holder.textInputEditText.removeTextChangedListener(onTextChangeListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val textInputLayout by bind<TextInputLayout>(R.id.formTextInputTextInputLayout)
         val textInputEditText by bind<TextInputEditText>(R.id.formTextInputTextInputEditText)
         val textInputButton by bind<Button>(R.id.formTextInputButton)

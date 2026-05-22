@@ -18,7 +18,7 @@ import dagger.assisted.AssistedInject
 import im.vector.app.core.di.MavericksAssistedViewModelFactory
 import im.vector.app.core.di.hiltMavericksViewModelFactory
 import im.vector.app.core.platform.EmptyViewEvents
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.core.resources.StringProvider
 import im.vector.app.features.ui.UiStateRepository
 import im.vector.lib.strings.CommonStrings
@@ -32,7 +32,7 @@ class RoomDirectoryPickerViewModel @AssistedInject constructor(
         private val uiStateRepository: UiStateRepository,
         private val stringProvider: StringProvider,
         private val roomDirectoryListCreator: RoomDirectoryListCreator
-) : VectorViewModel<RoomDirectoryPickerViewState, RoomDirectoryPickerAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<RoomDirectoryPickerViewState, RoomDirectoryPickerAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<RoomDirectoryPickerViewModel, RoomDirectoryPickerViewState> {

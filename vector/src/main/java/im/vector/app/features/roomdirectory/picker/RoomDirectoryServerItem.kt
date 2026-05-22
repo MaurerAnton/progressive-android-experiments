@@ -14,13 +14,13 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 
 @EpoxyModelClass
-abstract class RoomDirectoryServerItem : VectorEpoxyModel<RoomDirectoryServerItem.Holder>(R.layout.item_room_directory_server) {
+abstract class RoomDirectoryServerItem : ProgressiveEpoxyModel<RoomDirectoryServerItem.Holder>(R.layout.item_room_directory_server) {
 
     @EpoxyAttribute
     var serverName: String? = null
@@ -42,7 +42,7 @@ abstract class RoomDirectoryServerItem : VectorEpoxyModel<RoomDirectoryServerIte
         holder.deleteView.onClick(removeListener)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val nameView by bind<TextView>(R.id.itemRoomDirectoryServerName)
         val descriptionView by bind<TextView>(R.id.itemRoomDirectoryServerDescription)
         val deleteView by bind<View>(R.id.itemRoomDirectoryServerRemove)

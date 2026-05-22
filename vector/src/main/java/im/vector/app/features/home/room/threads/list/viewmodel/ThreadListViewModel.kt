@@ -18,7 +18,7 @@ import com.airbnb.mvrx.ViewModelContext
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import im.vector.app.core.platform.VectorViewModel
+import im.vector.app.core.platform.ProgressiveViewModel
 import im.vector.app.features.analytics.AnalyticsTracker
 import im.vector.app.features.analytics.extensions.toAnalyticsInteraction
 import im.vector.app.features.analytics.plan.Interaction
@@ -41,7 +41,7 @@ class ThreadListViewModel @AssistedInject constructor(
         @Assisted val initialState: ThreadListViewState,
         private val analyticsTracker: AnalyticsTracker,
         private val session: Session,
-) : VectorViewModel<ThreadListViewState, ThreadListViewActions, ThreadListViewEvents>(initialState) {
+) : ProgressiveViewModel<ThreadListViewState, ThreadListViewActions, ThreadListViewEvents>(initialState) {
 
     private val room = session.getRoom(initialState.roomId)
 

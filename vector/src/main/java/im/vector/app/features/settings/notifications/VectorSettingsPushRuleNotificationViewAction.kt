@@ -7,8 +7,8 @@
 
 package im.vector.app.features.settings.notifications
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed interface VectorSettingsPushRuleNotificationViewAction : VectorViewModelAction {
+sealed interface VectorSettingsPushRuleNotificationViewAction : ProgressiveViewModelAction {
     data class UpdatePushRule(val ruleId: String, val checked: Boolean) : VectorSettingsPushRuleNotificationViewAction
 }

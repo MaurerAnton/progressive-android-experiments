@@ -7,9 +7,9 @@
 
 package im.vector.app.features.crypto.verification
 
-import im.vector.app.core.platform.VectorViewModelAction
+import im.vector.app.core.platform.ProgressiveViewModelAction
 
-sealed class VerificationAction : VectorViewModelAction {
+sealed class VerificationAction : ProgressiveViewModelAction {
     object RequestVerificationByDM : VerificationAction()
     object RequestSelfVerification : VerificationAction()
     object StartSASVerification : VerificationAction()

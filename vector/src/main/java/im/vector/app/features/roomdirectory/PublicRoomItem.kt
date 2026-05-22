@@ -15,8 +15,8 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
 import im.vector.app.core.platform.ButtonStateView
@@ -24,7 +24,7 @@ import im.vector.app.features.home.AvatarRenderer
 import org.matrix.android.sdk.api.util.MatrixItem
 
 @EpoxyModelClass
-abstract class PublicRoomItem : VectorEpoxyModel<PublicRoomItem.Holder>(R.layout.item_public_room) {
+abstract class PublicRoomItem : ProgressiveEpoxyModel<PublicRoomItem.Holder>(R.layout.item_public_room) {
 
     @EpoxyAttribute
     lateinit var avatarRenderer: AvatarRenderer
@@ -74,7 +74,7 @@ abstract class PublicRoomItem : VectorEpoxyModel<PublicRoomItem.Holder>(R.layout
         holder.buttonState.commonClicked = { joinListener?.invoke(it) }
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val rootView by bind<ViewGroup>(R.id.itemPublicRoomLayout)
 
         val avatarView by bind<ImageView>(R.id.itemPublicRoomAvatar)

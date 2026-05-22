@@ -16,14 +16,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.configureWith
 import im.vector.app.core.extensions.hideKeyboard
 import im.vector.app.core.platform.OnBackPressed
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.databinding.FragmentSpaceCreateGenericEpoxyFormBinding
 import im.vector.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateSpaceDefaultRoomsFragment :
-        VectorBaseFragment<FragmentSpaceCreateGenericEpoxyFormBinding>(),
+        ProgressiveFragment<FragmentSpaceCreateGenericEpoxyFormBinding>(),
         SpaceDefaultRoomEpoxyController.Listener,
         OnBackPressed {
 

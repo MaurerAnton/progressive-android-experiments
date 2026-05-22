@@ -15,15 +15,15 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import im.vector.app.R
 import im.vector.app.core.epoxy.ClickListener
-import im.vector.app.core.epoxy.VectorEpoxyHolder
-import im.vector.app.core.epoxy.VectorEpoxyModel
+import im.vector.app.core.epoxy.ProgressiveEpoxyHolder
+import im.vector.app.core.epoxy.ProgressiveEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import org.matrix.android.sdk.api.extensions.tryOrNull
 import org.matrix.android.sdk.api.session.widgets.model.Widget
 import java.net.URL
 
 @EpoxyModelClass
-abstract class RoomWidgetItem : VectorEpoxyModel<RoomWidgetItem.Holder>(R.layout.item_room_widget) {
+abstract class RoomWidgetItem : ProgressiveEpoxyModel<RoomWidgetItem.Holder>(R.layout.item_room_widget) {
 
     @EpoxyAttribute lateinit var widget: Widget
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var widgetClicked: ClickListener? = null
@@ -44,7 +44,7 @@ abstract class RoomWidgetItem : VectorEpoxyModel<RoomWidgetItem.Holder>(R.layout
         holder.view.onClick(widgetClicked)
     }
 
-    class Holder : VectorEpoxyHolder() {
+    class Holder : ProgressiveEpoxyHolder() {
         val widgetName by bind<TextView>(R.id.roomWidgetName)
         val widgetUrl by bind<TextView>(R.id.roomWidgetUrl)
         val iconImage by bind<ImageView>(R.id.roomWidgetAvatar)

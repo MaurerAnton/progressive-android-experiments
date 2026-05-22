@@ -22,7 +22,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import im.vector.app.core.extensions.registerStartForActivityResult
 import im.vector.app.core.extensions.toReducedUrl
-import im.vector.app.core.platform.VectorBaseFragment
+import im.vector.app.core.platform.ProgressiveFragment
 import im.vector.app.core.resources.ColorProvider
 import im.vector.app.core.utils.colorizeMatchingText
 import im.vector.app.databinding.FragmentSetIdentityServerBinding
@@ -36,7 +36,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SetIdentityServerFragment :
-        VectorBaseFragment<FragmentSetIdentityServerBinding>() {
+        ProgressiveFragment<FragmentSetIdentityServerBinding>() {
 
     @Inject lateinit var colorProvider: ColorProvider
 

@@ -44,7 +44,7 @@ interface ViewModelModule {
      * ViewModels with @IntoMap will be injected by this factory.
      */
     @Binds
-    fun bindViewModelFactory(factory: VectorViewModelFactory): ViewModelProvider.Factory
+    fun bindViewModelFactory(factory: ProgressiveViewModelFactory): ViewModelProvider.Factory
 
     /**
      *  Below are bindings for the androidx view models (which extend ViewModel). Will be converted to MvRx ViewModel in the future.
