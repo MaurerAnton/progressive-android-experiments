@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import chat.progressive.lib.ui.styles.databinding.ActivityDebugTextViewBinding
 
 // Rendering is not the same with VectorBaseActivity
-abstract class DebugVectorTextViewActivity : AppCompatActivity() {
+abstract class DebugProgressiveTextViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -35,14 +35,14 @@ import chat.progressive.application.databinding.ActivityDebugMenuBinding
 import chat.progressive.lib.core.utils.timer.Clock
 import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeDarkDefaultActivity
 import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeDarkTestActivity
-import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeDarkVectorActivity
+import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeDarkActivity
 import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeLightDefaultActivity
 import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeLightTestActivity
-import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeLightVectorActivity
-import chat.progressive.lib.ui.styles.debug.DebugVectorButtonStylesDarkActivity
-import chat.progressive.lib.ui.styles.debug.DebugVectorButtonStylesLightActivity
-import chat.progressive.lib.ui.styles.debug.DebugVectorTextViewDarkActivity
-import chat.progressive.lib.ui.styles.debug.DebugVectorTextViewLightActivity
+import chat.progressive.lib.ui.styles.debug.DebugMaterialThemeLightActivity
+import chat.progressive.lib.ui.styles.debug.DebugProgressiveButtonStylesDarkActivity
+import chat.progressive.lib.ui.styles.debug.DebugProgressiveButtonStylesLightActivity
+import chat.progressive.lib.ui.styles.debug.DebugProgressiveTextViewDarkActivity
+import chat.progressive.lib.ui.styles.debug.DebugProgressiveTextViewLightActivity
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -80,16 +80,16 @@ class DebugMenuActivity : VectorBaseActivity<ActivityDebugMenuBinding>() {
         views.debugMemoryLeaks.setOnClickListener { openMemoryLeaksSettings() }
         views.debugTestTextViewLink.setOnClickListener { testTextViewLink() }
         views.debugOpenButtonStylesLight.setOnClickListener {
-            startActivity(Intent(this, DebugVectorButtonStylesLightActivity::class.java))
+            startActivity(Intent(this, DebugProgressiveButtonStylesLightActivity::class.java))
         }
         views.debugOpenButtonStylesDark.setOnClickListener {
-            startActivity(Intent(this, DebugVectorButtonStylesDarkActivity::class.java))
+            startActivity(Intent(this, DebugProgressiveButtonStylesDarkActivity::class.java))
         }
         views.debugTestTextViewLight.setOnClickListener {
-            startActivity(Intent(this, DebugVectorTextViewLightActivity::class.java))
+            startActivity(Intent(this, DebugProgressiveTextViewLightActivity::class.java))
         }
         views.debugTestTextViewDark.setOnClickListener {
-            startActivity(Intent(this, DebugVectorTextViewDarkActivity::class.java))
+            startActivity(Intent(this, DebugProgressiveTextViewDarkActivity::class.java))
         }
         views.debugShowSasEmoji.setOnClickListener { showSasEmoji() }
         views.debugTestNotification.setOnClickListener { testNotification() }
@@ -100,7 +100,7 @@ class DebugMenuActivity : VectorBaseActivity<ActivityDebugMenuBinding>() {
             startActivity(Intent(this, DebugMaterialThemeLightTestActivity::class.java))
         }
         views.debugTestMaterialThemeLightVector.setOnClickListener {
-            startActivity(Intent(this, DebugMaterialThemeLightVectorActivity::class.java))
+            startActivity(Intent(this, DebugMaterialThemeLightActivity::class.java))
         }
         views.debugTestMaterialThemeDarkDefault.setOnClickListener {
             startActivity(Intent(this, DebugMaterialThemeDarkDefaultActivity::class.java))
@@ -109,7 +109,7 @@ class DebugMenuActivity : VectorBaseActivity<ActivityDebugMenuBinding>() {
             startActivity(Intent(this, DebugMaterialThemeDarkTestActivity::class.java))
         }
         views.debugTestMaterialThemeDarkVector.setOnClickListener {
-            startActivity(Intent(this, DebugMaterialThemeDarkVectorActivity::class.java))
+            startActivity(Intent(this, DebugMaterialThemeDarkActivity::class.java))
         }
         views.debugTestCrash.setOnClickListener { testCrash() }
         views.debugScanQrCode.setOnClickListener { scanQRCode() }

@@ -7,4 +7,4 @@
 
 package chat.progressive.lib.ui.styles.debug
 
-class DebugMaterialThemeLightVectorActivity : DebugMaterialThemeActivity()
+class DebugMaterialThemeLightProgressiveActivity : DebugMaterialThemeActivity()

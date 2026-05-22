@@ -26,7 +26,7 @@ import javax.inject.Singleton
  * Object to manage the Locale choice of the user.
  */
 @Singleton
-class VectorLocale @Inject constructor(
+class ProgressiveLocale @Inject constructor(
         private val context: Context,
         private val buildMeta: BuildMeta,
         @DefaultPreferences

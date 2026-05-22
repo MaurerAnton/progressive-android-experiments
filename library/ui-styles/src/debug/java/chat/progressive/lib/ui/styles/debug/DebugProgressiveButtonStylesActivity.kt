@@ -11,7 +11,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import chat.progressive.lib.ui.styles.databinding.ActivityDebugButtonStylesBinding
 
-abstract class DebugVectorButtonStylesActivity : AppCompatActivity() {
+abstract class DebugProgressiveButtonStylesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

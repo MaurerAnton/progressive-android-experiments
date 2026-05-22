@@ -12,13 +12,13 @@ import chat.progressive.app.features.call.lookup.CallUserMapper
 import chat.progressive.app.features.session.SessionScopedProperty
 import org.matrix.android.sdk.api.session.Session
 
-interface VectorCallService {
+interface ProgressiveCallService {
     val protocolChecker: CallProtocolsChecker
     val userMapper: CallUserMapper
 }
 
-val Session.vectorCallService: VectorCallService by SessionScopedProperty {
-    object : VectorCallService {
+val Session.vectorCallService: ProgressiveCallService by SessionScopedProperty {
+    object : ProgressiveCallService {
         override val protocolChecker = CallProtocolsChecker(it)
         override val userMapper = CallUserMapper(it, protocolChecker)
     }

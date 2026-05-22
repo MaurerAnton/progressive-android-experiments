@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Class to provide the Locale choice of the user.
  */
-class VectorLocaleProvider @Inject constructor(
+class ProgressiveLocaleProvider @Inject constructor(
         @DefaultPreferences
         private val preferences: SharedPreferences,
 ) {
