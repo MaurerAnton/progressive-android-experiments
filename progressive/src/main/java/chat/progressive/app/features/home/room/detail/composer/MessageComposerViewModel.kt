@@ -585,6 +585,21 @@ class MessageComposerViewModel @AssistedInject constructor(
                                          parsedCommand.args.ifBlank { "" } + " ¯\_(ツ)_/¯", autoMarkdown = false)
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.TABLEFLIP -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " (╯°□°）╯︵ ┻━┻", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.UNFLIP -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " ┬─┬ノ( º _ ºノ)", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.ECHO -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "ECHO!" }, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.LENNY -> {
                                      room.sendService().sendTextMessage(
                                          parsedCommand.args.ifBlank { "" } + " ( ͡° ͜ʖ ͡°)", autoMarkdown = false)
