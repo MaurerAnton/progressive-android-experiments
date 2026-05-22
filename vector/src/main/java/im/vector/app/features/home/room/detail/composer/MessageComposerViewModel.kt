@@ -591,8 +591,7 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      val args = parsedCommand.args.trim()
                                      if (args.isNotBlank()) {
                                          room.sendService().sendTextMessage(
-                                             "[Translation requested: $args]
-(Configure LLM API in Settings → Labs to enable)",
+                                             "[Translation requested: $args] (Configure LLM API)",
                                              autoMarkdown = false
                                          )
                                          _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
