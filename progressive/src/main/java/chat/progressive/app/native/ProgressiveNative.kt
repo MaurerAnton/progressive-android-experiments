@@ -739,6 +739,13 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseLlmResponse(body: String, statusCode: Int, provider: Int): String
     @JvmStatic external fun nativeFormatLlmBroadcast(prompt: String, response: String): String
 
+    // --- Smart Reply ---
+
+    @JvmStatic external fun nativeSmartReplyPrompt(lastMsg: String, sender: String, room: String, isDirect: Boolean): String
+    @JvmStatic external fun nativeSmartParseReplies(llmResponse: String): String
+    @JvmStatic external fun nativeSmartDefaultReplies(lastMsg: String): String
+    @JvmStatic external fun nativeSmartDefaultReactions(): String
+
     // --- Weather Utils ---
 
     @JvmStatic external fun nativeWeatherBuildUrl(location: String, apiToken: String): String

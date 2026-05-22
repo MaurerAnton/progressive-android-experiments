@@ -6127,6 +6127,52 @@ JNI_FUNC(jstring, nativeTextStats)(JNIEnv* env, jclass, jstring jText) {
     return env->NewStringUTF(progressive::textStatsToJson(stats).c_str());
 }
 
+JNI_FUNC(jstring, nativeSmartReplyPrompt)(JNIEnv* env, jclass, jstring jLastMsg, jstring jSender,
+                                                   jstring jRoom, jboolean jDirect) {
+    progressive::MessageContext ctx;
+    ctx.lastMessage = jStr(env, jLastMsg);
+    ctx.lastSenderName = jStr(env, jSender);
+    ctx.roomName = jStr(env, jRoom);
+    ctx.isDirect = jDirect;
+    auto prompt = progressive::buildSmartReplyPrompt(ctx);
+    return env->NewStringUTF(prompt.c_str());
+}
+
+JNI_FUNC(jstring, nativeSmartParseReplies)(JNIEnv* env, jclass, jstring jResponse) {
+    auto replies = progressive::parseSmartReplyResponse(jStr(env, jResponse));
+    std::string json = "[";
+    for (size_t i = 0; i < replies.size(); i++) {
+        if (i > 0) json += ",";
+        json += "{\"text\":\"" + replies[i].text + "\",\"confidence\":" + std::to_string(replies[i].confidence) + "}";
+    }
+    json += "]";
+    return env->NewStringUTF(json.c_str());
+}
+
+JNI_FUNC(jstring, nativeSmartDefaultReplies)(JNIEnv* env, jclass, jstring jLastMsg) {
+    progressive::MessageContext ctx;
+    ctx.lastMessage = jStr(env, jLastMsg);
+    auto replies = progressive::getDefaultReplies(ctx);
+    std::string json = "[";
+    for (size_t i = 0; i < replies.size(); i++) {
+        if (i > 0) json += ",";
+        json += "{\"text\":\"" + replies[i].text + "\"}";
+    }
+    json += "]";
+    return env->NewStringUTF(json.c_str());
+}
+
+JNI_FUNC(jstring, nativeSmartDefaultReactions)(JNIEnv* env, jclass) {
+    auto reactions = progressive::getDefaultReactions();
+    std::string json = "[";
+    for (size_t i = 0; i < reactions.size(); i++) {
+        if (i > 0) json += ",";
+        json += "{\"emoji\":\"" + reactions[i].emoji + "\",\"label\":\"" + reactions[i].label + "\"}";
+    }
+    json += "]";
+    return env->NewStringUTF(json.c_str());
+}
+
 // ============================================================
 // Weather Utils
 // ============================================================
