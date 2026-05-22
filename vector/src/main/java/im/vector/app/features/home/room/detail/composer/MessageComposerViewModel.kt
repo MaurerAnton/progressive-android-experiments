@@ -562,6 +562,19 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      vectorPreferences.toggleEmojiBlacklist()
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.REMIND -> {
+                                     val args = parsedCommand.args.trim()
+                                     if (args.isNotBlank()) {
+                                         room.sendService().sendTextMessage("Reminder set: $args", autoMarkdown = false)
+                                         try {
+                                             ProgressiveNative.ensureLoaded()
+                                             ProgressiveNative.nativeAlarmCreate("напомни $args")
+                                         } catch (_: Exception) { }
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     } else {
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     }
+                                 }
                                  Command.WEATHER -> {
                                      val args = parsedCommand.args.trim()
                                      if (args.isNotBlank()) {
