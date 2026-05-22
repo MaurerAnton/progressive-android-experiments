@@ -205,6 +205,7 @@ add_library(
     src/unified_push.cpp
     src/url_preview.cpp
     src/web_search.cpp
+    src/device_naming_helper.cpp
     src/message_format_helper.cpp
     src/url_preview_parser.cpp
     src/event_encryption_helper.cpp
