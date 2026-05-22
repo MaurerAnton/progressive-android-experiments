@@ -595,6 +595,23 @@ class MessageComposerViewModel @AssistedInject constructor(
                                          parsedCommand.args.ifBlank { "" } + " ┬─┬ノ( º _ ºノ)", autoMarkdown = false)
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.COIN -> {
+                                     room.sendService().sendTextMessage(if (Math.random() > 0.5) "🪙 Heads!" else "🪙 Tails!", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.ROLL -> {
+                                     val dice = parsedCommand.args.ifBlank { "1d6" }.split("d")
+                                     val n = dice.getOrNull(0)?.toIntOrNull() ?: 1
+                                     val s = dice.getOrNull(1)?.toIntOrNull() ?: 6
+                                     val results = (1..n).map { (Math.random() * s).toInt() + 1 }
+                                     room.sendService().sendTextMessage("🎲 " + results.joinToString(" + ") + " = " + results.sum(), autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.EIGHTBALL -> {
+                                     val answers = listOf("Yes","No","Maybe","Ask again later","Definitely","Don't count on it","Outlook good","Very doubtful")
+                                     room.sendService().sendTextMessage("🎱 " + answers.random(), autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.ECHO -> {
                                      room.sendService().sendTextMessage(
                                          parsedCommand.args.ifBlank { "ECHO!" }, autoMarkdown = false)
