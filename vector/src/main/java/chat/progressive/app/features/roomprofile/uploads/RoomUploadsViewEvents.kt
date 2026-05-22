@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.roomprofile.uploads
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import java.io.File
 
-sealed class RoomUploadsViewEvents : VectorViewEvents {
+sealed class RoomUploadsViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : RoomUploadsViewEvents()
 
     data class FileReadyForSharing(val file: File) : RoomUploadsViewEvents()

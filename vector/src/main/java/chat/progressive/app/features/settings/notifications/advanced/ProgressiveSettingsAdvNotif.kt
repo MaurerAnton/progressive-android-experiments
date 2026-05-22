@@ -13,7 +13,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.preference.PushRulePreference
 import chat.progressive.app.core.preference.ProgressiveBasePreference
 import chat.progressive.app.core.utils.toast
-import chat.progressive.app.features.settings.VectorSettingsBaseFragment
+import chat.progressive.app.features.settings.ProgressiveSettingsBaseFragment
 import chat.progressive.app.features.settings.notifications.NotificationIndex
 import chat.progressive.app.features.settings.notifications.StandardActions
 import chat.progressive.app.features.settings.notifications.getStandardAction
@@ -25,8 +25,8 @@ import org.matrix.android.sdk.api.session.pushrules.rest.PushRuleAndKind
 
 // TODO This fragment seems not used anymore, we can probably delete it
 @AndroidEntryPoint
-class VectorSettingsAdvancedNotificationPreferenceFragment :
-        VectorSettingsBaseFragment() {
+class ProgressiveSettingsAdvNotif :
+        ProgressiveSettingsBaseFragment() {
 
     override var titleRes: Int = CommonStrings.settings_notification_advanced
 

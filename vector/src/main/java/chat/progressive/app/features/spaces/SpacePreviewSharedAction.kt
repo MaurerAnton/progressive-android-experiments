@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
-sealed class SpacePreviewSharedAction : VectorSharedAction {
+sealed class SpacePreviewSharedAction : ProgressiveSharedAction {
     object DismissAction : SpacePreviewSharedAction()
     object ShowModalLoading : SpacePreviewSharedAction()
     object HideModalLoading : SpacePreviewSharedAction()

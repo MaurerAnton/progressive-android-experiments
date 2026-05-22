@@ -27,7 +27,7 @@ import chat.progressive.app.features.settings.notifications.usecase.EnableNotifi
 import chat.progressive.app.features.settings.notifications.usecase.ToggleNotificationsForCurrentSessionUseCase
 import kotlinx.coroutines.launch
 
-class VectorSettingsNotificationViewModel @AssistedInject constructor(
+class ProgressiveSettingsNotifViewModel @AssistedInject constructor(
         @Assisted initialState: ProgressiveDummyViewState,
         private val pushersManager: PushersManager,
         private val progressivePreferences: ProgressiveBasePreferences,
@@ -37,23 +37,23 @@ class VectorSettingsNotificationViewModel @AssistedInject constructor(
         private val registerUnifiedPushUseCase: RegisterUnifiedPushUseCase,
         private val ensureFcmTokenIsRetrievedUseCase: EnsureFcmTokenIsRetrievedUseCase,
         private val toggleNotificationsForCurrentSessionUseCase: ToggleNotificationsForCurrentSessionUseCase,
-) : ProgressiveViewModel<ProgressiveDummyViewState, VectorSettingsNotificationViewAction, VectorSettingsNotificationViewEvent>(initialState) {
+) : ProgressiveViewModel<ProgressiveDummyViewState, ProgressiveSettingsNotifAction, ProgressiveSettingsNotifEvent>(initialState) {
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<VectorSettingsNotificationViewModel, ProgressiveDummyViewState> {
-        override fun create(initialState: ProgressiveDummyViewState): VectorSettingsNotificationViewModel
+    interface Factory : MavericksAssistedViewModelFactory<ProgressiveSettingsNotifViewModel, ProgressiveDummyViewState> {
+        override fun create(initialState: ProgressiveDummyViewState): ProgressiveSettingsNotifViewModel
     }
 
-    companion object : MavericksViewModelFactory<VectorSettingsNotificationViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<ProgressiveSettingsNotifViewModel, ProgressiveDummyViewState> by hiltMavericksViewModelFactory()
 
     @VisibleForTesting
     val notificationsPreferenceListener: SharedPreferences.OnSharedPreferenceChangeListener =
             SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
                 if (key == ProgressiveBasePreferences.SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY) {
                     if (progressivePreferences.areNotificationEnabledForDevice()) {
-                        _viewEvents.post(VectorSettingsNotificationViewEvent.NotificationsForDeviceEnabled)
+                        _viewEvents.post(ProgressiveSettingsNotifEvent.NotificationsForDeviceEnabled)
                     } else {
-                        _viewEvents.post(VectorSettingsNotificationViewEvent.NotificationsForDeviceDisabled)
+                        _viewEvents.post(ProgressiveSettingsNotifEvent.NotificationsForDeviceDisabled)
                     }
                 }
             }
@@ -71,18 +71,18 @@ class VectorSettingsNotificationViewModel @AssistedInject constructor(
         super.onCleared()
     }
 
-    override fun handle(action: VectorSettingsNotificationViewAction) {
+    override fun handle(action: ProgressiveSettingsNotifAction) {
         when (action) {
-            VectorSettingsNotificationViewAction.DisableNotificationsForDevice -> handleDisableNotificationsForDevice()
-            is VectorSettingsNotificationViewAction.EnableNotificationsForDevice -> handleEnableNotificationsForDevice(action.pushDistributor)
-            is VectorSettingsNotificationViewAction.RegisterPushDistributor -> handleRegisterPushDistributor(action.pushDistributor)
+            ProgressiveSettingsNotifAction.DisableNotificationsForDevice -> handleDisableNotificationsForDevice()
+            is ProgressiveSettingsNotifAction.EnableNotificationsForDevice -> handleEnableNotificationsForDevice(action.pushDistributor)
+            is ProgressiveSettingsNotifAction.RegisterPushDistributor -> handleRegisterPushDistributor(action.pushDistributor)
         }
     }
 
     private fun handleDisableNotificationsForDevice() {
         viewModelScope.launch {
             disableNotificationsForCurrentSessionUseCase.execute()
-            _viewEvents.post(VectorSettingsNotificationViewEvent.NotificationsForDeviceDisabled)
+            _viewEvents.post(ProgressiveSettingsNotifEvent.NotificationsForDeviceDisabled)
         }
     }
 
@@ -90,10 +90,10 @@ class VectorSettingsNotificationViewModel @AssistedInject constructor(
         viewModelScope.launch {
             when (enableNotificationsForCurrentSessionUseCase.execute(distributor)) {
                 is EnableNotificationsForCurrentSessionUseCase.EnableNotificationsResult.NeedToAskUserForDistributor -> {
-                    _viewEvents.post(VectorSettingsNotificationViewEvent.AskUserForPushDistributor)
+                    _viewEvents.post(ProgressiveSettingsNotifEvent.AskUserForPushDistributor)
                 }
                 EnableNotificationsForCurrentSessionUseCase.EnableNotificationsResult.Success -> {
-                    _viewEvents.post(VectorSettingsNotificationViewEvent.NotificationsForDeviceEnabled)
+                    _viewEvents.post(ProgressiveSettingsNotifEvent.NotificationsForDeviceEnabled)
                 }
             }
         }
@@ -104,13 +104,13 @@ class VectorSettingsNotificationViewModel @AssistedInject constructor(
             unregisterUnifiedPushUseCase.execute(pushersManager)
             when (registerUnifiedPushUseCase.execute(distributor)) {
                 RegisterUnifiedPushUseCase.RegisterUnifiedPushResult.NeedToAskUserForDistributor -> {
-                    _viewEvents.post(VectorSettingsNotificationViewEvent.AskUserForPushDistributor)
+                    _viewEvents.post(ProgressiveSettingsNotifEvent.AskUserForPushDistributor)
                 }
                 RegisterUnifiedPushUseCase.RegisterUnifiedPushResult.Success -> {
                     val areNotificationsEnabled = progressivePreferences.areNotificationEnabledForDevice()
                     ensureFcmTokenIsRetrievedUseCase.execute(pushersManager, registerPusher = areNotificationsEnabled)
                     toggleNotificationsForCurrentSessionUseCase.execute(enabled = areNotificationsEnabled)
-                    _viewEvents.post(VectorSettingsNotificationViewEvent.NotificationMethodChanged)
+                    _viewEvents.post(ProgressiveSettingsNotifEvent.NotificationMethodChanged)
                 }
             }
         }

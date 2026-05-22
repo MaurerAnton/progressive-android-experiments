@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.crypto.keysbackup.settings
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class KeysBackupViewEvents : VectorViewEvents {
+sealed class KeysBackupViewEvents : ProgressiveViewEvents {
     object OpenLegacyCreateBackup : KeysBackupViewEvents()
     data class RequestStore4SSecret(val recoveryKey: String) : KeysBackupViewEvents()
 }

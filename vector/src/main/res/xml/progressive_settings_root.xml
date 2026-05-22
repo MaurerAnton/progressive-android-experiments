@@ -41,7 +41,7 @@
     <chat.progressive.app.core.preference.ProgressiveBasePreference
         android:icon="@drawable/ic_settings_root_advanced"
         android:title="@string/settings_advanced_settings"
-        app:fragment="chat.progressive.app.features.settings.VectorSettingsAdvancedSettingsFragment"
+        app:fragment="chat.progressive.app.features.settings.ProgressiveSettingsAdvancedSettingsFragment"
         app:isPreferenceVisible="@bool/settings_root_advanced_visible" />
 
     <chat.progressive.app.core.preference.ProgressiveBasePreference

@@ -21,7 +21,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.error.ErrorFormatter
 import chat.progressive.app.core.extensions.singletonEntryPoint
 import chat.progressive.app.core.platform.ProgressiveActivity
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.core.platform.ProgressiveViewModel
 import chat.progressive.app.core.utils.toast
 import chat.progressive.app.features.analytics.AnalyticsTracker
@@ -34,7 +34,7 @@ import org.matrix.android.sdk.api.session.Session
 import reactivecircus.flowbinding.android.view.clicks
 import timber.log.Timber
 
-abstract class VectorSettingsBaseFragment : PreferenceFragmentCompat(), MavericksView {
+abstract class ProgressiveSettingsBaseFragment : PreferenceFragmentCompat(), MavericksView {
     /* ==========================================================================================
      * Analytics
      * ========================================================================================== */
@@ -61,10 +61,10 @@ abstract class VectorSettingsBaseFragment : PreferenceFragmentCompat(), Maverick
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
+    protected fun <T : ProgressiveViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
-        val tag = this@VectorSettingsBaseFragment::class.simpleName.toString()
+        val tag = this@ProgressiveSettingsBaseFragment::class.simpleName.toString()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewEvents

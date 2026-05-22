@@ -27,7 +27,7 @@ import chat.progressive.app.core.extensions.commitTransaction
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveActivity
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.resources.BuildMeta
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.ui.views.CurrentCallsView
@@ -50,7 +50,7 @@ import chat.progressive.app.features.popup.PopupAlertManager
 import chat.progressive.app.features.popup.VerificationProgressiveAlert
 import chat.progressive.app.features.qrcode.QrCodeScannerActivity
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsActivity.Companion.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity.Companion.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
 import chat.progressive.app.features.spaces.SpaceListBottomSheet
 import chat.progressive.app.features.workers.signout.BannerState
 import chat.progressive.app.features.workers.signout.ServerBackupStatusAction
@@ -68,7 +68,7 @@ class NewHomeDetailFragment :
         KeysBackupBanner.Delegate,
         CurrentCallsView.Callback,
         OnBackPressed,
-        VectorMenuProvider,
+        ProgressiveMenuProvider,
         VerifyDeviceBanner.Delegate {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer

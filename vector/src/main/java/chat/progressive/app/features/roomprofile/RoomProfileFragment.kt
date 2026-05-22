@@ -30,7 +30,7 @@ import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.extensions.copyOnLongClick
 import chat.progressive.app.core.extensions.setTextOrHide
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.copyToClipboard
 import chat.progressive.app.core.utils.startSharePlainTextIntent
 import chat.progressive.app.databinding.DialogReportContentBinding
@@ -64,7 +64,7 @@ data class RoomProfileArgs(
 class RoomProfileFragment :
         ProgressiveFragment<FragmentMatrixProfileBinding>(),
         RoomProfileController.Callback,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var roomProfileController: RoomProfileController
     @Inject lateinit var avatarRenderer: AvatarRenderer

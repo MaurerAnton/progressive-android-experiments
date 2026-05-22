@@ -7,11 +7,11 @@
 
 package chat.progressive.app.features.share
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.session.content.ContentAttachmentData
 import org.matrix.android.sdk.api.session.room.model.RoomSummary
 
-sealed class IncomingShareViewEvents : VectorViewEvents {
+sealed class IncomingShareViewEvents : ProgressiveViewEvents {
     data class ShareToRoom(
             val roomSummary: RoomSummary,
             val sharedData: SharedData,

@@ -20,24 +20,24 @@ import chat.progressive.app.core.session.clientinfo.DeleteMatrixClientInfoUseCas
 import chat.progressive.app.core.session.clientinfo.UpdateMatrixClientInfoUseCase
 import kotlinx.coroutines.launch
 
-class VectorSettingsLabsViewModel @AssistedInject constructor(
-        @Assisted initialState: VectorSettingsLabsViewState,
+class ProgressiveSettingsLabsVM @AssistedInject constructor(
+        @Assisted initialState: ProgressiveSettingsLabsState,
         private val activeSessionHolder: ActiveSessionHolder,
         private val updateMatrixClientInfoUseCase: UpdateMatrixClientInfoUseCase,
         private val deleteMatrixClientInfoUseCase: DeleteMatrixClientInfoUseCase,
-) : ProgressiveViewModel<VectorSettingsLabsViewState, VectorSettingsLabsAction, EmptyViewEvents>(initialState) {
+) : ProgressiveViewModel<ProgressiveSettingsLabsState, ProgressiveSettingsLabsAction, EmptyViewEvents>(initialState) {
 
     @AssistedFactory
-    interface Factory : MavericksAssistedViewModelFactory<VectorSettingsLabsViewModel, VectorSettingsLabsViewState> {
-        override fun create(initialState: VectorSettingsLabsViewState): VectorSettingsLabsViewModel
+    interface Factory : MavericksAssistedViewModelFactory<ProgressiveSettingsLabsVM, ProgressiveSettingsLabsState> {
+        override fun create(initialState: ProgressiveSettingsLabsState): ProgressiveSettingsLabsVM
     }
 
-    companion object : MavericksViewModelFactory<VectorSettingsLabsViewModel, VectorSettingsLabsViewState> by hiltMavericksViewModelFactory()
+    companion object : MavericksViewModelFactory<ProgressiveSettingsLabsVM, ProgressiveSettingsLabsState> by hiltMavericksViewModelFactory()
 
-    override fun handle(action: VectorSettingsLabsAction) {
+    override fun handle(action: ProgressiveSettingsLabsAction) {
         when (action) {
-            VectorSettingsLabsAction.UpdateClientInfo -> handleUpdateClientInfo()
-            VectorSettingsLabsAction.DeleteRecordedClientInfo -> handleDeleteRecordedClientInfo()
+            ProgressiveSettingsLabsAction.UpdateClientInfo -> handleUpdateClientInfo()
+            ProgressiveSettingsLabsAction.DeleteRecordedClientInfo -> handleDeleteRecordedClientInfo()
         }
     }
 

@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.spaces.invite
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SpaceInviteBottomSheetEvents : VectorViewEvents {
+sealed class SpaceInviteBottomSheetEvents : ProgressiveViewEvents {
     data class ShowError(val message: String) : SpaceInviteBottomSheetEvents()
 }

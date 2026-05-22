@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.settings.devices.v2.othersessions
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
 
-sealed class OtherSessionsViewEvents : VectorViewEvents {
+sealed class OtherSessionsViewEvents : ProgressiveViewEvents {
     data class RequestReAuth(
             val registrationFlowResponse: RegistrationFlowResponse,
             val lastErrorCode: String?

@@ -10,7 +10,7 @@ package chat.progressive.app.features.analytics
 import chat.progressive.app.features.analytics.errors.ErrorTracker
 import kotlinx.coroutines.flow.Flow
 
-interface VectorAnalytics : AnalyticsTracker, ErrorTracker {
+interface ProgressiveAnalytics : AnalyticsTracker, ErrorTracker {
     /**
      * Return a Flow of Boolean, true if the user has given their consent.
      */

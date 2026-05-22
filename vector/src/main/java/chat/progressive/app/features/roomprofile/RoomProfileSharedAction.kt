@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.roomprofile
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
 /**
  * Supported navigation actions for [RoomProfileActivity].
  */
-sealed class RoomProfileSharedAction : VectorSharedAction {
+sealed class RoomProfileSharedAction : ProgressiveSharedAction {
     object OpenRoomSettings : RoomProfileSharedAction()
     object OpenRoomAliasesSettings : RoomProfileSharedAction()
     object OpenRoomPermissionsSettings : RoomProfileSharedAction()

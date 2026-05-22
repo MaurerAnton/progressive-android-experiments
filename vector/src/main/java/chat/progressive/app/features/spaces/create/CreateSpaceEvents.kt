@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.create
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class CreateSpaceEvents : VectorViewEvents {
+sealed class CreateSpaceEvents : ProgressiveViewEvents {
     object NavigateToDetails : CreateSpaceEvents()
     object NavigateToChooseType : CreateSpaceEvents()
     object NavigateToAddRooms : CreateSpaceEvents()

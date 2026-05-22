@@ -6,14 +6,14 @@
  */
 package chat.progressive.app.features.home.room.detail.composer.link
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 import chat.progressive.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 class SetLinkSharedActionViewModel @Inject constructor() :
         ProgressiveSharedAction<SetLinkSharedAction>()
 
-sealed interface SetLinkSharedAction : VectorSharedAction {
+sealed interface SetLinkSharedAction : ProgressiveSharedAction {
     data class Set(
             val link: String,
     ) : SetLinkSharedAction

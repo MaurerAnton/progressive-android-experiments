@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.invite
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class InviteUsersToRoomViewEvents : VectorViewEvents {
+sealed class InviteUsersToRoomViewEvents : ProgressiveViewEvents {
     object Loading : InviteUsersToRoomViewEvents()
     data class Failure(val throwable: Throwable) : InviteUsersToRoomViewEvents()
     data class Success(val successMessage: String) : InviteUsersToRoomViewEvents()

@@ -29,7 +29,7 @@ import chat.progressive.app.core.platform.ScreenOrientationLocker
 import chat.progressive.app.core.platform.ProgressiveActivity
 import chat.progressive.app.core.resources.BuildMeta
 import chat.progressive.app.databinding.ActivityLoginBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.home.HomeActivity
 import chat.progressive.app.features.login.LoginConfig
 import chat.progressive.app.features.login.LoginMode
@@ -61,7 +61,7 @@ class FtueAuthVariant(
         private val onboardingViewModel: OnboardingViewModel,
         private val activity: ProgressiveActivity<ActivityLoginBinding>,
         private val supportFragmentManager: FragmentManager,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
         private val orientationLocker: ScreenOrientationLocker,
         private val buildMeta: BuildMeta,
 ) : OnboardingVariant {

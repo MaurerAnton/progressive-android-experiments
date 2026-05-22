@@ -7,6 +7,6 @@
 
 package chat.progressive.app.features.attachments.preview
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class AttachmentsPreviewViewEvents : VectorViewEvents
+sealed class AttachmentsPreviewViewEvents : ProgressiveViewEvents

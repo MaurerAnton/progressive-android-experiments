@@ -18,7 +18,7 @@ import chat.progressive.app.core.di.ActiveSessionHolder
 import chat.progressive.app.core.hardware.vibrate
 import chat.progressive.app.features.navigation.Navigator
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
 
@@ -88,7 +88,7 @@ class RageShake @Inject constructor(
     }
 
     private fun openSettings() {
-        navigator.openSettings(activity, VectorSettingsActivity.EXTRA_DIRECT_ACCESS_ADVANCED_SETTINGS)
+        navigator.openSettings(activity, ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_ADVANCED_SETTINGS)
     }
 
     private fun disableRageShake() {

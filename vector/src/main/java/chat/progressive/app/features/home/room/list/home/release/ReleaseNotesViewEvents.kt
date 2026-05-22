@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.home.room.list.home.release
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class ReleaseNotesViewEvents : VectorViewEvents {
+sealed class ReleaseNotesViewEvents : ProgressiveViewEvents {
     object Close : ReleaseNotesViewEvents()
     data class SelectPage(val index: Int) : ReleaseNotesViewEvents()
 }

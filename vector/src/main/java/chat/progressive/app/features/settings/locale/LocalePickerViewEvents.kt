@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.settings.locale
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class LocalePickerViewEvents : VectorViewEvents {
+sealed class LocalePickerViewEvents : ProgressiveViewEvents {
     object RestartActivity : LocalePickerViewEvents()
 }

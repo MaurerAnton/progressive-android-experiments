@@ -6,14 +6,14 @@
  */
 package chat.progressive.app.features.attachments
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 import chat.progressive.app.core.platform.ProgressiveSharedAction
 import javax.inject.Inject
 
 class AttachmentTypeSelectorSharedActionViewModel @Inject constructor() :
         ProgressiveSharedAction<AttachmentTypeSelectorSharedAction>()
 
-sealed interface AttachmentTypeSelectorSharedAction : VectorSharedAction {
+sealed interface AttachmentTypeSelectorSharedAction : ProgressiveSharedAction {
     data class SelectAttachmentTypeAction(
             val attachmentType: AttachmentType
     ) : AttachmentTypeSelectorSharedAction

@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.pin.lockscreen.ui
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class LockScreenViewEvent : VectorViewEvents {
+sealed class LockScreenViewEvent : ProgressiveViewEvents {
     data class ClearPinCode(val confirmationFailed: Boolean) : LockScreenViewEvent()
     object CodeCreationComplete : LockScreenViewEvent()
     data class AuthSuccessful(val method: AuthMethod) : LockScreenViewEvent()

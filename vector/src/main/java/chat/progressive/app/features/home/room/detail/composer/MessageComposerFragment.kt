@@ -51,7 +51,7 @@ import chat.progressive.app.core.utils.checkPermissions
 import chat.progressive.app.core.utils.onPermissionDeniedDialog
 import chat.progressive.app.core.utils.registerForPermissionsResult
 import chat.progressive.app.databinding.FragmentComposerBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.analytics.errors.ErrorTracker
 import chat.progressive.app.features.attachments.AttachmentType
 import chat.progressive.app.features.attachments.AttachmentTypeSelectorBottomSheet
@@ -112,7 +112,7 @@ class MessageComposerFragment : ProgressiveFragment<FragmentComposerBinding>(), 
     @Inject lateinit var avatarRenderer: AvatarRenderer
     @Inject lateinit var shareIntentHandler: ShareIntentHandler
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var buildMeta: BuildMeta
     @Inject lateinit var session: Session
     @Inject lateinit var errorTracker: ErrorTracker

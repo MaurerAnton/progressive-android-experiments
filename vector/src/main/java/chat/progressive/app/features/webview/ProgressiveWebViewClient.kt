@@ -22,7 +22,7 @@ import android.webkit.WebViewClient
  * This class inherits from WebViewClient. It has to be used with a WebView.
  * It's responsible for dispatching events to the WebViewEventListener
  */
-class VectorWebViewClient(private val eventListener: WebViewEventListener) : WebViewClient() {
+class ProgressiveWebViewClient(private val eventListener: WebViewEventListener) : WebViewClient() {
 
     private var mInError: Boolean = false
 

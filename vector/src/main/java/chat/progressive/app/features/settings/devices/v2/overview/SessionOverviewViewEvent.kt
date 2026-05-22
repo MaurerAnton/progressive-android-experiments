@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.settings.devices.v2.overview
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
 
-sealed class SessionOverviewViewEvent : VectorViewEvents {
+sealed class SessionOverviewViewEvent : ProgressiveViewEvents {
     object ShowVerifyCurrentSession : SessionOverviewViewEvent()
     data class ShowVerifyOtherSession(val deviceId: String) : SessionOverviewViewEvent()
     object PromptResetSecrets : SessionOverviewViewEvent()

@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.usercode
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class UserCodeShareViewEvents : VectorViewEvents {
+sealed class UserCodeShareViewEvents : ProgressiveViewEvents {
     object Dismiss : UserCodeShareViewEvents()
     object ShowWaitingScreen : UserCodeShareViewEvents()
     object HideWaitingScreen : UserCodeShareViewEvents()

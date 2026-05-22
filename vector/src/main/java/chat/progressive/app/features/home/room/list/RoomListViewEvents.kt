@@ -7,13 +7,13 @@
 
 package chat.progressive.app.features.home.room.list
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.session.room.model.RoomSummary
 
 /**
  * Transient events for RoomList.
  */
-sealed class RoomListViewEvents : VectorViewEvents {
+sealed class RoomListViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : RoomListViewEvents()
     data class Failure(val throwable: Throwable) : RoomListViewEvents()
 

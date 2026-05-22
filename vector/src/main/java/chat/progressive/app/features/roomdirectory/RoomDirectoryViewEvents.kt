@@ -7,11 +7,11 @@
 
 package chat.progressive.app.features.roomdirectory
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for room directory screen.
  */
-sealed class RoomDirectoryViewEvents : VectorViewEvents {
+sealed class RoomDirectoryViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : RoomDirectoryViewEvents()
 }

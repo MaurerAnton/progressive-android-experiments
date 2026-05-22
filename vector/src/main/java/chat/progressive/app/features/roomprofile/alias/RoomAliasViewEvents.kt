@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.roomprofile.alias
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for room settings screen.
  */
-sealed class RoomAliasViewEvents : VectorViewEvents {
+sealed class RoomAliasViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : RoomAliasViewEvents()
     object Success : RoomAliasViewEvents()
 }

@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.call.transfer
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class CallTransferViewEvents : VectorViewEvents {
+sealed class CallTransferViewEvents : ProgressiveViewEvents {
     object Complete : CallTransferViewEvents()
 }

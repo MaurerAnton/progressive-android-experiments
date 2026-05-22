@@ -34,7 +34,7 @@ import chat.progressive.app.features.analytics.plan.ViewRoom
 import chat.progressive.app.features.home.AvatarRenderer
 import chat.progressive.app.features.navigation.Navigator
 import chat.progressive.app.features.roomdirectory.JoinState
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.app.features.themes.ThemeUtils
 import chat.progressive.lib.strings.CommonStrings
 import me.gujun.android.span.span
@@ -143,7 +143,7 @@ class RoomPreviewNoPreviewFragment :
                                                         override fun onClick(widget: View) {
                                                             navigator.openSettings(
                                                                     requireContext(),
-                                                                    VectorSettingsActivity.EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS
+                                                                    ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS
                                                             )
                                                         }
                                                     })

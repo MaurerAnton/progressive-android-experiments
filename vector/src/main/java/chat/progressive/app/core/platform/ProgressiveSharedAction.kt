@@ -11,10 +11,10 @@ import androidx.lifecycle.ViewModel
 import chat.progressive.app.core.utils.MutableDataSource
 import chat.progressive.app.core.utils.PublishDataSource
 
-interface VectorSharedAction
+interface ProgressiveSharedAction
 
 /**
  * Parent class to handle navigation events, action events, or other any events.
  */
-open class ProgressiveSharedAction<T : VectorSharedAction>(private val store: MutableDataSource<T> = PublishDataSource()) :
+open class ProgressiveSharedAction<T : ProgressiveSharedAction>(private val store: MutableDataSource<T> = PublishDataSource()) :
         ViewModel(), MutableDataSource<T> by store

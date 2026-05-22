@@ -8,9 +8,9 @@
 package chat.progressive.app.features.discovery.change
 
 import androidx.annotation.StringRes
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SetIdentityServerViewEvents : VectorViewEvents {
+sealed class SetIdentityServerViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : SetIdentityServerViewEvents()
     data class Failure(@StringRes val errorMessageId: Int, val forDefault: Boolean) : SetIdentityServerViewEvents()
     data class OtherFailure(val failure: Throwable) : SetIdentityServerViewEvents()

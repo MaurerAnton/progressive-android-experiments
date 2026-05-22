@@ -22,7 +22,7 @@ import chat.progressive.app.core.preference.ProgressiveBasePreference
 import chat.progressive.app.core.preference.ProgressiveSwitchPreference
 import chat.progressive.app.features.MainActivity
 import chat.progressive.app.features.MainActivityArgs
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.settings.font.FontScaleSettingActivity
 import chat.progressive.app.features.themes.ThemeUtils
@@ -33,11 +33,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProgressiveSettingsPreferences :
-        VectorSettingsBaseFragment() {
+        ProgressiveSettingsBaseFragment() {
 
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
     @Inject lateinit var fontScalePreferences: FontScalePreferences
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var vectorLocale: VectorLocale
 
     override var titleRes = CommonStrings.settings_preferences

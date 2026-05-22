@@ -27,7 +27,7 @@ import chat.progressive.app.databinding.FragmentHomeDrawerBinding
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.permalink.PermalinkFactory
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.app.features.spaces.SpaceListFragment
 import chat.progressive.app.features.usercode.UserCodeActivity
 import chat.progressive.app.features.workers.signout.SignOutUiWorker
@@ -71,7 +71,7 @@ class HomeDrawerFragment :
         // Profile
         views.homeDrawerHeader.debouncedClicks {
             sharedActionViewModel.post(HomeActivitySharedAction.CloseDrawer)
-            navigator.openSettings(requireActivity(), directAccess = VectorSettingsActivity.EXTRA_DIRECT_ACCESS_GENERAL)
+            navigator.openSettings(requireActivity(), directAccess = ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_GENERAL)
         }
         // Settings
         views.homeDrawerHeaderSettingsView.debouncedClicks {

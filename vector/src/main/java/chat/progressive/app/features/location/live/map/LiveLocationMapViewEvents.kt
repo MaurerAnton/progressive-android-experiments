@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.location.live.map
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.features.location.LocationData
 
-sealed interface LiveLocationMapViewEvents : VectorViewEvents {
+sealed interface LiveLocationMapViewEvents : ProgressiveViewEvents {
     data class LiveLocationError(val error: Throwable) : LiveLocationMapViewEvents
     data class ZoomToUserLocation(val userLocation: LocationData) : LiveLocationMapViewEvents
     object UserLocationNotAvailableError : LiveLocationMapViewEvents

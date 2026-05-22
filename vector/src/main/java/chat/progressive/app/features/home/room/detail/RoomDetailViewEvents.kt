@@ -9,7 +9,7 @@ package chat.progressive.app.features.home.room.detail
 
 import android.net.Uri
 import android.view.View
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.features.call.webrtc.WebRtcCall
 import org.matrix.android.sdk.api.session.events.model.content.WithHeldCode
 import org.matrix.android.sdk.api.session.widgets.model.Widget
@@ -19,7 +19,7 @@ import java.io.File
 /**
  * Transient events for RoomDetail.
  */
-sealed class RoomDetailViewEvents : VectorViewEvents {
+sealed class RoomDetailViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable, val showInDialog: Boolean = false) : RoomDetailViewEvents()
     data class OnNewTimelineEvents(val eventIds: List<String>) : RoomDetailViewEvents()
 

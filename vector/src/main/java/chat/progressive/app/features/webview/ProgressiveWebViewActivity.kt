@@ -21,11 +21,11 @@ import org.matrix.android.sdk.api.session.Session
 /**
  * This class is responsible for managing a WebView
  * It does also have a loading view and a toolbar
- * It relies on the VectorWebViewClient
+ * It relies on the ProgressiveWebViewClient
  * This class shouldn't be extended. To add new behaviors, you might create a new WebViewMode and a new WebViewEventListener
  */
 @AndroidEntryPoint
-class VectorWebViewActivity : ProgressiveActivity<ActivityVectorWebViewBinding>() {
+class ProgressiveWebViewActivity : ProgressiveActivity<ActivityVectorWebViewBinding>() {
 
     override fun getBinding() = ActivityVectorWebViewBinding.inflate(layoutInflater)
 
@@ -74,7 +74,7 @@ class VectorWebViewActivity : ProgressiveActivity<ActivityVectorWebViewBinding>(
 
         val webViewMode = intent.extras?.getSerializableCompat<WebViewMode>(EXTRA_MODE)!!
         val eventListener = webViewMode.eventListener(this, session)
-        views.simpleWebview.webViewClient = VectorWebViewClient(eventListener)
+        views.simpleWebview.webViewClient = ProgressiveWebViewClient(eventListener)
         views.simpleWebview.webChromeClient = object : WebChromeClient() {
             override fun onReceivedTitle(view: WebView, title: String) {
                 if (title == USE_TITLE_FROM_WEB_PAGE) {
@@ -115,7 +115,7 @@ class VectorWebViewActivity : ProgressiveActivity<ActivityVectorWebViewBinding>(
                 title: String = USE_TITLE_FROM_WEB_PAGE,
                 mode: WebViewMode = WebViewMode.DEFAULT
         ): Intent {
-            return Intent(context, VectorWebViewActivity::class.java)
+            return Intent(context, ProgressiveWebViewActivity::class.java)
                     .apply {
                         putExtra(EXTRA_URL, url)
                         putExtra(EXTRA_TITLE, title)

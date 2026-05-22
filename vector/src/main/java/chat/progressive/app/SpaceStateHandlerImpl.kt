@@ -39,7 +39,7 @@ import javax.inject.Singleton
 
 /**
  * This class handles the global app state.
- * It is required that this class is added as an observer to ProcessLifecycleOwner.get().lifecycle in [VectorApplication]
+ * It is required that this class is added as an observer to ProcessLifecycleOwner.get().lifecycle in [ProgressiveApplication]
  */
 @Singleton
 class SpaceStateHandlerImpl @Inject constructor(

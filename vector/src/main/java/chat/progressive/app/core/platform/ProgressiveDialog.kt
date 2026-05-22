@@ -137,7 +137,7 @@ abstract class ProgressiveDialog<VB : ViewBinding> : DialogFragment(), Mavericks
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(observer: (T) -> Unit) {
+    protected fun <T : ProgressiveViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(observer: (T) -> Unit) {
         val tag = this@ProgressiveDialog::class.simpleName.toString()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {

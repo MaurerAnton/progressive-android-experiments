@@ -10,7 +10,7 @@ package chat.progressive.app.features.settings.notifications
 import com.airbnb.mvrx.MavericksState
 import org.matrix.android.sdk.api.session.pushrules.rest.PushRule
 
-data class VectorSettingsPushRuleNotificationViewState(
+data class ProgressiveSettingsPushRuleState(
         val isLoading: Boolean = false,
         val allRules: List<PushRule> = emptyList(),
         val rulesOnError: Set<String> = emptySet(),

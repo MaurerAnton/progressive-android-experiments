@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.devtools
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class DevToolsViewEvents : VectorViewEvents {
+sealed class DevToolsViewEvents : ProgressiveViewEvents {
     object Dismiss : DevToolsViewEvents()
 
     //    object ShowStateList : DevToolsViewEvents()

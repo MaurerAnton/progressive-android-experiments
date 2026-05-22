@@ -29,7 +29,7 @@ import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.intent.getFilenameFromUri
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.toast
 import chat.progressive.app.databinding.FragmentRoomSettingGenericBinding
 import chat.progressive.app.features.analytics.plan.MobileScreen
@@ -54,7 +54,7 @@ class RoomSettingsFragment :
         RoomSettingsController.Callback,
         OnBackPressed,
         GalleryOrCameraDialogHelper.Listener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var controller: RoomSettingsController
     @Inject lateinit var avatarRenderer: AvatarRenderer

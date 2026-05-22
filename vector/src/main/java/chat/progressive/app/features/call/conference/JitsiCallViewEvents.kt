@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.call.conference
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.jitsi.meet.sdk.JitsiMeetUserInfo
 
-sealed class JitsiCallViewEvents : VectorViewEvents {
+sealed class JitsiCallViewEvents : ProgressiveViewEvents {
     data class JoinConference(
             val enableVideo: Boolean,
             val jitsiUrl: String,

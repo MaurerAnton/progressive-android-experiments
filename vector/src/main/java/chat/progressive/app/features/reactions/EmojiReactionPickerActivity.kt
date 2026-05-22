@@ -24,7 +24,7 @@ import chat.progressive.app.EmojiCompatFontProvider
 import chat.progressive.app.R
 import chat.progressive.app.core.extensions.observeEvent
 import chat.progressive.app.core.platform.ProgressiveActivity
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.databinding.ActivityEmojiReactionPickerBinding
 import chat.progressive.app.features.reactions.data.EmojiDataSource
 import chat.progressive.lib.core.utils.flow.throttleFirst
@@ -44,7 +44,7 @@ import javax.inject.Inject
 class EmojiReactionPickerActivity :
         ProgressiveActivity<ActivityEmojiReactionPickerBinding>(),
         EmojiCompatFontProvider.FontProviderListener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     lateinit var viewModel: EmojiChooserViewModel
 

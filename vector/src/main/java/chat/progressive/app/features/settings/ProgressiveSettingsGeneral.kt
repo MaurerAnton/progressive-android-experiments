@@ -72,7 +72,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProgressiveSettingsGeneral :
-        VectorSettingsBaseFragment(),
+        ProgressiveSettingsBaseFragment(),
         GalleryOrCameraDialogHelper.Listener {
 
     @Inject lateinit var galleryOrCameraDialogHelperFactory: GalleryOrCameraDialogHelperFactory
@@ -201,7 +201,7 @@ class ProgressiveSettingsGeneral :
         mManage3pidsPreference.isVisible = homeServerCapabilities.canChange3pid
 
         val openDiscoveryScreenPreferenceClickListener = Preference.OnPreferenceClickListener {
-            (requireActivity() as VectorSettingsActivity).navigateTo(
+            (requireActivity() as ProgressiveSettingsActivity).navigateTo(
                     DiscoverySettingsFragment::class.java,
                     SettingsActivityPayload.DiscoverySettings().toMvRxBundle()
             )

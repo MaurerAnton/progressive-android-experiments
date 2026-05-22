@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.roomprofile.notifications
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class RoomNotificationSettingsViewEvents : VectorViewEvents {
+sealed class RoomNotificationSettingsViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : RoomNotificationSettingsViewEvents()
 }

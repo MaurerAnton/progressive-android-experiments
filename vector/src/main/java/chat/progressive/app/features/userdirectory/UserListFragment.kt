@@ -28,12 +28,12 @@ import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.extensions.hideKeyboard
 import chat.progressive.app.core.extensions.setupAsSearch
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.DimensionConverter
 import chat.progressive.app.core.utils.showIdentityServerConsentDialog
 import chat.progressive.app.core.utils.startSharePlainTextIntent
 import chat.progressive.app.databinding.FragmentUserListBinding
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -48,7 +48,7 @@ import javax.inject.Inject
 class UserListFragment :
         ProgressiveFragment<FragmentUserListBinding>(),
         UserListController.Callback,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var userListController: UserListController
     @Inject lateinit var dimensionConverter: DimensionConverter
@@ -218,7 +218,7 @@ class UserListFragment :
     override fun onSetupDiscovery() {
         navigator.openSettings(
                 requireContext(),
-                VectorSettingsActivity.EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS
+                ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS
         )
     }
 

@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.spaces
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for group list screen.
  */
-sealed class SpaceListViewEvents : VectorViewEvents {
+sealed class SpaceListViewEvents : ProgressiveViewEvents {
     data class OpenSpaceSummary(val id: String) : SpaceListViewEvents()
     data class OpenSpaceInvite(val id: String) : SpaceListViewEvents()
     object AddSpace : SpaceListViewEvents()

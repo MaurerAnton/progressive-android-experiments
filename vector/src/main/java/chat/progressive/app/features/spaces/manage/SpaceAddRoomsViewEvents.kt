@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.manage
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SpaceAddRoomsViewEvents : VectorViewEvents {
+sealed class SpaceAddRoomsViewEvents : ProgressiveViewEvents {
     object WarnUnsavedChanged : SpaceAddRoomsViewEvents()
     object SavedDone : SpaceAddRoomsViewEvents()
     data class SaveFailed(val reason: Throwable) : SpaceAddRoomsViewEvents()

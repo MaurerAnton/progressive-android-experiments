@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.home
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
 /**
  * Supported navigation actions for [HomeActivity].
  */
-sealed class HomeActivitySharedAction : VectorSharedAction {
+sealed class HomeActivitySharedAction : ProgressiveSharedAction {
     object OpenDrawer : HomeActivitySharedAction()
     object CloseDrawer : HomeActivitySharedAction()
     object OnCloseSpace : HomeActivitySharedAction()

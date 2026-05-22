@@ -21,25 +21,25 @@ import chat.progressive.app.R
 import chat.progressive.app.core.preference.ProgressiveSwitchPreference
 import chat.progressive.app.features.MainActivity
 import chat.progressive.app.features.MainActivityArgs
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.home.room.threads.ThreadsManager
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsBaseFragment
+import chat.progressive.app.features.settings.ProgressiveSettingsBaseFragment
 import chat.progressive.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.settings.LightweightSettingsStorage
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProgressiveSettingsLabs :
-        VectorSettingsBaseFragment() {
+        ProgressiveSettingsBaseFragment() {
 
-    private val viewModel: VectorSettingsLabsViewModel by fragmentViewModel()
+    private val viewModel: ProgressiveSettingsLabsVM by fragmentViewModel()
 
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
     @Inject lateinit var lightweightSettingsStorage: LightweightSettingsStorage
     @Inject lateinit var threadsManager: ThreadsManager
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
 
     override var titleRes = CommonStrings.room_settings_labs_pref_title
     override val preferenceXmlRes = R.xml.progressive_settings_labs
@@ -156,8 +156,8 @@ class ProgressiveSettingsLabs :
         findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_CLIENT_INFO_RECORDING_KEY)?.onPreferenceChangeListener =
                 OnPreferenceChangeListener { _, newValue ->
                     when (newValue as? Boolean) {
-                        false -> viewModel.handle(VectorSettingsLabsAction.DeleteRecordedClientInfo)
-                        true -> viewModel.handle(VectorSettingsLabsAction.UpdateClientInfo)
+                        false -> viewModel.handle(ProgressiveSettingsLabsAction.DeleteRecordedClientInfo)
+                        true -> viewModel.handle(ProgressiveSettingsLabsAction.UpdateClientInfo)
                         else -> Unit
                     }
                     true

@@ -10,9 +10,9 @@ package chat.progressive.app.core.platform
 /**
  * Interface for View Events.
  */
-interface VectorViewEvents
+interface ProgressiveViewEvents
 
 /**
  * To use when no view events is associated to the ViewModel.
  */
-object EmptyViewEvents : VectorViewEvents
+object EmptyViewEvents : ProgressiveViewEvents

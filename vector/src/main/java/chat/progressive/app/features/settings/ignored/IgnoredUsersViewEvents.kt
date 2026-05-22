@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.settings.ignored
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for Ignored users screen.
  */
-sealed class IgnoredUsersViewEvents : VectorViewEvents {
+sealed class IgnoredUsersViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : IgnoredUsersViewEvents()
     data class Failure(val throwable: Throwable) : IgnoredUsersViewEvents()
     object Success : IgnoredUsersViewEvents()

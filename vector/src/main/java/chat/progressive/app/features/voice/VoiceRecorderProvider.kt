@@ -14,7 +14,7 @@ import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.VisibleForTesting
 import chat.progressive.app.core.utils.PermissionChecker
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import io.element.android.opusencoder.OggOpusEncoder
 import kotlinx.coroutines.Dispatchers
 import org.matrix.android.sdk.api.util.BuildVersionSdkIntProvider
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class VoiceRecorderProvider @Inject constructor(
         private val context: Context,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
         private val buildVersionSdkIntProvider: BuildVersionSdkIntProvider,
         private val permissionChecker: PermissionChecker,
 ) {

@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.crypto.verification
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for the verification bottom sheet.
  */
-sealed class VerificationBottomSheetViewEvents : VectorViewEvents {
+sealed class VerificationBottomSheetViewEvents : ProgressiveViewEvents {
     object Dismiss : VerificationBottomSheetViewEvents()
     object DismissAndOpenDeviceSettings : VerificationBottomSheetViewEvents()
     object AccessSecretStore : VerificationBottomSheetViewEvents()

@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.createdirect
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class CreateDirectRoomViewEvents : VectorViewEvents {
+sealed class CreateDirectRoomViewEvents : ProgressiveViewEvents {
     object InvalidCode : CreateDirectRoomViewEvents()
     object DmSelf : CreateDirectRoomViewEvents()
 }

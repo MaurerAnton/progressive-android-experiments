@@ -7,13 +7,13 @@
 
 package chat.progressive.app.features.roommemberprofile
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.session.room.powerlevels.UserPowerLevel
 
 /**
  * Transient events for RoomMemberProfile.
  */
-sealed class RoomMemberProfileViewEvents : VectorViewEvents {
+sealed class RoomMemberProfileViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : RoomMemberProfileViewEvents()
     data class Failure(val throwable: Throwable) : RoomMemberProfileViewEvents()
 

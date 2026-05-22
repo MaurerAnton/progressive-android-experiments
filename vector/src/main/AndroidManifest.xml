@@ -145,7 +145,7 @@
             android:name=".features.rageshake.BugReportActivity"
             android:label="@string/title_activity_bug_report" />
         <activity
-            android:name=".features.settings.VectorSettingsActivity"
+            android:name=".features.settings.ProgressiveSettingsActivity"
             android:label="@string/title_activity_settings"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -175,7 +175,7 @@
         </activity>
         <activity android:name=".features.createdirect.CreateDirectRoomActivity" />
         <activity android:name=".features.invite.InviteUsersToRoomActivity" />
-        <activity android:name=".features.webview.VectorWebViewActivity" />
+        <activity android:name=".features.webview.ProgressiveWebViewActivity" />
 
         <!-- Activity to intercept links coming from a web instance -->
         <!-- exported="true" is required to handle android.intent.action.VIEW for URL redirection-->

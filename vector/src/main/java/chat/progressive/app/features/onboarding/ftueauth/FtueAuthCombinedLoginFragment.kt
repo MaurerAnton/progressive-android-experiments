@@ -27,7 +27,7 @@ import chat.progressive.app.core.extensions.setOnFocusLostListener
 import chat.progressive.app.core.extensions.setOnImeDoneListener
 import chat.progressive.app.core.extensions.toReducedUrl
 import chat.progressive.app.databinding.FragmentFtueCombinedLoginBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.login.LoginMode
 import chat.progressive.app.features.login.SSORedirectRouterActivity
 import chat.progressive.app.features.login.SocialLoginButtonsView
@@ -48,7 +48,7 @@ class FtueAuthCombinedLoginFragment :
 
     @Inject lateinit var loginFieldsValidation: LoginFieldsValidation
     @Inject lateinit var loginErrorParser: LoginErrorParser
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFtueCombinedLoginBinding {
         return FragmentFtueCombinedLoginBinding.inflate(inflater, container, false)

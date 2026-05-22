@@ -22,7 +22,7 @@ import chat.progressive.app.core.extensions.cleanup
 import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.extensions.trackItemsVisibilityChange
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.platform.showOptimizedSnackbar
 import chat.progressive.app.core.utils.toast
 import chat.progressive.app.databinding.FragmentPublicRoomsBinding
@@ -48,7 +48,7 @@ import javax.inject.Inject
 class PublicRoomsFragment :
         ProgressiveFragment<FragmentPublicRoomsBinding>(),
         PublicRoomsController.Callback,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var publicRoomsController: PublicRoomsController
     @Inject lateinit var permalinkHandler: PermalinkHandler

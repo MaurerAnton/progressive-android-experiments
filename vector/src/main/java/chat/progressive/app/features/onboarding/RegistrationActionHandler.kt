@@ -9,8 +9,8 @@ package chat.progressive.app.features.onboarding
 
 import chat.progressive.app.core.resources.StringProvider
 import chat.progressive.app.core.utils.ensureTrailingSlash
-import chat.progressive.app.features.VectorFeatures
-import chat.progressive.app.features.VectorOverrides
+import chat.progressive.app.features.ProgressiveFeatures
+import chat.progressive.app.features.ProgressiveOverrides
 import chat.progressive.app.features.login.isSupported
 import chat.progressive.app.features.onboarding.ftueauth.MatrixOrgRegistrationStagesComparator
 import kotlinx.coroutines.flow.first
@@ -24,8 +24,8 @@ import javax.inject.Inject
 class RegistrationActionHandler @Inject constructor(
         private val registrationWizardActionDelegate: RegistrationWizardActionDelegate,
         private val authenticationService: AuthenticationService,
-        private val vectorOverrides: VectorOverrides,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorOverrides: ProgressiveOverrides,
+        private val vectorFeatures: ProgressiveFeatures,
         stringProvider: StringProvider
 ) {
 

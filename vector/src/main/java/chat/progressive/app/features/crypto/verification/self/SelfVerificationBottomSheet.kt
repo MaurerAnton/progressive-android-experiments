@@ -31,7 +31,7 @@ import chat.progressive.app.features.crypto.quads.SharedSecureStorageActivity
 import chat.progressive.app.features.crypto.quads.SharedSecureStorageViewState
 import chat.progressive.app.features.crypto.verification.VerificationAction
 import chat.progressive.app.features.crypto.verification.VerificationBottomSheetViewEvents
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.parcelize.Parcelize
 import org.matrix.android.sdk.api.session.crypto.crosssigning.KEYBACKUP_SECRET_SSSS_NAME
@@ -144,7 +144,7 @@ class SelfVerificationBottomSheet : ProgressiveBottomSheet<BottomSheetVerificati
                     dismiss()
                     requireActivity().singletonEntryPoint().navigator().openSettings(
                             requireActivity(),
-                            VectorSettingsActivity.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
+                            ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
                     )
                 }
                 is VerificationBottomSheetViewEvents.RequestNotFound -> {
@@ -182,7 +182,7 @@ class SelfVerificationBottomSheet : ProgressiveBottomSheet<BottomSheetVerificati
 //                VerificationBottomSheetViewEvents.GoToSettings -> {
 //                    dismiss()
 //                    (activity as? ProgressiveActivity<*>)?.let { activity ->
-//                        activity.navigator.openSettings(activity, VectorSettingsActivity.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY)
+//                        activity.navigator.openSettings(activity, ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY)
 //                    }
 //                }
 //            }

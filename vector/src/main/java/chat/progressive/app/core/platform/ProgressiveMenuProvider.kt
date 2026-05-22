@@ -14,7 +14,7 @@ import androidx.annotation.MenuRes
 /**
  * Let your Activity of Fragment implement this interface if they provide a Menu.
  */
-interface VectorMenuProvider {
+interface ProgressiveMenuProvider {
     @MenuRes
     fun getMenuRes(): Int
 

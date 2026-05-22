@@ -26,7 +26,7 @@ import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VectorSettingsIgnoredUsersFragment :
+class ProgressiveSettingsIgnoredUsers :
         ProgressiveFragment<FragmentGenericRecyclerBinding>(),
         IgnoredUsersController.Callback {
 

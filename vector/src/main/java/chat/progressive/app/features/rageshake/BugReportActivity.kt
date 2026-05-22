@@ -20,7 +20,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.R
 import chat.progressive.app.core.platform.ProgressiveActivity
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.databinding.ActivityBugReportBinding
 import chat.progressive.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.extensions.tryOrNull
@@ -32,7 +32,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class BugReportActivity :
         ProgressiveActivity<ActivityBugReportBinding>(),
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     override fun getBinding() = ActivityBugReportBinding.inflate(layoutInflater)
 

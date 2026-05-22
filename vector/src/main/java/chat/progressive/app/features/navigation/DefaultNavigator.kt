@@ -29,7 +29,7 @@ import chat.progressive.app.core.debug.DebugNavigator
 import chat.progressive.app.core.di.ActiveSessionHolder
 import chat.progressive.app.core.error.fatalError
 import chat.progressive.app.core.extensions.commitTransaction
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.analytics.AnalyticsTracker
 import chat.progressive.app.features.analytics.extensions.toAnalyticsViewRoom
 import chat.progressive.app.features.analytics.plan.ViewRoom
@@ -83,7 +83,7 @@ import chat.progressive.app.features.roommemberprofile.RoomMemberProfileActivity
 import chat.progressive.app.features.roommemberprofile.RoomMemberProfileArgs
 import chat.progressive.app.features.roomprofile.RoomProfileActivity
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.app.features.share.SharedData
 import chat.progressive.app.features.signout.soft.SoftLogoutActivity
 import chat.progressive.app.features.spaces.InviteRoomSpaceChooserBottomSheet
@@ -118,7 +118,7 @@ class DefaultNavigator @Inject constructor(
         private val widgetArgsBuilder: WidgetArgsBuilder,
         private val spaceStateHandler: SpaceStateHandler,
         private val supportedVerificationMethodsProvider: SupportedVerificationMethodsProvider,
-        private val features: VectorFeatures,
+        private val features: ProgressiveFeatures,
         private val coroutineScope: CoroutineScope,
         private val analyticsTracker: AnalyticsTracker,
         private val debugNavigator: DebugNavigator,
@@ -349,12 +349,12 @@ class DefaultNavigator @Inject constructor(
     }
 
     override fun openSettings(context: Context, directAccess: Int) {
-        val intent = VectorSettingsActivity.getIntent(context, directAccess)
+        val intent = ProgressiveSettingsActivity.getIntent(context, directAccess)
         context.startActivity(intent)
     }
 
     override fun openSettings(context: Context, payload: SettingsActivityPayload) {
-        val intent = VectorSettingsActivity.getIntent(context, payload)
+        val intent = ProgressiveSettingsActivity.getIntent(context, payload)
         context.startActivity(intent)
     }
 

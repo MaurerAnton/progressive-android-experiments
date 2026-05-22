@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.room
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class RequireActiveMembershipViewEvents : VectorViewEvents {
+sealed class RequireActiveMembershipViewEvents : ProgressiveViewEvents {
     data class RoomLeft(val leftMessage: String?) : RequireActiveMembershipViewEvents()
 }

@@ -26,7 +26,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.extensions.registerStartForActivityResult
 import chat.progressive.app.core.extensions.safeOpenOutputStream
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.selectTxtFileToWrite
 import chat.progressive.app.databinding.FragmentDevtoolKeyrequestsBinding
 import chat.progressive.lib.core.utils.timer.Clock
@@ -37,7 +37,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class KeyRequestsFragment :
         ProgressiveFragment<FragmentDevtoolKeyrequestsBinding>(),
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var clock: Clock
 

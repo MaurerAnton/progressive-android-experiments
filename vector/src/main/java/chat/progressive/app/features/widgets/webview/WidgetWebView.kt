@@ -15,7 +15,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import chat.progressive.app.core.utils.CheckWebViewPermissionsUseCase
 import chat.progressive.app.features.themes.ThemeUtils
-import chat.progressive.app.features.webview.VectorWebViewClient
+import chat.progressive.app.features.webview.ProgressiveWebViewClient
 import chat.progressive.app.features.webview.WebEventListener
 
 fun WebView.setupForWidget(activity: Activity,
@@ -61,7 +61,7 @@ fun WebView.setupForWidget(activity: Activity,
             }
         }
     }
-    webViewClient = VectorWebViewClient(eventListener)
+    webViewClient = ProgressiveWebViewClient(eventListener)
 
     val cookieManager = CookieManager.getInstance()
     cookieManager.setAcceptThirdPartyCookies(this, false)

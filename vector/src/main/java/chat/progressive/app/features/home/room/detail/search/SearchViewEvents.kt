@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.home.room.detail.search
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SearchViewEvents : VectorViewEvents {
+sealed class SearchViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : SearchViewEvents()
 }

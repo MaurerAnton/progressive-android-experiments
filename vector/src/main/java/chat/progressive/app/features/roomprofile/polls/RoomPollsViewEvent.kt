@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.roomprofile.polls
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class RoomPollsViewEvent : VectorViewEvents {
+sealed class RoomPollsViewEvent : ProgressiveViewEvents {
     object LoadingError : RoomPollsViewEvent()
 }

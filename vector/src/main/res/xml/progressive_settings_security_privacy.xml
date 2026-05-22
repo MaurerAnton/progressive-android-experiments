@@ -115,7 +115,7 @@
             android:icon="@drawable/ic_settings_root_ignored_users"
             android:key="SETTINGS_IGNORED_USERS_PREFERENCE_KEY"
             android:title="@string/settings_ignored_users"
-            app:fragment="chat.progressive.app.features.settings.ignored.VectorSettingsIgnoredUsersFragment" />
+            app:fragment="chat.progressive.app.features.settings.ignored.ProgressiveSettingsIgnoredUsers" />
 
     </chat.progressive.app.core.preference.ProgressivePreferenceCategory>
 

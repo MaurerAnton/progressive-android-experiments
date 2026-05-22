@@ -7,11 +7,11 @@
 
 package chat.progressive.app.features.home.room.detail
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
 /**
  * Supported navigation actions for [RoomDetailActivity].
  */
-sealed class RoomDetailSharedAction : VectorSharedAction {
+sealed class RoomDetailSharedAction : ProgressiveSharedAction {
     data class SwitchToRoom(val roomId: String) : RoomDetailSharedAction()
 }

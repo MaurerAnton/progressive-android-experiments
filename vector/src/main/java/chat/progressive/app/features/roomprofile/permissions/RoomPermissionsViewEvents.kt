@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.roomprofile.permissions
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for room settings screen.
  */
-sealed class RoomPermissionsViewEvents : VectorViewEvents {
+sealed class RoomPermissionsViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : RoomPermissionsViewEvents()
     object Success : RoomPermissionsViewEvents()
 }

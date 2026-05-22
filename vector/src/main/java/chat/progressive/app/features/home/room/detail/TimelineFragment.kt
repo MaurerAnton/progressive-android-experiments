@@ -72,7 +72,7 @@ import chat.progressive.app.core.glide.GlideRequests
 import chat.progressive.app.core.intent.getFilenameFromUri
 import chat.progressive.app.core.intent.getMimeTypeFromUri
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.platform.showOptimizedSnackbar
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.resources.UserPreferencesProvider
@@ -104,7 +104,7 @@ import chat.progressive.app.core.utils.startInstallFromSourceIntent
 import chat.progressive.app.core.utils.toast
 import chat.progressive.app.databinding.DialogReportContentBinding
 import chat.progressive.app.databinding.FragmentTimelineBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.analytics.extensions.toAnalyticsInteraction
 import chat.progressive.app.features.analytics.plan.Interaction
 import chat.progressive.app.features.analytics.plan.MobileScreen
@@ -168,7 +168,7 @@ import chat.progressive.app.features.reactions.EmojiReactionPickerActivity
 import chat.progressive.app.features.roomprofile.RoomProfileActivity
 import chat.progressive.app.features.session.coroutineScope
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.app.features.spaces.share.ShareSpaceBottomSheet
 import chat.progressive.app.features.themes.ThemeUtils
 import chat.progressive.app.features.widgets.WidgetActivity
@@ -225,7 +225,7 @@ class TimelineFragment :
         ProgressiveInviteView.Callback,
         GalleryOrCameraDialogHelper.Listener,
         CurrentCallsView.Callback,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var session: Session
     @Inject lateinit var avatarRenderer: AvatarRenderer
@@ -246,7 +246,7 @@ class TimelineFragment :
     @Inject lateinit var audioMessagePlaybackTracker: AudioMessagePlaybackTracker
     @Inject lateinit var shareIntentHandler: ShareIntentHandler
     @Inject lateinit var clock: Clock
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var galleryOrCameraDialogHelperFactory: GalleryOrCameraDialogHelperFactory
     @Inject lateinit var permalinkFactory: PermalinkFactory
 
@@ -1031,7 +1031,7 @@ class TimelineFragment :
                 .setTitle(CommonStrings.disabled_integration_dialog_title)
                 .setMessage(CommonStrings.disabled_integration_dialog_content)
                 .setPositiveButton(CommonStrings.settings) { _, _ ->
-                    navigator.openSettings(requireActivity(), VectorSettingsActivity.EXTRA_DIRECT_ACCESS_GENERAL)
+                    navigator.openSettings(requireActivity(), ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_GENERAL)
                 }
                 .setNegativeButton(CommonStrings.action_cancel, null)
                 .show()

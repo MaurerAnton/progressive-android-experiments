@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.location
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class LocationSharingViewEvents : VectorViewEvents {
+sealed class LocationSharingViewEvents : ProgressiveViewEvents {
     object Close : LocationSharingViewEvents()
     object LocationNotAvailableError : LocationSharingViewEvents()
     data class ZoomToUserLocation(val userLocation: LocationData) : LocationSharingViewEvents()

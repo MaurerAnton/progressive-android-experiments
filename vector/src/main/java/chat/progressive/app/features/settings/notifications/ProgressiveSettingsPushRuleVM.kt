@@ -14,8 +14,8 @@ import dagger.assisted.AssistedInject
 import chat.progressive.app.core.di.MavericksAssistedViewModelFactory
 import chat.progressive.app.core.di.hiltMavericksViewModelFactory
 import chat.progressive.app.core.platform.ProgressiveViewModel
-import chat.progressive.app.features.settings.notifications.VectorSettingsPushRuleNotificationViewEvent.Failure
-import chat.progressive.app.features.settings.notifications.VectorSettingsPushRuleNotificationViewEvent.PushRuleUpdated
+import chat.progressive.app.features.settings.notifications.ProgressiveSettingsPushRuleEvent.Failure
+import chat.progressive.app.features.settings.notifications.ProgressiveSettingsPushRuleEvent.PushRuleUpdated
 import chat.progressive.app.features.settings.notifications.usecase.GetPushRulesOnInvalidStateUseCase
 import kotlinx.coroutines.launch
 import org.matrix.android.sdk.api.failure.Failure.ServerError
@@ -29,16 +29,16 @@ import org.matrix.android.sdk.api.session.pushrules.rest.PushRuleAndKind
 import org.matrix.android.sdk.flow.flow
 import org.matrix.android.sdk.flow.unwrap
 
-private typealias ViewModel = VectorSettingsPushRuleNotificationViewModel
-private typealias ViewState = VectorSettingsPushRuleNotificationViewState
+private typealias ViewModel = ProgressiveSettingsPushRuleVM
+private typealias ViewState = ProgressiveSettingsPushRuleState
 
-class VectorSettingsPushRuleNotificationViewModel @AssistedInject constructor(
+class ProgressiveSettingsPushRuleVM @AssistedInject constructor(
         @Assisted initialState: ViewState,
         private val session: Session,
         private val getPushRulesOnInvalidStateUseCase: GetPushRulesOnInvalidStateUseCase,
-) : ProgressiveViewModel<VectorSettingsPushRuleNotificationViewState,
-        VectorSettingsPushRuleNotificationViewAction,
-        VectorSettingsPushRuleNotificationViewEvent>(initialState) {
+) : ProgressiveViewModel<ProgressiveSettingsPushRuleState,
+        ProgressiveSettingsPushRuleAction,
+        ProgressiveSettingsPushRuleEvent>(initialState) {
 
     @AssistedFactory
     interface Factory : MavericksAssistedViewModelFactory<ViewModel, ViewState> {
@@ -61,9 +61,9 @@ class VectorSettingsPushRuleNotificationViewModel @AssistedInject constructor(
                 }
     }
 
-    override fun handle(action: VectorSettingsPushRuleNotificationViewAction) {
+    override fun handle(action: ProgressiveSettingsPushRuleAction) {
         when (action) {
-            is VectorSettingsPushRuleNotificationViewAction.UpdatePushRule -> handleUpdatePushRule(action.ruleId, action.checked)
+            is ProgressiveSettingsPushRuleAction.UpdatePushRule -> handleUpdatePushRule(action.ruleId, action.checked)
         }
     }
 

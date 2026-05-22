@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.settings.font
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class FontScaleSettingViewEvents : VectorViewEvents {
+sealed class FontScaleSettingViewEvents : ProgressiveViewEvents {
     object RestartActivity : FontScaleSettingViewEvents()
 }

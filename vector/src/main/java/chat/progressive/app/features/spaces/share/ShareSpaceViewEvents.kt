@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.share
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class ShareSpaceViewEvents : VectorViewEvents {
+sealed class ShareSpaceViewEvents : ProgressiveViewEvents {
     data class NavigateToInviteUser(val spaceId: String) : ShareSpaceViewEvents()
     data class ShowInviteByLink(val permalink: String, val spaceName: String) : ShareSpaceViewEvents()
 }

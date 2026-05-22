@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.roomdirectory.createroom
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for room creation screen.
  */
-sealed class CreateRoomViewEvents : VectorViewEvents {
+sealed class CreateRoomViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : CreateRoomViewEvents()
     object Quit : CreateRoomViewEvents()
 }

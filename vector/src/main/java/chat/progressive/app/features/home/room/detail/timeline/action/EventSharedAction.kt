@@ -10,7 +10,7 @@ package chat.progressive.app.features.home.room.detail.timeline.action
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import chat.progressive.app.R
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 import chat.progressive.app.features.home.room.detail.timeline.item.MessageInformationData
 import chat.progressive.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.session.room.model.message.MessageContent
@@ -21,7 +21,7 @@ sealed class EventSharedAction(
         @StringRes val titleRes: Int,
         @DrawableRes val iconResId: Int,
         val destructive: Boolean = false
-) : VectorSharedAction {
+) : ProgressiveSharedAction {
     object Separator :
             EventSharedAction(0, 0)
 

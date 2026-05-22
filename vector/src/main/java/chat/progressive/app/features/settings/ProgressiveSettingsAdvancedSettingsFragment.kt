@@ -24,8 +24,8 @@ import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VectorSettingsAdvancedSettingsFragment :
-        VectorSettingsBaseFragment() {
+class ProgressiveSettingsAdvancedSettingsFragment :
+        ProgressiveSettingsBaseFragment() {
 
     override var titleRes = CommonStrings.settings_advanced_settings
     override val preferenceXmlRes = R.xml.progressive_settings_advanced_settings

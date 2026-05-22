@@ -28,7 +28,7 @@ import chat.progressive.app.features.pin.PinMode
 import chat.progressive.app.features.poll.PollMode
 import chat.progressive.app.features.roomdirectory.RoomDirectoryData
 import chat.progressive.app.features.roomdirectory.roompreview.RoomPreviewData
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.app.features.share.SharedData
 import org.matrix.android.sdk.api.session.permalinks.PermalinkData
 import org.matrix.android.sdk.api.session.room.model.roomdirectory.PublicRoom
@@ -96,7 +96,7 @@ interface Navigator {
 
     fun openRoomsFiltering(context: Context)
 
-    fun openSettings(context: Context, directAccess: Int = VectorSettingsActivity.EXTRA_DIRECT_ACCESS_ROOT)
+    fun openSettings(context: Context, directAccess: Int = ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_ROOT)
 
     fun openSettings(context: Context, payload: SettingsActivityPayload)
 

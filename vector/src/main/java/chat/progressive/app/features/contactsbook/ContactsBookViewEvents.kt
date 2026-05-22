@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.contactsbook
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.features.discovery.ServerAndPolicies
 
-sealed class ContactsBookViewEvents : VectorViewEvents {
+sealed class ContactsBookViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : ContactsBookViewEvents()
     data class OnPoliciesRetrieved(val identityServerWithTerms: ServerAndPolicies?) : ContactsBookViewEvents()
 }

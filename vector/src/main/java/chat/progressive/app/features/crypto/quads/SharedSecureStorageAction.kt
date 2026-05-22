@@ -7,7 +7,7 @@
 
 package chat.progressive.app.features.crypto.quads
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.core.platform.ProgressiveViewModelAction
 import chat.progressive.app.core.platform.WaitingViewData
 
@@ -21,7 +21,7 @@ sealed class SharedSecureStorageAction : ProgressiveViewModelAction {
     object DoResetAll : SharedSecureStorageAction()
 }
 
-sealed class SharedSecureStorageViewEvent : VectorViewEvents {
+sealed class SharedSecureStorageViewEvent : ProgressiveViewEvents {
 
     object Dismiss : SharedSecureStorageViewEvent()
     data class FinishSuccess(val cypherResult: String) : SharedSecureStorageViewEvent()

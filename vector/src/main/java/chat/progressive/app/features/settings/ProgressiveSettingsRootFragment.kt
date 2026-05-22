@@ -15,8 +15,8 @@ import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.lib.strings.CommonStrings
 
 @AndroidEntryPoint
-class VectorSettingsRootFragment :
-        VectorSettingsBaseFragment() {
+class ProgressiveSettingsRootFragment :
+        ProgressiveSettingsBaseFragment() {
 
     override var titleRes: Int = CommonStrings.title_activity_settings
     override val preferenceXmlRes = R.xml.progressive_settings_root

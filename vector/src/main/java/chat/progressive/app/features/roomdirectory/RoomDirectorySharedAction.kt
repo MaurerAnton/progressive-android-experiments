@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.roomdirectory
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
 /**
  * Supported navigation actions for [RoomDirectoryActivity].
  */
-sealed class RoomDirectorySharedAction : VectorSharedAction {
+sealed class RoomDirectorySharedAction : ProgressiveSharedAction {
     object Back : RoomDirectorySharedAction()
     object CreateRoom : RoomDirectorySharedAction()
     object Close : RoomDirectorySharedAction()

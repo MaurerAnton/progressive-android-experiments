@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.home.room.list.actions
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
-sealed class RoomListSharedAction : VectorSharedAction {
+sealed class RoomListSharedAction : ProgressiveSharedAction {
 
     object CloseBottomSheet : RoomListSharedAction()
 }

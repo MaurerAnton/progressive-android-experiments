@@ -9,6 +9,6 @@ package chat.progressive.app.features.settings.notifications
 
 import chat.progressive.app.core.platform.ProgressiveViewModelAction
 
-sealed interface VectorSettingsPushRuleNotificationViewAction : ProgressiveViewModelAction {
-    data class UpdatePushRule(val ruleId: String, val checked: Boolean) : VectorSettingsPushRuleNotificationViewAction
+sealed interface ProgressiveSettingsPushRuleAction : ProgressiveViewModelAction {
+    data class UpdatePushRule(val ruleId: String, val checked: Boolean) : ProgressiveSettingsPushRuleAction
 }

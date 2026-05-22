@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.roomprofile.banned
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.session.room.model.RoomMemberSummary
 
-sealed class RoomBannedMemberListViewEvents : VectorViewEvents {
+sealed class RoomBannedMemberListViewEvents : ProgressiveViewEvents {
     data class ShowBannedInfo(val bannedByUserId: String, val banReason: String, val roomMemberSummary: RoomMemberSummary) : RoomBannedMemberListViewEvents()
     data class ToastError(val info: String) : RoomBannedMemberListViewEvents()
 }

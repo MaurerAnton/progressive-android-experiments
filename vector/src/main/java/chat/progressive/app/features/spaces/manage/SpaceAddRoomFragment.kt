@@ -28,7 +28,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.extensions.cleanup
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.databinding.FragmentSpaceAddRoomsBinding
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.coroutines.flow.Flow
@@ -45,7 +45,7 @@ class SpaceAddRoomFragment :
         ProgressiveFragment<FragmentSpaceAddRoomsBinding>(),
         OnBackPressed,
         AddRoomListController.Listener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var spaceEpoxyController: AddRoomListController
     @Inject lateinit var roomEpoxyController: AddRoomListController

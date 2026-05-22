@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.home.room.detail.composer.link
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SetLinkViewEvents : VectorViewEvents {
+sealed class SetLinkViewEvents : ProgressiveViewEvents {
 
     data class SavedLink(
             val link: String,

@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.qrcode
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class QrCodeScannerEvents : VectorViewEvents {
+sealed class QrCodeScannerEvents : ProgressiveViewEvents {
     data class CodeParsed(val result: String, val isQrCode: Boolean) : QrCodeScannerEvents()
     object ParseFailed : QrCodeScannerEvents()
     object SwitchMode : QrCodeScannerEvents()

@@ -7,13 +7,13 @@
 
 package chat.progressive.app.features.login
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.auth.registration.FlowResult
 
 /**
  * Transient events for Login.
  */
-sealed class LoginViewEvents : VectorViewEvents {
+sealed class LoginViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : LoginViewEvents()
     data class Failure(val throwable: Throwable) : LoginViewEvents()
 

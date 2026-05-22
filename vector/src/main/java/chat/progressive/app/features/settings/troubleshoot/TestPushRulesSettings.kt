@@ -55,7 +55,7 @@ class TestPushRulesSettings @Inject constructor(
 //                quickFix = object : TroubleshootQuickFix(CommonStrings.settings_troubleshoot_test_bing_settings_quickfix) {
 //                    override fun doFix() {
 //                        val activity = fragment.activity
-//                        if (activity is VectorSettingsFragmentInteractionListener) {
+//                        if (activity is ProgressiveSettingsInteraction) {
 //                            activity.requestHighlightPreferenceKeyOnResume(ProgressiveBasePreferences.SETTINGS_NOTIFICATION_ADVANCED_PREFERENCE_KEY)
 //                        }
 //                        activity?.supportFragmentManager?.popBackStack()

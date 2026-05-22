@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.settings.devices.v2.details
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SessionDetailsViewEvent : VectorViewEvents {
+sealed class SessionDetailsViewEvent : ProgressiveViewEvents {
     object ContentCopiedToClipboard : SessionDetailsViewEvent()
 }

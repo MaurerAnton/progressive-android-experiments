@@ -9,7 +9,7 @@ package chat.progressive.app.features.settings.devices.v2
 
 import com.airbnb.mvrx.MavericksState
 import chat.progressive.app.core.di.ActiveSessionHolder
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.core.platform.ProgressiveViewModel
 import chat.progressive.app.core.platform.ProgressiveViewModelAction
 import chat.progressive.app.core.utils.PublishDataSource
@@ -21,7 +21,7 @@ import org.matrix.android.sdk.api.session.crypto.verification.VerificationServic
 import org.matrix.android.sdk.api.session.crypto.verification.VerificationTransaction
 import kotlin.time.Duration.Companion.seconds
 
-abstract class ProgressiveSessionsList<S : MavericksState, VA : ProgressiveViewModelAction, VE : VectorViewEvents>(
+abstract class ProgressiveSessionsList<S : MavericksState, VA : ProgressiveViewModelAction, VE : ProgressiveViewEvents>(
         initialState: S,
         private val activeSessionHolder: ActiveSessionHolder,
         private val refreshDevicesUseCase: RefreshDevicesUseCase,

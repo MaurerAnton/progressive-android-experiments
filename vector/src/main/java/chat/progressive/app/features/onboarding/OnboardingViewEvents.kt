@@ -7,7 +7,7 @@
 
 package chat.progressive.app.features.onboarding
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.features.login.ServerType
 import chat.progressive.app.features.login.SignMode
 import org.matrix.android.sdk.api.auth.registration.Stage
@@ -16,7 +16,7 @@ import org.matrix.android.sdk.api.failure.Failure as SdkFailure
 /**
  * Transient events for Login.
  */
-sealed class OnboardingViewEvents : VectorViewEvents {
+sealed class OnboardingViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : OnboardingViewEvents()
     data class Failure(val throwable: Throwable) : OnboardingViewEvents()
     data class UnrecognisedCertificateFailure(val retryAction: OnboardingAction, val cause: SdkFailure.UnrecognizedCertificateFailure) : OnboardingViewEvents()

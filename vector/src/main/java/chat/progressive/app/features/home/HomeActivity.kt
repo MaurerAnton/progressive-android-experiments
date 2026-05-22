@@ -35,7 +35,7 @@ import chat.progressive.app.core.extensions.replaceFragment
 import chat.progressive.app.core.extensions.restart
 import chat.progressive.app.core.extensions.validateBackPressed
 import chat.progressive.app.core.platform.ProgressiveActivity
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.pushers.UnifiedPushHelper
 import chat.progressive.app.core.utils.registerForPermissionsResult
 import chat.progressive.app.core.utils.startSharePlainTextIntent
@@ -66,7 +66,7 @@ import chat.progressive.app.features.popup.VerificationProgressiveAlert
 import chat.progressive.app.features.rageshake.ReportType
 import chat.progressive.app.features.rageshake.ProgressiveExceptionHandler
 import chat.progressive.app.features.session.coroutineScope
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.app.features.spaces.SpaceCreationActivity
 import chat.progressive.app.features.spaces.SpacePreviewActivity
 import chat.progressive.app.features.spaces.SpaceSettingsMenuBottomSheet
@@ -106,7 +106,7 @@ class HomeActivity :
         NavigationInterceptor,
         SpaceInviteBottomSheet.InteractionListener,
         MatrixToBottomSheet.InteractionListener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     private lateinit var sharedActionViewModel: HomeSharedActionViewModel
     private lateinit var roomListSharedActionViewModel: RoomListSharedActionViewModel
@@ -513,7 +513,7 @@ class HomeActivity :
                         (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
                             // action(it)
                             homeActivityViewModel.handle(HomeActivityViewActions.PushPromptHasBeenReviewed)
-                            it.navigator.openSettings(it, VectorSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
+                            it.navigator.openSettings(it, ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
                         }
                     }
                     dismissedAction = Runnable {
@@ -526,7 +526,7 @@ class HomeActivity :
                         (weakCurrentActivity?.get() as? ProgressiveActivity<*>)?.let {
                             // action(it)
                             homeActivityViewModel.handle(HomeActivityViewActions.PushPromptHasBeenReviewed)
-                            it.navigator.openSettings(it, VectorSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
+                            it.navigator.openSettings(it, ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
                         }
                     }, true)
                 }

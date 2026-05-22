@@ -26,7 +26,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.date.ProgressiveDateFormatter
 import chat.progressive.app.core.extensions.registerStartForActivityResult
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.resources.DrawableProvider
 import chat.progressive.app.core.resources.StringProvider
@@ -51,7 +51,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SessionOverviewFragment :
         ProgressiveFragment<FragmentSessionOverviewBinding>(),
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var viewNavigator: SessionOverviewViewNavigator
 

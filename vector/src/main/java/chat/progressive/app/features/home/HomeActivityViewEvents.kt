@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.home
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.util.MatrixItem
 
-sealed interface HomeActivityViewEvents : VectorViewEvents {
+sealed interface HomeActivityViewEvents : ProgressiveViewEvents {
     data class AskPasswordToInitCrossSigning(val userItem: MatrixItem.UserItem) : HomeActivityViewEvents
     data class CurrentSessionNotVerified(
             val userItem: MatrixItem.UserItem,

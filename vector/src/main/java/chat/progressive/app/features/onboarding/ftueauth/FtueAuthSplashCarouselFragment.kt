@@ -23,7 +23,7 @@ import chat.progressive.app.core.extensions.incrementByOneAndWrap
 import chat.progressive.app.core.extensions.setCurrentItem
 import chat.progressive.app.core.resources.BuildMeta
 import chat.progressive.app.databinding.FragmentFtueSplashCarouselBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.onboarding.OnboardingAction
 import chat.progressive.app.features.onboarding.OnboardingFlow
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
@@ -41,7 +41,7 @@ class FtueAuthSplashCarouselFragment :
         AbstractFtueAuthFragment<FragmentFtueSplashCarouselBinding>() {
 
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var carouselController: SplashCarouselController
     @Inject lateinit var carouselStateFactory: SplashCarouselStateFactory
     @Inject lateinit var buildMeta: BuildMeta

@@ -21,6 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/settings_discovery_confirm_mail"
-        tools:textColor="@color/vector_info_color" />
+        tools:textColor="@color/progressive_info_color" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

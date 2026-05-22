@@ -157,7 +157,7 @@ abstract class ProgressiveFragment<VB : ViewBinding> : Fragment(), MavericksView
     }
 
     private fun setupMenu() {
-        if (this !is VectorMenuProvider) return
+        if (this !is ProgressiveMenuProvider) return
         if (getMenuRes() == -1) return
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(
@@ -266,7 +266,7 @@ abstract class ProgressiveFragment<VB : ViewBinding> : Fragment(), MavericksView
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
+    protected fun <T : ProgressiveViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
         val tag = this@ProgressiveFragment::class.simpleName.toString()

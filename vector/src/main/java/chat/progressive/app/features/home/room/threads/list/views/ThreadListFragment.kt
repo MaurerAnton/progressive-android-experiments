@@ -23,7 +23,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.extensions.cleanup
 import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.databinding.FragmentThreadListBinding
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.home.AvatarRenderer
@@ -52,7 +52,7 @@ class ThreadListFragment :
         ProgressiveFragment<FragmentThreadListBinding>(),
         ThreadListPagedController.Listener,
         ThreadListController.Listener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
     @Inject lateinit var bugReporter: BugReporter

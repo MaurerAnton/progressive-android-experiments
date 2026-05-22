@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.manage
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SpaceManageRoomViewEvents : VectorViewEvents {
+sealed class SpaceManageRoomViewEvents : ProgressiveViewEvents {
     //    object BulkActionSuccess: SpaceManageRoomViewEvents()
     data class BulkActionFailure(val errorList: List<Throwable>) : SpaceManageRoomViewEvents()
 }

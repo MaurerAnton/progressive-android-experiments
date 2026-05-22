@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.R
 import chat.progressive.app.core.extensions.replaceFragment
 import chat.progressive.app.core.platform.ProgressiveActivity
-import chat.progressive.app.databinding.ActivityVectorSettingsBinding
+import chat.progressive.app.databinding.ActivityProgressiveSettingsBinding
 import chat.progressive.app.features.discovery.DiscoverySettingsFragment
 import chat.progressive.app.features.navigation.SettingsActivityPayload
 import chat.progressive.app.features.settings.devices.ProgressiveSettingsDevices
@@ -39,12 +39,12 @@ private const val KEY_ACTIVITY_PAYLOAD = "settings-activity-payload"
  * Displays the client settings.
  */
 @AndroidEntryPoint
-class VectorSettingsActivity : ProgressiveActivity<ActivityVectorSettingsBinding>(),
+class ProgressiveSettingsActivity : ProgressiveActivity<ActivityProgressiveSettingsBinding>(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
         FragmentManager.OnBackStackChangedListener,
-        VectorSettingsFragmentInteractionListener {
+        ProgressiveSettingsInteraction {
 
-    override fun getBinding() = ActivityVectorSettingsBinding.inflate(layoutInflater)
+    override fun getBinding() = ActivityProgressiveSettingsBinding.inflate(layoutInflater)
 
     override fun getCoordinatorLayout() = views.coordinatorLayout
 
@@ -70,7 +70,7 @@ class VectorSettingsActivity : ProgressiveActivity<ActivityVectorSettingsBinding
                 SettingsActivityPayload.General ->
                     replaceFragment(views.vectorSettingsPage, ProgressiveSettingsGeneral::class.java, null, FRAGMENT_TAG)
                 SettingsActivityPayload.AdvancedSettings ->
-                    replaceFragment(views.vectorSettingsPage, VectorSettingsAdvancedSettingsFragment::class.java, null, FRAGMENT_TAG)
+                    replaceFragment(views.vectorSettingsPage, ProgressiveSettingsAdvancedSettingsFragment::class.java, null, FRAGMENT_TAG)
                 SettingsActivityPayload.SecurityPrivacy ->
                     replaceFragment(views.vectorSettingsPage, ProgressiveSettingsSecurity::class.java, null, FRAGMENT_TAG)
                 SettingsActivityPayload.SecurityPrivacyManageSessions -> {
@@ -94,7 +94,7 @@ class VectorSettingsActivity : ProgressiveActivity<ActivityVectorSettingsBinding
                     replaceFragment(views.vectorSettingsPage, DiscoverySettingsFragment::class.java, payload, FRAGMENT_TAG)
                 }
                 else ->
-                    replaceFragment(views.vectorSettingsPage, VectorSettingsRootFragment::class.java, null, FRAGMENT_TAG)
+                    replaceFragment(views.vectorSettingsPage, ProgressiveSettingsRootFragment::class.java, null, FRAGMENT_TAG)
             }
         }
 
@@ -182,7 +182,7 @@ class VectorSettingsActivity : ProgressiveActivity<ActivityVectorSettingsBinding
         }
         )
 
-        fun getIntent(context: Context, payload: SettingsActivityPayload) = Intent(context, VectorSettingsActivity::class.java)
+        fun getIntent(context: Context, payload: SettingsActivityPayload) = Intent(context, ProgressiveSettingsActivity::class.java)
                 .applyPayload(payload)
 
         const val EXTRA_DIRECT_ACCESS_ROOT = 0

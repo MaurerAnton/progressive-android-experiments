@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.settings.threepids
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
 
-sealed class ThreePidsSettingsViewEvents : VectorViewEvents {
+sealed class ThreePidsSettingsViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : ThreePidsSettingsViewEvents()
 
     //    object RequestPassword : ThreePidsSettingsViewEvents()

@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.settings.devices.v2.rename
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class RenameSessionViewEvent : VectorViewEvents {
+sealed class RenameSessionViewEvent : ProgressiveViewEvents {
     data class Initialized(val deviceName: String) : RenameSessionViewEvent()
     object SessionRenamed : RenameSessionViewEvent()
     data class Failure(val throwable: Throwable) : RenameSessionViewEvent()

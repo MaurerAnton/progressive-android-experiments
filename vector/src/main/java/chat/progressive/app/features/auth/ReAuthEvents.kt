@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.auth
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class ReAuthEvents : VectorViewEvents {
+sealed class ReAuthEvents : ProgressiveViewEvents {
     data class OpenSsoURl(val url: String) : ReAuthEvents()
     object Dismiss : ReAuthEvents()
     data class PasswordFinishSuccess(val passwordSafeForIntent: String) : ReAuthEvents()

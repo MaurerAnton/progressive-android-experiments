@@ -29,7 +29,7 @@ import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.resources.DrawableProvider
 import chat.progressive.app.core.resources.StringProvider
 import chat.progressive.app.databinding.FragmentSettingsDevicesBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.auth.ReAuthActivity
 import chat.progressive.app.features.crypto.recover.SetupMode
 import chat.progressive.app.features.settings.devices.v2.filter.DeviceManagerFilterType
@@ -63,7 +63,7 @@ class ProgressiveSettingsDevices :
 
     @Inject lateinit var colorProvider: ColorProvider
 
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
 
     @Inject lateinit var stringProvider: StringProvider
 

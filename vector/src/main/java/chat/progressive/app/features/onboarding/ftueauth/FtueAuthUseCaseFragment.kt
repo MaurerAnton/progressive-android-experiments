@@ -27,7 +27,7 @@ import chat.progressive.app.core.extensions.getTintedDrawable
 import chat.progressive.app.core.extensions.setLeftDrawable
 import chat.progressive.app.core.extensions.setTextWithColoredPart
 import chat.progressive.app.databinding.FragmentFtueAuthUseCaseBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.login.ServerType
 import chat.progressive.app.features.onboarding.FtueUseCase
 import chat.progressive.app.features.onboarding.OnboardingAction
@@ -43,7 +43,7 @@ class FtueAuthUseCaseFragment :
         AbstractFtueAuthFragment<FragmentFtueAuthUseCaseBinding>() {
 
     @Inject lateinit var themeProvider: ThemeProvider
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFtueAuthUseCaseBinding {
         return FragmentFtueAuthUseCaseBinding.inflate(inflater, container, false)

@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.roommemberprofile.devices
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for device list screen.
  */
-sealed class DeviceListBottomSheetViewEvents : VectorViewEvents
+sealed class DeviceListBottomSheetViewEvents : ProgressiveViewEvents

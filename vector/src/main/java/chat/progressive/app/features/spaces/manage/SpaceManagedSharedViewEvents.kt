@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.manage
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SpaceManagedSharedViewEvents : VectorViewEvents {
+sealed class SpaceManagedSharedViewEvents : ProgressiveViewEvents {
     object Finish : SpaceManagedSharedViewEvents()
     object ShowLoading : SpaceManagedSharedViewEvents()
     object HideLoading : SpaceManagedSharedViewEvents()

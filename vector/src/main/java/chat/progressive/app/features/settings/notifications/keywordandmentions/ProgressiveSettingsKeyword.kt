@@ -19,7 +19,7 @@ import chat.progressive.app.core.preference.ProgressivePreferenceCategory
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.settings.notifications.NotificationIndex
 import chat.progressive.app.features.settings.notifications.StandardActions
-import chat.progressive.app.features.settings.notifications.VectorSettingsPushRuleNotificationFragment
+import chat.progressive.app.features.settings.notifications.ProgressiveSettingsPushRule
 import chat.progressive.app.features.settings.notifications.getStandardAction
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +30,8 @@ import org.matrix.android.sdk.api.session.pushrules.RuleKind
 import org.matrix.android.sdk.api.session.pushrules.rest.PushRule
 import org.matrix.android.sdk.api.session.pushrules.toJson
 
-class VectorSettingsKeywordAndMentionsNotificationFragment :
-        VectorSettingsPushRuleNotificationFragment() {
+class ProgressiveSettingsKeyword :
+        ProgressiveSettingsPushRule() {
 
     override var titleRes: Int = CommonStrings.settings_notification_mentions_and_keywords
 

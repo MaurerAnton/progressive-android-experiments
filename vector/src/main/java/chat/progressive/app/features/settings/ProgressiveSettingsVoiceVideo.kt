@@ -25,7 +25,7 @@ import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProgressiveSettingsVoiceVideo : VectorSettingsBaseFragment() {
+class ProgressiveSettingsVoiceVideo : ProgressiveSettingsBaseFragment() {
 
     @Inject lateinit var ringtoneUtils: RingtoneUtils
 

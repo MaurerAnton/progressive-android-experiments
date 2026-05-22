@@ -14,12 +14,12 @@ import dagger.assisted.AssistedInject
 import chat.progressive.app.core.di.MavericksAssistedViewModelFactory
 import chat.progressive.app.core.di.hiltMavericksViewModelFactory
 import chat.progressive.app.core.platform.ProgressiveViewModel
-import chat.progressive.app.features.analytics.VectorAnalytics
+import chat.progressive.app.features.analytics.ProgressiveAnalytics
 import kotlinx.coroutines.launch
 
 class AnalyticsConsentViewModel @AssistedInject constructor(
         @Assisted initialState: AnalyticsConsentViewState,
-        private val analytics: VectorAnalytics
+        private val analytics: ProgressiveAnalytics
 ) : ProgressiveViewModel<AnalyticsConsentViewState, AnalyticsConsentViewActions, AnalyticsOptInViewEvents>(initialState) {
 
     @AssistedFactory

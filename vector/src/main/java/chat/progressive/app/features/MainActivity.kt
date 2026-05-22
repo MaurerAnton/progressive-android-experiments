@@ -26,7 +26,7 @@ import chat.progressive.app.core.extensions.vectorStore
 import chat.progressive.app.core.platform.ProgressiveActivity
 import chat.progressive.app.core.utils.deleteAllFiles
 import chat.progressive.app.databinding.ActivityMainBinding
-import chat.progressive.app.features.analytics.VectorAnalytics
+import chat.progressive.app.features.analytics.ProgressiveAnalytics
 import chat.progressive.app.features.analytics.plan.ViewRoom
 import chat.progressive.app.features.home.HomeActivity
 import chat.progressive.app.features.home.ShortcutsHandler
@@ -134,7 +134,7 @@ class MainActivity : ProgressiveActivity<ActivityMainBinding>(), UnlockedActivit
     @Inject lateinit var shortcutsHandler: ShortcutsHandler
     @Inject lateinit var pinCodeHelper: PinCodeHelper
     @Inject lateinit var popupAlertManager: PopupAlertManager
-    @Inject lateinit var vectorAnalytics: VectorAnalytics
+    @Inject lateinit var vectorAnalytics: ProgressiveAnalytics
     @Inject lateinit var lockScreenKeyRepository: LockScreenKeyRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {

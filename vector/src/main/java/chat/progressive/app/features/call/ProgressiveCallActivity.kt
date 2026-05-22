@@ -46,7 +46,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.extensions.registerStartForActivityResult
 import chat.progressive.app.core.extensions.setTextOrHide
 import chat.progressive.app.core.platform.ProgressiveActivity
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.PERMISSIONS_FOR_AUDIO_IP_CALL
 import chat.progressive.app.core.utils.PERMISSIONS_FOR_VIDEO_IP_CALL
 import chat.progressive.app.core.utils.checkPermissions
@@ -97,7 +97,7 @@ private val loggerTag = LoggerTag("ProgressiveCallActivity", LoggerTag.VOIP)
 class ProgressiveCallActivity :
         ProgressiveActivity<ActivityCallBinding>(),
         CallControlsView.InteractionListener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     override fun getBinding() = ActivityCallBinding.inflate(layoutInflater)
 

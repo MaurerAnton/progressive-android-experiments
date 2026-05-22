@@ -18,7 +18,7 @@ import chat.progressive.app.core.di.MavericksAssistedViewModelFactory
 import chat.progressive.app.core.di.hiltMavericksViewModelFactory
 import chat.progressive.app.core.extensions.singletonEntryPoint
 import chat.progressive.app.core.platform.ProgressiveViewModel
-import chat.progressive.app.features.VectorOverrides
+import chat.progressive.app.features.ProgressiveOverrides
 import chat.progressive.app.features.call.dialpad.DialPadLookup
 import chat.progressive.app.features.call.lookup.CallProtocolsChecker
 import chat.progressive.app.features.call.webrtc.WebRtcCallManager
@@ -61,7 +61,7 @@ class HomeDetailViewModel @AssistedInject constructor(
         private val directRoomHelper: DirectRoomHelper,
         private val spaceStateHandler: SpaceStateHandler,
         private val autoAcceptInvites: AutoAcceptInvites,
-        private val vectorOverrides: VectorOverrides
+        private val vectorOverrides: ProgressiveOverrides
 ) : ProgressiveViewModel<HomeDetailViewState, HomeDetailAction, HomeDetailViewEvents>(initialState),
         CallProtocolsChecker.Listener {
 

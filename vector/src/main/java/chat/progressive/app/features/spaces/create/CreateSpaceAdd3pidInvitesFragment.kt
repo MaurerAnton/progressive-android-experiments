@@ -19,7 +19,7 @@ import chat.progressive.app.core.extensions.hideKeyboard
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveFragment
 import chat.progressive.app.databinding.FragmentSpaceCreateGenericEpoxyFormBinding
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
 
@@ -81,7 +81,7 @@ class CreateSpaceAdd3pidInvitesFragment :
     override fun onNoIdentityServer() {
         navigator.openSettings(
                 requireContext(),
-                VectorSettingsActivity.EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS
+                ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_DISCOVERY_SETTINGS
         )
     }
 }

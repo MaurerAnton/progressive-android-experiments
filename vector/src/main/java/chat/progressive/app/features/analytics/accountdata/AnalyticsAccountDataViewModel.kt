@@ -17,7 +17,7 @@ import chat.progressive.app.core.platform.EmptyAction
 import chat.progressive.app.core.platform.EmptyViewEvents
 import chat.progressive.app.core.platform.ProgressiveDummyViewState
 import chat.progressive.app.core.platform.ProgressiveViewModel
-import chat.progressive.app.features.analytics.VectorAnalytics
+import chat.progressive.app.features.analytics.ProgressiveAnalytics
 import chat.progressive.app.features.analytics.log.analyticsTag
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +35,7 @@ import java.util.UUID
 class AnalyticsAccountDataViewModel @AssistedInject constructor(
         @Assisted initialState: ProgressiveDummyViewState,
         private val session: Session,
-        private val analytics: VectorAnalytics
+        private val analytics: ProgressiveAnalytics
 ) : ProgressiveViewModel<ProgressiveDummyViewState, EmptyAction, EmptyViewEvents>(initialState) {
 
     private var checkDone: Boolean = false

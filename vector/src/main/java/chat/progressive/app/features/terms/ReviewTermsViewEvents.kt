@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.terms
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class ReviewTermsViewEvents : VectorViewEvents {
+sealed class ReviewTermsViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : ReviewTermsViewEvents()
     data class Failure(val throwable: Throwable, val finish: Boolean) : ReviewTermsViewEvents()
     object Success : ReviewTermsViewEvents()

@@ -27,8 +27,8 @@ import chat.progressive.app.core.resources.StringProvider
 import chat.progressive.app.core.session.ConfigureAndStartSessionUseCase
 import chat.progressive.app.core.utils.ensureProtocol
 import chat.progressive.app.core.utils.ensureTrailingSlash
-import chat.progressive.app.features.VectorFeatures
-import chat.progressive.app.features.VectorOverrides
+import chat.progressive.app.features.ProgressiveFeatures
+import chat.progressive.app.features.ProgressiveOverrides
 import chat.progressive.app.features.analytics.AnalyticsTracker
 import chat.progressive.app.features.analytics.extensions.toTrackingValue
 import chat.progressive.app.features.analytics.plan.UserProperties
@@ -78,12 +78,12 @@ class OnboardingViewModel @AssistedInject constructor(
         private val reAuthHelper: ReAuthHelper,
         private val stringProvider: StringProvider,
         private val homeServerHistoryService: HomeServerHistoryService,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
         private val analyticsTracker: AnalyticsTracker,
         private val uriFilenameResolver: UriFilenameResolver,
         private val directLoginUseCase: DirectLoginUseCase,
         private val startAuthenticationFlowUseCase: StartAuthenticationFlowUseCase,
-        private val vectorOverrides: VectorOverrides,
+        private val vectorOverrides: ProgressiveOverrides,
         private val registrationActionHandler: RegistrationActionHandler,
         private val sdkIntProvider: BuildVersionSdkIntProvider,
         private val configureAndStartSessionUseCase: ConfigureAndStartSessionUseCase,

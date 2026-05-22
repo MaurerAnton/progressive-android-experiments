@@ -93,7 +93,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/vector_warning_color_2">
+        tools:background="@color/progressive_warning_color_2">
 
         <ImageView
             android:id="@+id/removeJitsiHangupIcon"

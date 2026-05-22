@@ -11,7 +11,7 @@ import chat.progressive.app.config.Config
 import chat.progressive.app.config.OnboardingVariant
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 
-interface VectorFeatures {
+interface ProgressiveFeatures {
 
     fun onboardingVariant(): OnboardingVariant
     fun isOnboardingAlreadyHaveAccountSplashEnabled(): Boolean
@@ -35,7 +35,7 @@ interface VectorFeatures {
     fun isUnverifiedSessionsAlertEnabled(): Boolean
 }
 
-class DefaultVectorFeatures : VectorFeatures {
+class DefaultProgressiveFeatures : ProgressiveFeatures {
     override fun onboardingVariant() = Config.ONBOARDING_VARIANT
     override fun isOnboardingAlreadyHaveAccountSplashEnabled() = true
     override fun isOnboardingSplashCarouselEnabled() = true

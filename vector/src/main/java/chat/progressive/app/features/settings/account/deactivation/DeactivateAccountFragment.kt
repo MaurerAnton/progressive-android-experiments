@@ -23,7 +23,7 @@ import chat.progressive.app.features.MainActivity
 import chat.progressive.app.features.MainActivityArgs
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.auth.ReAuthActivity
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.auth.data.LoginFlowTypes
 import org.matrix.android.sdk.api.session.uia.exceptions.UiaCancelledException
@@ -67,11 +67,11 @@ class DeactivateAccountFragment :
         (activity as? AppCompatActivity)?.supportActionBar?.setTitle(CommonStrings.deactivate_account_title)
     }
 
-    private var settingsActivity: VectorSettingsActivity? = null
+    private var settingsActivity: ProgressiveSettingsActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        settingsActivity = context as? VectorSettingsActivity
+        settingsActivity = context as? ProgressiveSettingsActivity
     }
 
     override fun onDetach() {

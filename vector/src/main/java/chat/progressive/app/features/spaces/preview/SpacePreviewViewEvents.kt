@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.preview
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SpacePreviewViewEvents : VectorViewEvents {
+sealed class SpacePreviewViewEvents : ProgressiveViewEvents {
     object Dismiss : SpacePreviewViewEvents()
     object JoinSuccess : SpacePreviewViewEvents()
     data class JoinFailure(val message: String?) : SpacePreviewViewEvents()

@@ -20,7 +20,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import chat.progressive.app.core.di.MavericksAssistedViewModelFactory
 import chat.progressive.app.core.di.hiltMavericksViewModelFactory
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.core.platform.ProgressiveViewModel
 import chat.progressive.app.core.platform.ProgressiveViewModelAction
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +31,7 @@ sealed class KeyRequestAction : ProgressiveViewModelAction {
     data class ExportAudit(val uri: Uri) : KeyRequestAction()
 }
 
-sealed class KeyRequestEvents : VectorViewEvents {
+sealed class KeyRequestEvents : ProgressiveViewEvents {
     data class SaveAudit(val uri: Uri, val raw: String) : KeyRequestEvents()
 }
 

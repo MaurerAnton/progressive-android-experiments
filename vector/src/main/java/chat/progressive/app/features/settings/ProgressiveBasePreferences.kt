@@ -17,7 +17,7 @@ import com.squareup.seismic.ShakeDetector
 import chat.progressive.app.core.di.DefaultPreferences
 import chat.progressive.app.core.resources.BuildMeta
 import chat.progressive.app.core.resources.StringProvider
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.home.ShortcutsHandler
 import chat.progressive.app.features.homeserver.ServerUrlsRepository
 import chat.progressive.app.features.themes.ThemeUtils
@@ -31,7 +31,7 @@ class ProgressiveBasePreferences @Inject constructor(
         private val context: Context,
         private val clock: Clock,
         private val buildMeta: BuildMeta,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
         @DefaultPreferences
         private val defaultPrefs: SharedPreferences,
         private val stringProvider: StringProvider,

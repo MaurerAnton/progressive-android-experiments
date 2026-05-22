@@ -34,7 +34,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.extensions.registerStartForActivityResult
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.CheckWebViewPermissionsUseCase
 import chat.progressive.app.core.utils.openUrlInExternalBrowser
 import chat.progressive.app.databinding.FragmentRoomWidgetBinding
@@ -65,7 +65,7 @@ class WidgetFragment :
         ProgressiveFragment<FragmentRoomWidgetBinding>(),
         WebEventListener,
         OnBackPressed,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var permissionUtils: WebviewPermissionUtils
     @Inject lateinit var checkWebViewPermissionsUseCase: CheckWebViewPermissionsUseCase

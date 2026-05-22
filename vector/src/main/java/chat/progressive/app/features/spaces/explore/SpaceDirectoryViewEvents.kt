@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.explore
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SpaceDirectoryViewEvents : VectorViewEvents {
+sealed class SpaceDirectoryViewEvents : ProgressiveViewEvents {
     object Dismiss : SpaceDirectoryViewEvents()
     data class NavigateToRoom(val roomId: String) : SpaceDirectoryViewEvents()
     data class NavigateToMxToBottomSheet(val link: String) : SpaceDirectoryViewEvents()

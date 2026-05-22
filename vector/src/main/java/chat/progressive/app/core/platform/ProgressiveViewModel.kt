@@ -12,7 +12,7 @@ import com.airbnb.mvrx.MavericksViewModel
 import chat.progressive.app.core.utils.EventQueue
 import chat.progressive.app.core.utils.SharedEvents
 
-abstract class ProgressiveViewModel<S : MavericksState, VA : ProgressiveViewModelAction, VE : VectorViewEvents>(initialState: S) :
+abstract class ProgressiveViewModel<S : MavericksState, VA : ProgressiveViewModelAction, VE : ProgressiveViewEvents>(initialState: S) :
         MavericksViewModel<S>(initialState) {
 
     // Used to post transient events to the View

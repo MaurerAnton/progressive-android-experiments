@@ -16,7 +16,7 @@ import androidx.core.view.isVisible
 import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.core.resources.BuildMeta
 import chat.progressive.app.databinding.FragmentFtueAuthSplashBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.onboarding.OnboardingAction
 import chat.progressive.app.features.onboarding.OnboardingFlow
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
@@ -31,7 +31,7 @@ class FtueAuthSplashFragment :
         AbstractFtueAuthFragment<FragmentFtueAuthSplashBinding>() {
 
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var buildMeta: BuildMeta
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentFtueAuthSplashBinding {

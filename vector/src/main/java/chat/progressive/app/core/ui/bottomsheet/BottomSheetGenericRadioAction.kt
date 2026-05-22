@@ -8,7 +8,7 @@
 package chat.progressive.app.core.ui.bottomsheet
 
 import chat.progressive.app.core.epoxy.bottomsheet.BottomSheetRadioActionItem_
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
 /**
  * Parent class for a bottom sheet action.
@@ -17,7 +17,7 @@ open class BottomSheetGenericRadioAction(
         open val title: String?,
         open val description: String? = null,
         open val isSelected: Boolean
-) : VectorSharedAction {
+) : ProgressiveSharedAction {
 
     fun toRadioBottomSheetItem(): BottomSheetRadioActionItem_ {
         return BottomSheetRadioActionItem_().also {

@@ -8,6 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/dialog_title_warning"
-        android:src="@drawable/vector_warning_red" />
+        android:src="@drawable/progressive_warning_red" />
 
 </FrameLayout>

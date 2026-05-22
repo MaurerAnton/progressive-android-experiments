@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.home.room.threads.list.viewmodel
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed interface ThreadListViewEvents : VectorViewEvents {
+sealed interface ThreadListViewEvents : ProgressiveViewEvents {
     data class ShowError(val throwable: Throwable) : ThreadListViewEvents
 }

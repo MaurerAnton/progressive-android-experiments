@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.widgets.permissions
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class RoomWidgetPermissionViewEvents : VectorViewEvents {
+sealed class RoomWidgetPermissionViewEvents : ProgressiveViewEvents {
     object Close : RoomWidgetPermissionViewEvents()
 }

@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.settings.push
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class PushGatewayViewEvents : VectorViewEvents {
+sealed class PushGatewayViewEvents : ProgressiveViewEvents {
     data class RemovePusherFailed(val cause: Throwable) : PushGatewayViewEvents()
 }

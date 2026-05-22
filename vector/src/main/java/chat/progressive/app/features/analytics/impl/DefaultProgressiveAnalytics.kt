@@ -10,9 +10,9 @@ package chat.progressive.app.features.analytics.impl
 import com.posthog.PostHogInterface
 import chat.progressive.app.core.di.NamedGlobalScope
 import chat.progressive.app.features.analytics.AnalyticsConfig
-import chat.progressive.app.features.analytics.VectorAnalytics
-import chat.progressive.app.features.analytics.itf.VectorAnalyticsEvent
-import chat.progressive.app.features.analytics.itf.VectorAnalyticsScreen
+import chat.progressive.app.features.analytics.ProgressiveAnalytics
+import chat.progressive.app.features.analytics.itf.ProgressiveAnalyticsEvent
+import chat.progressive.app.features.analytics.itf.ProgressiveAnalyticsScreen
 import chat.progressive.app.features.analytics.log.analyticsTag
 import chat.progressive.app.features.analytics.plan.SuperProperties
 import chat.progressive.app.features.analytics.plan.UserProperties
@@ -27,14 +27,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DefaultVectorAnalytics @Inject constructor(
+class DefaultProgressiveAnalytics @Inject constructor(
         private val postHogFactory: PostHogFactory,
         private val sentryAnalytics: SentryAnalytics,
         private val analyticsConfig: AnalyticsConfig,
         private val analyticsStore: AnalyticsStore,
         private val lateInitUserPropertiesFactory: LateInitUserPropertiesFactory,
         @NamedGlobalScope private val globalScope: CoroutineScope
-) : VectorAnalytics {
+) : ProgressiveAnalytics {
 
     private var posthog: PostHogInterface? = null
 
@@ -160,14 +160,14 @@ class DefaultVectorAnalytics @Inject constructor(
         }
     }
 
-    override fun capture(event: VectorAnalyticsEvent) {
+    override fun capture(event: ProgressiveAnalyticsEvent) {
         Timber.tag(analyticsTag.value).d("capture($event)")
         posthog?.takeIf { userConsent == true }?.capture(
                         event.getName(), analyticsId, event.getProperties()?.toPostHogProperties().orEmpty().withSuperProperties()
                 )
     }
 
-    override fun screen(screen: VectorAnalyticsScreen) {
+    override fun screen(screen: ProgressiveAnalyticsScreen) {
         Timber.tag(analyticsTag.value).d("screen($screen)")
         posthog?.takeIf { userConsent == true }?.screen(screen.getName(), screen.getProperties()?.toPostHogProperties().orEmpty().withSuperProperties())
     }
@@ -218,7 +218,7 @@ class DefaultVectorAnalytics @Inject constructor(
      */
     private fun Map<String, Any>.withSuperProperties(): Map<String, Any>? {
         val withSuperProperties = this.toMutableMap()
-        val superProperties = this@DefaultVectorAnalytics.superProperties?.getProperties()
+        val superProperties = this@DefaultProgressiveAnalytics.superProperties?.getProperties()
         superProperties?.forEach {
             if (!withSuperProperties.containsKey(it.key)) {
                 withSuperProperties[it.key] = it.value

@@ -9,7 +9,7 @@ package chat.progressive.app.features.settings.labs
 
 import chat.progressive.app.core.platform.ProgressiveViewModelAction
 
-sealed class VectorSettingsLabsAction : ProgressiveViewModelAction {
-    object UpdateClientInfo : VectorSettingsLabsAction()
-    object DeleteRecordedClientInfo : VectorSettingsLabsAction()
+sealed class ProgressiveSettingsLabsAction : ProgressiveViewModelAction {
+    object UpdateClientInfo : ProgressiveSettingsLabsAction()
+    object DeleteRecordedClientInfo : ProgressiveSettingsLabsAction()
 }

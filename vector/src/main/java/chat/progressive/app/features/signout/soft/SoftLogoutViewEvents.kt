@@ -7,12 +7,12 @@
 
 package chat.progressive.app.features.signout.soft
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for SoftLogout.
  */
-sealed class SoftLogoutViewEvents : VectorViewEvents {
+sealed class SoftLogoutViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : SoftLogoutViewEvents()
 
     data class ErrorNotSameUser(val currentUserId: String, val newUserId: String) : SoftLogoutViewEvents()

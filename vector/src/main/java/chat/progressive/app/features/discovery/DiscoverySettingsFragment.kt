@@ -28,7 +28,7 @@ import chat.progressive.app.core.utils.showIdentityServerConsentDialog
 import chat.progressive.app.databinding.FragmentGenericRecyclerBinding
 import chat.progressive.app.features.discovery.change.SetIdentityServerFragment
 import chat.progressive.app.features.navigation.SettingsActivityPayload
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.session.identity.SharedState
 import org.matrix.android.sdk.api.session.identity.ThreePid
@@ -203,6 +203,6 @@ class DiscoverySettingsFragment :
     }
 
     private fun navigateToChangeIdentityServerFragment() {
-        (vectorBaseActivity as? VectorSettingsActivity)?.navigateTo(SetIdentityServerFragment::class.java)
+        (vectorBaseActivity as? ProgressiveSettingsActivity)?.navigateTo(SetIdentityServerFragment::class.java)
     }
 }

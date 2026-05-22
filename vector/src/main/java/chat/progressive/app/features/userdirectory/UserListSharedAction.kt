@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.userdirectory
 
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 
-sealed class UserListSharedAction : VectorSharedAction {
+sealed class UserListSharedAction : ProgressiveSharedAction {
     object Close : UserListSharedAction()
     object GoBack : UserListSharedAction()
     data class OnMenuItemSubmitClick(val selections: Set<PendingSelection>) : UserListSharedAction()

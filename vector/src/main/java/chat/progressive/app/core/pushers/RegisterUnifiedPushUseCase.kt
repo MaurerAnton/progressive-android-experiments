@@ -9,13 +9,13 @@ package chat.progressive.app.core.pushers
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import org.unifiedpush.android.connector.UnifiedPush
 import javax.inject.Inject
 
 class RegisterUnifiedPushUseCase @Inject constructor(
         @ApplicationContext private val context: Context,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
 ) {
 
     sealed interface RegisterUnifiedPushResult {

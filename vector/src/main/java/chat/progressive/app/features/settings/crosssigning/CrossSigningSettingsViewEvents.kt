@@ -7,13 +7,13 @@
 
 package chat.progressive.app.features.settings.crosssigning
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
 
 /**
  * Transient events for cross signing settings screen.
  */
-sealed class CrossSigningSettingsViewEvents : VectorViewEvents {
+sealed class CrossSigningSettingsViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : CrossSigningSettingsViewEvents()
     data class RequestReAuth(val registrationFlowResponse: RegistrationFlowResponse, val lastErrorCode: String?) : CrossSigningSettingsViewEvents()
     data class ShowModalWaitingView(val status: String?) : CrossSigningSettingsViewEvents()

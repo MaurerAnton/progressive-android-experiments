@@ -30,7 +30,7 @@ import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.extensions.registerStartForActivityResult
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.utils.colorizeMatchingText
 import chat.progressive.app.core.utils.isValidUrl
@@ -60,7 +60,7 @@ class SpaceDirectoryFragment :
         SpaceDirectoryController.InteractionListener,
         TimelineEventController.UrlClickCallback,
         OnBackPressed,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var epoxyController: SpaceDirectoryController
     @Inject lateinit var permalinkHandler: PermalinkHandler

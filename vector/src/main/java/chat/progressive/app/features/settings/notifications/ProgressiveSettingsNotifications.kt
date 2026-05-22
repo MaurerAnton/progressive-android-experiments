@@ -40,15 +40,15 @@ import chat.progressive.app.core.utils.isIgnoringBatteryOptimizations
 import chat.progressive.app.core.utils.registerForPermissionsResult
 import chat.progressive.app.core.utils.requestDisablingBatteryOptimization
 import chat.progressive.app.core.utils.startNotificationSettingsIntent
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.home.NotificationPermissionManager
 import chat.progressive.app.features.notifications.NotificationUtils
 import chat.progressive.app.features.settings.BackgroundSyncMode
 import chat.progressive.app.features.settings.BackgroundSyncModeChooserDialog
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsBaseFragment
-import chat.progressive.app.features.settings.VectorSettingsFragmentInteractionListener
+import chat.progressive.app.features.settings.ProgressiveSettingsBaseFragment
+import chat.progressive.app.features.settings.ProgressiveSettingsInteraction
 import chat.progressive.lib.core.utils.compat.getParcelableExtraCompat
 import chat.progressive.lib.strings.CommonPlurals
 import chat.progressive.lib.strings.CommonStrings
@@ -65,7 +65,7 @@ import javax.inject.Inject
 // Referenced in progressive_settings_preferences_root.xml
 @AndroidEntryPoint
 class ProgressiveSettingsNotifications :
-        VectorSettingsBaseFragment(),
+        ProgressiveSettingsBaseFragment(),
         BackgroundSyncModeChooserDialog.InteractionListener {
 
     @Inject lateinit var unifiedPushHelper: UnifiedPushHelper
@@ -74,16 +74,16 @@ class ProgressiveSettingsNotifications :
     @Inject lateinit var activeSessionHolder: ActiveSessionHolder
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
     @Inject lateinit var guardServiceStarter: GuardServiceStarter
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var notificationPermissionManager: NotificationPermissionManager
     @Inject lateinit var ensureFcmTokenIsRetrievedUseCase: EnsureFcmTokenIsRetrievedUseCase
 
     override var titleRes: Int = CommonStrings.settings_notifications
     override val preferenceXmlRes = R.xml.progressive_settings_notifications
 
-    private var interactionListener: VectorSettingsFragmentInteractionListener? = null
+    private var interactionListener: ProgressiveSettingsInteraction? = null
 
-    private val viewModel: VectorSettingsNotificationViewModel by fragmentViewModel()
+    private val viewModel: ProgressiveSettingsNotifViewModel by fragmentViewModel()
 
     private val notificationStartForActivityResult = registerStartForActivityResult { _ ->
         // No op
@@ -109,10 +109,10 @@ class ProgressiveSettingsNotifications :
     private fun observeViewEvents() {
         viewModel.observeViewEvents {
             when (it) {
-                VectorSettingsNotificationViewEvent.NotificationsForDeviceEnabled -> onNotificationsForDeviceEnabled()
-                VectorSettingsNotificationViewEvent.NotificationsForDeviceDisabled -> onNotificationsForDeviceDisabled()
-                is VectorSettingsNotificationViewEvent.AskUserForPushDistributor -> askUserToSelectPushDistributor()
-                VectorSettingsNotificationViewEvent.NotificationMethodChanged -> onNotificationMethodChanged()
+                ProgressiveSettingsNotifEvent.NotificationsForDeviceEnabled -> onNotificationsForDeviceEnabled()
+                ProgressiveSettingsNotifEvent.NotificationsForDeviceDisabled -> onNotificationsForDeviceDisabled()
+                is ProgressiveSettingsNotifEvent.AskUserForPushDistributor -> askUserToSelectPushDistributor()
+                ProgressiveSettingsNotifEvent.NotificationMethodChanged -> onNotificationMethodChanged()
             }
         }
     }
@@ -136,9 +136,9 @@ class ProgressiveSettingsNotifications :
         findPreference<SwitchPreference>(ProgressiveBasePreferences.SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY)
                 ?.setOnPreferenceChangeListener { _, isChecked ->
                     val action = if (isChecked as Boolean) {
-                        VectorSettingsNotificationViewAction.EnableNotificationsForDevice(pushDistributor = "")
+                        ProgressiveSettingsNotifAction.EnableNotificationsForDevice(pushDistributor = "")
                     } else {
-                        VectorSettingsNotificationViewAction.DisableNotificationsForDevice
+                        ProgressiveSettingsNotifAction.DisableNotificationsForDevice
                     }
                     viewModel.handle(action)
                     // preference will be updated on ViewEvent reception
@@ -224,9 +224,9 @@ class ProgressiveSettingsNotifications :
     private fun askUserToSelectPushDistributor(withUnregister: Boolean = false) {
         unifiedPushHelper.showSelectDistributorDialog(requireContext()) { selection ->
             if (withUnregister) {
-                viewModel.handle(VectorSettingsNotificationViewAction.RegisterPushDistributor(selection))
+                viewModel.handle(ProgressiveSettingsNotifAction.RegisterPushDistributor(selection))
             } else {
-                viewModel.handle(VectorSettingsNotificationViewAction.EnableNotificationsForDevice(selection))
+                viewModel.handle(ProgressiveSettingsNotifAction.EnableNotificationsForDevice(selection))
             }
         }
     }
@@ -422,7 +422,7 @@ class ProgressiveSettingsNotifications :
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is VectorSettingsFragmentInteractionListener) {
+        if (context is ProgressiveSettingsInteraction) {
             interactionListener = context
         }
         (activity?.supportFragmentManager

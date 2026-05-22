@@ -13,30 +13,30 @@ import androidx.preference.Preference
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import chat.progressive.app.core.preference.ProgressiveCheckboxPreference
-import chat.progressive.app.features.settings.VectorSettingsBaseFragment
+import chat.progressive.app.features.settings.ProgressiveSettingsBaseFragment
 import chat.progressive.app.features.themes.ThemeUtils
 import chat.progressive.lib.strings.CommonStrings
 
-abstract class VectorSettingsPushRuleNotificationFragment :
-        VectorSettingsBaseFragment() {
+abstract class ProgressiveSettingsPushRule :
+        ProgressiveSettingsBaseFragment() {
 
-    protected val viewModel: VectorSettingsPushRuleNotificationViewModel by fragmentViewModel()
+    protected val viewModel: ProgressiveSettingsPushRuleVM by fragmentViewModel()
 
     abstract val prefKeyToPushRuleId: Map<String, String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewEvents()
-        viewModel.onEach(VectorSettingsPushRuleNotificationViewState::allRules) { refreshPreferences() }
-        viewModel.onEach(VectorSettingsPushRuleNotificationViewState::isLoading) { updateLoadingView(it) }
-        viewModel.onEach(VectorSettingsPushRuleNotificationViewState::rulesOnError) { refreshErrors(it) }
+        viewModel.onEach(ProgressiveSettingsPushRuleState::allRules) { refreshPreferences() }
+        viewModel.onEach(ProgressiveSettingsPushRuleState::isLoading) { updateLoadingView(it) }
+        viewModel.onEach(ProgressiveSettingsPushRuleState::rulesOnError) { refreshErrors(it) }
     }
 
     private fun observeViewEvents() {
         viewModel.observeViewEvents {
             when (it) {
-                is VectorSettingsPushRuleNotificationViewEvent.Failure -> onFailure(it.ruleId)
-                is VectorSettingsPushRuleNotificationViewEvent.PushRuleUpdated -> {
+                is ProgressiveSettingsPushRuleEvent.Failure -> onFailure(it.ruleId)
+                is ProgressiveSettingsPushRuleEvent.PushRuleUpdated -> {
                     updatePreference(it.ruleId, it.checked)
                     if (it.failure != null) {
                         onFailure(it.ruleId)
@@ -51,7 +51,7 @@ abstract class VectorSettingsPushRuleNotificationFragment :
             findPreference<ProgressiveCheckboxPreference>(preferenceKey)?.apply {
                 isIconSpaceReserved = false
                 onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-                    viewModel.handle(VectorSettingsPushRuleNotificationViewAction.UpdatePushRule(ruleId, newValue as Boolean))
+                    viewModel.handle(ProgressiveSettingsPushRuleAction.UpdatePushRule(ruleId, newValue as Boolean))
                     false
                 }
             }
@@ -71,7 +71,7 @@ abstract class VectorSettingsPushRuleNotificationFragment :
     }
 
     private fun refreshErrors(rulesWithError: Set<String>) {
-        if (withState(viewModel, VectorSettingsPushRuleNotificationViewState::isLoading)) return
+        if (withState(viewModel, ProgressiveSettingsPushRuleState::isLoading)) return
         prefKeyToPushRuleId.forEach { (preferenceKey, ruleId) ->
             findPreference<ProgressiveCheckboxPreference>(preferenceKey)?.apply {
                 if (ruleId in rulesWithError) {

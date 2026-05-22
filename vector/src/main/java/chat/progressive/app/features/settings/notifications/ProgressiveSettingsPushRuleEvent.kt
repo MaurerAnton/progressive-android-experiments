@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.settings.notifications
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed interface VectorSettingsPushRuleNotificationViewEvent : VectorViewEvents {
+sealed interface ProgressiveSettingsPushRuleEvent : ProgressiveViewEvents {
     /**
      * A global push rule checked state has changed.
      *
@@ -17,7 +17,7 @@ sealed interface VectorSettingsPushRuleNotificationViewEvent : VectorViewEvents 
      * @property checked whether the global rule is checked.
      * @property failure whether there has been a failure when updating the global rule (ie. a sub rule has not been updated).
      */
-    data class PushRuleUpdated(val ruleId: String, val checked: Boolean, val failure: Throwable? = null) : VectorSettingsPushRuleNotificationViewEvent
+    data class PushRuleUpdated(val ruleId: String, val checked: Boolean, val failure: Throwable? = null) : ProgressiveSettingsPushRuleEvent
 
     /**
      * A failure has occurred.
@@ -25,5 +25,5 @@ sealed interface VectorSettingsPushRuleNotificationViewEvent : VectorViewEvents 
      * @property ruleId the global rule id related to the failure.
      * @property throwable the related exception, if any.
      */
-    data class Failure(val ruleId: String, val throwable: Throwable?) : VectorSettingsPushRuleNotificationViewEvent
+    data class Failure(val ruleId: String, val throwable: Throwable?) : ProgressiveSettingsPushRuleEvent
 }

@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.media
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class ProgressiveAttachmentEvents : VectorViewEvents {
+sealed class ProgressiveAttachmentEvents : ProgressiveViewEvents {
     data class ErrorDownloadingMedia(val error: Throwable) : ProgressiveAttachmentEvents()
 }

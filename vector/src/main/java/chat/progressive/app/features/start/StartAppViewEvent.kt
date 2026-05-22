@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.start
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed interface StartAppViewEvent : VectorViewEvents {
+sealed interface StartAppViewEvent : ProgressiveViewEvents {
     /**
      * Will be sent if the process is taking more than 1 second.
      */

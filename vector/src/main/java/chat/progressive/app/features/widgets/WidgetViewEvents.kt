@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.widgets
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.session.events.model.Content
 
-sealed class WidgetViewEvents : VectorViewEvents {
+sealed class WidgetViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : WidgetViewEvents()
     data class Close(val content: Content? = null) : WidgetViewEvents()
     data class DisplayIntegrationManager(val integId: String?, val integType: String?) : WidgetViewEvents()

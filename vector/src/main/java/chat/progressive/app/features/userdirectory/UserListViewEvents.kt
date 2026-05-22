@@ -7,13 +7,13 @@
 
 package chat.progressive.app.features.userdirectory
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.features.discovery.ServerAndPolicies
 
 /**
  * Transient events for invite users to room screen.
  */
-sealed class UserListViewEvents : VectorViewEvents {
+sealed class UserListViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : UserListViewEvents()
     data class OnPoliciesRetrieved(val identityServerWithTerms: ServerAndPolicies?) : UserListViewEvents()
     data class OpenShareMatrixToLink(val link: String) : UserListViewEvents()

@@ -65,7 +65,7 @@ import chat.progressive.app.core.utils.ToolbarConfig
 import chat.progressive.app.core.utils.toast
 import chat.progressive.app.features.MainActivity
 import chat.progressive.app.features.MainActivityArgs
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.analytics.AnalyticsTracker
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.configuration.ProgressiveConfiguration
@@ -121,7 +121,7 @@ abstract class ProgressiveActivity<VB : ViewBinding> : AppCompatActivity(), Mave
     protected val viewModelProvider
         get() = ViewModelProvider(this, viewModelFactory)
 
-    fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
+    fun <T : ProgressiveViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
         val tag = this@ProgressiveActivity::class.simpleName.toString()
@@ -162,7 +162,7 @@ abstract class ProgressiveActivity<VB : ViewBinding> : AppCompatActivity(), Mave
     @Inject lateinit var buildMeta: BuildMeta
     @Inject lateinit var fontScalePreferences: FontScalePreferences
     @Inject lateinit var vectorLocale: VectorLocaleProvider
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var navigator: Navigator
     @Inject lateinit var activeSessionHolder: ActiveSessionHolder
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
@@ -270,7 +270,7 @@ abstract class ProgressiveActivity<VB : ViewBinding> : AppCompatActivity(), Mave
 
     private fun setupMenu() {
         // Always add a MenuProvider to handle the back action from the Toolbar
-        val vectorMenuProvider = this as? VectorMenuProvider
+        val vectorMenuProvider = this as? ProgressiveMenuProvider
         addMenuProvider(
                 object : MenuProvider {
                     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

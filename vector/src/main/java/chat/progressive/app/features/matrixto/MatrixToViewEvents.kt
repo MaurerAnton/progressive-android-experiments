@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.matrixto
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class MatrixToViewEvents : VectorViewEvents {
+sealed class MatrixToViewEvents : ProgressiveViewEvents {
     data class NavigateToRoom(val roomId: String) : MatrixToViewEvents()
     data class NavigateToSpace(val spaceId: String) : MatrixToViewEvents()
     data class ShowModalError(val error: String) : MatrixToViewEvents()

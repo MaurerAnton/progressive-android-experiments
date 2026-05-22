@@ -8,12 +8,12 @@
 package chat.progressive.app.features.roomprofile
 
 import androidx.core.content.pm.ShortcutInfoCompat
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
 /**
  * Transient events for RoomProfile.
  */
-sealed class RoomProfileViewEvents : VectorViewEvents {
+sealed class RoomProfileViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : RoomProfileViewEvents()
     object DismissLoading : RoomProfileViewEvents()
     data class Failure(val throwable: Throwable) : RoomProfileViewEvents()

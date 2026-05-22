@@ -17,12 +17,12 @@ import chat.progressive.app.core.di.hiltMavericksViewModelFactory
 import chat.progressive.app.core.platform.EmptyViewEvents
 import chat.progressive.app.core.platform.ProgressiveViewModel
 import chat.progressive.app.core.platform.ProgressiveViewModelAction
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 
 class AttachmentTypeSelectorViewModel @AssistedInject constructor(
         @Assisted initialState: AttachmentTypeSelectorViewState,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
         private val progressivePreferences: ProgressiveBasePreferences,
 ) : ProgressiveViewModel<AttachmentTypeSelectorViewState, AttachmentTypeSelectorAction, EmptyViewEvents>(initialState) {
     @AssistedFactory

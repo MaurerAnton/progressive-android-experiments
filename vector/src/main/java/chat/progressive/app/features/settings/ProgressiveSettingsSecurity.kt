@@ -77,7 +77,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProgressiveSettingsSecurity :
-        VectorSettingsBaseFragment() {
+        ProgressiveSettingsBaseFragment() {
 
     @Inject lateinit var activeSessionHolder: ActiveSessionHolder
     @Inject lateinit var pinCodeStore: PinCodeStore
@@ -432,7 +432,7 @@ class ProgressiveSettingsSecurity :
     }
 
     private fun doOpenPinCodePreferenceScreen() {
-        (vectorActivity as? VectorSettingsActivity)?.navigateTo(ProgressiveSettingsPin::class.java)
+        (vectorActivity as? ProgressiveSettingsActivity)?.navigateTo(ProgressiveSettingsPin::class.java)
     }
 
     private fun refreshKeysManagementSection() {

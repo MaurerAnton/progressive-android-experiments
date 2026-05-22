@@ -30,7 +30,7 @@ import chat.progressive.app.databinding.FragmentSettingsNotificationsTroubleshoo
 import chat.progressive.app.features.notifications.NotificationActionIds
 import chat.progressive.app.features.push.NotificationTroubleshootTestManagerFactory
 import chat.progressive.app.features.rageshake.BugReporter
-import chat.progressive.app.features.settings.VectorSettingsFragmentInteractionListener
+import chat.progressive.app.features.settings.ProgressiveSettingsInteraction
 import chat.progressive.app.features.settings.troubleshoot.NotificationTroubleshootTestManager
 import chat.progressive.app.features.settings.troubleshoot.TroubleshootTest
 import chat.progressive.lib.strings.CommonStrings
@@ -39,7 +39,7 @@ import org.matrix.android.sdk.api.extensions.tryOrNull
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VectorSettingsNotificationsTroubleshootFragment :
+class ProgressiveSettingsTroubleshoot :
         ProgressiveFragment<FragmentSettingsNotificationsTroubleshootBinding>() {
 
     @Inject lateinit var bugReporter: BugReporter
@@ -53,7 +53,7 @@ class VectorSettingsNotificationsTroubleshootFragment :
         return FragmentSettingsNotificationsTroubleshootBinding.inflate(inflater, container, false)
     }
 
-    private var interactionListener: VectorSettingsFragmentInteractionListener? = null
+    private var interactionListener: ProgressiveSettingsInteraction? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -191,7 +191,7 @@ class VectorSettingsNotificationsTroubleshootFragment :
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is VectorSettingsFragmentInteractionListener) {
+        if (context is ProgressiveSettingsInteraction) {
             interactionListener = context
         }
     }

@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.roomprofile.settings.joinrule.advanced
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class RoomJoinRuleChooseRestrictedEvents : VectorViewEvents {
+sealed class RoomJoinRuleChooseRestrictedEvents : ProgressiveViewEvents {
     object NavigateToChooseRestricted : RoomJoinRuleChooseRestrictedEvents()
     data class NavigateToUpgradeRoom(val roomId: String, val toVersion: String, val description: CharSequence) : RoomJoinRuleChooseRestrictedEvents()
 }

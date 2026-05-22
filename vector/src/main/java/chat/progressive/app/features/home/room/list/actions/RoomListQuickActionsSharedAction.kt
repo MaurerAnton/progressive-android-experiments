@@ -10,14 +10,14 @@ package chat.progressive.app.features.home.room.list.actions
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import chat.progressive.app.R
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 import chat.progressive.lib.strings.CommonStrings
 
 sealed class RoomListQuickActionsSharedAction(
         @StringRes val titleRes: Int,
         @DrawableRes val iconResId: Int?,
         val destructive: Boolean = false
-) : VectorSharedAction {
+) : ProgressiveSharedAction {
 
     data class NotificationsAllNoisy(val roomId: String) : RoomListQuickActionsSharedAction(
             CommonStrings.room_list_quick_actions_notifications_all_noisy,

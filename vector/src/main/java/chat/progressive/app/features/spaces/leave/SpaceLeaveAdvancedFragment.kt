@@ -24,7 +24,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.extensions.cleanup
 import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.ToggleableAppBarLayoutBehavior
 import chat.progressive.app.databinding.FragmentSpaceLeaveAdvancedBinding
 import chat.progressive.lib.strings.CommonStrings
@@ -35,7 +35,7 @@ import javax.inject.Inject
 class SpaceLeaveAdvancedFragment :
         ProgressiveFragment<FragmentSpaceLeaveAdvancedBinding>(),
         SelectChildrenController.Listener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var controller: SelectChildrenController
 

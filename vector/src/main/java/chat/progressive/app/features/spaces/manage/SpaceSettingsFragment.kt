@@ -30,7 +30,7 @@ import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.intent.getFilenameFromUri
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.toast
 import chat.progressive.app.databinding.FragmentRoomSettingGenericBinding
 import chat.progressive.app.features.home.AvatarRenderer
@@ -57,7 +57,7 @@ class SpaceSettingsFragment :
         SpaceSettingsController.Callback,
         GalleryOrCameraDialogHelper.Listener,
         OnBackPressed,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var epoxyController: SpaceSettingsController
     @Inject lateinit var galleryOrCameraDialogHelperFactory: GalleryOrCameraDialogHelperFactory

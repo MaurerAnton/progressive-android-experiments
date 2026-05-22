@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:gravity="start|center_vertical"
-        android:textColor="@color/vector_content_primary_tint_selector"
+        android:textColor="@color/progressive_content_primary_tint_selector"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

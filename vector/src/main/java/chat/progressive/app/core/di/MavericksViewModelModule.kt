@@ -94,11 +94,11 @@ import chat.progressive.app.features.settings.devtools.KeyRequestViewModel
 import chat.progressive.app.features.settings.font.FontScaleSettingViewModel
 import chat.progressive.app.features.settings.homeserver.HomeserverSettingsViewModel
 import chat.progressive.app.features.settings.ignored.IgnoredUsersViewModel
-import chat.progressive.app.features.settings.labs.VectorSettingsLabsViewModel
+import chat.progressive.app.features.settings.labs.ProgressiveSettingsLabsVM
 import chat.progressive.app.features.settings.legals.LegalsViewModel
 import chat.progressive.app.features.settings.locale.LocalePickerViewModel
-import chat.progressive.app.features.settings.notifications.VectorSettingsNotificationViewModel
-import chat.progressive.app.features.settings.notifications.VectorSettingsPushRuleNotificationViewModel
+import chat.progressive.app.features.settings.notifications.ProgressiveSettingsNotifViewModel
+import chat.progressive.app.features.settings.notifications.ProgressiveSettingsPushRuleVM
 import chat.progressive.app.features.settings.push.PushGatewaysViewModel
 import chat.progressive.app.features.settings.threepids.ThreePidsSettingsViewModel
 import chat.progressive.app.features.share.IncomingShareViewModel
@@ -665,8 +665,8 @@ interface MavericksViewModelModule {
 
     @Binds
     @IntoMap
-    @MavericksViewModelKey(VectorSettingsLabsViewModel::class)
-    fun vectorSettingsLabsViewModelFactory(factory: VectorSettingsLabsViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
+    @MavericksViewModelKey(ProgressiveSettingsLabsVM::class)
+    fun vectorSettingsLabsViewModelFactory(factory: ProgressiveSettingsLabsVM.Factory): MavericksAssistedViewModelFactory<*, *>
 
     @Binds
     @IntoMap
@@ -675,16 +675,16 @@ interface MavericksViewModelModule {
 
     @Binds
     @IntoMap
-    @MavericksViewModelKey(VectorSettingsNotificationViewModel::class)
+    @MavericksViewModelKey(ProgressiveSettingsNotifViewModel::class)
     fun vectorSettingsNotificationPreferenceViewModelFactory(
-            factory: VectorSettingsNotificationViewModel.Factory
+            factory: ProgressiveSettingsNotifViewModel.Factory
     ): MavericksAssistedViewModelFactory<*, *>
 
     @Binds
     @IntoMap
-    @MavericksViewModelKey(VectorSettingsPushRuleNotificationViewModel::class)
+    @MavericksViewModelKey(ProgressiveSettingsPushRuleVM::class)
     fun vectorSettingsPushRuleNotificationPreferenceViewModelFactory(
-            factory: VectorSettingsPushRuleNotificationViewModel.Factory
+            factory: ProgressiveSettingsPushRuleVM.Factory
     ): MavericksAssistedViewModelFactory<*, *>
 
     @Binds

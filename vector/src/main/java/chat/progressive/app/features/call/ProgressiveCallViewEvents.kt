@@ -7,11 +7,11 @@
 
 package chat.progressive.app.features.call
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.features.call.audio.CallAudioManager
 import org.matrix.android.sdk.api.session.call.TurnServerResponse
 
-sealed class ProgressiveCallViewEvents : VectorViewEvents {
+sealed class ProgressiveCallViewEvents : ProgressiveViewEvents {
 
     data class ConnectionTimeout(val turn: TurnServerResponse?) : ProgressiveCallViewEvents()
     data class ShowSoundDeviceChooser(

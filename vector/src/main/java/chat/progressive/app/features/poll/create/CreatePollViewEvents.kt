@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.poll.create
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class CreatePollViewEvents : VectorViewEvents {
+sealed class CreatePollViewEvents : ProgressiveViewEvents {
     object Success : CreatePollViewEvents()
     object EmptyQuestionError : CreatePollViewEvents()
     data class NotEnoughOptionsError(val requiredOptionsCount: Int) : CreatePollViewEvents()

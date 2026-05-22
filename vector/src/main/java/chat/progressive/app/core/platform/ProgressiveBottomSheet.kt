@@ -193,7 +193,7 @@ abstract class ProgressiveBottomSheet<VB : ViewBinding> : BottomSheetDialogFragm
      * ViewEvents
      * ========================================================================================== */
 
-    protected fun <T : VectorViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
+    protected fun <T : ProgressiveViewEvents> ProgressiveViewModel<*, *, T>.observeViewEvents(
             observer: (T) -> Unit,
     ) {
         val tag = this@ProgressiveBottomSheet::class.simpleName.toString()

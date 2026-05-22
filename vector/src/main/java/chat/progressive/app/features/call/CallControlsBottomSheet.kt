@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.R
 import chat.progressive.app.core.platform.ProgressiveBottomSheet
 import chat.progressive.app.databinding.BottomSheetCallControlsBinding
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class CallControlsBottomSheet : ProgressiveBottomSheet<BottomSheetCallControlsBi
         return BottomSheetCallControlsBinding.inflate(inflater, container, false)
     }
 
-    @Inject lateinit var vectorFeatures: VectorFeatures
+    @Inject lateinit var vectorFeatures: ProgressiveFeatures
 
     private val callViewModel: ProgressiveCallViewModel by activityViewModel()
 

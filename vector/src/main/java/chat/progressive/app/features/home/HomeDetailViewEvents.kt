@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.home
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class HomeDetailViewEvents : VectorViewEvents {
+sealed class HomeDetailViewEvents : ProgressiveViewEvents {
     object Loading : HomeDetailViewEvents()
     object CallStarted : HomeDetailViewEvents()
     data class FailToCall(val failure: Throwable) : HomeDetailViewEvents()

@@ -7,11 +7,11 @@
 
 package chat.progressive.app.features.settings.devices.v2
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
 import org.matrix.android.sdk.api.session.crypto.model.CryptoDeviceInfo
 
-sealed class DevicesViewEvent : VectorViewEvents {
+sealed class DevicesViewEvent : ProgressiveViewEvents {
     data class RequestReAuth(
             val registrationFlowResponse: RegistrationFlowResponse,
             val lastErrorCode: String?

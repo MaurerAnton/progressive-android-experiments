@@ -27,7 +27,7 @@ import chat.progressive.app.core.extensions.toMvRxBundle
 import chat.progressive.app.core.platform.OnBackPressed
 import chat.progressive.app.core.platform.ProgressiveActivity
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.ui.views.CurrentCallsView
 import chat.progressive.app.core.ui.views.CurrentCallsViewPresenter
@@ -44,7 +44,7 @@ import chat.progressive.app.features.popup.PopupAlertManager
 import chat.progressive.app.features.popup.VerificationProgressiveAlert
 import chat.progressive.app.features.settings.VectorLocaleProvider
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
-import chat.progressive.app.features.settings.VectorSettingsActivity.Companion.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity.Companion.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
 import chat.progressive.app.features.themes.ThemeUtils
 import chat.progressive.app.features.workers.signout.BannerState
 import chat.progressive.app.features.workers.signout.ServerBackupStatusAction
@@ -60,7 +60,7 @@ class HomeDetailFragment :
         KeysBackupBanner.Delegate,
         CurrentCallsView.Callback,
         OnBackPressed,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var avatarRenderer: AvatarRenderer
     @Inject lateinit var colorProvider: ColorProvider

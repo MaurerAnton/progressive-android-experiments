@@ -8,13 +8,13 @@
 package chat.progressive.app.features.home
 
 import chat.progressive.app.config.Config
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.lib.core.utils.timer.Clock
 import javax.inject.Inject
 
 class ShouldShowUnverifiedSessionsAlertUseCase @Inject constructor(
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
         private val progressivePreferences: ProgressiveBasePreferences,
         private val clock: Clock,
 ) {

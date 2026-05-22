@@ -10,7 +10,7 @@ package chat.progressive.app.features.roomprofile.alias.detail
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import chat.progressive.app.R
-import chat.progressive.app.core.platform.VectorSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedAction
 import chat.progressive.lib.strings.CommonStrings
 
 sealed class RoomAliasBottomSheetSharedAction(
@@ -18,7 +18,7 @@ sealed class RoomAliasBottomSheetSharedAction(
         @DrawableRes val iconResId: Int = 0,
         val destructive: Boolean = false
 ) :
-        VectorSharedAction {
+        ProgressiveSharedAction {
 
     data class ShareAlias(val matrixTo: String) : RoomAliasBottomSheetSharedAction(
             CommonStrings.action_share,

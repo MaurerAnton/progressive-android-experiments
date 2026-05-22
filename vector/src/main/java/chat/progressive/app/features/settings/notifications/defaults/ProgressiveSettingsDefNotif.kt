@@ -11,12 +11,12 @@ import android.os.Bundle
 import chat.progressive.app.R
 import chat.progressive.app.core.preference.ProgressivePreferenceCategory
 import chat.progressive.app.features.analytics.plan.MobileScreen
-import chat.progressive.app.features.settings.notifications.VectorSettingsPushRuleNotificationFragment
+import chat.progressive.app.features.settings.notifications.ProgressiveSettingsPushRule
 import chat.progressive.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.session.pushrules.RuleIds
 
-class VectorSettingsDefaultNotificationFragment :
-        VectorSettingsPushRuleNotificationFragment() {
+class ProgressiveSettingsDefNotif :
+        ProgressiveSettingsPushRule() {
 
     override var titleRes: Int = CommonStrings.settings_notification_default
 

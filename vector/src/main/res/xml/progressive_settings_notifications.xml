@@ -25,21 +25,21 @@
             android:key="SETTINGS_NOTIFICATION_DEFAULT_PREFERENCE_KEY"
             android:persistent="false"
             android:title="@string/settings_notification_default"
-            app:fragment="chat.progressive.app.features.settings.notifications.defaults.VectorSettingsDefaultNotificationFragment" />
+            app:fragment="chat.progressive.app.features.settings.notifications.defaults.ProgressiveSettingsDefNotif" />
 
         <chat.progressive.app.core.preference.ProgressiveBasePreference
             android:dependency="SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY"
             android:key="SETTINGS_NOTIFICATION_KEYWORD_AND_MENTIONS_PREFERENCE_KEY"
             android:persistent="false"
             android:title="@string/settings_notification_mentions_and_keywords"
-            app:fragment="chat.progressive.app.features.settings.notifications.keywordandmentions.VectorSettingsKeywordAndMentionsNotificationFragment" />
+            app:fragment="chat.progressive.app.features.settings.notifications.keywordandmentions.ProgressiveSettingsKeyword" />
 
         <chat.progressive.app.core.preference.ProgressiveBasePreference
             android:dependency="SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY"
             android:key="SETTINGS_NOTIFICATION_OTHER_PREFERENCE_KEY"
             android:persistent="false"
             android:title="@string/settings_notification_other"
-            app:fragment="chat.progressive.app.features.settings.notifications.other.VectorSettingsOtherNotificationFragment" />
+            app:fragment="chat.progressive.app.features.settings.notifications.other.ProgressiveSettingsOtherNotif" />
 
     </chat.progressive.app.core.preference.ProgressivePreferenceCategory>
 
@@ -119,7 +119,7 @@
         <chat.progressive.app.core.preference.ProgressiveBasePreference
             android:key="SETTINGS_NOTIFICATION_TROUBLESHOOT_PREFERENCE_KEY"
             android:title="@string/settings_notification_troubleshoot"
-            app:fragment="chat.progressive.app.features.settings.notifications.troubleshoot.VectorSettingsNotificationsTroubleshootFragment" />
+            app:fragment="chat.progressive.app.features.settings.notifications.troubleshoot.ProgressiveSettingsTroubleshoot" />
 
     </chat.progressive.app.core.preference.ProgressivePreferenceCategory>
 

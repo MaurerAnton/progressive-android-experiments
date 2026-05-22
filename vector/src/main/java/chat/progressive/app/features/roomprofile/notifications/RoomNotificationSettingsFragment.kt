@@ -21,7 +21,7 @@ import chat.progressive.app.core.platform.ProgressiveFragment
 import chat.progressive.app.databinding.FragmentRoomSettingGenericBinding
 import chat.progressive.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.home.AvatarRenderer
-import chat.progressive.app.features.settings.VectorSettingsActivity
+import chat.progressive.app.features.settings.ProgressiveSettingsActivity
 import chat.progressive.lib.strings.CommonStrings
 import org.matrix.android.sdk.api.session.room.notification.RoomNotificationState
 import org.matrix.android.sdk.api.util.toMatrixItem
@@ -87,7 +87,7 @@ class RoomNotificationSettingsFragment :
     }
 
     override fun didSelectAccountSettingsLink() {
-        navigator.openSettings(requireContext(), VectorSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
+        navigator.openSettings(requireContext(), ProgressiveSettingsActivity.EXTRA_DIRECT_ACCESS_NOTIFICATIONS)
     }
 
     private fun renderRoomSummary(state: RoomNotificationSettingsViewState) {

@@ -20,7 +20,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.R
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.utils.PERMISSIONS_FOR_FOREGROUND_LOCATION_SHARING
 import chat.progressive.app.core.utils.checkPermissions
 import chat.progressive.app.core.utils.onPermissionDeniedDialog
@@ -44,7 +44,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LocationPreviewFragment :
         ProgressiveFragment<FragmentLocationPreviewBinding>(),
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var urlMapProvider: UrlMapProvider
 

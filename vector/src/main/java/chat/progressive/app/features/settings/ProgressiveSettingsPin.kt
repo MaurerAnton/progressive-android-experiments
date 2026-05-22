@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProgressiveSettingsPin :
-        VectorSettingsBaseFragment() {
+        ProgressiveSettingsBaseFragment() {
 
     @Inject lateinit var pinCodeStore: PinCodeStore
     @Inject lateinit var navigator: Navigator

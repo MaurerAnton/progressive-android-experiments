@@ -35,7 +35,7 @@ import chat.progressive.app.core.extensions.cleanup
 import chat.progressive.app.core.extensions.insertBeforeLast
 import chat.progressive.app.core.extensions.registerStartForActivityResult
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.utils.OnSnapPositionChangeListener
 import chat.progressive.app.core.utils.SnapOnScrollListener
@@ -60,7 +60,7 @@ data class AttachmentsPreviewArgs(
 class AttachmentsPreviewFragment :
         ProgressiveFragment<FragmentAttachmentsPreviewBinding>(),
         AttachmentMiniaturePreviewController.Callback,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var attachmentMiniaturePreviewController: AttachmentMiniaturePreviewController
     @Inject lateinit var attachmentBigPreviewController: AttachmentBigPreviewController

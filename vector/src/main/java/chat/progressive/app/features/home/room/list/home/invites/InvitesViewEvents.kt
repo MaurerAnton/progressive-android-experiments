@@ -7,10 +7,10 @@
 
 package chat.progressive.app.features.home.room.list.home.invites
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.session.room.model.RoomSummary
 
-sealed class InvitesViewEvents : VectorViewEvents {
+sealed class InvitesViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : InvitesViewEvents()
     data class OpenRoom(
             val roomSummary: RoomSummary,

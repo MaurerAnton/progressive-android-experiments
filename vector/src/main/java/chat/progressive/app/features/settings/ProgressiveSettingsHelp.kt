@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProgressiveSettingsHelp :
-        VectorSettingsBaseFragment() {
+        ProgressiveSettingsBaseFragment() {
 
     @Inject lateinit var versionProvider: VersionProvider
     @Inject lateinit var buildMeta: BuildMeta

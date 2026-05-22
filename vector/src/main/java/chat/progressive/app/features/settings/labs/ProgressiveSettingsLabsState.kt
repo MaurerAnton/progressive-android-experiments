@@ -9,4 +9,4 @@ package chat.progressive.app.features.settings.labs
 
 import com.airbnb.mvrx.MavericksState
 
-class VectorSettingsLabsViewState : MavericksState
+class ProgressiveSettingsLabsState : MavericksState

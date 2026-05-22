@@ -11,7 +11,7 @@ import android.app.Activity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import chat.progressive.app.core.dialogs.DialogLocker
 import chat.progressive.app.core.platform.Restorable
-import chat.progressive.app.features.webview.VectorWebViewActivity
+import chat.progressive.app.features.webview.ProgressiveWebViewActivity
 import chat.progressive.app.features.webview.WebViewMode
 import chat.progressive.lib.strings.CommonStrings
 
@@ -44,7 +44,7 @@ class ConsentNotGivenHelper(
      * ========================================================================================== */
 
     private fun openWebViewActivity(consentUri: String) {
-        val intent = VectorWebViewActivity.getIntent(activity, consentUri, activity.getString(CommonStrings.settings_app_term_conditions), WebViewMode.CONSENT)
+        val intent = ProgressiveWebViewActivity.getIntent(activity, consentUri, activity.getString(CommonStrings.settings_app_term_conditions), WebViewMode.CONSENT)
         activity.startActivity(intent)
     }
 }

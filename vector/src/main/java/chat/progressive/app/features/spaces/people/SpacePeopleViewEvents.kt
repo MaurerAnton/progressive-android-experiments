@@ -7,9 +7,9 @@
 
 package chat.progressive.app.features.spaces.people
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class SpacePeopleViewEvents : VectorViewEvents {
+sealed class SpacePeopleViewEvents : ProgressiveViewEvents {
     data class OpenRoom(val roomId: String) : SpacePeopleViewEvents()
     data class InviteToSpace(val spaceId: String) : SpacePeopleViewEvents()
 }

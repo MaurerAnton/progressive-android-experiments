@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.discovery
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed class DiscoverySettingsViewEvents : VectorViewEvents {
+sealed class DiscoverySettingsViewEvents : ProgressiveViewEvents {
     data class Failure(val throwable: Throwable) : DiscoverySettingsViewEvents()
 }

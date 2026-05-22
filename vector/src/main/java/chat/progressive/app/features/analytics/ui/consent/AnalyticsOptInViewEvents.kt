@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.analytics.ui.consent
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 
-sealed interface AnalyticsOptInViewEvents : VectorViewEvents {
+sealed interface AnalyticsOptInViewEvents : ProgressiveViewEvents {
     object OnDataSaved : AnalyticsOptInViewEvents
 }

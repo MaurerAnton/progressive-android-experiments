@@ -27,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.R
 import chat.progressive.app.core.extensions.replaceFragment
 import chat.progressive.app.core.platform.SimpleFragmentActivity
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.utils.createJSonViewerStyleProvider
 import chat.progressive.lib.strings.CommonStrings
@@ -39,7 +39,7 @@ import javax.inject.Inject
 class RoomDevToolActivity :
         SimpleFragmentActivity(),
         FragmentManager.OnBackStackChangedListener,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     @Inject lateinit var colorProvider: ColorProvider
 

@@ -29,7 +29,7 @@ import chat.progressive.app.core.extensions.setTextColor
 import chat.progressive.app.core.platform.ProgressiveBottomSheet
 import chat.progressive.app.core.platform.ProgressiveBottomSheet.ResultListener.Companion.RESULT_OK
 import chat.progressive.app.core.platform.ProgressiveFragment
-import chat.progressive.app.core.platform.VectorMenuProvider
+import chat.progressive.app.core.platform.ProgressiveMenuProvider
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.resources.StringProvider
 import chat.progressive.app.databinding.FragmentOtherSessionsBinding
@@ -53,7 +53,7 @@ class OtherSessionsFragment :
         ProgressiveFragment<FragmentOtherSessionsBinding>(),
         ProgressiveBottomSheet.ResultListener,
         OtherSessionsView.Callback,
-        VectorMenuProvider {
+        ProgressiveMenuProvider {
 
     private val viewModel: OtherSessionsViewModel by fragmentViewModel()
     private val args: OtherSessionsArgs by args()

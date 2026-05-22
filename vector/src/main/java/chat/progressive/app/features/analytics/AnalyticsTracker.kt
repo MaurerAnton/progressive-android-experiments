@@ -7,8 +7,8 @@
 
 package chat.progressive.app.features.analytics
 
-import chat.progressive.app.features.analytics.itf.VectorAnalyticsEvent
-import chat.progressive.app.features.analytics.itf.VectorAnalyticsScreen
+import chat.progressive.app.features.analytics.itf.ProgressiveAnalyticsEvent
+import chat.progressive.app.features.analytics.itf.ProgressiveAnalyticsScreen
 import chat.progressive.app.features.analytics.plan.SuperProperties
 import chat.progressive.app.features.analytics.plan.UserProperties
 
@@ -16,12 +16,12 @@ interface AnalyticsTracker {
     /**
      * Capture an Event.
      */
-    fun capture(event: VectorAnalyticsEvent)
+    fun capture(event: ProgressiveAnalyticsEvent)
 
     /**
      * Track a displayed screen.
      */
-    fun screen(screen: VectorAnalyticsScreen)
+    fun screen(screen: ProgressiveAnalyticsScreen)
 
     /**
      * Update user specific properties.

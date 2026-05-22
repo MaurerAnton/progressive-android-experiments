@@ -6,7 +6,7 @@
  */
 package chat.progressive.app.features.settings
 
-interface VectorSettingsFragmentInteractionListener {
+interface ProgressiveSettingsInteraction {
 
     fun requestHighlightPreferenceKeyOnResume(key: String?)
 

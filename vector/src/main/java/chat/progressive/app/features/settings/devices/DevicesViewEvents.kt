@@ -7,7 +7,7 @@
 
 package chat.progressive.app.features.settings.devices
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.crypto.model.CryptoDeviceInfo
@@ -16,7 +16,7 @@ import org.matrix.android.sdk.api.session.crypto.model.DeviceInfo
 /**
  * Transient events for Ignored users screen.
  */
-sealed class DevicesViewEvents : VectorViewEvents {
+sealed class DevicesViewEvents : ProgressiveViewEvents {
     data class Loading(val message: CharSequence? = null) : DevicesViewEvents()
 
     //    object HideLoading : DevicesViewEvents()
