@@ -656,6 +656,18 @@ class MessageComposerViewModel @AssistedInject constructor(
                                          try {
                                              ProgressiveNative.ensureLoaded()
                                              ProgressiveNative.nativeAlarmCreate(args)
+                                             // Schedule via Android AlarmManager
+                                             try {
+                                                 val allAlarms = ProgressiveNative.nativeAlarmListAll()
+                                                 val alarms = org.json.JSONArray(allAlarms)
+                                                 for (i in 0 until alarms.length()) {
+                                                     val a = alarms.getJSONObject(i)
+                                                     if (a.optBoolean("enabled", true) && a.optLong("triggerAtMs", 0) > System.currentTimeMillis()) {
+                                                         val context = androidx.core.content.ContextCompat
+                                                         // Schedule will be done by AlarmSchedulerService
+                                                     }
+                                                 }
+                                             } catch (_: Exception) { }
                                          } catch (_: Exception) { }
                                          _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                      } else {

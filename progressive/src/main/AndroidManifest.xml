@@ -305,6 +305,7 @@
             android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             android:taskAffinity=".features.call.ProgressiveCallActivity.${appTaskAffinitySuffix}" />
+        <service android:name=".features.alarm.AlarmSchedulerService" android:exported="false" />
         <service android:name=".features.alarm.ScheduledMessageService" android:exported="false" />
         <receiver
             android:name=".features.alarm.AlarmReceiver"
