@@ -186,4 +186,30 @@ bool isHomeserverUrl(const std::string& url) {
            url.find("_matrix") != std::string::npos;
 }
 
+
+
+// ---- SSO helpers ----
+
+std::string buildSsoLoginUrl(const std::string& baseUrl, const std::string& redirectUrl,
+                               const std::string& provider) {
+    std::ostringstream os;
+    os << baseUrl << "/_matrix/client/v3/login/sso/redirect";
+    if (!provider.empty()) os << "/" << provider;
+    os << "?redirectUrl=" << redirectUrl;
+    return os.str();
+}
+
+bool isSsoRedirect(const std::string& url) {
+    return url.find("/login/sso/redirect") != std::string::npos;
+}
+
+std::string extractSsoToken(const std::string& redirectUrl) {
+    auto tokenPos = redirectUrl.find("loginToken=");
+    if (tokenPos == std::string::npos) return "";
+    tokenPos += 11;
+    auto end = redirectUrl.find('&', tokenPos);
+    if (end == std::string::npos) end = redirectUrl.size();
+    return redirectUrl.substr(tokenPos, end - tokenPos);
+}
+
 } // namespace progressive

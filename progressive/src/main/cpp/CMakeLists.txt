@@ -154,6 +154,7 @@ add_library(
     src/event_validator.cpp
     src/room_encryption.cpp
     src/login_utils.cpp
+    src/wellknown_helper.cpp
     src/room_tag_utils.cpp
     src/account_utils.cpp
     src/connection_monitor.cpp
