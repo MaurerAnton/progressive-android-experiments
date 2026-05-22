@@ -44,6 +44,19 @@ bool isPermalink(const std::string& url) {
 std::string formatPermalink(const std::string& url, const std::string& label) {
     if (label.empty()) return url;
     return label + ": " + url;
+
+std::string buildShareableLink(const std::string& roomId, const std::string& eventId) {
+    return buildEventPermalink(roomId, eventId);
+}
+std::string extractRoomIdFromPermalink(const std::string& url) {
+    std::string type, id; parsePermalink(url, type, id);
+    return id.find('!') == 0 ? id : "";
+}
+std::string extractEventIdFromPermalink(const std::string& url) {
+    std::string type, id; parsePermalink(url, type, id);
+    return id.find('$') == 0 ? id : "";
+}
+bool isRoomPermalink(const std::string& url) { return extractRoomIdFromPermalink(url).size() > 0; }
 }
 
 } // namespace progressive

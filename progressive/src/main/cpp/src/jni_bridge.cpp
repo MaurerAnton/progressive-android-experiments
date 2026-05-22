@@ -6162,6 +6162,19 @@ JNI_FUNC(jstring, nativeSmartDefaultReplies)(JNIEnv* env, jclass, jstring jLastM
     return env->NewStringUTF(json.c_str());
 }
 
+JNI_FUNC(jstring, nativeFormatRoomSummary)(JNIEnv* env, jclass, jstring jRoomId, jstring jName,
+                                                    jstring jBody, jstring jSender, jlong jTs,
+                                                    jint jNotif, jint jHl, jboolean jDirect) {
+    auto d = progressive::formatRoomSummary(jStr(env, jRoomId), jStr(env, jName),
+        jStr(env, jBody), jStr(env, jSender), jTs, jNotif, jHl, jDirect);
+    std::string json = "{\"name\":\"" + d.displayName + "\",\"time\":\"" + d.formattedTime + "\"}";
+    return env->NewStringUTF(json.c_str());
+}
+
+JNI_FUNC(jstring, nativeFormatNotifBadge)(JNIEnv* env, jclass, jint jCount, jint jHl) {
+    return env->NewStringUTF(progressive::formatNotificationBadge(jCount, jHl).c_str());
+}
+
 JNI_FUNC(jstring, nativeSmartDefaultReactions)(JNIEnv* env, jclass) {
     auto reactions = progressive::getDefaultReactions();
     std::string json = "[";

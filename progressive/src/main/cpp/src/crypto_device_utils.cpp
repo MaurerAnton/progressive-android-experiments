@@ -65,6 +65,22 @@ std::string formatDeviceInfo(const CryptoDeviceInfo& d) {
     if (d.isBlocked) os << " 🚫";
     os << " [" << d.algorithms.size() << " algos]";
     return os.str();
+
+std::string getDeviceDisplayName(const CryptoDeviceInfo& d) {
+    return d.deviceName.empty() ? d.deviceId : d.deviceName;
+}
+bool isCurrentDevice(const CryptoDeviceInfo& d, const std::string& myDeviceId) {
+    return d.deviceId == myDeviceId;
+}
+std::string buildDeviceVerificationContent(const std::string& deviceId, const std::string& method) {
+    std::ostringstream os;
+    os << R"({"from_device":")" << deviceId << R"(")";
+    os << R"(,"methods":[")" << method << R"("])";
+    os << R"(,"timestamp":)" << std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+    os << "}";
+    return os.str();
+}
 }
 
 } // namespace progressive

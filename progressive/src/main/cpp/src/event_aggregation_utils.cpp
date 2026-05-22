@@ -67,6 +67,19 @@ std::string buildMergedEventHeader(const std::vector<AggregatedEvent>& group) {
     std::ostringstream os;
     os << group.size() << " merged messages";
     return os.str();
+
+int countMergedEvents(const AggregatedEvent& ev) {
+    return (int)ev.mergedEventIds.size();
+}
+std::string formatMergeCount(int count) {
+    if (count <= 1) return "";
+    return std::to_string(count) + " merged";
+}
+bool isFirstInGroup(const AggregatedEvent& ev) { return ev.displayIndex == 0 || !ev.isMerged; }
+bool isLastInGroup(const std::vector<AggregatedEvent>& events, size_t idx) {
+    if (idx + 1 >= events.size()) return true;
+    return events[idx].senderId != events[idx+1].senderId;
+}
 }
 
 } // namespace progressive

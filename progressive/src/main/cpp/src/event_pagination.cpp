@@ -67,6 +67,21 @@ std::string formatPaginationProgress(int loaded, int total, PaginationDirection 
     std::ostringstream os;
     os << "Loaded " << loaded << " of " << total << " events";
     return os.str();
+
+bool isLastPage(const PaginationResult& r, PaginationDirection dir) {
+    return !hasMorePages(r, dir);
+}
+int countLoadedEvents(const std::string& chunkJson) {
+    int c = 0; size_t p = 0;
+    while ((p = chunkJson.find(""event_id":"", p)) != std::string::npos) { c++; p++; }
+    return c;
+}
+std::string buildPaginationSummary(const PaginationResult& r) {
+    std::ostringstream os;
+    os << r.totalReturned << " events";
+    if (r.hasMore) os << " (more available)";
+    return os.str();
+}
 }
 
 } // namespace progressive

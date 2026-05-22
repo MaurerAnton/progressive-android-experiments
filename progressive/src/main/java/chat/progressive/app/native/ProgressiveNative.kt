@@ -739,6 +739,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeParseLlmResponse(body: String, statusCode: Int, provider: Int): String
     @JvmStatic external fun nativeFormatLlmBroadcast(prompt: String, response: String): String
 
+    // --- Room Summary ---
+
+    @JvmStatic external fun nativeFormatRoomSummary(roomId: String, name: String, body: String, sender: String, ts: Long, notif: Int, hl: Int, direct: Boolean): String
+    @JvmStatic external fun nativeFormatNotifBadge(count: Int, highlight: Int): String
+
     // --- Smart Reply ---
 
     @JvmStatic external fun nativeSmartReplyPrompt(lastMsg: String, sender: String, room: String, isDirect: Boolean): String
