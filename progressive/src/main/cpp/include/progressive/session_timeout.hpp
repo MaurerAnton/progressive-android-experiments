@@ -1,62 +1,38 @@
-#ifndef PROGRESSIVE_SESSION_TIMEOUT_HPP
-#define PROGRESSIVE_SESSION_TIMEOUT_HPP
-
+#pragma once
 #include <string>
 #include <cstdint>
 
 namespace progressive {
 
-enum class LockMethod { None, Pin, Biometric, Password };
-
-struct SessionPolicy {
-    LockMethod lockMethod = LockMethod::None;
-    int idleTimeoutMinutes = 5;      // lock after N minutes idle
-    int maxSessionMinutes = 0;       // 0 = unlimited
-    int maxFailedPinAttempts = 5;
-    int pinLength = 4;               // 4-8
-    bool lockOnBackground = true;    // lock when app goes to background
-    bool requireBioOnFg = false;     // require biometric on foreground
+enum class TimeoutAction {
+    NONE = 0,
+    LOCK_APP = 1,
+    LOGOUT = 2
 };
 
-struct SessionState {
-    int64_t lastActivityMs = 0;      // last user interaction
-    int64_t sessionStartMs = 0;      // when session started
-    int failedAttempts = 0;
-    bool isLocked = false;
-    bool isBackground = false;
-    std::string lockReason;
+struct SessionTimeout {
+    int inactivityMinutes = 0;     // 0 = disabled
+    int gracePeriodSeconds = 30;   // warning before timeout
+    TimeoutAction action = TimeoutAction::LOCK_APP;
+    bool requireBiometric = false; // require biometric to unlock
 };
 
-// Check if session should be locked based on policy and state.
-bool shouldLock(const SessionPolicy& policy, const SessionState& state);
+// Parse timeout config from preferences JSON
+SessionTimeout parseTimeoutConfig(const std::string& json);
 
-// Get the reason for locking (empty if should not lock).
-std::string getLockReason(const SessionPolicy& policy, const SessionState& state);
+// Check if session should timeout based on last activity
+bool shouldTimeout(const SessionTimeout& config, int64_t lastActivityMs, int64_t nowMs = 0);
 
-// Compute seconds until next lock (0 = should lock now).
-int secondsUntilLock(const SessionPolicy& policy, const SessionState& state);
+// Get remaining time before timeout in seconds
+int getRemainingSeconds(const SessionTimeout& config, int64_t lastActivityMs, int64_t nowMs = 0);
 
-// Validate a PIN code (length, digits only).
-bool isValidPin(const std::string& pin, int minLen = 4, int maxLen = 8);
+// Format timeout warning message
+std::string formatTimeoutWarning(int remainingSeconds);
 
-// Rate-limit feedback: how many attempts remaining.
-int attemptsRemaining(const SessionPolicy& policy, const SessionState& state);
+// Build timeout config JSON
+std::string buildTimeoutConfig(const SessionTimeout& config);
 
-// Check if a grace period is active (e.g., 30s after background).
-bool isGracePeriod(const SessionPolicy& policy, int gracePeriodSeconds = 30);
-
-// Format idle time as human-readable: "2m 30s", "1h 5m".
-std::string formatIdleTime(int64_t idleMs);
-
-// Format session duration as human-readable.
-std::string formatSessionDuration(int64_t startMs);
-
-// Compute hash of a PIN for secure comparison (simple SHA-256 placeholder).
-std::string hashPin(const std::string& pin, const std::string& salt = "");
-
-// Verify PIN against stored hash.
-bool verifyPin(const std::string& pin, const std::string& storedHash, const std::string& salt = "");
+// Check if timeout is enabled
+bool isTimeoutEnabled(const SessionTimeout& config);
 
 } // namespace progressive
-
-#endif // PROGRESSIVE_SESSION_TIMEOUT_HPP
