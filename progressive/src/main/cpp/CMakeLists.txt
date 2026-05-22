@@ -121,6 +121,7 @@ add_library(
     src/event_timeline.cpp
     src/event_utils.cpp
     src/room_directory.cpp
+    src/draft_manager_utils.cpp
     src/widget_utils.cpp
     src/server_notice_manager.cpp
     src/poll_manager.cpp
