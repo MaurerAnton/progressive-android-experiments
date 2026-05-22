@@ -45,4 +45,43 @@ std::string mimeToExtension(const std::string& mimeType) {
     return "";
 }
 
+
+
+// ---- Audio helpers ----
+
+bool isAudioMessage(const std::string& json) {
+    return json.find(""msgtype":"m.audio"") != std::string::npos;
+}
+
+int parseAudioDuration(const std::string& json) {
+    auto durPos = json.find(""duration":");
+    if (durPos == std::string::npos) return 0;
+    durPos += 11;
+    try { return std::stoi(json.substr(durPos)); } catch(...) { return 0; }
+}
+
+std::string formatAudioDurationDisplay(int ms) {
+    int totalSec = ms / 1000;
+    int min = totalSec / 60;
+    int sec = totalSec % 60;
+    std::ostringstream os;
+    os << min << ":";
+    if (sec < 10) os << "0";
+    os << sec;
+    return os.str();
+}
+
+bool isAudioPlaying(const std::string& mxcUrl, const std::string& currentPlayingUrl) {
+    return mxcUrl == currentPlayingUrl;
+}
+
+std::string buildAudioPlayState(const std::string& mxcUrl, bool playing, int positionMs) {
+    std::ostringstream os;
+    os << R"({"url":")" << mxcUrl << R"(")";
+    os << R"(,"playing":)" << (playing ? "true" : "false");
+    os << R"(,"position":)" << positionMs;
+    os << "}";
+    return os.str();
+}
+
 } // namespace progressive

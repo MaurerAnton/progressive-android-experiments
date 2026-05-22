@@ -68,4 +68,33 @@ std::string DeletedMessageArchive::exportJson() const {
     return json.str();
 }
 
+
+
+// ---- Deleted event helpers ----
+
+bool isDeletedPermanently(const std::string& archiveJson) {
+    return archiveJson.find(""deleted":true") != std::string::npos;
+}
+
+std::string buildArchiveEntry(const std::string& eventId, const std::string& roomId,
+                                const std::string& reason) {
+    std::ostringstream os;
+    os << R"({"event_id":")" << eventId << R"(")";
+    os << R"(,"room_id":")" << roomId << R"(")";
+    os << R"(,"reason":")" << reason << R"(")";
+    os << R"(,"deleted_at":)" << std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+    os << "}";
+    return os.str();
+}
+
+int countDeletedEvents(const std::string& archiveJson) {
+    int count = 0;
+    size_t pos = 0;
+    while ((pos = archiveJson.find(""event_id":"", pos)) != std::string::npos) {
+        count++; pos++;
+    }
+    return count;
+}
+
 } // namespace progressive

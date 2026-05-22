@@ -75,4 +75,25 @@ std::string federationVersionToJson(const FederationVersion& version) {
     return "{\"server\":" + srv + "}";
 }
 
+
+
+// ---- Federation helpers ----
+
+bool isFederationSupported(const std::string& version) {
+    int v = 1;
+    try { v = std::stoi(version); } catch(...) {}
+    return true; // All versions support federation
+}
+
+std::string buildFederationQuery(const std::string& serverName) {
+    return "/_matrix/federation/v1/version";
+}
+
+std::string formatFederationStatus(const std::string& server, bool reachable, const std::string& version) {
+    std::ostringstream os;
+    os << server << ": " << (reachable ? "reachable" : "unreachable");
+    if (!version.empty()) os << " (v" << version << ")";
+    return os.str();
+}
+
 } // namespace progressive

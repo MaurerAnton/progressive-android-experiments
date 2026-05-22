@@ -58,4 +58,29 @@ std::string buildClearDraftContent() { return "{}"; }
 bool isDraftReply(const MessageDraft& d) { return !d.replyEventId.empty(); }
 bool isDraftInThread(const MessageDraft& d) { return !d.threadRootEventId.empty(); }
 
+
+
+bool hasDraft(const std::string& json) {
+    return !json.empty() && json != "{}" && json != "[]";
+}
+
+std::string extractDraftBody(const std::string& json) {
+    return deserializeDraft(json, "").body;
+}
+
+std::string buildDraftSaveRequest(const std::string& roomId, const std::string& body,
+                                    const std::string& replyEventId) {
+    MessageDraft d;
+    d.roomId = roomId;
+    d.body = body;
+    d.replyEventId = replyEventId;
+    d.savedAtMs = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+    return serializeDraft(d);
+}
+
+std::string formatDraftIndicator(bool hasDraft) {
+    return hasDraft ? "[DRAFT] " : "";
+}
+
 } // namespace progressive
