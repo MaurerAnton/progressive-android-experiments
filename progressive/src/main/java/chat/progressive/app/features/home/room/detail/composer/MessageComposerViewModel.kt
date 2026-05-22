@@ -619,6 +619,18 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      room.sendService().sendTextMessage("Changed display name: " + parsedCommand.args, autoMarkdown = false)
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.TOPIC -> {
+                                     room.sendService().sendTextMessage("Changed topic: " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.INVITE -> {
+                                     room.sendService().sendTextMessage("Invited " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.JOIN -> {
+                                     room.sendService().sendTextMessage("Joining " + parsedCommand.args + "...", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.MYROOMNICK -> {
                                      room.sendService().sendTextMessage("Changed room display name: " + parsedCommand.args, autoMarkdown = false)
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
