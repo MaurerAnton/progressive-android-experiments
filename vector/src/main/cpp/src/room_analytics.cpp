@@ -160,4 +160,40 @@ std::string analyticsToJson(const RoomAnalytics& a) {
     return json.str();
 }
 
+
+
+// ---- Room Activity Analytics ----
+
+RoomActivityStats computeRoomActivity(const std::vector<SyncedEvent>& events, int64_t sinceMs) {
+    RoomActivityStats stats;
+    stats.totalEvents = (int)events.size();
+    int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+    
+    for (const auto& ev : events) {
+        if (ev.timestampMs < sinceMs) continue;
+        if (ev.senderId.empty()) continue;
+        stats.activeUsers.insert(ev.senderId);
+        if (ev.timestampMs > now - 86400000LL) stats.activeToday++;
+        if (ev.timestampMs > now - 3600000LL) stats.activeLastHour++;
+        if (ev.type == "m.room.message") stats.messageCount++;
+        if (ev.type.find("m.room.member") != std::string::npos) stats.membershipChanges++;
+    }
+    stats.uniqueUsers = (int)stats.activeUsers.size();
+    return stats;
+}
+
+std::string roomActivityToJson(const RoomActivityStats& stats) {
+    std::ostringstream os;
+    os << "{";
+    os << R"("totalEvents":)" << stats.totalEvents;
+    os << R"(,"messageCount":)" << stats.messageCount;
+    os << R"(,"uniqueUsers":)" << stats.uniqueUsers;
+    os << R"(,"activeToday":)" << stats.activeToday;
+    os << R"(,"activeLastHour":)" << stats.activeLastHour;
+    os << R"(,"membershipChanges":)" << stats.membershipChanges;
+    os << "}";
+    return os.str();
+}
+
 } // namespace progressive

@@ -3010,6 +3010,10 @@
       <string name="command_description_web">Search the web via configured search engine</string>
       <string name="command_description_hide_emoji">Hide all emoji in the current room</string>
       <string name="command_description_smsagent">Send message AND run agent task (alarms, reminders, automation)</string>
+      <string name="command_description_schedule">Schedule a message for future delivery (HH:MM message)</string>
+      <string name="command_description_translate">Translate text using LLM (lang text)</string>
+      <string name="command_description_weather">Get weather forecast for a city</string>
+      <string name="command_description_smsagent">Send message AND run agent task (alarms, reminders, automation)</string>
       <string name="labs_enable_jump_to_date">Jump to date (/jumptodate)</string>
      <string name="labs_enable_jump_to_date_summary">Enable /jumptodate slash command and date separator jump menu. Requires server support for MSC3030.</string>
      <string name="labs_enable_jump_to_source">Jump to source</string>
