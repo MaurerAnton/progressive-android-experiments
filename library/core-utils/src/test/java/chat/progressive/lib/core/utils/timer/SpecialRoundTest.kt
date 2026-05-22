@@ -5,7 +5,7 @@
  * Please see LICENSE files in the repository root for full details.
  */
 
-package im.vector.lib.core.utils.timer
+package chat.progressive.lib.core.utils.timer
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Test

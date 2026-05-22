@@ -5,9 +5,9 @@
  * Please see LICENSE files in the repository root for full details.
  */
 
-package im.vector.lib.core.utils.timer
+package chat.progressive.lib.core.utils.timer
 
-import im.vector.lib.core.utils.test.fakes.FakeClock
+import chat.progressive.lib.core.utils.test.fakes.FakeClock
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
