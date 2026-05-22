@@ -1075,6 +1075,16 @@ User: $args"
         _viewEvents.post(MessageComposerViewEvents.OpenRoomMemberProfile(whois.userId))
     }
 
+    // Smart Reply — load suggestions for last message
+    private fun loadSmartReplies(lastMsg: String) {
+        if (!vectorPreferences.isSmartReplyEnabled()) return
+        try {
+            ProgressiveNative.ensureLoaded()
+            val json = ProgressiveNative.nativeSmartDefaultReplies(lastMsg)
+            _viewEvents.post(MessageComposerViewEvents.ShowSmartReplies(json))
+        } catch (_: Exception) { }
+    }
+
     private fun sendPrefixedMessage(room: Room, prefix: String, message: CharSequence, rootThreadEventId: String?) {
         val sequence = buildString {
             append(prefix)
