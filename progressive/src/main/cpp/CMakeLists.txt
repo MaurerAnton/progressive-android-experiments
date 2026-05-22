@@ -184,6 +184,8 @@ add_library(
     src/client_info.cpp
     src/keyshare.cpp
     src/displayname_utils.cpp
+    src/read_receipts_utils.cpp
+    src/typing_utils.cpp
     src/markdown_utils.cpp
     src/member_list.cpp
     src/message_location.cpp
