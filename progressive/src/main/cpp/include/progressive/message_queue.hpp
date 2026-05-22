@@ -1,76 +1,52 @@
-#ifndef PROGRESSIVE_MESSAGE_QUEUE_HPP
-#define PROGRESSIVE_MESSAGE_QUEUE_HPP
-
+#pragma once
 #include <string>
 #include <vector>
+#include <deque>
 #include <cstdint>
 
 namespace progressive {
 
-// ---- Message Deduplication ----
-
-struct DedupResult {
-    bool isDuplicate = false;
-    std::string originalEventId;  // which event this duplicates
-    int duplicateCount = 0;       // how many times seen
-};
-
-// Check if an event body is a duplicate of a recently sent message.
-// Uses fuzzy matching: identical after stripping whitespace and normalizing.
-DedupResult checkDuplicate(
-    const std::string& newBody,
-    const std::vector<std::string>& recentBodies,
-    double threshold = 0.95  // similarity threshold (0.0-1.0)
-);
-
-// Compute text similarity (0.0-1.0) using character trigram overlap.
-double textSimilarity(const std::string& a, const std::string& b);
-
-// Normalize text for comparison: lowercase, trim, collapse whitespace.
-std::string normalizeForComparison(const std::string& text);
-
-// ---- Message Batching ----
-
-struct BatchedMessage {
+struct QueuedMessage {
+    std::string id;
+    std::string roomId;
     std::string body;
-    int64_t timestampMs = 0;
-    bool isContinuation = false; // same sender as previous
+    std::string formattedBody;
+    std::string msgType;        // "m.text", "m.image", etc.
+    int retryCount = 0;
+    int maxRetries = 5;
+    int64_t queuedAtMs = 0;
+    int64_t nextRetryMs = 0;
+    bool failed = false;
+    std::string errorMessage;
 };
 
-// Batch consecutive messages from the same sender into logical blocks.
-// Messages within a short time window from the same sender are marked as continuations.
-std::vector<BatchedMessage> batchMessages(
-    const std::vector<std::string>& bodies,
-    const std::vector<std::string>& senderIds,
-    const std::vector<int64_t>& timestamps,
-    int64_t mergeWindowMs = 300000  // 5 minutes
-);
-
-// ---- Message Pinning Logic ----
-
-struct PinnedMessage {
-    std::string eventId;
-    std::string body;
-    std::string senderName;
-    int64_t pinnedAtMs = 0;
-    bool isExpired = false;    // pin has a TTL
-    int64_t expiresAtMs = 0;   // 0 = never expires
-};
-
-class PinManager {
+class MessageQueue {
 public:
-    void pin(const PinnedMessage& msg);
-    void unpin(const std::string& eventId);
-    std::vector<PinnedMessage> getActivePins() const;
-    void checkExpired();
-    std::string exportJson() const;
-    void clear();
-    int count() const { return static_cast<int>(pins_.size()); }
+    MessageQueue();
+
+    void enqueue(const QueuedMessage& msg);
+    void enqueue(const std::string& roomId, const std::string& body,
+                 const std::string& msgType = "m.text");
+
+    QueuedMessage dequeue();
+    bool isEmpty() const;
+    size_t size() const;
+    int pendingCount() const;
+
+    // Get due messages (nextRetryMs <= now)
+    std::vector<QueuedMessage> getDue(int64_t nowMs = 0);
+
+    void markFailed(const std::string& id, const std::string& error);
+    void markSent(const std::string& id);
+    void retry(const std::string& id);
+
+    // Serialization
+    std::string toJson() const;
+    void fromJson(const std::string& json);
 
 private:
-    std::vector<PinnedMessage> pins_;
+    std::deque<QueuedMessage> queue_;
+    int nextId_ = 1;
 };
 
 } // namespace progressive
-
-#endif // PROGRESSIVE_MESSAGE_QUEUE_HPP

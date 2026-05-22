@@ -205,6 +205,7 @@ add_library(
     src/unified_push.cpp
     src/url_preview.cpp
     src/web_search.cpp
+    src/user_profile.cpp
     src/thread_utils.cpp
     src/room_permission_utils.cpp
     src/power_levels.cpp
