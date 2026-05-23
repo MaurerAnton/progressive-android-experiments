@@ -34,7 +34,7 @@ sealed class ActivityOtherThemes(
             R.style.Theme_Vector_Black_AttachmentsPreview
     )
 
-    object VectorAttachmentsPreview : ActivityOtherThemes(
+    object ProgressiveAttachmentsPreview : ActivityOtherThemes(
             R.style.Theme_Vector_Black_Transparent,
             R.style.Theme_Vector_Black_Transparent
     )

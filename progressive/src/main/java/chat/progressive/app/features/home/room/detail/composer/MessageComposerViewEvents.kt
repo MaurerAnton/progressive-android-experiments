@@ -7,11 +7,11 @@
 
 package chat.progressive.app.features.home.room.detail.composer
 
-import chat.progressive.app.core.platform.VectorViewEvents
+import chat.progressive.app.core.platform.ProgressiveViewEvents
 import chat.progressive.app.features.command.Command
 import chat.progressive.app.features.command.ParsedCommand
 
-sealed class MessageComposerViewEvents : VectorViewEvents {
+sealed class MessageComposerViewEvents : ProgressiveViewEvents {
 
     data class AnimateSendButtonVisibility(val isVisible: Boolean) : MessageComposerViewEvents()
 

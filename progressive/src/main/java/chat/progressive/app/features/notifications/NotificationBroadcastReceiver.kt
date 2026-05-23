@@ -203,8 +203,8 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
                 notifiableMessageEvent.outGoingMessage = true
                 notifiableMessageEvent.outGoingMessageFailed = true
 
-                VectorApp.getInstance().notificationDrawerManager.onNotifiableEventReceived(notifiableMessageEvent)
-                VectorApp.getInstance().notificationDrawerManager.refreshNotificationDrawer(null)
+                ProgressiveApp.getInstance().notificationDrawerManager.onNotifiableEventReceived(notifiableMessageEvent)
+                ProgressiveApp.getInstance().notificationDrawerManager.refreshNotificationDrawer(null)
             }
         })
          */

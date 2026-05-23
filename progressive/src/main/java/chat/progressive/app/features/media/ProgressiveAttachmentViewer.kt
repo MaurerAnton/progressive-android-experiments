@@ -182,7 +182,7 @@ class ProgressiveAttachmentViewer : AttachmentViewerActivity(), AttachmentIntera
         ActivityCompat.finishAfterTransition(this)
     }
 
-    private fun getOtherThemes() = ActivityOtherThemes.VectorAttachmentsPreview
+    private fun getOtherThemes() = ActivityOtherThemes.ProgressiveAttachmentsPreview
 
     /**
      * Try and add a [Transition.TransitionListener] to the entering shared element
