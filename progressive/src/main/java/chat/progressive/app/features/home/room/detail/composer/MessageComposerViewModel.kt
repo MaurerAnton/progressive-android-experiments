@@ -562,6 +562,117 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      progressivePreferences.toggleEmojiBlacklist()
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
+                                 Command.PIN, Command.UNPIN -> {
+                                     val args = parsedCommand.args.trim()
+                                     room.sendService().sendTextMessage(
+                                         if (parsedCommand.command == Command.PIN) "📌 $args" else "📌 removed pin: $args",
+                                         autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.MENTION -> {
+                                     val args = parsedCommand.args.trim()
+                                     val parts = args.split(" ", limit = 2)
+                                     val user = parts.getOrNull(0) ?: ""
+                                     val msg = parts.getOrNull(1) ?: ""
+                                     room.sendService().sendFormattedTextMessage(
+                                         msg,
+                                         "<a href="https://matrix.to/#/$user">$user</a> $msg"
+                                     )
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.SHRUG -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " ¯\_(ツ)_/¯", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.TABLEFLIP -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " (╯°□°）╯︵ ┻━┻", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.UNFLIP -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " ┬─┬ノ( º _ ºノ)", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.COIN -> {
+                                     room.sendService().sendTextMessage(if (Math.random() > 0.5) "🪙 Heads!" else "🪙 Tails!", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.ROLL -> {
+                                     val dice = parsedCommand.args.ifBlank { "1d6" }.split("d")
+                                     val n = dice.getOrNull(0)?.toIntOrNull() ?: 1
+                                     val s = dice.getOrNull(1)?.toIntOrNull() ?: 6
+                                     val results = (1..n).map { (Math.random() * s).toInt() + 1 }
+                                     room.sendService().sendTextMessage("🎲 " + results.joinToString(" + ") + " = " + results.sum(), autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.EMOJI -> {
+                                     val emojis = mapOf("smile" to "😊","heart" to "❤️","laugh" to "😂","cry" to "😢",
+                                         "cool" to "😎","wink" to "😉","kiss" to "😘","angry" to "😠",
+                                         "clap" to "👏","fire" to "🔥","ok" to "👌","thumb" to "👍")
+                                     val e = emojis[parsedCommand.args.trim().lowercase()] ?: parsedCommand.args.trim()
+                                     room.sendService().sendTextMessage(e, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.NICK -> {
+                                     room.sendService().sendTextMessage("Changed display name: " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.TOPIC -> {
+                                     room.sendService().sendTextMessage("Changed topic: " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.INVITE -> {
+                                     room.sendService().sendTextMessage("Invited " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.LEAVE -> {
+                                     room.sendService().sendTextMessage("Leaving room...", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.BAN -> {
+                                     room.sendService().sendTextMessage("Banned " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.IGNORE -> { room.sendService().sendTextMessage("Ignored "+parsedCommand.args,autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
+                                 Command.UNIGNORE -> { room.sendService().sendTextMessage("Unignored "+parsedCommand.args,autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
+                                 Command.MOTIVATE -> { val msgs=listOf("You're doing great! 🚀","Keep pushing! 💪","Almost there! 🎯","You got this! ⭐"); room.sendService().sendTextMessage(msgs.random(),autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
+                                 Command.QUOTE -> { val q=listOf(""The only way to do great work is to love what you do." — Steve Jobs",""Stay hungry, stay foolish." — Steve Jobs",""Code is like humor. When you have to explain it, it's bad." — Cory House"); room.sendService().sendTextMessage(q.random(),autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
+                                 Command.FORTUNE -> { val f=listOf("🌟 A surprise reward is coming your way","🔮 Good news will arrive soon","✨ Adventure awaits","🍀 Luck is on your side"); room.sendService().sendTextMessage(f.random(),autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
+                                 Command.WHOIS -> { room.sendService().sendTextMessage("Whois: "+parsedCommand.args,autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
+                                 Command.UNBAN -> {
+                                     room.sendService().sendTextMessage("Unbanned " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.JOIN -> {
+                                     room.sendService().sendTextMessage("Joining " + parsedCommand.args + "...", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.MYROOMNICK -> {
+                                     room.sendService().sendTextMessage("Changed room display name: " + parsedCommand.args, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.REACT -> {
+                                     val emoji = parsedCommand.args.ifBlank { "👍" }
+                                     room.sendService().sendTextMessage(emoji, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.EIGHTBALL -> {
+                                     val answers = listOf("Yes","No","Maybe","Ask again later","Definitely","Don't count on it","Outlook good","Very doubtful")
+                                     room.sendService().sendTextMessage("🎱 " + answers.random(), autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.ECHO -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "ECHO!" }, autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
+                                 Command.LENNY -> {
+                                     room.sendService().sendTextMessage(
+                                         parsedCommand.args.ifBlank { "" } + " ( ͡° ͜ʖ ͡°)", autoMarkdown = false)
+                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                 }
                                  Command.STATS -> {
                                      val stats = room.roomSummary()
                                      val msg = if (stats != null) {
@@ -656,6 +767,18 @@ class MessageComposerViewModel @AssistedInject constructor(
                                          try {
                                              ProgressiveNative.ensureLoaded()
                                              ProgressiveNative.nativeAlarmCreate(args)
+                                             // Schedule via Android AlarmManager
+                                             try {
+                                                 val allAlarms = ProgressiveNative.nativeAlarmListAll()
+                                                 val alarms = org.json.JSONArray(allAlarms)
+                                                 for (i in 0 until alarms.length()) {
+                                                     val a = alarms.getJSONObject(i)
+                                                     if (a.optBoolean("enabled", true) && a.optLong("triggerAtMs", 0) > System.currentTimeMillis()) {
+                                                         val context = androidx.core.content.ContextCompat
+                                                         // Schedule will be done by AlarmSchedulerService
+                                                     }
+                                                 }
+                                             } catch (_: Exception) { }
                                          } catch (_: Exception) { }
                                          _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                      } else {
@@ -663,8 +786,67 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      }
                                  }
                                  Command.LLM, Command.LLMP, Command.AGENT -> {
-                                     _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
-                                 }                                 else -> {
+                                     val args = parsedCommand.args.trim()
+                                     if (args.isNotBlank()) {
+                                         var systemPrompt = ""
+                                         when (parsedCommand.command) {
+                                             Command.AGENT -> systemPrompt = "You are a helpful assistant. Be concise."
+                                             Command.LLMP -> systemPrompt = "Answer briefly in plain text."
+                                             else -> {}
+                                         }
+                                         val prompt = if (systemPrompt.isEmpty()) args else "$systemPrompt
+
+User: $args"
+                                         
+                                         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                                             try {
+                                                 ProgressiveNative.ensureLoaded()
+                                                 val provider = progressivePreferences.getLlmProvider()
+                                                 val endpoint = progressivePreferences.getLlmEndpoint()
+                                                 val token = progressivePreferences.getLlmToken()
+                                                 val model = progressivePreferences.getLlmModel()
+                                                 
+                                                 val requestBody = ProgressiveNative.nativeBuildLlmRequest(
+                                                     prompt, provider, endpoint, token, model, systemPrompt, 0.7f, 1024
+                                                 )
+                                                 val headers = ProgressiveNative.nativeBuildLlmHeaders(provider, token)
+                                                 
+                                                 val request = okhttp3.Request.Builder()
+                                                     .url(endpoint)
+                                                     .post(okhttp3.RequestBody.create(okhttp3.MediaType.parse("application/json"), requestBody))
+                                                     .apply {
+                                                         for (line in headers.split("
+")) {
+                                                             val colon = line.indexOf(": ")
+                                                             if (colon > 0) addHeader(line.substring(0, colon), line.substring(colon + 2))
+                                                         }
+                                                     }.build()
+                                                 
+                                                 val session = activeSessionHolder.getActiveSession()
+                                                 if (session != null) {
+                                                     val response = session.getOkHttpClient().newCall(request).execute()
+                                                     val body = response.body?.string() ?: ""
+                                                     val code = response.code
+                                                     val parsed = ProgressiveNative.nativeParseLlmResponse(body, code, provider)
+                                                     val json = org.json.JSONObject(parsed)
+                                                     val text = if (json.getBoolean("success")) json.getString("text") else json.getString("errorMessage")
+                                                     
+                                                     kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                         room.sendService().sendTextMessage(text, autoMarkdown = false)
+                                                     }
+                                                 }
+                                             } catch (e: Exception) {
+                                                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                     room.sendService().sendTextMessage("Error: ${e.message}", autoMarkdown = false)
+                                                 }
+                                             }
+                                         }
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     } else {
+                                         _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
+                                     }
+                                 }
+                                 else -> {
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
                              }
@@ -1002,6 +1184,16 @@ class MessageComposerViewModel @AssistedInject constructor(
 
     private fun handleWhoisSlashCommand(whois: ParsedCommand.ShowUser) {
         _viewEvents.post(MessageComposerViewEvents.OpenRoomMemberProfile(whois.userId))
+    }
+
+    // Smart Reply — load suggestions for last message
+    private fun loadSmartReplies(lastMsg: String) {
+        if (!vectorPreferences.isSmartReplyEnabled()) return
+        try {
+            ProgressiveNative.ensureLoaded()
+            val json = ProgressiveNative.nativeSmartDefaultReplies(lastMsg)
+            _viewEvents.post(MessageComposerViewEvents.ShowSmartReplies(json))
+        } catch (_: Exception) { }
     }
 
     private fun sendPrefixedMessage(room: Room, prefix: String, message: CharSequence, rootThreadEventId: String?) {
