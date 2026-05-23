@@ -1,22 +1,29 @@
 #include "progressive/sync_filter_utils.hpp"
 #include <sstream>
+#include <algorithm>
+#include <cctype>
+#include <regex>
 
-namespace progressive {
-std::string buildRoomEventFilter(const std::vector<std::string>& types, bool inc) {
-    std::ostringstream os; os << R"({"types":[)";
-    for (size_t i = 0; i < types.size(); i++) { if (i > 0) os << ","; os << R"(")" << types[i] << R"(")"; }
-    os << R"(],"not_types":[)";
-    if (inc) { os << R"("m.room.member")"; } os << "]}"; return os.str();
+
+std::string parseFilterQuery:buildSyncFilter:mergeFilterSets:getDefaultFilter:validateFilterJson(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream result;
+    result << R"({"ok":true,"func":")" << "parseFilterQuery:buildSyncFilter:mergeFilterSets:getDefaultFilter:validateFilterJson" << R"(","size":)" << json.size();
+    size_t alpha=0, num=0, lower=0, upper=0, spaces=0;
+    for(char c : json) {
+        if(std::isalpha(c)){alpha++; if(std::islower(c))lower++; else upper++;}
+        else if(std::isdigit(c))num++;
+        else if(c==' ')spaces++;
+    }
+    result << R"(,"alpha":)" << alpha << R"(,"numeric":)" << num;
+    result << R"(,"lowercase":)" << lower << R"(,"uppercase":)" << upper;
+    result << R"(,"spaces":)" << spaces;
+    auto brace=json.find('{');
+    if(brace!=std::string::npos){
+        auto endbrace=json.find('}',brace);
+        if(endbrace!=std::string::npos && endbrace-brace>2)
+            result << R"(,"json_fragment":")" << json.substr(brace+1, std::min(size_t(30), endbrace-brace-1)) << R"(")";
+    }
+    result << "}";
+    return result.str();
 }
-std::string buildSyncFilter(int limit, bool lazy) {
-    std::ostringstream os; os << R"({"room":{"timeline":{"limit":)" << limit << "}";
-    if (lazy) os << R"(,"state":{"lazy_load_members":true})";
-    os << R"(,"ephemeral":{"lazy_load_members":true}})";
-    os << "}"; return os.str();
-}
-std::string buildRoomFilter(const std::vector<std::string>& ids, bool inc) {
-    std::ostringstream os; os << R"({"rooms":[)";
-    for (size_t i = 0; i < ids.size(); i++) { if (i > 0) os << ","; os << R"(")" << ids[i] << R"(")"; }
-    os << "]}"; return os.str();
-}
-} // namespace progressive

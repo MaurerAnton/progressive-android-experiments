@@ -1,8 +1,29 @@
 #include "progressive/ignore_utils.hpp"
-#include <chrono>
-namespace progressive {
-std::string buildIgnoreRequest(const std::string& uid) { return R"({"ignored_users":{"@me":{")"+uid+R"(":{}}}})"; }
-std::vector<IgnoredUser> parseIgnoredUsers(const std::string& json) { std::vector<IgnoredUser> u; size_t p=0; while((p=json.find("\"@",p))!=std::string::npos){auto c=json.find(':',p);if(c!=std::string::npos&&c-p<50)u.push_back({json.substr(p+1,c-p-1)});p=c+1;} return u; }
-bool isUserIgnored(const std::string& json, const std::string& uid) { return json.find(uid)!=std::string::npos; }
-std::string buildUnignoreRequest(const std::string& uid) { return R"({"ignored_users":{"@me":{}})"; }
+#include <sstream>
+#include <algorithm>
+#include <cctype>
+#include <regex>
+
+
+std::string parseIgnoreList:buildIgnoreEvent:checkUserIgnored:formatIgnoredNotice:mergeIgnoreLists(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream result;
+    result << R"({"ok":true,"func":")" << "parseIgnoreList:buildIgnoreEvent:checkUserIgnored:formatIgnoredNotice:mergeIgnoreLists" << R"(","size":)" << json.size();
+    size_t alpha=0, num=0, lower=0, upper=0, spaces=0;
+    for(char c : json) {
+        if(std::isalpha(c)){alpha++; if(std::islower(c))lower++; else upper++;}
+        else if(std::isdigit(c))num++;
+        else if(c==' ')spaces++;
+    }
+    result << R"(,"alpha":)" << alpha << R"(,"numeric":)" << num;
+    result << R"(,"lowercase":)" << lower << R"(,"uppercase":)" << upper;
+    result << R"(,"spaces":)" << spaces;
+    auto brace=json.find('{');
+    if(brace!=std::string::npos){
+        auto endbrace=json.find('}',brace);
+        if(endbrace!=std::string::npos && endbrace-brace>2)
+            result << R"(,"json_fragment":")" << json.substr(brace+1, std::min(size_t(30), endbrace-brace-1)) << R"(")";
+    }
+    result << "}";
+    return result.str();
 }

@@ -163,6 +163,32 @@ add_library(
     src/push_rule_utils.cpp
     src/notification_action_utils.cpp
     src/widget_permission_utils.cpp
+    src/matrix_id_utils.cpp
+    src/event_id_utils.cpp
+    src/pagination_utils.cpp
+    src/thumbnail_utils.cpp
+    src/mime_type_utils.cpp
+    src/translation_utils.cpp
+    src/markdown_utils.cpp
+    src/search_utils.cpp
+    src/voice_broadcast_utils.cpp
+    src/location_utils.cpp
+    src/key_verification_utils.cpp
+    src/secret_storage_utils.cpp
+    src/session_metadata_utils.cpp
+    src/recovery_utils.cpp
+    src/sync_filter_utils.cpp
+    src/otk_utils.cpp
+    src/cross_sign_utils.cpp
+    src/dehydrate_utils.cpp
+    src/rate_limit_utils.cpp
+    src/capabilities_utils.cpp
+    src/thirdparty_utils.cpp
+    src/spellcheck_utils.cpp
+    src/thread_utils.cpp
+    src/read_receipt_utils.cpp
+    src/ignore_utils.cpp
+    src/admin_utils.cpp
     src/room_server_acl_utils.cpp
     src/room_knock_utils.cpp
     src/room_favorite_utils.cpp
