@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.core.extensions.hidePassword
 import chat.progressive.app.core.platform.ProgressiveFragment
 import chat.progressive.app.databinding.FragmentKeysBackupSetupStep2Binding
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class KeysBackupSetupStep2Fragment :
 
     private val zxcvbn = Zxcvbn()
 
-    @Inject lateinit var vectorLocale: VectorLocaleProvider
+    @Inject lateinit var vectorLocale: ProgressiveLocaleProvider
 
     private fun onPassphraseChanged() {
         viewModel.passphrase.value = views.keysBackupSetupStep2PassphraseEnterEdittext.text.toString()

@@ -21,12 +21,12 @@ class ProgressiveLocaleProvider @Inject constructor(
 ) {
     /**
      * Get the current local.
-     * SharedPref values has been initialized in [VectorLocale.init]
+     * SharedPref values has been initialized in [ProgressiveLocale.init]
      */
     val applicationLocale: Locale
         get() = Locale(
-                preferences.getString(VectorLocale.APPLICATION_LOCALE_LANGUAGE_KEY, "")!!,
-                preferences.getString(VectorLocale.APPLICATION_LOCALE_COUNTRY_KEY, "")!!,
-                preferences.getString(VectorLocale.APPLICATION_LOCALE_VARIANT_KEY, "")!!
+                preferences.getString(ProgressiveLocale.APPLICATION_LOCALE_LANGUAGE_KEY, "")!!,
+                preferences.getString(ProgressiveLocale.APPLICATION_LOCALE_COUNTRY_KEY, "")!!,
+                preferences.getString(ProgressiveLocale.APPLICATION_LOCALE_VARIANT_KEY, "")!!
         )
 }

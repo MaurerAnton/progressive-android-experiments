@@ -16,13 +16,13 @@ import chat.progressive.app.core.di.MavericksAssistedViewModelFactory
 import chat.progressive.app.core.di.hiltMavericksViewModelFactory
 import chat.progressive.app.core.platform.ProgressiveViewModel
 import chat.progressive.app.features.configuration.ProgressiveConfiguration
-import chat.progressive.app.features.settings.VectorLocale
+import chat.progressive.app.features.settings.ProgressiveLocale
 import kotlinx.coroutines.launch
 
 class LocalePickerViewModel @AssistedInject constructor(
         @Assisted initialState: LocalePickerViewState,
         private val vectorConfiguration: ProgressiveConfiguration,
-        private val vectorLocale: VectorLocale,
+        private val vectorLocale: ProgressiveLocale,
 ) : ProgressiveViewModel<LocalePickerViewState, LocalePickerAction, LocalePickerViewEvents>(initialState) {
 
     @AssistedFactory

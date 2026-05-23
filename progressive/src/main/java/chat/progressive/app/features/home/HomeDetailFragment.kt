@@ -42,7 +42,7 @@ import chat.progressive.app.features.home.room.list.RoomListParams
 import chat.progressive.app.features.home.room.list.UnreadCounterBadgeView
 import chat.progressive.app.features.popup.PopupAlertManager
 import chat.progressive.app.features.popup.VerificationProgressiveAlert
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.app.features.settings.ProgressiveSettingsActivity.Companion.EXTRA_DIRECT_ACCESS_SECURITY_PRIVACY_MANAGE_SESSIONS
 import chat.progressive.app.features.themes.ThemeUtils
@@ -68,7 +68,7 @@ class HomeDetailFragment :
     @Inject lateinit var callManager: WebRtcCallManager
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
     @Inject lateinit var spaceStateHandler: SpaceStateHandler
-    @Inject lateinit var vectorLocale: VectorLocaleProvider
+    @Inject lateinit var vectorLocale: ProgressiveLocaleProvider
 
     private val viewModel: HomeDetailViewModel by fragmentViewModel()
     private val unknownDeviceDetectorSharedViewModel: UnknownDeviceDetectorSharedViewModel by activityViewModel()

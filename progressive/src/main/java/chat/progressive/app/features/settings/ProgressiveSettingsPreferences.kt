@@ -38,7 +38,7 @@ class ProgressiveSettingsPreferences :
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
     @Inject lateinit var fontScalePreferences: FontScalePreferences
     @Inject lateinit var vectorFeatures: ProgressiveFeatures
-    @Inject lateinit var vectorLocale: VectorLocale
+    @Inject lateinit var vectorLocale: ProgressiveLocale
 
     override var titleRes = CommonStrings.settings_preferences
     override val preferenceXmlRes = R.xml.progressive_settings_preferences

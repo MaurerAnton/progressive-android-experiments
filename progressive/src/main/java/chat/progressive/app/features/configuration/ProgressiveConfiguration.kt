@@ -13,7 +13,7 @@ import android.os.Build
 import android.os.LocaleList
 import androidx.annotation.RequiresApi
 import chat.progressive.app.features.settings.FontScalePreferences
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.app.features.themes.ThemeUtils
 import timber.log.Timber
 import java.util.Locale
@@ -25,7 +25,7 @@ import javax.inject.Inject
 class ProgressiveConfiguration @Inject constructor(
         private val context: Context,
         private val fontScalePreferences: FontScalePreferences,
-        private val vectorLocale: VectorLocaleProvider,
+        private val vectorLocale: ProgressiveLocaleProvider,
 ) {
 
     fun onConfigurationChanged() {

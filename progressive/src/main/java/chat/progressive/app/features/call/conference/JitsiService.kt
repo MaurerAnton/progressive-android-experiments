@@ -14,7 +14,7 @@ import chat.progressive.app.core.utils.toBase32String
 import chat.progressive.app.features.call.conference.jwt.JitsiJWTFactory
 import chat.progressive.app.features.displayname.getBestName
 import chat.progressive.app.features.raw.wellknown.getElementWellknown
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.app.features.themes.ThemeProvider
 import chat.progressive.lib.core.utils.timer.Clock
 import okhttp3.Request
@@ -39,7 +39,7 @@ class JitsiService @Inject constructor(
         private val themeProvider: ThemeProvider,
         private val jitsiJWTFactory: JitsiJWTFactory,
         private val clock: Clock,
-        private val vectorLocale: VectorLocaleProvider,
+        private val vectorLocale: ProgressiveLocaleProvider,
 ) {
 
     companion object {

@@ -22,7 +22,7 @@ import chat.progressive.app.core.di.ActiveSessionHolder
 import chat.progressive.app.core.extensions.getAllChildFragments
 import chat.progressive.app.core.extensions.toOnOff
 import chat.progressive.app.core.resources.BuildMeta
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.app.features.settings.devtools.GossipingEventsSerializer
 import chat.progressive.app.features.settings.locale.SystemLocaleProvider
@@ -71,7 +71,7 @@ class BugReporter @Inject constructor(
         private val buildMeta: BuildMeta,
         private val processInfo: ProcessInfo,
         private val sdkIntProvider: BuildVersionSdkIntProvider,
-        private val vectorLocale: VectorLocaleProvider,
+        private val vectorLocale: ProgressiveLocaleProvider,
 ) {
     var inMultiWindowMode = false
 

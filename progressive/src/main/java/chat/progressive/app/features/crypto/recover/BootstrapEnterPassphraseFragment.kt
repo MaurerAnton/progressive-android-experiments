@@ -18,7 +18,7 @@ import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
 import chat.progressive.app.core.platform.ProgressiveFragment
 import chat.progressive.app.databinding.FragmentBootstrapEnterPassphraseBinding
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.lib.core.utils.flow.throttleFirst
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +35,7 @@ class BootstrapEnterPassphraseFragment :
         return FragmentBootstrapEnterPassphraseBinding.inflate(inflater, container, false)
     }
 
-    @Inject lateinit var vectorLocale: VectorLocaleProvider
+    @Inject lateinit var vectorLocale: ProgressiveLocaleProvider
 
     val sharedViewModel: BootstrapSharedViewModel by parentFragmentViewModel()
 

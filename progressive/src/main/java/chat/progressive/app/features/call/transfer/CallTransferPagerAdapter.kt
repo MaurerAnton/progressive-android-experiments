@@ -13,13 +13,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import chat.progressive.app.core.extensions.toMvRxBundle
 import chat.progressive.app.features.call.dialpad.DialPadFragment
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.app.features.userdirectory.UserListFragment
 import chat.progressive.app.features.userdirectory.UserListFragmentArgs
 
 class CallTransferPagerAdapter(
         private val fragmentActivity: FragmentActivity,
-        private val vectorLocale: VectorLocaleProvider,
+        private val vectorLocale: ProgressiveLocaleProvider,
 ) : FragmentStateAdapter(fragmentActivity) {
 
     companion object {

@@ -16,7 +16,7 @@ import chat.progressive.app.R
 import chat.progressive.app.core.extensions.addChildFragment
 import chat.progressive.app.core.platform.ProgressiveBottomSheet
 import chat.progressive.app.databinding.BottomSheetCallDialPadBinding
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,7 +35,7 @@ class CallDialPadBottomSheet : ProgressiveBottomSheet<BottomSheetCallDialPadBind
         }
     }
 
-    @Inject lateinit var vectorLocale: VectorLocaleProvider
+    @Inject lateinit var vectorLocale: ProgressiveLocaleProvider
 
     override val showExpanded = true
 

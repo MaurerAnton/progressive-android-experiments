@@ -81,7 +81,7 @@ import chat.progressive.app.features.rageshake.RageShake
 import chat.progressive.app.features.session.SessionListener
 import chat.progressive.app.features.settings.FontScalePreferences
 import chat.progressive.app.features.settings.FontScalePreferencesImpl
-import chat.progressive.app.features.settings.VectorLocaleProvider
+import chat.progressive.app.features.settings.ProgressiveLocaleProvider
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.app.features.themes.ActivityOtherThemes
 import chat.progressive.app.features.themes.ThemeUtils
@@ -161,7 +161,7 @@ abstract class ProgressiveActivity<VB : ViewBinding> : AppCompatActivity(), Mave
     @Inject lateinit var rageShake: RageShake
     @Inject lateinit var buildMeta: BuildMeta
     @Inject lateinit var fontScalePreferences: FontScalePreferences
-    @Inject lateinit var vectorLocale: VectorLocaleProvider
+    @Inject lateinit var vectorLocale: ProgressiveLocaleProvider
     @Inject lateinit var vectorFeatures: ProgressiveFeatures
     @Inject lateinit var navigator: Navigator
     @Inject lateinit var activeSessionHolder: ActiveSessionHolder
@@ -182,7 +182,7 @@ abstract class ProgressiveActivity<VB : ViewBinding> : AppCompatActivity(), Mave
     override fun attachBaseContext(base: Context) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(base)
         val fontScalePreferences = FontScalePreferencesImpl(preferences, AndroidSystemSettingsProvider(base))
-        val vectorLocaleProvider = VectorLocaleProvider(preferences)
+        val vectorLocaleProvider = ProgressiveLocaleProvider(preferences)
         val vectorConfiguration = ProgressiveConfiguration(this, fontScalePreferences, vectorLocaleProvider)
         super.attachBaseContext(vectorConfiguration.getLocalisedContext(base))
     }

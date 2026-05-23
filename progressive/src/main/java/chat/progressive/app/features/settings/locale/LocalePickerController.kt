@@ -19,7 +19,7 @@ import chat.progressive.app.core.epoxy.profiles.profileSectionItem
 import chat.progressive.app.core.error.ErrorFormatter
 import chat.progressive.app.core.resources.StringProvider
 import chat.progressive.app.core.utils.safeCapitalize
-import chat.progressive.app.features.settings.VectorLocale
+import chat.progressive.app.features.settings.ProgressiveLocale
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.lib.strings.CommonStrings
 import java.util.Locale
@@ -29,7 +29,7 @@ class LocalePickerController @Inject constructor(
         private val progressivePreferences: ProgressiveBasePreferences,
         private val stringProvider: StringProvider,
         private val errorFormatter: ErrorFormatter,
-        private val vectorLocale: VectorLocale,
+        private val vectorLocale: ProgressiveLocale,
 ) : TypedEpoxyController<LocalePickerViewState>() {
 
     var listener: Listener? = null
