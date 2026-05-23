@@ -2,4 +2,6 @@
 #include <string>
 #include <cstdint>
 
-std::string parseJoinRules:isPublicRoom:buildJoinRulesEvent(const std::string& json);
+std::string parseJoinRules(const std::string& json);
+std::string isPublicRoom(const std::string& json);
+std::string buildJoinRulesEvent(const std::string& json);

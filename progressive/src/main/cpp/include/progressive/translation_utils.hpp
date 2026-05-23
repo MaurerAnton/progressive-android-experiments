@@ -2,4 +2,7 @@
 #include <string>
 #include <cstdint>
 
-std::string detectLanguage:translateText:parseTranslationResponse:getSupportedLanguages(const std::string& json);
+std::string detectLanguage(const std::string& json);
+std::string translateText(const std::string& json);
+std::string parseTranslationResponse(const std::string& json);
+std::string getSupportedLanguages(const std::string& json);
