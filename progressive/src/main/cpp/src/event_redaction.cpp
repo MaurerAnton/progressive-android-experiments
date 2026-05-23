@@ -36,7 +36,7 @@ std::string applyRedaction(const std::string& content) {
     // Matrix spec: redacted events keep only: event_id, type, room_id, sender,
     // origin_server_ts, unsigned, redacts (if redaction)
     // All other fields are stripped
-    return R"({"redacted_by":"(redacted)"})";
+    return "{\"redacted_by\":\"(redacted)\"}";
 }
 
 bool isRedactedEvent(const std::string& json) {
