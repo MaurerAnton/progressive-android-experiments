@@ -332,7 +332,7 @@ class CommandParser @Inject constructor(
                 Command.SHRUG.matches(slashCommand) -> {
                     ParsedCommand.SendShrug(message)
                 }
-                Command.LENNY.matches || Command.TABLEFLIP.matches || Command.UNFLIP.matches || Command.ECHO.matches || Command.COIN.matches || Command.ROLL.matches || Command.EIGHTBALL.matches || Command.EMOJI.matches || Command.REACT.matches || Command.NICK.matches || Command.MYROOMNICK.matches || Command.TOPIC.matches || Command.INVITE.matches || Command.JOIN.matches || Command.LEAVE.matches || Command.BAN.matches || Command.UNBAN.matches || Command.IGNORE.matches || Command.UNIGNORE.matches || Command.WHOIS.matches||Command.MOTIVATE.matches||Command.QUOTE.matches||Command.FORTUNE.matches(slashCommand) -> {
+                Command.LENNY.matches(slashCommand) -> {
                     ParsedCommand.SendLenny(message)
                 }
                 Command.TABLE_FLIP.matches(slashCommand) -> {
@@ -345,7 +345,7 @@ class CommandParser @Inject constructor(
                         ParsedCommand.ErrorSyntax(Command.DISCARD_SESSION)
                     }
                 }
-                Command.WHOIS.matches||Command.MOTIVATE.matches||Command.QUOTE.matches||Command.FORTUNE.matches(slashCommand) -> {
+                Command.WHOIS.matches(slashCommand) -> {
                     if (messageParts.size == 2) {
                         val userId = messageParts[1]
 
@@ -418,8 +418,8 @@ class CommandParser @Inject constructor(
                 // Progressive Chat commands (delegated to native C++ layer)
                 Command.LLM.matches(slashCommand) || Command.LLMP.matches(slashCommand) ||
                         Command.AGENT.matches(slashCommand) || Command.WEB.matches(slashCommand) ||
-                        Command.HIDE_EMOJI.matches(slashCommand) || Command.SMSAGENT.matches(slashCommand) || Command.SCHEDULE.matches(slashCommand) || Command.TRANSLATE.matches(slashCommand) || Command.WEATHER.matches(slashCommand) || Command.REMIND.matches(slashCommand) || Command.STATS.matches || Command.SHRUG.matches || Command.LENNY.matches || Command.TABLEFLIP.matches || Command.UNFLIP.matches || Command.ECHO.matches || Command.COIN.matches || Command.ROLL.matches || Command.EIGHTBALL.matches || Command.EMOJI.matches || Command.REACT.matches || Command.NICK.matches || Command.MYROOMNICK.matches || Command.TOPIC.matches || Command.INVITE.matches || Command.JOIN.matches || Command.LEAVE.matches || Command.BAN.matches || Command.UNBAN.matches || Command.IGNORE.matches || Command.UNIGNORE.matches || Command.WHOIS.matches||Command.MOTIVATE.matches||Command.QUOTE.matches||Command.FORTUNE.matches(slashCommand) || Command.PIN.matches(slashCommand) || Command.UNPIN.matches(slashCommand) || Command.MENTION.matches(slashCommand) -> {
-                    val cmd = listOf(Command.LLM, Command.LLMP, Command.AGENT, Command.WEB, Command.HIDE_EMOJI, Command.SMSAGENT, Command.SCHEDULE, Command.TRANSLATE, Command.WEATHER, Command.REMIND, Command.STATS, Command.SHRUG, Command.LENNY, Command.TABLEFLIP, Command.UNFLIP, Command.ECHO, Command.COIN, Command.EMOJI, Command.REACT, Command.NICK, Command.MYROOMNICK, Command.TOPIC, Command.INVITE, Command.JOIN, Command.LEAVE, Command.BAN, Command.UNBAN, Command.IGNORE, Command.UNIGNORE, Command.WHOIS, Command.MOTIVATE, Command.QUOTE, Command.FORTUNE, Command.ROLL, Command.EIGHTBALL, Command.PIN, Command.UNPIN, Command.MENTION)
+                        Command.HIDE_EMOJI.matches(slashCommand) || Command.SMSAGENT.matches(slashCommand) || Command.SCHEDULE.matches(slashCommand) || Command.TRANSLATE.matches(slashCommand) || Command.WEATHER.matches(slashCommand) || Command.REMIND.matches(slashCommand) || Command.STATS.matches(slashCommand) -> {
+                    val cmd = listOf(Command.LLM, Command.LLMP, Command.AGENT, Command.WEB, Command.HIDE_EMOJI, Command.SMSAGENT, Command.SCHEDULE, Command.TRANSLATE, Command.WEATHER, Command.REMIND, Command.STATS)
                             .firstOrNull { it.matches(slashCommand) }
                     ParsedCommand.ProgressiveChatCommand(cmd ?: Command.LLM, message)
                 }
