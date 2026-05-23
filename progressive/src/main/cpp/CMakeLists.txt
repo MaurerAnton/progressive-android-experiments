@@ -123,6 +123,11 @@ add_library(
     src/room_topic_utils.cpp
     src/sync_state_utils.cpp
     src/message_link_utils.cpp
+    src/mention_utils.cpp
+    src/content_warning_utils.cpp
+    src/notification_sound_utils.cpp
+    src/room_history_utils.cpp
+    src/contact_utils.cpp
     src/message_retry_utils.cpp
     src/custom_emoji_utils.cpp
     src/event_sender_utils.cpp
