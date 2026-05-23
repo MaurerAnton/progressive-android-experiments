@@ -1,7 +1,7 @@
 /*
- * Copyright 2019-2024 New Vector Ltd.
+ * Copyright 2019-2024 Progressive Chat
  *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
+ * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Progressive
  * Please see LICENSE files in the repository root for full details.
  */
 
@@ -10,7 +10,7 @@ package chat.progressive.app.features.command
 import chat.progressive.app.core.extensions.isMsisdn
 import chat.progressive.app.core.extensions.orEmpty
 import chat.progressive.app.features.home.room.detail.ChatEffect
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import org.matrix.android.sdk.api.MatrixPatterns
 import org.matrix.android.sdk.api.MatrixUrls.isMxcUrl
 import org.matrix.android.sdk.api.extensions.isEmail
@@ -19,7 +19,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class CommandParser @Inject constructor(
-        private val vectorPreferences: ProgressivePreferences
+        private val progressivePreferences: ProgressiveBasePreferences
 ) {
 
     /**
@@ -398,8 +398,61 @@ class CommandParser @Inject constructor(
                         ParsedCommand.ErrorSyntax(Command.UPGRADE_ROOM)
                     }
                 }
-                Command.JUMP_TO_DATE.matches(slashCommand) -> {
-                    if (messageParts.size == 2) {
-                        val dateString = messageParts[1]
-                        // Basic format check — C++ validates thoroughly
-                        if (dateString.matches(Regex("^\\d{4}-\\d{2}-\\d{2}$"))) {
+                Command.CRASH_APP.matches(slashCommand) && progressivePreferences.developerMode() -> {
+                    throw RuntimeException("Application crashed from user demand")
+                }
+                else -> {
+                    // Unknown command
+                    ParsedCommand.ErrorUnknownSlashCommand(slashCommand)
+                }
+            }
+        }
+    }
+
+    private fun extractMessage(message: String): Pair<List<String>, String>? {
+        val messageParts = try {
+            message.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }
+        } catch (e: Exception) {
+            Timber.e(e, "## parseSlashCommand() : split failed")
+            null
+        }
+
+        // test if the string cut fails
+        if (messageParts.isNullOrEmpty()) {
+            return null
+        }
+
+        val slashCommand = messageParts.first()
+        val trimmedMessage = message.substring(slashCommand.length).trim()
+
+        return messageParts to trimmedMessage
+    }
+
+    private val notSupportedThreadsCommands: List<Command> by lazy {
+        Command.values().filter {
+            !it.isThreadCommand
+        }
+    }
+
+    /**
+     * Checks whether or not the current command is not supported by threads.
+     * @param isInThreadTimeline if its true we are in a thread timeline
+     * @param slashCommand the slash command that will be checked
+     * @return The command that is not supported
+     */
+    private fun getNotSupportedByThreads(isInThreadTimeline: Boolean, slashCommand: String): Command? {
+        return if (isInThreadTimeline) {
+            notSupportedThreadsCommands.firstOrNull {
+                it.command == slashCommand
+            }
+        } else {
+            null
+        }
+    }
+
+    private fun trimParts(message: CharSequence, messageParts: List<String>): String? {
+        val partsSize = messageParts.sumOf { it.length }
+        val gapsNumber = messageParts.size - 1
+        return message.substring(partsSize + gapsNumber).trim().takeIf { it.isNotEmpty() }
+    }
+}

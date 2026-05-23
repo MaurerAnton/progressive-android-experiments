@@ -1,7 +1,7 @@
 /*
- * Copyright 2019-2024 New Vector Ltd.
+ * Copyright 2019-2024 Progressive Chat
  *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Element-Commercial
+ * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-Progressive
  * Please see LICENSE files in the repository root for full details.
  */
 
@@ -62,8 +62,19 @@ enum class Command(
     JOIN_SPACE("/joinSpace", null, "spaceId", CommonStrings.command_description_join_space, true, false),
     LEAVE_ROOM("/leave", null, "<roomId?>", CommonStrings.command_description_leave_room, true, false),
     UPGRADE_ROOM("/upgraderoom", null, "newVersion", CommonStrings.command_description_upgrade_room, true, false),
-    JUMP_TO_DATE("/jumptodate", null, "<YYYY-MM-DD>", CommonStrings.command_description_jump_to_date, false, true),
-    TABLE_FLIP("/tableflip", null, "<message>", CommonStrings.command_description_table_flip, false, true);
+    TABLE_FLIP("/tableflip", null, "<message>", CommonStrings.command_description_table_flip, false, true),
+    // Progressive Chat commands
+    LLM("/llm", null, "<query>", CommonStrings.command_description_llm, false, true),
+    LLMP("/llmp", null, "<query>", CommonStrings.command_description_llmp, false, true),
+    AGENT("/agent", null, "<task>", CommonStrings.command_description_agent, false, true),
+    WEB("/web", arrayOf("/search"), "[engine] <query>", CommonStrings.command_description_web, false, true),
+    HIDE_EMOJI("/hideemoji", null, "", CommonStrings.command_description_hide_emoji, false, true),
+    STATS("/stats", null, "", CommonStrings.command_description_weather, false, true),
+    REMIND("/remind", null, "<N> <unit> <message>", CommonStrings.command_description_weather, false, true),
+    WEATHER("/weather", null, "<city>", CommonStrings.command_description_weather, false, true),
+    TRANSLATE("/translate", null, "<lang> <text>", CommonStrings.command_description_translate, false, true),
+    SCHEDULE("/schedule", null, "<HH:MM> <message>", CommonStrings.command_description_schedule, false, true),
+    SMSAGENT("/smsagent", null, "<message>", CommonStrings.command_description_smsagent, false, true);
 
     val allAliases = arrayOf(command, *aliases.orEmpty())
 

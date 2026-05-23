@@ -138,6 +138,31 @@ add_library(
     src/room_unread_utils.cpp
     src/url_render_utils.cpp
     src/room_retention_utils.cpp
+    src/room_powerlevel_utils.cpp
+    src/room_guest_access_utils.cpp
+    src/room_join_rules_utils.cpp
+    src/room_visibility_utils.cpp
+    src/room_parent_utils.cpp
+    src/room_child_utils.cpp
+    src/event_signature_utils.cpp
+    src/event_hash_utils.cpp
+    src/event_content_utils.cpp
+    src/event_origin_utils.cpp
+    src/event_age_utils.cpp
+    src/room_tag_utils.cpp
+    src/room_read_marker_utils.cpp
+    src/filter_utils.cpp
+    src/section_sort_utils.cpp
+    src/display_name_utils.cpp
+    src/avatar_url_utils.cpp
+    src/message_format_utils.cpp
+    src/url_preview_utils.cpp
+    src/secrets_utils.cpp
+    src/backup_keys_utils.cpp
+    src/room_role_utils.cpp
+    src/push_rule_utils.cpp
+    src/notification_action_utils.cpp
+    src/widget_permission_utils.cpp
     src/room_server_acl_utils.cpp
     src/room_knock_utils.cpp
     src/room_favorite_utils.cpp
