@@ -1,66 +1,145 @@
-#pragma once
+#ifndef PROGRESSIVE_EVENT_VALIDATOR_HPP
+#define PROGRESSIVE_EVENT_VALIDATOR_HPP
+
 #include <string>
+#include <vector>
 #include <cstdint>
 
-std::string eventId;(const std::string& json);
-std::string errorMessage;(const std::string& json);
-std::string warningMessage;  // non-fatal issues(const std::string& json);
-std::string eventType;(const std::string& json);
-std::string msgType;(const std::string& json);
-std::string body;(const std::string& json);
-std::string formattedBody;(const std::string& json);
-std::string url;          // for m.room.avatar etc.(const std::string& json);
-std::string filename;     // for file uploads(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& eventId,(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& eventType,(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& senderId,(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& contentJson,(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& originServerTs,(const std::string& json);
-std::string const std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string>& blockedUsers(const std::string& json);
-std::string EventContent parseEventContent(const std(const std::string& json);
-std::string string& eventType, const std(const std::string& json);
-std::string string& contentJson);(const std::string& json);
-std::string bool isBodyWithinLimits(const std(const std::string& json);
-std::string string& body, int maxLength = 65536);(const std::string& json);
-std::string bool isValidEventId(const std(const std::string& json);
-std::string string& eventId);(const std::string& json);
-std::string bool isValidSenderId(const std(const std::string& json);
-std::string string& senderId);(const std::string& json);
-std::string bool isReasonableTimestamp(const std(const std::string& json);
-std::string string& originServerTs, int64_t maxFutureMs = 300000);(const std::string& json);
-std::string eventValidationToJson(const EventValidation& validation);(const std::string& json);
-std::string std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string> warnings;(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& eventJson,(const std::string& json);
-std::string EventValidationResult validateEventBasic(const std(const std::string& json);
-std::string string& eventJson);(const std::string& json);
-std::string EventValidationResult validateEventFull(const std(const std::string& json);
-std::string string& eventJson);(const std::string& json);
-std::string std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string> getValidationErrors(const EventValidationResult& result);(const std::string& json);
-std::string bool isWellFormedEventId(const std(const std::string& json);
-std::string string& eventId);(const std::string& json);
-std::string bool isWellFormedRoomId(const std(const std::string& json);
-std::string string& roomId);(const std::string& json);
-std::string bool isWellFormedUserId(const std(const std::string& json);
-std::string string& userId);(const std::string& json);
-std::string bool isWellFormedEventType(const std(const std::string& json);
-std::string string& eventType);(const std::string& json);
-std::string EventIntegrityCheck checkEventIntegrity(const std(const std::string& json);
-std::string string& eventJson);(const std::string& json);
-std::string EventValidationResult validateRedactionEvent(const std(const std::string& json);
-std::string string& eventJson);(const std::string& json);
-std::string EventValidationResult validateStateEvent(const std(const std::string& json);
-std::string string& eventJson);(const std::string& json);
-std::string EventValidationResult validateEncryptedEvent(const std(const std::string& json);
-std::string string& eventJson);(const std::string& json);
+namespace progressive {
+
+// ---- Matrix Event Validation ----
+
+struct EventValidation {
+    bool valid = false;
+    std::string eventId;
+    std::string errorMessage;
+    std::string warningMessage;  // non-fatal issues
+
+    // Structural checks
+    bool hasRequiredFields = false;
+    bool hasValidSignature = false;
+
+    // Content checks
+    bool messageTooLong = false;
+    bool containsInvalidChars = false;
+    bool mediaTooLarge = false;
+
+    // Security checks
+    bool isSpoofed = false;      // sender doesn't match signature
+    bool isExpired = false;      // timestamp too old
+    bool isFromBlockedUser = false;
+};
+
+struct EventContent {
+    std::string eventType;
+    std::string msgType;
+    std::string body;
+    std::string formattedBody;
+    std::string url;          // for m.room.avatar etc.
+    std::string filename;     // for file uploads
+    int64_t fileSize = 0;
+    int64_t durationMs = 0;   // for audio/video
+    int imgWidth = 0;
+    int imgHeight = 0;
+};
+
+// Validate a Matrix event for correctness.
+EventValidation validateEvent(
+    const std::string& eventId,
+    const std::string& eventType,
+    const std::string& senderId,
+    const std::string& contentJson,
+    const std::string& originServerTs,
+    const std::vector<std::string>& blockedUsers
+);
+
+// Validate event content for each message type.
+EventContent parseEventContent(const std::string& eventType, const std::string& contentJson);
+
+// Check if a message body is within length limits.
+bool isBodyWithinLimits(const std::string& body, int maxLength = 65536);
+
+// Check if a file size is within upload limits.
+bool isFileSizeWithinLimits(int64_t fileSize, int64_t maxSizeBytes = 100 * 1024 * 1024);
+
+// Check event id format: $ + base64
+bool isValidEventId(const std::string& eventId);
+
+// Validate sender MXID format.
+bool isValidSenderId(const std::string& senderId);
+
+// Check if timestamp is reasonable (not too far in past or future).
+bool isReasonableTimestamp(const std::string& originServerTs, int64_t maxFutureMs = 300000);
+
+// Format validation result as JSON.
+std::string eventValidationToJson(const EventValidation& validation);
+
+
+enum class EventValidationRule {
+    ROOM_ID_REQUIRED = 0,
+    SENDER_REQUIRED = 1,
+    TYPE_REQUIRED = 2,
+    EVENT_ID_REQUIRED = 3,
+    CONTENT_REQUIRED = 4,
+    STATE_KEY_FOR_STATE = 5,
+    TIMESTAMP_NON_NEGATIVE = 6,
+    EVENT_ID_FORMAT = 7,
+    ROOM_ID_FORMAT = 8,
+    USER_ID_FORMAT = 9,
+    REDACTION_HAS_REASON = 10
+};
+
+// Result of comprehensive validation with per-rule failures.
+// Original Kotlin: EventValidationResult
+struct EventValidationResult {
+    bool isValid = true;
+    std::vector<EventValidationRule> ruleFailures;
+    std::vector<std::string> warnings;
+};
+
+// Comprehensive validation with multiple configurable rules.
+// Original Kotlin: validateEvent(eventJson, rules)
+EventValidationResult validateEvent(
+    const std::string& eventJson,
+    const std::vector<EventValidationRule>& rules
+);
+
+// Just required fields (eventId, type, sender, roomId, originServerTs, content).
+// Original Kotlin: validateEventBasic(eventJson)
+EventValidationResult validateEventBasic(const std::string& eventJson);
+
+// All validation rules.
+// Original Kotlin: validateEventFull(eventJson)
+EventValidationResult validateEventFull(const std::string& eventJson);
+
+// Format all rule failures as human-readable error strings.
+// Original Kotlin: getValidationErrors(result)
+std::vector<std::string> getValidationErrors(const EventValidationResult& result);
+
+// Regex-free pattern checks for well-formed Matrix identifiers.
+// Original Kotlin: MatrixPatterns.isWellFormed*
+bool isWellFormedEventId(const std::string& eventId);
+bool isWellFormedRoomId(const std::string& roomId);
+bool isWellFormedUserId(const std::string& userId);
+bool isWellFormedEventType(const std::string& eventType);
+
+// Event integrity checks (signature+hash, stub for NDK).
+// Original Kotlin: EventIntegrityChecker
+struct EventIntegrityCheck {
+    bool passesSignatureCheck = false;
+    bool passesHashCheck = false;
+    int passingCount = 0;
+    int violationCount = 0;
+};
+
+EventIntegrityCheck checkEventIntegrity(const std::string& eventJson);
+
+// Specialized validation for specific event types.
+// Original Kotlin: validateRedactionEvent, validateStateEvent, validateEncryptedEvent
+EventValidationResult validateRedactionEvent(const std::string& eventJson);
+EventValidationResult validateStateEvent(const std::string& eventJson);
+EventValidationResult validateEncryptedEvent(const std::string& eventJson);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_EVENT_VALIDATOR_HPP

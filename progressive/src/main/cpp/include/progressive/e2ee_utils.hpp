@@ -1,19 +1,50 @@
-#pragma once
-#include <string>
-#include <cstdint>
+#ifndef PROGRESSIVE_E2EE_UTILS_HPP
+#define PROGRESSIVE_E2EE_UTILS_HPP
 
-std::string errorReason;        // human-readable reason(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& errorReason,(const std::string& json);
-std::string getTrustLabel(TrustLevel level);(const std::string& json);
-std::string getTrustBadge(TrustLevel level);(const std::string& json);
-std::string bool requiresCrossSigning(const std(const std::string& json);
-std::string string& algorithm);(const std::string& json);
-std::string bool isValidDeviceKey(const std(const std::string& json);
-std::string string& key, const std(const std::string& json);
-std::string string& keyType = "ed25519");(const std::string& json);
-std::string bool deviceIdMatches(const std(const std::string& json);
-std::string string& localDeviceId, const std(const std::string& json);
-std::string string& remoteDeviceId);(const std::string& json);
-std::string TrustLevel parseVerificationState(const std(const std::string& json);
-std::string string& stateJson);(const std::string& json);
+#include <string>
+
+namespace progressive {
+
+// E2EE trust level based on cross-signing and device verification.
+enum class TrustLevel { Unknown, Warning, Verified, Blacklisted };
+
+// Decoration info for a message in the timeline.
+struct E2eeDecoration {
+    TrustLevel trustLevel = TrustLevel::Unknown;
+    bool isEncrypted = false;
+    bool hasError = false;          // UISI — unable to decrypt
+    bool keyRequested = false;      // re-requested keys
+    std::string errorReason;        // human-readable reason
+};
+
+// Compute E2EE decoration from event properties.
+E2eeDecoration computeE2eeDecoration(
+    bool isEncrypted,
+    bool isVerifiedDevice,
+    bool isCrossSigned,
+    bool hasDecryptError,
+    const std::string& errorReason,
+    bool isBlacklisted
+);
+
+// Get a human-readable trust label: "Verified", "Warning", "Encrypted", etc.
+std::string getTrustLabel(TrustLevel level);
+
+// Get a short trust label for badges: "V", "W", "E", "!".
+std::string getTrustBadge(TrustLevel level);
+
+// Check if an encryption algorithm requires cross-signing.
+bool requiresCrossSigning(const std::string& algorithm);
+
+// Validate a Matrix device key (Curve25519 or Ed25519).
+bool isValidDeviceKey(const std::string& key, const std::string& keyType = "ed25519");
+
+// Check if two device IDs match (case-sensitive prefix match).
+bool deviceIdMatches(const std::string& localDeviceId, const std::string& remoteDeviceId);
+
+// Parse a Matrix device verification state from JSON.
+TrustLevel parseVerificationState(const std::string& stateJson);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_E2EE_UTILS_HPP

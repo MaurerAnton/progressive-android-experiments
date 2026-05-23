@@ -1,26 +1,46 @@
-#pragma once
-#include <string>
-#include <cstdint>
+#ifndef PROGRESSIVE_EMOJI_ANALYZER_HPP
+#define PROGRESSIVE_EMOJI_ANALYZER_HPP
 
-std::string emoji;(const std::string& json);
-std::string category;     // "smiley", "gesture", "heart", etc.(const std::string& json);
-std::string favoriteEmoji;(const std::string& json);
-std::string std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string> recentEmojis; // last 10 used(const std::string& json);
-std::string EmojiStats analyzeEmojiUsage(const std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string>& emojis);(const std::string& json);
-std::string std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string> extractEmojis(const std(const std::string& json);
-std::string string& text);(const std::string& json);
-std::string bool isEmojiOnlyMessage(const std(const std::string& json);
-std::string string& text, int maxNonEmojiChars = 3);(const std::string& json);
-std::string getEmojiCategory(const std(const std::string& json);
-std::string string& emoji);(const std::string& json);
-std::string findSimilarEmoji(const std(const std::string& json);
-std::string string& query,(const std::string& json);
-std::string const std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string>& emojiList, int maxResults = 5);(const std::string& json);
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+namespace progressive {
+
+struct EmojiUsage {
+    std::string emoji;
+    int count = 0;
+    std::string category;     // "smiley", "gesture", "heart", etc.
+    double frequency = 0.0;   // percentage of all emoji
+};
+
+struct EmojiStats {
+    int totalEmoji = 0;
+    int uniqueEmoji = 0;
+    std::vector<EmojiUsage> topEmojis;     // top 10 by usage
+    std::string favoriteEmoji;
+    std::vector<std::string> recentEmojis; // last 10 used
+};
+
+// Analyze emoji usage from a list.
+EmojiStats analyzeEmojiUsage(const std::vector<std::string>& emojis);
+
+// Extract all emojis from text.
+std::vector<std::string> extractEmojis(const std::string& text);
+
+// Check if text consists entirely of emojis.
+bool isEmojiOnlyMessage(const std::string& text, int maxNonEmojiChars = 3);
+
+// Get emoji category.
+std::string getEmojiCategory(const std::string& emoji);
+
+// Check if a character is in the emoji Unicode range.
+bool isEmojiChar(uint32_t codepoint);
+
+// Find most similar emoji (for search/autocomplete).
+std::string findSimilarEmoji(const std::string& query,
+    const std::vector<std::string>& emojiList, int maxResults = 5);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_EMOJI_ANALYZER_HPP

@@ -1,14 +1,31 @@
-#pragma once
-#include <string>
-#include <cstdint>
+#ifndef PROGRESSIVE_MASQUERADE_HPP
+#define PROGRESSIVE_MASQUERADE_HPP
 
-std::string appName;       // e.g. "Calculator" or "Notes"(const std::string& json);
-std::string iconAlias;     // e.g. "calculator" or "notes"(const std::string& json);
-std::string bool isValidMasqueradeName(const std(const std::string& json);
-std::string string& name);(const std::string& json);
-std::string buildMasqueradeAlias(const std(const std::string& json);
-std::string string& baseAlias, const std(const std::string& json);
-std::string string& iconName);(const std::string& json);
-std::string getSuggestedNames();(const std::string& json);
-std::string bool isValidIconAlias(const std(const std::string& json);
-std::string string& alias);(const std::string& json);
+#include <string>
+
+namespace progressive {
+
+struct MasqueradeConfig {
+    bool enabled = false;
+    std::string appName;       // e.g. "Calculator" or "Notes"
+    std::string iconAlias;     // e.g. "calculator" or "notes"
+    bool useDefaultIcon = true; // use system-provided mask icon
+};
+
+// Validate app name: 1-30 chars, no offensive words
+bool isValidMasqueradeName(const std::string& name);
+
+// Get the Android component alias for masquerading
+// e.g. "im.vector.app.features.MainActivity" → "im.vector.app.features.MasqueradeCalculator"
+std::string buildMasqueradeAlias(const std::string& baseAlias, const std::string& iconName);
+
+// Generate a list of suggested masquerade names
+// (Calculator, Notes, Settings, Clock, etc.)
+std::string getSuggestedNames();
+
+// Validate icon alias name (alphanumeric, 1-20 chars)
+bool isValidIconAlias(const std::string& alias);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_MASQUERADE_HPP

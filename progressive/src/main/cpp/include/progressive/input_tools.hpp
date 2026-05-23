@@ -1,35 +1,75 @@
-#pragma once
-#include <string>
-#include <cstdint>
+#ifndef PROGRESSIVE_INPUT_TOOLS_HPP
+#define PROGRESSIVE_INPUT_TOOLS_HPP
 
-std::string symbol;      // e.g. "→", "≈", "☭", "¯\_(ツ)_/¯"(const std::string& json);
-std::string label;       // optional display label(const std::string& json);
-std::string void addSymbol(const std(const std::string& json);
-std::string string& symbol, const std(const std::string& json);
-std::string string& label = "");(const std::string& json);
-std::string void removeSymbol(const std(const std::string& json);
-std::string string& symbol);(const std::string& json);
-std::string void setOrder(const std(const std::string& json);
-std::string string& symbol, int order);(const std::string& json);
-std::string exportJson() const;(const std::string& json);
-std::string void importJson(const std::string& json);
-std::string std(const std::string& json);
-std::string unordered_map<std(const std::string& json);
-std::string string, SymbolEntry> symbols_;(const std::string& json);
-std::string pattern;     // "www.youtube.com"(const std::string& json);
-std::string replacement; // "redirect.invidious.io"(const std::string& json);
-std::string void addRule(const std(const std::string& json);
-std::string string& pattern, const std(const std::string& json);
-std::string string& replacement, bool exactMatch = false);(const std::string& json);
-std::string void removeRule(const std(const std::string& json);
-std::string string& pattern);(const std::string& json);
-std::string void setEnabled(const std(const std::string& json);
-std::string string& pattern, bool enabled);(const std::string& json);
-std::string apply(const std(const std::string& json);
-std::string string& text) const;(const std::string& json);
-std::string const ReplacementRule* check(const std(const std::string& json);
-std::string string& text) const;(const std::string& json);
-std::string exportJson() const;(const std::string& json);
-std::string void importJson(const std::string& json);
-std::string static toLower(const std(const std::string& json);
-std::string string& s);(const std::string& json);
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+namespace progressive {
+
+// ---- Custom Symbol Bar ----
+
+struct SymbolEntry {
+    std::string symbol;      // e.g. "→", "≈", "☭", "¯\_(ツ)_/¯"
+    std::string label;       // optional display label
+    int order = 0;           // display order
+};
+
+class SymbolBar {
+public:
+    void addSymbol(const std::string& symbol, const std::string& label = "");
+    void removeSymbol(const std::string& symbol);
+    void setOrder(const std::string& symbol, int order);
+
+    // Get all symbols sorted by order.
+    std::vector<SymbolEntry> getSymbols() const;
+
+    // Get symbols as JSON array for UI.
+    std::string exportJson() const;
+
+    // Load from JSON.
+    void importJson(const std::string& json);
+
+    void clear();
+    size_t count() const { return symbols_.size(); }
+
+private:
+    std::unordered_map<std::string, SymbolEntry> symbols_;
+};
+
+// ---- Auto-Replacement Rules ----
+
+struct ReplacementRule {
+    std::string pattern;     // "www.youtube.com"
+    std::string replacement; // "redirect.invidious.io"
+    bool enabled = true;
+    bool exactMatch = false; // true = match whole URL, false = substring
+};
+
+class ReplacementEngine {
+public:
+    void addRule(const std::string& pattern, const std::string& replacement, bool exactMatch = false);
+    void removeRule(const std::string& pattern);
+    void setEnabled(const std::string& pattern, bool enabled);
+
+    // Apply replacement rules to text.
+    // Returns rewritten text.
+    std::string apply(const std::string& text) const;
+
+    // Check if any rule would apply (for UI preview).
+    // Returns the matching rule or nullptr.
+    const ReplacementRule* check(const std::string& text) const;
+
+    std::string exportJson() const;
+    void importJson(const std::string& json);
+    void clear();
+    size_t count() const { return rules_.size(); }
+
+private:
+    std::vector<ReplacementRule> rules_;
+    static std::string toLower(const std::string& s);
+};
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_INPUT_TOOLS_HPP

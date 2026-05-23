@@ -1,24 +1,58 @@
-#pragma once
-#include <string>
-#include <cstdint>
+#ifndef PROGRESSIVE_NOTIFICATION_HPP
+#define PROGRESSIVE_NOTIFICATION_HPP
 
-std::string keyword;        // the word/phrase that triggers notification(const std::string& json);
-std::string void addKeyword(const std(const std::string& json);
-std::string string& keyword, bool caseSensitive = false);(const std::string& json);
-std::string void removeKeyword(const std(const std::string& json);
-std::string string& keyword);(const std::string& json);
-std::string void setEnabled(const std(const std::string& json);
-std::string string& keyword, bool enabled);(const std::string& json);
-std::string check(const std(const std::string& json);
-std::string string& body) const;(const std::string& json);
-std::string exportJson() const;(const std::string& json);
-std::string void importJson(const std::string& json);
-std::string static toLower(const std(const std::string& json);
-std::string string& s);(const std::string& json);
-std::string reactorName;      // who reacted(const std::string& json);
-std::string reactionEmoji;    // 🚀(const std::string& json);
-std::string sourceBody;       // beginning of the source message(const std::string& json);
-std::string sourceSenderName; // who wrote the source message(const std::string& json);
-std::string formatReactionPreview(const ReactionPreview& reaction);(const std::string& json);
-std::string truncateForReactionPreview(const std(const std::string& json);
-std::string string& body, int maxLen = 40);(const std::string& json);
+#include <string>
+#include <vector>
+
+namespace progressive {
+
+// ---- Notification Keywords ----
+
+struct NotificationKeyword {
+    std::string keyword;        // the word/phrase that triggers notification
+    bool enabled = true;
+    bool caseSensitive = false;
+};
+
+class NotificationKeywords {
+public:
+    void addKeyword(const std::string& keyword, bool caseSensitive = false);
+    void removeKeyword(const std::string& keyword);
+    void setEnabled(const std::string& keyword, bool enabled);
+
+    // Check if message body triggers any notification keyword.
+    // Returns the matching keyword or empty string.
+    std::string check(const std::string& body) const;
+
+    // Get all keywords as JSON.
+    std::string exportJson() const;
+
+    // Load from JSON.
+    void importJson(const std::string& json);
+
+    void clear();
+    size_t count() const { return keywords_.size(); }
+
+private:
+    std::vector<NotificationKeyword> keywords_;
+    static std::string toLower(const std::string& s);
+};
+
+// ---- Reaction Preview Formatting ----
+
+struct ReactionPreview {
+    std::string reactorName;      // who reacted
+    std::string reactionEmoji;    // 🚀
+    std::string sourceBody;       // beginning of the source message
+    std::string sourceSenderName; // who wrote the source message
+};
+
+// Format a reaction preview: "User reacted: 🚀 to 'beginning of message...'"
+std::string formatReactionPreview(const ReactionPreview& reaction);
+
+// Truncate a message body for reaction preview (first N chars)
+std::string truncateForReactionPreview(const std::string& body, int maxLen = 40);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_NOTIFICATION_HPP

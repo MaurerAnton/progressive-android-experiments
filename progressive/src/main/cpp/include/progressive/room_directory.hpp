@@ -1,26 +1,72 @@
-#pragma once
+#ifndef PROGRESSIVE_ROOM_DIRECTORY_HPP
+#define PROGRESSIVE_ROOM_DIRECTORY_HPP
+
 #include <string>
+#include <vector>
 #include <cstdint>
 
-std::string roomId;(const std::string& json);
-std::string name;(const std::string& json);
-std::string topic;(const std::string& json);
-std::string alias;(const std::string& json);
-std::string avatarUrl;(const std::string& json);
-std::string serverFilter;    // filter by server (empty = all)(const std::string& json);
-std::string nameFilter;      // search by name (empty = all)(const std::string& json);
-std::string biggestRoom;(const std::string& json);
-std::string std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string> availableServers;(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& query, int maxResults = 20(const std::string& json);
-std::string void sortRooms(std(const std::string& json);
-std::string vector<RoomDirectoryEntry>& rooms, const std(const std::string& json);
-std::string string& sortBy);(const std::string& json);
-std::string formatDirectoryEntry(const RoomDirectoryEntry& entry);(const std::string& json);
-std::string directoryStatsToJson(const DirectoryStats& stats);(const std::string& json);
-std::string std(const std::string& json);
-std::string vector<std(const std::string& json);
-std::string string> extractServers(const std(const std::string& json);
-std::string vector<RoomDirectoryEntry>& rooms);(const std::string& json);
+namespace progressive {
+
+// ---- Room Directory Utilities ----
+
+struct RoomDirectoryEntry {
+    std::string roomId;
+    std::string name;
+    std::string topic;
+    std::string alias;
+    std::string avatarUrl;
+    int memberCount = 0;
+    bool isPublic = true;
+    bool isJoined = false;
+    double relevance = 0.0;     // search relevance 0-1
+};
+
+struct DirectoryFilter {
+    std::string serverFilter;    // filter by server (empty = all)
+    std::string nameFilter;      // search by name (empty = all)
+    int minMembers = 0;          // minimum member count
+    int maxMembers = INT32_MAX;  // maximum member count
+    bool showOnlyPublic = true;  // hide private rooms
+    bool showOnlyUnjoined = false; // hide already joined
+};
+
+struct DirectoryStats {
+    int totalRooms = 0;
+    int filteredRooms = 0;
+    int64_t totalMembers = 0;
+    std::string biggestRoom;
+    int biggestRoomMembers = 0;
+    std::vector<std::string> availableServers;
+};
+
+// Filter and rank room directory entries.
+std::vector<RoomDirectoryEntry> filterDirectory(
+    const std::vector<RoomDirectoryEntry>& rooms,
+    const DirectoryFilter& filter,
+    int maxResults = 50
+);
+
+// Compute directory statistics.
+DirectoryStats computeDirectoryStats(const std::vector<RoomDirectoryEntry>& rooms);
+
+// Search rooms by name (fuzzy match).
+std::vector<RoomDirectoryEntry> searchRooms(
+    const std::vector<RoomDirectoryEntry>& rooms,
+    const std::string& query, int maxResults = 20
+);
+
+// Sort rooms: "name", "members", "relevance".
+void sortRooms(std::vector<RoomDirectoryEntry>& rooms, const std::string& sortBy);
+
+// Format directory entry for display.
+std::string formatDirectoryEntry(const RoomDirectoryEntry& entry);
+
+// Format directory stats as JSON.
+std::string directoryStatsToJson(const DirectoryStats& stats);
+
+// Extract unique servers from room list.
+std::vector<std::string> extractServers(const std::vector<RoomDirectoryEntry>& rooms);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_ROOM_DIRECTORY_HPP

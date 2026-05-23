@@ -1,45 +1,98 @@
-#pragma once
+#ifndef PROGRESSIVE_ACCOUNT_UTILS_HPP
+#define PROGRESSIVE_ACCOUNT_UTILS_HPP
+
 #include <string>
+#include <vector>
 #include <cstdint>
 
-std::string userId;(const std::string& json);
-std::string displayName;(const std::string& json);
-std::string avatarUrl;(const std::string& json);
-std::string homeServer;(const std::string& json);
-std::string deviceId;(const std::string& json);
-std::string oldPassword;(const std::string& json);
-std::string newPassword;(const std::string& json);
-std::string errorMessage;(const std::string& json);
-std::string PasswordValidation validateAccountPassword(const std(const std::string& json);
-std::string string& password,(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& username = "", int minLength = 8);(const std::string& json);
-std::string buildPasswordChangeBody(const PasswordChange& change, const std(const std::string& json);
-std::string string& authSession = "");(const std::string& json);
-std::string buildDeactivateBody(const std(const std::string& json);
-std::string string& authSession = "");(const std::string& json);
-std::string AccountInfo parseAccountInfo(const std(const std::string& json);
-std::string string& apiResponseJson);(const std::string& json);
-std::string formatAccountInfo(const AccountInfo& info);(const std::string& json);
-std::string bool isValidDisplayName(const std(const std::string& json);
-std::string string& name, int maxLen = 100);(const std::string& json);
-std::string bool isValidAvatarUrl(const std(const std::string& json);
-std::string string& url);(const std::string& json);
-std::string medium;      // "email" or "msisdn"(const std::string& json);
-std::string address;     // "user@example.com" or "+1234567890"(const std::string& json);
-std::string clientSecret;(const std::string& json);
-std::string idServer;    // identity server URL(const std::string& json);
-std::string homeServer;(const std::string& json);
-std::string medium;(const std::string& json);
-std::string address;(const std::string& json);
-std::string errorMessage;(const std::string& json);
-std::string ThreePidValidation validateThreePid(const std(const std::string& json);
-std::string string& input, bool isEmail);(const std::string& json);
-std::string buildThreePidRequestBody(const ThreePidRequest& req);(const std::string& json);
-std::string buildThreePidBindBody(const std(const std::string& json);
-std::string string& clientSecret, const std(const std::string& json);
-std::string string& sid,(const std::string& json);
-std::string const std(const std::string& json);
-std::string string& idServer = "");(const std::string& json);
-std::string parseThreePidSid(const std(const std::string& json);
-std::string string& responseJson);(const std::string& json);
+namespace progressive {
+
+// ---- Account Management Utilities ----
+
+struct AccountInfo {
+    std::string userId;
+    std::string displayName;
+    std::string avatarUrl;
+    std::string homeServer;
+    std::string deviceId;
+    int64_t createdAtMs = 0;
+    bool isAdmin = false;
+    bool isDeactivated = false;
+};
+
+struct PasswordChange {
+    std::string oldPassword;
+    std::string newPassword;
+    bool logoutOtherDevices = true;
+};
+
+struct PasswordValidation {
+    bool valid = false;
+    std::string errorMessage;
+    bool tooShort = false;
+    bool noUpperCase = false;
+    bool noLowerCase = false;
+    bool noDigit = false;
+    bool noSpecialChar = false;
+    bool matchesUsername = false;
+};
+
+// Validate a new password against best practices.
+PasswordValidation validateAccountPassword(const std::string& password,
+    const std::string& username = "", int minLength = 8);
+
+// Build password change request body JSON.
+std::string buildPasswordChangeBody(const PasswordChange& change, const std::string& authSession = "");
+
+// Build deactivate account request body.
+std::string buildDeactivateBody(const std::string& authSession = "");
+
+// Parse account info from /account/whoami response.
+AccountInfo parseAccountInfo(const std::string& apiResponseJson);
+
+// Format account info for display.
+std::string formatAccountInfo(const AccountInfo& info);
+
+// Check if a display name is valid (1-100 chars, not only whitespace).
+bool isValidDisplayName(const std::string& name, int maxLen = 100);
+
+// Check if avatar URL is an MXC URI.
+bool isValidAvatarUrl(const std::string& url);
+
+// ---- Email / Phone Management ----
+
+struct ThreePidRequest {
+    std::string medium;      // "email" or "msisdn"
+    std::string address;     // "user@example.com" or "+1234567890"
+    std::string clientSecret;
+    int sendAttempt = 1;     // which attempt number
+    std::string idServer;    // identity server URL
+    std::string homeServer;
+};
+
+struct ThreePidValidation {
+    bool valid = false;
+    std::string medium;
+    std::string address;
+    std::string errorMessage;
+    bool invalidFormat = false;
+    bool alreadyUsed = false;
+    bool serverUnavailable = false;
+};
+
+// Validate an email or phone number for adding to account.
+ThreePidValidation validateThreePid(const std::string& input, bool isEmail);
+
+// Build the request body for adding a 3PID to account.
+std::string buildThreePidRequestBody(const ThreePidRequest& req);
+
+// Build the request body for binding a 3PID after verification.
+std::string buildThreePidBindBody(const std::string& clientSecret, const std::string& sid,
+    const std::string& idServer = "");
+
+// Parse the email/phone request token response.
+std::string parseThreePidSid(const std::string& responseJson);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_ACCOUNT_UTILS_HPP

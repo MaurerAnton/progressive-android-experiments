@@ -1,27 +1,60 @@
-#pragma once
-#include <string>
-#include <cstdint>
+#ifndef PROGRESSIVE_MODULE_LOADER_HPP
+#define PROGRESSIVE_MODULE_LOADER_HPP
 
-std::string name;          // e.g. "messagecontextmenu"(const std::string& json);
-std::string soPath;        // e.g. "/data/app/.../libmessagecontextmenu.so"(const std::string& json);
-std::string version;(const std::string& json);
-std::string void scanDirectory(const std(const std::string& json);
-std::string string& dirPath);(const std::string& json);
-std::string void enable(const std(const std::string& json);
-std::string string& name);(const std::string& json);
-std::string void disable(const std(const std::string& json);
-std::string string& name);(const std::string& json);
-std::string bool isEnabled(const std(const std::string& json);
-std::string string& name) const;(const std::string& json);
-std::string const ModuleInfo* getModule(const std(const std::string& json);
-std::string string& name) const;(const std::string& json);
-std::string listModulesJson() const;(const std::string& json);
-std::string std(const std::string& json);
-std::string unordered_map<std(const std::string& json);
-std::string string, ModuleInfo> modules_;(const std::string& json);
-std::string bool validateModule(const std(const std::string& json);
-std::string string& path) const;(const std::string& json);
-std::string extractModuleVersion(const std(const std::string& json);
-std::string string& soPath);(const std::string& json);
-std::string bool isProgressiveModule(const std(const std::string& json);
-std::string string& soPath);(const std::string& json);
+#include <string>
+#include <vector>
+#include <functional>
+#include <unordered_map>
+
+namespace progressive {
+
+struct ModuleInfo {
+    std::string name;          // e.g. "messagecontextmenu"
+    std::string soPath;        // e.g. "/data/app/.../libmessagecontextmenu.so"
+    std::string version;
+    bool loaded = false;
+    bool enabled = false;
+};
+
+class ModuleLoader {
+public:
+    // Scan a directory for .so modules and register them.
+    void scanDirectory(const std::string& dirPath);
+
+    // Enable a module by name.
+    void enable(const std::string& name);
+
+    // Disable a module by name.
+    void disable(const std::string& name);
+
+    // Check if a module is enabled.
+    bool isEnabled(const std::string& name) const;
+
+    // Get module info.
+    const ModuleInfo* getModule(const std::string& name) const;
+
+    // List all registered modules as JSON.
+    std::string listModulesJson() const;
+
+    // Load all enabled modules (call on app start).
+    void loadEnabled();
+
+    // Unload all modules.
+    void unloadAll();
+
+    size_t count() const { return modules_.size(); }
+
+private:
+    std::unordered_map<std::string, ModuleInfo> modules_;
+    bool validateModule(const std::string& path) const;
+};
+
+// Extract version from .so filename or embedded string
+std::string extractModuleVersion(const std::string& soPath);
+
+// Check if a .so is a valid Progressive module
+bool isProgressiveModule(const std::string& soPath);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_MODULE_LOADER_HPP

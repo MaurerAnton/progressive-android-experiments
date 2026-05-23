@@ -1,31 +1,46 @@
-#pragma once
-#include <string>
-#include <cstdint>
+#ifndef PROGRESSIVE_LINK_PREVIEW_HPP
+#define PROGRESSIVE_LINK_PREVIEW_HPP
 
-std::string url;(const std::string& json);
-std::string title;           // og(const std::string& json);
-std::string title or <title>(const std::string& json);
-std::string description;     // og(const std::string& json);
-std::string description(const std::string& json);
-std::string imageUrl;        // og(const std::string& json);
-std::string image(const std::string& json);
-std::string siteName;        // og(const std::string& json);
-std::string site_name(const std::string& json);
-std::string faviconUrl;(const std::string& json);
-std::string LinkPreview parseLinkPreview(const std(const std::string& json);
-std::string string& url, const std(const std::string& json);
-std::string string& htmlContent);(const std::string& json);
-std::string extractTitle(const std(const std::string& json);
-std::string string& html);(const std::string& json);
-std::string extractMeta(const std(const std::string& json);
-std::string string& html, const std(const std::string& json);
-std::string string& property);(const std::string& json);
-std::string bool isPreviewableUrl(const std(const std::string& json);
-std::string string& url);(const std::string& json);
-std::string bool isImageUrl(const std(const std::string& json);
-std::string string& url);(const std::string& json);
-std::string void extractImageDimensions(const std(const std::string& json);
-std::string string& html, int& width, int& height);(const std::string& json);
-std::string linkPreviewToJson(const LinkPreview& preview);(const std::string& json);
-std::string truncatePreviewText(const std(const std::string& json);
-std::string string& text, int maxLen);(const std::string& json);
+#include <string>
+
+namespace progressive {
+
+struct LinkPreview {
+    std::string url;
+    std::string title;           // og:title or <title>
+    std::string description;     // og:description
+    std::string imageUrl;        // og:image
+    std::string siteName;        // og:site_name
+    std::string faviconUrl;
+    int imageWidth = 0;
+    int imageHeight = 0;
+    bool valid = false;
+};
+
+// Parse OpenGraph and Twitter Card meta tags from HTML.
+LinkPreview parseLinkPreview(const std::string& url, const std::string& htmlContent);
+
+// Extract <title> from HTML.
+std::string extractTitle(const std::string& html);
+
+// Extract meta tag content: <meta property="og:title" content="...">
+std::string extractMeta(const std::string& html, const std::string& property);
+
+// Check if a URL is eligible for link preview (not an image, not local).
+bool isPreviewableUrl(const std::string& url);
+
+// Check if a URL points to an image (by extension).
+bool isImageUrl(const std::string& url);
+
+// Get the expected preview image dimensions from og:image:width/height.
+void extractImageDimensions(const std::string& html, int& width, int& height);
+
+// Format link preview as JSON.
+std::string linkPreviewToJson(const LinkPreview& preview);
+
+// Truncate preview text (title max 100, description max 200).
+std::string truncatePreviewText(const std::string& text, int maxLen);
+
+} // namespace progressive
+
+#endif // PROGRESSIVE_LINK_PREVIEW_HPP
