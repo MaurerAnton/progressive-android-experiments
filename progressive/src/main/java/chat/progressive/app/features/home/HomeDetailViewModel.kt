@@ -25,7 +25,7 @@ import chat.progressive.app.features.call.webrtc.WebRtcCallManager
 import chat.progressive.app.features.createdirect.DirectRoomHelper
 import chat.progressive.app.features.invite.AutoAcceptInvites
 import chat.progressive.app.features.invite.showInvites
-import chat.progressive.app.features.settings.VectorDataStore
+import chat.progressive.app.features.settings.ProgressiveDataStore
 import chat.progressive.app.features.ui.UiStateRepository
 import chat.progressive.lib.core.utils.flow.throttleFirst
 import kotlinx.coroutines.Dispatchers
@@ -56,7 +56,7 @@ class HomeDetailViewModel @AssistedInject constructor(
         @Assisted initialState: HomeDetailViewState,
         private val session: Session,
         private val uiStateRepository: UiStateRepository,
-        private val vectorDataStore: VectorDataStore,
+        private val vectorDataStore: ProgressiveDataStore,
         private val callManager: WebRtcCallManager,
         private val directRoomHelper: DirectRoomHelper,
         private val spaceStateHandler: SpaceStateHandler,

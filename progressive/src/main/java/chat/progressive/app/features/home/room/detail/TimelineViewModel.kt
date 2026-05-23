@@ -58,7 +58,7 @@ import chat.progressive.app.features.raw.wellknown.CryptoConfig
 import chat.progressive.app.features.raw.wellknown.getOutboundSessionKeySharingStrategyOrDefault
 import chat.progressive.app.features.raw.wellknown.withElementWellKnown
 import chat.progressive.app.features.session.coroutineScope
-import chat.progressive.app.features.settings.VectorDataStore
+import chat.progressive.app.features.settings.ProgressiveDataStore
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.app.features.voicebroadcast.VoiceBroadcastHelper
 import chat.progressive.lib.core.utils.flow.chunk
@@ -126,7 +126,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class TimelineViewModel @AssistedInject constructor(
         @Assisted private val initialState: RoomDetailViewState,
         private val progressivePreferences: ProgressiveBasePreferences,
-        private val vectorDataStore: VectorDataStore,
+        private val vectorDataStore: ProgressiveDataStore,
         private val stringProvider: StringProvider,
         private val session: Session,
         private val rawService: RawService,

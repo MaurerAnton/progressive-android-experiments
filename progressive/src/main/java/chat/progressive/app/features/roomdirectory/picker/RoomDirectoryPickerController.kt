@@ -89,7 +89,7 @@ class RoomDirectoryPickerController @Inject constructor(
             settingsInformationItem {
                 id("form_notice")
                 message(host.stringProvider.getString(CommonStrings.directory_add_a_new_server_prompt))
-                textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.vector_info_color))
+                textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.progressive_info_color))
             }
             verticalMarginItem {
                 id("form_space_2")

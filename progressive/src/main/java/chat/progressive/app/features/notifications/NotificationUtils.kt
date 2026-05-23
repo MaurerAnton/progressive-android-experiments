@@ -679,7 +679,7 @@ class NotificationUtils @Inject constructor(
                                     .setLabel(stringProvider.getString(CommonStrings.action_quick_reply))
                                     .build()
                             NotificationCompat.Action.Builder(
-                                    R.drawable.vector_notification_quick_reply,
+                                    R.drawable.progressive_notification_quick_reply,
                                     stringProvider.getString(CommonStrings.action_quick_reply), replyPendingIntent
                             )
                                     .addRemoteInput(remoteInput)
@@ -746,7 +746,7 @@ class NotificationUtils @Inject constructor(
                     )
 
                     addAction(
-                            R.drawable.vector_notification_reject_invitation,
+                            R.drawable.progressive_notification_reject_invitation,
                             stringProvider.getString(CommonStrings.action_reject),
                             rejectIntentPendingIntent
                     )
@@ -763,7 +763,7 @@ class NotificationUtils @Inject constructor(
                             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntentCompat.FLAG_IMMUTABLE
                     )
                     addAction(
-                            R.drawable.vector_notification_accept_invitation,
+                            R.drawable.progressive_notification_accept_invitation,
                             stringProvider.getString(CommonStrings.action_join),
                             joinIntentPendingIntent
                     )

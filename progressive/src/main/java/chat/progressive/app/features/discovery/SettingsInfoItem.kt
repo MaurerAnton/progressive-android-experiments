@@ -33,7 +33,7 @@ abstract class SettingsInfoItem : ProgressiveEpoxyModel<SettingsInfoItem.Holder>
 
     @EpoxyAttribute
     @DrawableRes
-    var compoundDrawable: Int = R.drawable.vector_warning_red
+    var compoundDrawable: Int = R.drawable.progressive_warning_red
 
     @EpoxyAttribute
     var showCompoundDrawable: Boolean = false

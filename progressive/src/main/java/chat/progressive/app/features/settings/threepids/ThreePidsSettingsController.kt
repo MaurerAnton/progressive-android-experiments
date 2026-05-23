@@ -242,7 +242,7 @@ class ThreePidsSettingsController @Inject constructor(
                 settingsInformationItem {
                     id("info" + idPrefix + threePid.value)
                     message(host.stringProvider.getString(CommonStrings.account_email_validation_message))
-                    textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.vector_info_color))
+                    textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.progressive_info_color))
                 }
                 settingsContinueCancelItem {
                     id("cont" + idPrefix + threePid.value)
@@ -254,7 +254,7 @@ class ThreePidsSettingsController @Inject constructor(
                 settingsInformationItem {
                     id("info" + idPrefix + threePid.value)
                     message(host.stringProvider.getString(CommonStrings.settings_text_message_sent, threePid.getFormattedValue()))
-                    textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.vector_info_color))
+                    textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.progressive_info_color))
                 }
                 settingsEditTextItem {
                     id("msisdnVerification${threePid.value}")

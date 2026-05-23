@@ -82,7 +82,7 @@ class CreateDirectRoomActivity : SimpleFragmentActivity() {
                     UserListFragment::class.java,
                     UserListFragmentArgs(
                             title = getString(CommonStrings.fab_menu_create_chat),
-                            menuResId = R.menu.vector_create_direct_room,
+                            menuResId = R.menu.progressive_create_direct_room,
                             submitMenuItemId = R.id.action_create_direct_room,
                             single3pidSelection = true,
                     )

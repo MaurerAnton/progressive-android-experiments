@@ -185,7 +185,7 @@ class ProgressiveCallActivity :
         this.intent = intent
     }
 
-    override fun getMenuRes() = R.menu.vector_call
+    override fun getMenuRes() = R.menu.progressive_call
 
     override val rootView: View
         get() = views.constraintLayout

@@ -74,7 +74,7 @@ class SpaceSettingsFragment :
 
     private val roomProfileArgs: RoomProfileArgs by args()
 
-    override fun getMenuRes() = R.menu.vector_room_settings
+    override fun getMenuRes() = R.menu.progressive_room_settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

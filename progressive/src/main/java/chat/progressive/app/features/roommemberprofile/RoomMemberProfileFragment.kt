@@ -83,7 +83,7 @@ class RoomMemberProfileFragment :
         return FragmentMatrixProfileBinding.inflate(inflater, container, false)
     }
 
-    override fun getMenuRes() = R.menu.vector_room_member_profile
+    override fun getMenuRes() = R.menu.progressive_room_member_profile
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

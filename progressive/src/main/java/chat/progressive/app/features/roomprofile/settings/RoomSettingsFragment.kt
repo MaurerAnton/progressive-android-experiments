@@ -72,7 +72,7 @@ class RoomSettingsFragment :
         return FragmentRoomSettingGenericBinding.inflate(inflater, container, false)
     }
 
-    override fun getMenuRes() = R.menu.vector_room_settings
+    override fun getMenuRes() = R.menu.progressive_room_settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

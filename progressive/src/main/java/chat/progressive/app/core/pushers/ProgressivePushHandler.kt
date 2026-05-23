@@ -22,7 +22,7 @@ import chat.progressive.app.features.notifications.NotifiableEventResolver
 import chat.progressive.app.features.notifications.NotifiableMessageEvent
 import chat.progressive.app.features.notifications.NotificationActionIds
 import chat.progressive.app.features.notifications.NotificationDrawerManager
-import chat.progressive.app.features.settings.VectorDataStore
+import chat.progressive.app.features.settings.ProgressiveDataStore
 import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +44,7 @@ class ProgressivePushHandler @Inject constructor(
     private val notifiableEventResolver: NotifiableEventResolver,
     private val activeSessionHolder: ActiveSessionHolder,
     private val progressivePreferences: ProgressiveBasePreferences,
-    private val vectorDataStore: VectorDataStore,
+    private val vectorDataStore: ProgressiveDataStore,
     private val wifiDetector: WifiDetector,
     private val actionIds: NotificationActionIds,
     private val context: Context,

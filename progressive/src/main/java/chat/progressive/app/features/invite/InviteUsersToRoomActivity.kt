@@ -75,7 +75,7 @@ class InviteUsersToRoomActivity : SimpleFragmentActivity() {
                     UserListFragment::class.java,
                     UserListFragmentArgs(
                             title = getString(CommonStrings.invite_users_to_room_title),
-                            menuResId = R.menu.vector_invite_users_to_room,
+                            menuResId = R.menu.progressive_invite_users_to_room,
                             submitMenuItemId = R.id.action_invite_users_to_room_invite,
                             excludedUserIds = viewModel.getUserIdsOfRoomMembers(),
                             showInviteActions = false

@@ -52,7 +52,7 @@ class NotificationTroubleshootRecyclerViewAdapter(val tests: ArrayList<Troublesh
                 TroubleshootTest.TestStatus.WAITING_FOR_USER -> {
                     views.troubleshootProgressBar.visibility = View.INVISIBLE
                     views.troubleshootStatusIcon.visibility = View.VISIBLE
-                    val infoColor = ContextCompat.getColor(context, chat.progressive.lib.ui.styles.R.color.vector_info_color)
+                    val infoColor = ContextCompat.getColor(context, chat.progressive.lib.ui.styles.R.color.progressive_info_color)
                     val drawable = ContextCompat.getDrawable(itemView.context, R.drawable.ic_notification_privacy_warning)?.apply {
                         ThemeUtils.tintDrawableWithColor(this, infoColor)
                     }

@@ -117,7 +117,7 @@ class AttachmentsPreviewFragment :
         }
     }
 
-    override fun getMenuRes() = R.menu.vector_attachments_preview
+    override fun getMenuRes() = R.menu.progressive_attachments_preview
 
     override fun onDestroyView() {
         views.attachmentPreviewerMiniatureList.cleanup()

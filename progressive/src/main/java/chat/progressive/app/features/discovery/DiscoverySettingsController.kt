@@ -239,7 +239,7 @@ class DiscoverySettingsController @Inject constructor(
                     settingsInformationItem {
                         id("info${pidInfo.threePid.value}")
                         message(host.stringProvider.getString(CommonStrings.settings_discovery_confirm_mail, pidInfo.threePid.value))
-                        textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.vector_info_color))
+                        textColor(host.colorProvider.getColor(chat.progressive.lib.ui.styles.R.color.progressive_info_color))
                     }
                 is Fail ->
                     settingsInformationItem {

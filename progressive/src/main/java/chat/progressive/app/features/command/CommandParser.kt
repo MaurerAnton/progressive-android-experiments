@@ -10,7 +10,7 @@ package chat.progressive.app.features.command
 import chat.progressive.app.core.extensions.isMsisdn
 import chat.progressive.app.core.extensions.orEmpty
 import chat.progressive.app.features.home.room.detail.ChatEffect
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import org.matrix.android.sdk.api.MatrixPatterns
 import org.matrix.android.sdk.api.MatrixUrls.isMxcUrl
 import org.matrix.android.sdk.api.extensions.isEmail
@@ -19,7 +19,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class CommandParser @Inject constructor(
-        private val vectorPreferences: VectorPreferences
+        private val vectorPreferences: ProgressivePreferences
 ) {
 
     /**

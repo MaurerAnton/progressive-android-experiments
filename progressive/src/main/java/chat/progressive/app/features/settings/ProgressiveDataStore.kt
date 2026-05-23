@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "vector_settings")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "progressive_settings")
 
 class ProgressiveDataStore @Inject constructor(
         private val context: Context
