@@ -94,7 +94,16 @@ allprojects {
                 groups.jitpack.group.each { includeGroup it }
             }
         }
-        // Jitsi repo
+        // Jitsi repo — with lenient resolution for CI resilience
+        exclusiveContent {
+            forRepository {
+                maven {
+                    url "https://github.com/element-hq/jitsi_libre_maven/raw/main/mobile-sdk-11.5.1"
+                    metadataSources { artifact() }
+                }
+            }
+            filter { includeGroup "org.jitsi.react"; includeGroup "com.facebook.react" }
+        }
         maven {
             url "https://github.com/element-hq/jitsi_libre_maven/raw/main/mobile-sdk-11.5.1"
             // Note: to test Jitsi release you can use a local file like this:
