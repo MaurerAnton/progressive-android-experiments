@@ -1,6 +1,6 @@
 #include "progressive/avatar_utils.hpp"
 #include <sstream>
-#include <hash>
+#include <functional>
 
 namespace progressive {
 
