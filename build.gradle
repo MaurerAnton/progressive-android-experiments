@@ -94,14 +94,19 @@ allprojects {
                 groups.jitpack.group.each { includeGroup it }
             }
         }
-        // Jitsi repo
+        // Jitsi repo (primary)
         maven {
             url "https://github.com/element-hq/jitsi_libre_maven/raw/main/mobile-sdk-11.5.1"
-            // Note: to test Jitsi release you can use a local file like this:
-            // url "file:///Users/bmarty/workspaces/jitsi_libre_maven/mobile-sdk-11.5.1"
             content {
                 groups.jitsi.regex.each { includeGroupByRegex it }
                 groups.jitsi.group.each { includeGroup it }
+            }
+        }
+        // Jitsi fallback (if primary is down, use JitPack mirror)
+        maven {
+            url "https://jitpack.io"
+            content {
+                includeGroup "com.github.element-hq"
             }
         }
         // Do not use `google()`, it prevents Dependabot from working properly
