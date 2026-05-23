@@ -131,6 +131,11 @@ add_library(
     src/device_rename_utils.cpp
     src/session_lifecycle_utils.cpp
     src/event_forward_utils.cpp
+    src/push_gateway_utils.cpp
+    src/media_config_utils.cpp
+    src/identity_server_utils.cpp
+    src/direct_message_utils.cpp
+    src/room_knock_utils.cpp
     src/room_favorite_utils.cpp
     src/contact_utils.cpp
     src/message_retry_utils.cpp
