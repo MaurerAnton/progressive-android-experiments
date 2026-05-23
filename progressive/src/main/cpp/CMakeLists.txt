@@ -118,6 +118,10 @@ add_library(
     src/alarm_engine.cpp
     src/progressive_stubs.cpp
     src/widget_manager.cpp
+    src/server_acronym_utils.cpp
+    src/user_status_message_utils.cpp
+    src/room_topic_utils.cpp
+    src/event_sender_utils.cpp
     src/event_version_utils.cpp
     src/room_notification_utils.cpp
     src/user_invite_utils.cpp
