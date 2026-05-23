@@ -7,12 +7,6 @@
 
 namespace progressive {
 
-static std::string getWidgetTypeName(const std::string& type) {
-    if (type == "jitsi") return "Jitsi";
-    if (type == "etherpad") return "Etherpad";
-    return type;
-}
-
 
 // ---- Capability to/from string ----
 
