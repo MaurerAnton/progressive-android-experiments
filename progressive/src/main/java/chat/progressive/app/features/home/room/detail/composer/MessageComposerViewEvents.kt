@@ -7,11 +7,11 @@
 
 package chat.progressive.app.features.home.room.detail.composer
 
-import chat.progressive.app.core.platform.ProgressiveViewEvents
+import chat.progressive.app.core.platform.VectorViewEvents
 import chat.progressive.app.features.command.Command
 import chat.progressive.app.features.command.ParsedCommand
 
-sealed class MessageComposerViewEvents : ProgressiveViewEvents {
+sealed class MessageComposerViewEvents : VectorViewEvents {
 
     data class AnimateSendButtonVisibility(val isVisible: Boolean) : MessageComposerViewEvents()
 
@@ -25,7 +25,6 @@ sealed class MessageComposerViewEvents : ProgressiveViewEvents {
     data class SlashCommandUnknown(val command: String) : SendMessageResult()
     data class SlashCommandNotSupportedInThreads(val command: Command) : SendMessageResult()
     object SlashCommandLoading : SendMessageResult()
-    data class ShowSmartReplies(val repliesJson: String) : MessageComposerViewEvents
     data class SlashCommandResultOk(val parsedCommand: ParsedCommand) : SendMessageResult()
     data class SlashCommandResultError(val throwable: Throwable) : SendMessageResult()
 
