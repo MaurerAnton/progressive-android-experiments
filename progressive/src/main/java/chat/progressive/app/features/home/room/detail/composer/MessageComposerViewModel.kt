@@ -574,7 +574,10 @@ class MessageComposerViewModel @AssistedInject constructor(
                                      val parts = args.split(" ", limit = 2)
                                      val user = parts.getOrNull(0) ?: ""
                                      val msg = parts.getOrNull(1) ?: ""
-                                     room.sendService().sendTextMessage("$user: $msg", autoMarkdown = false)
+                                     room.sendService().sendFormattedTextMessage(
+                                         msg,
+                                         "<a href="https://matrix.to/#/$user">$user</a> $msg"
+                                     )
                                      _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                                  }
                                  Command.SHRUG -> {
@@ -635,7 +638,7 @@ class MessageComposerViewModel @AssistedInject constructor(
                                  Command.IGNORE -> { room.sendService().sendTextMessage("Ignored "+parsedCommand.args,autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
                                  Command.UNIGNORE -> { room.sendService().sendTextMessage("Unignored "+parsedCommand.args,autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
                                  Command.MOTIVATE -> { val msgs=listOf("You're doing great! 🚀","Keep pushing! 💪","Almost there! 🎯","You got this! ⭐"); room.sendService().sendTextMessage(msgs.random(),autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
-                                 Command.QUOTE -> { val q=listOf("The only way to do great work is to love what you do. - Steve Jobs","Stay hungry, stay foolish. - Steve Jobs","Code is like humor. - Cory House"); room.sendService().sendTextMessage(q.random(),autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
+                                 Command.QUOTE -> { val q=listOf(""The only way to do great work is to love what you do." — Steve Jobs",""Stay hungry, stay foolish." — Steve Jobs",""Code is like humor. When you have to explain it, it's bad." — Cory House"); room.sendService().sendTextMessage(q.random(),autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
                                  Command.FORTUNE -> { val f=listOf("🌟 A surprise reward is coming your way","🔮 Good news will arrive soon","✨ Adventure awaits","🍀 Luck is on your side"); room.sendService().sendTextMessage(f.random(),autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
                                  Command.WHOIS -> { room.sendService().sendTextMessage("Whois: "+parsedCommand.args,autoMarkdown=false); _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand)) }
                                  Command.UNBAN -> {
