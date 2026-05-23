@@ -34,7 +34,7 @@ SpaceHierarchy buildSpaceHierarchy(const std::string& spaceId,
     for (size_t i = 0; i < keys.size(); i++) {
         SpaceNode node = parseSpaceChild(keys[i], contents[i]);
         if (i < names.size()) node.name = names[i];
-        h.children.push_back(keys[i]);
+        // children tracked via spaces/rooms vectors
         h.rooms.push_back(node);
         h.totalRooms++;
     }
@@ -57,7 +57,7 @@ std::string formatSpaceSuggestion(const SpaceNode& node) {
 }
 
 bool isRoomInSpace(const SpaceHierarchy& h, const std::string& roomId) {
-    return std::find(h.children.begin(), h.children.end(), roomId) != h.children.end();
+    for (auto& s : h.spaces) if (s.roomId == roomId) return true; for (auto& r : h.rooms) if (r.roomId == roomId) return true; return false;
 }
 
 } // namespace progressive
