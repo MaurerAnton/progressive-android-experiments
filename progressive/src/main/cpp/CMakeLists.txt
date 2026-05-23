@@ -87,21 +87,6 @@ add_library(
     src/hash_utils.cpp
     src/http_client.cpp
     src/room_stats.cpp
-    src/room_settings_utils.cpp
-    src/sas_verification_utils.cpp
-    src/media_utils_ext.cpp
-    src/crypto_device_utils.cpp
-    src/content_builder_utils.cpp
-    src/event_aggregation_utils.cpp
-    src/room_alias_utils.cpp
-    src/room_member_utils.cpp
-    src/file_upload_utils.cpp
-    src/event_timestamp_utils.cpp
-    src/olm_session_utils.cpp
-    src/voice_message_utils.cpp
-    src/smart_reply.cpp
-    src/rainbow_utils.cpp
-    src/spoiler_utils.cpp
     src/mention_parser.cpp
     src/poll_utils.cpp
     src/reaction_utils.cpp
@@ -121,25 +106,6 @@ add_library(
     src/event_timeline.cpp
     src/event_utils.cpp
     src/room_directory.cpp
-    src/permalink_utils.cpp
-    src/profile_utils.cpp
-    src/read_marker_utils.cpp
-    src/message_edit_utils.cpp
-    src/call_event_formatter.cpp
-    src/poll_display.cpp
-    src/encryption_status_formatter.cpp
-    src/sliding_sync_utils.cpp
-    src/timeline_render_utils.cpp
-    src/space_navigation.cpp
-    src/notification_grouping.cpp
-    src/event_display_formatter.cpp
-    src/room_summary_formatter.cpp
-    src/reaction_picker_utils.cpp
-    src/user_report_utils.cpp
-    src/room_directory_utils.cpp
-    src/server_notice_utils.cpp
-    src/push_condition_utils.cpp
-    src/draft_manager_utils.cpp
     src/widget_utils.cpp
     src/server_notice_manager.cpp
     src/poll_manager.cpp
@@ -188,10 +154,6 @@ add_library(
     src/event_validator.cpp
     src/room_encryption.cpp
     src/login_utils.cpp
-    src/reply_utils.cpp
-    src/push_utils.cpp
-    src/wellknown_helper.cpp
-    src/room_tag_utils.cpp
     src/account_utils.cpp
     src/connection_monitor.cpp
     src/create_room.cpp
@@ -222,10 +184,6 @@ add_library(
     src/client_info.cpp
     src/keyshare.cpp
     src/displayname_utils.cpp
-    src/read_receipts_utils.cpp
-    src/typing_utils.cpp
-    src/markdown_utils.cpp
-    src/member_list.cpp
     src/message_location.cpp
     src/timeline_chunk.cpp
     src/timeline_utils.cpp
@@ -243,32 +201,6 @@ add_library(
     src/unified_push.cpp
     src/url_preview.cpp
     src/web_search.cpp
-    src/room_invite_utils.cpp
-    src/message_search.cpp
-    src/notification_summary.cpp
-    src/session_restore.cpp
-    src/device_naming_helper.cpp
-    src/message_format_helper.cpp
-    src/url_preview_parser.cpp
-    src/event_encryption_helper.cpp
-    src/room_version_utils.cpp
-    src/avatar_utils.cpp
-    src/user_directory_search.cpp
-    src/event_pagination.cpp
-    src/device_trust.cpp
-    src/event_redaction.cpp
-    src/link_preview_utils.cpp
-    src/event_timeline_helper.cpp
-    src/message_encryption.cpp
-    src/event_reminder.cpp
-    src/presence_monitor.cpp
-    src/notification_filter.cpp
-    src/room_preview.cpp
-    src/highlight_formatter.cpp
-    src/event_search.cpp
-    src/user_profile.cpp
-    src/thread_utils.cpp
-    src/room_permission_utils.cpp
     src/power_levels.cpp
     src/well_known.cpp
     src/room_sort.cpp

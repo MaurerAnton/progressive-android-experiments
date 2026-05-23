@@ -7,7 +7,6 @@
 
 namespace progressive {
 
-
 // ---- Capability to/from string ----
 
 const char* capabilityToString(WidgetCapability cap) {

@@ -155,5 +155,4 @@ std::string reactionSummaryToJson(const ReactionSummary& summary) {
     return json.str();
 }
 
-
 } // namespace progressive

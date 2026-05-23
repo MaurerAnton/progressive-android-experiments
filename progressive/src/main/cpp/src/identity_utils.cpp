@@ -185,41 +185,4 @@ std::vector<std::string> suggestAliases(const std::string& roomName, int maxResu
     return aliases;
 }
 
-
-
-// ---- Identity helpers ----
-
-std::string buildLookupRequest(const std::vector<std::string>& addresses, const std::string& algorithm) {
-    std::ostringstream os;
-    os << R"({"addresses":[)";
-    for (size_t i = 0; i < addresses.size(); i++) {
-        if (i > 0) os << ","; os << R"(")" << addresses[i] << R"(")";
-    }
-    os << R"(],"algorithm":")" << algorithm << R"(")";
-    os << "}";
-    return os.str();
-}
-
-bool isValidHomeserverUrl(const std::string& url) {
-    return url.compare(0, 7, "http://") == 0 || url.compare(0, 8, "https://") == 0;
-}
-
-std::string sanitizeHomeserverUrl(const std::string& url) {
-    std::string s = url;
-    while (!s.empty() && s.back() == '/') s.pop_back();
-    if (s.compare(0, 7, "http://") != 0 && s.compare(0, 8, "https://") != 0)
-        s = "https://" + s;
-    return s;
-}
-
-std::string extractDomainFromUrl(const std::string& url) {
-    auto start = url.find("://");
-    if (start == std::string::npos) return url;
-    start += 3;
-    auto end = url.find('/', start);
-    if (end == std::string::npos) end = url.find(':', start);
-    if (end == std::string::npos) end = url.size();
-    return url.substr(start, end - start);
-}
-
 } // namespace progressive

@@ -223,5 +223,4 @@ std::string permissionsToJson(const UserPermissions& perms) {
     return json.str();
 }
 
-
 } // namespace progressive
