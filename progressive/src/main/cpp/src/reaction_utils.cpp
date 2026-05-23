@@ -156,33 +156,4 @@ std::string reactionSummaryToJson(const ReactionSummary& summary) {
 }
 
 
-
-// ---- Reaction aggregation ----
-
-std::vector<ReactionCount> aggregateReactions(const std::vector<std::string>& reactionKeys) {
-    std::unordered_map<std::string, int> counts;
-    for (const auto& key : reactionKeys) counts[key]++;
-    
-    std::vector<ReactionCount> result;
-    for (const auto& [key, count] : counts) {
-        result.push_back({key, count, false});
-    }
-    std::sort(result.begin(), result.end(), [](auto& a, auto& b) { return a.count > b.count; });
-    return result;
-}
-
-std::string formatReactionSummary(const std::vector<ReactionCount>& reactions) {
-    if (reactions.empty()) return "";
-    std::ostringstream os;
-    for (size_t i = 0; i < reactions.size() && i < 5; i++) {
-        if (i > 0) os << " ";
-        os << reactions[i].key << "×" << reactions[i].count;
-    }
-    return os.str();
-}
-
-bool hasUserReacted(const std::string& eventJson, const std::string& userId) {
-    return eventJson.find(""" + userId + """) != std::string::npos;
-}
-
 } // namespace progressive
