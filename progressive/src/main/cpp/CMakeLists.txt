@@ -127,6 +127,11 @@ add_library(
     src/content_warning_utils.cpp
     src/notification_sound_utils.cpp
     src/room_history_utils.cpp
+    src/avatar_fallback_utils.cpp
+    src/device_rename_utils.cpp
+    src/session_lifecycle_utils.cpp
+    src/event_forward_utils.cpp
+    src/room_favorite_utils.cpp
     src/contact_utils.cpp
     src/message_retry_utils.cpp
     src/custom_emoji_utils.cpp
