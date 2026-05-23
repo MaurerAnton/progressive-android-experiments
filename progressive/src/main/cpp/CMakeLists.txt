@@ -137,6 +137,8 @@ add_library(
     src/direct_message_utils.cpp
     src/room_unread_utils.cpp
     src/url_render_utils.cpp
+    src/room_retention_utils.cpp
+    src/room_server_acl_utils.cpp
     src/room_knock_utils.cpp
     src/room_favorite_utils.cpp
     src/contact_utils.cpp
