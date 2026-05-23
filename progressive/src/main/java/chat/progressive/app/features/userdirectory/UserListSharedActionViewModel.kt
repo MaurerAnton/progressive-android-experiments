@@ -8,6 +8,7 @@
 package chat.progressive.app.features.userdirectory
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
-class UserListSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<UserListSharedAction>()
+class UserListSharedActionViewModel @Inject constructor() : ProgressiveSharedActionViewModel<UserListSharedAction>()

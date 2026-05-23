@@ -8,7 +8,8 @@
 package chat.progressive.app.features.home
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import org.matrix.android.sdk.api.session.Session
 import javax.inject.Inject
 
-class HomeSharedActionViewModel @Inject constructor(val session: Session) : ProgressiveSharedAction<HomeActivitySharedAction>()
+class HomeSharedActionViewModel @Inject constructor(val session: Session) : ProgressiveSharedActionViewModel<HomeActivitySharedAction>()

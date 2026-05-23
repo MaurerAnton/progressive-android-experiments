@@ -7,11 +7,12 @@
 package chat.progressive.app.features.home.room.detail.timeline.action
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 /**
  * Activity shared view model to handle message actions.
  */
-class MessageSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<EventSharedAction>() {
+class MessageSharedActionViewModel @Inject constructor() : ProgressiveSharedActionViewModel<EventSharedAction>() {
     var pendingAction: EventSharedAction? = null
 }

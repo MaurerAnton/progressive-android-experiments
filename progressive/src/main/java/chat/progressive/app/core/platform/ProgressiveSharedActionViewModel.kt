@@ -16,5 +16,5 @@ interface ProgressiveSharedAction
 /**
  * Parent class to handle navigation events, action events, or other any events.
  */
-open class ProgressiveSharedAction<T : ProgressiveSharedAction>(private val store: MutableDataSource<T> = PublishDataSource()) :
+open class ProgressiveSharedActionViewModel<T : ProgressiveSharedAction>(private val store: MutableDataSource<T> = PublishDataSource()) :
         ViewModel(), MutableDataSource<T> by store

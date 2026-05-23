@@ -7,11 +7,13 @@
 package chat.progressive.app.features.home.room.detail.composer.link
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 class SetLinkSharedActionViewModel @Inject constructor() :
-        ProgressiveSharedAction<SetLinkSharedAction>()
+        ProgressiveSharedActionViewModel<SetLinkSharedAction>()
 
 sealed interface SetLinkSharedAction : ProgressiveSharedAction {
     data class Set(

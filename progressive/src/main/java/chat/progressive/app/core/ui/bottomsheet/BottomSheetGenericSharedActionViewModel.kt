@@ -7,9 +7,9 @@
 package chat.progressive.app.core.ui.bottomsheet
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
-import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 
 /**
  * Activity shared view model to handle bottom sheet quick actions.
  */
-abstract class BottomSheetGenericSharedActionViewModel<Action : ProgressiveSharedAction> : ProgressiveSharedAction<Action>()
+abstract class BottomSheetGenericSharedActionViewModel<Action : ProgressiveSharedAction> : ProgressiveSharedActionViewModel<Action>()

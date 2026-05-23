@@ -7,9 +7,10 @@
 package chat.progressive.app.features.home.room.list.actions
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 /**
  * Activity shared view model to handle room list quick actions.
  */
-class RoomListQuickActionsSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomListQuickActionsSharedAction>()
+class RoomListQuickActionsSharedActionViewModel @Inject constructor() : ProgressiveSharedActionViewModel<RoomListQuickActionsSharedAction>()

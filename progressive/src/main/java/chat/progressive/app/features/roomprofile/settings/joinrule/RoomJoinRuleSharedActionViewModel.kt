@@ -7,7 +7,8 @@
 package chat.progressive.app.features.roomprofile.settings.joinrule
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 class RoomJoinRuleSharedActionViewModel @Inject constructor() :
-        ProgressiveSharedAction<RoomJoinRuleRadioAction>()
+        ProgressiveSharedActionViewModel<RoomJoinRuleRadioAction>()

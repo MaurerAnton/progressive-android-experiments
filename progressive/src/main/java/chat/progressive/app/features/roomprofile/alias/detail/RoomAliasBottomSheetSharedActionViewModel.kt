@@ -7,9 +7,10 @@
 package chat.progressive.app.features.roomprofile.alias.detail
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 /**
  * Activity shared view model to handle room alias quick actions.
  */
-class RoomAliasBottomSheetSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomAliasBottomSheetSharedAction>()
+class RoomAliasBottomSheetSharedActionViewModel @Inject constructor() : ProgressiveSharedActionViewModel<RoomAliasBottomSheetSharedAction>()

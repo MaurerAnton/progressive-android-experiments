@@ -7,7 +7,8 @@
 package chat.progressive.app.features.roomprofile.settings.historyvisibility
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 class RoomHistoryVisibilitySharedActionViewModel @Inject constructor() :
-        ProgressiveSharedAction<RoomHistoryVisibilityRadioAction>()
+        ProgressiveSharedActionViewModel<RoomHistoryVisibilityRadioAction>()

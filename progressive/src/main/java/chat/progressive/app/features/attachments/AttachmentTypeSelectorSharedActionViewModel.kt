@@ -7,11 +7,13 @@
 package chat.progressive.app.features.attachments
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 class AttachmentTypeSelectorSharedActionViewModel @Inject constructor() :
-        ProgressiveSharedAction<AttachmentTypeSelectorSharedAction>()
+        ProgressiveSharedActionViewModel<AttachmentTypeSelectorSharedAction>()
 
 sealed interface AttachmentTypeSelectorSharedAction : ProgressiveSharedAction {
     data class SelectAttachmentTypeAction(

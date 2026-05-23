@@ -7,9 +7,10 @@
 package chat.progressive.app.features.home.room.detail
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
 /**
  * Activity shared view model.
  */
-class RoomDetailSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomDetailSharedAction>()
+class RoomDetailSharedActionViewModel @Inject constructor() : ProgressiveSharedActionViewModel<RoomDetailSharedAction>()

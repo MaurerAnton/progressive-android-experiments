@@ -8,6 +8,7 @@
 package chat.progressive.app.features.roomprofile
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
-class RoomProfileSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<RoomProfileSharedAction>()
+class RoomProfileSharedActionViewModel @Inject constructor() : ProgressiveSharedActionViewModel<RoomProfileSharedAction>()

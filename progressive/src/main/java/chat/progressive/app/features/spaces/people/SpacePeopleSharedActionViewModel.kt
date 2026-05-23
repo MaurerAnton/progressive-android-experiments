@@ -8,6 +8,7 @@
 package chat.progressive.app.features.spaces.people
 
 import chat.progressive.app.core.platform.ProgressiveSharedAction
+import chat.progressive.app.core.platform.ProgressiveSharedActionViewModel
 import javax.inject.Inject
 
-class SpacePeopleSharedActionViewModel @Inject constructor() : ProgressiveSharedAction<SpacePeopleSharedAction>()
+class SpacePeopleSharedActionViewModel @Inject constructor() : ProgressiveSharedActionViewModel<SpacePeopleSharedAction>()
