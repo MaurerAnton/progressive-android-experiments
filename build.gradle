@@ -96,7 +96,7 @@ allprojects {
         }
         // Jitsi repo (primary)
         maven {
-            url "https://github.com/element-hq/jitsi_libre_maven/raw/main/mobile-sdk-11.5.1"
+            url "https://raw.githubusercontent.com/element-hq/jitsi_libre_maven/main/mobile-sdk-11.5.1"
             content {
                 groups.jitsi.regex.each { includeGroupByRegex it }
                 groups.jitsi.group.each { includeGroup it }
