@@ -550,9 +550,6 @@ class MessageComposerViewModel @AssistedInject constructor(
                             _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
                             popDraft(room)
                         }
-                             _viewEvents.post(MessageComposerViewEvents.SlashCommandResultOk(parsedCommand))
-                             popDraft(room)
-                         }
                     }
                 }
                 is SendMode.Edit -> {
@@ -1043,78 +1040,6 @@ class MessageComposerViewModel @AssistedInject constructor(
                 MessageComposerViewEvents.SlashCommandResultError(failure)
             }
             _viewEvents.post(event)
-        }
-    }
-
-        val room = this.room ?: return
-
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _viewEvents.post(MessageComposerViewEvents.SlashCommandLoading)
-
-
-                val sessionParams = session.sessionParams
-                val serverUrl = sessionParams.homeServerUrlBase
-
-                val accessToken = sessionParams.credentials.accessToken
-
-                // Native C++ validation + URL construction, with Kotlin fallback
-                val resultJson = try {
-                        room.roomId,
-                        command.dateString,
-                        serverUrl,
-                        accessToken,
-                        isEnabled
-                    )
-                    JSONObject(raw)
-                } catch (e: UnsatisfiedLinkError) {
-                    Timber.w(e, "progressive_native not loaded, using Kotlin fallback")
-                        room.roomId,
-                        command.dateString,
-                        serverUrl,
-                        accessToken,
-                        isEnabled
-                    )
-                }
-
-                if (resultJson.has("error")) {
-                    _viewEvents.post(MessageComposerViewEvents.ShowMessage(
-                        resultJson.getString("error")
-                    ))
-                    return@launch
-                }
-
-                val url = resultJson.getString("url")
-
-                // HTTP call to MSC3030 endpoint
-                val client = OkHttpClient()
-                val request = okhttp3.Request.Builder()
-                    .url(url)
-                    .header("Authorization", "Bearer $accessToken")
-                    .get()
-                    .build()
-
-                val response = client.newCall(request).execute()
-                val responseBody = response.body?.string() ?: ""
-
-                // Native C++ response parsing, with Kotlin fallback
-                val parsedResult = try {
-                    JSONObject(raw)
-                } catch (e: UnsatisfiedLinkError) {
-                }
-
-                if (parsedResult.has("eventId")) {
-                    val eventId = parsedResult.getString("eventId")
-                    _viewEvents.post(MessageComposerViewEvents.NavigateToEvent(eventId))
-                } else {
-                    val error = parsedResult.optString("error", "Unknown error")
-                    _viewEvents.post(MessageComposerViewEvents.ShowMessage(error))
-                }
-            } catch (e: Exception) {
-                _viewEvents.post(MessageComposerViewEvents.ShowMessage(
-                    stringProvider.getString(CommonStrings.unknown_error)
-                ))
-            }
         }
     }
 
