@@ -135,6 +135,8 @@ add_library(
     src/media_config_utils.cpp
     src/identity_server_utils.cpp
     src/direct_message_utils.cpp
+    src/room_unread_utils.cpp
+    src/url_render_utils.cpp
     src/room_knock_utils.cpp
     src/room_favorite_utils.cpp
     src/contact_utils.cpp
