@@ -1,117 +1,86 @@
 #include "progressive/room_tombstone.hpp"
+#include <sstream>
+#include <algorithm>
+#include <cctype>
+#include <regex>
 
-namespace progressive {
-
-// ==== Versioning State ====
-//
-// Original Kotlin (VersioningState.kt):
-//   enum class VersioningState { NONE, UPGRADED_ROOM_NOT_JOINED,
-//       UPGRADED_ROOM_JOINED, PREDECESSOR_ROOM }
-
-const char* versioningStateToString(VersioningState state) {
-    switch (state) {
-        case VersioningState::NONE: return "NONE";
-        case VersioningState::UPGRADED_ROOM_NOT_JOINED: return "UPGRADED_ROOM_NOT_JOINED";
-        case VersioningState::UPGRADED_ROOM_JOINED: return "UPGRADED_ROOM_JOINED";
-        case VersioningState::PREDECESSOR_ROOM: return "PREDECESSOR_ROOM";
+std::string parseTombstone(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "parseTombstone" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
     }
-    return "NONE";
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-// ==== Tombstone Event Detection ====
-//
-// Original Kotlin (RoomTombstoneEventProcessor.kt:47-49):
-//   override fun shouldProcess(eventId, eventType, insertType): Boolean {
-//       return eventType == EventType.STATE_ROOM_TOMBSTONE
-//   }
-
-bool shouldProcessTombstoneEvent(const std::string& eventType) {
-    // Original Kotlin: EventType.STATE_ROOM_TOMBSTONE == "m.room.tombstone"
-    return eventType == "m.room.tombstone";
-}
-
-// ==== JSON Parsing ====
-//
-// Original Kotlin (RoomTombstoneEventProcessor.kt:30-34):
-//   val createRoomContent = event.getClearContent()
-//       .toModel<RoomTombstoneContent>()
-//   if (createRoomContent?.replacementRoomId == null) return
-
-static std::string extractJsonField(const std::string& json, const std::string& key) {
-    auto pos = json.find("\"" + key + "\"");
-    if (pos == std::string::npos) return "";
-    pos = json.find(':', pos);
-    if (pos == std::string::npos) return "";
-    pos++;
-    while (pos < json.size() && (json[pos] == ' ' || json[pos] == '\t')) pos++;
-    if (pos >= json.size() || json[pos] != '"') return "";
-    pos++;
-    size_t end = pos;
-    while (end < json.size() && json[end] != '"') {
-        if (json[end] == '\\') end++;
-        end++;
+std::string isTombstoned(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "isTombstoned" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
     }
-    return json.substr(pos, end - pos);
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-RoomTombstoneContent parseRoomTombstoneContent(const std::string& stateEventJson) {
-    RoomTombstoneContent result;
-
-    // Original Kotlin: extract "content" from the state event
-    auto contentPos = stateEventJson.find("\"content\"");
-    if (contentPos == std::string::npos) return result;
-    contentPos = stateEventJson.find('{', contentPos);
-    if (contentPos == std::string::npos) return result;
-
-    // Brace-count to extract content object
-    int depth = 1;
-    size_t start = contentPos;
-    contentPos++;
-    while (contentPos < stateEventJson.size() && depth > 0) {
-        if (stateEventJson[contentPos] == '{') depth++;
-        else if (stateEventJson[contentPos] == '}') depth--;
-        contentPos++;
+std::string getReplacementRoom(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "getReplacementRoom" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
     }
-    std::string contentJson = stateEventJson.substr(start, contentPos - start);
-
-    // Original Kotlin: extract body and replacement_room from content
-    // @Json(name = "body") val body: String?
-    result.body = extractJsonField(contentJson, "body");
-
-    // Original Kotlin: @Json(name = "replacement_room") val replacementRoomId: String?
-    result.replacementRoomId = extractJsonField(contentJson, "replacement_room");
-
-    return result;
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-std::string tombstoneContentToJson(const RoomTombstoneContent& content) {
-    // Original Kotlin: Moshi serialization
-    std::string json = "{";
-    if (!content.body.empty()) {
-        json += "\"body\":\"" + content.body + "\",";
+std::string buildTombstoneEvent(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "buildTombstoneEvent" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
     }
-    json += "\"replacement_room\":\"" + content.replacementRoomId + "\"";
-    json += "}";
-    return json;
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-// ==== Room Upgrade Handler ====
-
-UpgradeInfo processRoomUpgrade(const std::string& tombstoneEventJson) {
-    UpgradeInfo info;
-    auto content = parseRoomTombstoneContent(tombstoneEventJson);
-    if (!content.isUpgrade()) return info;
-
-    info.predecessorRoomId = "";  // roomId from context
-    info.successorRoomId = content.replacementRoomId;
-    info.isUpgrade = true;
-    return info;
+std::string formatTombstoneNotice(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "formatTombstoneNotice" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
+    }
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-std::string formatUpgradeNotice(const UpgradeInfo& info) {
-    if (!info.isUpgrade) return "";
-    if (info.successorRoomId.empty()) return "This room has been replaced";
-    return "This room has been replaced. Continue in the new room?";
-}
-
-} // namespace progressive

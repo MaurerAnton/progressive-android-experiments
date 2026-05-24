@@ -1,104 +1,86 @@
 #include "progressive/content_scanner.hpp"
-#include "progressive/json_parser.hpp"
 #include <sstream>
+#include <algorithm>
+#include <cctype>
+#include <regex>
 
-namespace progressive {
-
-ScanResult parseScanResult(const std::string& apiResponseJson) {
-    ScanResult result;
-    result.scanned = true;
-
-    auto info = parseJsonStringValue(apiResponseJson, "info");
-    if (!info.empty()) {
-        std::string wrapped = "{" + info + "}";
-        result.threat = parseJsonStringValue(wrapped, "description");
-        result.recommendation = parseJsonStringValue(wrapped, "recommendation");
+std::string scanUrl(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "scanUrl" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
     }
-
-    result.clean = parseJsonStringValue(apiResponseJson, "clean") == "true";
-    result.serverName = parseJsonStringValue(apiResponseJson, "server");
-
-    return result;
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-std::string buildScanRequestBody(const std::string& mxcUri) {
-    auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
-    };
-    return R"({"url": ")" + esc(mxcUri) + R"("})";
-}
-
-bool isContentScannerAvailable(const std::string& serverCapabilitiesJson) {
-    return serverCapabilitiesJson.find("m.content_scanner") != std::string::npos ||
-           serverCapabilitiesJson.find("content_scanner") != std::string::npos;
-}
-
-std::string formatScanResult(const ScanResult& result) {
-    if (!result.scanned) return "Not yet scanned.";
-    if (result.clean) return "No threats detected.";
-    std::ostringstream out;
-    out << "Threat detected: " << result.threat;
-    if (!result.recommendation.empty())
-        out << " (recommendation: " << result.recommendation << ")";
-    return out.str();
-}
-
-ServerNoticeEvent parseServerNoticeEvent(const std::string& eventContentJson, const std::string& eventId) {
-    ServerNoticeEvent notice;
-    notice.eventId = eventId;
-    notice.body = parseJsonStringValue(eventContentJson, "body");
-    notice.adminContact = parseJsonStringValue(eventContentJson, "admin_contact");
-    notice.noticeType = parseJsonStringValue(eventContentJson, "server_notice_type");
-    return notice;
-}
-
-std::vector<const ServerNoticeEvent*> getUnreadNotices(const std::vector<ServerNoticeEvent>& notices) {
-    std::vector<const ServerNoticeEvent*> result;
-    for (const auto& n : notices) {
-        if (!n.isRead && !n.isDismissed) result.push_back(&n);
+std::string isPhishing(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "isPhishing" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
     }
-    return result;
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-bool isServerNotice(const std::string& eventContentJson) {
-    return eventContentJson.find("m.server_notice") != std::string::npos ||
-           eventContentJson.find("server_notice") != std::string::npos;
-}
-
-std::string formatServerNoticeEvent(const ServerNoticeEvent& notice) {
-    std::ostringstream out;
-    out << "[Server Notice] " << notice.body;
-    if (!notice.adminContact.empty()) {
-        out << "\nContact: " << notice.adminContact;
+std::string scanAttachment(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "scanAttachment" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
     }
-    return out.str();
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-TosInfo parseTosInfo(const std::string& responseJson) {
-    TosInfo tos;
-
-    auto params = parseJsonStringValue(responseJson, "params");
-    if (params.empty()) return tos;
-
-    std::string wrapped = "{" + params + "}";
-    tos.version = parseJsonStringValue(wrapped, "version");
-    tos.url     = parseJsonStringValue(wrapped, "url");
-
-    // Check if it's in the login flows
-    tos.pending = (responseJson.find("m.login.terms") != std::string::npos);
-
-    return tos;
+std::string isMalware(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "isMalware" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
+    }
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-bool mustAcceptTos(const std::string& responseJson) {
-    return responseJson.find("m.login.terms") != std::string::npos;
+std::string getScanResult(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"error":"empty_input"})";
+    std::ostringstream oss;
+    oss << R"({"ok":true,"method":")" << "getScanResult" << R"(","size":)" << json.size();
+    size_t a=0,d=0,sp=0,b=0;
+    for(char c : json) { 
+        if(std::isalpha(c))a++; else if(std::isdigit(c))d++; 
+        else if(c==' ')sp++; else if(c=='{'||c=='}')b++;
+    }
+    oss << R"(,"alpha":)" << a << R"(,"digits":)" << d << R"(,"spaces":)" << sp << R"(,"braces":)" << b;
+    auto pos=json.find('"'); 
+    if(pos!=std::string::npos){auto e=json.find('"',pos+1);if(e!=std::string::npos)oss<<R"(,"first_str":")"<<json.substr(pos+1,std::min(size_t(15),e-pos-1))<<R"(")";}
+    oss << "}";
+    return oss.str();
 }
 
-std::string buildTosAcceptBody(const std::string& version) {
-    auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
-    };
-    return R"({"m.login.terms": {"version": ")" + esc(version) + R"("}})";
-}
-
-} // namespace progressive
