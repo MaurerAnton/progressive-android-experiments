@@ -47,7 +47,7 @@ import chat.progressive.app.features.navigation.DefaultNavigator
 import chat.progressive.app.features.navigation.Navigator
 import chat.progressive.app.features.pin.PinCodeStore
 import chat.progressive.app.features.pin.SharedPrefPinCodeStore
-import chat.progressive.app.features.room.ProgressiveRoomDisplayNameFallbackProvider
+import chat.progressive.app.features.room.ProgressiveRoomDisplayName
 import chat.progressive.app.features.settings.FontScalePreferences
 import chat.progressive.app.features.settings.FontScalePreferencesImpl
 import chat.progressive.app.features.settings.ProgressivePreferences
@@ -138,14 +138,14 @@ import javax.inject.Singleton
     @Provides
     fun providesMatrixConfiguration(
             vectorPreferences: ProgressivePreferences,
-            vectorRoomDisplayNameFallbackProvider: ProgressiveRoomDisplayNameFallbackProvider,
+            progressiveRoomDisplayName: ProgressiveRoomDisplayName,
             vectorPlugins: ProgressivePlugins,
             vectorCustomEventTypesProvider: ProgressiveCustomEventTypesProvider,
             mdmService: MdmService,
     ): MatrixConfiguration {
         return MatrixConfiguration(
                 applicationFlavor = BuildConfig.FLAVOR_DESCRIPTION,
-                roomDisplayNameFallbackProvider = vectorRoomDisplayNameFallbackProvider,
+                roomDisplayNameFallbackProvider = progressiveRoomDisplayName,
                 threadMessagesEnabledDefault = vectorPreferences.areThreadMessagesEnabled(),
                 networkInterceptors = emptyList(),
                 metricPlugins = vectorPlugins.plugins(),
