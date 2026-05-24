@@ -52,7 +52,7 @@ import chat.progressive.app.features.notifications.NotificationDrawerManager
 import chat.progressive.app.features.notifications.NotificationUtils
 import chat.progressive.app.features.pin.PinLocker
 import chat.progressive.app.features.popup.PopupAlertManager
-import chat.progressive.app.features.rageshake.VectorFileLogger
+import chat.progressive.app.features.rageshake.ProgressiveFileLogger
 import chat.progressive.app.features.rageshake.ProgressiveUncaughtExceptionHandler
 import chat.progressive.app.features.settings.ProgressiveLocale
 import chat.progressive.app.features.settings.ProgressivePreferences
@@ -94,7 +94,7 @@ class ProgressiveApplication :
     @Inject lateinit var invitesAcceptor: InvitesAcceptor
     @Inject lateinit var autoRageShaker: AutoRageShaker
     @Inject lateinit var decryptionFailureTracker: DecryptionFailureTracker
-    @Inject lateinit var vectorFileLogger: VectorFileLogger
+    @Inject lateinit var vectorFileLogger: ProgressiveFileLogger
     @Inject lateinit var vectorAnalytics: ProgressiveAnalytics
     @Inject lateinit var matrix: Matrix
     @Inject lateinit var fcmHelper: FcmHelper
