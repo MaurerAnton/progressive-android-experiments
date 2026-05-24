@@ -53,7 +53,7 @@ import chat.progressive.app.features.notifications.NotificationUtils
 import chat.progressive.app.features.pin.PinLocker
 import chat.progressive.app.features.popup.PopupAlertManager
 import chat.progressive.app.features.rageshake.VectorFileLogger
-import chat.progressive.app.features.rageshake.VectorUncaughtExceptionHandler
+import chat.progressive.app.features.rageshake.ProgressiveUncaughtExceptionHandler
 import chat.progressive.app.features.settings.VectorLocale
 import chat.progressive.app.features.settings.ProgressivePreferences
 import chat.progressive.app.features.themes.ThemeUtils
@@ -81,7 +81,7 @@ class ProgressiveApplication :
     @Inject lateinit var vectorConfiguration: ProgressiveConfiguration
     @Inject lateinit var emojiCompatFontProvider: EmojiCompatFontProvider
     @Inject lateinit var emojiCompatWrapper: EmojiCompatWrapper
-    @Inject lateinit var vectorUncaughtExceptionHandler: VectorUncaughtExceptionHandler
+    @Inject lateinit var vectorUncaughtExceptionHandler: ProgressiveUncaughtExceptionHandler
     @Inject lateinit var activeSessionHolder: ActiveSessionHolder
     @Inject lateinit var notificationDrawerManager: NotificationDrawerManager
     @Inject lateinit var vectorPreferences: ProgressivePreferences
