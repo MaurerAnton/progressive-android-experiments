@@ -37,7 +37,7 @@ import chat.progressive.app.features.analytics.ProgressiveAnalytics
 import chat.progressive.app.features.analytics.errors.ErrorTracker
 import chat.progressive.app.features.analytics.impl.DefaultProgressiveAnalytics
 import chat.progressive.app.features.analytics.metrics.ProgressivePlugins
-import chat.progressive.app.features.configuration.ProgressiveCustomEventTypesProvider
+import chat.progressive.app.features.configuration.ProgressiveEventTypes
 import chat.progressive.app.features.invite.AutoAcceptInvites
 import chat.progressive.app.features.invite.CompileTimeAutoAcceptInvites
 import chat.progressive.app.features.mdm.DefaultMdmService
@@ -140,7 +140,7 @@ import javax.inject.Singleton
             vectorPreferences: ProgressivePreferences,
             progressiveRoomDisplayName: ProgressiveRoomDisplayName,
             vectorPlugins: ProgressivePlugins,
-            vectorCustomEventTypesProvider: ProgressiveCustomEventTypesProvider,
+            progressiveEventTypes: ProgressiveEventTypes,
             mdmService: MdmService,
     ): MatrixConfiguration {
         return MatrixConfiguration(
@@ -150,7 +150,7 @@ import javax.inject.Singleton
                 networkInterceptors = emptyList(),
                 metricPlugins = vectorPlugins.plugins(),
                 cryptoAnalyticsPlugin = vectorPlugins.cryptoMetricPlugin,
-                customEventTypesProvider = vectorCustomEventTypesProvider,
+                customEventTypesProvider = progressiveEventTypes,
                 clientPermalinkBaseUrl = mdmService.getData(MdmData.PermalinkBaseUrl),
                 syncConfig = SyncConfig(
                         syncFilterParams = SyncFilterParams(lazyLoadMembersForStateEvents = true, useThreadNotifications = true)
