@@ -12,33 +12,33 @@ import org.junit.Test
 
 class ToggleIpAddressVisibilityUseCaseTest {
 
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
 
     private val toggleIpAddressVisibilityUseCase = ToggleIpAddressVisibilityUseCase(
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorPreferences = fakeProgressivePreferences.instance,
     )
 
     @Test
     fun `given ip addresses are currently visible then then visibility is set as false`() {
         // Given
-        fakeVectorPreferences.givenShowIpAddressInSessionManagerScreens(true)
+        fakeProgressivePreferences.givenShowIpAddressInSessionManagerScreens(true)
 
         // When
         toggleIpAddressVisibilityUseCase.execute()
 
         // Then
-        fakeVectorPreferences.verifySetIpAddressVisibilityInDeviceManagerScreens(false)
+        fakeProgressivePreferences.verifySetIpAddressVisibilityInDeviceManagerScreens(false)
     }
 
     @Test
     fun `given ip addresses are currently not visible then then visibility is set as true`() {
         // Given
-        fakeVectorPreferences.givenShowIpAddressInSessionManagerScreens(false)
+        fakeProgressivePreferences.givenShowIpAddressInSessionManagerScreens(false)
 
         // When
         toggleIpAddressVisibilityUseCase.execute()
 
         // Then
-        fakeVectorPreferences.verifySetIpAddressVisibilityInDeviceManagerScreens(true)
+        fakeProgressivePreferences.verifySetIpAddressVisibilityInDeviceManagerScreens(true)
     }
 }

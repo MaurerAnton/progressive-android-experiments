@@ -38,12 +38,12 @@ internal class GetLatestPreviewableEventUseCaseTest {
     private val fakeSessionHolder = FakeActiveSessionHolder()
     private val fakeRoomSummary = mockk<RoomSummary>()
     private val fakeGetRoomLiveVoiceBroadcastsUseCase = mockk<GetRoomLiveVoiceBroadcastsUseCase>()
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
 
     private val getLatestPreviewableEventUseCase = GetLatestPreviewableEventUseCase(
             fakeSessionHolder.instance,
             fakeGetRoomLiveVoiceBroadcastsUseCase,
-            fakeVectorPreferences.instance,
+            fakeProgressivePreferences.instance,
     )
 
     @Before
@@ -56,7 +56,7 @@ internal class GetLatestPreviewableEventUseCaseTest {
                 every { eventId } returns firstArg()
             }
         }
-        fakeVectorPreferences.givenIsVoiceBroadcastEnabled(true)
+        fakeProgressivePreferences.givenIsVoiceBroadcastEnabled(true)
     }
 
     @Test

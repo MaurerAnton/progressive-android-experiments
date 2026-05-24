@@ -16,8 +16,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import chat.progressive.app.config.OnboardingVariant
-import chat.progressive.app.features.DefaultVectorFeatures
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlin.reflect.KClass
@@ -26,8 +26,8 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 class DebugProgressiveFeatures(
         context: Context,
-        private val vectorFeatures: DefaultVectorFeatures
-) : VectorFeatures {
+        private val vectorFeatures: DefaultProgressiveFeatures
+) : ProgressiveFeatures {
 
     private val dataStore = context.dataStore
 

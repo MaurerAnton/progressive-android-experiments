@@ -26,11 +26,11 @@ import org.unifiedpush.android.connector.UnifiedPush
 class RegisterUnifiedPushUseCaseTest {
 
     private val fakeContext = FakeContext()
-    private val fakeVectorFeatures = FakeProgressiveFeatures()
+    private val fakeProgressiveFeatures = FakeProgressiveFeatures()
 
     private val registerUnifiedPushUseCase = RegisterUnifiedPushUseCase(
             context = fakeContext.instance,
-            vectorFeatures = fakeVectorFeatures,
+            vectorFeatures = fakeProgressiveFeatures,
     )
 
     @Before
@@ -68,7 +68,7 @@ class RegisterUnifiedPushUseCaseTest {
         fakeContext.givenPackageName(aPackageName)
         justRun { UnifiedPush.registerApp(any()) }
         justRun { UnifiedPush.saveDistributor(any(), any()) }
-        fakeVectorFeatures.givenExternalDistributorsAreAllowed(false)
+        fakeProgressiveFeatures.givenExternalDistributorsAreAllowed(false)
 
         // When
         val result = registerUnifiedPushUseCase.execute()
@@ -87,7 +87,7 @@ class RegisterUnifiedPushUseCaseTest {
         justRun { UnifiedPush.registerApp(any()) }
         val aDistributor = "distributor"
         every { UnifiedPush.getDistributor(any()) } returns aDistributor
-        fakeVectorFeatures.givenExternalDistributorsAreAllowed(true)
+        fakeProgressiveFeatures.givenExternalDistributorsAreAllowed(true)
 
         // When
         val result = registerUnifiedPushUseCase.execute()
@@ -106,7 +106,7 @@ class RegisterUnifiedPushUseCaseTest {
         justRun { UnifiedPush.registerApp(any()) }
         justRun { UnifiedPush.saveDistributor(any(), any()) }
         every { UnifiedPush.getDistributor(any()) } returns ""
-        fakeVectorFeatures.givenExternalDistributorsAreAllowed(true)
+        fakeProgressiveFeatures.givenExternalDistributorsAreAllowed(true)
         val aDistributor = "distributor"
         every { UnifiedPush.getDistributors(any()) } returns listOf(aDistributor)
 
@@ -127,7 +127,7 @@ class RegisterUnifiedPushUseCaseTest {
     fun `given no saved distributor and multiple distributors available when execute then result is to ask user`() = runTest {
         // Given
         every { UnifiedPush.getDistributor(any()) } returns ""
-        fakeVectorFeatures.givenExternalDistributorsAreAllowed(true)
+        fakeProgressiveFeatures.givenExternalDistributorsAreAllowed(true)
         val aDistributor1 = "distributor1"
         val aDistributor2 = "distributor2"
         every { UnifiedPush.getDistributors(any()) } returns listOf(aDistributor1, aDistributor2)

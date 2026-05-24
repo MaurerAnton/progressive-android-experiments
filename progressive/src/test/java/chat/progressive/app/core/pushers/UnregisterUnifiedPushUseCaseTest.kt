@@ -26,13 +26,13 @@ import org.unifiedpush.android.connector.UnifiedPush
 class UnregisterUnifiedPushUseCaseTest {
 
     private val fakeContext = FakeContext()
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val fakeUnifiedPushStore = FakeUnifiedPushStore()
     private val fakeUnifiedPushHelper = FakeUnifiedPushHelper()
 
     private val unregisterUnifiedPushUseCase = UnregisterUnifiedPushUseCase(
             context = fakeContext.instance,
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorPreferences = fakeProgressivePreferences.instance,
             unifiedPushStore = fakeUnifiedPushStore.instance,
             unifiedPushHelper = fakeUnifiedPushHelper.instance,
     )
@@ -55,7 +55,7 @@ class UnregisterUnifiedPushUseCaseTest {
         val aPushersManager = FakePushersManager()
         aPushersManager.givenUnregisterPusher(aEndpoint)
         justRun { UnifiedPush.unregisterApp(any()) }
-        fakeVectorPreferences.givenSetFdroidSyncBackgroundMode(BackgroundSyncMode.FDROID_BACKGROUND_SYNC_MODE_FOR_REALTIME)
+        fakeProgressivePreferences.givenSetFdroidSyncBackgroundMode(BackgroundSyncMode.FDROID_BACKGROUND_SYNC_MODE_FOR_REALTIME)
         fakeUnifiedPushStore.givenStorePushGateway(null)
         fakeUnifiedPushStore.givenStoreUpEndpoint(null)
 
@@ -63,7 +63,7 @@ class UnregisterUnifiedPushUseCaseTest {
         unregisterUnifiedPushUseCase.execute(aPushersManager.instance)
 
         // Then
-        fakeVectorPreferences.verifySetFdroidSyncBackgroundMode(BackgroundSyncMode.FDROID_BACKGROUND_SYNC_MODE_FOR_REALTIME)
+        fakeProgressivePreferences.verifySetFdroidSyncBackgroundMode(BackgroundSyncMode.FDROID_BACKGROUND_SYNC_MODE_FOR_REALTIME)
         aPushersManager.verifyUnregisterPusher(aEndpoint)
         verifyAll {
             UnifiedPush.unregisterApp(fakeContext.instance)

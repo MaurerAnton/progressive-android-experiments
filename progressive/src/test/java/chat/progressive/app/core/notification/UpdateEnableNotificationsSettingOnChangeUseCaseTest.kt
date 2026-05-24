@@ -19,11 +19,11 @@ private const val A_SESSION_ID = "session-id"
 class UpdateEnableNotificationsSettingOnChangeUseCaseTest {
 
     private val fakeSession = FakeSession().also { it.givenSessionId(A_SESSION_ID) }
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val fakeGetNotificationsStatusUseCase = FakeGetNotificationsStatusUseCase()
 
     private val updateEnableNotificationsSettingOnChangeUseCase = UpdateEnableNotificationsSettingOnChangeUseCase(
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorPreferences = fakeProgressivePreferences.instance,
             getNotificationsStatusUseCase = fakeGetNotificationsStatusUseCase.instance,
     )
 
@@ -35,13 +35,13 @@ class UpdateEnableNotificationsSettingOnChangeUseCaseTest {
                 A_SESSION_ID,
                 NotificationsStatus.ENABLED,
         )
-        fakeVectorPreferences.givenSetNotificationEnabledForDevice()
+        fakeProgressivePreferences.givenSetNotificationEnabledForDevice()
 
         // When
         updateEnableNotificationsSettingOnChangeUseCase.execute(fakeSession)
 
         // Then
-        fakeVectorPreferences.verifySetNotificationEnabledForDevice(true)
+        fakeProgressivePreferences.verifySetNotificationEnabledForDevice(true)
     }
 
     @Test
@@ -52,13 +52,13 @@ class UpdateEnableNotificationsSettingOnChangeUseCaseTest {
                 A_SESSION_ID,
                 NotificationsStatus.DISABLED,
         )
-        fakeVectorPreferences.givenSetNotificationEnabledForDevice()
+        fakeProgressivePreferences.givenSetNotificationEnabledForDevice()
 
         // When
         updateEnableNotificationsSettingOnChangeUseCase.execute(fakeSession)
 
         // Then
-        fakeVectorPreferences.verifySetNotificationEnabledForDevice(false)
+        fakeProgressivePreferences.verifySetNotificationEnabledForDevice(false)
     }
 
     @Test
@@ -69,13 +69,13 @@ class UpdateEnableNotificationsSettingOnChangeUseCaseTest {
                 A_SESSION_ID,
                 NotificationsStatus.NOT_SUPPORTED,
         )
-        fakeVectorPreferences.givenSetNotificationEnabledForDevice()
+        fakeProgressivePreferences.givenSetNotificationEnabledForDevice()
 
         // When
         updateEnableNotificationsSettingOnChangeUseCase.execute(fakeSession)
 
         // Then
-        fakeVectorPreferences.verifySetNotificationEnabledForDevice(true, inverse = true)
-        fakeVectorPreferences.verifySetNotificationEnabledForDevice(false, inverse = true)
+        fakeProgressivePreferences.verifySetNotificationEnabledForDevice(true, inverse = true)
+        fakeProgressivePreferences.verifySetNotificationEnabledForDevice(false, inverse = true)
     }
 }

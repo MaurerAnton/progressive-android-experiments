@@ -69,7 +69,7 @@ class SessionOverviewViewModelTest {
     private val toggleNotificationUseCase = FakeToggleNotificationUseCase()
     private val fakeGetNotificationsStatusUseCase = FakeGetNotificationsStatusUseCase()
     private val notificationsStatus = NotificationsStatus.ENABLED
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val toggleIpAddressVisibilityUseCase = mockk<ToggleIpAddressVisibilityUseCase>()
 
     private fun createViewModel() = SessionOverviewViewModel(
@@ -82,7 +82,7 @@ class SessionOverviewViewModelTest {
             refreshDevicesUseCase = refreshDevicesUseCase,
             toggleNotificationsUseCase = toggleNotificationUseCase.instance,
             getNotificationsStatusUseCase = fakeGetNotificationsStatusUseCase.instance,
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorPreferences = fakeProgressivePreferences.instance,
             toggleIpAddressVisibilityUseCase = toggleIpAddressVisibilityUseCase,
     )
 
@@ -101,7 +101,7 @@ class SessionOverviewViewModelTest {
                 A_SESSION_ID_1,
                 notificationsStatus
         )
-        fakeVectorPreferences.givenSessionManagerShowIpAddress(false)
+        fakeProgressivePreferences.givenSessionManagerShowIpAddress(false)
     }
 
     private fun givenVerificationService(): FakeVerificationService {

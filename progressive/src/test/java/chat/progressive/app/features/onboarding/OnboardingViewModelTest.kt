@@ -101,7 +101,7 @@ class OnboardingViewModelTest {
     private val fakeAuthenticationService = FakeAuthenticationService()
     private val fakeRegistrationActionHandler = FakeRegistrationActionHandler()
     private val fakeDirectLoginUseCase = FakeDirectLoginUseCase()
-    private val fakeVectorFeatures = FakeProgressiveFeatures()
+    private val fakeProgressiveFeatures = FakeProgressiveFeatures()
     private val fakeHomeServerConnectionConfigFactory = FakeHomeServerConnectionConfigFactory()
     private val fakeStartAuthenticationFlowUseCase = FakeStartAuthenticationFlowUseCase()
     private val fakeHomeServerHistoryService = FakeHomeServerHistoryService()
@@ -119,7 +119,7 @@ class OnboardingViewModelTest {
     @Test
     fun `given usecase screen enabled, when handling sign up splash action, then emits OpenUseCaseSelection`() = runTest {
         val test = viewModel.test()
-        fakeVectorFeatures.givenOnboardingUseCaseEnabled()
+        fakeProgressiveFeatures.givenOnboardingUseCaseEnabled()
 
         viewModel.handle(OnboardingAction.SplashAction.OnGetStarted(OnboardingFlow.SignUp))
 
@@ -135,7 +135,7 @@ class OnboardingViewModelTest {
     @Test
     fun `given combined login enabled, when handling sign in splash action, then emits OpenCombinedLogin with default homeserver`() = runTest {
         val test = viewModel.test()
-        fakeVectorFeatures.givenCombinedLoginEnabled()
+        fakeProgressiveFeatures.givenCombinedLoginEnabled()
         givenCanSuccessfullyUpdateHomeserver(A_DEFAULT_HOMESERVER_URL, DEFAULT_SELECTED_HOMESERVER_STATE)
 
         viewModel.handle(OnboardingAction.SplashAction.OnIAlreadyHaveAnAccount(OnboardingFlow.SignIn))
@@ -410,7 +410,7 @@ class OnboardingViewModelTest {
     @Test
     fun `given in sign in flow, when selecting homeserver fails with network error, then emits Failure`() = runTest {
         viewModelWith(initialState.copy(onboardingFlow = OnboardingFlow.SignIn))
-        fakeVectorFeatures.givenCombinedLoginEnabled()
+        fakeProgressiveFeatures.givenCombinedLoginEnabled()
         givenHomeserverSelectionFailsWith(AN_ERROR)
         val test = viewModel.test()
 
@@ -429,7 +429,7 @@ class OnboardingViewModelTest {
     @Test
     fun `given in sign in flow, when selecting homeserver fails with network error, then emits EditServerSelection`() = runTest {
         viewModelWith(initialState.copy(onboardingFlow = OnboardingFlow.SignIn))
-        fakeVectorFeatures.givenCombinedLoginEnabled()
+        fakeProgressiveFeatures.givenCombinedLoginEnabled()
         givenHomeserverSelectionFailsWithNetworkError()
         val test = viewModel.test()
 
@@ -448,7 +448,7 @@ class OnboardingViewModelTest {
     @Test
     fun `given in sign up flow, when selecting homeserver fails with network error, then emits EditServerSelection`() = runTest {
         viewModelWith(initialState.copy(onboardingFlow = OnboardingFlow.SignUp))
-        fakeVectorFeatures.givenCombinedRegisterEnabled()
+        fakeProgressiveFeatures.givenCombinedRegisterEnabled()
         givenHomeserverSelectionFailsWithNetworkError()
         val test = viewModel.test()
 
@@ -669,7 +669,7 @@ class OnboardingViewModelTest {
     @Test
     fun `given matrix id and personalisation enabled, when registering account, then updates state and emits account created event`() = runTest {
         viewModelWith(initialState.copy(registrationState = RegistrationState(selectedMatrixId = A_MATRIX_ID)))
-        fakeVectorFeatures.givenPersonalisationEnabled()
+        fakeProgressiveFeatures.givenPersonalisationEnabled()
         givenSuccessfullyCreatesAccount(A_HOMESERVER_CAPABILITIES)
         givenRegistrationResultFor(RegisterAction.StartRegistration, RegistrationActionHandler.Result.RegistrationComplete(fakeSession))
         val test = viewModel.test()
@@ -806,7 +806,7 @@ class OnboardingViewModelTest {
     fun `given in sign in mode, when accepting user certificate with SelectHomeserver retry action, then emits OnHomeserverEdited`() = runTest {
         viewModelWith(initialState.copy(onboardingFlow = OnboardingFlow.SignIn))
         val test = viewModel.test()
-        fakeVectorFeatures.givenCombinedLoginEnabled()
+        fakeProgressiveFeatures.givenCombinedLoginEnabled()
         givenCanSuccessfullyUpdateHomeserver(
                 A_HOMESERVER_URL,
                 SELECTED_HOMESERVER_STATE,
@@ -918,7 +918,7 @@ class OnboardingViewModelTest {
     fun `given combined login disabled, when confirming password reset, then opens reset password complete`() = runTest {
         viewModelWith(initialState.copy(resetState = ResetState(AN_EMAIL, A_PASSWORD)))
         val test = viewModel.test()
-        fakeVectorFeatures.givenCombinedLoginDisabled()
+        fakeProgressiveFeatures.givenCombinedLoginDisabled()
         fakeLoginWizard.givenConfirmResetPasswordSuccess(A_PASSWORD)
         fakeAuthenticationService.givenLoginWizard(fakeLoginWizard)
 
@@ -938,7 +938,7 @@ class OnboardingViewModelTest {
     fun `given combined login enabled, when confirming password reset, then emits reset password complete`() = runTest {
         viewModelWith(initialState.copy(resetState = ResetState(AN_EMAIL, A_PASSWORD)))
         val test = viewModel.test()
-        fakeVectorFeatures.givenCombinedLoginEnabled()
+        fakeProgressiveFeatures.givenCombinedLoginEnabled()
         fakeLoginWizard.givenConfirmResetPasswordSuccess(A_PASSWORD)
         fakeAuthenticationService.givenLoginWizard(fakeLoginWizard)
 
@@ -1081,7 +1081,7 @@ class OnboardingViewModelTest {
                 ReAuthHelper(),
                 FakeStringProvider().instance,
                 fakeHomeServerHistoryService,
-                fakeVectorFeatures,
+                fakeProgressiveFeatures,
                 FakeAnalyticsTracker(),
                 fakeUriFilenameResolver.instance,
                 fakeDirectLoginUseCase.instance,

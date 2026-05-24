@@ -50,7 +50,7 @@ import chat.progressive.app.features.pin.SharedPrefPinCodeStore
 import chat.progressive.app.features.room.VectorRoomDisplayNameFallbackProvider
 import chat.progressive.app.features.settings.FontScalePreferences
 import chat.progressive.app.features.settings.FontScalePreferencesImpl
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import chat.progressive.app.features.ui.SharedPreferencesUiStateRepository
 import chat.progressive.app.features.ui.UiStateRepository
 import chat.progressive.application.BuildConfig
@@ -137,7 +137,7 @@ import javax.inject.Singleton
 
     @Provides
     fun providesMatrixConfiguration(
-            vectorPreferences: VectorPreferences,
+            vectorPreferences: ProgressivePreferences,
             vectorRoomDisplayNameFallbackProvider: VectorRoomDisplayNameFallbackProvider,
             vectorPlugins: VectorPlugins,
             vectorCustomEventTypesProvider: VectorCustomEventTypesProvider,

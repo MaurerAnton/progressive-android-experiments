@@ -19,28 +19,28 @@ private const val A_DEVICE_ID = "A_DEVICE_ID"
 
 class ShouldShowUnverifiedSessionsAlertUseCaseTest {
 
-    private val fakeVectorFeatures = FakeProgressiveFeatures()
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressiveFeatures = FakeProgressiveFeatures()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val fakeClock = FakeClock()
 
     private val shouldShowUnverifiedSessionsAlertUseCase = ShouldShowUnverifiedSessionsAlertUseCase(
-            vectorFeatures = fakeVectorFeatures,
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorFeatures = fakeProgressiveFeatures,
+            vectorPreferences = fakeProgressivePreferences.instance,
             clock = fakeClock,
     )
 
     @Test
     fun `given the feature is disabled then the use case returns false`() {
-        fakeVectorFeatures.givenUnverifiedSessionsAlertEnabled(false)
-        fakeVectorPreferences.givenUnverifiedSessionsAlertLastShownMillis(0L)
+        fakeProgressiveFeatures.givenUnverifiedSessionsAlertEnabled(false)
+        fakeProgressivePreferences.givenUnverifiedSessionsAlertLastShownMillis(0L)
 
         shouldShowUnverifiedSessionsAlertUseCase.execute(A_DEVICE_ID) shouldBe false
     }
 
     @Test
     fun `given the feature in enabled and there is not a saved preference then the use case returns true`() {
-        fakeVectorFeatures.givenUnverifiedSessionsAlertEnabled(true)
-        fakeVectorPreferences.givenUnverifiedSessionsAlertLastShownMillis(0L)
+        fakeProgressiveFeatures.givenUnverifiedSessionsAlertEnabled(true)
+        fakeProgressivePreferences.givenUnverifiedSessionsAlertLastShownMillis(0L)
         fakeClock.givenEpoch(AN_EPOCH + 1)
 
         shouldShowUnverifiedSessionsAlertUseCase.execute(A_DEVICE_ID) shouldBe true
@@ -48,8 +48,8 @@ class ShouldShowUnverifiedSessionsAlertUseCaseTest {
 
     @Test
     fun `given the feature in enabled and last shown is a long time ago then the use case returns true`() {
-        fakeVectorFeatures.givenUnverifiedSessionsAlertEnabled(true)
-        fakeVectorPreferences.givenUnverifiedSessionsAlertLastShownMillis(AN_EPOCH)
+        fakeProgressiveFeatures.givenUnverifiedSessionsAlertEnabled(true)
+        fakeProgressivePreferences.givenUnverifiedSessionsAlertLastShownMillis(AN_EPOCH)
         fakeClock.givenEpoch(AN_EPOCH * 2 + 1)
 
         shouldShowUnverifiedSessionsAlertUseCase.execute(A_DEVICE_ID) shouldBe true
@@ -57,8 +57,8 @@ class ShouldShowUnverifiedSessionsAlertUseCaseTest {
 
     @Test
     fun `given the feature in enabled and last shown is not a long time ago then the use case returns false`() {
-        fakeVectorFeatures.givenUnverifiedSessionsAlertEnabled(true)
-        fakeVectorPreferences.givenUnverifiedSessionsAlertLastShownMillis(AN_EPOCH)
+        fakeProgressiveFeatures.givenUnverifiedSessionsAlertEnabled(true)
+        fakeProgressivePreferences.givenUnverifiedSessionsAlertLastShownMillis(AN_EPOCH)
         fakeClock.givenEpoch(AN_EPOCH + 1)
 
         shouldShowUnverifiedSessionsAlertUseCase.execute(A_DEVICE_ID) shouldBe false

@@ -7,13 +7,13 @@
 
 package chat.progressive.app.test.fakes
 
-import chat.progressive.app.features.configuration.VectorConfiguration
+import chat.progressive.app.features.configuration.ProgressiveConfiguration
 import io.mockk.every
 import io.mockk.mockk
 
 class FakeConfiguration {
 
-    val instance = mockk<VectorConfiguration> {
+    val instance = mockk<ProgressiveConfiguration> {
         every { applyToApplicationContext() } returns Unit
     }
 }

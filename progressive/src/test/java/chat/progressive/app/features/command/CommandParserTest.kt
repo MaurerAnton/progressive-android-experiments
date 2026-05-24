@@ -14,7 +14,7 @@ import org.junit.Test
 private const val A_SPACE_ID = "!my-space-id"
 
 class CommandParserTest {
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
 
     @Test
     fun parseSlashCommandEmpty() {
@@ -64,7 +64,7 @@ class CommandParserTest {
     }
 
     private fun test(message: String, expectedResult: ParsedCommand) {
-        val commandParser = CommandParser(fakeVectorPreferences.instance)
+        val commandParser = CommandParser(fakeProgressivePreferences.instance)
         val result = commandParser.parseSlashCommand(message, null, false)
         result shouldBeEqualTo expectedResult
     }

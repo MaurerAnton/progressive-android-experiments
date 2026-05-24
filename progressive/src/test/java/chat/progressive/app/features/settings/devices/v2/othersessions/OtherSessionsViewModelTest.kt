@@ -59,7 +59,7 @@ class OtherSessionsViewModelTest {
     private val fakeRefreshDevicesUseCase = mockk<RefreshDevicesUseCase>(relaxed = true)
     private val fakeSignoutSessionsUseCase = FakeSignoutSessionsUseCase()
     private val fakePendingAuthHandler = FakePendingAuthHandler()
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val toggleIpAddressVisibilityUseCase = mockk<ToggleIpAddressVisibilityUseCase>()
 
     private fun createViewModel(viewState: OtherSessionsViewState = OtherSessionsViewState(defaultArgs)) =
@@ -70,7 +70,7 @@ class OtherSessionsViewModelTest {
                     signoutSessionsUseCase = fakeSignoutSessionsUseCase.instance,
                     pendingAuthHandler = fakePendingAuthHandler.instance,
                     refreshDevicesUseCase = fakeRefreshDevicesUseCase,
-                    vectorPreferences = fakeVectorPreferences.instance,
+                    vectorPreferences = fakeProgressivePreferences.instance,
                     toggleIpAddressVisibilityUseCase = toggleIpAddressVisibilityUseCase,
             )
 
@@ -83,7 +83,7 @@ class OtherSessionsViewModelTest {
                 HomeServerCapabilities()
         )
         givenVerificationService().givenEventFlow()
-        fakeVectorPreferences.givenSessionManagerShowIpAddress(false)
+        fakeProgressivePreferences.givenSessionManagerShowIpAddress(false)
     }
 
     private fun givenVerificationService(): FakeVerificationService {

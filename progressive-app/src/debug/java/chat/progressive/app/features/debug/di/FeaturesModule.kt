@@ -13,9 +13,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import chat.progressive.app.features.DefaultVectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
 import chat.progressive.app.features.DefaultVectorOverrides
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.VectorOverrides
 import chat.progressive.app.features.debug.features.DebugProgressiveFeatures
 import chat.progressive.app.features.debug.features.DebugProgressiveOverrides
@@ -25,7 +25,7 @@ import chat.progressive.app.features.debug.features.DebugProgressiveOverrides
 interface FeaturesModule {
 
     @Binds
-    fun bindFeatures(debugFeatures: DebugProgressiveFeatures): VectorFeatures
+    fun bindFeatures(debugFeatures: DebugProgressiveFeatures): ProgressiveFeatures
 
     @Binds
     fun bindOverrides(debugOverrides: DebugProgressiveOverrides): VectorOverrides
@@ -33,13 +33,13 @@ interface FeaturesModule {
     companion object {
 
         @Provides
-        fun providesDefaultVectorFeatures(): DefaultVectorFeatures {
-            return DefaultVectorFeatures()
+        fun providesDefaultProgressiveFeatures(): DefaultProgressiveFeatures {
+            return DefaultProgressiveFeatures()
         }
 
         @Provides
-        fun providesDebugProgressiveFeatures(context: Context, defaultVectorFeatures: DefaultVectorFeatures): DebugProgressiveFeatures {
-            return DebugProgressiveFeatures(context, defaultVectorFeatures)
+        fun providesDebugProgressiveFeatures(context: Context, defaultProgressiveFeatures: DefaultProgressiveFeatures): DebugProgressiveFeatures {
+            return DebugProgressiveFeatures(context, defaultProgressiveFeatures)
         }
 
         @Provides

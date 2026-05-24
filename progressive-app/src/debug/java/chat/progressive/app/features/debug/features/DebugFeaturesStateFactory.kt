@@ -8,14 +8,14 @@
 package chat.progressive.app.features.debug.features
 
 import androidx.datastore.preferences.core.Preferences
-import chat.progressive.app.features.DefaultVectorFeatures
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import javax.inject.Inject
 import kotlin.reflect.KFunction1
 
 class DebugFeaturesStateFactory @Inject constructor(
         private val debugFeatures: DebugProgressiveFeatures,
-        private val defaultFeatures: DefaultVectorFeatures
+        private val defaultFeatures: DefaultProgressiveFeatures
 ) {
 
     fun create(): FeaturesState {
@@ -29,63 +29,63 @@ class DebugFeaturesStateFactory @Inject constructor(
                         createBooleanFeature(
                                 label = "FTUE Splash - I already have an account",
                                 key = DebugFeatureKeys.onboardingAlreadyHaveAnAccount,
-                                factory = VectorFeatures::isOnboardingAlreadyHaveAccountSplashEnabled
+                                factory = ProgressiveFeatures::isOnboardingAlreadyHaveAccountSplashEnabled
                         ),
                         createBooleanFeature(
                                 label = "FTUE Splash - carousel",
                                 key = DebugFeatureKeys.onboardingSplashCarousel,
-                                factory = VectorFeatures::isOnboardingSplashCarouselEnabled
+                                factory = ProgressiveFeatures::isOnboardingSplashCarouselEnabled
                         ),
                         createBooleanFeature(
                                 label = "FTUE Use Case",
                                 key = DebugFeatureKeys.onboardingUseCase,
-                                factory = VectorFeatures::isOnboardingUseCaseEnabled
+                                factory = ProgressiveFeatures::isOnboardingUseCaseEnabled
                         ),
                         createBooleanFeature(
                                 label = "FTUE Personalize profile",
                                 key = DebugFeatureKeys.onboardingPersonalize,
-                                factory = VectorFeatures::isOnboardingPersonalizeEnabled
+                                factory = ProgressiveFeatures::isOnboardingPersonalizeEnabled
                         ),
                         createBooleanFeature(
                                 label = "FTUE Combined register",
                                 key = DebugFeatureKeys.onboardingCombinedRegister,
-                                factory = VectorFeatures::isOnboardingCombinedRegisterEnabled
+                                factory = ProgressiveFeatures::isOnboardingCombinedRegisterEnabled
                         ),
                         createBooleanFeature(
                                 label = "FTUE Combined login",
                                 key = DebugFeatureKeys.onboardingCombinedLogin,
-                                factory = VectorFeatures::isOnboardingCombinedLoginEnabled
+                                factory = ProgressiveFeatures::isOnboardingCombinedLoginEnabled
                         ),
                         createBooleanFeature(
                                 label = "Allow external UnifiedPush distributors",
                                 key = DebugFeatureKeys.allowExternalUnifiedPushDistributors,
-                                factory = VectorFeatures::allowExternalUnifiedPushDistributors
+                                factory = ProgressiveFeatures::allowExternalUnifiedPushDistributors
                         ),
                         createBooleanFeature(
                                 label = "Enable Live Location Sharing",
                                 key = DebugFeatureKeys.liveLocationSharing,
-                                factory = VectorFeatures::isLocationSharingEnabled
+                                factory = ProgressiveFeatures::isLocationSharingEnabled
                         ),
                         createBooleanFeature(
                                 label = "Force usage of OpusEncoder library",
                                 key = DebugFeatureKeys.forceUsageOfOpusEncoder,
-                                factory = VectorFeatures::forceUsageOfOpusEncoder
+                                factory = ProgressiveFeatures::forceUsageOfOpusEncoder
                         ),
                         createBooleanFeature(
                                 label = "Enable New App Layout",
                                 key = DebugFeatureKeys.newAppLayoutEnabled,
-                                factory = VectorFeatures::isNewAppLayoutFeatureEnabled
+                                factory = ProgressiveFeatures::isNewAppLayoutFeatureEnabled
                         ),
                         createBooleanFeature(
                                 label = "Enable Voice Broadcast",
                                 key = DebugFeatureKeys.voiceBroadcastEnabled,
-                                factory = VectorFeatures::isVoiceBroadcastEnabled
+                                factory = ProgressiveFeatures::isVoiceBroadcastEnabled
                         ),
                 )
         )
     }
 
-    private fun createBooleanFeature(key: Preferences.Key<Boolean>, label: String, factory: KFunction1<VectorFeatures, Boolean>): Feature {
+    private fun createBooleanFeature(key: Preferences.Key<Boolean>, label: String, factory: KFunction1<ProgressiveFeatures, Boolean>): Feature {
         return Feature.BooleanFeature(
                 label = label,
                 featureOverride = factory.invoke(debugFeatures).takeIf { debugFeatures.hasOverride(key) },

@@ -21,14 +21,14 @@ import org.matrix.android.sdk.api.account.LocalNotificationSettingsContent
 
 class UpdateNotificationSettingsAccountDataUseCaseTest {
 
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val fakeUnifiedPushHelper = FakeUnifiedPushHelper()
     private val fakeGetNotificationSettingsAccountDataUseCase = mockk<GetNotificationSettingsAccountDataUseCase>()
     private val fakeSetNotificationSettingsAccountDataUseCase = mockk<SetNotificationSettingsAccountDataUseCase>()
     private val fakeDeleteNotificationSettingsAccountDataUseCase = mockk<DeleteNotificationSettingsAccountDataUseCase>()
 
     private val updateNotificationSettingsAccountDataUseCase = UpdateNotificationSettingsAccountDataUseCase(
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorPreferences = fakeProgressivePreferences.instance,
             unifiedPushHelper = fakeUnifiedPushHelper.instance,
             getNotificationSettingsAccountDataUseCase = fakeGetNotificationSettingsAccountDataUseCase,
             setNotificationSettingsAccountDataUseCase = fakeSetNotificationSettingsAccountDataUseCase,
@@ -43,7 +43,7 @@ class UpdateNotificationSettingsAccountDataUseCaseTest {
         aSession.givenSessionId(aDeviceId)
         coJustRun { fakeSetNotificationSettingsAccountDataUseCase.execute(any(), any(), any()) }
         val areNotificationsEnabled = true
-        fakeVectorPreferences.givenAreNotificationsEnabledForDevice(areNotificationsEnabled)
+        fakeProgressivePreferences.givenAreNotificationsEnabledForDevice(areNotificationsEnabled)
         fakeUnifiedPushHelper.givenIsBackgroundSyncReturns(true)
         every { fakeGetNotificationSettingsAccountDataUseCase.execute(any(), any()) } returns
                 LocalNotificationSettingsContent(
@@ -59,7 +59,7 @@ class UpdateNotificationSettingsAccountDataUseCaseTest {
         // Then
         verify {
             fakeUnifiedPushHelper.instance.isBackgroundSync()
-            fakeVectorPreferences.instance.areNotificationEnabledForDevice()
+            fakeProgressivePreferences.instance.areNotificationEnabledForDevice()
             fakeGetNotificationSettingsAccountDataUseCase.execute(aSession, aDeviceId)
         }
         coVerify(inverse = true) { fakeDeleteNotificationSettingsAccountDataUseCase.execute(aSession) }
@@ -74,7 +74,7 @@ class UpdateNotificationSettingsAccountDataUseCaseTest {
         aSession.givenSessionId(aDeviceId)
         coJustRun { fakeSetNotificationSettingsAccountDataUseCase.execute(any(), any(), any()) }
         val areNotificationsEnabled = true
-        fakeVectorPreferences.givenAreNotificationsEnabledForDevice(areNotificationsEnabled)
+        fakeProgressivePreferences.givenAreNotificationsEnabledForDevice(areNotificationsEnabled)
         fakeUnifiedPushHelper.givenIsBackgroundSyncReturns(true)
         every { fakeGetNotificationSettingsAccountDataUseCase.execute(any(), any()) } returns
                 LocalNotificationSettingsContent(
@@ -90,7 +90,7 @@ class UpdateNotificationSettingsAccountDataUseCaseTest {
         // Then
         verify {
             fakeUnifiedPushHelper.instance.isBackgroundSync()
-            fakeVectorPreferences.instance.areNotificationEnabledForDevice()
+            fakeProgressivePreferences.instance.areNotificationEnabledForDevice()
             fakeGetNotificationSettingsAccountDataUseCase.execute(aSession, aDeviceId)
         }
         coVerify(inverse = true) { fakeDeleteNotificationSettingsAccountDataUseCase.execute(aSession) }

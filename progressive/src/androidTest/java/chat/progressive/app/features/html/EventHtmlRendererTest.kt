@@ -14,7 +14,7 @@ import chat.progressive.app.core.di.ActiveSessionHolder
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.utils.DimensionConverter
 import chat.progressive.app.core.utils.toTestSpan
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import io.mockk.every
 import io.mockk.mockk
 import org.amshove.kluent.shouldBeEqualTo
@@ -27,7 +27,7 @@ import kotlin.text.Typography.nbsp
 class EventHtmlRendererTest {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private val fakeVectorPreferences = mockk<VectorPreferences>().also {
+    private val fakeProgressivePreferences = mockk<ProgressivePreferences>().also {
         every { it.latexMathsIsEnabled() } returns false
         every { it.isRichTextEditorEnabled() } returns false
     }
@@ -35,9 +35,9 @@ class EventHtmlRendererTest {
     private val fakeDimensionConverter = mockk<DimensionConverter>()
 
     private val renderer = EventHtmlRenderer(
-            MatrixHtmlPluginConfigure(ColorProvider(context), context.resources, fakeVectorPreferences, fakeDimensionConverter),
+            MatrixHtmlPluginConfigure(ColorProvider(context), context.resources, fakeProgressivePreferences, fakeDimensionConverter),
             context,
-            fakeVectorPreferences,
+            fakeProgressivePreferences,
             fakeSessionHolder,
     )
 
@@ -97,7 +97,7 @@ class EventHtmlRendererTest {
 
     @Test
     fun processesHtmlWithinCodeBlocks_givenRichTextEditorEnabled() {
-        every { fakeVectorPreferences.isRichTextEditorEnabled() } returns true
+        every { fakeProgressivePreferences.isRichTextEditorEnabled() } returns true
         val result = """<code><i>italic</i> <b>bold</b></code>""".renderAsTestSpan()
 
         result shouldBeEqualTo "[inline code][italic]italic[/italic] [bold]bold[/bold][/inline code]"

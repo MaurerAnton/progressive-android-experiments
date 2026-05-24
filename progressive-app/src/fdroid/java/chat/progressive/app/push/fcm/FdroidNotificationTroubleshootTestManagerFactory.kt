@@ -11,7 +11,7 @@ import chat.progressive.app.core.pushers.UnifiedPushHelper
 import chat.progressive.app.fdroid.features.settings.troubleshoot.TestAutoStartBoot
 import chat.progressive.app.fdroid.features.settings.troubleshoot.TestBackgroundRestrictions
 import chat.progressive.app.fdroid.features.settings.troubleshoot.TestBatteryOptimization
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.push.NotificationTroubleshootTestManagerFactory
 import chat.progressive.app.features.settings.troubleshoot.NotificationTroubleshootTestManager
 import chat.progressive.app.features.settings.troubleshoot.TestAccountSettings
@@ -43,7 +43,7 @@ class FdroidNotificationTroubleshootTestManagerFactory @Inject constructor(
         private val testBackgroundRestrictions: TestBackgroundRestrictions,
         private val testBatteryOptimization: TestBatteryOptimization,
         private val testNotification: TestNotification,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
 ) : NotificationTroubleshootTestManagerFactory {
 
     override fun create(fragment: Fragment): NotificationTroubleshootTestManager {

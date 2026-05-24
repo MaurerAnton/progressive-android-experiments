@@ -9,7 +9,7 @@ package chat.progressive.app.features.pin.lockscreen.crypto.migrations
 
 import android.security.keystore.UserNotAuthenticatedException
 import chat.progressive.app.features.pin.lockscreen.crypto.KeyStoreCrypto
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -23,7 +23,7 @@ class SystemKeyV1MigratorTests {
 
     private val keyStoreCryptoFactory = mockk<KeyStoreCrypto.Factory>()
     private val keyStore = mockk<KeyStore>(relaxed = true)
-    private val vectorPreferences = mockk<VectorPreferences>(relaxed = true)
+    private val vectorPreferences = mockk<ProgressivePreferences>(relaxed = true)
     private val systemKeyV1Migrator = SystemKeyV1Migrator("vector.system_new", keyStore, keyStoreCryptoFactory, vectorPreferences)
 
     @Test

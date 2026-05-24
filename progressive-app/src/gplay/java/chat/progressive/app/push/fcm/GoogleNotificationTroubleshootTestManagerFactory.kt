@@ -8,7 +8,7 @@ package chat.progressive.app.push.fcm
 
 import androidx.fragment.app.Fragment
 import chat.progressive.app.core.pushers.UnifiedPushHelper
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.features.push.NotificationTroubleshootTestManagerFactory
 import chat.progressive.app.features.settings.troubleshoot.NotificationTroubleshootTestManager
 import chat.progressive.app.features.settings.troubleshoot.TestAccountSettings
@@ -43,7 +43,7 @@ class GoogleNotificationTroubleshootTestManagerFactory @Inject constructor(
         private val testEndpointAsTokenRegistration: TestEndpointAsTokenRegistration,
         private val testPushFromPushGateway: TestPushFromPushGateway,
         private val testNotification: TestNotification,
-        private val vectorFeatures: VectorFeatures,
+        private val vectorFeatures: ProgressiveFeatures,
 ) : NotificationTroubleshootTestManagerFactory {
 
     override fun create(fragment: Fragment): NotificationTroubleshootTestManager {

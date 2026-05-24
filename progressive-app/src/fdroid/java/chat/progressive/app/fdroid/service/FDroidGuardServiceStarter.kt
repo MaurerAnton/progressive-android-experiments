@@ -11,12 +11,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import chat.progressive.app.core.services.GuardServiceStarter
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import timber.log.Timber
 import javax.inject.Inject
 
 class FDroidGuardServiceStarter @Inject constructor(
-        private val preferences: VectorPreferences,
+        private val preferences: ProgressivePreferences,
         private val appContext: Context
 ) : GuardServiceStarter {
 

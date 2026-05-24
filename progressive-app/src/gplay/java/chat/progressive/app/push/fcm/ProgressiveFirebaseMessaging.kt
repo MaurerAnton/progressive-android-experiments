@@ -18,7 +18,7 @@ import chat.progressive.app.core.pushers.UnifiedPushHelper
 import chat.progressive.app.core.pushers.VectorPushHandler
 import chat.progressive.app.features.mdm.MdmData
 import chat.progressive.app.features.mdm.MdmService
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -32,7 +32,7 @@ private val loggerTag = LoggerTag("Push", LoggerTag.SYNC)
 @AndroidEntryPoint
 class ProgressiveFirebaseMessaging : FirebaseMessagingService() {
     @Inject lateinit var fcmHelper: FcmHelper
-    @Inject lateinit var vectorPreferences: VectorPreferences
+    @Inject lateinit var vectorPreferences: ProgressivePreferences
     @Inject lateinit var activeSessionHolder: ActiveSessionHolder
     @Inject lateinit var pushersManager: PushersManager
     @Inject lateinit var pushParser: PushParser

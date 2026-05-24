@@ -12,7 +12,7 @@ import chat.progressive.app.core.platform.VectorDummyViewState
 import chat.progressive.app.core.pushers.EnsureFcmTokenIsRetrievedUseCase
 import chat.progressive.app.core.pushers.RegisterUnifiedPushUseCase
 import chat.progressive.app.core.pushers.UnregisterUnifiedPushUseCase
-import chat.progressive.app.features.settings.VectorPreferences.Companion.SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY
+import chat.progressive.app.features.settings.ProgressivePreferences.Companion.SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY
 import chat.progressive.app.features.settings.notifications.usecase.DisableNotificationsForCurrentSessionUseCase
 import chat.progressive.app.features.settings.notifications.usecase.EnableNotificationsForCurrentSessionUseCase
 import chat.progressive.app.features.settings.notifications.usecase.ToggleNotificationsForCurrentSessionUseCase
@@ -35,7 +35,7 @@ class ProgressiveSettingsNotifTest {
     val mavericksTestRule = MavericksTestRule(testDispatcher = testDispatcher)
 
     private val fakePushersManager = FakePushersManager()
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val fakeEnableNotificationsForCurrentSessionUseCase = mockk<EnableNotificationsForCurrentSessionUseCase>()
     private val fakeDisableNotificationsForCurrentSessionUseCase = mockk<DisableNotificationsForCurrentSessionUseCase>()
     private val fakeUnregisterUnifiedPushUseCase = mockk<UnregisterUnifiedPushUseCase>()
@@ -46,7 +46,7 @@ class ProgressiveSettingsNotifTest {
     private fun createViewModel() = VectorSettingsNotificationViewModel(
             initialState = VectorDummyViewState(),
             pushersManager = fakePushersManager.instance,
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorPreferences = fakeProgressivePreferences.instance,
             enableNotificationsForCurrentSessionUseCase = fakeEnableNotificationsForCurrentSessionUseCase,
             disableNotificationsForCurrentSessionUseCase = fakeDisableNotificationsForCurrentSessionUseCase,
             unregisterUnifiedPushUseCase = fakeUnregisterUnifiedPushUseCase,
@@ -58,7 +58,7 @@ class ProgressiveSettingsNotifTest {
     @Test
     fun `given view model init when notifications are enabled in preferences then view event is posted`() {
         // Given
-        fakeVectorPreferences.givenAreNotificationsEnabledForDevice(true)
+        fakeProgressivePreferences.givenAreNotificationsEnabledForDevice(true)
         val expectedEvent = VectorSettingsNotificationViewEvent.NotificationsForDeviceEnabled
         val viewModel = createViewModel()
 
@@ -75,7 +75,7 @@ class ProgressiveSettingsNotifTest {
     @Test
     fun `given view model init when notifications are disabled in preferences then view event is posted`() {
         // Given
-        fakeVectorPreferences.givenAreNotificationsEnabledForDevice(false)
+        fakeProgressivePreferences.givenAreNotificationsEnabledForDevice(false)
         val expectedEvent = VectorSettingsNotificationViewEvent.NotificationsForDeviceDisabled
         val viewModel = createViewModel()
 
@@ -165,7 +165,7 @@ class ProgressiveSettingsNotifTest {
         coEvery { fakeRegisterUnifiedPushUseCase.execute(any()) } returns RegisterUnifiedPushUseCase.RegisterUnifiedPushResult.Success
         coJustRun { fakeUnregisterUnifiedPushUseCase.execute(any()) }
         val areNotificationsEnabled = true
-        fakeVectorPreferences.givenAreNotificationsEnabledForDevice(areNotificationsEnabled)
+        fakeProgressivePreferences.givenAreNotificationsEnabledForDevice(areNotificationsEnabled)
         coJustRun { fakeToggleNotificationsForCurrentSessionUseCase.execute(any()) }
         justRun { fakeEnsureFcmTokenIsRetrievedUseCase.execute(any(), any()) }
         val expectedEvent = VectorSettingsNotificationViewEvent.NotificationMethodChanged

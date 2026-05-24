@@ -11,7 +11,7 @@ import android.os.Build
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.UserNotAuthenticatedException
 import chat.progressive.app.features.pin.lockscreen.crypto.KeyStoreCrypto
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import chat.progressive.app.test.TestBuildVersionSdkIntProvider
 import io.mockk.every
 import io.mockk.mockk
@@ -23,7 +23,7 @@ import org.junit.Test
 class MissingSystemKeyMigratorTests {
 
     private val keyStoreCryptoFactory = mockk<KeyStoreCrypto.Factory>()
-    private val vectorPreferences = mockk<VectorPreferences>(relaxed = true)
+    private val vectorPreferences = mockk<ProgressivePreferences>(relaxed = true)
     private val versionProvider = TestBuildVersionSdkIntProvider().also { it.value = Build.VERSION_CODES.M }
     private val missingSystemKeyMigrator = MissingSystemKeyMigrator("vector.system", keyStoreCryptoFactory, vectorPreferences, versionProvider)
 

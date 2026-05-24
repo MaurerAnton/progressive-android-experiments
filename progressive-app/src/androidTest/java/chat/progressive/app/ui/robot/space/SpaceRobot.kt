@@ -19,14 +19,14 @@ import com.adevinta.android.barista.internal.viewaction.ClickChildAction
 import chat.progressive.app.R
 import chat.progressive.app.espresso.tools.waitUntilDialogVisible
 import chat.progressive.app.espresso.tools.waitUntilViewVisible
-import chat.progressive.app.features.DefaultVectorFeatures
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.ui.robot.settings.labs.LabFeaturesPreferences
 import chat.progressive.lib.strings.CommonStrings
 import org.hamcrest.Matchers
 
 class SpaceRobot(private val labsPreferences: LabFeaturesPreferences) {
-    private val features: VectorFeatures = DefaultVectorFeatures()
+    private val features: ProgressiveFeatures = DefaultProgressiveFeatures()
 
     fun createSpace(isFirstSpace: Boolean, block: SpaceCreateRobot.() -> Unit) {
         if (labsPreferences.isNewAppLayoutEnabled) {

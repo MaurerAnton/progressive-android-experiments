@@ -8,7 +8,7 @@
 package chat.progressive.app.test.fakes
 
 import chat.progressive.app.features.settings.BackgroundSyncMode
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
@@ -16,7 +16,7 @@ import io.mockk.verify
 
 class FakeProgressivePreferences {
 
-    val instance = mockk<VectorPreferences>(relaxUnitFun = true)
+    val instance = mockk<ProgressivePreferences>(relaxUnitFun = true)
 
     fun givenUseCompleteNotificationFormat(value: Boolean) {
         every { instance.useCompleteNotificationFormat() } returns value

@@ -21,16 +21,16 @@ internal class AttachmentTypeSelectorViewModelTest {
     @get:Rule
     val mavericksTestRule = MavericksTestRule()
 
-    private val fakeVectorFeatures = FakeProgressiveFeatures()
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressiveFeatures = FakeProgressiveFeatures()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val initialState = AttachmentTypeSelectorViewState()
 
     @Before
     fun setUp() {
         // Disable all features by default
-        fakeVectorFeatures.givenLocationSharing(isEnabled = false)
-        fakeVectorFeatures.givenVoiceBroadcast(isEnabled = false)
-        fakeVectorPreferences.givenTextFormatting(isEnabled = false)
+        fakeProgressiveFeatures.givenLocationSharing(isEnabled = false)
+        fakeProgressiveFeatures.givenVoiceBroadcast(isEnabled = false)
+        fakeProgressivePreferences.givenTextFormatting(isEnabled = false)
     }
 
     @Test
@@ -47,7 +47,7 @@ internal class AttachmentTypeSelectorViewModelTest {
 
     @Test
     fun `given location sharing is enabled, then location sharing option is visible`() {
-        fakeVectorFeatures.givenLocationSharing(isEnabled = true)
+        fakeProgressiveFeatures.givenLocationSharing(isEnabled = true)
 
         createViewModel()
                 .test()
@@ -63,7 +63,7 @@ internal class AttachmentTypeSelectorViewModelTest {
 
     @Test
     fun `given voice broadcast is enabled, then voice broadcast option is visible`() {
-        fakeVectorFeatures.givenVoiceBroadcast(isEnabled = true)
+        fakeProgressiveFeatures.givenVoiceBroadcast(isEnabled = true)
 
         createViewModel()
                 .test()
@@ -79,7 +79,7 @@ internal class AttachmentTypeSelectorViewModelTest {
 
     @Test
     fun `given text formatting is enabled, then text formatting option is checked`() {
-        fakeVectorPreferences.givenTextFormatting(isEnabled = true)
+        fakeProgressivePreferences.givenTextFormatting(isEnabled = true)
 
         createViewModel()
                 .test()
@@ -118,16 +118,16 @@ internal class AttachmentTypeSelectorViewModelTest {
                     handle(AttachmentTypeSelectorAction.ToggleTextFormatting(isEnabled = false))
                 }
         verifyOrder {
-            fakeVectorPreferences.instance.setTextFormattingEnabled(true)
-            fakeVectorPreferences.instance.setTextFormattingEnabled(false)
+            fakeProgressivePreferences.instance.setTextFormattingEnabled(true)
+            fakeProgressivePreferences.instance.setTextFormattingEnabled(false)
         }
     }
 
     private fun createViewModel(): AttachmentTypeSelectorViewModel {
         return AttachmentTypeSelectorViewModel(
                 initialState,
-                vectorFeatures = fakeVectorFeatures,
-                vectorPreferences = fakeVectorPreferences.instance,
+                vectorFeatures = fakeProgressiveFeatures,
+                vectorPreferences = fakeProgressivePreferences.instance,
         )
     }
 }

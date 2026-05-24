@@ -37,7 +37,7 @@ class ConfigureAndStartSessionUseCaseTest {
     private val fakeContext = FakeContext()
     private val fakeWebRtcCallManager = FakeWebRtcCallManager()
     private val fakeUpdateMatrixClientInfoUseCase = mockk<UpdateMatrixClientInfoUseCase>()
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val fakeNotificationsSettingUpdater = FakeNotificationsSettingUpdater()
     private val fakePushRulesUpdater = FakePushRulesUpdater()
     private val fakeUpdateNotificationSettingsAccountDataUseCase = mockk<UpdateNotificationSettingsAccountDataUseCase>()
@@ -46,7 +46,7 @@ class ConfigureAndStartSessionUseCaseTest {
             context = fakeContext.instance,
             webRtcCallManager = fakeWebRtcCallManager.instance,
             updateMatrixClientInfoUseCase = fakeUpdateMatrixClientInfoUseCase,
-            vectorPreferences = fakeVectorPreferences.instance,
+            vectorPreferences = fakeProgressivePreferences.instance,
             notificationsSettingUpdater = fakeNotificationsSettingUpdater.instance,
             updateNotificationSettingsAccountDataUseCase = fakeUpdateNotificationSettingsAccountDataUseCase,
             pushRulesUpdater = fakePushRulesUpdater.instance,
@@ -71,7 +71,7 @@ class ConfigureAndStartSessionUseCaseTest {
         fakeWebRtcCallManager.givenCheckForProtocolsSupportIfNeededSucceeds()
         coJustRun { fakeUpdateMatrixClientInfoUseCase.execute(any()) }
         coJustRun { fakeUpdateNotificationSettingsAccountDataUseCase.execute(any()) }
-        fakeVectorPreferences.givenIsClientInfoRecordingEnabled(isEnabled = true)
+        fakeProgressivePreferences.givenIsClientInfoRecordingEnabled(isEnabled = true)
         fakeNotificationsSettingUpdater.givenOnSessionStarted(aSession)
         fakePushRulesUpdater.givenOnSessionStarted(aSession)
 
@@ -96,7 +96,7 @@ class ConfigureAndStartSessionUseCaseTest {
         every { aSession.coroutineScope } returns this
         fakeWebRtcCallManager.givenCheckForProtocolsSupportIfNeededSucceeds()
         coJustRun { fakeUpdateNotificationSettingsAccountDataUseCase.execute(any()) }
-        fakeVectorPreferences.givenIsClientInfoRecordingEnabled(isEnabled = false)
+        fakeProgressivePreferences.givenIsClientInfoRecordingEnabled(isEnabled = false)
         fakeNotificationsSettingUpdater.givenOnSessionStarted(aSession)
         fakePushRulesUpdater.givenOnSessionStarted(aSession)
 
@@ -124,7 +124,7 @@ class ConfigureAndStartSessionUseCaseTest {
         fakeWebRtcCallManager.givenCheckForProtocolsSupportIfNeededSucceeds()
         coJustRun { fakeUpdateMatrixClientInfoUseCase.execute(any()) }
         coJustRun { fakeUpdateNotificationSettingsAccountDataUseCase.execute(any()) }
-        fakeVectorPreferences.givenIsClientInfoRecordingEnabled(isEnabled = true)
+        fakeProgressivePreferences.givenIsClientInfoRecordingEnabled(isEnabled = true)
         fakeNotificationsSettingUpdater.givenOnSessionStarted(aSession)
         fakePushRulesUpdater.givenOnSessionStarted(aSession)
 

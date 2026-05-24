@@ -12,8 +12,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
 import chat.progressive.app.R
 import chat.progressive.app.espresso.tools.waitUntilViewVisible
-import chat.progressive.app.features.DefaultVectorFeatures
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import chat.progressive.app.ui.robot.settings.labs.LabFeaturesPreferences
 import chat.progressive.lib.strings.CommonStrings
 
@@ -21,7 +21,7 @@ class NewRoomRobot(
         var createdRoom: Boolean = false,
         private val labsPreferences: LabFeaturesPreferences
 ) {
-    private val features: VectorFeatures = DefaultVectorFeatures()
+    private val features: ProgressiveFeatures = DefaultProgressiveFeatures()
 
     fun createNewRoom(block: CreateNewRoomRobot.() -> Unit) {
         clickOn(CommonStrings.create_new_room)

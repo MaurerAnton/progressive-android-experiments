@@ -45,7 +45,7 @@ import chat.progressive.app.features.analytics.DecryptionFailureTracker
 import chat.progressive.app.features.analytics.VectorAnalytics
 import chat.progressive.app.features.analytics.plan.SuperProperties
 import chat.progressive.app.features.call.webrtc.WebRtcCallManager
-import chat.progressive.app.features.configuration.VectorConfiguration
+import chat.progressive.app.features.configuration.ProgressiveConfiguration
 import chat.progressive.app.features.invite.InvitesAcceptor
 import chat.progressive.app.features.lifecycle.VectorActivityLifecycleCallbacks
 import chat.progressive.app.features.notifications.NotificationDrawerManager
@@ -55,7 +55,7 @@ import chat.progressive.app.features.popup.PopupAlertManager
 import chat.progressive.app.features.rageshake.VectorFileLogger
 import chat.progressive.app.features.rageshake.VectorUncaughtExceptionHandler
 import chat.progressive.app.features.settings.VectorLocale
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import chat.progressive.app.features.themes.ThemeUtils
 import chat.progressive.app.features.version.VersionProvider
 import chat.progressive.application.R
@@ -78,13 +78,13 @@ class ProgressiveApplication :
 
     lateinit var appContext: Context
     @Inject lateinit var authenticationService: AuthenticationService
-    @Inject lateinit var vectorConfiguration: VectorConfiguration
+    @Inject lateinit var vectorConfiguration: ProgressiveConfiguration
     @Inject lateinit var emojiCompatFontProvider: EmojiCompatFontProvider
     @Inject lateinit var emojiCompatWrapper: EmojiCompatWrapper
     @Inject lateinit var vectorUncaughtExceptionHandler: VectorUncaughtExceptionHandler
     @Inject lateinit var activeSessionHolder: ActiveSessionHolder
     @Inject lateinit var notificationDrawerManager: NotificationDrawerManager
-    @Inject lateinit var vectorPreferences: VectorPreferences
+    @Inject lateinit var vectorPreferences: ProgressivePreferences
     @Inject lateinit var versionProvider: VersionProvider
     @Inject lateinit var notificationUtils: NotificationUtils
     @Inject lateinit var spaceStateHandler: SpaceStateHandler

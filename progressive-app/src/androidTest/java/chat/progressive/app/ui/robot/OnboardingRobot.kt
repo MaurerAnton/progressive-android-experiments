@@ -20,12 +20,12 @@ import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
 import com.adevinta.android.barista.interaction.BaristaEditTextInteractions.writeTo
 import chat.progressive.app.R
 import chat.progressive.app.espresso.tools.waitUntilViewVisible
-import chat.progressive.app.features.DefaultVectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
 import chat.progressive.app.waitForView
 import chat.progressive.lib.strings.CommonStrings
 
 class OnboardingRobot {
-    private val defaultVectorFeatures = DefaultVectorFeatures()
+    private val defaultProgressiveFeatures = DefaultProgressiveFeatures()
 
     fun crawl() {
         waitUntilViewVisible(withId(R.id.loginSplashSubmit))
@@ -34,7 +34,7 @@ class OnboardingRobot {
     }
 
     private fun crawlCreateAccount() {
-        if (defaultVectorFeatures.isOnboardingCombinedRegisterEnabled()) {
+        if (defaultProgressiveFeatures.isOnboardingCombinedRegisterEnabled()) {
             // TODO https://github.com/element-hq/element-android/issues/6652
         } else {
             clickOn(R.id.loginSplashSubmit)
@@ -47,7 +47,7 @@ class OnboardingRobot {
     }
 
     private fun crawlAlreadyHaveAccount() {
-        if (defaultVectorFeatures.isOnboardingCombinedLoginEnabled()) {
+        if (defaultProgressiveFeatures.isOnboardingCombinedLoginEnabled()) {
             // TODO https://github.com/element-hq/element-android/issues/6652
         } else {
             clickOn(R.id.loginSplashAlreadyHaveAccount)
@@ -57,14 +57,14 @@ class OnboardingRobot {
     }
 
     fun createAccount(userId: String, password: String = "password", homeServerUrl: String = "http://10.0.2.2:8080") {
-        if (defaultVectorFeatures.isOnboardingCombinedRegisterEnabled()) {
+        if (defaultProgressiveFeatures.isOnboardingCombinedRegisterEnabled()) {
             createAccountViaCombinedRegister(homeServerUrl, userId, password)
         } else {
             initSession(true, userId, password, homeServerUrl)
         }
 
         waitUntilViewVisible(withText(CommonStrings.ftue_account_created_congratulations_title))
-        if (defaultVectorFeatures.isOnboardingPersonalizeEnabled()) {
+        if (defaultProgressiveFeatures.isOnboardingPersonalizeEnabled()) {
             clickOn(CommonStrings.ftue_account_created_personalize)
 
             waitUntilViewVisible(withText(CommonStrings.ftue_display_name_title))
@@ -100,7 +100,7 @@ class OnboardingRobot {
     }
 
     fun login(userId: String, password: String = "password", homeServerUrl: String = "http://10.0.2.2:8080") {
-        if (defaultVectorFeatures.isOnboardingCombinedLoginEnabled()) {
+        if (defaultProgressiveFeatures.isOnboardingCombinedLoginEnabled()) {
             loginViaCombinedLogin(homeServerUrl, userId, password)
         } else {
             initSession(false, userId, password, homeServerUrl)

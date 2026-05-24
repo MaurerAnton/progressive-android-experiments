@@ -10,7 +10,7 @@ package chat.progressive.app.features.voice
 import android.os.Build
 import androidx.test.platform.app.InstrumentationRegistry
 import chat.progressive.app.TestBuildVersionSdkIntProvider
-import chat.progressive.app.features.DefaultVectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
 import io.mockk.every
 import io.mockk.spyk
 import org.amshove.kluent.shouldBeInstanceOf
@@ -20,7 +20,7 @@ class VoiceRecorderProviderTests {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private val buildVersionSdkIntProvider = TestBuildVersionSdkIntProvider()
-    private val provider = spyk(VoiceRecorderProvider(context, DefaultVectorFeatures(), buildVersionSdkIntProvider))
+    private val provider = spyk(VoiceRecorderProvider(context, DefaultProgressiveFeatures(), buildVersionSdkIntProvider))
 
     @Test
     fun provideVoiceRecorderOnAndroidQAndCodecReturnsQRecorder() {

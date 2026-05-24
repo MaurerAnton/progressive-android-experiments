@@ -7,12 +7,12 @@
 
 package chat.progressive.app.test.fakes
 
-import chat.progressive.app.features.DefaultVectorFeatures
-import chat.progressive.app.features.VectorFeatures
+import chat.progressive.app.features.DefaultProgressiveFeatures
+import chat.progressive.app.features.ProgressiveFeatures
 import io.mockk.every
 import io.mockk.spyk
 
-class FakeProgressiveFeatures : VectorFeatures by spyk<DefaultVectorFeatures>() {
+class FakeProgressiveFeatures : ProgressiveFeatures by spyk<DefaultProgressiveFeatures>() {
 
     fun givenPersonalisationEnabled() {
         every { isOnboardingPersonalizeEnabled() } returns true

@@ -11,14 +11,14 @@ import android.content.Context
 import chat.progressive.app.core.di.ActiveSessionHolder
 import chat.progressive.app.fdroid.receiver.AlarmSyncBroadcastReceiver
 import chat.progressive.app.features.settings.BackgroundSyncMode
-import chat.progressive.app.features.settings.VectorPreferences
+import chat.progressive.app.features.settings.ProgressivePreferences
 import chat.progressive.lib.core.utils.timer.Clock
 import timber.log.Timber
 import javax.inject.Inject
 
 class BackgroundSyncStarter @Inject constructor(
         private val context: Context,
-        private val vectorPreferences: VectorPreferences,
+        private val vectorPreferences: ProgressivePreferences,
         private val clock: Clock
 ) {
     fun start(activeSessionHolder: ActiveSessionHolder) {

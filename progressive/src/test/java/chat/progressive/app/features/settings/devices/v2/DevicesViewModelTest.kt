@@ -67,7 +67,7 @@ class DevicesViewModelTest {
     private val fakeSignoutSessionsUseCase = FakeSignoutSessionsUseCase()
     private val fakePendingAuthHandler = FakePendingAuthHandler()
     private val fakeRefreshDevicesUseCase = mockk<RefreshDevicesUseCase>(relaxUnitFun = true)
-    private val fakeVectorPreferences = FakeProgressivePreferences()
+    private val fakeProgressivePreferences = FakeProgressivePreferences()
     private val toggleIpAddressVisibilityUseCase = mockk<ToggleIpAddressVisibilityUseCase>()
     private val verifiedTransaction = mockk<VerificationTransaction>().apply {
         every { isSuccessful() } returns true
@@ -84,7 +84,7 @@ class DevicesViewModelTest {
                 signoutSessionsUseCase = fakeSignoutSessionsUseCase.instance,
                 pendingAuthHandler = fakePendingAuthHandler.instance,
                 refreshDevicesUseCase = fakeRefreshDevicesUseCase,
-                vectorPreferences = fakeVectorPreferences.instance,
+                vectorPreferences = fakeProgressivePreferences.instance,
                 toggleIpAddressVisibilityUseCase = toggleIpAddressVisibilityUseCase,
         )
     }
@@ -101,7 +101,7 @@ class DevicesViewModelTest {
         fakeActiveSessionHolder.fakeSession.fakeHomeServerCapabilitiesService.givenCapabilities(
                 HomeServerCapabilities()
         )
-        fakeVectorPreferences.givenSessionManagerShowIpAddress(false)
+        fakeProgressivePreferences.givenSessionManagerShowIpAddress(false)
     }
 
     private fun givenVerificationService(): FakeVerificationService {
@@ -345,8 +345,8 @@ class DevicesViewModelTest {
         val viewModel = createViewModel()
         val viewModelTest = viewModel.test()
         every { toggleIpAddressVisibilityUseCase.execute() } just runs
-        every { fakeVectorPreferences.instance.setIpAddressVisibilityInDeviceManagerScreens(true) } just runs
-        every { fakeVectorPreferences.instance.showIpAddressInSessionManagerScreens() } returns true
+        every { fakeProgressivePreferences.instance.setIpAddressVisibilityInDeviceManagerScreens(true) } just runs
+        every { fakeProgressivePreferences.instance.showIpAddressInSessionManagerScreens() } returns true
 
         viewModel.handle(DevicesAction.ToggleIpAddressVisibility)
         viewModel.onSharedPreferenceChanged(null, null)
