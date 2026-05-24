@@ -21,7 +21,7 @@ import chat.progressive.app.core.resources.LocaleProvider
 import chat.progressive.app.core.services.GuardServiceStarter
 import chat.progressive.app.fdroid.service.FDroidGuardServiceStarter
 import chat.progressive.app.features.home.NightlyProxy
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.app.features.settings.legals.FlavorLegals
 import chat.progressive.app.push.fcm.FdroidFcmHelper
 
@@ -31,7 +31,7 @@ abstract class FlavorModule {
 
     companion object {
         @Provides
-        fun provideGuardServiceStarter(preferences: ProgressivePreferences, appContext: Context): GuardServiceStarter {
+        fun provideGuardServiceStarter(preferences: ProgressiveBasePreferences, appContext: Context): GuardServiceStarter {
             return FDroidGuardServiceStarter(preferences, appContext)
         }
 

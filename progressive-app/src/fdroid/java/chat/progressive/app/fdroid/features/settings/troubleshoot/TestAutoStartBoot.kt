@@ -7,7 +7,7 @@
 package chat.progressive.app.fdroid.features.settings.troubleshoot
 
 import chat.progressive.app.core.resources.StringProvider
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.app.features.settings.troubleshoot.TroubleshootTest
 import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Test that the application is started on boot
  */
 class TestAutoStartBoot @Inject constructor(
-        private val vectorPreferences: ProgressivePreferences,
+        private val vectorPreferences: ProgressiveBasePreferences,
         private val stringProvider: StringProvider
 ) :
         TroubleshootTest(CommonStrings.settings_troubleshoot_test_service_boot_title) {

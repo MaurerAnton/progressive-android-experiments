@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
 /**
  * A TestRule to reset and clear the current Session.
  * If a Session is active it will be signed out and cleared from the ActiveSessionHolder.
- * The ProgressivePreferences and AnalyticsDatastore are also cleared in an attempt to recreate a fresh base.
+ * The ProgressiveBasePreferences and AnalyticsDatastore are also cleared in an attempt to recreate a fresh base.
  */
 class ClearCurrentSessionRule : TestWatcher() {
     override fun apply(base: Statement, description: Description): Statement {

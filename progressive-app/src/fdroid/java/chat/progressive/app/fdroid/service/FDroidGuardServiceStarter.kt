@@ -11,12 +11,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import chat.progressive.app.core.services.GuardServiceStarter
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import timber.log.Timber
 import javax.inject.Inject
 
 class FDroidGuardServiceStarter @Inject constructor(
-        private val preferences: ProgressivePreferences,
+        private val preferences: ProgressiveBasePreferences,
         private val appContext: Context
 ) : GuardServiceStarter {
 

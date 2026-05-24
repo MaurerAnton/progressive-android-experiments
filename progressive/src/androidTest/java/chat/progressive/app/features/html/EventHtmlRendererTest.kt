@@ -14,7 +14,7 @@ import chat.progressive.app.core.di.ActiveSessionHolder
 import chat.progressive.app.core.resources.ColorProvider
 import chat.progressive.app.core.utils.DimensionConverter
 import chat.progressive.app.core.utils.toTestSpan
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import io.mockk.every
 import io.mockk.mockk
 import org.amshove.kluent.shouldBeEqualTo
@@ -27,7 +27,7 @@ import kotlin.text.Typography.nbsp
 class EventHtmlRendererTest {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private val fakeProgressivePreferences = mockk<ProgressivePreferences>().also {
+    private val fakeProgressivePreferences = mockk<ProgressiveBasePreferences>().also {
         every { it.latexMathsIsEnabled() } returns false
         every { it.isRichTextEditorEnabled() } returns false
     }

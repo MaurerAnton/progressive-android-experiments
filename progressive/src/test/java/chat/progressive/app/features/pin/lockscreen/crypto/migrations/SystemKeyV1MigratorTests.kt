@@ -9,7 +9,7 @@ package chat.progressive.app.features.pin.lockscreen.crypto.migrations
 
 import android.security.keystore.UserNotAuthenticatedException
 import chat.progressive.app.features.pin.lockscreen.crypto.KeyStoreCrypto
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

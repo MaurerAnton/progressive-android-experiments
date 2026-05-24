@@ -11,7 +11,7 @@ import android.os.Build
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.UserNotAuthenticatedException
 import chat.progressive.app.features.pin.lockscreen.crypto.KeyStoreCrypto
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import chat.progressive.app.test.TestBuildVersionSdkIntProvider
 import io.mockk.every
 import io.mockk.mockk

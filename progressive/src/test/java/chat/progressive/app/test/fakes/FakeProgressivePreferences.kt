@@ -8,7 +8,7 @@
 package chat.progressive.app.test.fakes
 
 import chat.progressive.app.features.settings.BackgroundSyncMode
-import chat.progressive.app.features.settings.ProgressivePreferences
+import chat.progressive.app.features.settings.ProgressiveBasePreferences
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk

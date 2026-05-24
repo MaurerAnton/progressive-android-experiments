@@ -12,7 +12,7 @@ import chat.progressive.app.core.platform.VectorDummyViewState
 import chat.progressive.app.core.pushers.EnsureFcmTokenIsRetrievedUseCase
 import chat.progressive.app.core.pushers.RegisterUnifiedPushUseCase
 import chat.progressive.app.core.pushers.UnregisterUnifiedPushUseCase
-import chat.progressive.app.features.settings.ProgressivePreferences.Companion.SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY
+import chat.progressive.app.features.settings.ProgressiveBasePreferences.Companion.SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY
 import chat.progressive.app.features.settings.notifications.usecase.DisableNotificationsForCurrentSessionUseCase
 import chat.progressive.app.features.settings.notifications.usecase.EnableNotificationsForCurrentSessionUseCase
 import chat.progressive.app.features.settings.notifications.usecase.ToggleNotificationsForCurrentSessionUseCase
