@@ -8,7 +8,7 @@ package chat.progressive.app.fdroid.service
 
 import android.content.Intent
 import dagger.hilt.android.AndroidEntryPoint
-import chat.progressive.app.core.services.ProgressiveAndroidService
+import android.app.Service
 import chat.progressive.app.features.notifications.NotificationUtils
 import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
@@ -20,7 +20,7 @@ import javax.inject.Inject
  * when the app is not in the foreground.
  */
 @AndroidEntryPoint
-class GuardAndroidService : ProgressiveAndroidService() {
+class GuardAndroidService : Service() {
 
     @Inject lateinit var notificationUtils: NotificationUtils
 
