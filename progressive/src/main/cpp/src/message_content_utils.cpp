@@ -167,8 +167,6 @@ bool isDisplayableEvent(const std::string& eventType) {
     return false;
 }
 
-bool isStateEvent(const std::string& eventType) {
-    // Original Kotlin: Event.isStateEvent() — checks if event has state_key
     // These events have state_key and represent room configuration
     if (eventType == EventType::ROOM_NAME) return true;
     if (eventType == EventType::ROOM_TOPIC) return true;

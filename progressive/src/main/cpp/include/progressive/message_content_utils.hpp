@@ -108,7 +108,6 @@ bool isDisplayableEvent(const std::string& eventType);
 
 // Check if the event is a state event (room configuration).
 // Original Kotlin: Event.isStateEvent()
-bool isStateEvent(const std::string& eventType);
 
 // Extract the event_id from event JSON.
 std::string extractEventId(const std::string& json);
