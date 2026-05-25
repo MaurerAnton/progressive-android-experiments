@@ -190,16 +190,7 @@ std::string formatGuestAccessNotice(const std::string& senderName, bool guestsAl
 //
 // Original Kotlin: EventType.isCallEvent, isVerificationEvent, etc.
 
-bool isCallEvent(const std::string& type);
-bool isPollEvent(const std::string& type);
-bool isEncryptionEvent(const std::string& type);
-bool isVerificationEvent(const std::string& type);
-bool isStateEvent(const std::string& type);
 
-std::string getEventCategory(const std::string& type);
 
-bool isPollStartEvent(const std::string& type);
-bool isPollResponseEvent(const std::string& type);
-bool isPollEndEvent(const std::string& type);
 
 } // namespace progressive
