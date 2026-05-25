@@ -5,80 +5,72 @@
     android:viewportWidth="300"
     android:viewportHeight="300">
 
-    <!-- House body -->
+    <!-- Three connected avatars — progressive green theme -->
+    
+    <!-- Person 1 (top) -->
     <path
-        android:fillColor="#1A237E"
-        android:pathData="M100,150 L100,260 L200,260 L200,150 Z" />
+        android:fillColor="#0d2818"
+        android:pathData="M130,70 A20,20 0 1,1 170,70 A20,20 0 1,1 130,70 Z" />
+    <path
+        android:fillColor="#0d2818"
+        android:pathData="M120,95 Q120,120 150,120 Q180,120 180,95" />
 
-    <!-- House roof -->
+    <!-- Person 2 (bottom-left) -->
     <path
-        android:fillColor="#283593"
-        android:pathData="M80,155 L150,80 L220,155 Z" />
+        android:fillColor="#14522f"
+        android:pathData="M75,160 A20,20 0 1,1 115,160 A20,20 0 1,1 75,160 Z" />
+    <path
+        android:fillColor="#14522f"
+        android:pathData="M65,185 Q65,210 95,210 Q125,210 125,185" />
 
-    <!-- Door -->
+    <!-- Person 3 (bottom-right) -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M135,200 L165,200 L165,260 L135,260 Z" />
+        android:fillColor="#1a6e3e"
+        android:pathData="M185,160 A20,20 0 1,1 225,160 A20,20 0 1,1 185,160 Z" />
     <path
-        android:fillColor="#1A237E"
-        android:pathData="M160,225 A4,4 0 1,1 160,233 A4,4 0 1,1 160,225 Z" />
+        android:fillColor="#1a6e3e"
+        android:pathData="M175,185 Q175,210 205,210 Q235,210 235,185" />
 
-    <!-- Window left -->
-    <path
-        android:fillColor="#C5CAE9"
-        android:pathData="M112,170 L132,170 L132,190 L112,190 Z" />
-    <path
-        android:fillColor="#1A237E"
-        android:strokeColor="#1A237E"
-        android:strokeWidth="2"
-        android:pathData="M122,170 L122,190 M112,180 L132,180" />
-
-    <!-- Window right -->
-    <path
-        android:fillColor="#C5CAE9"
-        android:pathData="M168,170 L188,170 L188,190 L168,190 Z" />
-    <path
-        android:fillColor="#1A237E"
-        android:strokeColor="#1A237E"
-        android:strokeWidth="2"
-        android:pathData="M178,170 L178,190 M168,180 L188,180" />
-
-    <!-- Shield on roof -->
-    <path
-        android:fillColor="#FF5722"
-        android:pathData="M135,60 L150,50 L165,60 L165,80 Q150,95 135,80 Z" />
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M143,65 L150,70 L157,65 L155,62 L150,65 L145,62 Z" />
-
-    <!-- Chat bubble left -->
-    <path
-        android:fillColor="#1A237E"
-        android:pathData="M40,220 Q40,180 80,180 L100,180 L100,230 L80,230 Q40,230 40,220 Z" />
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M48,195 L78,195 M48,205 L72,205 M48,215 L62,215"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="3"
-        android:strokeLineCap="round" />
-
-    <!-- Chat bubble right -->
-    <path
-        android:fillColor="#1A237E"
-        android:pathData="M260,110 Q260,70 220,70 L200,70 L200,120 L220,120 Q260,120 260,110 Z" />
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M208,82 L232,82 M208,92 L225,92 M208,102 L218,102"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="3"
-        android:strokeLineCap="round" />
-
-    <!-- Sun rays from top-right -->
+    <!-- Connection lines between people -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#9FA8DA"
-        android:strokeWidth="2"
+        android:strokeColor="#22c55e"
+        android:strokeWidth="2.5"
         android:strokeLineCap="round"
-        android:pathData="M240,20 L240,10 M255,25 L262,18 M270,40 L278,35 M275,55 L285,55" />
+        android:pathData="M145,100 L95,145 M155,100 L205,145 M120,180 L180,180" />
+
+    <!-- Chat bubbles near each person -->
+    <!-- Top person bubble -->
+    <path
+        android:fillColor="#22c55e"
+        android:pathData="M185,60 L210,60 L210,80 L190,80 L185,85 L187,80 L185,80 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M190,68 L206,68 M190,74 L200,74"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+
+    <!-- Bottom-left person bubble -->
+    <path
+        android:fillColor="#22c55e"
+        android:pathData="M40,140 L60,140 L60,158 L44,158 L40,162 L42,158 L40,158 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,148 L56,148 M44,153 L50,153"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+
+    <!-- Bottom-right person bubble -->
+    <path
+        android:fillColor="#22c55e"
+        android:pathData="M240,140 L260,140 L260,158 L244,158 L240,162 L242,158 L240,158 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M244,148 L256,148 M244,153 L250,153"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
 
 </vector>
