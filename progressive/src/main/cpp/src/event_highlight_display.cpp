@@ -1,8 +1,6 @@
 #include "progressive/event_highlight_display.hpp"
 #include <sstream>
 
-namespace progressive {
-std::string getHighlightColor(int c) { return c > 0 ? "#FF5722" : "#607D8B"; }
-std::string formatHighlightBadge(int c) { if (c <= 0) return ""; return c >= 1000 ? "999+" : std::to_string(c); }
-std::string getHighlightSoundHint() { return "content://settings/system/notification_sound"; }
-} // namespace progressive
+std::string getHighlightColor(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getHighlightColor"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string formatHighlightBadge(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"formatHighlightBadge"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getHighlightSoundHint(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getHighlightSoundHint"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

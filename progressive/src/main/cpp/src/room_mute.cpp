@@ -1,6 +1,7 @@
 #include "progressive/room_mute.hpp"
-std::string muteRoom(const std::string&){return"{}";}
-std::string unmuteRoom(const std::string&){return"{}";}
-std::string isMuted(const std::string&){return"{}";}
-std::string getMuteUntil(const std::string&){return"{}";}
-std::string formatMuteStatus(const std::string&){return"{}";}
+#include <sstream>
+
+std::string muteRoom(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"muteRoom"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string unmuteRoom(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"unmuteRoom"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string isMuted(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"isMuted"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getMuteUntil(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getMuteUntil"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

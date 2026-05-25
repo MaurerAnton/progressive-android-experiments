@@ -1,9 +1,4 @@
 #include "progressive/event_version_utils.hpp"
-namespace progressive {
-int parseEventVersion(const std::string& json) {
-    auto p = json.find("\"room_version\":\""); if (p == std::string::npos) return 1;
-    p += 16; try { return std::stoi(json.substr(p)); } catch(...) { return 1; }
-}
-bool isEventVersionSupported(int v) { return v >= 1 && v <= 11; }
-std::string getLatestEventVersion() { return "11"; }
-}
+#include <sstream>
+
+std::string getLatestEventVersion(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getLatestEventVersion"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

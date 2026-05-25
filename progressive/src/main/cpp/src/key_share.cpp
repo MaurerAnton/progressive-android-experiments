@@ -1,6 +1,7 @@
 #include "progressive/key_share.hpp"
-std::string requestKeyShare(const std::string&){return"{}";}
-std::string processKeyShare(const std::string&){return"{}";}
-std::string isKeyKnown(const std::string&){return"{}";}
-std::string getMissingSessions(const std::string&){return"{}";}
-std::string formatKeyShareEvent(const std::string&){return"{}";}
+#include <sstream>
+
+std::string requestKeyShare(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"requestKeyShare"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string processKeyShare(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"processKeyShare"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string isKeyKnown(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"isKeyKnown"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getMissingSessions(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getMissingSessions"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

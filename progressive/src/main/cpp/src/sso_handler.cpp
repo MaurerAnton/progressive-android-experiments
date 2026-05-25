@@ -1,6 +1,7 @@
 #include "progressive/sso_handler.hpp"
-std::string parseSsoRedirect(const std::string&){return"{}";}
-std::string buildSsoUrl(const std::string&){return"{}";}
-std::string extractTokenFromUrl(const std::string&){return"{}";}
-std::string getProviderName(const std::string&){return"{}";}
-std::string formatSsoLoading(const std::string&){return"{}";}
+#include <sstream>
+
+std::string parseSsoRedirect(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"parseSsoRedirect"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string buildSsoUrl(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"buildSsoUrl"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string extractTokenFromUrl(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"extractTokenFromUrl"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getProviderName(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getProviderName"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

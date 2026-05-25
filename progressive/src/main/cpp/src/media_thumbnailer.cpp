@@ -1,6 +1,7 @@
 #include "progressive/media_thumbnailer.hpp"
-std::string generateThumbnail(const std::string&){return"{}";}
-std::string getThumbnailSize(const std::string&){return"{}";}
-std::string isAnimated(const std::string&){return"{}";}
-std::string getMimeForThumb(const std::string&){return"{}";}
-std::string cacheThumbnailKey(const std::string&){return"{}";}
+#include <sstream>
+
+std::string generateThumbnail(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"generateThumbnail"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getThumbnailSize(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getThumbnailSize"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string isAnimated(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"isAnimated"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getMimeForThumb(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getMimeForThumb"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

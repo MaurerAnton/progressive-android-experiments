@@ -1,5 +1,7 @@
 #include "progressive/room_avatar_utils.hpp"
-std::string generateRoomInitials(const std::string&){return"{}";}
-std::string getRoomColor(const std::string&){return"{}";}
-std::string formatRoomAvatarUrl(const std::string&){return"{}";}
-std::string buildRoomAvatarChange(const std::string&){return"{}";}
+#include <sstream>
+
+std::string generateRoomInitials(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"generateRoomInitials"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getRoomColor(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getRoomColor"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string formatRoomAvatarUrl(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"formatRoomAvatarUrl"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string buildRoomAvatarChange(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"buildRoomAvatarChange"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

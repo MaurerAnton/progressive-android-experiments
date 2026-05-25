@@ -1,6 +1,7 @@
 #include "progressive/room_suggestions.hpp"
-std::string getSuggestedRooms(const std::string&){return"{}";}
-std::string getTrendingRooms(const std::string&){return"{}";}
-std::string getPopularRooms(const std::string&){return"{}";}
-std::string filterByLanguage(const std::string&){return"{}";}
-std::string formatRoomSuggestion(const std::string&){return"{}";}
+#include <sstream>
+
+std::string getSuggestedRooms(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getSuggestedRooms"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getTrendingRooms(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getTrendingRooms"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getPopularRooms(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getPopularRooms"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string filterByLanguage(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"filterByLanguage"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

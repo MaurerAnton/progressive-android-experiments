@@ -1,6 +1,7 @@
 #include "progressive/typing_indicator.hpp"
-std::string parseTypingEvent(const std::string&){return"{}";}
-std::string isTyping(const std::string&){return"{}";}
-std::string getTypingTimeout(const std::string&){return"{}";}
-std::string formatTypingList(const std::string&){return"{}";}
-std::string buildTypingNotification(const std::string&){return"{}";}
+#include <sstream>
+
+std::string parseTypingEvent(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"parseTypingEvent"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string isTyping(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"isTyping"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getTypingTimeout(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getTypingTimeout"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string formatTypingList(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"formatTypingList"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

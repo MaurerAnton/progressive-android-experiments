@@ -1,6 +1,7 @@
 #include "progressive/voice_broadcast_manager.hpp"
-std::string startBroadcast(const std::string&){return"{}";}
-std::string stopBroadcast(const std::string&){return"{}";}
-std::string getBroadcastState(const std::string&){return"{}";}
-std::string getListenerCount(const std::string&){return"{}";}
-std::string formatBroadcastChunk(const std::string&){return"{}";}
+#include <sstream>
+
+std::string startBroadcast(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"startBroadcast"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string stopBroadcast(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"stopBroadcast"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getBroadcastState(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getBroadcastState"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getListenerCount(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getListenerCount"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

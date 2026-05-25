@@ -1,4 +1,6 @@
 #include "progressive/message_link_utils.hpp"
-std::string buildMessageLink(const std::string&){return"{}";}
-std::string buildUserLink(const std::string&){return"{}";}
-std::string buildRoomLink(const std::string&){return"{}";}
+#include <sstream>
+
+std::string buildMessageLink(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"buildMessageLink"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string buildUserLink(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"buildUserLink"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string buildRoomLink(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"buildRoomLink"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

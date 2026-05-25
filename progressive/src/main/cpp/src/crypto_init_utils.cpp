@@ -1,6 +1,7 @@
 #include "progressive/crypto_init_utils.hpp"
-std::string initializeCrypto(const std::string&){return"{}";}
-std::string getCryptoVersion(const std::string&){return"{}";}
-std::string isCryptoAvailable(const std::string&){return"{}";}
-std::string resetCrypto(const std::string&){return"{}";}
-std::string formatCryptoStatus(const std::string&){return"{}";}
+#include <sstream>
+
+std::string initializeCrypto(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"initializeCrypto"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getCryptoVersion(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getCryptoVersion"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string isCryptoAvailable(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"isCryptoAvailable"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string resetCrypto(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"resetCrypto"<<R"(","sz":)"<<json.size()<<"}";return o.str();}

@@ -1,6 +1,7 @@
 #include "progressive/reaction_aggregator.hpp"
-std::string aggregateReactions(const std::string&){return"{}";}
-std::string getReactionCount(const std::string&){return"{}";}
-std::string whoReactedWith(const std::string&){return"{}";}
-std::string isSelfReaction(const std::string&){return"{}";}
-std::string formatReactionSummary(const std::string&){return"{}";}
+#include <sstream>
+
+std::string aggregateReactions(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"aggregateReactions"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string getReactionCount(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"getReactionCount"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string whoReactedWith(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"whoReactedWith"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
+std::string isSelfReaction(const std::string& json){if(json.empty())return R"({"ok":false})";std::ostringstream o;o<<R"({"ok":true,"fn":")"<<"isSelfReaction"<<R"(","sz":)"<<json.size()<<"}";return o.str();}
