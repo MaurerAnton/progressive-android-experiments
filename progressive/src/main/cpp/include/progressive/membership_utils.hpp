@@ -43,6 +43,9 @@ std::string formatMemberState(MemberState membership);
 // Check if membership is a positive state (join/invite/knock).
 bool isActiveMember(MemberState membership);
 
+// Check if membership is a "left" state (knock/leave/ban), per Kotlin Memberships.isLeft().
+bool isMemberLeft(MemberState membership);
+
 // Check if membership allows reading room messages.
 bool canReadMessages(MemberState membership);
 

@@ -465,4 +465,105 @@ std::string formatGuestAccessNotice(const std::string& senderName, bool guestsAl
     return guestsAllowed ? who + " allowed guests to join" : who + " restricted guest access";
 }
 
+// ==== Event Type Classification ====
+
+bool isCallEvent(const std::string& type) {
+    return type == "m.call.invite" ||
+           type == "m.call.candidates" ||
+           type == "m.call.answer" ||
+           type == "m.call.select_answer" ||
+           type == "m.call.negotiate" ||
+           type == "m.call.reject" ||
+           type == "m.call.hangup" ||
+           type == "m.call.replaces" ||
+           type == "m.call.asserted_identity" ||
+           type == "org.matrix.call.asserted_identity" ||
+           type == "m.call.notify" ||
+           type == "org.matrix.msc4075.call.notify";
+}
+
+bool isPollEvent(const std::string& type) {
+    return type == "m.poll.start" ||
+           type == "org.matrix.msc3381.poll.start" ||
+           type == "m.poll.response" ||
+           type == "org.matrix.msc3381.poll.response" ||
+           type == "m.poll.end" ||
+           type == "org.matrix.msc3381.poll.end";
+}
+
+bool isPollStartEvent(const std::string& type) {
+    return type == "m.poll.start" || type == "org.matrix.msc3381.poll.start";
+}
+
+bool isPollResponseEvent(const std::string& type) {
+    return type == "m.poll.response" || type == "org.matrix.msc3381.poll.response";
+}
+
+bool isPollEndEvent(const std::string& type) {
+    return type == "m.poll.end" || type == "org.matrix.msc3381.poll.end";
+}
+
+bool isEncryptionEvent(const std::string& type) {
+    return type == "m.room.encryption" ||
+           type == "m.room.encrypted" ||
+           type == "m.room_key" ||
+           type == "m.room_key_request" ||
+           type == "m.forwarded_room_key" ||
+           type == "m.room_key.withheld" ||
+           type == "org.matrix.room_key.withheld" ||
+           type == "m.secret.request" ||
+           type == "m.secret.send";
+}
+
+bool isVerificationEvent(const std::string& type) {
+    return type == "m.key.verification.request" ||
+           type == "m.key.verification.start" ||
+           type == "m.key.verification.accept" ||
+           type == "m.key.verification.key" ||
+           type == "m.key.verification.mac" ||
+           type == "m.key.verification.cancel" ||
+           type == "m.key.verification.done" ||
+           type == "m.key.verification.ready";
+}
+
+bool isStateEvent(const std::string& type) {
+    return type == "m.room.name" ||
+           type == "m.room.topic" ||
+           type == "m.room.avatar" ||
+           type == "m.room.member" ||
+           type == "m.room.third_party_invite" ||
+           type == "m.room.create" ||
+           type == "m.room.join_rules" ||
+           type == "m.room.guest_access" ||
+           type == "m.room.power_levels" ||
+           type == "m.room.aliases" ||
+           type == "m.room.tombstone" ||
+           type == "m.room.canonical_alias" ||
+           type == "m.room.history_visibility" ||
+           type == "m.room.encryption" ||
+           type == "m.room.server_acl" ||
+           type == "m.room.pinned_events" ||
+           type == "m.room.related_groups" ||
+           type == "m.space.child" ||
+           type == "m.space.parent" ||
+           type == "m.widget" ||
+           type == "im.vector.modular.widgets" ||
+           type == "m.beacon_info" ||
+           type == "org.matrix.msc3672.beacon_info";
+}
+
+std::string getEventCategory(const std::string& type) {
+    if (isCallEvent(type))     return "call";
+    if (isPollEvent(type))     return "poll";
+    if (isEncryptionEvent(type)) return "encryption";
+    if (isVerificationEvent(type)) return "verification";
+    if (isStateEvent(type))    return "state";
+    if (type == "m.room.message" || type == "m.sticker" || type == "m.reaction") return "message";
+    if (type == "m.room.redaction") return "redaction";
+    if (type == "m.presence") return "presence";
+    if (type == "m.typing") return "typing";
+    if (type == "m.receipt") return "receipt";
+    return "other";
+}
+
 } // namespace progressive

@@ -48,6 +48,12 @@ bool isActiveMember(MemberState membership) {
            membership == MemberState::Knock;
 }
 
+bool isMemberLeft(MemberState membership) {
+    return membership == MemberState::Knock ||
+           membership == MemberState::Leave ||
+           membership == MemberState::Ban;
+}
+
 bool canReadMessages(MemberState membership) {
     return membership == MemberState::Join;
 }

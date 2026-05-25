@@ -1,4 +1,5 @@
 #include "progressive/room_summary_formatter.hpp"
+#include "progressive/json_parser.hpp"
 #include <sstream>
 #include <chrono>
 #include <ctime>
@@ -85,9 +86,91 @@ std::string formatRoomName(const std::string& name, bool encrypted, bool direct)
 }
 
 std::string buildRoomSortKey(int64_t activity, bool fav, bool hl) {
-    // Favourites first, then highlights, then by recency
     int prio = fav ? 0 : (hl ? 1 : 2);
     return std::to_string(prio) + ":" + std::to_string(activity);
+}
+
+RoomSummaryDisplay parseRoomSummary(const std::string& json) {
+    RoomSummaryDisplay d;
+
+    d.roomId         = parseJsonStringValue(json, "room_id");
+    d.displayName    = parseJsonStringValue(json, "display_name");
+    if (d.displayName.empty()) d.displayName = parseJsonStringValue(json, "displayName");
+    d.topic          = parseJsonStringValue(json, "topic");
+    d.avatarUrl      = parseJsonStringValue(json, "avatar_url");
+    if (d.avatarUrl.empty()) d.avatarUrl = parseJsonStringValue(json, "avatarUrl");
+    d.canonicalAlias = parseJsonStringValue(json, "canonical_alias");
+    d.membership     = parseJsonStringValue(json, "membership");
+
+    d.isDirect       = parseJsonBoolValue(json, "is_direct");
+    d.isEncrypted    = parseJsonBoolValue(json, "is_encrypted");
+    d.isFavourite    = parseJsonBoolValue(json, "is_favourite");
+    d.isMuted        = parseJsonBoolValue(json, "is_muted");
+    d.hasDraft       = parseJsonBoolValue(json, "has_draft");
+    d.hasUnreadMessages = parseJsonBoolValue(json, "has_unread");
+
+    d.notificationCount = static_cast<int>(parseJsonInt64Value(json, "notification_count"));
+    d.highlightCount    = static_cast<int>(parseJsonInt64Value(json, "highlight_count"));
+    d.threadNotificationCount = static_cast<int>(parseJsonInt64Value(json, "thread_notification_count"));
+    d.joinedMembersCount      = static_cast<int>(parseJsonInt64Value(json, "joined_members_count"));
+    d.invitedMembersCount     = static_cast<int>(parseJsonInt64Value(json, "invited_members_count"));
+
+    d.lastMessage       = parseJsonStringValue(json, "last_message_body");
+    d.lastMessageSender = parseJsonStringValue(json, "last_sender_name");
+    d.lastMessageTs     = parseJsonInt64Value(json, "last_message_ts");
+    d.formattedTime     = formatTimestamp(d.lastMessageTs);
+
+    d.typingText = parseJsonStringValue(json, "typing_text");
+
+    return d;
+}
+
+std::string formatRoomSummaryString(const RoomSummaryDisplay& s) {
+    std::ostringstream os;
+    os << s.displayName;
+    if (!s.canonicalAlias.empty() && s.canonicalAlias != s.displayName) {
+        os << " (" << s.canonicalAlias << ")";
+    }
+    if (s.isEncrypted) os << " [e2e]";
+    if (s.isDirect) os << " [dm]";
+
+    if (!s.lastMessage.empty()) {
+        os << " — ";
+        if (!s.lastMessageSender.empty()) {
+            os << s.lastMessageSender << ": ";
+        }
+        os << s.lastMessage;
+    }
+
+    int unread = s.notificationCount;
+    int hl = s.highlightCount;
+    if (unread > 0) {
+        os << " — ";
+        if (hl > 0) os << hl << "@";
+        os << unread << " unread";
+    }
+
+    return os.str();
+}
+
+std::string formatRoomDetailString(const RoomSummaryDisplay& s) {
+    std::ostringstream os;
+    os << "Room: " << s.displayName << "\n";
+    os << "ID: " << s.roomId << "\n";
+    if (!s.canonicalAlias.empty()) os << "Alias: " << s.canonicalAlias << "\n";
+    if (!s.topic.empty()) os << "Topic: " << s.topic << "\n";
+    os << "Membership: " << s.membership << "\n";
+    os << "Joined members: " << s.joinedMembersCount << "\n";
+    os << "Invited members: " << s.invitedMembersCount << "\n";
+    os << "Encrypted: " << (s.isEncrypted ? "yes" : "no") << "\n";
+    os << "Direct: " << (s.isDirect ? "yes" : "no") << "\n";
+    os << "Unread notifications: " << s.notificationCount << "\n";
+    os << "Highlights: " << s.highlightCount << "\n";
+    if (!s.lastMessage.empty()) {
+        os << "Last message: " << s.lastMessageSender << ": " << s.lastMessage << "\n";
+        os << "Time: " << s.formattedTime << "\n";
+    }
+    return os.str();
 }
 
 } // namespace progressive

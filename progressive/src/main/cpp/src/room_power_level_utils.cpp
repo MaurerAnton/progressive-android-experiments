@@ -115,4 +115,28 @@ std::string formatUserRole(const PowerLevelInfo& pl, const std::string& userId) 
     return "Member";
 }
 
+PowerLevelInfo getDefaultPowerLevels() {
+    PowerLevelInfo pl;
+    pl.usersDefault  = 0;
+    pl.eventsDefault = 0;
+    pl.stateDefault  = 50;
+    pl.inviteLevel   = 0;
+    pl.kickLevel     = 50;
+    pl.banLevel      = 50;
+    pl.redactLevel   = 50;
+    return pl;
+}
+
+std::string formatPermissionDenied(const std::string& reason) {
+    if (reason.empty()) return "Permission denied.";
+    return "Permission denied: " + reason;
+}
+
+std::string formatSuggestedRole(int powerLevel) {
+    if (powerLevel >= 150) return "SuperAdmin";
+    if (powerLevel >= 100) return "Admin";
+    if (powerLevel >= 50)  return "Moderator";
+    return "User";
+}
+
 } // namespace progressive
