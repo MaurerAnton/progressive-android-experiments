@@ -474,31 +474,7 @@ std::string formatGuestAccessNotice(const std::string& senderName, bool guestsAl
 
 
 
-bool isStateEvent(const std::string& type) {
-    return type == "m.room.name" ||
-           type == "m.room.topic" ||
-           type == "m.room.avatar" ||
-           type == "m.room.member" ||
-           type == "m.room.third_party_invite" ||
-           type == "m.room.create" ||
-           type == "m.room.join_rules" ||
-           type == "m.room.guest_access" ||
-           type == "m.room.power_levels" ||
-           type == "m.room.aliases" ||
-           type == "m.room.tombstone" ||
-           type == "m.room.canonical_alias" ||
-           type == "m.room.history_visibility" ||
-           type == "m.room.encryption" ||
-           type == "m.room.server_acl" ||
-           type == "m.room.pinned_events" ||
-           type == "m.room.related_groups" ||
-           type == "m.space.child" ||
-           type == "m.space.parent" ||
-           type == "m.widget" ||
-           type == "im.vector.modular.widgets" ||
-           type == "m.beacon_info" ||
-           type == "org.matrix.msc3672.beacon_info";
-}
+
 
 
 } // namespace progressive
