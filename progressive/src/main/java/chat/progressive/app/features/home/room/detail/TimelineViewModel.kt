@@ -186,6 +186,7 @@ class TimelineViewModel @AssistedInject constructor(
 
     companion object : MavericksViewModelFactory<TimelineViewModel, RoomDetailViewState> by hiltMavericksViewModelFactory() {
         const val PAGINATION_COUNT = 50
+        private const val PAGINATION_COUNT_PUBLIC = 10
 
         // The larger the number the faster the results, COUNT=200 for 500 thread messages its x4 faster than COUNT=50
         const val PAGINATION_COUNT_THREADS_PERMALINK = 200
@@ -966,7 +967,12 @@ class TimelineViewModel @AssistedInject constructor(
 
     private fun handleLoadMore(action: RoomDetailAction.LoadMoreTimelineEvents) {
         if (timeline == null) return
-        timeline.paginate(action.direction, PAGINATION_COUNT)
+        val count = if (room?.roomSummary()?.isPublic == true && room?.roomSummary()?.isDirect == false) {
+            PAGINATION_COUNT_PUBLIC
+        } else {
+            PAGINATION_COUNT
+        }
+        timeline.paginate(action.direction, count)
     }
 
     private fun handleRejectInvite() {
