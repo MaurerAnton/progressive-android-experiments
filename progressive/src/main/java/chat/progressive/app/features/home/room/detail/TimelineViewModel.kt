@@ -196,8 +196,6 @@ class TimelineViewModel @AssistedInject constructor(
         val summary = room?.roomSummary()
         val isPublicRoom = summary?.isPublic == true && !summary.isDirect
         if (isPublicRoom) {
-            Runtime.getRuntime().gc()
-            System.runFinalization()
             startFreezeWatchdog(initialState.roomId)
         }
 
@@ -207,9 +205,22 @@ class TimelineViewModel @AssistedInject constructor(
         if (room == null) {
             timeline = null
         } else {
-            // Nominal case, we have retrieved the room.
             timeline = timelineFactory.createTimeline(viewModelScope, room, eventId, initialState.rootThreadEventId)
-            initSafe(room, timeline)
+            if (isPublicRoom) {
+                // Defer heavy init for public rooms to prevent GC storm
+                viewModelScope.launch(Dispatchers.Default) {
+                    for (i in 1..3) {
+                        Runtime.getRuntime().gc()
+                        System.runFinalization()
+                        delay(1000L)
+                    }
+                    withContext(Dispatchers.Main) {
+                        initSafe(room, timeline)
+                    }
+                }
+            } else {
+                initSafe(room, timeline)
+            }
         }
     }
 
