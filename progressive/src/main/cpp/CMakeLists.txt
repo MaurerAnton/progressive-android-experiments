@@ -668,6 +668,36 @@ set_source_files_properties(
     src/ngen_n20.cpp
     src/ngen_n3.cpp
     src/ngen_n4.cpp
+    src/big_0.cpp
+    src/big_1.cpp
+    src/big_10.cpp
+    src/big_11.cpp
+    src/big_12.cpp
+    src/big_13.cpp
+    src/big_14.cpp
+    src/big_15.cpp
+    src/big_16.cpp
+    src/big_17.cpp
+    src/big_18.cpp
+    src/big_19.cpp
+    src/big_2.cpp
+    src/big_20.cpp
+    src/big_21.cpp
+    src/big_22.cpp
+    src/big_23.cpp
+    src/big_24.cpp
+    src/big_25.cpp
+    src/big_26.cpp
+    src/big_27.cpp
+    src/big_28.cpp
+    src/big_29.cpp
+    src/big_3.cpp
+    src/big_4.cpp
+    src/big_5.cpp
+    src/big_6.cpp
+    src/big_7.cpp
+    src/big_8.cpp
+    src/big_9.cpp
     src/ngen_n5.cpp
     src/ngen_n6.cpp
     src/ngen_n7.cpp
