@@ -1,0 +1,4003 @@
+#include <string>
+#include <sstream>
+#include <cstdint>
+
+std::string pt_peta_4174_0(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_0");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_0\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_1(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_1");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_1\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_2(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_2");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_2\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_3(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_3");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_3\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_4(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_4");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_4\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_5(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_5");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_5\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_6(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_6");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_6\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_7(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_7");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_7\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_8(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_8");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_8\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_9(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_9");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_9\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_10(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_10");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_10\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_11(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_11");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_11\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_12(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_12");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_12\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_13(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_13");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_13\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_14(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_14");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_14\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_15(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_15");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_15\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_16(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_16");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_16\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_17(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_17");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_17\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_18(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_18");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_18\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_19(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_19");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_19\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_20(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_20");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_20\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_21(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_21");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_21\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_22(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_22");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_22\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_23(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_23");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_23\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_24(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_24");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_24\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_25(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_25");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_25\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_26(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_26");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_26\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_27(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_27");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_27\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_28(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_28");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_28\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_29(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_29");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_29\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_30(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_30");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_30\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_31(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_31");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_31\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_32(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_32");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_32\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_33(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_33");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_33\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_34(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_34");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_34\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_35(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_35");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_35\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_36(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_36");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_36\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_37(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_37");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_37\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_38(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_38");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_38\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_39(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_39");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_39\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_40(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_40");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_40\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_41(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_41");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_41\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_42(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_42");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_42\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_43(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_43");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_43\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_44(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_44");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_44\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_45(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_45");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_45\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_46(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_46");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_46\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_47(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_47");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_47\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_48(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_48");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_48\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_49(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_49");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_49\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_50(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_50");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_50\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_51(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_51");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_51\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_52(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_52");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_52\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_53(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_53");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_53\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_54(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_54");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_54\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_55(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_55");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_55\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_56(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_56");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_56\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_57(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_57");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_57\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_58(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_58");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_58\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_59(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_59");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_59\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_60(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_60");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_60\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_61(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_61");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_61\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_62(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_62");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_62\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_63(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_63");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_63\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_64(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_64");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_64\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_65(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_65");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_65\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_66(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_66");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_66\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_67(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_67");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_67\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_68(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_68");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_68\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_69(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_69");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_69\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_70(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_70");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_70\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_71(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_71");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_71\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_72(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_72");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_72\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_73(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_73");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_73\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_74(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_74");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_74\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_75(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_75");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_75\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_76(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_76");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_76\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_77(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_77");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_77\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_78(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_78");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_78\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_79(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_79");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_79\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_80(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_80");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_80\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_81(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_81");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_81\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_82(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_82");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_82\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_83(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_83");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_83\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_84(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_84");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_84\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_85(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_85");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_85\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_86(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_86");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_86\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_87(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_87");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_87\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_88(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_88");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_88\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_89(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_89");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_89\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_90(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_90");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_90\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_91(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_91");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_91\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_92(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_92");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_92\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_93(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_93");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_93\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_94(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_94");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_94\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_95(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_95");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_95\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_96(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_96");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_96\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_97(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_97");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_97\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_98(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_98");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_98\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_99(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_99");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_99\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_100(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_100");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_100\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_101(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_101");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_101\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_102(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_102");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_102\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_103(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_103");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_103\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_104(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_104");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_104\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_105(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_105");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_105\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_106(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_106");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_106\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_107(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_107");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_107\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_108(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_108");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_108\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_109(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_109");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_109\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_110(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_110");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_110\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_111(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_111");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_111\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_112(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_112");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_112\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_113(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_113");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_113\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_114(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_114");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_114\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_115(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_115");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_115\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_116(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_116");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_116\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_117(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_117");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_117\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_118(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_118");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_118\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_119(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_119");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_119\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_120(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_120");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_120\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_121(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_121");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_121\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_122(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_122");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_122\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_123(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_123");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_123\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_124(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_124");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_124\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_125(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_125");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_125\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_126(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_126");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_126\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_127(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_127");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_127\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_128(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_128");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_128\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_129(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_129");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_129\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_130(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_130");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_130\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_131(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_131");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_131\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_132(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_132");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_132\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_133(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_133");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_133\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_134(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_134");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_134\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_135(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_135");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_135\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_136(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_136");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_136\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_137(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_137");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_137\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_138(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_138");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_138\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_139(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_139");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_139\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_140(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_140");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_140\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_141(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_141");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_141\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_142(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_142");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_142\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_143(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_143");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_143\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_144(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_144");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_144\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_145(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_145");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_145\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_146(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_146");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_146\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_147(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_147");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_147\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_148(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_148");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_148\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_149(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_149");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_149\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_150(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_150");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_150\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_151(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_151");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_151\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_152(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_152");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_152\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_153(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_153");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_153\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_154(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_154");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_154\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_155(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_155");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_155\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_156(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_156");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_156\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_157(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_157");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_157\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_158(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_158");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_158\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_159(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_159");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_159\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_160(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_160");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_160\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_161(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_161");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_161\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_162(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_162");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_162\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_163(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_163");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_163\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_164(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_164");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_164\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_165(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_165");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_165\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_166(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_166");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_166\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_167(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_167");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_167\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_168(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_168");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_168\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_169(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_169");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_169\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_170(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_170");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_170\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_171(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_171");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_171\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_172(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_172");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_172\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_173(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_173");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_173\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_174(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_174");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_174\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_175(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_175");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_175\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_176(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_176");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_176\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_177(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_177");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_177\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_178(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_178");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_178\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_179(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_179");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_179\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_180(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_180");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_180\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_181(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_181");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_181\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_182(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_182");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_182\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_183(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_183");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_183\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_184(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_184");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_184\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_185(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_185");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_185\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_186(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_186");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_186\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_187(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_187");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_187\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_188(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_188");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_188\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_189(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_189");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_189\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_190(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_190");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_190\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_191(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_191");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_191\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_192(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_192");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_192\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_193(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_193");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_193\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_194(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_194");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_194\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_195(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_195");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_195\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_196(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_196");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_196\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_197(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_197");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_197\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_198(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_198");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_198\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_199(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_199");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_199\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_200(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_200");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_200\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_201(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_201");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_201\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_202(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_202");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_202\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_203(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_203");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_203\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_204(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_204");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_204\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_205(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_205");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_205\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_206(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_206");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_206\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_207(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_207");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_207\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_208(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_208");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_208\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_209(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_209");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_209\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_210(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_210");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_210\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_211(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_211");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_211\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_212(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_212");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_212\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_213(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_213");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_213\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_214(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_214");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_214\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_215(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_215");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_215\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_216(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_216");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_216\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_217(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_217");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_217\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_218(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_218");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_218\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_219(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_219");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_219\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_220(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_220");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_220\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_221(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_221");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_221\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_222(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_222");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_222\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_223(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_223");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_223\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_224(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_224");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_224\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_225(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_225");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_225\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_226(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_226");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_226\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_227(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_227");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_227\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_228(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_228");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_228\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_229(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_229");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_229\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_230(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_230");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_230\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_231(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_231");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_231\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_232(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_232");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_232\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_233(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_233");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_233\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_234(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_234");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_234\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_235(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_235");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_235\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_236(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_236");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_236\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_237(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_237");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_237\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_238(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_238");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_238\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_239(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_239");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_239\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_240(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_240");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_240\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_241(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_241");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_241\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_242(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_242");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_242\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_243(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_243");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_243\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_244(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_244");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_244\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_245(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_245");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_245\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_246(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_246");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_246\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_247(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_247");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_247\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_248(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_248");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_248\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_249(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_249");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_249\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_250(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_250");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_250\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_251(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_251");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_251\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_252(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_252");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_252\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_253(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_253");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_253\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_254(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_254");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_254\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_255(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_255");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_255\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_256(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_256");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_256\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_257(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_257");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_257\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_258(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_258");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_258\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_259(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_259");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_259\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_260(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_260");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_260\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_261(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_261");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_261\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_262(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_262");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_262\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_263(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_263");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_263\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_264(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_264");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_264\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_265(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_265");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_265\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_266(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_266");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_266\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_267(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_267");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_267\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_268(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_268");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_268\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_269(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_269");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_269\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_270(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_270");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_270\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_271(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_271");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_271\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_272(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_272");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_272\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_273(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_273");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_273\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_274(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_274");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_274\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_275(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_275");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_275\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_276(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_276");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_276\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_277(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_277");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_277\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_278(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_278");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_278\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_279(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_279");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_279\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_280(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_280");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_280\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_281(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_281");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_281\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_282(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_282");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_282\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_283(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_283");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_283\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_284(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_284");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_284\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_285(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_285");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_285\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_286(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_286");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_286\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_287(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_287");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_287\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_288(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_288");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_288\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_289(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_289");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_289\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_290(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_290");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_290\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_291(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_291");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_291\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_292(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_292");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_292\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_293(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_293");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_293\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_294(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_294");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_294\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_295(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_295");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_295\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_296(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_296");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_296\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_297(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_297");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_297\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_298(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_298");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_298\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_299(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_299");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_299\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_300(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_300");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_300\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_301(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_301");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_301\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_302(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_302");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_302\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_303(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_303");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_303\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_304(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_304");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_304\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_305(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_305");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_305\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_306(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_306");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_306\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_307(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_307");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_307\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_308(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_308");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_308\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_309(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_309");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_309\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_310(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_310");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_310\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_311(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_311");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_311\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_312(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_312");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_312\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_313(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_313");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_313\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_314(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_314");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_314\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_315(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_315");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_315\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_316(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_316");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_316\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_317(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_317");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_317\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_318(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_318");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_318\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_319(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_319");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_319\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_320(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_320");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_320\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_321(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_321");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_321\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_322(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_322");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_322\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_323(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_323");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_323\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_324(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_324");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_324\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_325(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_325");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_325\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_326(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_326");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_326\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_327(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_327");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_327\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_328(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_328");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_328\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_329(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_329");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_329\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_330(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_330");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_330\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_331(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_331");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_331\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_332(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_332");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_332\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_333(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_333");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_333\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_334(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_334");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_334\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_335(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_335");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_335\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_336(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_336");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_336\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_337(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_337");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_337\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_338(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_338");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_338\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_339(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_339");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_339\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_340(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_340");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_340\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_341(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_341");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_341\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_342(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_342");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_342\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_343(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_343");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_343\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_344(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_344");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_344\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_345(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_345");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_345\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_346(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_346");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_346\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_347(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_347");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_347\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_348(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_348");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_348\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_349(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_349");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_349\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_350(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_350");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_350\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_351(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_351");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_351\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_352(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_352");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_352\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_353(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_353");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_353\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_354(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_354");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_354\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_355(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_355");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_355\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_356(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_356");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_356\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_357(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_357");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_357\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_358(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_358");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_358\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_359(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_359");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_359\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_360(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_360");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_360\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_361(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_361");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_361\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_362(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_362");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_362\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_363(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_363");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_363\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_364(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_364");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_364\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_365(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_365");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_365\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_366(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_366");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_366\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_367(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_367");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_367\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_368(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_368");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_368\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_369(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_369");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_369\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_370(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_370");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_370\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_371(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_371");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_371\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_372(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_372");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_372\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_373(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_373");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_373\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_374(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_374");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_374\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_375(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_375");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_375\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_376(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_376");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_376\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_377(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_377");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_377\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_378(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_378");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_378\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_379(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_379");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_379\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_380(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_380");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_380\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_381(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_381");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_381\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_382(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_382");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_382\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_383(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_383");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_383\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_384(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_384");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_384\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_385(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_385");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_385\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_386(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_386");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_386\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_387(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_387");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_387\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_388(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_388");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_388\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_389(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_389");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_389\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_390(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_390");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_390\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_391(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_391");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_391\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_392(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_392");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_392\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_393(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_393");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_393\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_394(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_394");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_394\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_395(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_395");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_395\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_396(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_396");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_396\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_397(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_397");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_397\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_398(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_398");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_398\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_399(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_399");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_399\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_400(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_400");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_400\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_401(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_401");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_401\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_402(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_402");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_402\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_403(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_403");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_403\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_404(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_404");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_404\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_405(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_405");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_405\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_406(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_406");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_406\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_407(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_407");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_407\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_408(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_408");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_408\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_409(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_409");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_409\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_410(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_410");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_410\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_411(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_411");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_411\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_412(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_412");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_412\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_413(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_413");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_413\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_414(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_414");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_414\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_415(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_415");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_415\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_416(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_416");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_416\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_417(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_417");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_417\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_418(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_418");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_418\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_419(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_419");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_419\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_420(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_420");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_420\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_421(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_421");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_421\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_422(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_422");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_422\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_423(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_423");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_423\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_424(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_424");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_424\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_425(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_425");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_425\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_426(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_426");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_426\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_427(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_427");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_427\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_428(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_428");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_428\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_429(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_429");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_429\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_430(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_430");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_430\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_431(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_431");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_431\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_432(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_432");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_432\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_433(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_433");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_433\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_434(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_434");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_434\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_435(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_435");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_435\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_436(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_436");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_436\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_437(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_437");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_437\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_438(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_438");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_438\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_439(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_439");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_439\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_440(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_440");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_440\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_441(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_441");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_441\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_442(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_442");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_442\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_443(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_443");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_443\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_444(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_444");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_444\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_445(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_445");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_445\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_446(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_446");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_446\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_447(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_447");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_447\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_448(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_448");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_448\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_449(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_449");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_449\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_450(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_450");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_450\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_451(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_451");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_451\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_452(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_452");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_452\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_453(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_453");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_453\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_454(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_454");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_454\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_455(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_455");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_455\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_456(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_456");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_456\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_457(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_457");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_457\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_458(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_458");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_458\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_459(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_459");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_459\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_460(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_460");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_460\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_461(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_461");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_461\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_462(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_462");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_462\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_463(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_463");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_463\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_464(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_464");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_464\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_465(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_465");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_465\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_466(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_466");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_466\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_467(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_467");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_467\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_468(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_468");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_468\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_469(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_469");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_469\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_470(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_470");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_470\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_471(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_471");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_471\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_472(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_472");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_472\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_473(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_473");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_473\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_474(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_474");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_474\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_475(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_475");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_475\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_476(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_476");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_476\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_477(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_477");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_477\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_478(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_478");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_478\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_479(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_479");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_479\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_480(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_480");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_480\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_481(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_481");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_481\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_482(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_482");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_482\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_483(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_483");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_483\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_484(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_484");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_484\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_485(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_485");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_485\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_486(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_486");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_486\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_487(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_487");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_487\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_488(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_488");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_488\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_489(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_489");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_489\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_490(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_490");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_490\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_491(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_491");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_491\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_492(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_492");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_492\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_493(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_493");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_493\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_494(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_494");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_494\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_495(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_495");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_495\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_496(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_496");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_496\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_497(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_497");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_497\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_498(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_498");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_498\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
+
+std::string pt_peta_4174_499(const std::string& json) {
+  if (json.empty()) return "{}";
+  auto h = std::hash<std::string>{}(json + "pt_peta_4174_499");
+  std::ostringstream oss;
+  oss << "{\"fn\":\"pt_peta_4174_499\",\"s\":" << json.size() << ",\"h\":" << h << "}";
+  return oss.str();
+}
