@@ -593,6 +593,14 @@ add_library(
     src/widget_controller.cpp
     src/widget_event_utils.cpp
     src/widget_permission_utils.cpp
+    src/olm_manager.cpp
+    src/sas_manager.cpp
+    src/identity_server.cpp
+    src/sliding_sync_manager.cpp
+    src/inbound_federation.cpp
+    src/matrix_error_handler.cpp
+    src/room_upgrade_handler.cpp
+    src/key_share_handler.cpp
 )
 
 # --- Download SQLite3 amalgamation at configure time ---
