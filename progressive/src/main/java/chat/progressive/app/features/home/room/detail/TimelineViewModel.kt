@@ -64,6 +64,7 @@ import chat.progressive.app.features.voicebroadcast.VoiceBroadcastHelper
 import chat.progressive.lib.core.utils.flow.chunk
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -225,11 +226,18 @@ class TimelineViewModel @AssistedInject constructor(
         chatEffectManager.delegate = this
 
         // Ensure to share the outbound session keys with all members
+        // Defer for public rooms to avoid GC storm from large member count
         if (room.roomCryptoService().isEncrypted()) {
-            rawService.withElementWellKnown(viewModelScope, session.sessionParams) {
-                val strategy = it.getOutboundSessionKeySharingStrategyOrDefault(cryptoConfig.fallbackKeySharingStrategy)
-                if (strategy == OutboundSessionKeySharingStrategy.WhenEnteringRoom) {
-                    prepareForEncryption()
+            val summary = room.roomSummary()
+            val isPublicRoom = summary?.isPublic == true && !summary.isDirect
+            val delayMs = if (isPublicRoom) 2000L else 0L
+            viewModelScope.launch(Dispatchers.Default) {
+                delay(delayMs)
+                rawService.withElementWellKnown(this, session.sessionParams) {
+                    val strategy = it.getOutboundSessionKeySharingStrategyOrDefault(cryptoConfig.fallbackKeySharingStrategy)
+                    if (strategy == OutboundSessionKeySharingStrategy.WhenEnteringRoom) {
+                        prepareForEncryption()
+                    }
                 }
             }
         }
