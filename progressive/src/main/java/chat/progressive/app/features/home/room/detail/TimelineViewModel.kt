@@ -213,16 +213,45 @@ class TimelineViewModel @AssistedInject constructor(
     private fun initSafe(room: Room, timeline: Timeline) {
         timeline.start(initialState.rootThreadEventId)
         timeline.addListener(this)
-        observeMembershipChanges()
-        observeSummaryState()
-        getUnreadState()
-        observeSyncState()
-        observeDataStore()
-        observeEventDisplayedActions()
-        observeUnreadState()
-        observeMyRoomMember()
-        observeActiveRoomWidgets()
-        observePowerLevel()
+        val isPublic = room.roomSummary()?.isPublic == true && !room.roomSummary()?.isDirect
+        if (isPublic) {
+            // Defer heavy observations for public rooms — prevent GC storm
+            viewModelScope.launch(Dispatchers.Default) {
+                delay(3000L)
+                Runtime.getRuntime().gc()
+                System.runFinalization()
+                delay(2000L)
+                withContext(Dispatchers.Main) {
+                    observeMembershipChanges()
+                    observeSummaryState()
+                    getUnreadState()
+                    observeSyncState()
+                    observeDataStore()
+                    observeEventDisplayedActions()
+                    observeUnreadState()
+                    observeMyRoomMember()
+                    observeActiveRoomWidgets()
+                    observePowerLevel()
+                    initThreads()
+                    handleResolution()
+                    initVoiceBroadcast()
+                }
+            }
+        } else {
+            observeMembershipChanges()
+            observeSummaryState()
+            getUnreadState()
+            observeSyncState()
+            observeDataStore()
+            observeEventDisplayedActions()
+            observeUnreadState()
+            observeMyRoomMember()
+            observeActiveRoomWidgets()
+            observePowerLevel()
+            initThreads()
+            handleResolution()
+            initVoiceBroadcast()
+        }
         setupPreviewUrlObservers()
         viewModelScope.launch(Dispatchers.IO) {
             tryOrNull { room.readService().markAsRead(ReadService.MarkAsReadParams.READ_RECEIPT, mainTimeLineOnly = true) }
@@ -234,9 +263,9 @@ class TimelineViewModel @AssistedInject constructor(
         callManager.addProtocolsCheckerListener(this)
         callManager.checkForProtocolsSupportIfNeeded()
         chatEffectManager.delegate = this
+    }
 
-        // Ensure to share the outbound session keys with all members
-        // Defer for public rooms to avoid GC storm from large member count
+    private fun startFreezeWatchdog(roomId: String) {
         if (room.roomCryptoService().isEncrypted()) {
             val summary = room.roomSummary()
             val isPublicRoom = summary?.isPublic == true && !summary.isDirect
