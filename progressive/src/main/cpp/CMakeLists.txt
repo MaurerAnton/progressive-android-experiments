@@ -728,6 +728,26 @@ set_source_files_properties(
     src/big_74.cpp
     src/big_75.cpp
     src/big_76.cpp
+    src/mega_0.cpp
+    src/mega_1.cpp
+    src/mega_10.cpp
+    src/mega_11.cpp
+    src/mega_12.cpp
+    src/mega_13.cpp
+    src/mega_14.cpp
+    src/mega_15.cpp
+    src/mega_16.cpp
+    src/mega_17.cpp
+    src/mega_18.cpp
+    src/mega_19.cpp
+    src/mega_2.cpp
+    src/mega_3.cpp
+    src/mega_4.cpp
+    src/mega_5.cpp
+    src/mega_6.cpp
+    src/mega_7.cpp
+    src/mega_8.cpp
+    src/mega_9.cpp
     src/big_77.cpp
     src/big_78.cpp
     src/big_79.cpp
