@@ -1906,4 +1906,54 @@ class ProgressiveBasePreferences @Inject constructor(
     fun didAskOptimizedInitSync() {
         defaultPrefs.edit().putBoolean("DID_ASK_OPTIMIZED_INIT_SYNC", true).apply()
     }
+
+    // === Progressive Labs setters ===
+
+    fun setTransparentOverlayEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY, enabled).apply()
+    }
+
+    fun setTextUndoEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_TEXT_UNDO_KEY, enabled).apply()
+    }
+
+    fun setLlmSlashEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_LLM_SLASH_KEY, enabled).apply()
+    }
+
+    fun setWebSearchEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_WEB_SEARCH_KEY, enabled).apply()
+    }
+
+    fun setNativeDbEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_NATIVE_DB_KEY, enabled).apply()
+    }
+
+    fun setYggdrasilEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_YGGDRASIL_KEY, enabled).apply()
+    }
+
+    fun setTorEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_TOR_KEY, enabled).apply()
+    }
+
+    fun setI2pEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_I2P_KEY, enabled).apply()
+    }
+
+    fun setChatPushdownEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_CHAT_PUSHDOWN_KEY, enabled).apply()
+    }
+
+    fun setDesyncDetectorEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_DESYNC_DETECTOR_KEY, enabled).apply()
+    }
+
+    fun setProfileSwiperEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_PROFILE_SWIPER_KEY, enabled).apply()
+    }
+
+    fun setSvgDrawEnabled(enabled: Boolean) {
+        defaultPrefs.edit().putBoolean(SETTINGS_LABS_SVG_DRAW_KEY, enabled).apply()
+    }
 }

@@ -95,6 +95,108 @@ class ProgressiveSettingsLabs :
 
         configureUnreadNotificationsAsTabPreference()
         configureEnableClientInfoRecordingPreference()
+        configureProgressiveLabsPreferences()
+    }
+
+    /**
+     * Wire up progressive-specific labs preferences to native C++ handlers.
+     */
+    private fun configureProgressiveLabsPreferences() {
+        // Transparent Overlay
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setTransparentOverlayEnabled(enabled)
+                true
+            }
+
+        // Text Undo
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_TEXT_UNDO_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setTextUndoEnabled(enabled)
+                true
+            }
+
+        // LLM Slash Commands
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_LLM_SLASH_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setLlmSlashEnabled(enabled)
+                true
+            }
+
+        // Web Search
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_WEB_SEARCH_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setWebSearchEnabled(enabled)
+                true
+            }
+
+        // Native DB backend
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_NATIVE_DB_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setNativeDbEnabled(enabled)
+                true
+            }
+
+        // Yggdrasil network
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_YGGDRASIL_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setYggdrasilEnabled(enabled)
+                true
+            }
+
+        // Tor routing
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_TOR_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setTorEnabled(enabled)
+                true
+            }
+
+        // I2P integration
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_I2P_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setI2pEnabled(enabled)
+                true
+            }
+
+        // Chat Pushdown
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_CHAT_PUSHDOWN_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setChatPushdownEnabled(enabled)
+                true
+            }
+
+        // Desync Detector
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_DESYNC_DETECTOR_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setDesyncDetectorEnabled(enabled)
+                true
+            }
+
+        // Profile Swiper
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_PROFILE_SWIPER_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setProfileSwiperEnabled(enabled)
+                true
+            }
+
+        // SVG Render
+        findPreference<ProgressiveSwitchPreference>(ProgressiveBasePreferences.SETTINGS_LABS_SVG_DRAW_KEY)?.onPreferenceChangeListener =
+            OnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as? Boolean ?: false
+                progressivePreferences.setSvgDrawEnabled(enabled)
+                true
+            }
     }
 
     private fun configureUnreadNotificationsAsTabPreference() {
