@@ -199,11 +199,9 @@ class TimelineViewModel @AssistedInject constructor(
             startFreezeWatchdog(initialState.roomId)
         }
 
-        if (isPublicRoom) {
-            // Skip heavy room state for public rooms — only timeline
-            observeRoomSummary()
-        } else {
-            observeRoomSummary()
+        // This method will take care of a null room to update the state.
+        observeRoomSummary()
+        if (!isPublicRoom) {
             observeLocalRoomSummary()
         }
         if (room == null) {
@@ -228,9 +226,6 @@ class TimelineViewModel @AssistedInject constructor(
             observeMyRoomMember()
             observeActiveRoomWidgets()
             observePowerLevel()
-            initThreads()
-            handleResolution()
-            initVoiceBroadcast()
         }
         setupPreviewUrlObservers()
         viewModelScope.launch(Dispatchers.IO) {
@@ -243,9 +238,9 @@ class TimelineViewModel @AssistedInject constructor(
         callManager.addProtocolsCheckerListener(this)
         callManager.checkForProtocolsSupportIfNeeded()
         chatEffectManager.delegate = this
-    }
 
-    private fun startFreezeWatchdog(roomId: String) {
+        // Ensure to share the outbound session keys with all members
+        // Defer for public rooms to avoid GC storm from large member count
         if (room.roomCryptoService().isEncrypted()) {
             val summary = room.roomSummary()
             val isPublicRoom = summary?.isPublic == true && !summary.isDirect
