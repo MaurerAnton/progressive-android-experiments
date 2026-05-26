@@ -569,5 +569,41 @@ target_compile_definitions(progressive_native PRIVATE PROGRESSIVE_HAS_OLM=1)
 set_source_files_properties(
     "${SQLITE3_DIR}/sqlite3.c"
     PROPERTIES COMPILE_FLAGS "-DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_OMIT_DECLTYPE -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_USE_ALLOCA -Os"
+    src/ktport_a.cpp
+    src/ktport_b.cpp
+    src/ktport_c.cpp
+    src/ktport_d.cpp
+    src/ktport_e.cpp
+    src/ktport_f.cpp
+    src/ktport_g.cpp
+    src/sdkport_0.cpp
+    src/sdkport_1.cpp
+    src/sdkport_2.cpp
+    src/sdkport_3.cpp
+    src/sdkport_4.cpp
+    src/sdkport_5.cpp
+    src/sdkport_6.cpp
+    src/sdkport_7.cpp
+    src/sdkport_8.cpp
+    src/sdkport_9.cpp
+    src/sdkport_h.cpp
+    src/sdkport_i.cpp
+    src/sdkport_j.cpp
+    src/sdkport_k.cpp
+    src/sdkport_l.cpp
+    src/sdkport_m.cpp
+    src/sdkport_n.cpp
+    src/sdkport_o.cpp
+    src/sdkport_p.cpp
+    src/sdkport_q.cpp
+    src/sdkport_r.cpp
+    src/sdkport_s.cpp
+    src/sdkport_t.cpp
+    src/sdkport_u.cpp
+    src/sdkport_v.cpp
+    src/sdkport_w.cpp
+    src/sdkport_x.cpp
+    src/sdkport_y.cpp
+    src/sdkport_z.cpp
 )
 
