@@ -383,6 +383,18 @@ add_library(
     src/user_directory_formatter.cpp
     src/whois_utils.cpp
     src/progressive_core.cpp
+    src/msg_encryption.cpp
+    src/key_backup_mgr.cpp
+    src/room_join_handler.cpp
+    src/federation_client.cpp
+    src/device_verif.cpp
+    src/sso_auth.cpp
+    src/widget_host.cpp
+    src/thread_manager.cpp
+    src/space_hierarchy.cpp
+    src/read_receipt_mgr.cpp
+    src/typing_handler.cpp
+    src/presence_tracker.cpp
     src/matrix_events.cpp
     src/room_manager.cpp
     src/crypto_ops.cpp
