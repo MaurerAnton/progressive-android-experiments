@@ -195,7 +195,7 @@ internal class DefaultTimeline(
     override fun paginate(direction: Timeline.Direction, count: Int) {
         timelineScope.launch {
             startTimelineJob?.join()
-            val postSnapshot = loadMore(count, direction, fetchOnServerIfNeeded = true)
+            val postSnapshot = loadMore(count, direction, fetchOnServerIfNeeded = false)
             if (postSnapshot) {
                 postSnapshot()
             }
