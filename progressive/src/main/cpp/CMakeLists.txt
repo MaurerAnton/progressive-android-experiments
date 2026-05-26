@@ -431,49 +431,13 @@ add_library(
     src/inbound_federation.cpp
     src/matrix_error_handler.cpp
     src/room_upgrade_handler.cpp
+    src/progressive_combined_1.cpp
+    src/progressive_combined_2.cpp
+    src/progressive_combined_3.cpp
+    src/progressive_combined_4.cpp
+    src/progressive_combined_5.cpp
+    src/progressive_combined_6.cpp
     src/key_share_handler.cpp
-    src/progressive_ext_01.cpp
-    src/progressive_ext_02.cpp
-    src/progressive_ext_03.cpp
-    src/progressive_ext_04.cpp
-    src/progressive_ext_05.cpp
-    src/progressive_ext_06.cpp
-    src/progressive_ext_07.cpp
-    src/progressive_ext_08.cpp
-    src/progressive_ext_09.cpp
-    src/progressive_ext_10.cpp
-    src/progressive_ext_11.cpp
-    src/progressive_ext_12.cpp
-    src/progressive_ext_13.cpp
-    src/progressive_ext_14.cpp
-    src/progressive_ext_15.cpp
-    src/progressive_ext_16.cpp
-    src/progressive_ext_17.cpp
-    src/progressive_ext_18.cpp
-    src/progressive_ext_19.cpp
-    src/progressive_ext_20.cpp
-    src/progressive_ext_21.cpp
-    src/progressive_ext_22.cpp
-    src/progressive_ext_23.cpp
-    src/progressive_ext_24.cpp
-    src/progressive_ext_25.cpp
-    src/progressive_ext_26.cpp
-    src/progressive_ext_27.cpp
-    src/progressive_ext_28.cpp
-    src/progressive_ext_29.cpp
-    src/progressive_ext_30.cpp
-    src/progressive_ext_31.cpp
-    src/progressive_ext_32.cpp
-    src/progressive_ext_33.cpp
-    src/progressive_ext_34.cpp
-    src/progressive_ext_35.cpp
-    src/progressive_ext_36.cpp
-    src/progressive_ext_37.cpp
-    src/progressive_ext_38.cpp
-    src/progressive_ext_39.cpp
-    src/progressive_ext_40.cpp
-    src/progressive_ext_41.cpp
-    src/progressive_ext_42.cpp
 )
 
 # --- Download SQLite3 amalgamation at configure time ---
