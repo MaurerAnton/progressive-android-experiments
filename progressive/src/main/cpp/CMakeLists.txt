@@ -383,6 +383,14 @@ add_library(
     src/user_directory_formatter.cpp
     src/whois_utils.cpp
     src/progressive_core.cpp
+    src/matrix_events.cpp
+    src/room_manager.cpp
+    src/crypto_ops.cpp
+    src/sync_engine.cpp
+    src/notif_handler.cpp
+    src/media_tools.cpp
+    src/user_profiles.cpp
+    src/search_index.cpp
     src/jni_bridge.cpp
     src/eventdb.cpp
     src/sync_status_utils.cpp

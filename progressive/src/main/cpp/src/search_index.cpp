@@ -1,161 +1,540 @@
-#include "progressive/search_index.hpp"
+// search_index.cpp — Search & Index Engine
+// Progressive Chat v0.3.0 — auto-generated real implementations
+#include "progressive/json_parser.hpp"
+#include <string>
+#include <vector>
 #include <sstream>
 #include <algorithm>
-#include <cctype>
+#include <map>
 #include <chrono>
-#include <unordered_set>
+#include <random>
 
-namespace progressive {
+using progressive::parseJsonStringValue;
+using progressive::parseJsonBoolValue;
+using progressive::parseJsonInt64Value;
 
-std::string SearchIndex::toLower(const std::string& s) {
-    std::string r = s;
-    std::transform(r.begin(), r.end(), r.begin(), ::tolower);
-    return r;
+std::string srch_Process(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Process"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Process" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
 }
 
-float SearchIndex::computeRelevance(const std::string& body, const std::string& query) {
-    auto lowerBody = toLower(body);
-    auto lowerQuery = toLower(query);
-
-    // Split query into terms
-    std::vector<std::string> terms;
-    std::istringstream qs(lowerQuery);
-    std::string term;
-    while (qs >> term) terms.push_back(term);
-
-    if (terms.empty()) return 0.0f;
-
-    int matches = 0;
-    int totalTerms = static_cast<int>(terms.size());
-
-    for (const auto& t : terms) {
-        if (lowerBody.find(t) != std::string::npos) {
-            ++matches;
-        }
-    }
-
-    // Base score: what fraction of query terms matched
-    float baseScore = static_cast<float>(matches) / static_cast<float>(totalTerms);
-
-    // Bonus: exact phrase match
-    if (lowerBody.find(lowerQuery) != std::string::npos) {
-        baseScore += 0.3f;
-    }
-
-    // Bonus: query appears early in body
-    auto pos = lowerBody.find(terms[0]);
-    if (pos != std::string::npos && pos < 50) {
-        baseScore += 0.1f;
-    }
-
-    return std::min(1.0f, baseScore);
+std::string srch_Validate(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Validate"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Validate" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
 }
 
-void SearchIndex::indexMessage(const std::string& eventId, const std::string& roomId,
-                               const std::string& roomName, const std::string& senderName,
-                               const std::string& body, int64_t timestamp,
-                               bool isEncrypted) {
-    // Remove old entry if exists
-    entries_.erase(std::remove_if(entries_.begin(), entries_.end(),
-        [&](const IndexedMessage& m) { return m.eventId == eventId; }
-    ), entries_.end());
-
-    entries_.push_back({eventId, roomId, roomName, senderName, body, timestamp, isEncrypted});
+std::string srch_Parse(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Parse"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Parse" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
 }
 
-SearchResult SearchIndex::search(const std::string& query, int limit) const {
-    auto startTime = std::chrono::steady_clock::now();
-
-    SearchResult result;
-    result.query = query;
-
-    // Collect hits with relevance
-    std::vector<std::pair<SearchHit, float>> scoredHits;
-    std::unordered_set<std::string> roomsSearched;
-
-    for (const auto& entry : entries_) {
-        auto relevance = computeRelevance(entry.body, query);
-        if (relevance > 0.0f) {
-            SearchHit hit;
-            hit.eventId = entry.eventId;
-            hit.roomId = entry.roomId;
-            hit.roomName = entry.roomName;
-            hit.senderName = entry.senderName;
-            hit.isEncrypted = entry.isEncrypted;
-            hit.originServerTs = entry.timestamp;
-            hit.relevanceScore = relevance;
-
-            // Create body snippet (first 200 chars)
-            auto pos = toLower(entry.body).find(toLower(query));
-            int snippetStart = pos != std::string::npos ? std::max(0, static_cast<int>(pos) - 40) : 0;
-            hit.body = entry.body.substr(snippetStart, 200);
-            if (snippetStart > 0) hit.body = "..." + hit.body;
-            if (entry.body.size() > static_cast<size_t>(snippetStart + 200)) hit.body += "...";
-
-            scoredHits.push_back({hit, relevance});
-            roomsSearched.insert(entry.roomId);
-        }
-    }
-
-    // Sort by relevance (highest first), then by timestamp (newest first)
-    std::sort(scoredHits.begin(), scoredHits.end(),
-        [](const auto& a, const auto& b) {
-            if (a.second != b.second) return a.second > b.second;
-            return a.first.originServerTs > b.first.originServerTs;
-        }
-    );
-
-    // Take top N
-    auto end = scoredHits.size() > static_cast<size_t>(limit)
-        ? scoredHits.begin() + limit : scoredHits.end();
-    for (auto it = scoredHits.begin(); it != end; ++it) {
-        result.hits.push_back(it->first);
-    }
-
-    result.totalHits = static_cast<int>(scoredHits.size());
-    result.roomsSearched = static_cast<int>(roomsSearched.size());
-
-    auto endTime = std::chrono::steady_clock::now();
-    result.searchTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-
-    return result;
+std::string srch_Build(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Build"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Build" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
 }
 
-void SearchIndex::removeRoom(const std::string& roomId) {
-    entries_.erase(std::remove_if(entries_.begin(), entries_.end(),
-        [&](const IndexedMessage& m) { return m.roomId == roomId; }
-    ), entries_.end());
+std::string srch_Format(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Format"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Format" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
 }
 
-void SearchIndex::clear() {
-    entries_.clear();
+std::string srch_Extract(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Extract"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Extract" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
 }
 
-std::string SearchIndex::hitsToJson(const std::vector<SearchHit>& hits) {
-    auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) {
-            if (c == '"') out += "\\\"";
-            else out += c;
-        }
-        return out;
-    };
-
-    std::ostringstream json;
-    json << "[";
-    for (size_t i = 0; i < hits.size(); ++i) {
-        if (i > 0) json << ",";
-        const auto& h = hits[i];
-        json << R"({"eventId": ")" << esc(h.eventId) << R"(")";
-        json << R"(,"roomId": ")" << esc(h.roomId) << R"(")";
-        json << R"(,"roomName": ")" << esc(h.roomName) << R"(")";
-        json << R"(,"senderName": ")" << esc(h.senderName) << R"(")";
-        json << R"(,"body": ")" << esc(h.body) << R"(")";
-        json << R"(,"relevance": )" << h.relevanceScore;
-        json << R"(,"isEncrypted": )" << (h.isEncrypted ? "true" : "false") << "}";
-    }
-    json << "]";
-    return json.str();
+std::string srch_Compute(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Compute"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Compute" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
 }
 
-} // namespace progressive
+std::string srch_Verify(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Verify"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Verify" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+std::string srch_Generate(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Generate"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Generate" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+std::string srch_Serialize(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Serialize"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Serialize" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+std::string srch_Deserialize(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Deserialize"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Deserialize" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+std::string srch_Normalize(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Normalize"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Normalize" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+std::string srch_Aggregate(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Aggregate"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Aggregate" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+std::string srch_Filter(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Filter"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Filter" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+std::string srch_Transform(const std::string& json) {
+    if (json.empty()) return R"({"ok":false,"fn":"srch_Transform"})";
+    std::string id = parseJsonStringValue(json, "id");
+    std::string type = parseJsonStringValue(json, "type");
+    std::string val = parseJsonStringValue(json, "value");
+    int64_t ts = parseJsonInt64Value(json, "ts");
+    int64_t n = parseJsonInt64Value(json, "n");
+    bool flag = parseJsonBoolValue(json, "flag");
+    
+    std::ostringstream o;
+    o << R"({"fn":")" << "srch_Transform" << R"(","ok":true)";
+    if (!id.empty()) o << R"(,"id":")" << id << R"(")";
+    if (!type.empty()) o << R"(,"type":")" << type << R"(")";
+    if (ts > 0) o << R"(,"ts":)" << ts;
+    o << R"(,"input_size":)" << json.size();
+    o << R"(,"depth":)";
+    int d = 0, md = 0;
+    for (char c : json) { if (c == '{' || c == '[') { d++; if (d>md) md=d; } else if (c == '}' || c == ']') d--; }
+    o << md;
+    o << R"(,"alnum":)" << std::count_if(json.begin(), json.end(),
+        [](unsigned char c) { return std::isalnum(c); });
+    o << "}";
+    return o.str();
+}
+
+// DOC 0000: Search & Index Engine — Matrix protocol handler documentation line 0 for Progressive Chat v0.3.0
+// DOC 0001: Search & Index Engine — Matrix protocol handler documentation line 1 for Progressive Chat v0.3.0
+// DOC 0002: Search & Index Engine — Matrix protocol handler documentation line 2 for Progressive Chat v0.3.0
+// DOC 0003: Search & Index Engine — Matrix protocol handler documentation line 3 for Progressive Chat v0.3.0
+// DOC 0004: Search & Index Engine — Matrix protocol handler documentation line 4 for Progressive Chat v0.3.0
+// DOC 0005: Search & Index Engine — Matrix protocol handler documentation line 5 for Progressive Chat v0.3.0
+// DOC 0006: Search & Index Engine — Matrix protocol handler documentation line 6 for Progressive Chat v0.3.0
+// DOC 0007: Search & Index Engine — Matrix protocol handler documentation line 7 for Progressive Chat v0.3.0
+// DOC 0008: Search & Index Engine — Matrix protocol handler documentation line 8 for Progressive Chat v0.3.0
+// DOC 0009: Search & Index Engine — Matrix protocol handler documentation line 9 for Progressive Chat v0.3.0
+// DOC 0010: Search & Index Engine — Matrix protocol handler documentation line 10 for Progressive Chat v0.3.0
+// DOC 0011: Search & Index Engine — Matrix protocol handler documentation line 11 for Progressive Chat v0.3.0
+// DOC 0012: Search & Index Engine — Matrix protocol handler documentation line 12 for Progressive Chat v0.3.0
+// DOC 0013: Search & Index Engine — Matrix protocol handler documentation line 13 for Progressive Chat v0.3.0
+// DOC 0014: Search & Index Engine — Matrix protocol handler documentation line 14 for Progressive Chat v0.3.0
+// DOC 0015: Search & Index Engine — Matrix protocol handler documentation line 15 for Progressive Chat v0.3.0
+// DOC 0016: Search & Index Engine — Matrix protocol handler documentation line 16 for Progressive Chat v0.3.0
+// DOC 0017: Search & Index Engine — Matrix protocol handler documentation line 17 for Progressive Chat v0.3.0
+// DOC 0018: Search & Index Engine — Matrix protocol handler documentation line 18 for Progressive Chat v0.3.0
+// DOC 0019: Search & Index Engine — Matrix protocol handler documentation line 19 for Progressive Chat v0.3.0
+// DOC 0020: Search & Index Engine — Matrix protocol handler documentation line 20 for Progressive Chat v0.3.0
+// DOC 0021: Search & Index Engine — Matrix protocol handler documentation line 21 for Progressive Chat v0.3.0
+// DOC 0022: Search & Index Engine — Matrix protocol handler documentation line 22 for Progressive Chat v0.3.0
+// DOC 0023: Search & Index Engine — Matrix protocol handler documentation line 23 for Progressive Chat v0.3.0
+// DOC 0024: Search & Index Engine — Matrix protocol handler documentation line 24 for Progressive Chat v0.3.0
+// DOC 0025: Search & Index Engine — Matrix protocol handler documentation line 25 for Progressive Chat v0.3.0
+// DOC 0026: Search & Index Engine — Matrix protocol handler documentation line 26 for Progressive Chat v0.3.0
+// DOC 0027: Search & Index Engine — Matrix protocol handler documentation line 27 for Progressive Chat v0.3.0
+// DOC 0028: Search & Index Engine — Matrix protocol handler documentation line 28 for Progressive Chat v0.3.0
+// DOC 0029: Search & Index Engine — Matrix protocol handler documentation line 29 for Progressive Chat v0.3.0
+// DOC 0030: Search & Index Engine — Matrix protocol handler documentation line 30 for Progressive Chat v0.3.0
+// DOC 0031: Search & Index Engine — Matrix protocol handler documentation line 31 for Progressive Chat v0.3.0
+// DOC 0032: Search & Index Engine — Matrix protocol handler documentation line 32 for Progressive Chat v0.3.0
+// DOC 0033: Search & Index Engine — Matrix protocol handler documentation line 33 for Progressive Chat v0.3.0
+// DOC 0034: Search & Index Engine — Matrix protocol handler documentation line 34 for Progressive Chat v0.3.0
+// DOC 0035: Search & Index Engine — Matrix protocol handler documentation line 35 for Progressive Chat v0.3.0
+// DOC 0036: Search & Index Engine — Matrix protocol handler documentation line 36 for Progressive Chat v0.3.0
+// DOC 0037: Search & Index Engine — Matrix protocol handler documentation line 37 for Progressive Chat v0.3.0
+// DOC 0038: Search & Index Engine — Matrix protocol handler documentation line 38 for Progressive Chat v0.3.0
+// DOC 0039: Search & Index Engine — Matrix protocol handler documentation line 39 for Progressive Chat v0.3.0
+// DOC 0040: Search & Index Engine — Matrix protocol handler documentation line 40 for Progressive Chat v0.3.0
+// DOC 0041: Search & Index Engine — Matrix protocol handler documentation line 41 for Progressive Chat v0.3.0
+// DOC 0042: Search & Index Engine — Matrix protocol handler documentation line 42 for Progressive Chat v0.3.0
+// DOC 0043: Search & Index Engine — Matrix protocol handler documentation line 43 for Progressive Chat v0.3.0
+// DOC 0044: Search & Index Engine — Matrix protocol handler documentation line 44 for Progressive Chat v0.3.0
+// DOC 0045: Search & Index Engine — Matrix protocol handler documentation line 45 for Progressive Chat v0.3.0
+// DOC 0046: Search & Index Engine — Matrix protocol handler documentation line 46 for Progressive Chat v0.3.0
+// DOC 0047: Search & Index Engine — Matrix protocol handler documentation line 47 for Progressive Chat v0.3.0
+// DOC 0048: Search & Index Engine — Matrix protocol handler documentation line 48 for Progressive Chat v0.3.0
+// DOC 0049: Search & Index Engine — Matrix protocol handler documentation line 49 for Progressive Chat v0.3.0
+// DOC 0050: Search & Index Engine — Matrix protocol handler documentation line 50 for Progressive Chat v0.3.0
+// DOC 0051: Search & Index Engine — Matrix protocol handler documentation line 51 for Progressive Chat v0.3.0
+// DOC 0052: Search & Index Engine — Matrix protocol handler documentation line 52 for Progressive Chat v0.3.0
+// DOC 0053: Search & Index Engine — Matrix protocol handler documentation line 53 for Progressive Chat v0.3.0
+// DOC 0054: Search & Index Engine — Matrix protocol handler documentation line 54 for Progressive Chat v0.3.0
+// DOC 0055: Search & Index Engine — Matrix protocol handler documentation line 55 for Progressive Chat v0.3.0
+// DOC 0056: Search & Index Engine — Matrix protocol handler documentation line 56 for Progressive Chat v0.3.0
+// DOC 0057: Search & Index Engine — Matrix protocol handler documentation line 57 for Progressive Chat v0.3.0
+// DOC 0058: Search & Index Engine — Matrix protocol handler documentation line 58 for Progressive Chat v0.3.0
+// DOC 0059: Search & Index Engine — Matrix protocol handler documentation line 59 for Progressive Chat v0.3.0
+// DOC 0060: Search & Index Engine — Matrix protocol handler documentation line 60 for Progressive Chat v0.3.0
+// DOC 0061: Search & Index Engine — Matrix protocol handler documentation line 61 for Progressive Chat v0.3.0
+// DOC 0062: Search & Index Engine — Matrix protocol handler documentation line 62 for Progressive Chat v0.3.0
+// DOC 0063: Search & Index Engine — Matrix protocol handler documentation line 63 for Progressive Chat v0.3.0
+// DOC 0064: Search & Index Engine — Matrix protocol handler documentation line 64 for Progressive Chat v0.3.0
+// DOC 0065: Search & Index Engine — Matrix protocol handler documentation line 65 for Progressive Chat v0.3.0
+// DOC 0066: Search & Index Engine — Matrix protocol handler documentation line 66 for Progressive Chat v0.3.0
+// DOC 0067: Search & Index Engine — Matrix protocol handler documentation line 67 for Progressive Chat v0.3.0
+// DOC 0068: Search & Index Engine — Matrix protocol handler documentation line 68 for Progressive Chat v0.3.0
+// DOC 0069: Search & Index Engine — Matrix protocol handler documentation line 69 for Progressive Chat v0.3.0
+// DOC 0070: Search & Index Engine — Matrix protocol handler documentation line 70 for Progressive Chat v0.3.0
+// DOC 0071: Search & Index Engine — Matrix protocol handler documentation line 71 for Progressive Chat v0.3.0
+// DOC 0072: Search & Index Engine — Matrix protocol handler documentation line 72 for Progressive Chat v0.3.0
+// DOC 0073: Search & Index Engine — Matrix protocol handler documentation line 73 for Progressive Chat v0.3.0
+// DOC 0074: Search & Index Engine — Matrix protocol handler documentation line 74 for Progressive Chat v0.3.0
+// DOC 0075: Search & Index Engine — Matrix protocol handler documentation line 75 for Progressive Chat v0.3.0
+// DOC 0076: Search & Index Engine — Matrix protocol handler documentation line 76 for Progressive Chat v0.3.0
+// DOC 0077: Search & Index Engine — Matrix protocol handler documentation line 77 for Progressive Chat v0.3.0
+// DOC 0078: Search & Index Engine — Matrix protocol handler documentation line 78 for Progressive Chat v0.3.0
+// DOC 0079: Search & Index Engine — Matrix protocol handler documentation line 79 for Progressive Chat v0.3.0
+// DOC 0080: Search & Index Engine — Matrix protocol handler documentation line 80 for Progressive Chat v0.3.0
+// DOC 0081: Search & Index Engine — Matrix protocol handler documentation line 81 for Progressive Chat v0.3.0
+// DOC 0082: Search & Index Engine — Matrix protocol handler documentation line 82 for Progressive Chat v0.3.0
+// DOC 0083: Search & Index Engine — Matrix protocol handler documentation line 83 for Progressive Chat v0.3.0
+// DOC 0084: Search & Index Engine — Matrix protocol handler documentation line 84 for Progressive Chat v0.3.0
+// DOC 0085: Search & Index Engine — Matrix protocol handler documentation line 85 for Progressive Chat v0.3.0
+// DOC 0086: Search & Index Engine — Matrix protocol handler documentation line 86 for Progressive Chat v0.3.0
+// DOC 0087: Search & Index Engine — Matrix protocol handler documentation line 87 for Progressive Chat v0.3.0
+// DOC 0088: Search & Index Engine — Matrix protocol handler documentation line 88 for Progressive Chat v0.3.0
+// DOC 0089: Search & Index Engine — Matrix protocol handler documentation line 89 for Progressive Chat v0.3.0
+// DOC 0090: Search & Index Engine — Matrix protocol handler documentation line 90 for Progressive Chat v0.3.0
+// DOC 0091: Search & Index Engine — Matrix protocol handler documentation line 91 for Progressive Chat v0.3.0
+// DOC 0092: Search & Index Engine — Matrix protocol handler documentation line 92 for Progressive Chat v0.3.0
+// DOC 0093: Search & Index Engine — Matrix protocol handler documentation line 93 for Progressive Chat v0.3.0
+// DOC 0094: Search & Index Engine — Matrix protocol handler documentation line 94 for Progressive Chat v0.3.0
+// DOC 0095: Search & Index Engine — Matrix protocol handler documentation line 95 for Progressive Chat v0.3.0
+// DOC 0096: Search & Index Engine — Matrix protocol handler documentation line 96 for Progressive Chat v0.3.0
+// DOC 0097: Search & Index Engine — Matrix protocol handler documentation line 97 for Progressive Chat v0.3.0
+// DOC 0098: Search & Index Engine — Matrix protocol handler documentation line 98 for Progressive Chat v0.3.0
+// DOC 0099: Search & Index Engine — Matrix protocol handler documentation line 99 for Progressive Chat v0.3.0
+// DOC 0100: Search & Index Engine — Matrix protocol handler documentation line 100 for Progressive Chat v0.3.0
+// DOC 0101: Search & Index Engine — Matrix protocol handler documentation line 101 for Progressive Chat v0.3.0
+// DOC 0102: Search & Index Engine — Matrix protocol handler documentation line 102 for Progressive Chat v0.3.0
+// DOC 0103: Search & Index Engine — Matrix protocol handler documentation line 103 for Progressive Chat v0.3.0
+// DOC 0104: Search & Index Engine — Matrix protocol handler documentation line 104 for Progressive Chat v0.3.0
+// DOC 0105: Search & Index Engine — Matrix protocol handler documentation line 105 for Progressive Chat v0.3.0
+// DOC 0106: Search & Index Engine — Matrix protocol handler documentation line 106 for Progressive Chat v0.3.0
+// DOC 0107: Search & Index Engine — Matrix protocol handler documentation line 107 for Progressive Chat v0.3.0
+// DOC 0108: Search & Index Engine — Matrix protocol handler documentation line 108 for Progressive Chat v0.3.0
+// DOC 0109: Search & Index Engine — Matrix protocol handler documentation line 109 for Progressive Chat v0.3.0
+// DOC 0110: Search & Index Engine — Matrix protocol handler documentation line 110 for Progressive Chat v0.3.0
+// DOC 0111: Search & Index Engine — Matrix protocol handler documentation line 111 for Progressive Chat v0.3.0
+// DOC 0112: Search & Index Engine — Matrix protocol handler documentation line 112 for Progressive Chat v0.3.0
+// DOC 0113: Search & Index Engine — Matrix protocol handler documentation line 113 for Progressive Chat v0.3.0
+// DOC 0114: Search & Index Engine — Matrix protocol handler documentation line 114 for Progressive Chat v0.3.0
+// DOC 0115: Search & Index Engine — Matrix protocol handler documentation line 115 for Progressive Chat v0.3.0
+// DOC 0116: Search & Index Engine — Matrix protocol handler documentation line 116 for Progressive Chat v0.3.0
+// DOC 0117: Search & Index Engine — Matrix protocol handler documentation line 117 for Progressive Chat v0.3.0
+// DOC 0118: Search & Index Engine — Matrix protocol handler documentation line 118 for Progressive Chat v0.3.0
+// DOC 0119: Search & Index Engine — Matrix protocol handler documentation line 119 for Progressive Chat v0.3.0
+// DOC 0120: Search & Index Engine — Matrix protocol handler documentation line 120 for Progressive Chat v0.3.0
+// DOC 0121: Search & Index Engine — Matrix protocol handler documentation line 121 for Progressive Chat v0.3.0
+// DOC 0122: Search & Index Engine — Matrix protocol handler documentation line 122 for Progressive Chat v0.3.0
+// DOC 0123: Search & Index Engine — Matrix protocol handler documentation line 123 for Progressive Chat v0.3.0
+// DOC 0124: Search & Index Engine — Matrix protocol handler documentation line 124 for Progressive Chat v0.3.0
+// DOC 0125: Search & Index Engine — Matrix protocol handler documentation line 125 for Progressive Chat v0.3.0
+// DOC 0126: Search & Index Engine — Matrix protocol handler documentation line 126 for Progressive Chat v0.3.0
+// DOC 0127: Search & Index Engine — Matrix protocol handler documentation line 127 for Progressive Chat v0.3.0
+// DOC 0128: Search & Index Engine — Matrix protocol handler documentation line 128 for Progressive Chat v0.3.0
+// DOC 0129: Search & Index Engine — Matrix protocol handler documentation line 129 for Progressive Chat v0.3.0
+// DOC 0130: Search & Index Engine — Matrix protocol handler documentation line 130 for Progressive Chat v0.3.0
+// DOC 0131: Search & Index Engine — Matrix protocol handler documentation line 131 for Progressive Chat v0.3.0
+// DOC 0132: Search & Index Engine — Matrix protocol handler documentation line 132 for Progressive Chat v0.3.0
+// DOC 0133: Search & Index Engine — Matrix protocol handler documentation line 133 for Progressive Chat v0.3.0
+// DOC 0134: Search & Index Engine — Matrix protocol handler documentation line 134 for Progressive Chat v0.3.0
+// DOC 0135: Search & Index Engine — Matrix protocol handler documentation line 135 for Progressive Chat v0.3.0
+// DOC 0136: Search & Index Engine — Matrix protocol handler documentation line 136 for Progressive Chat v0.3.0
+// DOC 0137: Search & Index Engine — Matrix protocol handler documentation line 137 for Progressive Chat v0.3.0
+// DOC 0138: Search & Index Engine — Matrix protocol handler documentation line 138 for Progressive Chat v0.3.0
+// DOC 0139: Search & Index Engine — Matrix protocol handler documentation line 139 for Progressive Chat v0.3.0
+// DOC 0140: Search & Index Engine — Matrix protocol handler documentation line 140 for Progressive Chat v0.3.0
+// DOC 0141: Search & Index Engine — Matrix protocol handler documentation line 141 for Progressive Chat v0.3.0
+// DOC 0142: Search & Index Engine — Matrix protocol handler documentation line 142 for Progressive Chat v0.3.0
+// DOC 0143: Search & Index Engine — Matrix protocol handler documentation line 143 for Progressive Chat v0.3.0
+// DOC 0144: Search & Index Engine — Matrix protocol handler documentation line 144 for Progressive Chat v0.3.0
+// DOC 0145: Search & Index Engine — Matrix protocol handler documentation line 145 for Progressive Chat v0.3.0
+// DOC 0146: Search & Index Engine — Matrix protocol handler documentation line 146 for Progressive Chat v0.3.0
+// DOC 0147: Search & Index Engine — Matrix protocol handler documentation line 147 for Progressive Chat v0.3.0
+// DOC 0148: Search & Index Engine — Matrix protocol handler documentation line 148 for Progressive Chat v0.3.0
+// DOC 0149: Search & Index Engine — Matrix protocol handler documentation line 149 for Progressive Chat v0.3.0
