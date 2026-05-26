@@ -144,9 +144,12 @@ internal class DefaultTimeline(
     }
 
     override fun start(rootThreadEventId: String?) {
-        // Skip eager member loading — members load lazily when needed.
+        // Defer member loading by 10s to let UI render first.
         // Prevents GC storms for large public rooms (thousands of members).
-        // timelineScope.launch { loadRoomMembersIfNeeded() }
+        timelineScope.launch {
+            delay(10_000L)
+            loadRoomMembersIfNeeded()
+        }
         startTimelineJob = timelineScope.launch {
             sequencer.post {
                 if (isStarted.compareAndSet(false, true)) {
