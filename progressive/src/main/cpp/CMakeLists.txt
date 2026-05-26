@@ -460,6 +460,34 @@ add_library(
     src/room_summary_v4.cpp
     src/room_upgrade_v4.cpp
     src/secret_store_v4.cpp
+    src/sdk_port_01.cpp
+    src/sdk_port_02.cpp
+    src/sdk_port_03.cpp
+    src/sdk_port_04.cpp
+    src/sdk_port_05.cpp
+    src/sdk_port_06.cpp
+    src/sdk_port_07.cpp
+    src/sdk_port_08.cpp
+    src/sdk_port_09.cpp
+    src/sdk_port_10.cpp
+    src/sdk_port_11.cpp
+    src/sdk_port_12.cpp
+    src/sdk_port_13.cpp
+    src/sdk_port_14.cpp
+    src/sdk_port_15.cpp
+    src/sdk_port_16.cpp
+    src/sdk_port_17.cpp
+    src/sdk_port_18.cpp
+    src/sdk_port_19.cpp
+    src/sdk_port_20.cpp
+    src/sdk_port_21.cpp
+    src/sdk_port_22.cpp
+    src/sdk_port_23.cpp
+    src/sdk_port_24.cpp
+    src/sdk_port_25.cpp
+    src/sdk_port_26.cpp
+    src/sdk_port_27.cpp
+    src/sdk_port_28.cpp
     src/send_queue_v4.cpp
     src/server_notice_v4.cpp
     src/sliding_sync_v4.cpp
