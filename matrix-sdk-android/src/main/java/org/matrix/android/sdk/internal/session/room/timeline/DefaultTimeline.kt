@@ -144,9 +144,9 @@ internal class DefaultTimeline(
     }
 
     override fun start(rootThreadEventId: String?) {
-        // Skip eager member loading entirely.
-        // Members will be loaded lazily when needed by the UI.
-        // loadRoomMembersIfNeeded() removed — prevents ANR on large rooms.
+        timelineScope.launch {
+            loadRoomMembersIfNeeded()
+        }
         startTimelineJob = timelineScope.launch {
             sequencer.post {
                 if (isStarted.compareAndSet(false, true)) {
@@ -192,7 +192,7 @@ internal class DefaultTimeline(
     override fun paginate(direction: Timeline.Direction, count: Int) {
         timelineScope.launch {
             startTimelineJob?.join()
-            val postSnapshot = loadMore(count, direction, fetchOnServerIfNeeded = false)
+            val postSnapshot = loadMore(count, direction, fetchOnServerIfNeeded = true)
             if (postSnapshot) {
                 postSnapshot()
             }
@@ -228,16 +228,7 @@ internal class DefaultTimeline(
         val baseLogMessage = "loadMore(count: $count, direction: $direction, roomId: $roomId, fetchOnServer: $fetchOnServerIfNeeded)"
         Timber.v("$baseLogMessage started")
         if (!isStarted.get()) {
-            Timber.w("$baseLogMessage : timeline not started yet, waiting...")
-            // Wait up to 5s for start to complete (race condition with sequencer)
-            val deadline = System.currentTimeMillis() + 5000L
-            while (!isStarted.get() && System.currentTimeMillis() < deadline) {
-                delay(50L)
-            }
-            if (!isStarted.get()) {
-                Timber.e("$baseLogMessage : timeline still not started, aborting")
-                return false
-            }
+            throw IllegalStateException("You should call start before using timeline")
         }
         val currentState = getPaginationState(direction)
         if (!currentState.hasMoreToLoad) {

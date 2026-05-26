@@ -8,7 +8,6 @@
 package chat.progressive.app.features.home.room.detail
 
 import android.net.Uri
-import android.os.Process
 import androidx.annotation.IdRes
 import androidx.core.net.toUri
 import androidx.lifecycle.asFlow
@@ -65,7 +64,6 @@ import chat.progressive.app.features.voicebroadcast.VoiceBroadcastHelper
 import chat.progressive.lib.core.utils.flow.chunk
 import chat.progressive.lib.strings.CommonStrings
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -162,9 +160,6 @@ class TimelineViewModel @AssistedInject constructor(
     private var timelineEvents = MutableSharedFlow<List<TimelineEvent>>(0)
     val timeline: Timeline?
 
-    // Freeze watchdog thread for public rooms
-    private var freezeWatchdog: Thread? = null
-
     // Same lifecycle than the ViewModel (survive to screen rotation)
     val previewUrlRetriever = PreviewUrlRetriever(session, viewModelScope, buildMeta)
 
@@ -186,27 +181,19 @@ class TimelineViewModel @AssistedInject constructor(
 
     companion object : MavericksViewModelFactory<TimelineViewModel, RoomDetailViewState> by hiltMavericksViewModelFactory() {
         const val PAGINATION_COUNT = 50
-        private const val PAGINATION_COUNT_PUBLIC = 5
 
         // The larger the number the faster the results, COUNT=200 for 500 thread messages its x4 faster than COUNT=50
         const val PAGINATION_COUNT_THREADS_PERMALINK = 200
     }
 
     init {
-        val summary = room?.roomSummary()
-        val isPublicRoom = summary?.isPublic == true && !summary.isDirect
-        if (isPublicRoom) {
-            startFreezeWatchdog(initialState.roomId)
-        }
-
         // This method will take care of a null room to update the state.
         observeRoomSummary()
-        if (!isPublicRoom) {
-            observeLocalRoomSummary()
-        }
+        observeLocalRoomSummary()
         if (room == null) {
             timeline = null
         } else {
+            // Nominal case, we have retrieved the room.
             timeline = timelineFactory.createTimeline(viewModelScope, room, eventId, initialState.rootThreadEventId)
             initSafe(room, timeline)
         }
@@ -215,18 +202,16 @@ class TimelineViewModel @AssistedInject constructor(
     private fun initSafe(room: Room, timeline: Timeline) {
         timeline.start(initialState.rootThreadEventId)
         timeline.addListener(this)
-        if (room.roomSummary()?.isPublic != true || room.roomSummary()?.isDirect == true) {
-            observeMembershipChanges()
-            observeSummaryState()
-            getUnreadState()
-            observeSyncState()
-            observeDataStore()
-            observeEventDisplayedActions()
-            observeUnreadState()
-            observeMyRoomMember()
-            observeActiveRoomWidgets()
-            observePowerLevel()
-        }
+        observeMembershipChanges()
+        observeSummaryState()
+        getUnreadState()
+        observeSyncState()
+        observeDataStore()
+        observeEventDisplayedActions()
+        observeUnreadState()
+        observeMyRoomMember()
+        observeActiveRoomWidgets()
+        observePowerLevel()
         setupPreviewUrlObservers()
         viewModelScope.launch(Dispatchers.IO) {
             tryOrNull { room.readService().markAsRead(ReadService.MarkAsReadParams.READ_RECEIPT, mainTimeLineOnly = true) }
@@ -240,18 +225,11 @@ class TimelineViewModel @AssistedInject constructor(
         chatEffectManager.delegate = this
 
         // Ensure to share the outbound session keys with all members
-        // Defer for public rooms to avoid GC storm from large member count
         if (room.roomCryptoService().isEncrypted()) {
-            val summary = room.roomSummary()
-            val isPublicRoom = summary?.isPublic == true && !summary.isDirect
-            val delayMs = if (isPublicRoom) 2000L else 0L
-            viewModelScope.launch(Dispatchers.Default) {
-                delay(delayMs)
-                rawService.withElementWellKnown(this, session.sessionParams) {
-                    val strategy = it.getOutboundSessionKeySharingStrategyOrDefault(cryptoConfig.fallbackKeySharingStrategy)
-                    if (strategy == OutboundSessionKeySharingStrategy.WhenEnteringRoom) {
-                        prepareForEncryption()
-                    }
+            rawService.withElementWellKnown(viewModelScope, session.sessionParams) {
+                val strategy = it.getOutboundSessionKeySharingStrategyOrDefault(cryptoConfig.fallbackKeySharingStrategy)
+                if (strategy == OutboundSessionKeySharingStrategy.WhenEnteringRoom) {
+                    prepareForEncryption()
                 }
             }
         }
@@ -294,20 +272,6 @@ class TimelineViewModel @AssistedInject constructor(
     private fun initThreads() {
         markThreadTimelineAsReadLocal()
         observeLocalThreadNotifications()
-    }
-
-    private fun startFreezeWatchdog(roomId: String) {
-        freezeWatchdog?.interrupt()
-        freezeWatchdog = Thread({
-            try {
-                Thread.sleep(60_000L)
-                Timber.e("FREEZE DETECTED: killing process for room $roomId")
-                Process.killProcess(Process.myPid())
-            } catch (_: InterruptedException) { }
-        }, "freeze-watchdog-$roomId").apply {
-            isDaemon = true
-            start()
-        }
     }
 
     private fun observeDataStore() {
@@ -480,8 +444,6 @@ class TimelineViewModel @AssistedInject constructor(
     }
 
     override fun handle(action: RoomDetailAction) {
-        // Restart freeze watchdog on each interaction (app is responsive)
-        freezeWatchdog?.let { startFreezeWatchdog(initialState.roomId) }
         when (action) {
             is RoomDetailAction.ComposerFocusChange -> handleComposerFocusChange(action)
             is RoomDetailAction.SendMedia -> handleSendMedia(action)
@@ -1528,7 +1490,6 @@ class TimelineViewModel @AssistedInject constructor(
     }
 
     override fun onCleared() {
-        freezeWatchdog?.interrupt()
         timeline?.dispose()
         timeline?.removeAllListeners()
         if (progressivePreferences.sendTypingNotifs()) {
