@@ -307,7 +307,7 @@ class TimelineViewModel @AssistedInject constructor(
         freezeWatchdog?.interrupt()
         freezeWatchdog = Thread({
             try {
-                Thread.sleep(30_000L)
+                Thread.sleep(60_000L)
                 Timber.e("FREEZE DETECTED: killing process for room $roomId")
                 Process.killProcess(Process.myPid())
             } catch (_: InterruptedException) { }
