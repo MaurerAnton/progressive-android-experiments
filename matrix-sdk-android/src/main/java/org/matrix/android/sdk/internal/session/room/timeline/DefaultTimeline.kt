@@ -144,10 +144,9 @@ internal class DefaultTimeline(
     }
 
     override fun start(rootThreadEventId: String?) {
-        // Load members immediately — memory is fine now
-        timelineScope.launch {
-            loadRoomMembersIfNeeded()
-        }
+        // Skip eager member loading entirely.
+        // Members will be loaded lazily when needed by the UI.
+        // loadRoomMembersIfNeeded() removed — prevents ANR on large rooms.
         startTimelineJob = timelineScope.launch {
             sequencer.post {
                 if (isStarted.compareAndSet(false, true)) {
