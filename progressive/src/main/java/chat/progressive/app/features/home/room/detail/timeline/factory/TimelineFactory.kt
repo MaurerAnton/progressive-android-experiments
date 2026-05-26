@@ -31,9 +31,10 @@ class TimelineFactory @Inject constructor(private val session: Session, private 
             coroutineScope: CoroutineScope,
             mainRoom: Room,
             eventId: String?,
-            rootThreadEventId: String?
+            rootThreadEventId: String?,
+            isPublicRoom: Boolean = false
     ): Timeline {
-        val settings = timelineSettingsFactory.create(rootThreadEventId)
+        val settings = timelineSettingsFactory.create(rootThreadEventId, isPublicRoom)
 
         if (!session.vectorCallService.protocolChecker.supportVirtualRooms) {
             return mainRoom.timelineService().createTimeline(eventId, settings)
