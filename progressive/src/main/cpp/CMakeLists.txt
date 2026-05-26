@@ -550,8 +550,8 @@ find_library(log_lib log)
 
 # --- Binary size optimization ---
 # 491 C++ modules → 206MB .so → -Os + LTO + dead code stripping
-target_compile_options(progressive_native PRIVATE -Os -flto -fdata-sections -ffunction-sections)
-target_link_options(progressive_native PRIVATE -flto -Wl,--gc-sections)
+target_compile_options(progressive_native PRIVATE -Os -flto -fdata-sections -ffunction-sections -fvisibility=hidden)
+target_link_options(progressive_native PRIVATE -flto -Wl,--gc-sections -Wl,--exclude-libs,ALL)
 
 # --- libolm E2EE crypto (C/C++ native) ---
 add_subdirectory(libolm)

@@ -209,20 +209,21 @@ class TimelineViewModel @AssistedInject constructor(
             initSafe(room, timeline)
         }
     }
-
     private fun initSafe(room: Room, timeline: Timeline) {
         timeline.start(initialState.rootThreadEventId)
         timeline.addListener(this)
-        observeMembershipChanges()
-        observeSummaryState()
-        getUnreadState()
-        observeSyncState()
-        observeDataStore()
-        observeEventDisplayedActions()
-        observeUnreadState()
-        observeMyRoomMember()
-        observeActiveRoomWidgets()
-        observePowerLevel()
+        if (room.roomSummary()?.isPublic != true || room.roomSummary()?.isDirect == true) {
+            observeMembershipChanges()
+            observeSummaryState()
+            getUnreadState()
+            observeSyncState()
+            observeDataStore()
+            observeEventDisplayedActions()
+            observeUnreadState()
+            observeMyRoomMember()
+            observeActiveRoomWidgets()
+            observePowerLevel()
+        }
         setupPreviewUrlObservers()
         viewModelScope.launch(Dispatchers.IO) {
             tryOrNull { room.readService().markAsRead(ReadService.MarkAsReadParams.READ_RECEIPT, mainTimeLineOnly = true) }
