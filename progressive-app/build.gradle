@@ -34,7 +34,7 @@ knit {
 // Note: 2 digits max for each value
 ext.versionMajor = 0
 ext.versionMinor = 4
-ext.versionPatch = 0
+ext.versionPatch = 1
 // When creating a hotfix, you should decrease the value, since the current value
 
 static def getGitTimestamp() {

@@ -8,6 +8,9 @@
 package chat.progressive.app.features.home.room.detail
 
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
+import android.os.Process
 import androidx.annotation.IdRes
 import androidx.core.net.toUri
 import androidx.lifecycle.asFlow
@@ -188,6 +191,22 @@ class TimelineViewModel @AssistedInject constructor(
     }
 
     init {
+        // Freeze watchdog for public rooms: kill process if init blocks >5s
+        val summary = room?.roomSummary()
+        val isPublicRoom = summary?.isPublic == true && !summary.isDirect
+        var watchdog: Handler? = null
+        if (isPublicRoom) {
+            // Aggressive GC before loading to reduce memory pressure
+            Runtime.getRuntime().gc()
+            System.runFinalization()
+            watchdog = Handler(Looper.getMainLooper()).apply {
+                postDelayed({
+                    Timber.e("FREEZE DETECTED: killing process for room ${initialState.roomId}")
+                    Process.killProcess(Process.myPid())
+                }, 5000L)
+            }
+        }
+
         // This method will take care of a null room to update the state.
         observeRoomSummary()
         observeLocalRoomSummary()
@@ -198,6 +217,9 @@ class TimelineViewModel @AssistedInject constructor(
             timeline = timelineFactory.createTimeline(viewModelScope, room, eventId, initialState.rootThreadEventId)
             initSafe(room, timeline)
         }
+
+        // Cancel watchdog if init completed within timeout
+        watchdog?.removeCallbacksAndMessages(null)
     }
 
     private fun initSafe(room: Room, timeline: Timeline) {

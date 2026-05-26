@@ -91,10 +91,10 @@ jobs:
       - name: Publish to GitHub Release
         if: github.ref == 'refs/heads/main'
         run: |
-          VERSION="v0.4.0"
+          VERSION="v0.4.1"
           gh release delete "$VERSION-nightly" --cleanup-tag -y 2>/dev/null || true
           gh release create "$VERSION-nightly" \
-            --title "Progressive Chat v0.4.0 — Nightly Build" \
+            --title "Progressive Chat v0.4.1 — Nightly Build" \
             --target main \
             --notes "Automated nightly build from main branch. Commit: ${{ github.sha }}
 
