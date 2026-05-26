@@ -154,18 +154,25 @@ class DefaultNavigator @Inject constructor(
             isInviteAlreadyAccepted: Boolean,
             trigger: ViewRoom.Trigger?
     ) {
-        if (sessionHolder.getSafeActiveSession()?.getRoom(roomId) == null) {
+        val session = sessionHolder.getSafeActiveSession()
+        if (session?.getRoom(roomId) == null) {
             fatalError("Trying to open an unknown room $roomId", progressivePreferences.failFast())
             return
         }
 
-        trigger?.let {
-            analyticsTracker.capture(
-                    sessionHolder.getActiveSession().getRoomSummary(roomId).toAnalyticsViewRoom(
+        // Non-blocking analytics capture for large rooms
+        if (trigger != null && context is androidx.lifecycle.LifecycleOwner) {
+            kotlinx.coroutines.MainScope().launch(kotlinx.coroutines.Dispatchers.Default) {
+                try {
+                    val summary = session.getRoomSummary(roomId)
+                    analyticsTracker.capture(
+                        summary.toAnalyticsViewRoom(
                             trigger = trigger,
                             selectedSpace = spaceStateHandler.getCurrentSpace()
+                        )
                     )
-            )
+                } catch (_: Exception) { }
+            }
         }
 
         val args = TimelineArgs(roomId = roomId, eventId = eventId, isInviteAlreadyAccepted = isInviteAlreadyAccepted)
