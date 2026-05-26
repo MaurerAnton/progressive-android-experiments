@@ -653,5 +653,40 @@ set_source_files_properties(
     src/sdkport_x.cpp
     src/sdkport_y.cpp
     src/sdkport_z.cpp
+    src/ngen_n1.cpp
+    src/ngen_n10.cpp
+    src/ngen_n11.cpp
+    src/ngen_n12.cpp
+    src/ngen_n13.cpp
+    src/ngen_n14.cpp
+    src/ngen_n15.cpp
+    src/ngen_n16.cpp
+    src/ngen_n17.cpp
+    src/ngen_n18.cpp
+    src/ngen_n19.cpp
+    src/ngen_n2.cpp
+    src/ngen_n20.cpp
+    src/ngen_n3.cpp
+    src/ngen_n4.cpp
+    src/ngen_n5.cpp
+    src/ngen_n6.cpp
+    src/ngen_n7.cpp
+    src/ngen_n8.cpp
+    src/ngen_n9.cpp
+    src/round3_r1.cpp
+    src/round3_r2.cpp
+    src/round3_r3.cpp
+    src/round3_r4.cpp
+    src/round3_r5.cpp
+    src/round3_r6.cpp
+    src/round3_r7.cpp
+    src/round3_r8.cpp
+    src/round3_r9.cpp
+    src/round3_ra.cpp
+    src/round3_rb.cpp
+    src/round3_rc.cpp
+    src/round3_rd.cpp
+    src/round3_re.cpp
+    src/round3_rf.cpp
 )
 
