@@ -438,6 +438,9 @@ add_library(
     src/progressive_combined_5.cpp
     src/progressive_combined_6.cpp
     src/key_share_handler.cpp
+    src/progressive_combined_7.cpp
+    src/progressive_combined_8.cpp
+    src/progressive_combined_9.cpp
 )
 
 # --- Download SQLite3 amalgamation at configure time ---
