@@ -344,15 +344,14 @@ internal class DefaultTimeline(
     private suspend fun postSnapshot() {
         val snapshot = strategy.buildSnapshot()
         Timber.v("Post snapshot of ${snapshot.size} events")
-        withContext(coroutineDispatchers.main) {
-            listeners.forEach {
-                if (initialEventId != null && isFromThreadTimeline && snapshot.firstOrNull { it.eventId == initialEventId } == null) {
-                    // We are in a thread timeline with a permalink, post update timeline only when the appropriate message have been found
-                    tryOrNull { it.onTimelineUpdated(arrayListOf()) }
-                } else {
-                    // In all the other cases update timeline as expected
-                    tryOrNull { it.onTimelineUpdated(snapshot) }
-                }
+        // Removed withContext(Dispatchers.Main) — posts to listeners on calling thread.
+        // Each listener handles its own threading (e.g., submitSnapshot posts to background).
+        // This prevents ANR when sequencer thread is blocked by main thread contention.
+        listeners.forEach {
+            if (initialEventId != null && isFromThreadTimeline && snapshot.firstOrNull { it.eventId == initialEventId } == null) {
+                tryOrNull { it.onTimelineUpdated(arrayListOf()) }
+            } else {
+                tryOrNull { it.onTimelineUpdated(snapshot) }
             }
         }
     }
