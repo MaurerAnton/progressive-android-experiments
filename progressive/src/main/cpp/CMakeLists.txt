@@ -555,7 +555,16 @@ target_compile_options(progressive_native PRIVATE -Os -flto -fdata-sections -ffu
 target_link_options(progressive_native PRIVATE -flto -Wl,--gc-sections -Wl,--exclude-libs,ALL)
 
 # --- libolm E2EE crypto (C/C++ native) ---
-add_subdirectory(libolm)
+# Downloaded at build time via FetchContent — not vendored in repo.
+include(FetchContent)
+FetchContent_Declare(
+    olm
+    GIT_REPOSITORY https://gitlab.matrix.org/matrix-org/olm.git
+    GIT_TAG 3.2.16
+    PATCH_COMMAND sed -i "s/cmake_minimum_required(VERSION 3.4)/cmake_minimum_required(VERSION 3.4...3.99)/" CMakeLists.txt
+)
+set(OLM_TESTS OFF CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(olm)
 
 target_link_libraries(
     progressive_native
