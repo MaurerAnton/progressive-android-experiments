@@ -8,7 +8,6 @@
 package chat.progressive.app.features.home.room.detail
 
 import android.net.Uri
-import android.os.Process
 import androidx.annotation.IdRes
 import androidx.core.net.toUri
 import androidx.lifecycle.asFlow
@@ -160,10 +159,7 @@ class TimelineViewModel @AssistedInject constructor(
     private val invisibleEventsSource = BehaviorDataSource<RoomDetailAction.TimelineEventTurnsInvisible>()
     private val visibleEventsSource = BehaviorDataSource<RoomDetailAction.TimelineEventTurnsVisible>()
     private var timelineEvents = MutableSharedFlow<List<TimelineEvent>>(0)
-    val timeline: Timeline?
-
-    // Freeze watchdog thread for public rooms
-    private var freezeWatchdog: Thread? = null
+    var timeline: Timeline? = null
 
     // Same lifecycle than the ViewModel (survive to screen rotation)
     val previewUrlRetriever = PreviewUrlRetriever(session, viewModelScope, buildMeta)
@@ -196,16 +192,27 @@ class TimelineViewModel @AssistedInject constructor(
         val summary = room?.roomSummary()
         val isPublicRoom = summary?.isPublic == true && !summary.isDirect
 
-        // This method will take care of a null room to update the state.
-        observeRoomSummary()
-        if (!isPublicRoom) {
-            observeLocalRoomSummary()
-        }
-        if (room == null) {
-            timeline = null
+        // DELAYED INIT for public rooms — defer 2s on cold start
+        if (isPublicRoom && room != null) {
+            viewModelScope.launch {
+                delay(2000L)
+                observeRoomSummary()
+                initTimeline(room, eventId)
+            }
         } else {
-            timeline = timelineFactory.createTimeline(viewModelScope, room, eventId, initialState.rootThreadEventId)
-            initSafe(room, timeline)
+            // Normal init for DM rooms
+            observeRoomSummary()
+            observeLocalRoomSummary()
+            initTimeline(room, eventId)
+        }
+    }
+
+    private fun initTimeline(room: Room?, eventId: String?) {
+        if (room == null) {
+            this.timeline = null
+        } else {
+            this.timeline = timelineFactory.createTimeline(viewModelScope, room, eventId, initialState.rootThreadEventId)
+            this.timeline?.let { initSafe(room, it) }
         }
     }
     private fun initSafe(room: Room, timeline: Timeline) {
@@ -290,20 +297,6 @@ class TimelineViewModel @AssistedInject constructor(
     private fun initThreads() {
         markThreadTimelineAsReadLocal()
         observeLocalThreadNotifications()
-    }
-
-    private fun startFreezeWatchdog(roomId: String) {
-        freezeWatchdog?.interrupt()
-        freezeWatchdog = Thread({
-            try {
-                Thread.sleep(60_000L)
-                Timber.e("FREEZE DETECTED: killing process for room $roomId")
-                Process.killProcess(Process.myPid())
-            } catch (_: InterruptedException) { }
-        }, "freeze-watchdog-$roomId").apply {
-            isDaemon = true
-            start()
-        }
     }
 
     private fun observeDataStore() {
@@ -477,7 +470,6 @@ class TimelineViewModel @AssistedInject constructor(
 
     override fun handle(action: RoomDetailAction) {
         // Restart freeze watchdog on each interaction (app is responsive)
-        freezeWatchdog?.let { startFreezeWatchdog(initialState.roomId) }
         when (action) {
             is RoomDetailAction.ComposerFocusChange -> handleComposerFocusChange(action)
             is RoomDetailAction.SendMedia -> handleSendMedia(action)
@@ -1530,7 +1522,6 @@ class TimelineViewModel @AssistedInject constructor(
     }
 
     override fun onCleared() {
-        freezeWatchdog?.interrupt()
         timeline?.dispose()
         timeline?.removeAllListeners()
         if (progressivePreferences.sendTypingNotifs()) {
