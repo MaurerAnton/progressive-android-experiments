@@ -22,3 +22,4 @@
 *.bak
 progressive/.cxx/
 progressive/src/main/cpp/libolm/
+progressive/build_cmake/

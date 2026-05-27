@@ -11,5 +11,5 @@ object ProgressiveSettingsUrls {
     const val HELP = "https://progressive.chat/help"
     const val COPYRIGHT = "https://progressive.chat/legal"
     const val LICENSE = "https://github.com/progressive-chat/progressive-android/blob/main/LICENSE"
-    const val THIRD_PARTY_LICENSES = "file:///android_asset/open_source_licenses.html"
+    // Licenses now use native ThirdPartyLicensesFragment (no WebView)
 }

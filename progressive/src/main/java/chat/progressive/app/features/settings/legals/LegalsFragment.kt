@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import dagger.hilt.android.AndroidEntryPoint
+import chat.progressive.app.R
+import chat.progressive.app.core.extensions.addFragmentToBackstack
 import chat.progressive.app.core.extensions.cleanup
 import chat.progressive.app.core.extensions.configureWith
 import chat.progressive.app.core.platform.ProgressiveFragment
@@ -23,7 +25,6 @@ import chat.progressive.app.core.utils.openUrlInChromeCustomTab
 import chat.progressive.app.databinding.FragmentGenericRecyclerBinding
 import im.vector.app.features.analytics.plan.MobileScreen
 import chat.progressive.app.features.discovery.ServerPolicy
-import chat.progressive.app.features.settings.ProgressiveSettingsUrls
 import chat.progressive.lib.strings.CommonStrings
 import javax.inject.Inject
 
@@ -79,7 +80,7 @@ class LegalsFragment :
     }
 
     override fun openThirdPartyNotice() {
-        openUrl(ProgressiveSettingsUrls.THIRD_PARTY_LICENSES)
+        addFragmentToBackstack(R.id.progressive_settings_page, ThirdPartyLicensesFragment::class.java)
     }
 
     private fun openUrl(url: String) {
