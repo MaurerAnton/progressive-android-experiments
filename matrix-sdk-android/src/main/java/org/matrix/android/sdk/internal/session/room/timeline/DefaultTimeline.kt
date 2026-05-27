@@ -295,7 +295,7 @@ internal class DefaultTimeline(
         loadMore(
                 count = strategyDependencies.timelineSettings.initialSize,
                 direction = Timeline.Direction.BACKWARDS,
-                fetchOnServerIfNeeded = false
+                fetchOnServerIfNeeded = true
         )
 
         Timber.v("$baseLogMessage finished")
