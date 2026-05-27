@@ -195,13 +195,12 @@ class TimelineViewModel @AssistedInject constructor(
     init {
         val summary = room?.roomSummary()
         val isPublicRoom = summary?.isPublic == true && !summary.isDirect
-        if (isPublicRoom) {
-            startFreezeWatchdog(initialState.roomId)
-        }
 
         // This method will take care of a null room to update the state.
         observeRoomSummary()
-        observeLocalRoomSummary()
+        if (!isPublicRoom) {
+            observeLocalRoomSummary()
+        }
         if (room == null) {
             timeline = null
         } else {
@@ -210,7 +209,12 @@ class TimelineViewModel @AssistedInject constructor(
         }
     }
     private fun initSafe(room: Room, timeline: Timeline) {
-        timeline.start(initialState.rootThreadEventId)
+        // For public rooms: skip timeline.start() → no Realm load → no ANR
+        // Room opens instantly with empty timeline. Messages appear when
+        // server sync pushes them via postSnapshotSignalFlow.
+        if (room.roomSummary()?.isPublic != true || room.roomSummary()?.isDirect == true) {
+            timeline.start(initialState.rootThreadEventId)
+        }
         timeline.addListener(this)
         if (room.roomSummary()?.isPublic != true || room.roomSummary()?.isDirect == true) {
             observeMembershipChanges()
