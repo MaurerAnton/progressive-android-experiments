@@ -204,7 +204,7 @@ class TimelineViewModel @AssistedInject constructor(
         if (room == null) {
             timeline = null
         } else {
-            timeline = timelineFactory.createTimeline(viewModelScope, room, eventId, initialState.rootThreadEventId, isPublicRoom)
+            timeline = timelineFactory.createTimeline(viewModelScope, room, eventId, initialState.rootThreadEventId)
             initSafe(room, timeline)
         }
     }
