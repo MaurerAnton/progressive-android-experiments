@@ -971,14 +971,13 @@ class TimelineViewModel @AssistedInject constructor(
 
     private fun handleLoadMore(action: RoomDetailAction.LoadMoreTimelineEvents) {
         if (timeline == null) return
-        val isPublic = room?.roomSummary()?.isPublic == true && room?.roomSummary()?.isDirect == false
-        val count = if (isPublic) PAGINATION_COUNT_PUBLIC else PAGINATION_COUNT
-        if (isPublic) {
-            // GC before pagination to free memory for new events
-            Runtime.getRuntime().gc()
-            System.runFinalization()
+        // Skip scroll pagination for public rooms — prevents ANR from
+        // Realm + sequencer contention when loading from server.
+        // Initial 30 events from openAround() are sufficient.
+        if (room?.roomSummary()?.isPublic == true && room?.roomSummary()?.isDirect == false) {
+            return
         }
-        timeline.paginate(action.direction, count)
+        timeline.paginate(action.direction, PAGINATION_COUNT)
     }
 
     private fun handleRejectInvite() {
