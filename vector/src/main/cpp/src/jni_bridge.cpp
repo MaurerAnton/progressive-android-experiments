@@ -616,10 +616,10 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseTranslateRes
     auto result = progressive::parseTranslateResponse(body, jHttpStatus);
 
     if (result.success) {
-        std::string json = R"({"success": true, "translatedText": ")" + result.translatedText + R"("})";
+        std::string json = std::string("{\"success\": true, \"translatedText\": \"") + result.translatedText + "\"}";
         return env->NewStringUTF(json.c_str());
     } else {
-        std::string json = R"({"success": false, "error": ")" + result.errorMessage + R"(", "statusCode": )"
+        std::string json = std::string("{\"success\": false, \"error\": \"") + result.errorMessage + "\", \"statusCode\": "
             + std::to_string(result.statusCode) + "}";
         return env->NewStringUTF(json.c_str());
     }
