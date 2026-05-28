@@ -158,7 +158,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseRelation(
     auto relation = progressive::parseRelation(json);
 
     if (!relation.isRelation) {
-        return env->NewStringUTF(R"({"isRelation": false})");
+        return env->NewStringUTF(R"json({"isRelation": false})json");
     }
 
     // Check if this relation type is allowed
@@ -177,7 +177,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseRelation(
     }
 
     if (!allowed) {
-        return env->NewStringUTF(R"({"isRelation": false})");
+        return env->NewStringUTF(R"json({"isRelation": false})json");
     }
 
     std::string resultJson =
@@ -608,7 +608,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseTranslateRes
     jstring jResponseBody, jint jHttpStatus
 ) {
     if (!jResponseBody) {
-        return env->NewStringUTF(R"({"success": false, "error": "Empty response"})");
+        return env->NewStringUTF(R"json({"success": false, "error": "Empty response"})json");
     }
     auto body = std::string(env->GetStringUTFChars(jResponseBody, nullptr));
     env->ReleaseStringUTFChars(jResponseBody, body.c_str());
