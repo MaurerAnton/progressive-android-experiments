@@ -1,5 +1,6 @@
 #include <jni.h>
 #include <string>
+#include <sstream>
 #include <android/log.h>
 #include "progressive/jumptodate.hpp"
 #include "progressive/relation.hpp"
@@ -8,6 +9,8 @@
 #include "progressive/eventdb.hpp"
 #include "progressive/translate.hpp"
 #include "progressive/proxy.hpp"
+
+using namespace progressive;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
