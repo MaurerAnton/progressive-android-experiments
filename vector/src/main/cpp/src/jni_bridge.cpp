@@ -414,7 +414,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetContext(
     jstring jEventId
 ) {
     if (!jEventId) {
-        return env->NewStringUTF(R"({"cached": false})");
+        return env->NewStringUTF(R"json({"cached": false})json");
     }
 
     auto eventId = std::string(env->GetStringUTFChars(jEventId, nullptr));
@@ -532,7 +532,7 @@ JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDbGetContext(
     JNIEnv* env, jclass, jstring jEventId
 ) {
-    if (!jEventId) return env->NewStringUTF(R"({"cached": false})");
+    if (!jEventId) return env->NewStringUTF(R"json({"cached": false})json");
     auto id = std::string(env->GetStringUTFChars(jEventId, nullptr));
     env->ReleaseStringUTFChars(jEventId, id.c_str());
 
