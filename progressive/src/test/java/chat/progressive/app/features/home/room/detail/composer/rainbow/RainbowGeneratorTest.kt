@@ -43,12 +43,12 @@ class RainbowGeneratorTest {
             <font color="#ff0072">h</font>
             <font color="#ff3b1d">i</font>
             <font color="#ff7e00">s</font>
-             
+
             <font color="#bdc100">i</font>
             <font color="#64d200">s</font>
-             
+
             <font color="#00e261">a</font>
-             
+
             <font color="#00e7ff">r</font>
             <font color="#00e6ff">a</font>
             <font color="#00e1ff">i</font>
@@ -90,9 +90,9 @@ class RainbowGeneratorTest {
             <font color="#ff6700">l</font>
             <font color="#ffa100">l</font>
             <font color="#b2c400">o</font>
-             
+
             <font color="#00e147">🤞</font>
-             
+
             <font color="#00e7ff">w</font>
             <font color="#00e4ff">o</font>
             <font color="#00d6ff">r</font>

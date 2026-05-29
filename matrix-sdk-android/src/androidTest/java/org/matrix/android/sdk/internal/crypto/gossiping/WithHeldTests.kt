@@ -166,7 +166,7 @@ class WithHeldTests : InstrumentedTest {
                 "/keys/claim",
                 200,
                 """
-                   { "one_time_keys" : {} } 
+                   { "one_time_keys" : {} }
                 """
         ))
         Log.d("#TEST", "Recovery :${aliceSession.sessionParams.credentials.accessToken}")
