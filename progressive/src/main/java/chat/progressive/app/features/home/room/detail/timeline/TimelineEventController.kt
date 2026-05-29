@@ -135,8 +135,6 @@ class TimelineEventController @Inject constructor(
 
         fun onVideoMessageClicked(messageVideoContent: MessageVideoContent, mediaData: VideoContentRenderer.Data, view: View)
 
-        //        fun onFileMessageClicked(eventId: String, messageFileContent: MessageFileContent)
-//        fun onAudioMessageClicked(messageAudioContent: MessageAudioContent)
         fun onEditedDecorationClicked(informationData: MessageInformationData)
 
         // TODO move all callbacks to this?
