@@ -2895,4 +2895,26 @@
     <string name="microphone_in_use_title">Micrófono en uso</string>
     <string name="call_unsupported">Llamada no soportada</string>
     <string name="call_unsupported_matrix_rtc_call">Llamada no soportada. Se requiere la nueva app Element X.</string>
+
+    <!-- Accessibility -->
+    <string name="_resume">Reanudar</string>
+    <string name="a11y_device_manager_filter">Filtrar dispositivos</string>
+    <string name="a11y_pause_voice_broadcast">Pausar transmisión de voz</string>
+    <string name="a11y_pause_voice_broadcast_record">Pausar grabación de transmisión de voz</string>
+    <string name="a11y_play_voice_broadcast">Reproducir transmisión de voz</string>
+    <string name="a11y_resume_voice_broadcast_record">Reanudar grabación de transmisión de voz</string>
+    <string name="a11y_stop_voice_broadcast_record">Detener grabación de transmisión de voz</string>
+    <string name="a11y_voice_broadcast_fast_backward">Retroceder rápido transmisión de voz</string>
+    <string name="a11y_voice_broadcast_fast_forward">Avanzar rápido transmisión de voz</string>
+    <string name="action_proceed_to_reset">Continuar con el reinicio</string>
+    <string name="attachment_type_selector_camera">Cámara</string>
+    <string name="attachment_type_selector_contact">Contacto</string>
+    <string name="attachment_type_selector_file">Archivo</string>
+    <string name="attachment_type_selector_gallery">Galería</string>
+    <string name="attachment_type_selector_location">Ubicación</string>
+    <string name="attachment_type_selector_poll">Encuesta</string>
+    <string name="attachment_type_selector_sticker">Sticker</string>
+    <string name="attachment_type_selector_text_formatting">Formato de texto</string>
+    <string name="attachment_type_selector_voice_broadcast">Transmisión de voz</string>
+    <string name="command_description_table_flip">Voltear mesa (╯°□°）╯︵ ┻━┻</string>
 </resources>
