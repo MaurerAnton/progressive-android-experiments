@@ -503,11 +503,6 @@ interface MavericksViewModelModule {
     @MavericksViewModelKey(MessageActionsViewModel::class)
     fun messageActionsViewModelFactory(factory: MessageActionsViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
 
-//    @Binds
-//    @IntoMap
-//    @MavericksViewModelKey(VerificationChooseMethodViewModel::class)
-//    fun verificationChooseMethodViewModelFactory(factory: VerificationChooseMethodViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
-
     @Binds
     @IntoMap
     @MavericksViewModelKey(SearchViewModel::class)
@@ -577,11 +572,6 @@ interface MavericksViewModelModule {
     @IntoMap
     @MavericksViewModelKey(BootstrapSharedViewModel::class)
     fun bootstrapSharedViewModelFactory(factory: BootstrapSharedViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
-
-//    @Binds
-//    @IntoMap
-//    @MavericksViewModelKey(VerificationBottomSheetViewModel::class)
-//    fun verificationBottomSheetViewModelFactory(factory: VerificationBottomSheetViewModel.Factory): MavericksAssistedViewModelFactory<*, *>
 
     @Binds
     @IntoMap
