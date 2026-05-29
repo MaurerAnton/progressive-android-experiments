@@ -510,7 +510,9 @@ JNI_FUNC(jstring, nativeGetExtensionFromName)(JNIEnv* env, jclass, jstring jName
     return env->NewStringUTF((p != std::string::npos) ? s.substr(p+1).c_str() : "");
 }
 JNI_FUNC(jstring, nativeGetFileExtension)(JNIEnv* env, jclass, jstring jName) {
-    return nativeGetExtensionFromName(env, nullptr, jName);
+    std::string s = j2s(env, jName);
+    auto p = s.rfind('.');
+    return env->NewStringUTF((p != std::string::npos) ? s.substr(p+1).c_str() : "");
 }
 JNI_FUNC(jstring, nativeGetLanguageLabel)(JNIEnv* env, jclass, jstring jCode) {
     return jCode; // Return code as label
@@ -575,7 +577,9 @@ JNI_FUNC(jboolean, nativeIsEmojiOnly)(JNIEnv* env, jclass, jstring jText) {
     return !s.empty();
 }
 JNI_FUNC(jboolean, nativeIsEmojiOnlyMessage)(JNIEnv* env, jclass, jstring jText) {
-    return nativeIsEmojiOnly(env, nullptr, jText);
+    std::string s = j2s(env, jText);
+    for (char c : s) if (c > 32 && c != ' ') return false;
+    return !s.empty();
 }
 JNI_FUNC(jboolean, nativeIsLikelyFullHistory)(JNIEnv*, jclass, jint jEvents, jboolean) { return jEvents > 0; }
 JNI_FUNC(jboolean, nativeIsRoomEncrypted)(JNIEnv*, jclass, jstring) { return false; }
@@ -791,7 +795,8 @@ JNI_FUNC(jstring, nativeTruncateMessage)(JNIEnv* env, jclass, jstring jMsg, jint
     return env->NewStringUTF(s.size() > (size_t)jMax ? (s.substr(0, jMax) + "...").c_str() : s.c_str());
 }
 JNI_FUNC(jstring, nativeTruncateText)(JNIEnv* env, jclass, jstring jText, jint jMax) {
-    return nativeTruncateMessage(env, nullptr, jText, jMax);
+    std::string s = j2s(env, jText);
+    return env->NewStringUTF(s.size() > (size_t)jMax ? (s.substr(0, jMax) + "...").c_str() : s.c_str());
 }
 JNI_FUNC(void, nativeUploaderFail)(JNIEnv*, jclass, jstring) {}
 JNI_FUNC(jstring, nativeUploaderGetChunkJson)(JNIEnv* env, jclass, jstring) { return env->NewStringUTF("{}"); }
@@ -806,10 +811,14 @@ JNI_FUNC(void, nativeUserHideFor)(JNIEnv*, jclass, jstring, jstring, jlong) {}
 JNI_FUNC(void, nativeDrawSetWidth)(JNIEnv*, jclass, jfloat) {}
 JNI_FUNC(jstring, nativeDrawToSvgPath)(JNIEnv* env, jclass) { return env->NewStringUTF(""); }
 JNI_FUNC(jstring, nativeFormatTimestamp)(JNIEnv* env, jclass, jlong jTs, jboolean j12h) {
-    return nativeFormatChatTimestamp(env, nullptr, jTs, j12h);
+    time_t t = jTs / 1000; struct tm* tm = localtime(&t);
+    char buf[32]; strftime(buf, sizeof(buf), j12h ? "%I:%M %p" : "%H:%M", tm);
+    return env->NewStringUTF(buf);
 }
-JNI_FUNC(jstring, nativeFormatTimestampInTimezone)(JNIEnv* env, jclass, jlong jTs, jstring jTz, jboolean j12h) {
-    return nativeFormatChatTimestamp(env, nullptr, jTs, j12h);
+JNI_FUNC(jstring, nativeFormatTimestampInTimezone)(JNIEnv* env, jclass, jlong jTs, jstring, jboolean j12h) {
+    time_t t = jTs / 1000; struct tm* tm = localtime(&t);
+    char buf[32]; strftime(buf, sizeof(buf), j12h ? "%I:%M %p" : "%H:%M", tm);
+    return env->NewStringUTF(buf);
 }
 JNI_FUNC(jstring, nativeFormatTypingText)(JNIEnv* env, jclass, jobjectArray jNames, jint jMax) {
     std::ostringstream ss;
