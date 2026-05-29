@@ -1036,8 +1036,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeStripPills(html: String): String
 
     // --- Poll Utils ---
-
-
     // --- Reaction Utils ---
 
     @JvmStatic external fun nativeGetQuickReactions(): String
@@ -1159,8 +1157,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBuildSpaceChildContent(suggested: Boolean, order: String, autoJoin: Boolean, canonical: Boolean): String
 
     // --- Event Relations ---
-
-
     // --- E2EE Decoration ---
 
     @JvmStatic external fun nativeComputeE2eeDecoration(encrypted: Boolean, verified: Boolean, crossSigned: Boolean, decryptError: Boolean, blacklisted: Boolean, beforeJoined: Boolean, errorReason: String): String
@@ -1221,8 +1217,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeIsContentScannerAvailable(serverCapabilitiesJson: String): Boolean
 
     // --- Matrix Error ---
-
-
     // --- Call Content Builders ---
 
     @JvmStatic external fun nativeBuildCallInviteContent(callId: String, isVideo: Boolean, sdpOffer: String, lifetimeSec: Int): String
@@ -1292,8 +1286,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeGetSsoProviderBrand(provider: String): String
 
     // --- Trust Label ---
-
-
     // --- MXC URL Utilities ---
 
     @JvmStatic external fun nativeIsMxcUri(url: String): Boolean
@@ -1322,8 +1314,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeGetStatusSuggestions(): String
 
     // --- Markdown Renderer ---
-
-
     // --- Megolm Decryptor ---
 
     @JvmStatic external fun nativeMegolmAddSession(roomId: String, senderKey: String, sessionId: String, sessionKeyBase64: String): Boolean
@@ -1820,8 +1810,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeFormatMessageStatus(state: Int): String
 
     // --- Sync Utils ---
-
-
     // --- Event Display ---
 
     @JvmStatic external fun nativeClassifyEvent(eventType: String, msgType: String): Int
@@ -1856,8 +1844,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeShouldAutoScroll(isOwnMessage: Boolean): Boolean
 
     // --- Cross Signing ---
-
-
     // --- Edit History ---
 
     @JvmStatic external fun nativeGetEditBadgeText(editCount: Int): String
@@ -2109,8 +2095,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeFormatDurationWithUnits(totalSeconds: Long, appendSeconds: Boolean): String
     @JvmStatic external fun nativeFormatUnreadJumpLabel(unreadCount: Int, unreadMentions: Int): String
     @JvmStatic external fun nativeShouldShowJumpToUnread(readMarkerJson: String): Boolean
-
-
     // --- Permalink Parser (updated) ---
 
     @JvmStatic external fun nativeParsePermalinkFull(url: String): String
@@ -2223,19 +2207,13 @@ object ProgressiveNative {
     @JvmStatic external fun nativeApiPublicRooms(server: String, query: String, limit: Int): String
 
     // --- Display Name & Avatar Utilities ---
-
-
     // --- Permalink Builder ---
 
     @JvmStatic external fun nativeBuildRoomPermalink(roomId: String): String
     @JvmStatic external fun nativeBuildUserPermalink(userId: String): String
 
     // --- Media Utilities ---
-
-
     // --- Room Encryption ---
-
-
     // --- Event Display ---
 
     @JvmStatic external fun nativeShouldShowTimestamp(currentSender: String, currentTs: Long, previousTs: Long, showAll: Boolean): Boolean
@@ -2259,8 +2237,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeCanReadMessages(membership: String): Boolean
 
     // --- Invites ---
-
-
     // --- Event Validation ---
 
     @JvmStatic external fun nativeIsBodyWithinLimits(body: String, maxLength: Int): Boolean
@@ -2356,15 +2332,11 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBuildRoomNotifSettingsBody(mode: String): String
 
     // --- Notifications / Badge ---
-
-
     // --- Presence ---
 
     @JvmStatic external fun nativeParsePresence(userId: String, apiResponseJson: String): String
 
     // --- Matrix Error ---
-
-
     // --- OpenID Token ---
 
     @JvmStatic external fun nativeParseOpenIdToken(json: String): String
@@ -2454,8 +2426,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeExtractUrls(text: String): String
 
     // --- Device Manager ---
-
-
     // --- Permalink Utilities ---
 
     @JvmStatic external fun nativeIsSameRoomPermalink(url1: String, url2: String): Boolean
@@ -2494,11 +2464,7 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBuildSearxngUrl(endpoint: String, query: String, maxResults: Int): String
     @JvmStatic external fun nativeBuildDuckDuckGoUrl(query: String): String
     @JvmStatic external fun nativeBuildGoogleUrl(apiKey: String, engineId: String, query: String, maxResults: Int): String
-
-
     // --- Device Type ---
-
-
     // --- Knock Reason ---
 
     @JvmStatic external fun nativeFormatKnockReason(reason: String): String
@@ -2579,8 +2545,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeBuildRoomStateContent(eventType: String, value1: String, value2: String): String
 
     // --- Media Utilities ---
-
-
     // --- Account Data ---
 
     @JvmStatic external fun nativeParseDirectMessages(json: String): String

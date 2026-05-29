@@ -186,8 +186,6 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
                 Timber.e(e, "Send message : onUnexpectedError " + e.message)
                 onSmartReplyFailed(e.message)
             }
-
-
             fun onSmartReplyFailed(reason: String?) {
                 val notifiableMessageEvent = NotifiableMessageEvent(
                         event.eventId,
