@@ -26,7 +26,6 @@ class IncomingKeyRequestPagedController @Inject constructor(
 ) {
 
     interface InteractionListener {
-        // fun didTap(data: UserAccountData)
     }
 
     var interactionListener: InteractionListener? = null

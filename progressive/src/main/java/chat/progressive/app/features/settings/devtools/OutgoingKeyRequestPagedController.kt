@@ -22,7 +22,6 @@ class OutgoingKeyRequestPagedController @Inject constructor() : PagedListEpoxyCo
 ) {
 
     interface InteractionListener {
-        // fun didTap(data: UserAccountData)
     }
 
     var interactionListener: InteractionListener? = null

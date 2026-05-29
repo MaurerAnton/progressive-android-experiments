@@ -54,8 +54,6 @@ class ReAuthActivity : SimpleFragmentActivity() {
 
     private val sharedViewModel: ReAuthViewModel by viewModel()
 
-    // override fun getTitleRes() = CommonStrings.re_authentication_activity_title
-
     override fun initUiAndData() {
         super.initUiAndData()
 

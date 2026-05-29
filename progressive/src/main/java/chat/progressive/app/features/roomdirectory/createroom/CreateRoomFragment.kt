@@ -177,9 +177,6 @@ class CreateRoomFragment :
         )
                 .show(childFragmentManager, "RoomJoinRuleBottomSheet")
     }
-//    override fun setIsPublic(isPublic: Boolean) {
-//        viewModel.handle(CreateRoomAction.SetIsPublic(isPublic))
-//    }
 
     override fun setAliasLocalPart(aliasLocalPart: String) {
         viewModel.handle(CreateRoomAction.SetRoomAliasLocalPart(aliasLocalPart))
