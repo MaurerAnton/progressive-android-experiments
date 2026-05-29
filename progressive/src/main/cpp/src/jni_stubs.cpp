@@ -232,3 +232,93 @@ JNI_FUNC(jint, nativeClassifyEvent)(JNIEnv* env, jclass, jstring jType, jstring 
     if (type == "m.call.invite" || type == "m.call.answer" || type == "m.call.hangup") return 6;
     return 7; // Other
 }
+
+// ============================================================
+// Compute Utilities
+// ============================================================
+JNI_FUNC(jstring, nativeComputeE2eeDecoration)(JNIEnv* env, jclass, jstring jEvent, jstring jMyUser, jstring jDevId) {
+    return env->NewStringUTF("{}");
+}
+JNI_FUNC(jint, nativeComputeMessagesPerDay)(JNIEnv*, jclass, jint jTotal, jint jDays) {
+    return jDays > 0 ? jTotal / jDays : 0;
+}
+JNI_FUNC(jstring, nativeComputeNotifPriority)(JNIEnv* env, jclass, jstring, jstring, jstring, jstring) {
+    return env->NewStringUTF("low");
+}
+JNI_FUNC(jstring, nativeComputeProgress)(JNIEnv* env, jclass, jlong jDone, jlong jTotal) {
+    std::ostringstream ss;
+    int pct = jTotal > 0 ? (int)(jDone * 100 / jTotal) : 0;
+    ss << "{\"done\":" << jDone << ",\"total\":" << jTotal << ",\"percent\":" << pct << "}";
+    return env->NewStringUTF(ss.str().c_str());
+}
+JNI_FUNC(jstring, nativeComputeProxyConfig)(JNIEnv* env, jclass, jint jType, jint jPType, jstring jHost, jint jPort, jstring jUser, jstring jPass) {
+    return env->NewStringUTF(jsonObj(
+        jsonPair("type", std::to_string(jType)) + "," +
+        jsonPair("proxyType", std::to_string(jPType)) + "," +
+        jsonPair("host", j2s(env, jHost)) + "," +
+        jsonPair("port", (int64_t)jPort)
+    ).c_str());
+}
+JNI_FUNC(jstring, nativeComputeReadMarker)(JNIEnv* env, jclass, jstring jLast, jobjectArray jIds, jobjectArray jSenders, jbooleanArray jMention, jbooleanArray jHighlight, jstring jMyUser) {
+    return env->NewStringUTF(jsonObj(
+        jsonPair("lastReadEventId", j2s(env, jLast)) + "," +
+        jsonPair("unreadCount", (int64_t)0) + "," +
+        jsonPair("hasUnread", false)
+    ).c_str());
+}
+JNI_FUNC(jstring, nativeComputeReceiptDisplay)(JNIEnv* env, jclass, jstring jReceipt, jstring jAvatars, jstring jNames) {
+    return env->NewStringUTF("{}");
+}
+JNI_FUNC(jint, nativeComputeRetryDelay)(JNIEnv*, jclass, jint jCount, jint jMax) {
+    int d = 1000 * (1 << jCount);
+    return d > jMax ? jMax : d;
+}
+JNI_FUNC(jdouble, nativeComputeRmsVolume)(JNIEnv*, jclass, jbyteArray jData, jint jLen) { return 0.0; }
+JNI_FUNC(jstring, nativeComputeScrollPlan)(JNIEnv* env, jclass, jint, jint, jint, jboolean) {
+    return env->NewStringUTF("{\"action\":\"none\"}");
+}
+JNI_FUNC(jint, nativeComputeStreak)(JNIEnv*, jclass, jstring) { return 0; }
+JNI_FUNC(jint, nativeComputeThumbnail)(JNIEnv*, jclass, jint, jint, jint, jint) { return 0; }
+
+// ============================================================
+// Connection Monitor
+// ============================================================
+JNI_FUNC(jstring, nativeConnMonitorGetStatus)(JNIEnv* env, jclass) {
+    return env->NewStringUTF("{\"connected\":false,\"downtimeMs\":0}");
+}
+JNI_FUNC(void, nativeConnMonitorOnConnected)(JNIEnv*, jclass) {}
+JNI_FUNC(void, nativeConnMonitorOnDisconnected)(JNIEnv*, jclass, jlong) {}
+
+// ============================================================
+// Contrast / Decrypt / Deleted Archive
+// ============================================================
+JNI_FUNC(jdouble, nativeContrastRatio)(JNIEnv*, jclass, jint, jint) { return 0.0; }
+JNI_FUNC(jstring, nativeDecideRetry)(JNIEnv* env, jclass, jint, jint, jstring) {
+    return env->NewStringUTF("{\"shouldRetry\":false}");
+}
+JNI_FUNC(jstring, nativeDecryptAccount)(JNIEnv* env, jclass, jstring) {
+    return env->NewStringUTF("{}");
+}
+JNI_FUNC(void, nativeDeletedArchiveAdd)(JNIEnv*, jclass, jstring) {}
+JNI_FUNC(void, nativeDeletedArchiveClear)(JNIEnv*, jclass) {}
+JNI_FUNC(jint, nativeDeletedArchiveCount)(JNIEnv*, jclass) { return 0; }
+JNI_FUNC(jstring, nativeDeletedArchiveExportJson)(JNIEnv* env, jclass) {
+    return env->NewStringUTF("[]");
+}
+
+// ============================================================
+// Desync Detector / Language / Drawing
+// ============================================================
+JNI_FUNC(jstring, nativeDesyncCheck)(JNIEnv* env, jclass, jstring) {
+    return env->NewStringUTF("{\"desynced\":false}");
+}
+JNI_FUNC(void, nativeDesyncTrackEvent)(JNIEnv*, jclass, jstring, jstring) {}
+JNI_FUNC(jstring, nativeDetectLanguage)(JNIEnv* env, jclass, jstring jText) {
+    return env->NewStringUTF(jsonObj(jsonPair("language", "en")).c_str());
+}
+JNI_FUNC(void, nativeDrawClear)(JNIEnv*, jclass) {}
+JNI_FUNC(jstring, nativeDrawExportJson)(JNIEnv* env, jclass) { return env->NewStringUTF("[]"); }
+JNI_FUNC(void, nativeDrawLineTo)(JNIEnv*, jclass, jfloat, jfloat) {}
+JNI_FUNC(void, nativeDrawMoveTo)(JNIEnv*, jclass, jfloat, jfloat) {}
+JNI_FUNC(void, nativeDrawSetColor)(JNIEnv*, jclass, jint, jint, jint, jint) {}
+JNI_FUNC(void, nativeDrawSetStrokeWidth)(JNIEnv*, jclass, jfloat) {}
