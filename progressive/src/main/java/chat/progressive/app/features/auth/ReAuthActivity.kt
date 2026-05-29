@@ -132,7 +132,6 @@ class ReAuthActivity : SimpleFragmentActivity() {
 //                        override fun onPostMessage(message: String, extras: Bundle?) {
 //                            Timber.v("## CustomTab onPostMessage($message)")
 //                        }
-//
 //                        override fun onMessageChannelReady(extras: Bundle?) {
 //                            Timber.v("## CustomTab onMessageChannelReady()")
 //                        }

@@ -287,7 +287,6 @@ class EmojiRecyclerAdapter @Inject constructor() :
 
             // TODO better
             if (scrollState == ScrollState.IDLE) {
-                //
                 @Suppress("UNCHECKED_CAST")
                 val toUpdate = toUpdateWhenNotBusy.clone() as ArrayList<Pair<String, EmojiViewHolder>>
                 toUpdateWhenNotBusy.clear()

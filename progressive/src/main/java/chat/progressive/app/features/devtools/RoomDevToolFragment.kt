@@ -43,7 +43,6 @@ class RoomDevToolFragment :
 //                is DevToolsViewEvents.showJson -> {
 //                    JSonViewerDialog.newInstance(it.jsonString, -1, createJSonViewerStyleProvider(colorProvider))
 //                            .show(childFragmentManager, "JSON_VIEWER")
-//
 //                }
 //            }
 //        }

@@ -166,7 +166,6 @@ class SelfVerificationViewModel @AssistedInject constructor(
                 )
             }
         }
-//
     }
 
     private fun observeRequestsAndTransactions() {

@@ -119,7 +119,6 @@ class SpaceSettingsController @Inject constructor(
 //                enabled(data.actionPermissions.canChangeJoinRule)
 //                title(host.stringProvider.getString(CommonStrings.make_this_space_public))
 //                switchChecked(isPublic)
-//
 //                listener { value ->
 //                    host.callback?.setIsPublic(value)
 //                }

@@ -125,7 +125,6 @@ class ProgressiveJitsiActivity : ProgressiveActivity<ActivityJitsiBinding>(), Ji
     }
 
     // Activity lifecycle methods
-    //
     @Suppress("OVERRIDE_DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         @Suppress("DEPRECATION")

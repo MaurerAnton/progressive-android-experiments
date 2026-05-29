@@ -20,7 +20,6 @@ import chat.progressive.app.R
  */
 class ProgressiveListPreference : ListPreference {
 
-    //
     private var mWarningIconView: View? = null
     private var mIsWarningIconVisible = false
     private var mWarningIconClickListener: OnPreferenceWarningIconClickListener? = null

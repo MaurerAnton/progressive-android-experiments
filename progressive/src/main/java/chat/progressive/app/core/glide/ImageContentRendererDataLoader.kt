@@ -123,11 +123,9 @@ class ImageContentRendererDataFetcher(
         }
 //        val url = contentUrlResolver.resolveFullSize(data.url)
 //                ?: return
-//
 //        val request = Request.Builder()
 //                .url(url)
 //                .build()
-//
 //        val response = client.newCall(request).execute()
 //        val inputStream = response.body?.byteStream()
 //        Timber.v("Response size ${response.body?.contentLength()} - Stream available: ${inputStream?.available()}")

@@ -157,23 +157,19 @@ class UserVerificationController @Inject constructor(
 //        val host = this
 //        val scanOtherCodeTitle = stringProvider.getString(CommonStrings.verification_scan_their_code)
 //        val compareEmojiSubtitle = stringProvider.getString(CommonStrings.verification_scan_emoji_subtitle)
-//
 //        bottomSheetVerificationNoticeItem {
 //            id("notice")
 //            notice(scanCodeInstructions.toEpoxyCharSequence())
 //        }
-//
 //        if (request.weShouldDisplayQRCode && !request.qrCodeText.isNullOrEmpty()) {
 //            bottomSheetVerificationQrCodeItem {
 //                id("qr")
 //                data(request.qrCodeText!!)
 //            }
-//
 //            bottomSheetDividerItem {
 //                id("sep0")
 //            }
 //        }
-//
 //        if (request.weShouldShowScanOption) {
 //            bottomSheetVerificationActionItem {
 //                id("openCamera")
@@ -183,11 +179,9 @@ class UserVerificationController @Inject constructor(
 //                iconColor(host.colorProvider.getColorFromAttribute(com.google.android.material.R.attr.colorPrimary))
 //                listener { host.listener?.openCamera() }
 //            }
-//
 //            bottomSheetDividerItem {
 //                id("sep1")
 //            }
-//
 //            bottomSheetVerificationActionItem {
 //                id("openEmoji")
 //                title(host.stringProvider.getString(CommonStrings.verification_scan_emoji_title))

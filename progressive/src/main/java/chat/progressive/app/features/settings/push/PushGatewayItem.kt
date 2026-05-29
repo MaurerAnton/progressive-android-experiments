@@ -70,5 +70,4 @@ interface PushGatewayItemInteractions {
     fun onRemovePushTapped(pusher: Pusher)
 }
 
-//
 // abstract class ReactionInfoSimpleItem : EpoxyModelWithHolder<ReactionInfoSimpleItem.Holder>() {

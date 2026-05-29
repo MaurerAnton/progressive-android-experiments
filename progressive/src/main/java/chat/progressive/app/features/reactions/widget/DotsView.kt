@@ -95,15 +95,12 @@ class DotsView @JvmOverloads constructor(
 
 //    fun setCurrentProgress(currentProgress: Float) {
 //        this.currentProgress = currentProgress
-//
 //        updateInnerDotsPosition()
 //        updateOuterDotsPosition()
 //        updateDotsPaints()
 //        updateDotsAlpha()
-//
 //        postInvalidate()
 //    }
-//
 //    fun getCurrentProgress(): Float {
 //        return currentProgress
 //    }
