@@ -403,6 +403,7 @@ add_library(
     src/media_tools.cpp
     src/user_profiles.cpp
     src/jni_bridge.cpp
+    src/jni_stubs.cpp
     src/eventdb.cpp
     src/sync_status_utils.cpp
     src/timeline_controller.cpp
