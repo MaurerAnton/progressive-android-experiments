@@ -26,8 +26,8 @@ std::vector<RoomDirectoryEntry> filterDirectory(
         if (!filter.nameFilter.empty()) {
             auto lower = room.name;
             auto lowerFilter = filter.nameFilter;
-            std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
-            std::transform(lowerFilter.begin(), lowerFilter.end(), lowerFilter.begin(), ::tolower);
+            std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return std::tolower(c); });
+            std::transform(lowerFilter.begin(), lowerFilter.end(), lowerFilter.begin(), [](unsigned char c) { return std::tolower(c); });
             if (lower.find(lowerFilter) == std::string::npos) continue;
         }
 
@@ -77,11 +77,11 @@ std::vector<RoomDirectoryEntry> searchRooms(
     std::vector<std::pair<RoomDirectoryEntry, double>> scored;
 
     auto lowerQuery = query;
-    std::transform(lowerQuery.begin(), lowerQuery.end(), lowerQuery.begin(), ::tolower);
+    std::transform(lowerQuery.begin(), lowerQuery.end(), lowerQuery.begin(), [](unsigned char c) { return std::tolower(c); });
 
     for (auto room : rooms) {
         auto lowerName = room.name;
-        std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+        std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), [](unsigned char c) { return std::tolower(c); });
 
         double score = 0.0;
         if (lowerName == lowerQuery) score = 1.0;

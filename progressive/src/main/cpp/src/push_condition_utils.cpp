@@ -65,9 +65,9 @@ bool evaluatePushCondition(const PushCondition& cond, const std::string& content
             return false;
         case PushConditionKind::CONTAINS_DISPLAY_NAME: {
             std::string lower;
-            std::transform(content.begin(), content.end(), std::back_inserter(lower), ::tolower);
+            std::transform(content.begin(), content.end(), std::back_inserter(lower), [](unsigned char c) { return std::tolower(c); });
             std::string dn;
-            std::transform(displayName.begin(), displayName.end(), std::back_inserter(dn), ::tolower);
+            std::transform(displayName.begin(), displayName.end(), std::back_inserter(dn), [](unsigned char c) { return std::tolower(c); });
             return lower.find(dn) != std::string::npos;
         }
         default: return false;

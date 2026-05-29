@@ -109,7 +109,7 @@ void SymbolBar::clear() {
 
 std::string ReplacementEngine::toLower(const std::string& s) {
     std::string r = s;
-    std::transform(r.begin(), r.end(), r.begin(), ::tolower);
+    std::transform(r.begin(), r.end(), r.begin(), [](unsigned char c) { return std::tolower(c); });
     return r;
 }
 

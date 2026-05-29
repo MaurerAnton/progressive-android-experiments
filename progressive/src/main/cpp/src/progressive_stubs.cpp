@@ -148,7 +148,7 @@ std::string normalizeMimeType(const std::string& mimeType) {
     auto slash = mimeType.find('/');
     if (slash == std::string::npos) return mimeType;
     std::string result = mimeType;
-    std::transform(result.begin() + slash + 1, result.end(), result.begin() + slash + 1, ::tolower);
+    std::transform(result.begin() + slash + 1, result.end(), result.begin() + slash + 1, [](unsigned char c) { return std::tolower(c); });
     return result;
 }
 

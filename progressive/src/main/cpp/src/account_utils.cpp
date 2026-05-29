@@ -34,8 +34,8 @@ PasswordValidation validateAccountPassword(const std::string& password, const st
     if (!username.empty()) {
         auto lowerPass = password;
         auto lowerUser = username;
-        std::transform(lowerPass.begin(), lowerPass.end(), lowerPass.begin(), ::tolower);
-        std::transform(lowerUser.begin(), lowerUser.end(), lowerUser.begin(), ::tolower);
+        std::transform(lowerPass.begin(), lowerPass.end(), lowerPass.begin(), [](unsigned char c) { return std::tolower(c); });
+        std::transform(lowerUser.begin(), lowerUser.end(), lowerUser.begin(), [](unsigned char c) { return std::tolower(c); });
         result.matchesUsername = (lowerPass.find(lowerUser) != std::string::npos);
     }
 

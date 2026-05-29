@@ -50,7 +50,7 @@ Alarm AlarmManager::parseAgentText(const std::string& text) const {
     alarm.note = text;
 
     std::string lower;
-    std::transform(text.begin(), text.end(), std::back_inserter(lower), ::tolower);
+    std::transform(text.begin(), text.end(), std::back_inserter(lower), [](unsigned char c) { return std::tolower(c); });
 
     // Detect time patterns
     std::vector<std::string> words;

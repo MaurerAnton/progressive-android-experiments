@@ -71,13 +71,13 @@ std::string getFileExtension(const std::string& fileName) {
     auto dot = fileName.rfind('.');
     if (dot == std::string::npos || dot == fileName.size() - 1) return {};
     auto ext = fileName.substr(dot + 1);
-    std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+    std::transform(ext.begin(), ext.end(), ext.begin(), [](unsigned char c) { return std::tolower(c); });
     return ext;
 }
 
 std::string getMimeFromExtension(const std::string& extension) {
     auto lower = extension;
-    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return std::tolower(c); });
     auto it = EXT_TO_MIME.find(lower);
     return it != EXT_TO_MIME.end() ? it->second : "application/octet-stream";
 }
@@ -116,7 +116,7 @@ std::string formatFileSize(int64_t bytes) {
 bool isExtensionAllowed(const std::string& extension, const std::string& allowedList) {
     if (extension.empty() || allowedList.empty()) return false;
     auto lower = extension;
-    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return std::tolower(c); });
 
     std::istringstream stream(allowedList);
     std::string token;
@@ -125,7 +125,7 @@ bool isExtensionAllowed(const std::string& extension, const std::string& allowed
         while (!token.empty() && token.front() == ' ') token.erase(0, 1);
         while (!token.empty() && token.back() == ' ') token.pop_back();
         auto lowerToken = token;
-        std::transform(lowerToken.begin(), lowerToken.end(), lowerToken.begin(), ::tolower);
+        std::transform(lowerToken.begin(), lowerToken.end(), lowerToken.begin(), [](unsigned char c) { return std::tolower(c); });
         if (lower == lowerToken) return true;
     }
     return false;

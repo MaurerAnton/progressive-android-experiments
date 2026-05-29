@@ -96,7 +96,7 @@ bool isCommonPassword(const std::string& password) {
         "qwertyuiop", "abc123456", "password123", "iloveyou1", "batman123"
     };
     auto lower = password;
-    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return std::tolower(c); });
     return common.find(lower) != common.end();
 }
 

@@ -74,8 +74,8 @@ DeviceStats parseDeviceList(const std::string& apiResponseJson, const std::strin
 std::string classifyDeviceType(const std::string& userAgent, const std::string& clientName) {
     auto lowerAgent = userAgent;
     auto lowerName = clientName;
-    std::transform(lowerAgent.begin(), lowerAgent.end(), lowerAgent.begin(), ::tolower);
-    std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+    std::transform(lowerAgent.begin(), lowerAgent.end(), lowerAgent.begin(), [](unsigned char c) { return std::tolower(c); });
+    std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), [](unsigned char c) { return std::tolower(c); });
 
     if (lowerAgent.find("android") != std::string::npos || lowerName.find("android") != std::string::npos)
         return "Mobile";

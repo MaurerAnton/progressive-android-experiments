@@ -168,7 +168,7 @@ HomeserverCapability parseRegistrationCapabilities(const std::string& wellKnownJ
     // Check flows for email/captcha requirements
     // Simple heuristic: look for "m.login.email.identity" or "recaptcha" in the JSON
     auto lower = wellKnownJson;
-    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return std::tolower(c); });
 
     caps.emailRequired = lower.find("email") != std::string::npos;
     caps.captchaRequired = lower.find("captcha") != std::string::npos ||

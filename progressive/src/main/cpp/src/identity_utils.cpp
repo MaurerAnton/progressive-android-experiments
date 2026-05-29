@@ -117,8 +117,8 @@ bool isAmbiguousName(const std::string& name1, const std::string& name2) {
     if (name1.empty() || name2.empty()) return false;
     auto n1 = name1;
     auto n2 = name2;
-    std::transform(n1.begin(), n1.end(), n1.begin(), ::tolower);
-    std::transform(n2.begin(), n2.end(), n2.begin(), ::tolower);
+    std::transform(n1.begin(), n1.end(), n1.begin(), [](unsigned char c) { return std::tolower(c); });
+    std::transform(n2.begin(), n2.end(), n2.begin(), [](unsigned char c) { return std::tolower(c); });
     return n1 == n2;
 }
 
@@ -162,7 +162,7 @@ std::vector<std::string> suggestAliases(const std::string& roomName, int maxResu
 
     // Lowercase, replace spaces
     auto name = roomName;
-    std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+    std::transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
     for (char& c : name) {
         if (std::isspace(static_cast<unsigned char>(c)) || c == '.') c = '-';
     }

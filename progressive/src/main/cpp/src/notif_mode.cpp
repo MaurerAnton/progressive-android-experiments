@@ -23,10 +23,10 @@ void NightModeManager::removeNightKeyword(const std::string& kw) {
 bool NightModeManager::matchKeyword(const std::string& body) const {
     if (cfg_.nightKeywords.empty()) return false;
     std::string lower;
-    std::transform(body.begin(), body.end(), std::back_inserter(lower), ::tolower);
+    std::transform(body.begin(), body.end(), std::back_inserter(lower), [](unsigned char c) { return std::tolower(c); });
     for (const auto& kw : cfg_.nightKeywords) {
         std::string kwLower;
-        std::transform(kw.begin(), kw.end(), std::back_inserter(kwLower), ::tolower);
+        std::transform(kw.begin(), kw.end(), std::back_inserter(kwLower), [](unsigned char c) { return std::tolower(c); });
         if (lower.find(kwLower) != std::string::npos) return true;
     }
     return false;
