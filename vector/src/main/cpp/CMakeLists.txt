@@ -1,47 +1,41 @@
 cmake_minimum_required(VERSION 3.22.1)
 project("progressive_native")
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_library(
-    progressive_native
-    SHARED
-    src/jumptodate.cpp
-    src/json_parser.cpp
-    src/relation.cpp
-    src/exporter.cpp
-    src/eventcache.cpp
-    src/eventdb.cpp
-    src/translate.cpp
-    src/proxy.cpp
-    src/yggdrasil.cpp
-    src/markdown.cpp
-    src/account_export.cpp
-    src/audio_engine.cpp
-    src/media_filter.cpp
-    src/content_filter.cpp
-    src/network_stats.cpp
-    src/masquerade.cpp
-    src/user_mask.cpp
-    src/chunked_upload.cpp
-    src/chat_features.cpp
-    src/jni_bridge.cpp
-)
-
-target_include_directories(
-    progressive_native
-    PUBLIC
-    include
-)
-
+set(SQLITE3_DIR "${CMAKE_BINARY_DIR}/sqlite-amalgamation-3450200")
+set(SQLITE3_SRC "${SQLITE3_DIR}/sqlite3.c")
+if(NOT EXISTS "${SQLITE3_SRC}")
+    message(STATUS "Downloading SQLite3 amalgamation...")
+    file(DOWNLOAD "https://sqlite.org/2024/sqlite-amalgamation-3450200.zip" "${CMAKE_BINARY_DIR}/sqlite3.zip" STATUS ds)
+    list(GET ds 0 dc)
+    if(NOT dc EQUAL 0) message(FATAL_ERROR "SQLite download failed") endif()
+    file(MAKE_DIRECTORY "${SQLITE3_DIR}")
+    execute_process(COMMAND python3 -c "import zipfile,sys;zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" "${CMAKE_BINARY_DIR}/sqlite3.zip" "${CMAKE_BINARY_DIR}" RESULT_VARIABLE er)
+    if(NOT er EQUAL 0) message(FATAL_ERROR "SQLite extract failed") endif()
+endif()
+add_library(progressive_native SHARED
+        src/jumptodate.cpp
+        src/json_parser.cpp
+        src/relation.cpp
+        src/exporter.cpp
+        src/eventcache.cpp
+        src/eventdb.cpp
+        src/translate.cpp
+        src/proxy.cpp
+        src/yggdrasil.cpp
+        src/markdown.cpp
+        src/account_export.cpp
+        src/audio_engine.cpp
+        src/media_filter.cpp
+        src/content_filter.cpp
+        src/network_stats.cpp
+        src/masquerade.cpp
+        src/user_mask.cpp
+        src/chunked_upload.cpp
+        src/chat_features.cpp
+        src/jni_bridge.cpp
+    ${SQLITE3_SRC})
+target_include_directories(progressive_native PUBLIC include ${SQLITE3_DIR})
+set_source_files_properties("${SQLITE3_SRC}" PROPERTIES COMPILE_FLAGS "-DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_MAX_EXPR_DEPTH=0 -DSQLITE_OMIT_DECLTYPE -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_USE_ALLOCA -Os")
 find_library(log_lib log)
-
-# SQLite3 - available in Android NDK sysroot
-find_library(sqlite3_lib sqlite3)
-
-target_link_libraries(
-    progressive_native
-    ${log_lib}
-    ${sqlite3_lib}
-)
+target_link_libraries(progressive_native ${log_lib})
