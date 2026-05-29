@@ -3175,4 +3175,35 @@
     <string name="labs_enable_jump_to_source_reactions">Переход к реакциям</string>
     <string name="labs_enable_jump_to_source_replies">Переход к ответам</string>
     <string name="labs_enable_event_link_max_concurrent">Макс. одновременных ссылок</string>
+
+    <string name="labs_enable_jumptoroom">Переход в комнату</string>
+    <string name="labs_enable_jumptoroom_summary">Быстрый переход в комнату по ID</string>
+    <string name="labs_enable_lang_detect">Определение языка</string>
+    <string name="labs_enable_lang_detect_summary">Автоматическое определение языка сообщения</string>
+    <string name="labs_enable_lightweight_call">Облегчённые звонки</string>
+    <string name="labs_enable_lightweight_call_summary">Оптимизированные VoIP звонки</string>
+    <string name="labs_enable_llm_slash">LLM команды</string>
+    <string name="labs_enable_llm_slash_summary">Slash-команды для языковых моделей</string>
+    <string name="labs_enable_location_sharing">Геолокация</string>
+    <string name="labs_enable_location_sharing_summary">Отправка и просмотр геолокации</string>
+    <string name="labs_enable_lossless_crop">Обрезка без потерь</string>
+    <string name="labs_enable_lossless_crop_summary">Обрезка изображений без потери качества</string>
+    <string name="labs_enable_masquerade">Маскировка</string>
+    <string name="labs_enable_masquerade_summary">Маскировка клиента под другой</string>
+    <string name="labs_enable_media_filter">Фильтр медиа</string>
+    <string name="labs_enable_media_filter_summary">Фильтрация медиафайлов по типу</string>
+    <string name="labs_enable_moderation">Модерация</string>
+    <string name="labs_enable_moderation_summary">Инструменты модерации комнат</string>
+    <string name="labs_enable_module_updates">Обновления модулей</string>
+    <string name="labs_enable_module_updates_summary">Автообновление C++ модулей</string>
+    <string name="labs_enable_msg_queue">Очередь сообщений</string>
+    <string name="labs_enable_msg_queue_summary">Очередь отправки сообщений</string>
+    <string name="labs_enable_network_stats">Сетевая статистика</string>
+    <string name="labs_enable_network_stats_summary">Мониторинг сетевой активности</string>
+    <string name="labs_enable_notif_keywords">Ключевые слова уведомлений</string>
+    <string name="labs_enable_notif_keywords_summary">Уведомления по ключевым словам</string>
+    <string name="labs_enable_profile_swiper">Профили</string>
+    <string name="labs_enable_profile_swiper_summary">Просмотр профилей свайпом</string>
+    <string name="labs_enable_ram_statusbar">RAM в статус-баре</string>
+    <string name="labs_enable_ram_statusbar_summary">Показывать использование памяти</string>
 </resources>
