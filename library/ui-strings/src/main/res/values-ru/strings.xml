@@ -3110,4 +3110,38 @@
     <string name="how_you_can_help">Как вы можете помочь</string>
     <string name="jump_to_source">Перейти к источнику</string>
     <string name="jumptoroom_prompt">Введите ID комнаты или адрес</string>
+
+    <!-- Keyword filter -->
+    <string name="keyword_filter_blocked_message">Сообщение заблокировано фильтром</string>
+    <string name="keyword_filter_blocked_title">Заблокировано</string>
+    <string name="keyword_filter_edit">Изменить фильтр</string>
+    <string name="keyword_filter_hint">Введите ключевые слова</string>
+
+    <!-- Labs features -->
+    <string name="labs_block_remote_images">Блокировать внешние изображения</string>
+    <string name="labs_block_remote_images_summary">Блокировать изображения с удалённых серверов</string>
+    <string name="labs_enable_account_export">Экспорт аккаунта</string>
+    <string name="labs_enable_account_export_summary">Экспорт данных аккаунта в JSON</string>
+    <string name="labs_enable_all_messages">Все сообщения</string>
+    <string name="labs_enable_all_messages_summary">Просмотр всех сообщений</string>
+    <string name="labs_enable_all_threads">Все треды</string>
+    <string name="labs_enable_all_threads_summary">Просмотр всех тредов</string>
+    <string name="labs_enable_audio_statusbar">Аудио в статус-баре</string>
+    <string name="labs_enable_audio_statusbar_summary">Показывать аудиоплеер в статус-баре</string>
+    <string name="labs_enable_auto_replace">Автозамена</string>
+    <string name="labs_enable_auto_replace_summary">Автоматическая замена текста при вводе</string>
+    <string name="labs_enable_auto_scroll">Автопрокрутка</string>
+    <string name="labs_enable_auto_scroll_summary">Автоматическая прокрутка при новых сообщениях</string>
+    <string name="labs_enable_auto_translate_room">Автоперевод комнаты</string>
+    <string name="labs_enable_auto_translate_room_summary">Автоматический перевод сообщений в комнате</string>
+    <string name="labs_enable_avatar_history">История аватаров</string>
+    <string name="labs_enable_avatar_history_summary">Просмотр истории аватаров пользователей</string>
+    <string name="labs_enable_cache_manager">Управление кэшем</string>
+    <string name="labs_enable_cache_manager_summary">Управление кэшем приложения</string>
+    <string name="labs_enable_chat_export">Экспорт чата</string>
+    <string name="labs_enable_chat_export_summary">Экспорт сообщений в HTML/JSON</string>
+    <string name="labs_enable_chat_pushdown">Сдвиг чата</string>
+    <string name="labs_enable_chat_pushdown_summary">Сдвигать чат вниз при появлении клавиатуры</string>
+    <string name="labs_enable_chunked_upload">Частичная загрузка</string>
+    <string name="labs_enable_chunked_upload_summary">Загрузка файлов по частям</string>
 </resources>
