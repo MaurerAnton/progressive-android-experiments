@@ -786,7 +786,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDecryptAccount(
     env->ReleaseStringUTFChars(jPassphrase, pass.c_str());
 
     auto data = progressive::decryptAccountData(enc, pass);
-    if (data.userId.empty()) return env->NewStringUTF(R"({"error": "Decryption failed"})");
+    if (data.userId.empty()) return env->NewStringUTF(R"json({"error": "Decryption failed"})json");
 
     auto json = progressive::accountToJson(data);
     return env->NewStringUTF(json.c_str());
