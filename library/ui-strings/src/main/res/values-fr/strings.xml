@@ -3006,4 +3006,32 @@
     <string name="jumptoroom_prompt">Saisir l\'ID ou l\'adresse du salon</string>
     <string name="error_account_expired_title">Compte expiré</string>
     <string name="error_account_expired_message">Votre compte a expiré. Veuillez vous reconnecter.</string>
+
+    <string name="keyword_filter_blocked_message">Message bloqué par le filtre</string>
+    <string name="keyword_filter_blocked_title">Bloqué</string>
+    <string name="keyword_filter_edit">Modifier le filtre</string>
+    <string name="keyword_filter_hint">Saisir les mots-clés</string>
+
+    <string name="labs_block_remote_images">Bloquer les images distantes</string>
+    <string name="labs_block_remote_images_summary">Bloquer les images des serveurs distants</string>
+    <string name="labs_enable_account_export">Export de compte</string>
+    <string name="labs_enable_account_export_summary">Exporter les données en JSON</string>
+    <string name="labs_enable_all_messages">Tous les messages</string>
+    <string name="labs_enable_all_messages_summary">Voir tous les messages</string>
+    <string name="labs_enable_all_threads">Tous les fils</string>
+    <string name="labs_enable_all_threads_summary">Voir tous les fils</string>
+    <string name="labs_enable_audio_statusbar">Audio dans la barre d\'état</string>
+    <string name="labs_enable_audio_statusbar_summary">Afficher le lecteur audio dans la barre</string>
+    <string name="labs_enable_auto_replace">Remplacement auto</string>
+    <string name="labs_enable_auto_replace_summary">Remplacer automatiquement le texte</string>
+    <string name="labs_enable_auto_scroll">Défilement auto</string>
+    <string name="labs_enable_auto_scroll_summary">Défilement automatique nouveaux messages</string>
+    <string name="labs_enable_auto_translate_room">Traduction auto du salon</string>
+    <string name="labs_enable_auto_translate_room_summary">Traduire automatiquement les messages</string>
+    <string name="labs_enable_avatar_history">Historique d\'avatar</string>
+    <string name="labs_enable_avatar_history_summary">Voir l\'historique des avatars</string>
+    <string name="labs_enable_cache_manager">Gestion du cache</string>
+    <string name="labs_enable_cache_manager_summary">Gérer le cache de l\'application</string>
+    <string name="labs_enable_chat_export">Export du chat</string>
+    <string name="labs_enable_chat_export_summary">Exporter les messages en HTML/JSON</string>
 </resources>
