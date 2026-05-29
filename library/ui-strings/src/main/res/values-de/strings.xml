@@ -3021,7 +3021,7 @@
     <string name="labs_enable_audio_statusbar">Audio in Statusleiste</string>
     <string name="labs_enable_audio_statusbar_summary">Audioplayer in Statusleiste anzeigen</string>
     <string name="labs_enable_auto_replace">Auto-Ersetzung</string>
-    <string name="labs_enable_auto_replace_summary">Automatische Texter setzung beim Tippen</string>
+    <string name="labs_enable_auto_replace_summary">Automatische Textersetzung beim Tippen</string>
     <string name="labs_enable_auto_scroll">Auto-Scroll</string>
     <string name="labs_enable_auto_scroll_summary">Automatisch bei neuen Nachrichten scrollen</string>
     <string name="labs_enable_auto_translate_room">Raum-Autoübersetzung</string>
