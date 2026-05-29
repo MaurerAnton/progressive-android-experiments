@@ -1,4 +1,5 @@
 #include "progressive/sender_notif_filter.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 
@@ -104,7 +105,7 @@ SenderNotifMode senderNotifModeFromString(const std::string& mode) {
 
 std::string senderNotifSettingsToJson(const SenderNotifSettings& settings) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << R"({"roomId": ")" << esc(settings.roomId) << R"(",)";

@@ -1,4 +1,5 @@
 #include "progressive/chat_tools.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <chrono>
@@ -67,7 +68,7 @@ void UserHideManager::cleanExpired() {
 std::string UserHideManager::exportJson() const {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
+        return escapeJson(s);
         return out;
     };
 
@@ -151,7 +152,7 @@ void MessageQueue::clear() {
 std::string MessageQueue::exportJson() const {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
+        return escapeJson(s);
         return out;
     };
 

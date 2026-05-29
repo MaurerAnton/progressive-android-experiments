@@ -1,4 +1,5 @@
 #include "progressive/notif_analyzer.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <unordered_map>
@@ -117,7 +118,7 @@ std::string getBusiestDayName(const NotifAnalytics& a) {
 
 std::string notifAnalyticsToJson(const NotifAnalytics& a) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << "{";

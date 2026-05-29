@@ -1,4 +1,5 @@
 #include "progressive/input_tools.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
@@ -36,7 +37,7 @@ std::vector<SymbolEntry> SymbolBar::getSymbols() const {
 std::string SymbolBar::exportJson() const {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
+        return escapeJson(s);
         return out;
     };
 
@@ -178,7 +179,7 @@ const ReplacementRule* ReplacementEngine::check(const std::string& text) const {
 std::string ReplacementEngine::exportJson() const {
     auto esc = [](const std::string& s) -> std::string {
         std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
+        return escapeJson(s);
         return out;
     };
 
