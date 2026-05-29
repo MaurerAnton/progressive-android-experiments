@@ -1,4 +1,5 @@
 #include "progressive/content_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <iomanip>
 #include <cmath>
@@ -258,9 +259,7 @@ std::string formatFileSize(int64_t bytes) {
 
 std::string messageContentToJson(const MessageContent& content) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";
@@ -426,7 +425,7 @@ std::string buildReplyWithImageContent(
     const std::string& replyEventId, const std::string& imageMimetype)
 {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
 
     std::ostringstream json;

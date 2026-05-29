@@ -1,4 +1,5 @@
 #include "progressive/content_scanner.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 
@@ -23,7 +24,7 @@ ScanResult parseScanResult(const std::string& apiResponseJson) {
 
 std::string buildScanRequestBody(const std::string& mxcUri) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     return R"({"url": ")" + esc(mxcUri) + R"("})";
 }
@@ -96,7 +97,7 @@ bool mustAcceptTos(const std::string& responseJson) {
 
 std::string buildTosAcceptBody(const std::string& version) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     return R"({"m.login.terms": {"version": ")" + esc(version) + R"("}})";
 }

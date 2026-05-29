@@ -1,4 +1,5 @@
 #include "progressive/cross_signing.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 
@@ -101,7 +102,7 @@ std::string buildBootstrapBody(const std::string& masterKey, const std::string& 
     const std::string& userSigningKey, const std::string& masterKeySignature,
     const std::string& selfSigningSignature, const std::string& userSigningSignature) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";

@@ -1,4 +1,5 @@
 #include "progressive/desync_detector.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -109,9 +110,7 @@ std::string DesyncDetector::formatDesyncWarning(const DesyncReport& report) {
 
 std::string DesyncDetector::reportToJson(const DesyncReport& report) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream json;

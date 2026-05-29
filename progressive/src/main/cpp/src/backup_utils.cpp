@@ -1,4 +1,5 @@
 #include "progressive/backup_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include <random>
 #include "progressive/key_backup.hpp"
 #include "progressive/json_parser.hpp"
@@ -55,7 +56,7 @@ bool needsBackupAttention(const BackupInfo& info, double minProgress) {
 
 std::string buildCreateBackupBody(const std::string& algorithm, const std::string& authData) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << "{";
@@ -110,7 +111,7 @@ SecretInfo extractSecret(const std::string& secretEventJson, const std::string& 
 
 std::string buildStoreSecretBody(const std::string& secretId, const std::string& encryptedContent) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << "{";

@@ -1,4 +1,5 @@
 #include "progressive/cross_signing_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 
@@ -285,9 +286,7 @@ CSM_CrossSigningInfo CrossSigningManager::buildCrossSigningInfo(const std::strin
 
 std::string CrossSigningManager::crossSigningInfoToJson(const CSM_CrossSigningInfo& info) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;
@@ -304,9 +303,7 @@ std::string CrossSigningManager::crossSigningInfoToJson(const CSM_CrossSigningIn
 
 std::string CrossSigningManager::keyToJson(const CSM_CrossSigningKey& key) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

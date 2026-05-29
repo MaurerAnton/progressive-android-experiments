@@ -1,4 +1,5 @@
 #include "progressive/auth_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <chrono>
@@ -37,7 +38,7 @@ AuthFlow parseAuthFlow(const std::string& responseJson, int httpStatus) {
 std::string buildAuthStageBody(const std::string& sessionId, const std::string& type,
     const std::string& paramsJson) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << R"({"auth": {"session": ")" << esc(sessionId)
@@ -123,10 +124,10 @@ TokenAuth parseTokenLogin(const std::string& url) {
 
 std::string buildTokenLoginBody(const std::string& token, const std::string& deviceName) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
-    json << R"({"type": "m.login.token", "token": ")" << esc(token) << R"(")";
+    json << R"({"type": "m.login.token", "token": "***" << esc(token) << R"(")";
     if (!deviceName.empty())
         json << R"(,"initial_device_display_name": ")" << esc(deviceName) << R"(")";
     json << "}";

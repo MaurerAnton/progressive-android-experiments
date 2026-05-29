@@ -1,4 +1,5 @@
 #include "progressive/account_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <regex>
@@ -56,7 +57,7 @@ PasswordValidation validateAccountPassword(const std::string& password, const st
 
 std::string buildPasswordChangeBody(const PasswordChange& change, const std::string& authSession) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << "{";
@@ -124,7 +125,7 @@ ThreePidValidation validateThreePid(const std::string& input, bool isEmail) {
         std::regex phoneRe(R"(^\+\d{7,15}$)");
         if (!std::regex_match(input, phoneRe)) {
             result.invalidFormat = true;
-            result.errorMessage = "Invalid phone number. Use +1234567890 format.";
+            result.errorMessage = "Invalid phone number. Use +123****7890 format.";
             return result;
         }
     }
@@ -135,7 +136,7 @@ ThreePidValidation validateThreePid(const std::string& input, bool isEmail) {
 
 std::string buildThreePidRequestBody(const ThreePidRequest& req) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << R"({"client_secret": ")" << esc(req.clientSecret) << R"(")";
@@ -151,7 +152,7 @@ std::string buildThreePidRequestBody(const ThreePidRequest& req) {
 std::string buildThreePidBindBody(const std::string& clientSecret, const std::string& sid,
     const std::string& idServer) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << R"({"client_secret": ")" << esc(clientSecret) << R"(")";

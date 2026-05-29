@@ -1,4 +1,5 @@
 #include "progressive/agent_executor.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 
@@ -323,7 +324,7 @@ std::string getAgentToolsSchema() {
 
 std::string agentStateToJson(const AgentState& state) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        std::string out; return escapeJson(s); return out;
     };
     std::ostringstream json;
     json << R"({"task": ")" << esc(state.task) << R"(",)";
