@@ -11,7 +11,7 @@ std::string base64Encode(const std::string& input) {
     std::string out;
     out.reserve((input.size() + 2) / 3 * 4);
     int val = 0, bits = -6;
-    for (unsigned char c : (const unsigned char*)input.data()) {
+    for (unsigned char c : std::vector<unsigned char>(input.begin(), input.end())) {
         val = (val << 8) + c;
         bits += 8;
         while (bits >= 0) {
