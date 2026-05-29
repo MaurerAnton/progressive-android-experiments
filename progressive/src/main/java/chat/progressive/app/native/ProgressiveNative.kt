@@ -1872,6 +1872,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeAdvanceReadMarker(roomId: String, latestEventId: String): String
     @JvmStatic external fun nativeReadMarkerToJson(lastReadEventId: String, unreadCount: Int, unreadMentions: Int, unreadHighlights: Int, hasUnread: Boolean): String
 
+    // ---- IDN (Internationalized Domain Names) ----
+    @JvmStatic external fun nativeToPunycode(domain: String): String
+    @JvmStatic external fun nativeFromPunycode(domain: String): String
+
     // --- Kotlin fallbacks (765 minimal stubs) ---
 
     @JvmStatic fun addBreadcrumbFallback(currentJson: String, roomId: String): String { return "" }

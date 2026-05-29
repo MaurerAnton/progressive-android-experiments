@@ -6282,3 +6282,20 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
     return JNI_VERSION_1_6;
 }
 } // extern "C"
+
+// ---- IDN (Internationalized Domain Names) JNI wrappers ----
+
+JNI_FUNC(jstring, nativeToPunycode)(JNIEnv* env, jclass, jstring jDomain) {
+    const char* s = env->GetStringUTFChars(jDomain, nullptr);
+    std::string result = progressive::toPunycode(std::string(s));
+    env->ReleaseStringUTFChars(jDomain, s);
+    return env->NewStringUTF(result.c_str());
+}
+
+JNI_FUNC(jstring, nativeFromPunycode)(JNIEnv* env, jclass, jstring jDomain) {
+    const char* s = env->GetStringUTFChars(jDomain, nullptr);
+    std::string result = progressive::fromPunycode(std::string(s));
+    env->ReleaseStringUTFChars(jDomain, s);
+    return env->NewStringUTF(result.c_str());
+}
+
