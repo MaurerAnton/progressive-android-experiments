@@ -228,7 +228,7 @@
 
 ... [OUTPUT TRUNCATED - 237964 chars omitted out of 287964 total] ...
 
-="profile_hide_mxid">Ocultar MXID</string>
+    <string name="profile_hide_mxid">Ocultar MXID</string>
     <string name="read_receipts_max_visible">Máx. confirmaciones visibles</string>
     <string name="room_cached_events">Eventos en caché</string>
     <string name="room_created">Sala creada</string>
