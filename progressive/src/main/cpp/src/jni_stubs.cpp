@@ -285,14 +285,6 @@ JNI_FUNC(jint, nativeComputeStreak)(JNIEnv*, jclass, jstring) { return 0; }
 JNI_FUNC(jint, nativeComputeThumbnail)(JNIEnv*, jclass, jint, jint, jint, jint) { return 0; }
 
 // ============================================================
-// Connection Monitor
-// ============================================================
-JNI_FUNC(jstring, nativeConnMonitorGetStatus)(JNIEnv* env, jclass) {
-    return env->NewStringUTF("{\"connected\":false,\"downtimeMs\":0}");
-}
-JNI_FUNC(void, nativeConnMonitorOnConnected)(JNIEnv*, jclass) {}
-JNI_FUNC(void, nativeConnMonitorOnDisconnected)(JNIEnv*, jclass, jlong) {}
-
 // ============================================================
 // Contrast / Decrypt / Deleted Archive
 // ============================================================

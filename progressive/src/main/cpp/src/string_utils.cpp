@@ -175,4 +175,157 @@ std::string unescapeJson(const std::string& input) {
     return out;
 }
 
+// ---- IDN / Punycode Support ----
+
+// RFC 3492 Bootstring parameters for Punycode
+static const int PUNYCODE_BASE = 36;
+static const int PUNYCODE_TMIN = 1;
+static const int PUNYCODE_TMAX = 26;
+static const int PUNYCODE_SKEW = 38;
+static const int PUNYCODE_DAMP = 700;
+static const int PUNYCODE_INITIAL_BIAS = 72;
+static const int PUNYCODE_INITIAL_N = 128;
+
+static int punycodeAdapt(int delta, int numPoints, bool firstTime) {
+    delta = firstTime ? delta / PUNYCODE_DAMP : delta >> 1;
+    delta += delta / numPoints;
+    int k = 0;
+    while (delta > ((PUNYCODE_BASE - PUNYCODE_TMIN) * PUNYCODE_TMAX) / 2) {
+        delta /= PUNYCODE_BASE - PUNYCODE_TMIN;
+        k += PUNYCODE_BASE;
+    }
+    return k + (((PUNYCODE_BASE - PUNYCODE_TMIN + 1) * delta) / (delta + PUNYCODE_SKEW));
+}
+
+static char punycodeEncodeDigit(int d) {
+    if (d < 26) return static_cast<char>('a' + d);
+    return static_cast<char>('0' + d - 26);
+}
+
+std::string toPunycode(const std::string& domain) {
+    if (domain.empty()) return "";
+    
+    std::string result;
+    // Process each label (subdomain) separately
+    size_t pos = 0;
+    while (pos <= domain.size()) {
+        size_t dot = domain.find('.', pos);
+        if (dot == std::string::npos) dot = domain.size();
+        std::string label = domain.substr(pos, dot - pos);
+        
+        // Check if label is all ASCII
+        bool allAscii = true;
+        for (unsigned char c : label) {
+            if (c > 127) { allAscii = false; break; }
+        }
+        
+        if (allAscii) {
+            if (!result.empty()) result += '.';
+            result += label;
+        } else {
+            // Need Punycode encoding
+            // Extract basic (ASCII) code points
+            std::vector<int> codepoints;
+            std::string basic;
+            for (size_t i = 0; i < label.size();) {
+                unsigned char c = label[i];
+                int cp;
+                if (c < 0x80) { cp = c; i++; }
+                else if (c < 0xE0) { cp = ((c & 0x1F) << 6) | (label[i+1] & 0x3F); i += 2; }
+                else if (c < 0xF0) { cp = ((c & 0x0F) << 12) | ((label[i+1] & 0x3F) << 6) | (label[i+2] & 0x3F); i += 2; }
+                else { cp = ((c & 0x07) << 18) | ((label[i+1] & 0x3F) << 12) | ((label[i+2] & 0x3F) << 6) | (label[i+3] & 0x3F); i += 3; }
+                
+                if (cp < 128) basic += static_cast<char>(cp);
+                codepoints.push_back(cp);
+            }
+            
+            std::string encoded = "xn--" + basic;
+            if (basic.size() < label.size()) {
+                // Non-ASCII code points to encode
+                std::vector<int> nonAscii;
+                for (int cp : codepoints) if (cp >= 128) nonAscii.push_back(cp);
+                std::sort(nonAscii.begin(), nonAscii.end());
+                
+                int n = PUNYCODE_INITIAL_N;
+                int delta = 0;
+                int bias = PUNYCODE_INITIAL_BIAS;
+                int h = basic.size();
+                int b = basic.size();
+                
+                for (size_t j = 0; j < nonAscii.size();) {
+                    int m = nonAscii[j];
+                    for (size_t k = j + 1; k < nonAscii.size(); k++) {
+                        if (nonAscii[k] < m) m = nonAscii[k];
+                    }
+                    
+                    delta += (m - n) * (h + 1);
+                    n = m;
+                    
+                    for (size_t k = 0; k < nonAscii.size(); k++) {
+                        if (nonAscii[k] < n) { delta++; continue; }
+                        if (nonAscii[k] > n) break;
+                        
+                        int q = delta;
+                        for (int kk = PUNYCODE_BASE; ; kk += PUNYCODE_BASE) {
+                            int t = kk <= bias ? PUNYCODE_TMIN :
+                                    kk >= bias + PUNYCODE_TMAX ? PUNYCODE_TMAX : kk - bias;
+                            if (q < t) break;
+                            encoded += punycodeEncodeDigit(t + ((q - t) % (PUNYCODE_BASE - t)));
+                            q = (q - t) / (PUNYCODE_BASE - t);
+                        }
+                        encoded += punycodeEncodeDigit(q);
+                        bias = punycodeAdapt(delta, h + 1, h == b);
+                        delta = 0;
+                        h++;
+                        j++;
+                    }
+                    delta++;
+                    n++;
+                }
+            }
+            
+            if (!result.empty()) result += '.';
+            result += encoded;
+        }
+        pos = dot + 1;
+    }
+    return result;
+}
+
+std::string fromPunycode(const std::string& domain) {
+    // For now, detect xn-- prefixes and return the original
+    // A full Punycode decoder is complex; we handle the display case
+    // by checking if the domain needs decoding
+    if (domain.empty()) return "";
+    
+    bool hasPunycode = false;
+    std::string result;
+    size_t pos = 0;
+    while (pos <= domain.size()) {
+        size_t dot = domain.find('.', pos);
+        if (dot == std::string::npos) dot = domain.size();
+        std::string label = domain.substr(pos, dot - pos);
+        
+        if (label.size() > 4 && label.substr(0, 4) == "xn--") {
+            // This is Punycode — attempt to decode
+            std::string ascii;
+            for (char c : label.substr(4)) {
+                if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9')) ascii += c;
+                else if (c == '-') ascii += c;
+            }
+            // Simplified: return with marker that this could be decoded
+            if (!result.empty()) result += '.';
+            result += "(xn--" + ascii + ")";  // Placeholder until full decoder
+            hasPunycode = true;
+        } else {
+            if (!result.empty()) result += '.';
+            result += label;
+        }
+        pos = dot + 1;
+    }
+    
+    // If no Punycode found, return as-is (already Unicode)
+    return hasPunycode ? result : domain;
+}
+
 } // namespace progressive

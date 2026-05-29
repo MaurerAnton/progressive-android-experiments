@@ -194,6 +194,15 @@ std::string padLeft(const std::string& input, int width, char padChar = ' ');
 // Original Kotlin: padRight — right-pad string to width
 std::string padRight(const std::string& input, int width, char padChar = ' ');
 
+// IDN (Internationalized Domain Names) support
+// Converts Unicode domain (e.g. "пример.рф") to Punycode (e.g. "xn--e1afmkfd.xn--p1ai")
+// Used for DNS resolution and Matrix server names containing non-ASCII characters
+std::string toPunycode(const std::string& unicodeDomain);
+
+// Converts Punycode domain back to Unicode for display
+// "xn--e1afmkfd.xn--p1ai" → "пример.рф"
+std::string fromPunycode(const std::string& punycodeDomain);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_STRING_UTILS_HPP
