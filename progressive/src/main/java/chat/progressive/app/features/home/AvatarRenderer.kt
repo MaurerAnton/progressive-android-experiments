@@ -70,25 +70,6 @@ class AvatarRenderer @Inject constructor(
         )
     }
 
-//    fun renderSpace(matrixItem: MatrixItem, imageView: ImageView) {
-//        renderSpace(
-//                matrixItem,
-//                imageView,
-//                GlideApp.with(imageView)
-//        )
-//    }
-//
-//    @UiThread
-//    private fun renderSpace(matrixItem: MatrixItem, imageView: ImageView, glideRequests: GlideRequests) {
-//        val placeholder = getSpacePlaceholderDrawable(matrixItem)
-//        val resolvedUrl = resolvedUrl(matrixItem.avatarUrl)
-//        glideRequests
-//                .load(resolvedUrl)
-//                .transform(MultiTransformation(CenterCrop(), RoundedCorners(dimensionConverter.dpToPx(8))))
-//                .placeholder(placeholder)
-//                .into(DrawableImageViewTarget(imageView))
-//    }
-
     fun clear(imageView: ImageView) {
         // It can be called after recycler view is destroyed, just silently catch
         tryOrNull { GlideApp.with(imageView).clear(imageView) }
