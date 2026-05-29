@@ -3034,4 +3034,35 @@
     <string name="labs_enable_cache_manager_summary">Gérer le cache de l\'application</string>
     <string name="labs_enable_chat_export">Export du chat</string>
     <string name="labs_enable_chat_export_summary">Exporter les messages en HTML/JSON</string>
+
+    <string name="labs_enable_chat_pushdown">Décalage du chat</string>
+    <string name="labs_enable_chat_pushdown_summary">Décaler le chat avec le clavier</string>
+    <string name="labs_enable_chunked_upload">Upload partiel</string>
+    <string name="labs_enable_chunked_upload_summary">Téléverser les fichiers par morceaux</string>
+    <string name="labs_enable_custom_timezone">Fuseau horaire personnalisé</string>
+    <string name="labs_enable_custom_timezone_summary">Choisir le fuseau manuellement</string>
+    <string name="labs_enable_deleted_archive">Archive des supprimés</string>
+    <string name="labs_enable_deleted_archive_summary">Conserver les messages supprimés</string>
+    <string name="labs_enable_desync_detector">Détecteur désynchronisation</string>
+    <string name="labs_enable_desync_detector_summary">Détecter la désynchronisation entre serveurs</string>
+    <string name="labs_enable_duplicate_names">Noms en double</string>
+    <string name="labs_enable_duplicate_names_summary">Afficher les noms en double</string>
+    <string name="labs_enable_e2e_search">Recherche E2E</string>
+    <string name="labs_enable_e2e_search_summary">Rechercher dans les messages chiffrés</string>
+    <string name="labs_enable_emoji_blacklist">Liste noire d\'emojis</string>
+    <string name="labs_enable_emoji_blacklist_summary">Bloquer les messages avec émojis interdits</string>
+    <string name="labs_enable_event_link_resolve">Résolution de liens</string>
+    <string name="labs_enable_event_link_resolve_summary">Résoudre les liens d\'événements Matrix</string>
+    <string name="labs_enable_expanded_preview">Aperçu étendu</string>
+    <string name="labs_enable_expanded_preview_summary">Afficher un aperçu étendu</string>
+    <string name="labs_enable_expired_files">Fichiers expirés</string>
+    <string name="labs_enable_expired_files_summary">Afficher les médias expirés</string>
+    <string name="labs_enable_hide_invitation">Masquer invitations</string>
+    <string name="labs_enable_hide_invitation_summary">Masquer les invitations indésirables</string>
+    <string name="labs_enable_i2p">Support I2P</string>
+    <string name="labs_enable_i2p_summary">Connexion via le réseau I2P</string>
+    <string name="labs_enable_jump_to_date">Aller à la date</string>
+    <string name="labs_enable_jump_to_date_summary">Aller aux messages par date</string>
+    <string name="labs_enable_jump_to_source">Aller à la source</string>
+    <string name="labs_enable_jump_to_source_summary">Aller au message original</string>
 </resources>
