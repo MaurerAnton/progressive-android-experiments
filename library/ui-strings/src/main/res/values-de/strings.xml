@@ -2970,4 +2970,36 @@
     <string name="microphone_in_use_title">Mikrofon wird benutzt</string>
     <string name="call_unsupported">Nicht unterstützter Anruf</string>
     <string name="call_unsupported_matrix_rtc_call">Nicht unterstützter Anruf. Die neue Element X-App wird benötigt, um diesem Anruf beizutreten.</string>
+
+    <!-- Command descriptions -->
+    <string name="command_description_agent">KI-Agent starten</string>
+    <string name="command_description_hide_emoji">Nachrichten mit Emoji ausblenden</string>
+    <string name="command_description_jump_to_date">Zu Datum springen</string>
+    <string name="command_description_llm">Sprachmodell fragen</string>
+    <string name="command_description_llmp">Sprachmodell fragen (privat)</string>
+    <string name="command_description_schedule">Nachricht planen</string>
+    <string name="command_description_smsagent">SMS-Agent</string>
+    <string name="command_description_translate">Nachricht übersetzen</string>
+    <string name="command_description_weather">Wetter anzeigen</string>
+    <string name="command_description_web">Websuche</string>
+    <string name="all_messages_title">Alle Nachrichten</string>
+    <string name="all_threads_title">Alle Threads</string>
+    <string name="deleted_messages_title">Gelöschte Nachrichten</string>
+    <string name="auto_replace_add">Ersetzung hinzufügen</string>
+    <string name="auto_replace_pattern">Muster</string>
+    <string name="auto_replace_replacement">Ersetzung</string>
+    <string name="cache_delete_by_room">Raum-Cache löschen</string>
+    <string name="cache_delete_older_than">Cache älter als löschen</string>
+    <string name="desync_check_interval">Desync-Prüfintervall</string>
+    <string name="desync_warning_title">Desync-Warnung</string>
+    <string name="avatar_removed_on">Avatar entfernt am %s</string>
+    <string name="error_mas_not_supported_title">MAS nicht unterstützt</string>
+    <string name="error_mas_not_supported_subtitle">Dieser Server unterstützt Matrix Authentication Service nicht</string>
+    <string name="hide_language_dialog">Dialog ausblenden</string>
+    <string name="hide_language_this_user_only">Nur für diesen Benutzer ausblenden</string>
+    <string name="invite_hidden_list">Ausgeblendete Einladungen</string>
+    <string name="invite_hide_action">Einladung ausblenden</string>
+    <string name="how_you_can_help">Wie du helfen kannst</string>
+    <string name="jump_to_source">Zur Quelle springen</string>
+    <string name="jumptoroom_prompt">Raum-ID oder Adresse eingeben</string>
 </resources>
