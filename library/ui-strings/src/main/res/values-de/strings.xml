@@ -3181,4 +3181,7 @@
     <string name="verify_this_session_content">Diese Sitzung überprüfen</string>
     <string name="view_download_replacement_app_subtitle">Neue App zum Verbinden erforderlich</string>
     <string name="view_download_replacement_app_title">Neue App herunterladen</string>
+
+    <string name="error_account_expired_title">Konto abgelaufen</string>
+    <string name="error_account_expired_message">Dein Konto ist abgelaufen. Bitte melde dich erneut an.</string>
 </resources>
