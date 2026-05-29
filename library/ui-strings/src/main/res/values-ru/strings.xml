@@ -3144,4 +3144,35 @@
     <string name="labs_enable_chat_pushdown_summary">Сдвигать чат вниз при появлении клавиатуры</string>
     <string name="labs_enable_chunked_upload">Частичная загрузка</string>
     <string name="labs_enable_chunked_upload_summary">Загрузка файлов по частям</string>
+
+    <string name="labs_enable_custom_timezone">Свой часовой пояс</string>
+    <string name="labs_enable_custom_timezone_summary">Выбор часового пояса вручную</string>
+    <string name="labs_enable_deleted_archive">Архив удалённых</string>
+    <string name="labs_enable_deleted_archive_summary">Сохранение удалённых сообщений</string>
+    <string name="labs_enable_desync_detector">Детектор рассинхронизации</string>
+    <string name="labs_enable_desync_detector_summary">Обнаружение рассинхронизации между серверами</string>
+    <string name="labs_enable_duplicate_names">Дубликаты имён</string>
+    <string name="labs_enable_duplicate_names_summary">Показывать дубликаты отображаемых имён</string>
+    <string name="labs_enable_e2e_search">E2E поиск</string>
+    <string name="labs_enable_e2e_search_summary">Поиск в зашифрованных сообщениях</string>
+    <string name="labs_enable_emoji_blacklist">Чёрный список эмодзи</string>
+    <string name="labs_enable_emoji_blacklist_summary">Блокировка сообщений с запрещёнными эмодзи</string>
+    <string name="labs_enable_event_link_resolve">Разрешение ссылок на события</string>
+    <string name="labs_enable_event_link_resolve_summary">Разрешать ссылки на события Matrix</string>
+    <string name="labs_enable_expanded_preview">Расширенный предпросмотр</string>
+    <string name="labs_enable_expanded_preview_summary">Показывать расширенный предпросмотр сообщений</string>
+    <string name="labs_enable_expired_files">Просроченные файлы</string>
+    <string name="labs_enable_expired_files_summary">Показывать просроченные медиафайлы</string>
+    <string name="labs_enable_hide_invitation">Скрытие приглашений</string>
+    <string name="labs_enable_hide_invitation_summary">Скрывать нежелательные приглашения</string>
+    <string name="labs_enable_i2p">Поддержка I2P</string>
+    <string name="labs_enable_i2p_summary">Подключение через сеть I2P</string>
+    <string name="labs_enable_jump_to_date">Переход к дате</string>
+    <string name="labs_enable_jump_to_date_summary">Переход к сообщениям по дате</string>
+    <string name="labs_enable_jump_to_source">Переход к источнику</string>
+    <string name="labs_enable_jump_to_source_summary">Переход к исходному сообщению</string>
+    <string name="labs_enable_jump_to_source_edits">Переход к правкам</string>
+    <string name="labs_enable_jump_to_source_reactions">Переход к реакциям</string>
+    <string name="labs_enable_jump_to_source_replies">Переход к ответам</string>
+    <string name="labs_enable_event_link_max_concurrent">Макс. одновременных ссылок</string>
 </resources>
