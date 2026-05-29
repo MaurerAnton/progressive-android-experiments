@@ -1,4 +1,5 @@
 #include "progressive/user_directory.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
@@ -261,9 +262,7 @@ std::string UserDirectoryManager::resultsToJson(const std::vector<UserSearchResu
 
 std::string UserDirectoryManager::userToJson(const UserSearchResult& user) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

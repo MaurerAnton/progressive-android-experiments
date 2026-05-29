@@ -1,4 +1,5 @@
 #include "progressive/transparent_overlay.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <cmath>
 
@@ -252,9 +253,7 @@ TouchAction TransparentOverlayEngine::getTouchAction(double x, double y, int poi
 
 std::string TransparentOverlayEngine::stateToJson() const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

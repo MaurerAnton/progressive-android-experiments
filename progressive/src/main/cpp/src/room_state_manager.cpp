@@ -1,4 +1,5 @@
 #include "progressive/room_state_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/room_content.hpp"
 #include <sstream>
 #include <algorithm>
@@ -174,9 +175,7 @@ void progressive::RoomStateManager::clear() { rooms_.clear(); }
 
 std::string progressive::RoomStateManager::roomStateToJson(const RoomStateSummary& state) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

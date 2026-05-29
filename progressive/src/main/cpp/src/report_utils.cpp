@@ -1,4 +1,5 @@
 #include "progressive/report_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cmath>
@@ -23,7 +24,7 @@ std::vector<ReportReason> getReportReasons() {
 
 std::string buildReportBody(const ReportRequest& request) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"reason": ")" << esc(request.reason) << R"(")";
@@ -69,7 +70,7 @@ bool isOffensive(int score, int threshold) {
 
 std::string buildBugReportBody(const BugReport& report) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";

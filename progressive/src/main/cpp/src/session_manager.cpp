@@ -1,4 +1,5 @@
 #include "progressive/session_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <algorithm>
@@ -80,7 +81,7 @@ std::string getRecommendedSession(const SessionList& list, const std::string& ex
 
 std::string serializeSession(const SessionPersistence& session) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"userId": ")" << esc(session.userId) << R"(")";
@@ -118,7 +119,7 @@ bool needsTokenRefresh(const SessionPersistence& session, int64_t tokenExpiryMs)
 
 std::string sessionListToJson(const SessionList& list) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"activeUserId": ")" << esc(list.activeUserId) << R"(")";

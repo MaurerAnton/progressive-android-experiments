@@ -1,4 +1,5 @@
 #include "progressive/server_notice_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/room_content.hpp"
 #include <sstream>
 #include <algorithm>
@@ -298,9 +299,7 @@ std::string ServerNoticeManager::formatServerNotice(const ServerNoticeInfo& info
 
 std::string ServerNoticeManager::serverNoticeToJson(const ServerNoticeInfo& info) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;
@@ -320,9 +319,7 @@ std::string ServerNoticeManager::serverNoticeToJson(const ServerNoticeInfo& info
 
 std::string ServerNoticeManager::resourceLimitToJson(const ServerNoticeInfo& info) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

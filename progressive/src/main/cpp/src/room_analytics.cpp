@@ -1,4 +1,5 @@
 #include "progressive/room_analytics.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <unordered_set>
@@ -113,9 +114,7 @@ std::vector<UserStats> computeAvgMessageLengths(const std::vector<CacheEvent>& e
 
 std::string analyticsToJson(const RoomAnalytics& a) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream json;

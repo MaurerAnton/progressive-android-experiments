@@ -1,4 +1,5 @@
 #include "progressive/permalink.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/url_tools.hpp"
 #include <sstream>
 #include <unordered_map>

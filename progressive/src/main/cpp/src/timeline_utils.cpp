@@ -1,4 +1,5 @@
 #include "progressive/timeline_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <iomanip>

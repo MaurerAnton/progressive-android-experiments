@@ -1,4 +1,5 @@
 #include "progressive/thread_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <ctime>
@@ -345,9 +346,7 @@ void ThreadManager::sortThreads(std::vector<ThreadInfoFull>& threads) const {
 
 std::string ThreadManager::threadToJson(const ThreadInfoFull& thread) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

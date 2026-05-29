@@ -1,4 +1,5 @@
 #include "progressive/slash_command.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
@@ -534,7 +535,7 @@ std::vector<std::string> getSlashCommandSuggestions(const std::string& prefix) {
 
 std::string parsedCommandToJson(const ParsedCommand& cmd) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"resultType": )" << static_cast<int>(cmd.resultType) << ",";

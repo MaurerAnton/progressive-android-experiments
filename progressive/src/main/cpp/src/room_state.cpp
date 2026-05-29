@@ -1,4 +1,5 @@
 #include "progressive/room_state.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 
 namespace progressive {
@@ -189,7 +190,7 @@ bool isUpgradedRoom(const RoomCreate& create) {
 
 std::string joinRulesToJson(const RoomJoinRulesData& rules) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"valid": )" << (rules.valid ? "true" : "false") << ",";
@@ -220,7 +221,7 @@ std::string guestAccessToJson(const RoomGuestAccess& access) {
 
 std::string roomCreateToJson(const RoomCreate& create) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"valid": )" << (create.valid ? "true" : "false") << ",";
@@ -254,7 +255,7 @@ bool isRoomUpgraded(const RoomTombstone& tombstone) {
 
 std::string tombstoneToJson(const RoomTombstone& tombstone) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"valid": )" << (tombstone.valid ? "true" : "false") << ",";

@@ -1,4 +1,5 @@
 #include "progressive/widget_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <regex>
@@ -26,9 +27,7 @@ WidgetInfo parseWidgetStateContent(const std::string& stateContentJson, const st
 
 std::string buildWidgetContent(const WidgetInfo& widget) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";
@@ -110,7 +109,7 @@ std::vector<WidgetInfo> listRoomWidgets(const std::string& stateEventsJson) {
 
 std::string widgetToJson(const WidgetInfo& widget) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"widgetId": ")" << esc(widget.widgetId) << R"(")";

@@ -1,4 +1,5 @@
 #include "progressive/room_name.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
@@ -177,7 +178,7 @@ std::string getEmptyRoomName(bool isDirect, const std::vector<std::string>& left
 
 std::string roomNameToJson(const RoomName& name) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"name": ")" << esc(name.name) << R"(",)";

@@ -1,4 +1,5 @@
 #include "progressive/profiler.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
@@ -219,9 +220,7 @@ std::string Profiler::formatBytes(int64_t bytes) {
 std::string Profiler::reportToJson() const {
     auto report = generateReport();
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

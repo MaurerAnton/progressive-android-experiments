@@ -1,4 +1,5 @@
 #include "progressive/event_models.hpp"
+#include "progressive/string_utils.hpp"
 
 namespace progressive {
 

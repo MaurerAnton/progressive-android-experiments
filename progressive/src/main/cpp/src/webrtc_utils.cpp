@@ -1,4 +1,5 @@
 #include "progressive/webrtc_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/event_classifier.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
@@ -63,7 +64,7 @@ IceCandidate parseIceCandidate(const std::string& eventContentJson) {
 std::string buildCallInviteContent(const std::string& callId, bool isVideo,
     const std::string& sdpOffer, int lifetimeSeconds) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"call_id": ")" << esc(callId) << R"(")";
@@ -78,7 +79,7 @@ std::string buildCallInviteContent(const std::string& callId, bool isVideo,
 
 std::string buildCallAnswerContent(const std::string& callId, const std::string& sdpAnswer) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"call_id": ")" << esc(callId) << R"(")";
@@ -91,7 +92,7 @@ std::string buildCallAnswerContent(const std::string& callId, const std::string&
 std::string buildCallCandidatesContent(const std::string& callId,
     const std::vector<IceCandidate>& candidates) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"call_id": ")" << esc(callId) << R"(")";
@@ -109,7 +110,7 @@ std::string buildCallCandidatesContent(const std::string& callId,
 
 std::string buildCallHangupContent(const std::string& callId, const std::string& reason) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"call_id": ")" << esc(callId) << R"(")";

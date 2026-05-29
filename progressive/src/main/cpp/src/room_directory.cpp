@@ -1,4 +1,5 @@
 #include "progressive/room_directory.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <unordered_set>
@@ -144,7 +145,7 @@ std::vector<std::string> extractServers(const std::vector<RoomDirectoryEntry>& r
 
 std::string directoryStatsToJson(const DirectoryStats& stats) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";

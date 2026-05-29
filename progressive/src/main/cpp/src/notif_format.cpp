@@ -1,4 +1,5 @@
 #include "progressive/notif_format.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <iomanip>
 #include <cmath>

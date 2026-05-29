@@ -1,4 +1,5 @@
 #include "progressive/url_preview.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/link_preview.hpp"
 #include <sstream>
 #include <algorithm>
@@ -205,9 +206,7 @@ std::string truncateDescription(const std::string& text, size_t maxLen) {
 
 std::string urlPreviewToJson(const UrlPreview& preview) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"url": ")" << esc(preview.url) << R"(",)";

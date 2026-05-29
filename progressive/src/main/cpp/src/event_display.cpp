@@ -1,4 +1,5 @@
 #include "progressive/event_display.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 
 namespace progressive {

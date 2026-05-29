@@ -1,4 +1,5 @@
 #include "progressive/message_location.hpp"
+#include "progressive/string_utils.hpp"
 #include <vector>
 #include <sstream>
 #include <algorithm>

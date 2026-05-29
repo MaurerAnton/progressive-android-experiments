@@ -1,4 +1,5 @@
 #include "progressive/federation_version.hpp"
+#include "progressive/string_utils.hpp"
 #include <cstdlib>
 
 namespace progressive {

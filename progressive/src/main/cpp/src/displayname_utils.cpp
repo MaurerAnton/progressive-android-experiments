@@ -1,4 +1,5 @@
 #include "progressive/displayname_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <iomanip>
 #include <cctype>

@@ -1,4 +1,5 @@
 #include "progressive/message_retry.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cmath>
@@ -162,9 +163,7 @@ std::string formatRetryBadge(int retryCount) {
 
 std::string pendingMessageToJson(const PendingMessage& msg) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"localId": ")" << esc(msg.localId) << R"(",)";

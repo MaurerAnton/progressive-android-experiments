@@ -1,4 +1,5 @@
 #include "progressive/read_marker.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 
@@ -90,7 +91,7 @@ std::string advanceReadMarker(const std::string& currentRoomId, const std::strin
 
 std::string readMarkerToJson(const ReadMarkerState& state) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";

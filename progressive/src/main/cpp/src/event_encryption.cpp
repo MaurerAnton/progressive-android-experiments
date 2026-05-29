@@ -1,4 +1,5 @@
 #include "progressive/event_encryption.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <algorithm>

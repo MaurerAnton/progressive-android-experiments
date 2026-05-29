@@ -1,4 +1,5 @@
 #include "progressive/timeline_chunk.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/sqlite_wrapper.hpp"
 #include <algorithm>
 #include <sstream>

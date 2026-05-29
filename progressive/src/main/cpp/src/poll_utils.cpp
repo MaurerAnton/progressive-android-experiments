@@ -1,4 +1,5 @@
 #include "progressive/poll_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <chrono>
@@ -104,9 +105,7 @@ std::string formatPollAsHtml(const PollResult& result) {
 
 std::string pollResultToJson(const PollResult& result) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";

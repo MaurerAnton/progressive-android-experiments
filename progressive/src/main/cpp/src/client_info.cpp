@@ -1,4 +1,5 @@
 #include "progressive/client_info.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <regex>
 

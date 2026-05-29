@@ -1,4 +1,5 @@
 #include "progressive/spoiler_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 
 namespace progressive {
@@ -191,9 +192,7 @@ std::string SpoilerManager::buildSpoilerMessageContent(const SpoilerContent& spo
 
 std::string SpoilerManager::spoilerToJson(const SpoilerContent& spoiler) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;
