@@ -3002,4 +3002,34 @@
     <string name="how_you_can_help">Wie du helfen kannst</string>
     <string name="jump_to_source">Zur Quelle springen</string>
     <string name="jumptoroom_prompt">Raum-ID oder Adresse eingeben</string>
+
+    <!-- Keyword filter -->
+    <string name="keyword_filter_blocked_message">Nachricht vom Filter blockiert</string>
+    <string name="keyword_filter_blocked_title">Blockiert</string>
+    <string name="keyword_filter_edit">Filter bearbeiten</string>
+    <string name="keyword_filter_hint">Schlüsselwörter eingeben</string>
+
+    <!-- Labs features -->
+    <string name="labs_block_remote_images">Externe Bilder blockieren</string>
+    <string name="labs_block_remote_images_summary">Bilder von externen Servern blockieren</string>
+    <string name="labs_enable_account_export">Kontoexport</string>
+    <string name="labs_enable_account_export_summary">Kontodaten als JSON exportieren</string>
+    <string name="labs_enable_all_messages">Alle Nachrichten</string>
+    <string name="labs_enable_all_messages_summary">Alle Nachrichten anzeigen</string>
+    <string name="labs_enable_all_threads">Alle Threads</string>
+    <string name="labs_enable_all_threads_summary">Alle Threads anzeigen</string>
+    <string name="labs_enable_audio_statusbar">Audio in Statusleiste</string>
+    <string name="labs_enable_audio_statusbar_summary">Audioplayer in Statusleiste anzeigen</string>
+    <string name="labs_enable_auto_replace">Auto-Ersetzung</string>
+    <string name="labs_enable_auto_replace_summary">Automatische Texter setzung beim Tippen</string>
+    <string name="labs_enable_auto_scroll">Auto-Scroll</string>
+    <string name="labs_enable_auto_scroll_summary">Automatisch bei neuen Nachrichten scrollen</string>
+    <string name="labs_enable_auto_translate_room">Raum-Autoübersetzung</string>
+    <string name="labs_enable_auto_translate_room_summary">Nachrichten automatisch übersetzen</string>
+    <string name="labs_enable_avatar_history">Avatar-Verlauf</string>
+    <string name="labs_enable_avatar_history_summary">Avatar-Verlauf der Benutzer anzeigen</string>
+    <string name="labs_enable_cache_manager">Cache-Verwaltung</string>
+    <string name="labs_enable_cache_manager_summary">App-Cache verwalten</string>
+    <string name="labs_enable_chat_export">Chat-Export</string>
+    <string name="labs_enable_chat_export_summary">Nachrichten als HTML/JSON exportieren</string>
 </resources>
