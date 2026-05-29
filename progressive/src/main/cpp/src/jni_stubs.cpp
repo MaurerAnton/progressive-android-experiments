@@ -842,3 +842,36 @@ JNI_FUNC(jboolean, nativeIsYggdrasilDomain)(JNIEnv* env, jclass, jstring jHost) 
     std::string s = j2s(env, jHost);
     return s.find(".ygg") != std::string::npos;
 }
+JNI_FUNC(void, nativeMxidVisibilityHide)(JNIEnv*, jclass, jstring) {}
+JNI_FUNC(jboolean, nativeMxidVisibilityIsVisible)(JNIEnv*, jclass, jstring) { return true; }
+JNI_FUNC(void, nativeMxidVisibilityShow)(JNIEnv*, jclass, jstring) {}
+JNI_FUNC(jstring, nativeUserHideGetActive)(JNIEnv* env, jclass) { return env->NewStringUTF("[]"); }
+JNI_FUNC(jboolean, nativeUserHideIsHidden)(JNIEnv*, jclass, jstring) { return false; }
+JNI_FUNC(jstring, nativeUserIdToColor)(JNIEnv* env, jclass, jstring) { return env->NewStringUTF("#4A90D9"); }
+JNI_FUNC(void, nativeUserMaskClear)(JNIEnv*, jclass, jstring) {}
+JNI_FUNC(jint, nativeUserMaskCount)(JNIEnv*, jclass) { return 0; }
+JNI_FUNC(jstring, nativeUserMaskExportJson)(JNIEnv* env, jclass) { return env->NewStringUTF("[]"); }
+JNI_FUNC(void, nativeUserMaskImportJson)(JNIEnv*, jclass, jstring) {}
+JNI_FUNC(void, nativeUserMaskRemove)(JNIEnv*, jclass, jstring) {}
+JNI_FUNC(jstring, nativeUserMaskResolveAvatar)(JNIEnv* env, jclass, jstring) { return env->NewStringUTF(""); }
+JNI_FUNC(jstring, nativeUserMaskResolveName)(JNIEnv* env, jclass, jstring) { return env->NewStringUTF(""); }
+JNI_FUNC(void, nativeUserMaskSet)(JNIEnv*, jclass, jstring, jstring, jstring) {}
+JNI_FUNC(jstring, nativeValidateAndBuild)(JNIEnv* env, jclass, jstring, jstring, jstring, jstring, jboolean) { return env->NewStringUTF("{}"); }
+JNI_FUNC(jboolean, nativeValidateEvent)(JNIEnv*, jclass, jstring) { return true; }
+JNI_FUNC(jboolean, nativeValidateHomeserverUrl)(JNIEnv* env, jclass, jstring jUrl) {
+    std::string s = j2s(env, jUrl);
+    return s.find("https://") == 0 || s.find("http://") == 0;
+}
+JNI_FUNC(jboolean, nativeValidatePasswordWithUsername)(JNIEnv* env, jclass, jstring jPw, jstring) {
+    return env->GetStringLength(jPw) >= 8;
+}
+JNI_FUNC(jboolean, nativeValidateUsername)(JNIEnv* env, jclass, jstring jUser) {
+    std::string s = j2s(env, jUser);
+    return s.size() >= 3 && s.find(" ") == std::string::npos;
+}
+JNI_FUNC(jint, nativeWordCount)(JNIEnv* env, jclass, jstring jText) {
+    std::string s = j2s(env, jText);
+    int wc = 0; bool inWord = false;
+    for (char c : s) { if (c > 32) { if (!inWord) { wc++; inWord = true; } } else { inWord = false; } }
+    return wc;
+}
