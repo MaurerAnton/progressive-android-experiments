@@ -246,6 +246,7 @@ object ProgressiveNative {
 
     // --- Connection Monitor ---
 
+    @JvmStatic external fun nativeFormatDowntime(downtimeMs: Long): String
     @JvmStatic external fun nativeGetBannerColor(downtimeMs: Long): String
 
     // --- Content Guard ---
@@ -1146,6 +1147,7 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeConnMonitorOnConnected()
     @JvmStatic external fun nativeConnMonitorOnDisconnected()
+    @JvmStatic external fun nativeConnMonitorOnReconnectAttempt()
     @JvmStatic external fun nativeConnMonitorGetStatus(): String
 
     // --- Push Rules ---
@@ -2171,6 +2173,11 @@ object ProgressiveNative {
     @JvmStatic fun nativeClassifyNetworkQualityFallback(signalStrength: Int, latencyMs: Double, lossRate: Double): String { return "" }
 
     @JvmStatic fun nativeClassifyWidgetTypeFallback(type: String): String { return "" }
+
+    @JvmStatic fun nativeConnMonitorGetStatusFallback(): String { return """{"isConnected":true,"wasEverConnected":true,"downtimeMs":0,"reconnectAttempts":0,"downtimeText":"","statusText":"Connected","bannerColor":""}""" }
+    @JvmStatic fun nativeConnMonitorOnConnectedFallback() { }
+    @JvmStatic fun nativeConnMonitorOnDisconnectedFallback() { }
+    @JvmStatic fun nativeConnMonitorOnReconnectAttemptFallback() { }
 
     @JvmStatic fun nativeCompareSemverFallback(a: String, b: String): Int { return 0 }
 

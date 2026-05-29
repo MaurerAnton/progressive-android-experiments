@@ -2088,6 +2088,32 @@ JNI_FUNC(jstring, nativeFormatDowntime)(JNIEnv* env, jclass, jlong jDowntimeMs) 
     return env->NewStringUTF(result.c_str());
 }
 
+JNI_FUNC(void, nativeConnMonitorOnConnected)(JNIEnv*, jclass) {
+    g_connectionMonitor.onConnected();
+}
+
+JNI_FUNC(void, nativeConnMonitorOnDisconnected)(JNIEnv*, jclass) {
+    g_connectionMonitor.onDisconnected();
+}
+
+JNI_FUNC(jstring, nativeConnMonitorGetStatus)(JNIEnv* env, jclass) {
+    auto state = g_connectionMonitor.getState();
+    std::ostringstream os;
+    os << R"({"isConnected":)" << (state.isConnected ? "true" : "false")
+       << R"(,"wasEverConnected":)" << (state.wasEverConnected ? "true" : "false")
+       << R"(,"downtimeMs":)" << state.downtimeMs
+       << R"(,"reconnectAttempts":)" << state.reconnectAttempts
+       << R"(,"downtimeText":")" << progressive::escapeJson(state.downtimeText)
+       << R"(","statusText":")" << progressive::escapeJson(state.statusText)
+       << R"(","bannerColor":")" << progressive::ConnectionMonitor::getBannerColor(state.downtimeMs)
+       << R"("})";
+    return env->NewStringUTF(os.str().c_str());
+}
+
+JNI_FUNC(void, nativeConnMonitorOnReconnectAttempt)(JNIEnv*, jclass) {
+    g_connectionMonitor.onReconnectAttempt();
+}
+
 // --- Event Preview (room list last message) ---
 
 JNI_FUNC(jstring, nativeFormatEventPreview)(JNIEnv* env, jclass, jstring jSender, jstring jBody, jstring jType, jstring jMsgType, jboolean jShowSender) {
