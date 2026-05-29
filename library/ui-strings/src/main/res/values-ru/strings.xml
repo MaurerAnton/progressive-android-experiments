@@ -3206,4 +3206,35 @@
     <string name="labs_enable_profile_swiper_summary">Просмотр профилей свайпом</string>
     <string name="labs_enable_ram_statusbar">RAM в статус-баре</string>
     <string name="labs_enable_ram_statusbar_summary">Показывать использование памяти</string>
+
+    <string name="labs_enable_reaction_preview">Предпросмотр реакций</string>
+    <string name="labs_enable_reaction_preview_summary">Показывать реакции в списке чатов</string>
+    <string name="labs_enable_read_receipts_cpp">C++ отчёты о прочтении</string>
+    <string name="labs_enable_read_receipts_cpp_summary">Обработка отчётов в нативном коде</string>
+    <string name="labs_enable_room_analytics">Аналитика комнат</string>
+    <string name="labs_enable_room_analytics_summary">Статистика и аналитика комнат</string>
+    <string name="labs_enable_room_info">Информация о комнате</string>
+    <string name="labs_enable_room_info_summary">Расширенная информация о комнате</string>
+    <string name="labs_enable_room_mirror">Зеркало комнаты</string>
+    <string name="labs_enable_room_mirror_summary">Зеркалирование сообщений между серверами</string>
+    <string name="labs_enable_room_version_select">Выбор версии комнаты</string>
+    <string name="labs_enable_room_version_select_summary">Выбор версии протокола комнаты</string>
+    <string name="labs_enable_scheduled_edits">Отложенные правки</string>
+    <string name="labs_enable_scheduled_edits_summary">Планирование правок сообщений</string>
+    <string name="labs_enable_seconds_timestamps">Секунды в метках</string>
+    <string name="labs_enable_seconds_timestamps_summary">Показывать секунды в метках времени</string>
+    <string name="labs_enable_svg_render">SVG рендеринг</string>
+    <string name="labs_enable_svg_render_summary">Рендеринг SVG в нативном коде</string>
+    <string name="labs_enable_symbol_bar">Панель символов</string>
+    <string name="labs_enable_symbol_bar_summary">Панель специальных символов</string>
+    <string name="labs_enable_tor">Поддержка Tor</string>
+    <string name="labs_enable_tor_summary">Подключение через сеть Tor</string>
+    <string name="labs_enable_translate">Перевод</string>
+    <string name="labs_enable_translate_summary">Перевод сообщений через LLM</string>
+    <string name="labs_enable_user_hide">Скрытие пользователей</string>
+    <string name="labs_enable_user_hide_summary">Скрытие сообщений от пользователей</string>
+    <string name="labs_enable_user_mask">Маскировка пользователя</string>
+    <string name="labs_enable_user_mask_summary">Скрытие реального ID пользователя</string>
+    <string name="labs_enable_user_messages_list">Список сообщений</string>
+    <string name="labs_enable_user_messages_list_summary">Список всех сообщений пользователя</string>
 </resources>
