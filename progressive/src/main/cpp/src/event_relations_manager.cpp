@@ -1,4 +1,5 @@
 #include "progressive/event_relations_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 
 namespace progressive {
@@ -290,9 +291,7 @@ bool EventRelationsManager::validateEdit(const std::string& originalEventJson, c
 std::string EventRelationsManager::buildNewContent(const std::string& body, const std::string& msgType,
                                                     const std::string& formattedBody, const std::string& format) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;
@@ -311,9 +310,7 @@ std::string EventRelationsManager::buildNewContent(const std::string& body, cons
 
 std::string EventRelationsManager::relationToJson(const RelationContent& rel) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

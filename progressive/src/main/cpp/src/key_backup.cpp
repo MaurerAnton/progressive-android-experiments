@@ -1,4 +1,5 @@
 #include "progressive/key_backup.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cctype>
@@ -238,9 +239,7 @@ bool isSupportedBackupAlgorithm(const std::string& algorithm) {
 
 std::string keyBackupVersionToJson(const KeyBackupVersion& backup) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"version": ")" << esc(backup.version) << R"(",)";
@@ -316,7 +315,7 @@ SecretStorageKey parseSecretStorageKey(const std::string& keyId, const std::stri
 
 std::string secretStorageKeyToJson(const SecretStorageKey& key) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"keyId": ")" << esc(key.keyId) << R"(",)";

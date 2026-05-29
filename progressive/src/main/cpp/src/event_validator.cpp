@@ -1,4 +1,5 @@
 #include "progressive/event_validator.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include "progressive/matrix_patterns.hpp"
 #include <sstream>
@@ -138,7 +139,7 @@ EventValidation validateEvent(
 
 std::string eventValidationToJson(const EventValidation& validation) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"valid": )" << (validation.valid ? "true" : "false");

@@ -1,4 +1,5 @@
 #include "progressive/pinned_events.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <regex>
 
@@ -49,9 +50,7 @@ std::string formatPinnedEventsText(const std::vector<PinnedEvent>& events) {
 
 std::string pinnedEventsToJson(const std::vector<PinnedEvent>& events, const std::string& roomId) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"roomId": ")" << esc(roomId) << R"(")";
@@ -72,9 +71,7 @@ std::string pinnedEventsToJson(const std::vector<PinnedEvent>& events, const std
 
 std::string buildPinnedEventsContent(const std::vector<std::string>& eventIds) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"pinned": [)";

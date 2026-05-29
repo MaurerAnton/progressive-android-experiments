@@ -1,4 +1,5 @@
 #include "progressive/identity_server_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <ctime>
@@ -187,7 +188,7 @@ std::string IdentityServerManager::buildSubmitTokenRequest(const IS_ThreePid& th
     std::ostringstream os;
     os << R"({"sid":")" << sid
        << R"(","client_secret":")" << clientSecret
-       << R"(","token":")" << token << R"(")";
+       << R"(","token": "***" << token << R"(")";
     os << "}";
     return os.str();
 }
@@ -343,7 +344,7 @@ void IdentityServerManager::setShareStatus(const IS_ThreePid& threePid, IS_Share
 
 std::string IdentityServerManager::buildSignInvitationRequest(const std::string& token, const std::string& secret) const {
     std::ostringstream os;
-    os << R"({"token":")" << token << R"(","secret":")" << secret << R"("})";
+    os << R"({"token": "***" << token << R"(","secret": "***" << secret << R"("})";
     return os.str();
 }
 
@@ -360,9 +361,7 @@ SignInvitationResult IdentityServerManager::parseSignInvitationResponse(const st
 
 std::string IdentityServerManager::threePidToJson(const IS_ThreePid& threePid) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;
@@ -375,9 +374,7 @@ std::string IdentityServerManager::threePidToJson(const IS_ThreePid& threePid) c
 
 std::string IdentityServerManager::bindingToJson(const IS_ThreePidBindingStatus& status) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;
@@ -394,9 +391,7 @@ std::string IdentityServerManager::bindingToJson(const IS_ThreePidBindingStatus&
 
 std::string IdentityServerManager::foundPidToJson(const IS_FoundThreePid& found) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

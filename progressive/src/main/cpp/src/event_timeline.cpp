@@ -1,4 +1,5 @@
 #include "progressive/event_timeline.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <ctime>
@@ -166,7 +167,7 @@ ReadMarker computeReadMarker(
 
 std::string timelineStatsToJson(const TimelineStats& stats) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";

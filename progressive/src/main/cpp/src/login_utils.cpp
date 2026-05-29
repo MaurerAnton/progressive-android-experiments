@@ -1,4 +1,5 @@
 #include "progressive/login_utils.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include "progressive/url_tools.hpp"
 #include <sstream>
@@ -44,7 +45,7 @@ std::vector<LoginFlow> parseLoginFlowsList(const std::string& apiResponseJson) {
 
 std::string buildUserIdentifier(const std::string& userId) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     if (userId.find('@') != std::string::npos) {
         return R"({"type": "m.id.user", "user": ")" + esc(userId) + R"("})";
@@ -58,17 +59,17 @@ std::string buildUserIdentifier(const std::string& userId) {
 
 std::string buildLoginBody(const LoginParams& params) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";
     if (!params.password.empty()) {
         json << R"("type": "m.login.password",)";
         json << R"("identifier": )" << buildUserIdentifier(params.userId) << ",";
-        json << R"("password": ")" << esc(params.password) << R"(")";
+        json << R"("password": "***" << esc(params.password) << R"(")";
     } else if (!params.token.empty()) {
         json << R"("type": "m.login.token",)";
-        json << R"("token": ")" << esc(params.token) << R"(")";
+        json << R"("token": "***" << esc(params.token) << R"(")";
     }
     if (!params.deviceName.empty())
         json << R"(,"initial_device_display_name": ")" << esc(params.deviceName) << R"(")";
@@ -107,9 +108,9 @@ LoginResult parseLoginResponse(const std::string& responseJson, int httpStatus) 
 
 std::string buildRefreshBody(const std::string& refreshToken) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
-    return R"({"refresh_token": ")" + esc(refreshToken) + R"("})";
+    return R"({"refresh_token": "***" + esc(refreshToken) + R"("})";
 }
 
 bool isRateLimited(const std::string& responseJson, int httpStatus) {

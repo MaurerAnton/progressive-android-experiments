@@ -1,4 +1,5 @@
 #include "progressive/media_upload_manager.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <ctime>
@@ -142,9 +143,7 @@ std::string MediaUploadManager::buildImageContent(const MediaContentAttachmentDa
                                                     const std::string& mxcUrl,
                                                     const std::string& body) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::string b = body.empty() ? attachment.name : body;
@@ -175,9 +174,7 @@ std::string MediaUploadManager::buildVideoContent(const MediaContentAttachmentDa
                                                     const std::string& mxcUrl,
                                                     const std::string& body) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::string b = body.empty() ? attachment.name : body;
@@ -201,9 +198,7 @@ std::string MediaUploadManager::buildAudioContent(const MediaContentAttachmentDa
                                                     const std::string& mxcUrl,
                                                     const std::string& body) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::string b = body.empty() ? attachment.name : body;
@@ -227,9 +222,7 @@ std::string MediaUploadManager::buildFileContent(const MediaContentAttachmentDat
                                                    const std::string& mxcUrl,
                                                    const std::string& body) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::string b = body.empty() ? attachment.name : body;
@@ -297,9 +290,7 @@ void MediaUploadManager::getCompressedDimensions(int originalWidth, int original
 
 std::string MediaUploadManager::attachmentToJson(const MediaContentAttachmentData& attachment) const {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out;
-        for (char c : s) { if (c == '"') out += "\\\""; else out += c; }
-        return out;
+        return escapeJson(s);
     };
 
     std::ostringstream os;

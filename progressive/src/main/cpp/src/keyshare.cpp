@@ -1,4 +1,5 @@
 #include "progressive/keyshare.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <chrono>
@@ -41,7 +42,7 @@ std::string buildForwardedKeyContent(const std::string& roomId, const std::strin
     const std::string& sessionKey, int messageIndex, const std::string& algorithm,
     bool sharedHistory) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";
@@ -61,7 +62,7 @@ std::string buildKeyRequestBody(const std::string& roomId, const std::string& se
     const std::string& senderKey, const std::string& algorithm,
     const std::string& requestId, const std::string& requestingDeviceId) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << "{";
@@ -79,7 +80,7 @@ std::string buildKeyRequestBody(const std::string& roomId, const std::string& se
 
 std::string buildKeyRequestCancelBody(const std::string& requestId) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     return R"({"action": "request_cancellation", "body": {"request_id": ")" + esc(requestId) + R"("}})";
 }

@@ -1,4 +1,5 @@
 #include "progressive/offline_cache.hpp"
+#include "progressive/string_utils.hpp"
 #include <sstream>
 #include <algorithm>
 #include <cmath>
@@ -161,7 +162,7 @@ bool canFitInStorage(int64_t required, int64_t available, int64_t reserved) {
 
 std::string roomPriorityToJson(const RoomPriority& room) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"roomId": ")" << esc(room.roomId) << R"(",)";
@@ -174,7 +175,7 @@ std::string roomPriorityToJson(const RoomPriority& room) {
 
 std::string offlineCachePlanToJson(const OfflineCachePlan& plan) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"totalBudget": )" << plan.totalBudget << ",";

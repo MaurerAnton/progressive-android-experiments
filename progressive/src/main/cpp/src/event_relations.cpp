@@ -1,4 +1,5 @@
 #include "progressive/event_relations.hpp"
+#include "progressive/string_utils.hpp"
 #include "progressive/json_parser.hpp"
 #include <sstream>
 #include <unordered_set>
@@ -77,7 +78,7 @@ std::string extractEditSource(const std::string& contentJson) {
 
 std::string buildReplyRelationWithThread(const std::string& eventId, const std::string& threadRoot) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"m.relates_to": {"event_id": ")" << esc(eventId)
@@ -90,7 +91,7 @@ std::string buildReplyRelationWithThread(const std::string& eventId, const std::
 
 std::string buildThreadRelation(const std::string& threadRoot) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     return R"({"m.relates_to": {"event_id": ")" + esc(threadRoot) +
            R"(", "rel_type": "m.thread"}})";
@@ -98,7 +99,7 @@ std::string buildThreadRelation(const std::string& threadRoot) {
 
 std::string buildEditRelation(const std::string& eventId) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     return R"({"m.relates_to": {"event_id": ")" + esc(eventId) +
            R"(", "rel_type": "m.replace"}})";
@@ -145,7 +146,7 @@ ThreadSummary computeThreadSummary(
 
 std::string threadSummaryToJson(const ThreadSummary& summary) {
     auto esc = [](const std::string& s) -> std::string {
-        std::string out; for (char c : s) { if (c == '"') out += "\\\""; else out += c; } return out;
+        return escapeJson(s);
     };
     std::ostringstream json;
     json << R"({"rootEventId": ")" << esc(summary.rootEventId) << R"(")";
