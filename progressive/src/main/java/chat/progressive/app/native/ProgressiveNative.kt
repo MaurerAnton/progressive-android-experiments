@@ -572,8 +572,6 @@ object ProgressiveNative {
     // --- Alarm Engine ---
 
     @JvmStatic external fun nativeAlarmCreate(agentText: String): String
-    @JvmStatic external fun nativeAlarmGetNext(): String
-    @JvmStatic external fun nativeAlarmListAll(): String
     @JvmStatic external fun nativeAlarmSnooze(id: String, minutes: Int)
     @JvmStatic external fun nativeAlarmDismiss(id: String)
     @JvmStatic external fun nativeAlarmDelete(id: String)
