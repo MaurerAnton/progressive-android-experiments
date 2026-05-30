@@ -1,4 +1,5 @@
 #include "progressive/cross_signing_manager.hpp"
+#include "progressive/preferences.hpp"
 #include "progressive/device_manager_full.hpp"
 #include "progressive/poll_manager.hpp"
 #include "progressive/room_directory_manager.hpp"
@@ -167,6 +168,116 @@ std::string resolveMxcThumbnailUrl(const std::string& mxcUrl, const std::string&
     out << base << "/_matrix/media/v3/thumbnail/" << server << "/" << mediaId;
     out << "?width=" << width << "&height=" << height << "&method=" << method;
     return out.str();
+}
+
+} // namespace progressive
+#include "progressive/preferences.hpp"
+#include "progressive/string_utils.hpp"
+#include <sstream>
+#include <algorithm>
+
+namespace progressive {
+
+Preferences& Preferences::instance() {
+    static Preferences p;
+    return p;
+}
+
+void Preferences::load(const std::string& jsonStr) {
+    std::lock_guard<std::mutex> lk(mu_);
+    data_.clear();
+    std::string s = jsonStr;
+    // Parse simple JSON object: {"key1":"val1","key2":"val2"}
+    auto pos = s.find('{');
+    if (pos == std::string::npos) return;
+    s = s.substr(pos + 1);
+    while (!s.empty()) {
+        auto end = s.find_first_of(",}");
+        if (end == std::string::npos) break;
+        std::string pair = s.substr(0, end);
+        auto colon = pair.find(':');
+        if (colon != std::string::npos) {
+            std::string key = pair.substr(0, colon);
+            std::string val = pair.substr(colon + 1);
+            // Trim quotes
+            auto trim = [](std::string& str) {
+                str.erase(0, str.find_first_not_of(" \t\n\r\""));
+                str.erase(str.find_last_not_of(" \t\n\r\"") + 1);
+            };
+            trim(key);
+            trim(val);
+            data_[key] = val;
+        }
+        if (s[end] == '}') break;
+        s = s.substr(end + 1);
+    }
+}
+
+std::string Preferences::save() const {
+    std::lock_guard<std::mutex> lk(mu_);
+    std::ostringstream out;
+    out << "{";
+    bool first = true;
+    for (auto& kv : data_) {
+        if (!first) out << ",";
+        first = false;
+        out << "\"" << escapeJson(kv.first) << "\":\"" << escapeJson(kv.second) << "\"";
+    }
+    out << "}";
+    return out.str();
+}
+
+void Preferences::clear() {
+    std::lock_guard<std::mutex> lk(mu_);
+    data_.clear();
+}
+
+bool Preferences::getBool(const std::string& key, bool def) const {
+    std::lock_guard<std::mutex> lk(mu_);
+    auto it = data_.find(key);
+    if (it == data_.end()) return def;
+    return it->second == "true" || it->second == "1";
+}
+
+int Preferences::getInt(const std::string& key, int def) const {
+    std::lock_guard<std::mutex> lk(mu_);
+    auto it = data_.find(key);
+    if (it == data_.end()) return def;
+    return std::stoi(it->second);
+}
+
+long Preferences::getLong(const std::string& key, long def) const {
+    std::lock_guard<std::mutex> lk(mu_);
+    auto it = data_.find(key);
+    if (it == data_.end()) return def;
+    return std::stol(it->second);
+}
+
+std::string Preferences::getString(const std::string& key, const std::string& def) const {
+    std::lock_guard<std::mutex> lk(mu_);
+    auto it = data_.find(key);
+    if (it == data_.end()) return def;
+    return it->second;
+}
+
+void Preferences::setBool(const std::string& key, bool val) {
+    std::lock_guard<std::mutex> lk(mu_);
+    data_[key] = val ? "true" : "false";
+}
+
+void Preferences::setInt(const std::string& key, int val) {
+    std::lock_guard<std::mutex> lk(mu_);
+    data_[key] = std::to_string(val);
+}
+
+void Preferences::setLong(const std::string& key, long val) {
+    std::lock_guard<std::mutex> lk(mu_);
+    data_[key] = std::to_string(val);
+}
+
+void Preferences::setString(const std::string& key, const std::string& val) {
+    std::lock_guard<std::mutex> lk(mu_);
+    data_[key] = val;
 }
 
 } // namespace progressive

@@ -1528,4 +1528,16 @@ object ProgressiveNative {
     @JvmStatic external fun nativeTestSearch(term: String, roomId: String): String
     @JvmStatic external fun nativeTestGetProfile(): String
 
+    // ---- Preferences Engine ----
+    @JvmStatic external fun nativePrefGetBool(key: String, def: Boolean): Boolean
+    @JvmStatic external fun nativePrefGetInt(key: String, def: Int): Int
+    @JvmStatic external fun nativePrefGetLong(key: String, def: Long): Long
+    @JvmStatic external fun nativePrefGetString(key: String, def: String): String
+    @JvmStatic external fun nativePrefSetBool(key: String, value: Boolean)
+    @JvmStatic external fun nativePrefSetInt(key: String, value: Int)
+    @JvmStatic external fun nativePrefSetLong(key: String, value: Long)
+    @JvmStatic external fun nativePrefSetString(key: String, value: String)
+    @JvmStatic external fun nativePrefExport(): String
+    @JvmStatic external fun nativePrefImport(json: String)
+
 }

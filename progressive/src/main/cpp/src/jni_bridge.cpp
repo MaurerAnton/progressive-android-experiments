@@ -6331,6 +6331,69 @@ JNI_FUNC(jstring, nativeEnsureProtocol)(JNIEnv* env, jclass, jstring jUrl) {
     std::string url(env->GetStringUTFChars(jUrl, nullptr));
     env->ReleaseStringUTFChars(jUrl, url.c_str());
     return env->NewStringUTF(progressive::ensureProtocol(url).c_str());
+
+// ---- Preferences Engine ----
+JNI_FUNC(jboolean, nativePrefGetBool)(JNIEnv* env, jclass, jstring jKey, jboolean jDef) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    return progressive::Preferences::instance().getBool(key, jDef) ? JNI_TRUE : JNI_FALSE;
+}
+
+JNI_FUNC(jint, nativePrefGetInt)(JNIEnv* env, jclass, jstring jKey, jint jDef) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    return progressive::Preferences::instance().getInt(key, jDef);
+}
+
+JNI_FUNC(jlong, nativePrefGetLong)(JNIEnv* env, jclass, jstring jKey, jlong jDef) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    return progressive::Preferences::instance().getLong(key, jDef);
+}
+
+JNI_FUNC(jstring, nativePrefGetString)(JNIEnv* env, jclass, jstring jKey, jstring jDef) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    std::string def(env->GetStringUTFChars(jDef, nullptr));
+    env->ReleaseStringUTFChars(jDef, def.c_str());
+    return env->NewStringUTF(progressive::Preferences::instance().getString(key, def).c_str());
+}
+
+JNI_FUNC(void, nativePrefSetBool)(JNIEnv* env, jclass, jstring jKey, jboolean jVal) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    progressive::Preferences::instance().setBool(key, jVal);
+}
+
+JNI_FUNC(void, nativePrefSetInt)(JNIEnv* env, jclass, jstring jKey, jint jVal) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    progressive::Preferences::instance().setInt(key, jVal);
+}
+
+JNI_FUNC(void, nativePrefSetLong)(JNIEnv* env, jclass, jstring jKey, jlong jVal) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    progressive::Preferences::instance().setLong(key, jVal);
+}
+
+JNI_FUNC(void, nativePrefSetString)(JNIEnv* env, jclass, jstring jKey, jstring jVal) {
+    std::string key(env->GetStringUTFChars(jKey, nullptr));
+    env->ReleaseStringUTFChars(jKey, key.c_str());
+    std::string val(env->GetStringUTFChars(jVal, nullptr));
+    env->ReleaseStringUTFChars(jVal, val.c_str());
+    progressive::Preferences::instance().setString(key, val);
+}
+
+JNI_FUNC(jstring, nativePrefExport)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(progressive::Preferences::instance().save().c_str());
+}
+
+JNI_FUNC(void, nativePrefImport)(JNIEnv* env, jclass, jstring jJson) {
+    std::string json(env->GetStringUTFChars(jJson, nullptr));
+    env->ReleaseStringUTFChars(jJson, json.c_str());
+    progressive::Preferences::instance().load(json);
+}
 }
 
 JNI_FUNC(jstring, nativeEnsureTrailingSlash)(JNIEnv* env, jclass, jstring jUrl) {
