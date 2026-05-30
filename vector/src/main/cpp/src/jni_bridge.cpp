@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #include <android/log.h>
+#include <sstream>
 #include "progressive/jumptodate.hpp"
 #include "progressive/relation.hpp"
 #include "progressive/exporter.hpp"
@@ -84,6 +85,8 @@ static progressive::ReplacementEngine g_replacementEngine;
 
 // --- Singleton user MXID visibility ---
 static progressive::UserMxidVisibility g_mxidVisibility;
+
+using namespace progressive;
 
 #define LOG_TAG "ProgressiveNative"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
@@ -231,7 +234,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseRelation(
     auto relation = progressive::parseRelation(json);
 
     if (!relation.isRelation) {
-        return env->NewStringUTF(R"({"isRelation": false})");
+        return env->NewStringUTF(R"json({"isRelation": false})json");
     }
 
     // Check if this relation type is allowed
@@ -250,7 +253,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseRelation(
     }
 
     if (!allowed) {
-        return env->NewStringUTF(R"({"isRelation": false})");
+        return env->NewStringUTF(R"json({"isRelation": false})json");
     }
 
     std::string resultJson =
@@ -400,7 +403,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .mx_EventTile_reaction { font-style: italic; color: #666; }
 .mx_EventTile_content { white-space: pre-wrap; word-wrap: break-word; }
 hr { border: none; border-top: 1px solid #e0e0e0; margin: 16px 0; }
-</style>\n";
+</style>\n)";
     html << "</head>\n<body>\n";
     html << "<div class=\"mx_ExportHeader\">\n";
     html << "  <h1>" << escapeHtml(roomName) << "</h1>\n";
@@ -487,7 +490,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetContext(
     jstring jEventId
 ) {
     if (!jEventId) {
-        return env->NewStringUTF(R"({"cached": false})");
+        return env->NewStringUTF(R"json({"cached": false})json");
     }
 
     auto eventId = std::string(env->GetStringUTFChars(jEventId, nullptr));
@@ -502,14 +505,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetContext(
  * Method: nativeCacheClear
  * Signature: ()V
  */
-JNIEXPORT void JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheClear(
-    JNIEnv* /* env */,
-    jclass /* this */
-) {
-    g_eventCache.clear();
-    LOGD("EventCache cleared");
-}
 
 /*
  * Class: im.vector.app.features.jumptodate.ProgressiveNative
@@ -605,7 +600,7 @@ JNIEXPORT jstring JNICALL
 Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDbGetContext(
     JNIEnv* env, jclass, jstring jEventId
 ) {
-    if (!jEventId) return env->NewStringUTF(R"({"cached": false})");
+    if (!jEventId) return env->NewStringUTF(R"json({"cached": false})json");
     auto id = std::string(env->GetStringUTFChars(jEventId, nullptr));
     env->ReleaseStringUTFChars(jEventId, id.c_str());
 
@@ -681,7 +676,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseTranslateRes
     jstring jResponseBody, jint jHttpStatus
 ) {
     if (!jResponseBody) {
-        return env->NewStringUTF(R"({"success": false, "error": "Empty response"})");
+        return env->NewStringUTF(R"json({"success": false, "error": "Empty response"})json");
     }
     auto body = std::string(env->GetStringUTFChars(jResponseBody, nullptr));
     env->ReleaseStringUTFChars(jResponseBody, body.c_str());
@@ -689,10 +684,10 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeParseTranslateRes
     auto result = progressive::parseTranslateResponse(body, jHttpStatus);
 
     if (result.success) {
-        std::string json = R"({"success": true, "translatedText": ")" + result.translatedText + R"("})";
+        std::string json = std::string("{\"success\": true, \"translatedText\": \"") + result.translatedText + "\"}";
         return env->NewStringUTF(json.c_str());
     } else {
-        std::string json = R"({"success": false, "error": ")" + result.errorMessage + R"(", "statusCode": )"
+        std::string json = std::string("{\"success\": false, \"error\": \"") + result.errorMessage + "\", \"statusCode\": "
             + std::to_string(result.statusCode) + "}";
         return env->NewStringUTF(json.c_str());
     }
@@ -854,7 +849,7 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeDecryptAccount(
     env->ReleaseStringUTFChars(jPassphrase, pass.c_str());
 
     auto data = progressive::decryptAccountData(enc, pass);
-    if (data.userId.empty()) return env->NewStringUTF(R"({"error": "Decryption failed"})");
+    if (data.userId.empty()) return env->NewStringUTF(R"json({"error": "Decryption failed"})json");
 
     auto json = progressive::accountToJson(data);
     return env->NewStringUTF(json.c_str());
@@ -1586,13 +1581,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetOlderThan
     auto entries = g_cacheMgr.getOlderThan(jBeforeTs);
     auto json = progressive::CacheManager::entriesToJson(entries);
     return env->NewStringUTF(json.c_str());
-}
-
-JNIEXPORT void JNICALL
-Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheClear(
-    JNIEnv*, jclass
-) {
-    g_cacheMgr.clear();
 }
 
 // --- Message Aggregator ---
