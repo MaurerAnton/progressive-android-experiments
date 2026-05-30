@@ -684,6 +684,10 @@ class HomeActivity :
                 showLayoutSettings()
                 true
             }
+            R.id.menu_home_test_mode -> {
+                startActivity(android.content.Intent(this, chat.progressive.app.features.testmode.TestModeActivity::class.java))
+                true
+            }
             R.id.menu_home_invite_friends -> {
                 launchInviteFriends()
                 true

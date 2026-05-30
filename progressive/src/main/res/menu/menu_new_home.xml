@@ -52,4 +52,10 @@
         android:id="@+id/menu_home_night_mode"
         android:title=""
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_home_test_mode"
+        android:icon="@drawable/ic_material_bug_report"
+        android:title="Test Mode"
+        app:showAsAction="never" />
 </menu>
