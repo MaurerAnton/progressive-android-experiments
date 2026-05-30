@@ -37,7 +37,6 @@ object ProgressiveNative {
      *
      * @return JSON string with url, accessToken, timestamp — or {"error":"..."} on failure
      */
-    @JvmStatic
 
     /**
      * Parses the UTC timestamp_to_event response from the homeserver.
@@ -47,7 +46,6 @@ object ProgressiveNative {
      *
      * @return JSON string with eventId — or error info on failure
      */
-    @JvmStatic
 
     /**
      * Parses a Matrix event JSON to find the source event it relates to
@@ -66,21 +64,14 @@ object ProgressiveNative {
 
     // --- Export functions ---
 
-    @JvmStatic
 
-    @JvmStatic
 
-    @JvmStatic
 
     // --- Event Cache ---
 
-    @JvmStatic
 
-    @JvmStatic
 
-    @JvmStatic
 
-    @JvmStatic
 
     // --- SQLite Event Database ---
 
@@ -155,7 +146,6 @@ object ProgressiveNative {
 
     // --- Proxy / Tor / I2P ---
 
-    @JvmStatic
 
     // --- Yggdrasil ---
 
@@ -1527,5 +1517,7 @@ object ProgressiveNative {
     // ---- IDN (Internationalized Domain Names) ----
     @JvmStatic external fun nativeToPunycode(domain: String): String
     @JvmStatic external fun nativeFromPunycode(domain: String): String
+
+    @JvmStatic external fun nativeFormatCountToShortDecimal(value: Int): String
 
 }

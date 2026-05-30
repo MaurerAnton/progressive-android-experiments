@@ -18,6 +18,7 @@ import org.threeten.bp.Duration
 object TextUtils {
 
     private const val MINUTES_PER_HOUR = 60
+    private const val SECONDS_PER_MINUTE = 60
 
     fun formatCountToShortDecimal(value: Int): String {
         return chat.progressive.app.native.ProgressiveNative.nativeFormatCountToShortDecimal(value)
