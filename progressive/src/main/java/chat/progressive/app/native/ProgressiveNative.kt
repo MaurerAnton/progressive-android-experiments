@@ -1532,4 +1532,7 @@ object ProgressiveNative {
     @JvmStatic external fun nativeAvatarClear(userId: String)
     @JvmStatic external fun nativeAvatarExportJson(): String
 
+    // ---- Encrypted Room Search ----
+    @JvmStatic external fun nativeSearchRoom(roomId: String, term: String, limit: Int, offset: Int): String
+
 }

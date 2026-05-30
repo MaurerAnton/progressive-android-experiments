@@ -408,6 +408,7 @@ add_library(
     src/timeline_controller.cpp
     src/message_processor.cpp
     src/room_state_engine.cpp
+    src/search_engine.cpp
     src/sync_response_parser.cpp
     src/event_builder.cpp
     src/account_manager.cpp

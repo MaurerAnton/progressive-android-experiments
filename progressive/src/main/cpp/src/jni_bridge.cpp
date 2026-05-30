@@ -216,6 +216,7 @@
 #include "progressive/media_upload_manager.hpp"
 #include "progressive/media_viewer.hpp"
 #include "progressive/key_backup_manager.hpp"
+#include "progressive/search_engine.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -6280,6 +6281,17 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
     };
     env->RegisterNatives(clazz, methods, 3);
     return JNI_VERSION_1_6;
+}
+
+// ---- Encrypted Room Search ----
+JNI_FUNC(jstring, nativeSearchRoom)(JNIEnv* env, jclass, jstring jRoomId, jstring jTerm, jint jLimit, jint jOffset) {
+    std::string roomId(env->GetStringUTFChars(jRoomId, nullptr));
+    env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    std::string term(env->GetStringUTFChars(jTerm, nullptr));
+    env->ReleaseStringUTFChars(jTerm, term.c_str());
+    progressive::RoomSearchEngine search(&g_eventDb);
+    std::string result = search.search(roomId, term, jLimit, jOffset);
+    return env->NewStringUTF(result.c_str());
 }
 } // extern "C"
 
