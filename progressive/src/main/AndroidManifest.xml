@@ -478,7 +478,7 @@
             android:name=".features.testmode.TestModeActivity"
             android:exported="true"
             android:label="Test Mode"
-            android:theme="@style/Theme.Progressive" />
+            android:theme="@style/Theme.Vector.Launcher" />
 
     </application>
 
