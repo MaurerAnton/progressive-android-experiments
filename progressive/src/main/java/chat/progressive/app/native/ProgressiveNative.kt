@@ -48,8 +48,6 @@ object ProgressiveNative {
      */
     @JvmStatic
         responseBody: String,
-        httpStatus: Int
-    ): String
 
     /**
      * Parses a Matrix event JSON to find the source event it relates to
@@ -63,51 +61,23 @@ object ProgressiveNative {
     @JvmStatic
     external fun nativeParseRelation(
         eventJson: String,
-        allowedTypes: String
-    ): String
 
     // --- Export functions ---
 
     @JvmStatic
         senderName: String,
-        timestamp: String,
-        body: String,
-        msgType: String,
-        fileName: String,
-        mediaSize: String,
-        relationType: String,
-        isContinuation: Boolean
-    ): String
 
     @JvmStatic
         senderName: String,
-        timestamp: String,
-        body: String,
-        msgType: String,
-        fileName: String,
-        relationType: String
-    ): String
 
     @JvmStatic
         roomName: String,
-        roomTopic: String,
-        exportDate: String,
         eventHtmls: Array<String>
-    ): String
 
     // --- Event Cache ---
 
     @JvmStatic
         eventId: String,
-        senderId: String,
-        senderName: String,
-        timestamp: String,
-        body: String,
-        msgType: String,
-        eventType: String,
-        relationType: String,
-        sourceEventId: String,
-        sentByMe: Boolean
     )
 
     @JvmStatic
@@ -148,12 +118,10 @@ object ProgressiveNative {
     @JvmStatic external fun nativeSqliteDbInsertEvent(
         key: String, eventId: String, roomId: String, type: String, senderId: String,
         contentJson: String, originTs: Long, ageTs: Long, displayIndex: Int
-    ): Boolean
     @JvmStatic external fun nativeSqliteDbInsertEventRel(
         key: String, eventId: String, roomId: String, type: String, senderId: String,
         contentJson: String, originTs: Long, ageTs: Long, displayIndex: Int,
         stateKey: String, redacts: String, relType: String, relatesToId: String
-    ): Boolean
     @JvmStatic external fun nativeSqliteDbQueryEvents(key: String, roomId: String, limit: Int, offset: Int, ascending: Boolean): String
     @JvmStatic external fun nativeSqliteDbQueryEvent(key: String, eventId: String): String
     @JvmStatic external fun nativeSqliteDbDeleteEvent(key: String, eventId: String)
@@ -163,7 +131,6 @@ object ProgressiveNative {
         key: String, roomId: String, displayName: String, avatarUrl: String,
         topic: String, membership: String, notifCount: Int, highlightCount: Int,
         lastActivityMs: Long, isDirect: Boolean, isSpace: Boolean, isFavourite: Boolean, isEncrypted: Boolean
-    ): Boolean
     @JvmStatic external fun nativeSqliteDbQueryRooms(key: String): String
     @JvmStatic external fun nativeSqliteDbBeginTransaction(key: String)
     @JvmStatic external fun nativeSqliteDbCommitTransaction(key: String)
@@ -174,29 +141,15 @@ object ProgressiveNative {
     @JvmStatic
     external fun nativeBuildTranslateRequest(
         text: String,
-        sourceLang: String,
-        targetLang: String,
-        apiEndpoint: String,
-        apiToken: String,
-        model: String
-    ): String
 
     @JvmStatic
     external fun nativeParseTranslateResponse(
         responseBody: String,
-        httpStatus: Int
-    ): String
 
     // --- Proxy / Tor / I2P ---
 
     @JvmStatic
         connType: Int,
-        proxyType: Int,
-        host: String,
-        port: Int,
-        username: String,
-        password: String
-    ): String
 
     // --- Yggdrasil ---
 
@@ -528,7 +481,6 @@ object ProgressiveNative {
         homeServer: String, deviceId: String, deviceName: String,
         displayName: String, avatarUrl: String,
         includeCache: Boolean, passphrase: String
-    ): String
 
 
     // --- Audio ---
@@ -543,7 +495,6 @@ object ProgressiveNative {
 
         blockAll: Boolean, allowAvatars: Boolean, allowStickers: Boolean, allowEmoji: Boolean,
         mxcUrl: String, imageType: String
-    ): Boolean
 
     // --- Network Stats ---
 
@@ -1574,13 +1525,8 @@ object ProgressiveNative {
      * @return JSON with lastReadEventId, firstUnreadEventId, unreadCount,
      *         unreadMentions, hasUnread, readMarkerIndex
      */
-        lastReadEventId: String,
         loadedEventIds: Array<String>,
         loadedSenders: Array<String>,
-        isMention: BooleanArray,
-        isHighlight: BooleanArray,
-        myUserId: String
-    ): String
 
     @JvmStatic external fun nativeAdvanceReadMarker(roomId: String, latestEventId: String): String
     @JvmStatic external fun nativeReadMarkerToJson(lastReadEventId: String, unreadCount: Int, unreadMentions: Int, unreadHighlights: Int, hasUnread: Boolean): String
