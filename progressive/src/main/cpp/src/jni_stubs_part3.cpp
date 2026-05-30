@@ -14,8 +14,7 @@
 #include <cmath>
 #include <algorithm>
 
-#define 
-JNI_FUNC(jstring, nativeFormatReactionPreview)(JNIEnv* env, jclass, jstring jKey, jint jCnt) {
+#define JNI_FUNC(jstring, nativeFormatReactionPreview)(JNIEnv* env, jclass, jstring jKey, jint jCnt) {
     std::ostringstream ss; ss << j2s(env, jKey) << " " << jCnt;
     return env->NewStringUTF(ss.str().c_str());
 }

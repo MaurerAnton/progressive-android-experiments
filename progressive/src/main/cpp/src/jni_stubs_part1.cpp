@@ -14,8 +14,7 @@
 #include <cmath>
 #include <algorithm>
 
-#define 
-JNI_FUNC(ret, name) extern "C" JNIEXPORT ret JNICALL Java_chat_progressive_app_native_ProgressiveNative_##name
+#define JNI_FUNC(ret, name) extern "C" JNIEXPORT ret JNICALL Java_chat_progressive_app_native_ProgressiveNative_##name
 
 static std::string j2s(JNIEnv* env, jstring s) {
     if (!s) return "";

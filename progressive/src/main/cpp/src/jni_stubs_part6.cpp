@@ -14,8 +14,7 @@
 #include <cmath>
 #include <algorithm>
 
-#define 
-JNI_FUNC(void, nativeSymbolImport)(JNIEnv*, jclass, jstring) {}
+#define JNI_FUNC(void, nativeSymbolImport)(JNIEnv*, jclass, jstring) {}
 
 JNI_FUNC(jdouble, nativeTextSimilarity)(JNIEnv* env, jclass, jstring jA, jstring jB) {
     return j2s(env, jA) == j2s(env, jB) ? 1.0 : 0.0;

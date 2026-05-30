@@ -14,8 +14,7 @@
 #include <cmath>
 #include <algorithm>
 
-#define 
-JNI_FUNC(void, nativeNotifKeywordClear)(JNIEnv*, jclass) {}
+#define JNI_FUNC(void, nativeNotifKeywordClear)(JNIEnv*, jclass) {}
 
 JNI_FUNC(jstring, nativeNotifKeywordExport)(JNIEnv* env, jclass) { return env->NewStringUTF("[]"); }
 

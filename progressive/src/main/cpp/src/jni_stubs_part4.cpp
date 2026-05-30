@@ -14,8 +14,7 @@
 #include <cmath>
 #include <algorithm>
 
-#define 
-JNI_FUNC(jboolean, nativeIsValidRoomVersion)(JNIEnv* env, jclass, jstring jVer) {
+#define JNI_FUNC(jboolean, nativeIsValidRoomVersion)(JNIEnv* env, jclass, jstring jVer) {
     std::string v = j2s(env, jVer);
     return !v.empty();
 }

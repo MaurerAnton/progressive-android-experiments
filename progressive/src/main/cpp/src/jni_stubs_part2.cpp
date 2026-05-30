@@ -14,8 +14,7 @@
 #include <cmath>
 #include <algorithm>
 
-#define 
-JNI_FUNC(jint, nativeComputeThumbnail)(JNIEnv*, jclass, jint, jint, jint, jint) { return 0; }
+#define JNI_FUNC(jint, nativeComputeThumbnail)(JNIEnv*, jclass, jint, jint, jint, jint) { return 0; }
 
 // ============================================================
 // ============================================================
