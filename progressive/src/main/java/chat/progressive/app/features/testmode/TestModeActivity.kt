@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import chat.progressive.app.core.platform.ProgressiveActivity
-import chat.progressive.app.core.utils.TextUtils
+import chat.progressive.app.R
+import chat.progressive.app.native.ProgressiveNative
 import chat.progressive.app.native.ProgressiveNative
 import org.json.JSONArray
 import org.json.JSONObject
