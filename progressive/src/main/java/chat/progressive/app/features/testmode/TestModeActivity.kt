@@ -12,10 +12,6 @@ import chat.progressive.app.native.ProgressiveNative
 import org.json.JSONArray
 import org.json.JSONObject
 
-/**
- * Test Mode — explore app features without a Matrix account.
- * Uses C++ TestProvider for mock data.
- */
 class TestModeActivity : AppCompatActivity() {
 
     private lateinit var roomList: RecyclerView
@@ -89,22 +85,26 @@ class TestModeActivity : AppCompatActivity() {
 
 data class RoomItem(val id: String, val name: String, val topic: String, val unread: Int, val encrypted: Boolean)
 
+@Suppress("DEPRECATION")
 class RoomAdapter(private val onClick: (String) -> Unit) : RecyclerView.Adapter<RoomAdapter.VH>() {
     private var items = listOf<JSONObject>()
     
     fun submitList(list: List<JSONObject>) { items = list; notifyDataSetChanged() }
     
-    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int) = VH(
-        android.widget.TextView(parent.context).apply {
+    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
+        val tv = android.widget.TextView(parent.context).apply {
             setPadding(48, 24, 48, 24); textSize = 16f
-        },
-        { pos -> onClick(items[pos].getString("roomId")) }
-    )
+        }
+        return VH(tv)
+    }
     
     override fun onBindViewHolder(holder: VH, pos: Int) {
         val r = items[pos]
-        val enc = if (r.optBoolean("isEncrypted")) " 🔒" else ""
-        holder.v.text = "${r.getString("name")}$enc\n  ${r.getString("lastMessage")}"
+        val enc = if (r.optBoolean("isEncrypted")) " \uD83D\uDD12" else ""
+        val name = r.getString("name")
+        val lastMsg = r.getString("lastMessage")
+        holder.v.text = "$name$enc\n  $lastMsg"
+        holder.v.setOnClickListener { onClick(r.getString("roomId")) }
     }
     
     override fun getItemCount() = items.size
@@ -116,11 +116,12 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.VH>() {
     
     fun submitList(list: List<JSONObject>) { items = list; notifyDataSetChanged() }
     
-    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int) = VH(
-        android.widget.TextView(parent.context).apply {
+    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): VH {
+        val tv = android.widget.TextView(parent.context).apply {
             setPadding(32, 16, 32, 16); textSize = 14f
         }
-    )
+        return VH(tv)
+    }
     
     override fun onBindViewHolder(holder: VH, pos: Int) {
         val m = items[pos]
@@ -128,5 +129,5 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.VH>() {
     }
     
     override fun getItemCount() = items.size
-    class VH(val v: TextView, click: (Int) -> Unit) : RecyclerView.ViewHolder(v) { init { v.setOnClickListener { click(bindingAdapterPosition) } } }
+    class VH(val v: TextView) : RecyclerView.ViewHolder(v)
 }
