@@ -452,9 +452,7 @@ class ProgressiveBasePreferences @Inject constructor(
 
     private fun getDefault(@BoolRes resId: Int) = context.resources.getBoolean(resId)
 
-    fun areNotificationEnabledForDevice(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY, true)
-    }
+    fun areNotificationEnabledForDevice() = defaultPrefs.getBoolean(SETTINGS_ENABLE_THIS_DEVICE_PREFERENCE_KEY, true)
 
     fun setNotificationEnabledForDevice(enabled: Boolean) {
         defaultPrefs.edit {
@@ -462,41 +460,23 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun developerMode(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_PREFERENCE_KEY, false)
-    }
+    fun developerMode() = defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_PREFERENCE_KEY, false)
 
-    fun developerShowDebugInfo(): Boolean {
-        return developerMode() && defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_SHOW_INFO_ON_SCREEN_KEY, false)
-    }
+    fun developerShowDebugInfo() = developerMode() && defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_SHOW_INFO_ON_SCREEN_KEY, false)
 
-    fun shouldShowHiddenEvents(): Boolean {
-        return developerMode() && defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_HIDDEN_EVENTS_PREFERENCE_KEY, false)
-    }
+    fun shouldShowHiddenEvents() = developerMode() && defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_HIDDEN_EVENTS_PREFERENCE_KEY, false)
 
-    fun swipeToReplyIsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_SWIPE_TO_REPLY, true)
-    }
+    fun swipeToReplyIsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_SWIPE_TO_REPLY, true)
 
-    fun labShowCompleteHistoryInEncryptedRoom(): Boolean {
-        return developerMode() && defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_COMPLETE_HISTORY_IN_ENCRYPTED_ROOM, false)
-    }
+    fun labShowCompleteHistoryInEncryptedRoom() = developerMode() && defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_COMPLETE_HISTORY_IN_ENCRYPTED_ROOM, false)
 
-    fun labAllowedExtendedLogging(): Boolean {
-        return developerMode() && defaultPrefs.getBoolean(SETTINGS_LABS_ALLOW_EXTENDED_LOGS, false)
-    }
+    fun labAllowedExtendedLogging() = developerMode() && defaultPrefs.getBoolean(SETTINGS_LABS_ALLOW_EXTENDED_LOGS, false)
 
-    fun labAddNotificationTab(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_UNREAD_NOTIFICATIONS_AS_TAB, false)
-    }
+    fun labAddNotificationTab() = defaultPrefs.getBoolean(SETTINGS_LABS_UNREAD_NOTIFICATIONS_AS_TAB, false)
 
-    fun latexMathsIsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_LATEX_MATHS, false)
-    }
+    fun latexMathsIsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_LATEX_MATHS, false)
 
-    fun failFast(): Boolean {
-        return buildMeta.isDebug || (developerMode() && defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY, false))
-    }
+    fun failFast() = buildMeta.isDebug || (developerMode() && defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY, false))
 
     fun enableMemoryLeakAnalysis(isEnabled: Boolean) {
         defaultPrefs.edit(commit = true) {
@@ -504,13 +484,9 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun isMemoryLeakAnalysisEnabled(): Boolean {
-        return buildMeta.isDebug && defaultPrefs.getBoolean(SETTINGS_ENABLE_MEMORY_LEAK_ANALYSIS_KEY, false)
-    }
+    fun isMemoryLeakAnalysisEnabled() = buildMeta.isDebug && defaultPrefs.getBoolean(SETTINGS_ENABLE_MEMORY_LEAK_ANALYSIS_KEY, false)
 
-    fun didAskUserToEnableSessionPush(): Boolean {
-        return defaultPrefs.getBoolean(DID_ASK_TO_ENABLE_SESSION_PUSH, false)
-    }
+    fun didAskUserToEnableSessionPush() = defaultPrefs.getBoolean(DID_ASK_TO_ENABLE_SESSION_PUSH, false)
 
     fun setDidAskUserToEnableSessionPush() {
         defaultPrefs.edit {
@@ -523,9 +499,7 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if it was already requested
      */
-    fun didAskUserToIgnoreBatteryOptimizations(): Boolean {
-        return defaultPrefs.getBoolean(DID_ASK_TO_IGNORE_BATTERY_OPTIMIZATIONS_KEY, false)
-    }
+    fun didAskUserToIgnoreBatteryOptimizations() = defaultPrefs.getBoolean(DID_ASK_TO_IGNORE_BATTERY_OPTIMIZATIONS_KEY, false)
 
     /**
      * Mark as requested the question to disable battery optimisations.
@@ -536,9 +510,7 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun didMigrateToNotificationRework(): Boolean {
-        return defaultPrefs.getBoolean(DID_MIGRATE_TO_NOTIFICATION_REWORK, false)
-    }
+    fun didMigrateToNotificationRework() = defaultPrefs.getBoolean(DID_MIGRATE_TO_NOTIFICATION_REWORK, false)
 
     fun setDidMigrateToNotificationRework() {
         defaultPrefs.edit {
@@ -551,79 +523,61 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the time must be displayed in 12h format
      */
-    fun displayTimeIn12hFormat(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_12_24_TIMESTAMPS_KEY, false)
-    }
+    fun displayTimeIn12hFormat() = defaultPrefs.getBoolean(SETTINGS_12_24_TIMESTAMPS_KEY, false)
 
     /**
      * Tells if the join and leave membership events should be shown in the messages list.
      *
      * @return true if the join and leave membership events should be shown in the messages list
      */
-    fun showJoinLeaveMessages(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SHOW_JOIN_LEAVE_MESSAGES_KEY, true)
-    }
+    fun showJoinLeaveMessages() = defaultPrefs.getBoolean(SETTINGS_SHOW_JOIN_LEAVE_MESSAGES_KEY, true)
 
     /**
      * Tells if the avatar and display name events should be shown in the messages list.
      *
      * @return true true if the avatar and display name events should be shown in the messages list.
      */
-    fun showAvatarDisplayNameChangeMessages(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SHOW_AVATAR_DISPLAY_NAME_CHANGES_MESSAGES_KEY, true)
-    }
+    fun showAvatarDisplayNameChangeMessages() = defaultPrefs.getBoolean(SETTINGS_SHOW_AVATAR_DISPLAY_NAME_CHANGES_MESSAGES_KEY, true)
 
     /**
      * Tells the native camera to take a photo or record a video.
      *
      * @return true to use the native camera app to record video or take photo.
      */
-    fun useNativeCamera(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_USE_NATIVE_CAMERA_PREFERENCE_KEY, false)
-    }
+    fun useNativeCamera() = defaultPrefs.getBoolean(SETTINGS_USE_NATIVE_CAMERA_PREFERENCE_KEY, false)
 
     /**
      * Tells if the send voice feature is enabled.
      *
      * @return true if the send voice feature is enabled.
      */
-    fun isSendVoiceFeatureEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_ENABLE_SEND_VOICE_FEATURE_PREFERENCE_KEY, false)
-    }
+    fun isSendVoiceFeatureEnabled() = defaultPrefs.getBoolean(SETTINGS_ENABLE_SEND_VOICE_FEATURE_PREFERENCE_KEY, false)
 
     /**
      * Show all rooms in room directory.
      */
-    fun showAllPublicRooms(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_ROOM_DIRECTORY_SHOW_ALL_PUBLIC_ROOMS, false)
-    }
+    fun showAllPublicRooms() = defaultPrefs.getBoolean(SETTINGS_ROOM_DIRECTORY_SHOW_ALL_PUBLIC_ROOMS, false)
 
     /**
      * Tells which compression level to use by default.
      *
      * @return the selected compression level
      */
-    fun getSelectedDefaultMediaCompressionLevel(): Int {
-        return Integer.parseInt(defaultPrefs.getString(SETTINGS_DEFAULT_MEDIA_COMPRESSION_KEY, "0")!!)
-    }
+    fun getSelectedDefaultMediaCompressionLevel() = Integer.parseInt(defaultPrefs.getString(SETTINGS_DEFAULT_MEDIA_COMPRESSION_KEY, "0")!!)
 
     /**
      * Tells which media source to use by default.
      *
      * @return the selected media source
      */
-    fun getSelectedDefaultMediaSource(): Int {
-        return Integer.parseInt(defaultPrefs.getString(SETTINGS_DEFAULT_MEDIA_SOURCE_KEY, "0")!!)
-    }
+    fun getSelectedDefaultMediaSource() = Integer.parseInt(defaultPrefs.getString(SETTINGS_DEFAULT_MEDIA_SOURCE_KEY, "0")!!)
 
     /**
      * Tells whether to use shutter sound.
      *
      * @return true if shutter sound should play
      */
-    fun useShutterSound(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_PLAY_SHUTTER_SOUND_KEY, true)
-    }
+    fun useShutterSound() = defaultPrefs.getBoolean(SETTINGS_PLAY_SHUTTER_SOUND_KEY, true)
 
     /**
      * Update the notification ringtone.
@@ -719,9 +673,7 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the lazy loading of room members is enabled
      */
-    fun useLazyLoading(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LAZY_LOADING_PREFERENCE_KEY, false)
-    }
+    fun useLazyLoading() = defaultPrefs.getBoolean(SETTINGS_LAZY_LOADING_PREFERENCE_KEY, false)
 
     /**
      * User explicitly refuses the lazy loading.
@@ -737,36 +689,28 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the user has explicitly refuse the lazy loading of room members
      */
-    fun hasUserRefusedLazyLoading(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_USER_REFUSED_LAZY_LOADING_PREFERENCE_KEY, false)
-    }
+    fun hasUserRefusedLazyLoading() = defaultPrefs.getBoolean(SETTINGS_USER_REFUSED_LAZY_LOADING_PREFERENCE_KEY, false)
 
     /**
      * Tells if the data save mode is enabled.
      *
      * @return true if the data save mode is enabled
      */
-    fun useDataSaveMode(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_DATA_SAVE_MODE_PREFERENCE_KEY, false)
-    }
+    fun useDataSaveMode() = defaultPrefs.getBoolean(SETTINGS_DATA_SAVE_MODE_PREFERENCE_KEY, false)
 
     /**
      * Tells if the conf calls must be done with Jitsi.
      *
      * @return true if the conference call must be done with jitsi.
      */
-    fun useJitsiConfCall(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_USE_JITSI_CONF_PREFERENCE_KEY, true)
-    }
+    fun useJitsiConfCall() = defaultPrefs.getBoolean(SETTINGS_USE_JITSI_CONF_PREFERENCE_KEY, true)
 
     /**
      * Tells if the application is started on boot.
      *
      * @return true if the application must be started on boot
      */
-    fun autoStartOnBoot(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_START_ON_BOOT_PREFERENCE_KEY, true)
-    }
+    fun autoStartOnBoot() = defaultPrefs.getBoolean(SETTINGS_START_ON_BOOT_PREFERENCE_KEY, true)
 
     /**
      * Tells if the application is started on boot.
@@ -784,9 +728,7 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return the selected period
      */
-    fun getSelectedMediasSavingPeriod(): Int {
-        return defaultPrefs.getInt(SETTINGS_MEDIA_SAVING_PERIOD_SELECTED_KEY, MEDIA_SAVING_1_WEEK)
-    }
+    fun getSelectedMediasSavingPeriod() = defaultPrefs.getInt(SETTINGS_MEDIA_SAVING_PERIOD_SELECTED_KEY, MEDIA_SAVING_1_WEEK)
 
     /**
      * Updates the selected saving period.
@@ -841,9 +783,7 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the markdown is enabled
      */
-    fun isMarkdownEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_ENABLE_MARKDOWN_KEY, false)
-    }
+    fun isMarkdownEnabled() = defaultPrefs.getBoolean(SETTINGS_ENABLE_MARKDOWN_KEY, false)
 
     /**
      * Update the markdown enable status.
@@ -877,36 +817,28 @@ class ProgressiveBasePreferences @Inject constructor(
     /**
      * Tells if a confirmation dialog should be displayed before staring a call.
      */
-    fun preventAccidentalCall(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_CALL_PREVENT_ACCIDENTAL_CALL_KEY, false)
-    }
+    fun preventAccidentalCall() = defaultPrefs.getBoolean(SETTINGS_CALL_PREVENT_ACCIDENTAL_CALL_KEY, false)
 
     /**
      * Tells if the read receipts should be shown.
      *
      * @return true if the read receipts should be shown
      */
-    fun showReadReceipts(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SHOW_READ_RECEIPTS_KEY, true)
-    }
+    fun showReadReceipts() = defaultPrefs.getBoolean(SETTINGS_SHOW_READ_RECEIPTS_KEY, true)
 
     /**
      * Tells if the redacted message should be shown.
      *
      * @return true if the redacted should be shown
      */
-    fun showRedactedMessages(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SHOW_REDACTED_KEY, true)
-    }
+    fun showRedactedMessages() = defaultPrefs.getBoolean(SETTINGS_SHOW_REDACTED_KEY, true)
 
     /**
      * Tells if the help on room list should be shown.
      *
      * @return true if the help on room list should be shown
      */
-    fun shouldShowLongClickOnRoomHelp(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SHOULD_SHOW_HELP_ON_ROOM_LIST_KEY, true)
-    }
+    fun shouldShowLongClickOnRoomHelp() = defaultPrefs.getBoolean(SETTINGS_SHOULD_SHOW_HELP_ON_ROOM_LIST_KEY, true)
 
     /**
      * Prevent help on room list to be shown again.
@@ -922,63 +854,49 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the message timestamps must be always shown
      */
-    fun alwaysShowTimeStamps(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_ALWAYS_SHOW_TIMESTAMPS_KEY, false)
-    }
+    fun alwaysShowTimeStamps() = defaultPrefs.getBoolean(SETTINGS_ALWAYS_SHOW_TIMESTAMPS_KEY, false)
 
     /**
      * Tells if animated image attachments should automatically play their animation in the timeline.
      *
      * @return true if animated image attachments should automatically play their animation in the timeline
      */
-    fun autoplayAnimatedImages(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_AUTOPLAY_ANIMATED_IMAGES, false)
-    }
+    fun autoplayAnimatedImages() = defaultPrefs.getBoolean(SETTINGS_AUTOPLAY_ANIMATED_IMAGES, false)
 
     /**
      * Tells if the typing notifications should be sent.
      *
      * @return true to send the typing notifs
      */
-    fun sendTypingNotifs(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SEND_TYPING_NOTIF_KEY, true)
-    }
+    fun sendTypingNotifs() = defaultPrefs.getBoolean(SETTINGS_SEND_TYPING_NOTIF_KEY, true)
 
     /**
      * Tells of the missing notifications rooms must be displayed at left (home screen).
      *
      * @return true to move the missed notifications to the left side
      */
-    fun pinMissedNotifications(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_PIN_MISSED_NOTIFICATIONS_PREFERENCE_KEY, true)
-    }
+    fun pinMissedNotifications() = defaultPrefs.getBoolean(SETTINGS_PIN_MISSED_NOTIFICATIONS_PREFERENCE_KEY, true)
 
     /**
      * Tells of the unread rooms must be displayed at left (home screen).
      *
      * @return true to move the unread room to the left side
      */
-    fun pinUnreadMessages(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_PIN_UNREAD_MESSAGES_PREFERENCE_KEY, true)
-    }
+    fun pinUnreadMessages() = defaultPrefs.getBoolean(SETTINGS_PIN_UNREAD_MESSAGES_PREFERENCE_KEY, true)
 
     /**
      * Tells if the phone must vibrate when mentioning.
      *
      * @return true
      */
-    fun vibrateWhenMentioning(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_VIBRATE_ON_MENTION_KEY, false)
-    }
+    fun vibrateWhenMentioning() = defaultPrefs.getBoolean(SETTINGS_VIBRATE_ON_MENTION_KEY, false)
 
     /**
      * Tells if a dialog has been displayed to ask to use the analytics tracking (piwik, matomo, etc.).
      *
      * @return true if a dialog has been displayed to ask to use the analytics tracking
      */
-    fun didAskToUseAnalytics(): Boolean {
-        return defaultPrefs.getBoolean(DID_ASK_TO_USE_ANALYTICS_TRACKING_KEY, false)
-    }
+    fun didAskToUseAnalytics() = defaultPrefs.getBoolean(DID_ASK_TO_USE_ANALYTICS_TRACKING_KEY, false)
 
     /**
      * To call if the user has been asked for analytics tracking.
@@ -995,45 +913,35 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the user wants to see URL previews in the timeline
      */
-    fun showUrlPreviews(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SHOW_URL_PREVIEW_KEY, true)
-    }
+    fun showUrlPreviews() = defaultPrefs.getBoolean(SETTINGS_SHOW_URL_PREVIEW_KEY, true)
 
     /**
      * Tells if media should be previewed before sending.
      *
      * @return true to preview media
      */
-    fun previewMediaWhenSending(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_PREVIEW_MEDIA_BEFORE_SENDING_KEY, false)
-    }
+    fun previewMediaWhenSending() = defaultPrefs.getBoolean(SETTINGS_PREVIEW_MEDIA_BEFORE_SENDING_KEY, false)
 
     /**
      * Tells if message should be send by pressing enter on the soft keyboard.
      *
      * @return true to send message with enter
      */
-    fun sendMessageWithEnter(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SEND_MESSAGE_WITH_ENTER, false)
-    }
+    fun sendMessageWithEnter() = defaultPrefs.getBoolean(SETTINGS_SEND_MESSAGE_WITH_ENTER, false)
 
     /**
      * Tells if the emoji keyboard button should be visible or not.
      *
      * @return true to show emoji keyboard button.
      */
-    fun showEmojiKeyboard(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SHOW_EMOJI_KEYBOARD, true)
-    }
+    fun showEmojiKeyboard() = defaultPrefs.getBoolean(SETTINGS_SHOW_EMOJI_KEYBOARD, true)
 
     /**
      * Tells if the timeline messages should be shown in a bubble or not.
      *
      * @return true to show timeline message in bubble.
      */
-    fun useMessageBubblesLayout(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_INTERFACE_BUBBLE_KEY, getDefault(chat.progressive.app.config.R.bool.settings_interface_bubble_default))
-    }
+    fun useMessageBubblesLayout() = defaultPrefs.getBoolean(SETTINGS_INTERFACE_BUBBLE_KEY, getDefault(chat.progressive.app.config.R.bool.settings_interface_bubble_default))
 
     /**
      * Tells if user should always appear offline or not.
@@ -1063,65 +971,45 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the rage shake is used
      */
-    fun useRageshake(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_USE_RAGE_SHAKE_KEY, true)
-    }
+    fun useRageshake() = defaultPrefs.getBoolean(SETTINGS_USE_RAGE_SHAKE_KEY, true)
 
     /**
      * Get the rage shake sensitivity.
      */
-    fun getRageshakeSensitivity(): Int {
-        return defaultPrefs.getInt(SETTINGS_RAGE_SHAKE_DETECTION_THRESHOLD_KEY, ShakeDetector.SENSITIVITY_MEDIUM)
-    }
+    fun getRageshakeSensitivity() = defaultPrefs.getInt(SETTINGS_RAGE_SHAKE_DETECTION_THRESHOLD_KEY, ShakeDetector.SENSITIVITY_MEDIUM)
 
     /**
      * Tells if all the events must be displayed ie even the redacted events.
      *
      * @return true to display all the events even the redacted ones.
      */
-    fun displayAllEvents(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_DISPLAY_ALL_EVENTS_KEY, false)
-    }
+    fun displayAllEvents() = defaultPrefs.getBoolean(SETTINGS_DISPLAY_ALL_EVENTS_KEY, false)
 
     /**
      * The user does not allow screenshots of the application.
      */
-    fun useFlagSecure(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_FLAG_SECURE, false)
-    }
+    fun useFlagSecure() = defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_FLAG_SECURE, false)
 
     /** Whether the keyboard should disable personalized learning. */
-    fun useIncognitoKeyboard(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SECURITY_INCOGNITO_KEYBOARD_PREFERENCE_KEY, false)
-    }
+    fun useIncognitoKeyboard() = defaultPrefs.getBoolean(SETTINGS_SECURITY_INCOGNITO_KEYBOARD_PREFERENCE_KEY, false)
 
     /**
      * The user enable protecting app access with pin code.
      * Currently we use the pin code store to know if the pin is enabled, so this is not used
      */
-    fun useFlagPinCode(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_PIN_CODE_FLAG, false)
-    }
+    fun useFlagPinCode() = defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_PIN_CODE_FLAG, false)
 
     fun setUseBiometricToUnlock(value: Boolean) {
         defaultPrefs.edit { putBoolean(SETTINGS_SECURITY_USE_BIOMETRICS_FLAG, value) }
     }
 
-    fun useBiometricsToUnlock(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_BIOMETRICS_FLAG, true)
-    }
+    fun useBiometricsToUnlock() = defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_BIOMETRICS_FLAG, true)
 
-    fun useGracePeriod(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_GRACE_PERIOD_FLAG, true)
-    }
+    fun useGracePeriod() = defaultPrefs.getBoolean(SETTINGS_SECURITY_USE_GRACE_PERIOD_FLAG, true)
 
-    fun chatEffectsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_ENABLE_CHAT_EFFECTS, true)
-    }
+    fun chatEffectsEnabled() = defaultPrefs.getBoolean(SETTINGS_ENABLE_CHAT_EFFECTS, true)
 
-    fun directShareEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_ENABLE_DIRECT_SHARE, true)
-    }
+    fun directShareEnabled() = defaultPrefs.getBoolean(SETTINGS_ENABLE_DIRECT_SHARE, true)
 
     /**
      * Return true if Pin code is disabled, or if user set the settings to see full notification content.
@@ -1159,9 +1047,7 @@ class ProgressiveBasePreferences @Inject constructor(
                 .apply()
     }
 
-    fun isBackgroundSyncEnabled(): Boolean {
-        return getFdroidSyncBackgroundMode() != BackgroundSyncMode.FDROID_BACKGROUND_SYNC_MODE_DISABLED
-    }
+    fun isBackgroundSyncEnabled() = getFdroidSyncBackgroundMode() != BackgroundSyncMode.FDROID_BACKGROUND_SYNC_MODE_DISABLED
 
     fun setFdroidSyncBackgroundMode(mode: BackgroundSyncMode) {
         defaultPrefs
@@ -1180,9 +1066,7 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun labsAutoReportUISI(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_REPORT_UISI, false)
-    }
+    fun labsAutoReportUISI() = defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_REPORT_UISI, false)
 
     fun setLabsAutoReportUISI(enabled: Boolean) {
         return defaultPrefs.edit {
@@ -1190,16 +1074,12 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun prefSpacesShowAllRoomInHome(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_PREF_SPACE_SHOW_ALL_ROOM_IN_HOME, false)
-    }
+    fun prefSpacesShowAllRoomInHome() = defaultPrefs.getBoolean(SETTINGS_PREF_SPACE_SHOW_ALL_ROOM_IN_HOME, false)
 
     /*
      * Photo / video picker
      */
-    fun getTakePhotoVideoMode(): Int {
-        return defaultPrefs.getInt(TAKE_PHOTO_VIDEO_MODE, TAKE_PHOTO_VIDEO_MODE_ALWAYS_ASK)
-    }
+    fun getTakePhotoVideoMode() = defaultPrefs.getInt(TAKE_PHOTO_VIDEO_MODE, TAKE_PHOTO_VIDEO_MODE_ALWAYS_ASK)
 
     fun setTakePhotoVideoMode(mode: Int) {
         return defaultPrefs.edit {
@@ -1207,9 +1087,7 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun labsEnableLiveLocation(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_LIVE_LOCATION, false)
-    }
+    fun labsEnableLiveLocation() = defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_LIVE_LOCATION, false)
 
     fun setLiveLocationLabsEnabled(isEnabled: Boolean) {
         defaultPrefs.edit {
@@ -1217,16 +1095,12 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun labsEnableElementCallPermissionShortcuts(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_ELEMENT_CALL_PERMISSION_SHORTCUTS, false)
-    }
+    fun labsEnableElementCallPermissionShortcuts() = defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_ELEMENT_CALL_PERMISSION_SHORTCUTS, false)
 
     /**
      * Indicates whether or not thread messages are enabled.
      */
-    fun areThreadMessagesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_THREAD_MESSAGES, getDefault(chat.progressive.app.config.R.bool.settings_labs_thread_messages_default))
-    }
+    fun areThreadMessagesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_THREAD_MESSAGES, getDefault(chat.progressive.app.config.R.bool.settings_labs_thread_messages_default))
 
     /**
      * Manually sets thread messages enabled, useful for migrating users from io.element.thread.
@@ -1242,9 +1116,7 @@ class ProgressiveBasePreferences @Inject constructor(
      * Indicates whether or not user changed threads flag manually. We need this to not force flag to be enabled on app start.
      * Should be removed when Threads flag will be removed
      */
-    fun wasThreadFlagChangedManually(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_THREAD_MESSAGES_CHANGED_BY_USER, false)
-    }
+    fun wasThreadFlagChangedManually() = defaultPrefs.getBoolean(SETTINGS_LABS_THREAD_MESSAGES_CHANGED_BY_USER, false)
 
     /**
      * Sets the flag to indicate that user changed threads flag (e.g. disabled them).
@@ -1260,9 +1132,7 @@ class ProgressiveBasePreferences @Inject constructor(
      * Indicates whether or not the user will be notified about the new thread support.
      * We should notify the user only if he had old thread support enabled.
      */
-    fun shouldNotifyUserAboutThreads(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_THREAD_MESSAGES_OLD_CLIENTS, false)
-    }
+    fun shouldNotifyUserAboutThreads() = defaultPrefs.getBoolean(SETTINGS_LABS_ENABLE_THREAD_MESSAGES_OLD_CLIENTS, false)
 
     /**
      * Indicates that the user have been notified about threads migration.
@@ -1278,9 +1148,7 @@ class ProgressiveBasePreferences @Inject constructor(
      * Indicates whether or not we should clear cache for threads migration.
      * Default value is true, for fresh installs and updates
      */
-    fun shouldMigrateThreads(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_THREAD_MESSAGES_SYNCED, true)
-    }
+    fun shouldMigrateThreads() = defaultPrefs.getBoolean(SETTINGS_THREAD_MESSAGES_SYNCED, true)
 
     /**
      * Indicates that there no longer threads migration needed.
@@ -1322,16 +1190,12 @@ class ProgressiveBasePreferences @Inject constructor(
     /**
      * Indicates whether or not deferred DMs are enabled.
      */
-    fun isDeferredDmEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_DEFERRED_DM_KEY, getDefault(chat.progressive.app.config.R.bool.settings_labs_deferred_dm_default))
-    }
+    fun isDeferredDmEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_DEFERRED_DM_KEY, getDefault(chat.progressive.app.config.R.bool.settings_labs_deferred_dm_default))
 
     /**
      * Indicates whether or not new session manager screens are enabled.
      */
-    fun isNewSessionManagerEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NEW_SESSION_MANAGER_KEY, getDefault(chat.progressive.app.config.R.bool.settings_labs_new_session_manager_default))
-    }
+    fun isNewSessionManagerEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NEW_SESSION_MANAGER_KEY, getDefault(chat.progressive.app.config.R.bool.settings_labs_new_session_manager_default))
 
     /**
      * Indicates whether or not client info recording is enabled.
@@ -1367,238 +1231,124 @@ class ProgressiveBasePreferences @Inject constructor(
                 )
     }
 
-    fun isJumpToDateEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_DATE_KEY, true)
-    }
+    fun isJumpToDateEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_DATE_KEY, true)
 
-    fun isJumpToSourceEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_KEY, false)
-    }
+    fun isJumpToSourceEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_KEY, false)
 
-    fun isJumpToSourceReactionsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_REACTIONS, false)
-    }
+    fun isJumpToSourceReactionsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_REACTIONS, false)
 
-    fun isJumpToSourceRepliesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_REPLIES, false)
-    }
+    fun isJumpToSourceRepliesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_REPLIES, false)
 
-    fun isJumpToSourceEditsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_EDITS, false)
-    }
+    fun isJumpToSourceEditsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_EDITS, false)
 
-    fun isChatExportEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_CHAT_EXPORT_KEY, false)
-    }
+    fun isChatExportEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_CHAT_EXPORT_KEY, false)
 
-    fun isSkipAvatarCropEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SKIP_AVATAR_CROP_KEY, false)
-    }
+    fun isSkipAvatarCropEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SKIP_AVATAR_CROP_KEY, false)
 
-    fun isTranslateEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_TRANSLATE_KEY, false)
-    }
+    fun isTranslateEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_TRANSLATE_KEY, false)
 
-    fun getTranslateApiEndpoint(): String {
-        return defaultPrefs.getString(SETTINGS_TRANSLATE_API_ENDPOINT, "") ?: ""
-    }
+    fun getTranslateApiEndpoint() = defaultPrefs.getString(SETTINGS_TRANSLATE_API_ENDPOINT, "") ?: ""
 
-    fun getTranslateApiToken(): String {
-        return defaultPrefs.getString(SETTINGS_TRANSLATE_API_TOKEN, "") ?: ""
-    }
+    fun getTranslateApiToken() = defaultPrefs.getString(SETTINGS_TRANSLATE_API_TOKEN, "") ?: ""
 
-    fun getTranslateTargetLanguage(): String {
-        return defaultPrefs.getString(SETTINGS_TRANSLATE_TARGET_LANGUAGE, "") ?: ""
-    }
+    fun getTranslateTargetLanguage() = defaultPrefs.getString(SETTINGS_TRANSLATE_TARGET_LANGUAGE, "") ?: ""
 
-    fun isTorEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_TOR_KEY, false)
-    }
+    fun isTorEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_TOR_KEY, false)
 
-    fun isI2PEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_I2P_KEY, false)
-    }
+    fun isI2PEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_I2P_KEY, false)
 
-    fun isYggdrasilEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_YGGDRASIL_KEY, false)
-    }
+    fun isYggdrasilEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_YGGDRASIL_KEY, false)
 
-    fun isAccountExportEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ACCOUNT_EXPORT_KEY, false)
-    }
+    fun isAccountExportEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ACCOUNT_EXPORT_KEY, false)
 
-    fun isAudioStatusbarEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AUDIO_STATUSBAR_KEY, false)
-    }
+    fun isAudioStatusbarEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AUDIO_STATUSBAR_KEY, false)
 
-    fun isMediaFilterEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_MEDIA_FILTER_KEY, false)
-    }
+    fun isMediaFilterEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_MEDIA_FILTER_KEY, false)
 
-    fun isExpiredFilesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_EXPIRED_FILES_KEY, false)
-    }
+    fun isExpiredFilesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EXPIRED_FILES_KEY, false)
 
-    fun isSendOriginalSizeEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SEND_ORIGINAL_SIZE_KEY, true)
-    }
+    fun isSendOriginalSizeEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SEND_ORIGINAL_SIZE_KEY, true)
 
-    fun isSkipPreviewGenerationEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SKIP_PREVIEW_KEY, false)
-    }
+    fun isSkipPreviewGenerationEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SKIP_PREVIEW_KEY, false)
 
-    fun isBlockRemoteImagesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY, false)
-    }
+    fun isBlockRemoteImagesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_BLOCK_REMOTE_IMAGES_KEY, false)
 
-    fun isKeywordFilterEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_KEYWORD_FILTER_KEY, false)
-    }
+    fun isKeywordFilterEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_KEYWORD_FILTER_KEY, false)
 
-    fun isNetworkStatsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NETWORK_STATS_KEY, false)
-    }
+    fun isNetworkStatsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NETWORK_STATS_KEY, false)
 
-    fun isMasqueradeEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_MASQUERADE_KEY, false)
-    }
+    fun isMasqueradeEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_MASQUERADE_KEY, false)
 
-    fun isUserMaskEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_USER_MASK_KEY, false)
-    }
+    fun isUserMaskEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_USER_MASK_KEY, false)
 
-    fun isChunkedUploadEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_CHUNKED_UPLOAD_KEY, false)
-    }
+    fun isChunkedUploadEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_CHUNKED_UPLOAD_KEY, false)
 
-    fun isCustomTimezoneEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_CUSTOM_TIMEZONE_KEY, false)
-    }
+    fun isCustomTimezoneEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_CUSTOM_TIMEZONE_KEY, false)
 
-    fun isStripExifEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_STRIP_EXIF_KEY, false)
-    }
+    fun isStripExifEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_STRIP_EXIF_KEY, false)
 
-    fun isHideInvitationEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_HIDE_INVITATION_KEY, false)
-    }
+    fun isHideInvitationEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_HIDE_INVITATION_KEY, false)
 
-    fun isAllThreadsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ALL_THREADS_KEY, false)
-    }
+    fun isAllThreadsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ALL_THREADS_KEY, false)
 
-    fun isUserMessagesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_USER_MESSAGES_KEY, false)
-    }
+    fun isUserMessagesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_USER_MESSAGES_KEY, false)
 
-    fun isRoomVersionSelectEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_VERSION_KEY, false)
-    }
+    fun isRoomVersionSelectEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_VERSION_KEY, false)
 
-    fun isExpandedPreviewEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_EXPANDED_PREVIEW_KEY, false)
-    }
+    fun isExpandedPreviewEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EXPANDED_PREVIEW_KEY, false)
 
-    fun isRamStatusbarEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_RAM_STATUSBAR_KEY, false)
-    }
+    fun isRamStatusbarEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_RAM_STATUSBAR_KEY, false)
 
-    fun isCacheManagerEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_CACHE_MANAGER_KEY, false)
-    }
+    fun isCacheManagerEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_CACHE_MANAGER_KEY, false)
 
-    fun isAllMessagesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ALL_MESSAGES_KEY, false)
-    }
+    fun isAllMessagesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ALL_MESSAGES_KEY, false)
 
-    fun isRoomInfoEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_INFO_KEY, false)
-    }
+    fun isRoomInfoEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_INFO_KEY, false)
 
-    fun isAutoTranslateEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_TRANSLATE_KEY, false)
-    }
+    fun isAutoTranslateEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_TRANSLATE_KEY, false)
 
-    fun isDeletedArchiveEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_DELETED_ARCHIVE_KEY, false)
-    }
+    fun isDeletedArchiveEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_DELETED_ARCHIVE_KEY, false)
 
-    fun isE2ESearchEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_E2E_SEARCH_KEY, false)
-    }
+    fun isE2ESearchEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_E2E_SEARCH_KEY, false)
 
-    fun isModuleUpdatesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_MODULE_UPDATES_KEY, false)
-    }
+    fun isModuleUpdatesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_MODULE_UPDATES_KEY, false)
 
-    fun isNotifKeywordsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NOTIF_KEYWORDS_KEY, false)
-    }
+    fun isNotifKeywordsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NOTIF_KEYWORDS_KEY, false)
 
-    fun isReactionPreviewEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_REACTION_PREVIEW_KEY, false)
-    }
+    fun isReactionPreviewEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_REACTION_PREVIEW_KEY, false)
 
-    fun isRoomMirrorEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_MIRROR_KEY, false)
-    }
+    fun isRoomMirrorEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_MIRROR_KEY, false)
 
-    fun isSymbolBarEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SYMBOL_BAR_KEY, false)
-    }
+    fun isSymbolBarEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SYMBOL_BAR_KEY, false)
 
-    fun isAutoReplaceEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_REPLACE_KEY, false)
-    }
+    fun isAutoReplaceEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_REPLACE_KEY, false)
 
-    fun isSmartReplyEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SMART_REPLY, false)
-    }
+    fun isSmartReplyEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SMART_REPLY, false)
 
-    fun isLlmSlashEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_LLM_SLASH_KEY, false)
-    }
+    fun isLlmSlashEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_LLM_SLASH_KEY, false)
 
-    fun getLlmProvider(): Int {
-        return (defaultPrefs.getString(SETTINGS_LLM_PROVIDER, "0") ?: "0").toInt()
-    }
+    fun getLlmProvider() = (defaultPrefs.getString(SETTINGS_LLM_PROVIDER, "0") ?: "0").toInt()
 
-    fun getLlmEndpoint(): String {
-        return defaultPrefs.getString(SETTINGS_LLM_ENDPOINT, "https://api.openai.com/v1/chat/completions") ?: ""
-    }
+    fun getLlmEndpoint() = defaultPrefs.getString(SETTINGS_LLM_ENDPOINT, "https://api.openai.com/v1/chat/completions") ?: ""
 
-    fun getLlmToken(): String {
-        return defaultPrefs.getString(SETTINGS_LLM_TOKEN, "") ?: ""
-    }
+    fun getLlmToken() = defaultPrefs.getString(SETTINGS_LLM_TOKEN, "") ?: ""
 
-    fun getLlmModel(): String {
-        return defaultPrefs.getString(SETTINGS_LLM_MODEL, "gpt-4o-mini") ?: ""
-    }
+    fun getLlmModel() = defaultPrefs.getString(SETTINGS_LLM_MODEL, "gpt-4o-mini") ?: ""
 
-    fun isExtendedViaParamsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY, false)
-    }
+    fun isExtendedViaParamsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY, false)
 
     fun getViaParamCount(): Int {
         val count = defaultPrefs.getString(SETTINGS_LABS_VIA_PARAM_COUNT_KEY, "3")
         return count?.toIntOrNull() ?: 3
     }
 
-    fun isIncludeHistoricalServersEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY, false)
-    }
+    fun isIncludeHistoricalServersEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY, false)
 
-    fun isEditStackingEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_EDIT_STACKING_KEY, false)
-    }
+    fun isEditStackingEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EDIT_STACKING_KEY, false)
 
-    fun isShowEditCountEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_EDIT_COUNT_KEY, false)
-    }
+    fun isShowEditCountEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_EDIT_COUNT_KEY, false)
 
-    fun isEmojiAttackProtectionEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_EMOJI_ATTACK_PROTECTION_KEY, false)
-    }
+    fun isEmojiAttackProtectionEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EMOJI_ATTACK_PROTECTION_KEY, false)
 
     fun getEmojiMaxCount(): Int {
         val count = defaultPrefs.getString(SETTINGS_LABS_EMOJI_MAX_COUNT_KEY, "50")
@@ -1610,223 +1360,121 @@ class ProgressiveBasePreferences @Inject constructor(
         return count?.toIntOrNull() ?: 10
     }
 
-    fun isShowHiddenEventsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_HIDDEN_EVENTS_PREFERENCE_KEY, false)
-    }
+    fun isShowHiddenEventsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_HIDDEN_EVENTS_PREFERENCE_KEY, false)
 
-    fun isShowDebugInfoOnScreenEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_SHOW_INFO_ON_SCREEN_KEY, false)
-    }
+    fun isShowDebugInfoOnScreenEnabled() = defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_SHOW_INFO_ON_SCREEN_KEY, false)
 
-    fun isFailFastEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY, false)
-    }
+    fun isFailFastEnabled() = defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY, false)
 
-    fun isOfflineCacheEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_OFFLINE_CACHE_KEY, false)
-    }
+    fun isOfflineCacheEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_OFFLINE_CACHE_KEY, false)
 
-    fun isJumpToUnreadTimeEnabled(): Boolean {
-        return defaultPrefs.getBoolean("SETTINGS_LABS_JUMP_TO_UNREAD_TIME", false)
-    }
+    fun isJumpToUnreadTimeEnabled() = defaultPrefs.getBoolean("SETTINGS_LABS_JUMP_TO_UNREAD_TIME", false)
 
-    fun isLoadingProgressEnabled(): Boolean {
-        return defaultPrefs.getBoolean("SETTINGS_LABS_LOADING_PROGRESS", false)
-    }
+    fun isLoadingProgressEnabled() = defaultPrefs.getBoolean("SETTINGS_LABS_LOADING_PROGRESS", false)
 
-    fun isDuplicateNamesEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_DUPLICATE_NAMES_KEY, false)
-    }
+    fun isDuplicateNamesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_DUPLICATE_NAMES_KEY, false)
 
-    fun isReadReceiptsCppEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_READ_RECEIPTS_KEY, false)
-    }
+    fun isReadReceiptsCppEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_READ_RECEIPTS_KEY, false)
 
-    fun getReadReceiptsMaxVisible(): Int {
-        return defaultPrefs.getInt(SETTINGS_READ_RECEIPTS_MAX_VISIBLE, 20)
-    }
+    fun getReadReceiptsMaxVisible() = defaultPrefs.getInt(SETTINGS_READ_RECEIPTS_MAX_VISIBLE, 20)
 
-    fun isRoomAnalyticsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_ANALYTICS_KEY, false)
-    }
+    fun isRoomAnalyticsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_ANALYTICS_KEY, false)
 
-    fun isUserHideEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_USER_HIDE_KEY, false)
-    }
+    fun isUserHideEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_USER_HIDE_KEY, false)
 
-    fun isModerationEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_MODERATION_KEY, false)
-    }
+    fun isModerationEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_MODERATION_KEY, false)
 
-    fun isAutoScrollEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_SCROLL_KEY, false)
-    }
+    fun isAutoScrollEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AUTO_SCROLL_KEY, false)
 
-    fun isMsgQueueEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_MSG_QUEUE_KEY, false)
-    }
+    fun isMsgQueueEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_MSG_QUEUE_KEY, false)
 
-    fun isLosslessCropEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_LOSSLESS_CROP_KEY, false)
-    }
+    fun isLosslessCropEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_LOSSLESS_CROP_KEY, false)
 
-    fun isLangDetectEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_LANG_DETECT_KEY, false)
-    }
+    fun isLangDetectEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_LANG_DETECT_KEY, false)
 
-    fun isChatPushDownEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_CHAT_PUSHDOWN_KEY, false)
-    }
+    fun isChatPushDownEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_CHAT_PUSHDOWN_KEY, false)
 
-    fun isEmojiBlacklistEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_EMOJI_BLACKLIST_KEY, false)
-    }
+    fun isEmojiBlacklistEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EMOJI_BLACKLIST_KEY, false)
 
     fun toggleEmojiBlacklist() {
         val current = isEmojiBlacklistEnabled()
         defaultPrefs.edit { putBoolean(SETTINGS_LABS_EMOJI_BLACKLIST_KEY, !current) }
     }
 
-    fun isAvatarHistoryEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AVATAR_HISTORY_KEY, false)
-    }
+    fun isAvatarHistoryEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AVATAR_HISTORY_KEY, false)
 
-    fun isJumpToRoomEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_JUMPTOROOM_KEY, false)
-    }
+    fun isJumpToRoomEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMPTOROOM_KEY, false)
 
-    fun isEventLinkResolveEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_EVENT_LINK_RESOLVE_KEY, false)
-    }
+    fun isEventLinkResolveEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EVENT_LINK_RESOLVE_KEY, false)
 
-    fun isSecondsTimestampsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SECONDS_TIMESTAMPS_KEY, false)
-    }
+    fun isSecondsTimestampsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SECONDS_TIMESTAMPS_KEY, false)
 
-    fun isLightweightCallEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_LIGHTWEIGHT_CALL_KEY, false)
-    }
+    fun isLightweightCallEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_LIGHTWEIGHT_CALL_KEY, false)
 
-    fun isScheduledEditsEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SCHEDULED_EDITS_KEY, false)
-    }
+    fun isScheduledEditsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SCHEDULED_EDITS_KEY, false)
 
-    fun isSvgDrawEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SVG_DRAW_KEY, false)
-    }
+    fun isSvgDrawEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SVG_DRAW_KEY, false)
 
-    fun isProfileSwiperEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_PROFILE_SWIPER_KEY, false)
-    }
+    fun isProfileSwiperEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_PROFILE_SWIPER_KEY, false)
 
-    fun isDesyncDetectorEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_DESYNC_DETECTOR_KEY, false)
-    }
+    fun isDesyncDetectorEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_DESYNC_DETECTOR_KEY, false)
 
-    fun getDesyncIntervalMinutes(): Int {
-        return defaultPrefs.getInt(SETTINGS_DESYNC_INTERVAL_MINUTES, 30)
-    }
+    fun getDesyncIntervalMinutes() = defaultPrefs.getInt(SETTINGS_DESYNC_INTERVAL_MINUTES, 30)
 
-    fun isLocationSharingEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_LOCATION_SHARING_KEY, false)
-    }
+    fun isLocationSharingEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_LOCATION_SHARING_KEY, false)
 
-    fun isRoomCountEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_KEY, false)
-    }
+    fun isRoomCountEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_KEY, false)
 
-    fun isRoomCountSplitEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_SPLIT_KEY, false)
-    }
+    fun isRoomCountSplitEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_SPLIT_KEY, false)
 
-    fun isRoomCountUniqueEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_UNIQUE_KEY, false)
-    }
+    fun isRoomCountUniqueEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_UNIQUE_KEY, false)
 
-    fun isRoomNumberingEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_NUMBERING_KEY, false)
-    }
+    fun isRoomNumberingEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_NUMBERING_KEY, false)
 
-    fun isMultiServerExportEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_MULTI_SERVER_EXPORT_KEY, false)
-    }
+    fun isMultiServerExportEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_MULTI_SERVER_EXPORT_KEY, false)
 
-    fun isNativeHttpEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_HTTP_KEY, false)
-    }
+    fun isNativeHttpEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_HTTP_KEY, false)
 
-    fun isNativeTimelineEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_TIMELINE_KEY, false)
-    }
+    fun isNativeTimelineEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_TIMELINE_KEY, false)
 
-    fun isNativeDbEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_DB_KEY, false)
-    }
+    fun isNativeDbEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_DB_KEY, false)
 
-    fun isNativeSyncParserEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_SYNC_PARSER_KEY, false)
-    }
+    fun isNativeSyncParserEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_SYNC_PARSER_KEY, false)
 
-    fun isNativeCryptoEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_CRYPTO_KEY, false)
-    }
+    fun isNativeCryptoEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_CRYPTO_KEY, false)
 
-    fun isNativeMarkdownEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_MARKDOWN_KEY, false)
-    }
+    fun isNativeMarkdownEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_MARKDOWN_KEY, false)
 
-    fun isNativeWidgetManagerEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_WIDGET_MANAGER_KEY, false)
-    }
+    fun isNativeWidgetManagerEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_NATIVE_WIDGET_MANAGER_KEY, false)
 
-    fun isFullAvatarEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_FULL_AVATAR_KEY, false)
-    }
+    fun isFullAvatarEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_FULL_AVATAR_KEY, false)
 
-    fun isAvatarOriginalRatioEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AVATAR_ORIGINAL_RATIO, true)
-    }
+    fun isAvatarOriginalRatioEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AVATAR_ORIGINAL_RATIO, true)
 
-    fun isWebSearchEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_WEB_SEARCH_KEY, false)
-    }
+    fun isWebSearchEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_WEB_SEARCH_KEY, false)
 
-    fun isAgentWebAccessEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_AGENT_WEB_ACCESS_KEY, false)
-    }
+    fun isAgentWebAccessEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AGENT_WEB_ACCESS_KEY, false)
 
-    fun getNotificationIconStyle(): String {
-        return defaultPrefs.getString(SETTINGS_NOTIFICATION_ICON_STYLE, "element") ?: "element"
-    }
+    fun getNotificationIconStyle() = defaultPrefs.getString(SETTINGS_NOTIFICATION_ICON_STYLE, "element") ?: "element"
 
     fun setNotificationIconStyle(style: String) {
         defaultPrefs.edit { putString(SETTINGS_NOTIFICATION_ICON_STYLE, style) }
     }
 
-    fun isNotificationShowCountEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_NOTIFICATION_SHOW_COUNT, false)
-    }
+    fun isNotificationShowCountEnabled() = defaultPrefs.getBoolean(SETTINGS_NOTIFICATION_SHOW_COUNT, false)
 
-    fun isLiveDraftEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_LIVE_DRAFT_KEY, false)
-    }
+    fun isLiveDraftEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_LIVE_DRAFT_KEY, false)
 
-    fun isTransparentOverlayEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY, false)
-    }
+    fun isTransparentOverlayEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY, false)
 
-    fun isTextUndoEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_TEXT_UNDO_KEY, false)
-    }
+    fun isTextUndoEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_TEXT_UNDO_KEY, false)
 
     fun getUndoMaxDepth(): Int = defaultPrefs.getInt("SETTINGS_UNDO_MAX_DEPTH", 50)
     fun isUndoCheckpointOnPaste(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_CHECKPOINT_PASTE", true)
     fun isUndoCheckpointOnSelectAll(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_CHECKPOINT_SELECT_ALL", true)
     fun isUndoRestoreCursor(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_RESTORE_CURSOR", true)
 
-    fun isSpoilerEnabled(): Boolean {
-        return defaultPrefs.getBoolean(SETTINGS_LABS_SPOILER_KEY, false)
-    }
+    fun isSpoilerEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SPOILER_KEY, false)
 
     // Transparent Overlay config parameters
     fun getOverlayOneFingerHoldMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_ONE_FINGER_MS", 200)
@@ -1838,13 +1486,9 @@ class ProgressiveBasePreferences @Inject constructor(
     fun isOverlayBackEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_BACK", true)
     fun isOverlaySwipeEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_SWIPE", true)
 
-    fun getLiveDraftCharThreshold(): Int {
-        return defaultPrefs.getInt(SETTINGS_LIVE_DRAFT_CHAR_THRESHOLD, 20)
-    }
+    fun getLiveDraftCharThreshold() = defaultPrefs.getInt(SETTINGS_LIVE_DRAFT_CHAR_THRESHOLD, 20)
 
-    fun getLiveDraftUpdateIntervalMs(): Int {
-        return defaultPrefs.getInt(SETTINGS_LIVE_DRAFT_UPDATE_INTERVAL_MS, 3000)
-    }
+    fun getLiveDraftUpdateIntervalMs() = defaultPrefs.getInt(SETTINGS_LIVE_DRAFT_UPDATE_INTERVAL_MS, 3000)
 
     fun showIpAddressInSessionManagerScreens(): Boolean {
         return defaultPrefs.getBoolean(
@@ -1879,9 +1523,7 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun hadExistingLegacyData(): Boolean {
-        return defaultPrefs.getBoolean(HAD_EXISTING_LEGACY_DATA, false)
-    }
+    fun hadExistingLegacyData() = defaultPrefs.getBoolean(HAD_EXISTING_LEGACY_DATA, false)
 
     fun setHadExistingLegacyData(had: Boolean) {
         defaultPrefs.edit {
@@ -1889,9 +1531,7 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    fun isOnRustCrypto(): Boolean {
-        return defaultPrefs.getBoolean(IS_ON_RUST_CRYPTO, false)
-    }
+    fun isOnRustCrypto() = defaultPrefs.getBoolean(IS_ON_RUST_CRYPTO, false)
 
     fun setIsOnRustCrypto(boolean: Boolean) {
         defaultPrefs.edit {
