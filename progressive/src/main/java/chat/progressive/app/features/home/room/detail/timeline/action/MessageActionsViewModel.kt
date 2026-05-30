@@ -8,6 +8,7 @@ package chat.progressive.app.features.home.room.detail.timeline.action
 
 import com.airbnb.mvrx.MavericksViewModelFactory
 import dagger.Lazy
+import org.json.JSONObject
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -402,9 +403,9 @@ class MessageActionsViewModel @AssistedInject constructor(
                     if (progressivePreferences.isJumpToSourceRepliesEnabled()) append("m.reference,")
                     if (progressivePreferences.isJumpToSourceEditsEnabled()) append("m.replace,")
                 }.trimEnd(',')
-                val relation = chat.progressive.app.native.ProgressiveNative.nativeParseRelation(
+                val relation = JSONObject(chat.progressive.app.native.ProgressiveNative.nativeParseRelation(
                     content, allowedTypes
-                )
+                ))
                 if (relation.optBoolean("isRelation", false)) {
                     val sourceId = relation.getString("sourceEventId")
                     add(EventSharedAction.JumpToSource(eventId, sourceId))
