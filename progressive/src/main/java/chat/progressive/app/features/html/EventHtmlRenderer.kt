@@ -205,12 +205,7 @@ class EventHtmlRenderer @Inject constructor(
 
     fun parse(text: String): Node {
         val processed = if (progressivePreferences.isNativeMarkdownEnabled()) {
-            try {
-                ProgressiveNative.ensureLoaded()
-                ProgressiveNative.nativeMarkdownToHtml(text, true)
-            } catch (e: UnsatisfiedLinkError) {
-                text
-            }
+            ProgressiveNative.nativeMarkdownToHtml(text, true)
         } else {
             text
         }
@@ -224,13 +219,7 @@ class EventHtmlRenderer @Inject constructor(
     fun render(text: String, vararg postProcessors: PostProcessor): CharSequence {
         return try {
             val markdown = if (progressivePreferences.isNativeMarkdownEnabled()) {
-                try {
-                    ProgressiveNative.ensureLoaded()
-                    ProgressiveNative.nativeMarkdownToHtml(text, true)
-                } catch (e: UnsatisfiedLinkError) {
-                    Timber.w(e, "Native markdown not loaded, using fallback")
-                    text
-                }
+                ProgressiveNative.nativeMarkdownToHtml(text, true)
             } else {
                 text
             }
