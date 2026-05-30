@@ -4,6 +4,11 @@ project("progressive_native")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Limit parallel compilation to 2 jobs to avoid OOM on memory-constrained systems
+set(CMAKE_JOB_POOL_COMPILE compile_pool)
+set(CMAKE_JOB_POOL_LINK link_pool)
+set(CMAKE_JOB_POOLS "compile_pool=2;link_pool=1")
+
 add_library(
     progressive_native
     SHARED
@@ -573,19 +578,6 @@ target_link_libraries(
 )
 
 target_compile_definitions(progressive_native PRIVATE PROGRESSIVE_HAS_OLM=1)
-
-# JNI stubs as separate static library (no LTO to avoid OOM)
-add_library(progressive_stubs STATIC
-    src/jni_stubs_part1.cpp
-    src/jni_stubs_part2.cpp
-    src/jni_stubs_part3.cpp
-    src/jni_stubs_part4.cpp
-    src/jni_stubs_part5.cpp
-    src/jni_stubs_part6.cpp
-)
-target_include_directories(progressive_stubs PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_compile_options(progressive_stubs PRIVATE -Os -fvisibility=hidden)
-target_link_libraries(progressive_native progressive_stubs)
 
 # SQLite3 amalgamation compile flags (optimize for Android, downloaded at build time)
 set_source_files_properties(
