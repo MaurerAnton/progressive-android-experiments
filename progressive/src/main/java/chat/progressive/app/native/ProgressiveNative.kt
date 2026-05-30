@@ -64,14 +64,7 @@ object ProgressiveNative {
 
     // --- Export functions ---
 
-
-
-
     // --- Event Cache ---
-
-
-
-
 
     // --- SQLite Event Database ---
 
@@ -146,9 +139,7 @@ object ProgressiveNative {
 
     // --- Proxy / Tor / I2P ---
 
-
     // --- Yggdrasil ---
-
 
     // --- Markdown ---
 
@@ -473,81 +464,55 @@ object ProgressiveNative {
 
     // --- Account Export ---
 
-
-
     // --- Audio ---
 
     @JvmStatic external fun nativeFormatDuration(ms: Long): String
 
     // --- Media Filter ---
 
-
     // --- Content Filter ---
-
-
 
     // --- Network Stats ---
 
-
     // --- Masquerade ---
-
 
     // --- User Mask ---
 
-
     // --- Chunked Upload ---
-
 
     // --- Chat Features (Timezone + EXIF) ---
 
-
     // --- Invitation Hide ---
-
 
     // --- Thread Aggregator ---
 
-
     // --- User Messages ---
-
 
     // --- Room Version ---
 
-
     // --- Chat Preview ---
 
-
     // --- RAM Monitor ---
-
 
     // --- Cache Manager ---
 
     // --- Message Aggregator (All Messages) ---
 
-
     // --- Room Info ---
-
 
     // --- Deleted Archive ---
 
-
     // --- Search Index ---
-
 
     // --- Module Loader ---
 
-
     // --- Notification Keywords ---
-
 
     // --- Reaction Preview ---
 
-
     // --- Room Mirror ---
 
-
     // --- Input Tools ---
-
-
 
     // --- LLM ---
 
@@ -558,10 +523,7 @@ object ProgressiveNative {
 
     // --- Room Summary ---
 
-
-
     // --- Smart Reply ---
-
 
     // --- Weather Utils ---
 
@@ -577,7 +539,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeAlarmDelete(id: String)
     @JvmStatic external fun nativeAlarmSetRingtone(id: String, uri: String)
     @JvmStatic external fun nativeAlarmLoad(json: String)
-
 
     @JvmStatic external fun nativeTextStats(text: String): String
 
@@ -602,45 +563,31 @@ object ProgressiveNative {
 
     // --- Duplicate Names ---
 
-
     // --- MXID Visibility ---
-
 
     // --- Read Receipts ---
 
-
     // --- Room Analytics ---
-
 
     // --- User Hide Timer ---
 
-
     // --- Message Queue ---
-
 
     // --- Image Crop ---
 
-
     // --- Auto-Scroll ---
-
 
     // --- Language Detection ---
 
-
     // --- Language Hide ---
-
 
     // --- Chat Push Down ---
 
-
     // --- Emoji Blacklist ---
-
 
     // --- Avatar History ---
 
-
     // --- Jump to Date with Time ---
-
 
     // --- Room Matching ---
 
@@ -653,33 +600,23 @@ object ProgressiveNative {
 
     // --- Timestamps ---
 
-
     // --- Lightweight Call ---
-
 
     // --- Scheduled Edits ---
 
-
     // --- SVG Rendering ---
-
 
     // --- Drawing Canvas ---
 
-
     // --- Profile Swiper ---
-
 
     // --- Rainbow Generator ---
 
-
     // --- Text Formatting ---
-
 
     // --- URL Tools ---
 
-
     // --- Notification Priority ---
-
 
     // --- Matrix Patterns ---
 
@@ -689,18 +626,13 @@ object ProgressiveNative {
 
     // --- Desync Detector ---
 
-
     // --- Latency Tracker ---
-
 
     // --- String Utils ---
 
-
     // --- Location Sharing ---
 
-
     // --- Color Utils ---
-
 
     // --- E2EE Utils ---
 
@@ -708,12 +640,9 @@ object ProgressiveNative {
 
     // --- Thumbnail ---
 
-
     // --- Waveform ---
 
-
     // --- Session Timeout ---
-
 
     // --- Password Validator ---
 
@@ -721,22 +650,16 @@ object ProgressiveNative {
 
     // --- Spellcheck ---
 
-
     // --- Typing Indicator ---
-
 
     // --- Hash Utils ---
 
-
     // --- Room Stats ---
-
 
     // --- Mention Parser ---
 
-
     // --- Poll Utils ---
     // --- Reaction Utils ---
-
 
     // --- File Validator ---
 
@@ -744,21 +667,15 @@ object ProgressiveNative {
 
     // --- Date Utils ---
 
-
     // --- Message Queue ---
-
 
     // --- Pinned Events (Element Web parity) ---
 
-
     // --- Server Capabilities ---
-
 
     // --- Username Validator ---
 
-
     // --- Emoji Analyzer ---
-
 
     // --- Identity Utils ---
 
@@ -766,24 +683,17 @@ object ProgressiveNative {
 
     // --- Notification Analyzer ---
 
-
     // --- Sync Analyzer ---
-
 
     // --- User Rating ---
 
-
     // --- Event Timeline ---
-
 
     // --- Room Directory ---
 
-
     // --- SSO Utils ---
 
-
     // --- Backup Utils ---
-
 
     // --- Device Manager ---
 
@@ -796,9 +706,7 @@ object ProgressiveNative {
 
     // --- Room Permissions ---
 
-
     // --- Room Summary ---
-
 
     // --- Membership ---
 
@@ -806,22 +714,17 @@ object ProgressiveNative {
 
     // --- Event Validator ---
 
-
     // --- Room Encryption ---
-
 
     // --- Login Utils ---
 
-
     // --- Account Utils ---
-
 
     // --- Connection Monitor ---
 
     @JvmStatic external fun nativeConnMonitorOnReconnectAttempt()
 
     // --- Push Rules ---
-
 
     // --- Space Utils ---
 
@@ -830,12 +733,9 @@ object ProgressiveNative {
     // --- Event Relations ---
     // --- E2EE Decoration ---
 
-
     // --- Room List ---
 
-
     // --- Media Utils ---
-
 
     // --- Notification Settings ---
 
@@ -847,19 +747,15 @@ object ProgressiveNative {
 
     // --- Verification ---
 
-
     // --- Session Manager ---
 
-
     // --- Auth Utils ---
-
 
     // --- Content Scanner ---
 
     @JvmStatic external fun nativeIsServerNotice(contentJson: String): Boolean
 
     // --- Event Encryption ---
-
 
     // --- Report Utils ---
 
@@ -1464,10 +1360,8 @@ object ProgressiveNative {
 
     // --- Message Retry ---
 
-
     // --- Sync Utils ---
     // --- Event Display ---
-
 
     // --- Permalink ---
 
@@ -1475,13 +1369,11 @@ object ProgressiveNative {
 
     // --- Network Monitor ---
 
-
     // --- Client Info ---
 
     @JvmStatic external fun nativeCompareSemver(a: String, b: String): Int
 
     // --- Keyshare ---
-
 
     // --- Display Name ---
 
@@ -1489,9 +1381,7 @@ object ProgressiveNative {
 
     // --- Message Location ---
 
-
     // --- Timeline Utils ---
-
 
     // --- Cross Signing ---
     // --- Edit History ---
@@ -1516,7 +1406,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeToPunycode(domain: String): String
     @JvmStatic external fun nativeFromPunycode(domain: String): String
     @JvmStatic external fun nativeFormatCountToShortDecimal(value: Int): String
-
 
     // ---- Encrypted Room Search ----
     @JvmStatic external fun nativeSearchRoom(roomId: String, term: String, limit: Int, offset: Int): String
