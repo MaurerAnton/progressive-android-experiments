@@ -6283,6 +6283,10 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
 }
 } // extern "C"
 
+JNI_FUNC(jstring, nativeFormatCountToShortDecimal)(JNIEnv* env, jclass, jint jValue) {
+    return env->NewStringUTF(progressive::formatCountToShortDecimal(jValue).c_str());
+}
+
 // ---- IDN (Internationalized Domain Names) JNI wrappers ----
 
 JNI_FUNC(jstring, nativeToPunycode)(JNIEnv* env, jclass, jstring jDomain) {
