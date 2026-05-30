@@ -97,7 +97,7 @@ class RoomAdapter(private val onClick: (String) -> Unit) : RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int) = VH(
         android.widget.TextView(parent.context).apply {
             setPadding(48, 24, 48, 24); textSize = 16f
-            setOnClickListener { onClick(items[bindingAdapterPosition].getString("roomId")) }
+            setOnClickListener { onClick(items[absoluteAdapterPosition].getString("roomId")) }
         }
     )
     
