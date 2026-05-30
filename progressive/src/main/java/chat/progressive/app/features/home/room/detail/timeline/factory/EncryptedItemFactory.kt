@@ -52,8 +52,7 @@ class EncryptedItemFactory @Inject constructor(
                             if (cryptoError == MXCryptoError.ErrorType.UNKNOWN_INBOUND_SESSION_ID) {
                                 stringProvider.getString(CommonStrings.notice_crypto_error_unknown_inbound_session_id)
                             } else {
-                                // TODO i18n
-                                cryptoError?.name
+                                stringProvider.getString(CommonStrings.notice_crypto_unable_to_decrypt, cryptoError?.name ?: "Unknown")
                             }
 
                     val message = stringProvider.getString(CommonStrings.encrypted_message).takeIf { cryptoError == null }
