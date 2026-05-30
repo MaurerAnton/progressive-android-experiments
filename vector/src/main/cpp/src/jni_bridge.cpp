@@ -1575,7 +1575,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetOlderThan
     return env->NewStringUTF(json.c_str());
 }
 
-JNIEXPORT void JNICALL
 // --- Message Aggregator ---
 
 JNIEXPORT void JNICALL
