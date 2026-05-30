@@ -409,6 +409,7 @@ add_library(
     src/message_processor.cpp
     src/room_state_engine.cpp
     src/search_engine.cpp
+    src/test_provider.cpp
     src/sync_response_parser.cpp
     src/event_builder.cpp
     src/account_manager.cpp

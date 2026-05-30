@@ -217,6 +217,7 @@
 #include "progressive/media_viewer.hpp"
 #include "progressive/key_backup_manager.hpp"
 #include "progressive/search_engine.hpp"
+#include "progressive/test_provider.hpp"
 #include <sstream>
 #include <chrono>
 
@@ -6292,6 +6293,37 @@ JNI_FUNC(jstring, nativeSearchRoom)(JNIEnv* env, jclass, jstring jRoomId, jstrin
     progressive::RoomSearchEngine search(&g_eventDb);
     std::string result = search.search(roomId, term, jLimit, jOffset);
     return env->NewStringUTF(result.c_str());
+
+// ---- Test Mode Provider ----
+static progressive::TestProvider g_testProvider;
+
+JNI_FUNC(jstring, nativeTestGetRooms)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(g_testProvider.getRoomsJson().c_str());
+}
+
+JNI_FUNC(jstring, nativeTestGetMessages)(JNIEnv* env, jclass, jstring jRoomId, jint jLimit, jint jOffset) {
+    std::string roomId(env->GetStringUTFChars(jRoomId, nullptr));
+    env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    return env->NewStringUTF(g_testProvider.getMessagesJson(roomId, jLimit, jOffset).c_str());
+}
+
+JNI_FUNC(jstring, nativeTestGetRoom)(JNIEnv* env, jclass, jstring jRoomId) {
+    std::string roomId(env->GetStringUTFChars(jRoomId, nullptr));
+    env->ReleaseStringUTFChars(jRoomId, roomId.c_str());
+    return env->NewStringUTF(g_testProvider.getRoomJson(roomId).c_str());
+}
+
+JNI_FUNC(jstring, nativeTestSearch)(JNIEnv* env, jclass, jstring jTerm, jstring jRoomId) {
+    std::string term(env->GetStringUTFChars(jTerm, nullptr));
+    env->ReleaseStringUTFChars(jTerm, term.c_str());
+    std::string roomId;
+    if (jRoomId) { roomId = env->GetStringUTFChars(jRoomId, nullptr); env->ReleaseStringUTFChars(jRoomId, roomId.c_str()); }
+    return env->NewStringUTF(g_testProvider.searchMessages(term, roomId).c_str());
+}
+
+JNI_FUNC(jstring, nativeTestGetProfile)(JNIEnv* env, jclass) {
+    return env->NewStringUTF(g_testProvider.getProfileJson().c_str());
+}
 }
 } // extern "C"
 

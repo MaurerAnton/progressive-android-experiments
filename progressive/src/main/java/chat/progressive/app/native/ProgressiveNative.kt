@@ -1535,4 +1535,11 @@ object ProgressiveNative {
     // ---- Encrypted Room Search ----
     @JvmStatic external fun nativeSearchRoom(roomId: String, term: String, limit: Int, offset: Int): String
 
+    // ---- Test Mode ----
+    @JvmStatic external fun nativeTestGetRooms(): String
+    @JvmStatic external fun nativeTestGetMessages(roomId: String, limit: Int, offset: Int): String
+    @JvmStatic external fun nativeTestGetRoom(roomId: String): String
+    @JvmStatic external fun nativeTestSearch(term: String, roomId: String): String
+    @JvmStatic external fun nativeTestGetProfile(): String
+
 }
