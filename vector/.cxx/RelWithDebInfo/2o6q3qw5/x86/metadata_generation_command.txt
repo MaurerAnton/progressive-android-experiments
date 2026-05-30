@@ -1,0 +1,18 @@
+                        -H/tmp/progressive-android-experiments/vector/src/main/cpp
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=21
+-DANDROID_PLATFORM=android-21
+-DANDROID_ABI=x86
+-DCMAKE_ANDROID_ARCH_ABI=x86
+-DANDROID_NDK=/home/bym/android-sdk/ndk/21.3.6528147
+-DCMAKE_ANDROID_NDK=/home/bym/android-sdk/ndk/21.3.6528147
+-DCMAKE_TOOLCHAIN_FILE=/home/bym/android-sdk/ndk/21.3.6528147/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/home/bym/android-sdk/cmake/3.22.1/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/tmp/progressive-android-experiments/vector/build/intermediates/cxx/RelWithDebInfo/2o6q3qw5/obj/x86
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/tmp/progressive-android-experiments/vector/build/intermediates/cxx/RelWithDebInfo/2o6q3qw5/obj/x86
+-DCMAKE_BUILD_TYPE=RelWithDebInfo
+-B/tmp/progressive-android-experiments/vector/.cxx/RelWithDebInfo/2o6q3qw5/x86
+-GNinja
+                        Build command args: []
+                        Version: 2
