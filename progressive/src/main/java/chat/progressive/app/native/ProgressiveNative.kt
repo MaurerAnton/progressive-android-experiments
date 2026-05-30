@@ -37,13 +37,6 @@ object ProgressiveNative {
      *
      * @return JSON string with url, accessToken, timestamp — or {"error":"..."} on failure
      */
-    @JvmStatic
-        roomId: String,
-        dateString: String,
-        serverUrl: String,
-        accessToken: String,
-        isEnabled: Boolean
-    ): String
 
     /**
      * Parses the UTC timestamp_to_event response from the homeserver.
