@@ -1515,6 +1515,7 @@ object ProgressiveNative {
     // ---- IDN (Internationalized Domain Names) ----
     @JvmStatic external fun nativeToPunycode(domain: String): String
     @JvmStatic external fun nativeFromPunycode(domain: String): String
+    @JvmStatic external fun nativeFormatCountToShortDecimal(value: Int): String
 
 
     // ---- Encrypted Room Search ----
