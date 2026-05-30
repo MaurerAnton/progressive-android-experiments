@@ -33,9 +33,7 @@ interface FeaturesModule {
     companion object {
 
         @Provides
-        fun providesDefaultProgressiveFeatures(): DefaultProgressiveFeatures {
-            return DefaultProgressiveFeatures()
-        }
+        fun providesDefaultProgressiveFeatures() = DefaultProgressiveFeatures()
 
         @Provides
         fun providesDebugProgressiveFeatures(context: Context, defaultProgressiveFeatures: DefaultProgressiveFeatures): DebugProgressiveFeatures {
@@ -43,9 +41,7 @@ interface FeaturesModule {
         }
 
         @Provides
-        fun providesDefaultProgressiveOverrides(): DefaultProgressiveOverrides {
-            return DefaultProgressiveOverrides()
-        }
+        fun providesDefaultProgressiveOverrides() = DefaultProgressiveOverrides()
 
         @Provides
         fun providesDebugProgressiveOverrides(context: Context): DebugProgressiveOverrides {

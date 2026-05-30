@@ -21,12 +21,8 @@ import chat.progressive.app.features.ProgressiveOverrides
 object FeaturesModule {
 
     @Provides
-    fun providesFeatures(): ProgressiveFeatures {
-        return DefaultProgressiveFeatures()
-    }
+    fun providesFeatures() = DefaultProgressiveFeatures()
 
     @Provides
-    fun providesOverrides(): ProgressiveOverrides {
-        return DefaultProgressiveOverrides()
-    }
+    fun providesOverrides() = DefaultProgressiveOverrides()
 }

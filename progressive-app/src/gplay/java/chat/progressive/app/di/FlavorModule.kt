@@ -30,9 +30,7 @@ abstract class FlavorModule {
 
     companion object {
         @Provides
-        fun provideGuardServiceStarter(): GuardServiceStarter {
-            return object : GuardServiceStarter {}
-        }
+        fun provideGuardServiceStarter() = object : GuardServiceStarter {}
     }
 
     @Binds

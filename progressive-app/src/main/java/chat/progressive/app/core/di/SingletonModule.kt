@@ -192,21 +192,15 @@ import javax.inject.Singleton
 
     @Provides
     @Singleton
-    fun providesApplicationCoroutineScope(): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Main)
-    }
+    fun providesApplicationCoroutineScope() = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     @Provides
-    fun providesCoroutineDispatchers(): CoroutineDispatchers {
-        return CoroutineDispatchers(io = Dispatchers.IO, computation = Dispatchers.Default)
-    }
+    fun providesCoroutineDispatchers() = CoroutineDispatchers(io = Dispatchers.IO, computation = Dispatchers.Default)
 
     @OptIn(DelicateCoroutinesApi::class)
     @Provides
     @NamedGlobalScope
-    fun providesGlobalScope(): CoroutineScope {
-        return GlobalScope
-    }
+    fun providesGlobalScope() = GlobalScope
 
     @Provides
     fun providesPhoneNumberUtil(): PhoneNumberUtil = PhoneNumberUtil.getInstance()

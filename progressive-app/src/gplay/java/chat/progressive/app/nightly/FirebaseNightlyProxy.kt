@@ -25,9 +25,7 @@ class FirebaseNightlyProxy @Inject constructor(
         private val buildMeta: BuildMeta,
 ) : NightlyProxy {
 
-    override fun isNightlyBuild(): Boolean {
-        return buildMeta.applicationId in nightlyPackages
-    }
+    fun isNightlyBuild() = buildMeta.applicationId in nightlyPackages
 
     override fun updateApplication() {
         val firebaseAppDistribution = FirebaseAppDistribution.getInstance()

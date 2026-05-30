@@ -31,9 +31,7 @@ class DebugProgressiveFeatures(
 
     private val dataStore = context.dataStore
 
-    override fun onboardingVariant(): OnboardingVariant {
-        return readPreferences().getEnum<OnboardingVariant>() ?: vectorFeatures.onboardingVariant()
-    }
+    fun onboardingVariant() = readPreferences().getEnum<OnboardingVariant>() ?: vectorFeatures.onboardingVariant()
 
     override fun isOnboardingAlreadyHaveAccountSplashEnabled(): Boolean = read(DebugFeatureKeys.onboardingAlreadyHaveAnAccount)
             ?: vectorFeatures.isOnboardingAlreadyHaveAccountSplashEnabled()
