@@ -97,8 +97,8 @@ class RoomAdapter(private val onClick: (String) -> Unit) : RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int) = VH(
         android.widget.TextView(parent.context).apply {
             setPadding(48, 24, 48, 24); textSize = 16f
-            setOnClickListener { onClick(items[adapterPosition].getString("roomId")) }
-        }
+        },
+        { pos -> onClick(items[pos].getString("roomId")) }
     )
     
     override fun onBindViewHolder(holder: VH, pos: Int) {
@@ -128,5 +128,5 @@ class MessageAdapter : RecyclerView.Adapter<MessageAdapter.VH>() {
     }
     
     override fun getItemCount() = items.size
-    class VH(val v: TextView) : RecyclerView.ViewHolder(v)
+    class VH(val v: TextView, click: (Int) -> Unit) : RecyclerView.ViewHolder(v) { init { v.setOnClickListener { click(bindingAdapterPosition) } } }
 }
