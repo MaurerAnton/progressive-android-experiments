@@ -6293,6 +6293,7 @@ JNI_FUNC(jstring, nativeSearchRoom)(JNIEnv* env, jclass, jstring jRoomId, jstrin
     progressive::RoomSearchEngine search(&g_eventDb);
     std::string result = search.search(roomId, term, jLimit, jOffset);
     return env->NewStringUTF(result.c_str());
+}
 
 // ---- Test Mode Provider ----
 static progressive::TestProvider g_testProvider;
