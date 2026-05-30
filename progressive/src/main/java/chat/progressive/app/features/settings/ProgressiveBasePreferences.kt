@@ -478,14 +478,6 @@ class ProgressiveBasePreferences @Inject constructor(
 
     fun failFast() = buildMeta.isDebug || (developerMode() && defaultPrefs.getBoolean(SETTINGS_DEVELOPER_MODE_FAIL_FAST_PREFERENCE_KEY, false))
 
-    fun enableMemoryLeakAnalysis(isEnabled: Boolean) {
-        defaultPrefs.edit(commit = true) {
-            putBoolean(SETTINGS_ENABLE_MEMORY_LEAK_ANALYSIS_KEY, isEnabled)
-        }
-    }
-
-    fun isMemoryLeakAnalysisEnabled() = buildMeta.isDebug && defaultPrefs.getBoolean(SETTINGS_ENABLE_MEMORY_LEAK_ANALYSIS_KEY, false)
-
     fun didAskUserToEnableSessionPush() = defaultPrefs.getBoolean(DID_ASK_TO_ENABLE_SESSION_PUSH, false)
 
     fun setDidAskUserToEnableSessionPush() {
@@ -499,7 +491,6 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if it was already requested
      */
-    fun didAskUserToIgnoreBatteryOptimizations() = defaultPrefs.getBoolean(DID_ASK_TO_IGNORE_BATTERY_OPTIMIZATIONS_KEY, false)
 
     /**
      * Mark as requested the question to disable battery optimisations.
@@ -509,8 +500,6 @@ class ProgressiveBasePreferences @Inject constructor(
             putBoolean(DID_ASK_TO_IGNORE_BATTERY_OPTIMIZATIONS_KEY, true)
         }
     }
-
-    fun didMigrateToNotificationRework() = defaultPrefs.getBoolean(DID_MIGRATE_TO_NOTIFICATION_REWORK, false)
 
     fun setDidMigrateToNotificationRework() {
         defaultPrefs.edit {
@@ -523,7 +512,6 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the time must be displayed in 12h format
      */
-    fun displayTimeIn12hFormat() = defaultPrefs.getBoolean(SETTINGS_12_24_TIMESTAMPS_KEY, false)
 
     /**
      * Tells if the join and leave membership events should be shown in the messages list.
@@ -563,14 +551,12 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return the selected compression level
      */
-    fun getSelectedDefaultMediaCompressionLevel() = Integer.parseInt(defaultPrefs.getString(SETTINGS_DEFAULT_MEDIA_COMPRESSION_KEY, "0")!!)
 
     /**
      * Tells which media source to use by default.
      *
      * @return the selected media source
      */
-    fun getSelectedDefaultMediaSource() = Integer.parseInt(defaultPrefs.getString(SETTINGS_DEFAULT_MEDIA_SOURCE_KEY, "0")!!)
 
     /**
      * Tells whether to use shutter sound.
@@ -689,7 +675,6 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if the user has explicitly refuse the lazy loading of room members
      */
-    fun hasUserRefusedLazyLoading() = defaultPrefs.getBoolean(SETTINGS_USER_REFUSED_LAZY_LOADING_PREFERENCE_KEY, false)
 
     /**
      * Tells if the data save mode is enabled.
@@ -746,15 +731,6 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return the min last access time (in seconds)
      */
-    fun getMinMediasLastAccessTime(): Long {
-        return when (getSelectedMediasSavingPeriod()) {
-            MEDIA_SAVING_3_DAYS -> clock.epochMillis() / 1000 - 3 * 24 * 60 * 60
-            MEDIA_SAVING_1_WEEK -> clock.epochMillis() / 1000 - 7 * 24 * 60 * 60
-            MEDIA_SAVING_1_MONTH -> clock.epochMillis() / 1000 - 30 * 24 * 60 * 60
-            MEDIA_SAVING_FOREVER -> 0
-            else -> 0
-        }
-    }
 
     /**
      * Provides the selected saving period.
@@ -771,12 +747,6 @@ class ProgressiveBasePreferences @Inject constructor(
         }
     }
 
-    /**
-     * Fix some migration issues.
-     */
-    fun fixMigrationIssues() {
-        // Nothing to do for the moment
-    }
 
     /**
      * Tells if the markdown is enabled.
@@ -896,7 +866,6 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true if a dialog has been displayed to ask to use the analytics tracking
      */
-    fun didAskToUseAnalytics() = defaultPrefs.getBoolean(DID_ASK_TO_USE_ANALYTICS_TRACKING_KEY, false)
 
     /**
      * To call if the user has been asked for analytics tracking.
@@ -983,7 +952,6 @@ class ProgressiveBasePreferences @Inject constructor(
      *
      * @return true to display all the events even the redacted ones.
      */
-    fun displayAllEvents() = defaultPrefs.getBoolean(SETTINGS_DISPLAY_ALL_EVENTS_KEY, false)
 
     /**
      * The user does not allow screenshots of the application.
@@ -1216,21 +1184,6 @@ class ProgressiveBasePreferences @Inject constructor(
         )
     }
 
-    fun isRichTextEditorEnabled(): Boolean {
-        return defaultPrefs.getBoolean(
-                SETTINGS_LABS_RICH_TEXT_EDITOR_KEY,
-                getDefault(chat.progressive.app.config.R.bool.settings_labs_rich_text_editor_default)
-        )
-    }
-
-    fun isVoiceBroadcastEnabled(): Boolean {
-        return vectorFeatures.isVoiceBroadcastEnabled() &&
-                defaultPrefs.getBoolean(
-                        SETTINGS_LABS_VOICE_BROADCAST_KEY,
-                        getDefault(chat.progressive.app.config.R.bool.settings_labs_enable_voice_broadcast_default)
-                )
-    }
-
     fun isJumpToDateEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_DATE_KEY, true)
 
     fun isJumpToSourceEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_JUMP_TO_SOURCE_KEY, false)
@@ -1258,8 +1211,6 @@ class ProgressiveBasePreferences @Inject constructor(
     fun isI2PEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_I2P_KEY, false)
 
     fun isYggdrasilEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_YGGDRASIL_KEY, false)
-
-    fun isAccountExportEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ACCOUNT_EXPORT_KEY, false)
 
     fun isAudioStatusbarEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AUDIO_STATUSBAR_KEY, false)
 
@@ -1289,8 +1240,6 @@ class ProgressiveBasePreferences @Inject constructor(
 
     fun isHideInvitationEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_HIDE_INVITATION_KEY, false)
 
-    fun isAllThreadsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ALL_THREADS_KEY, false)
-
     fun isUserMessagesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_USER_MESSAGES_KEY, false)
 
     fun isRoomVersionSelectEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_VERSION_KEY, false)
@@ -1300,8 +1249,6 @@ class ProgressiveBasePreferences @Inject constructor(
     fun isRamStatusbarEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_RAM_STATUSBAR_KEY, false)
 
     fun isCacheManagerEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_CACHE_MANAGER_KEY, false)
-
-    fun isAllMessagesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ALL_MESSAGES_KEY, false)
 
     fun isRoomInfoEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_INFO_KEY, false)
 
@@ -1337,11 +1284,6 @@ class ProgressiveBasePreferences @Inject constructor(
 
     fun isExtendedViaParamsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EXTENDED_VIA_PARAMS_KEY, false)
 
-    fun getViaParamCount(): Int {
-        val count = defaultPrefs.getString(SETTINGS_LABS_VIA_PARAM_COUNT_KEY, "3")
-        return count?.toIntOrNull() ?: 3
-    }
-
     fun isIncludeHistoricalServersEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_INCLUDE_HISTORICAL_SERVERS_KEY, false)
 
     fun isEditStackingEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EDIT_STACKING_KEY, false)
@@ -1349,16 +1291,6 @@ class ProgressiveBasePreferences @Inject constructor(
     fun isShowEditCountEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_EDIT_COUNT_KEY, false)
 
     fun isEmojiAttackProtectionEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_EMOJI_ATTACK_PROTECTION_KEY, false)
-
-    fun getEmojiMaxCount(): Int {
-        val count = defaultPrefs.getString(SETTINGS_LABS_EMOJI_MAX_COUNT_KEY, "50")
-        return count?.toIntOrNull() ?: 50
-    }
-
-    fun getMediaCollapseThreshold(): Int {
-        val count = defaultPrefs.getString(SETTINGS_LABS_MEDIA_COLLAPSE_THRESHOLD_KEY, "10")
-        return count?.toIntOrNull() ?: 10
-    }
 
     fun isShowHiddenEventsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SHOW_HIDDEN_EVENTS_PREFERENCE_KEY, false)
 
@@ -1368,15 +1300,9 @@ class ProgressiveBasePreferences @Inject constructor(
 
     fun isOfflineCacheEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_OFFLINE_CACHE_KEY, false)
 
-    fun isJumpToUnreadTimeEnabled() = defaultPrefs.getBoolean("SETTINGS_LABS_JUMP_TO_UNREAD_TIME", false)
-
-    fun isLoadingProgressEnabled() = defaultPrefs.getBoolean("SETTINGS_LABS_LOADING_PROGRESS", false)
-
     fun isDuplicateNamesEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_DUPLICATE_NAMES_KEY, false)
 
     fun isReadReceiptsCppEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_READ_RECEIPTS_KEY, false)
-
-    fun getReadReceiptsMaxVisible() = defaultPrefs.getInt(SETTINGS_READ_RECEIPTS_MAX_VISIBLE, 20)
 
     fun isRoomAnalyticsEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_ANALYTICS_KEY, false)
 
@@ -1419,10 +1345,6 @@ class ProgressiveBasePreferences @Inject constructor(
 
     fun isDesyncDetectorEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_DESYNC_DETECTOR_KEY, false)
 
-    fun getDesyncIntervalMinutes() = defaultPrefs.getInt(SETTINGS_DESYNC_INTERVAL_MINUTES, 30)
-
-    fun isLocationSharingEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_LOCATION_SHARING_KEY, false)
-
     fun isRoomCountEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_KEY, false)
 
     fun isRoomCountSplitEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_ROOM_COUNT_SPLIT_KEY, false)
@@ -1453,10 +1375,6 @@ class ProgressiveBasePreferences @Inject constructor(
 
     fun isWebSearchEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_WEB_SEARCH_KEY, false)
 
-    fun isAgentWebAccessEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_AGENT_WEB_ACCESS_KEY, false)
-
-    fun getNotificationIconStyle() = defaultPrefs.getString(SETTINGS_NOTIFICATION_ICON_STYLE, "element") ?: "element"
-
     fun setNotificationIconStyle(style: String) {
         defaultPrefs.edit { putString(SETTINGS_NOTIFICATION_ICON_STYLE, style) }
     }
@@ -1468,8 +1386,6 @@ class ProgressiveBasePreferences @Inject constructor(
     fun isTransparentOverlayEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_TRANSPARENT_OVERLAY_KEY, false)
 
     fun isTextUndoEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_TEXT_UNDO_KEY, false)
-
-    fun getUndoMaxDepth(): Int = defaultPrefs.getInt("SETTINGS_UNDO_MAX_DEPTH", 50)
     fun isUndoCheckpointOnPaste(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_CHECKPOINT_PASTE", true)
     fun isUndoCheckpointOnSelectAll(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_CHECKPOINT_SELECT_ALL", true)
     fun isUndoRestoreCursor(): Boolean = defaultPrefs.getBoolean("SETTINGS_UNDO_RESTORE_CURSOR", true)
@@ -1477,18 +1393,10 @@ class ProgressiveBasePreferences @Inject constructor(
     fun isSpoilerEnabled() = defaultPrefs.getBoolean(SETTINGS_LABS_SPOILER_KEY, false)
 
     // Transparent Overlay config parameters
-    fun getOverlayOneFingerHoldMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_ONE_FINGER_MS", 200)
-    fun getOverlayTwoFingerHoldMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_TWO_FINGER_MS", 1000)
-    fun getOverlayForegroundDurationMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_FG_DURATION_MS", 2000)
-    fun getOverlayForegroundExtendedMs(): Int = defaultPrefs.getInt("SETTINGS_OVERLAY_FG_EXTENDED_MS", 3000)
     fun isOverlayOneFingerEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_ONE_FINGER", true)
     fun isOverlayTwoFingerEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_TWO_FINGER", true)
     fun isOverlayBackEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_BACK", true)
     fun isOverlaySwipeEnabled(): Boolean = defaultPrefs.getBoolean("SETTINGS_OVERLAY_SWIPE", true)
-
-    fun getLiveDraftCharThreshold() = defaultPrefs.getInt(SETTINGS_LIVE_DRAFT_CHAR_THRESHOLD, 20)
-
-    fun getLiveDraftUpdateIntervalMs() = defaultPrefs.getInt(SETTINGS_LIVE_DRAFT_UPDATE_INTERVAL_MS, 3000)
 
     fun showIpAddressInSessionManagerScreens(): Boolean {
         return defaultPrefs.getBoolean(
@@ -1537,14 +1445,6 @@ class ProgressiveBasePreferences @Inject constructor(
         defaultPrefs.edit {
             putBoolean(IS_ON_RUST_CRYPTO, boolean)
         }
-    }
-
-    fun didAskLegacyInitSync() {
-        defaultPrefs.edit().putBoolean("DID_ASK_LEGACY_INIT_SYNC", true).apply()
-    }
-
-    fun didAskOptimizedInitSync() {
-        defaultPrefs.edit().putBoolean("DID_ASK_OPTIMIZED_INIT_SYNC", true).apply()
     }
 
     // === Progressive Labs setters ===
