@@ -1520,4 +1520,16 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeFormatCountToShortDecimal(value: Int): String
 
+    // ---- Alarm & Avatar (C++ in progressive_stubs.cpp) ----
+    @JvmStatic external fun nativeAlarmGetWeatherAction(): String
+    @JvmStatic external fun nativeAlarmCreate(label: String, cron: String, msg: String, roomId: String, enabled: Boolean): String
+    @JvmStatic external fun nativeAlarmListAll(): String
+    @JvmStatic external fun nativeAlarmGetNext(): String
+    @JvmStatic external fun nativeAlarmDelete(alarmId: String)
+    @JvmStatic external fun nativeAlarmDismiss(alarmId: String)
+    @JvmStatic external fun nativeAlarmSnooze(alarmId: String, minutes: Int)
+    @JvmStatic external fun nativeAvatarAddChange(userId: String, url: String, timestamp: Long): String
+    @JvmStatic external fun nativeAvatarClear(userId: String)
+    @JvmStatic external fun nativeAvatarExportJson(): String
+
 }
