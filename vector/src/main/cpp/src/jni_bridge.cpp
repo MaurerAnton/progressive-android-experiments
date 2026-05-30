@@ -500,8 +500,6 @@ Java_im_vector_app_features_jumptodate_ProgressiveNative_nativeCacheGetContext(
  * Method: nativeCacheClear
  * Signature: ()V
  */
-JNIEXPORT void JNICALL
-}
 
 /*
  * Class: im.vector.app.features.jumptodate.ProgressiveNative
