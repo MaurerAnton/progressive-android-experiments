@@ -6325,7 +6325,6 @@ JNI_FUNC(jstring, nativeTestSearch)(JNIEnv* env, jclass, jstring jTerm, jstring 
 JNI_FUNC(jstring, nativeTestGetProfile)(JNIEnv* env, jclass) {
     return env->NewStringUTF(g_testProvider.getProfileJson().c_str());
 }
-}
 } // extern "C"
 
 JNI_FUNC(jstring, nativeFormatCountToShortDecimal)(JNIEnv* env, jclass, jint jValue) {
