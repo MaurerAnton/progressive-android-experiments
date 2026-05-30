@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/tmp/progressive-android-experiments/vector/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/bym/android-sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/tmp/progressive-android-experiments/vector/.cxx/RelWithDebInfo/2o6q3qw5/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/bym/android-sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/tmp/progressive-android-experiments/vector/.cxx/RelWithDebInfo/2o6q3qw5/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "progressive_native::@6890427a1f51a3e7e1df": {
+      "artifactName": "progressive_native",
+      "abi": "x86",
+      "output": "/tmp/progressive-android-experiments/vector/build/intermediates/cxx/RelWithDebInfo/2o6q3qw5/obj/x86/libprogressive_native.so",
+      "runtimeFiles": []
+    }
+  }
+}
