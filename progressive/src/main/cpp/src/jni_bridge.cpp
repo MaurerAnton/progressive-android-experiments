@@ -6325,6 +6325,25 @@ JNI_FUNC(jstring, nativeTestSearch)(JNIEnv* env, jclass, jstring jTerm, jstring 
 JNI_FUNC(jstring, nativeTestGetProfile)(JNIEnv* env, jclass) {
     return env->NewStringUTF(g_testProvider.getProfileJson().c_str());
 }
+
+// ---- URL Utils ----
+JNI_FUNC(jstring, nativeEnsureProtocol)(JNIEnv* env, jclass, jstring jUrl) {
+    std::string url(env->GetStringUTFChars(jUrl, nullptr));
+    env->ReleaseStringUTFChars(jUrl, url.c_str());
+    return env->NewStringUTF(progressive::ensureProtocol(url).c_str());
+}
+
+JNI_FUNC(jstring, nativeEnsureTrailingSlash)(JNIEnv* env, jclass, jstring jUrl) {
+    std::string url(env->GetStringUTFChars(jUrl, nullptr));
+    env->ReleaseStringUTFChars(jUrl, url.c_str());
+    return env->NewStringUTF(progressive::ensureTrailingSlash(url).c_str());
+}
+
+JNI_FUNC(jstring, nativeStripHtmlTags)(JNIEnv* env, jclass, jstring jHtml) {
+    std::string html(env->GetStringUTFChars(jHtml, nullptr));
+    env->ReleaseStringUTFChars(jHtml, html.c_str());
+    return env->NewStringUTF(progressive::stripHtmlTags(html).c_str());
+}
 } // extern "C"
 
 JNI_FUNC(jstring, nativeFormatCountToShortDecimal)(JNIEnv* env, jclass, jint jValue) {

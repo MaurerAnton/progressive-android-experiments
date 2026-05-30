@@ -203,6 +203,11 @@ std::string toPunycode(const std::string& unicodeDomain);
 // "xn--e1afmkfd.xn--p1ai" → "пример.рф"
 std::string fromPunycode(const std::string& punycodeDomain);
 
+// URL utilities (ported from UrlUtils.kt)
+std::string ensureProtocol(const std::string& url);
+std::string ensureTrailingSlash(const std::string& url);
+std::string stripHtmlTags(const std::string& html);
+
 } // namespace progressive
 
 #endif // PROGRESSIVE_STRING_UTILS_HPP

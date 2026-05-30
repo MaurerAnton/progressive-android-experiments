@@ -328,4 +328,29 @@ std::string fromPunycode(const std::string& domain) {
     return hasPunycode ? result : domain;
 }
 
+
+// ---- URL Utils (ported from UrlUtils.kt) ----
+
+std::string ensureProtocol(const std::string& url) {
+    if (url.empty()) return url;
+    if (url.find("http") == 0) return url;
+    return "https://" + url;
+}
+
+std::string ensureTrailingSlash(const std::string& url) {
+    if (url.empty()) return url;
+    if (url.back() == '/') return url;
+    return url + "/";
+}
+
+std::string stripHtmlTags(const std::string& html) {
+    std::string result;
+    bool inTag = false;
+    for (char c : html) {
+        if (c == '<') { inTag = true; continue; }
+        if (inTag) { if (c == '>') inTag = false; continue; }
+        result += c;
+    }
+    return result;
+}
 } // namespace progressive
