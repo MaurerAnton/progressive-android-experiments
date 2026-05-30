@@ -37,6 +37,7 @@ object ProgressiveNative {
      *
      * @return JSON string with url, accessToken, timestamp — or {"error":"..."} on failure
      */
+    @JvmStatic
 
     /**
      * Parses the UTC timestamp_to_event response from the homeserver.
@@ -46,7 +47,7 @@ object ProgressiveNative {
      *
      * @return JSON string with eventId — or error info on failure
      */
-        responseBody: String,
+    @JvmStatic
 
     /**
      * Parses a Matrix event JSON to find the source event it relates to
@@ -60,22 +61,26 @@ object ProgressiveNative {
     @JvmStatic
     external fun nativeParseRelation(
         eventJson: String,
+        allowedTypes: String
+    ): String
 
     // --- Export functions ---
 
-        senderName: String,
+    @JvmStatic
 
-        senderName: String,
+    @JvmStatic
 
-        roomName: String,
+    @JvmStatic
 
     // --- Event Cache ---
 
-        eventId: String,
-    )
+    @JvmStatic
 
+    @JvmStatic
 
+    @JvmStatic
 
+    @JvmStatic
 
     // --- SQLite Event Database ---
 
@@ -109,10 +114,12 @@ object ProgressiveNative {
     @JvmStatic external fun nativeSqliteDbInsertEvent(
         key: String, eventId: String, roomId: String, type: String, senderId: String,
         contentJson: String, originTs: Long, ageTs: Long, displayIndex: Int
+    ): Boolean
     @JvmStatic external fun nativeSqliteDbInsertEventRel(
         key: String, eventId: String, roomId: String, type: String, senderId: String,
         contentJson: String, originTs: Long, ageTs: Long, displayIndex: Int,
         stateKey: String, redacts: String, relType: String, relatesToId: String
+    ): Boolean
     @JvmStatic external fun nativeSqliteDbQueryEvents(key: String, roomId: String, limit: Int, offset: Int, ascending: Boolean): String
     @JvmStatic external fun nativeSqliteDbQueryEvent(key: String, eventId: String): String
     @JvmStatic external fun nativeSqliteDbDeleteEvent(key: String, eventId: String)
@@ -122,6 +129,7 @@ object ProgressiveNative {
         key: String, roomId: String, displayName: String, avatarUrl: String,
         topic: String, membership: String, notifCount: Int, highlightCount: Int,
         lastActivityMs: Long, isDirect: Boolean, isSpace: Boolean, isFavourite: Boolean, isEncrypted: Boolean
+    ): Boolean
     @JvmStatic external fun nativeSqliteDbQueryRooms(key: String): String
     @JvmStatic external fun nativeSqliteDbBeginTransaction(key: String)
     @JvmStatic external fun nativeSqliteDbCommitTransaction(key: String)
@@ -132,14 +140,22 @@ object ProgressiveNative {
     @JvmStatic
     external fun nativeBuildTranslateRequest(
         text: String,
+        sourceLang: String,
+        targetLang: String,
+        apiEndpoint: String,
+        apiToken: String,
+        model: String
+    ): String
 
     @JvmStatic
     external fun nativeParseTranslateResponse(
         responseBody: String,
+        httpStatus: Int
+    ): String
 
     // --- Proxy / Tor / I2P ---
 
-        connType: Int,
+    @JvmStatic
 
     // --- Yggdrasil ---
 
@@ -467,10 +483,6 @@ object ProgressiveNative {
 
     // --- Account Export ---
 
-        userId: String, token: String, refreshToken: String,
-        homeServer: String, deviceId: String, deviceName: String,
-        displayName: String, avatarUrl: String,
-        includeCache: Boolean, passphrase: String
 
 
     // --- Audio ---
@@ -483,8 +495,6 @@ object ProgressiveNative {
     // --- Content Filter ---
 
 
-        blockAll: Boolean, allowAvatars: Boolean, allowStickers: Boolean, allowEmoji: Boolean,
-        mxcUrl: String, imageType: String
 
     // --- Network Stats ---
 
@@ -506,11 +516,6 @@ object ProgressiveNative {
 
     // --- Thread Aggregator ---
 
-        threadId: String, roomId: String, roomName: String,
-        accountId: String, accountIndex: String,
-        lastMsg: String, lastSender: String,
-        lastTs: Long, replyCount: Int, unread: Boolean
-    )
 
     // --- User Messages ---
 
@@ -1522,7 +1527,5 @@ object ProgressiveNative {
     // ---- IDN (Internationalized Domain Names) ----
     @JvmStatic external fun nativeToPunycode(domain: String): String
     @JvmStatic external fun nativeFromPunycode(domain: String): String
-
-    @JvmStatic external fun nativeFormatCountToShortDecimal(value: Int): String
 
 }
