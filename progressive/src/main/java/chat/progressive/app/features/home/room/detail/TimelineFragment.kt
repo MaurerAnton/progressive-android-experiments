@@ -513,15 +513,9 @@ class TimelineFragment :
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val requestJson = try {
-                    JSONObject(ProgressiveNative.nativeBuildTranslateRequest(
-                        action.text, "", targetLang, endpoint, token, "gpt-4o-mini"
-                    ))
-                } catch (e: UnsatisfiedLinkError) {
-                    ProgressiveNative.buildTranslateRequestFallback(
-                        action.text, "", targetLang, endpoint, token, "gpt-4o-mini"
-                    )
-                }
+                val requestJson = JSONObject(ProgressiveNative.nativeBuildTranslateRequest(
+                    action.text, "", targetLang, endpoint, token, "gpt-4o-mini"
+                ))
 
                 val client = OkHttpClient.Builder()
                     .connectTimeout(15, TimeUnit.SECONDS)
@@ -538,12 +532,7 @@ class TimelineFragment :
                 val response = client.newCall(request).execute()
                 val body = response.body?.string() ?: ""
 
-                val result = try {
-                    val raw = ProgressiveNative.nativeParseTranslateResponse(body, response.code)
-                    JSONObject(raw)
-                } catch (e: UnsatisfiedLinkError) {
-                    ProgressiveNative.parseTranslateResponseFallback(body, response.code)
-                }
+                val result = JSONObject(ProgressiveNative.nativeParseTranslateResponse(body, response.code))
 
                 withContext(Dispatchers.Main) {
                     if (result.optBoolean("success", false)) {
