@@ -38,7 +38,6 @@ object ProgressiveNative {
      * @return JSON string with url, accessToken, timestamp — or {"error":"..."} on failure
      */
     @JvmStatic
-    external fun nativeValidateAndBuild(
         roomId: String,
         dateString: String,
         serverUrl: String,
@@ -55,7 +54,6 @@ object ProgressiveNative {
      * @return JSON string with eventId — or error info on failure
      */
     @JvmStatic
-    external fun nativeParseResponse(
         responseBody: String,
         httpStatus: Int
     ): String
@@ -78,7 +76,6 @@ object ProgressiveNative {
     // --- Export functions ---
 
     @JvmStatic
-    external fun nativeFormatEventHtml(
         senderName: String,
         timestamp: String,
         body: String,
@@ -90,7 +87,6 @@ object ProgressiveNative {
     ): String
 
     @JvmStatic
-    external fun nativeFormatEventPlainText(
         senderName: String,
         timestamp: String,
         body: String,
@@ -100,7 +96,6 @@ object ProgressiveNative {
     ): String
 
     @JvmStatic
-    external fun nativeBuildHtmlExport(
         roomName: String,
         roomTopic: String,
         exportDate: String,
@@ -110,7 +105,6 @@ object ProgressiveNative {
     // --- Event Cache ---
 
     @JvmStatic
-    external fun nativeCachePut(
         eventId: String,
         senderId: String,
         senderName: String,
@@ -124,13 +118,10 @@ object ProgressiveNative {
     )
 
     @JvmStatic
-    external fun nativeCacheGetContext(eventId: String): String
 
     @JvmStatic
-    external fun nativeCacheClear()
 
     @JvmStatic
-    external fun nativeCacheSize(): Int
 
     // --- SQLite Event Database ---
 
@@ -206,7 +197,6 @@ object ProgressiveNative {
     // --- Proxy / Tor / I2P ---
 
     @JvmStatic
-    external fun nativeComputeProxyConfig(
         connType: Int,
         proxyType: Int,
         host: String,
@@ -217,10 +207,6 @@ object ProgressiveNative {
 
     // --- Yggdrasil ---
 
-    @JvmStatic external fun nativeIsYggdrasilAddress(addr: String): Boolean
-    @JvmStatic external fun nativeIsYggdrasilDomain(host: String): Boolean
-    @JvmStatic external fun nativeBuildYggHomeserverUrl(addr: String, port: Int, tls: Boolean): String
-    @JvmStatic external fun nativeRewriteHomeserverUrl(originalUrl: String, yggAddr: String): String
 
     // --- Markdown ---
 
@@ -397,7 +383,6 @@ object ProgressiveNative {
 
     // --- Audio / Voice ---
 
-    @JvmStatic external fun nativeIsSupportedAudioType(mimeType: String): Boolean
     @JvmStatic external fun nativeFormatPositionInfo(positionMs: Long, durationMs: Long): String
 
     // --- Direct Messages ---
@@ -546,192 +531,94 @@ object ProgressiveNative {
 
     // --- Account Export ---
 
-    @JvmStatic external fun nativeEncryptAccount(
         userId: String, token: String, refreshToken: String,
         homeServer: String, deviceId: String, deviceName: String,
         displayName: String, avatarUrl: String,
         includeCache: Boolean, passphrase: String
     ): String
 
-    @JvmStatic external fun nativeDecryptAccount(encrypted: String, passphrase: String): String
 
     // --- Audio ---
 
     @JvmStatic external fun nativeFormatDuration(ms: Long): String
-    @JvmStatic external fun nativeComputeProgress(posMs: Long, durMs: Long): Float
-    @JvmStatic external fun nativeIsSupportedAudio(mimeType: String): Boolean
 
     // --- Media Filter ---
 
-    @JvmStatic external fun nativeGetFileExtension(fileName: String, mimeType: String): String
-    @JvmStatic external fun nativeIsValidMxcUri(uri: String): Boolean
 
     // --- Content Filter ---
 
-    @JvmStatic external fun nativeKeywordFilterLoad(raw: String)
-    @JvmStatic external fun nativeKeywordFilterCheck(text: String): String
-    @JvmStatic external fun nativeKeywordFilterExport(): String
-    @JvmStatic external fun nativeKeywordFilterCount(): Int
-    @JvmStatic external fun nativeKeywordFilterClear()
 
-    @JvmStatic external fun nativeShouldBlockImage(
         blockAll: Boolean, allowAvatars: Boolean, allowStickers: Boolean, allowEmoji: Boolean,
         mxcUrl: String, imageType: String
     ): Boolean
 
     // --- Network Stats ---
 
-    @JvmStatic external fun nativeNetStatsStart(url: String, method: String): Int
-    @JvmStatic external fun nativeNetStatsEnd(requestId: Int, statusCode: Int, bytesSent: Long, bytesReceived: Long, error: String)
-    @JvmStatic external fun nativeNetStatsToJson(): String
-    @JvmStatic external fun nativeNetStatsToText(): String
-    @JvmStatic external fun nativeNetStatsClear()
 
     // --- Masquerade ---
 
-    @JvmStatic external fun nativeIsValidMasqueradeName(name: String): Boolean
-    @JvmStatic external fun nativeGetSuggestedMasqueradeNames(): String
-    @JvmStatic external fun nativeIsValidIconAlias(alias: String): Boolean
-    @JvmStatic external fun nativeBuildMasqueradeAlias(baseAlias: String, iconName: String): String
 
     // --- User Mask ---
 
-    @JvmStatic external fun nativeUserMaskSet(mxid: String, displayName: String, avatarUrl: String, overrideMxid: String)
-    @JvmStatic external fun nativeUserMaskRemove(mxid: String)
-    @JvmStatic external fun nativeUserMaskResolveName(mxid: String, originalName: String): String
-    @JvmStatic external fun nativeUserMaskResolveAvatar(mxid: String, originalUrl: String): String
-    @JvmStatic external fun nativeUserMaskExportJson(): String
-    @JvmStatic external fun nativeUserMaskImportJson(json: String)
-    @JvmStatic external fun nativeIsValidMxid(mxid: String): Boolean
-    @JvmStatic external fun nativeUserMaskClear()
-    @JvmStatic external fun nativeUserMaskCount(): Int
 
     // --- Chunked Upload ---
 
-    @JvmStatic external fun nativeUploaderGetChunkJson(index: Int): String
-    @JvmStatic external fun nativeUploaderFail(error: String)
-    @JvmStatic external fun nativeUploaderProgressJson(): String
 
     // --- Chat Features (Timezone + EXIF) ---
 
-    @JvmStatic external fun nativeGetCommonTimezones(): String
-    @JvmStatic external fun nativeFormatTimestampInTimezone(utcMs: Long, tzId: String): String
-    @JvmStatic external fun nativeIsValidTimezoneId(tzId: String): Boolean
-    @JvmStatic external fun nativeFileHasMetadata(mimeType: String): Boolean
-    @JvmStatic external fun nativeGetStrippableMimeTypes(): String
 
     // --- Invitation Hide ---
 
-    @JvmStatic external fun nativeInviteHide(roomId: String, roomName: String, inviterName: String, inviterMxid: String)
-    @JvmStatic external fun nativeInviteUnhide(roomId: String)
-    @JvmStatic external fun nativeInviteIsHidden(roomId: String): Boolean
-    @JvmStatic external fun nativeInviteExportJson(): String
-    @JvmStatic external fun nativeInviteImportJson(json: String)
-    @JvmStatic external fun nativeInviteClear()
-    @JvmStatic external fun nativeInviteCount(): Int
 
     // --- Thread Aggregator ---
 
-    @JvmStatic external fun nativeThreadAdd(
         threadId: String, roomId: String, roomName: String,
         accountId: String, accountIndex: String,
         lastMsg: String, lastSender: String,
         lastTs: Long, replyCount: Int, unread: Boolean
     )
-    @JvmStatic external fun nativeThreadGetAllJson(): String
-    @JvmStatic external fun nativeThreadClear()
-    @JvmStatic external fun nativeThreadCount(): Int
-    @JvmStatic external fun nativeThreadRemoveRoom(roomId: String)
 
     // --- User Messages ---
 
-    @JvmStatic external fun nativeFormatUserMessagePreview(roomName: String, body: String, msgType: String, maxLen: Int): String
 
     // --- Room Version ---
 
-    @JvmStatic external fun nativeGetRoomVersionsJson(): String
-    @JvmStatic external fun nativeIsValidRoomVersion(version: String): Boolean
 
     // --- Chat Preview ---
 
-    @JvmStatic external fun nativeFormatShortTime(epochMs: Long): String
-    @JvmStatic external fun nativeTruncateMessage(body: String, maxLen: Int): String
 
     // --- RAM Monitor ---
 
-    @JvmStatic external fun nativeGetMemoryInfo(): String
-    @JvmStatic external fun nativeFormatMemoryLabel(rssKb: Long): String
 
     // --- Cache Manager ---
 
-    @JvmStatic external fun nativeCacheTrack(eventId: String, roomId: String, roomName: String, timestamp: Long, sizeBytes: Long, msgType: String, body: String)
-    @JvmStatic external fun nativeCacheStatsJson(): String
-    @JvmStatic external fun nativeCacheGetByRoom(roomId: String): String
-    @JvmStatic external fun nativeCacheGetOlderThan(beforeTs: Long): String
     // --- Message Aggregator (All Messages) ---
 
-    @JvmStatic external fun nativeMsgAggAdd(eventId: String, roomId: String, roomName: String, accountId: String, accountIndex: String, senderName: String, body: String, msgType: String, originServerTs: Long)
-    @JvmStatic external fun nativeMsgAggGetAllJson(): String
-    @JvmStatic external fun nativeMsgAggClear()
-    @JvmStatic external fun nativeMsgAggCount(): Int
 
     // --- Room Info ---
 
-    @JvmStatic external fun nativeFormatCreationDate(epochMs: Long): String
-    @JvmStatic external fun nativeIsLikelyFullHistory(cached: Int, estimated: Int): Boolean
 
     // --- Deleted Archive ---
 
-    @JvmStatic external fun nativeDeletedArchiveAdd(eventId: String, roomId: String, roomName: String, senderName: String, body: String, msgType: String, timestamp: String, originTs: Long, deletedBy: String)
-    @JvmStatic external fun nativeDeletedArchiveExportJson(): String
-    @JvmStatic external fun nativeDeletedArchiveClear()
-    @JvmStatic external fun nativeDeletedArchiveCount(): Int
 
     // --- Search Index ---
 
-    @JvmStatic external fun nativeSearchIndexMessage(eventId: String, roomId: String, roomName: String, senderName: String, body: String, timestamp: Long, isEncrypted: Boolean)
-    @JvmStatic external fun nativeSearchQuery(query: String, limit: Int): String
-    @JvmStatic external fun nativeSearchClear()
-    @JvmStatic external fun nativeSearchIndexedCount(): Int
 
     // --- Module Loader ---
 
-    @JvmStatic external fun nativeModuleScanDir(dirPath: String)
-    @JvmStatic external fun nativeModuleEnable(name: String)
-    @JvmStatic external fun nativeModuleIsEnabled(name: String): Boolean
-    @JvmStatic external fun nativeModuleListJson(): String
 
     // --- Notification Keywords ---
 
-    @JvmStatic external fun nativeNotifKeywordAdd(keyword: String, caseSensitive: Boolean)
-    @JvmStatic external fun nativeNotifKeywordCheck(body: String): String
-    @JvmStatic external fun nativeNotifKeywordExport(): String
-    @JvmStatic external fun nativeNotifKeywordImport(json: String)
-    @JvmStatic external fun nativeNotifKeywordClear()
 
     // --- Reaction Preview ---
 
-    @JvmStatic external fun nativeFormatReactionPreview(reactorName: String, emoji: String, sourceBody: String, sourceSender: String): String
 
     // --- Room Mirror ---
 
-    @JvmStatic external fun nativeMirrorAdd(srcRoomId: String, srcRoomName: String, mirRoomId: String, mirRoomName: String, enabled: Boolean, useDolls: Boolean)
-    @JvmStatic external fun nativeMirrorRemove(srcRoomId: String)
-    @JvmStatic external fun nativeMirrorIsActive(srcRoomId: String): Boolean
-    @JvmStatic external fun nativeMirrorFormatMessage(senderName: String, senderMxid: String, roomName: String, body: String, msgType: String, ts: Long): String
-    @JvmStatic external fun nativeMirrorGenerateDollMxid(originalMxid: String, targetServer: String): String
-    @JvmStatic external fun nativeMirrorIsValidDoll(mxid: String): Boolean
-    @JvmStatic external fun nativeMirrorExportJson(): String
 
     // --- Input Tools ---
 
-    @JvmStatic external fun nativeSymbolAdd(symbol: String, label: String)
-    @JvmStatic external fun nativeSymbolExport(): String
-    @JvmStatic external fun nativeSymbolImport(json: String)
 
-    @JvmStatic external fun nativeReplacementAddRule(pattern: String, replacement: String, exactMatch: Boolean)
-    @JvmStatic external fun nativeReplacementApply(text: String): String
-    @JvmStatic external fun nativeReplacementExport(): String
 
     // --- LLM ---
 
@@ -742,17 +629,10 @@ object ProgressiveNative {
 
     // --- Room Summary ---
 
-    @JvmStatic external fun nativeAlarmGetWeatherAction(alarmId: String): String
 
-    @JvmStatic external fun nativeFormatRoomSummary(roomId: String, name: String, body: String, sender: String, ts: Long, notif: Int, hl: Int, direct: Boolean): String
-    @JvmStatic external fun nativeFormatNotifBadge(count: Int, highlight: Int): String
 
     // --- Smart Reply ---
 
-    @JvmStatic external fun nativeSmartReplyPrompt(lastMsg: String, sender: String, room: String, isDirect: Boolean): String
-    @JvmStatic external fun nativeSmartParseReplies(llmResponse: String): String
-    @JvmStatic external fun nativeSmartDefaultReplies(lastMsg: String): String
-    @JvmStatic external fun nativeSmartDefaultReactions(): String
 
     // --- Weather Utils ---
 
@@ -771,10 +651,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeAlarmSetRingtone(id: String, uri: String)
     @JvmStatic external fun nativeAlarmLoad(json: String)
 
-    @JvmStatic external fun nativeParseGeoUri(uri: String): String
-    @JvmStatic external fun nativeBuildLocationContent(lat: Double, lon: Double, desc: String): String
-    @JvmStatic external fun nativeBuildStaticMap(lat: Double, lon: Double, zoom: Int, width: Int, height: Int): String
-    @JvmStatic external fun nativeHaversine(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double
 
     @JvmStatic external fun nativeTextStats(text: String): String
 
@@ -799,163 +675,84 @@ object ProgressiveNative {
 
     // --- Duplicate Names ---
 
-    @JvmStatic external fun nativeFormatUserDisplayName(displayName: String, mxid: String, showMxid: Boolean): String
 
     // --- MXID Visibility ---
 
-    @JvmStatic external fun nativeMxidVisibilityHide(mxid: String)
-    @JvmStatic external fun nativeMxidVisibilityShow(mxid: String)
-    @JvmStatic external fun nativeMxidVisibilityIsVisible(mxid: String): Boolean
-    @JvmStatic external fun nativeMxidVisibilityExport(): String
 
     // --- Read Receipts ---
 
-    @JvmStatic external fun nativeComputeReceiptDisplay(receiptsJson: String, maxVisible: Int): String
 
     // --- Room Analytics ---
 
-    @JvmStatic external fun nativeExtractServerName(mxid: String): String
 
     // --- User Hide Timer ---
 
-    @JvmStatic external fun nativeUserHideFor(userId: String, displayName: String, minutes: Int)
-    @JvmStatic external fun nativeUserHideIsHidden(userId: String): Boolean
-    @JvmStatic external fun nativeUserHideGetActive(): String
 
     // --- Message Queue ---
 
-    @JvmStatic external fun nativeMsgQueueEnqueue(msgId: String, roomId: String, body: String, formattedBody: String, order: Int, maxRetries: Int)
-    @JvmStatic external fun nativeMsgQueueSetOrder(msgId: String, order: Int)
-    @JvmStatic external fun nativeMsgQueueMarkFailed(msgId: String, error: String)
-    @JvmStatic external fun nativeMsgQueueMarkSent(msgId: String)
-    @JvmStatic external fun nativeMsgQueuePendingCount(): Int
-    @JvmStatic external fun nativeMsgQueueExport(): String
 
     // --- Image Crop ---
 
-    @JvmStatic external fun nativeIsValidCrop(imgW: Int, imgH: Int, x: Int, y: Int, w: Int, h: Int): Boolean
 
     // --- Auto-Scroll ---
 
-    @JvmStatic external fun nativeComputeScrollPlan(smooth: Boolean, durationMin: Int, totalLines: Int, lineHeightPx: Int): String
 
     // --- Language Detection ---
 
-    @JvmStatic external fun nativeDetectLanguage(text: String, method: Int): String
-    @JvmStatic external fun nativeGetLanguageLabel(code: String): String
 
     // --- Language Hide ---
 
-    @JvmStatic external fun nativeLangHideAdd(langCode: String, roomId: String, userId: String, specificUser: Boolean, minutes: Int)
-    @JvmStatic external fun nativeLangHideIsHidden(langCode: String, roomId: String, userId: String): Boolean
 
     // --- Chat Push Down ---
 
-    @JvmStatic external fun nativeChatPushDown(roomId: String, minutes: Int)
-    @JvmStatic external fun nativeChatIsPushedDown(roomId: String): Boolean
-    @JvmStatic external fun nativeChatPushDownRestore(roomId: String)
 
     // --- Emoji Blacklist ---
 
-    @JvmStatic external fun nativeEmojiBlacklistAdd(emoji: String)
-    @JvmStatic external fun nativeEmojiBlacklistRemove(emoji: String)
-    @JvmStatic external fun nativeEmojiBlacklistIsBlocked(emoji: String): Boolean
-    @JvmStatic external fun nativeEmojiBlacklistExport(): String
-    @JvmStatic external fun nativeEmojiBlacklistImport(json: String)
 
     // --- Avatar History ---
 
-    @JvmStatic external fun nativeAvatarAddChange(mxcUrl: String, eventId: String, timestamp: Long)
-    @JvmStatic external fun nativeAvatarExportJson(): String
-    @JvmStatic external fun nativeAvatarClear()
 
     // --- Jump to Date with Time ---
 
-    @JvmStatic external fun nativeParseJumpToDate(input: String): String
 
     // --- Room Matching ---
 
-    @JvmStatic external fun nativeMatchRooms(query: String, roomsJson: String): String
     @JvmStatic external fun nativeIsRoomId(input: String): Boolean
     @JvmStatic external fun nativeIsRoomAlias(input: String): Boolean
 
     // --- Event Links ---
 
-    @JvmStatic external fun nativeExtractEventLinks(body: String): String
-    @JvmStatic external fun nativeFormatResolvedEvent(sender: String, body: String): String
     @JvmStatic external fun nativeIsEventId(text: String): Boolean
 
     // --- Timestamps ---
 
-    @JvmStatic external fun nativeFormatTimestamp(epochMs: Long, includeSeconds: Boolean): String
-    @JvmStatic external fun nativeFormatFullTimestamp(epochMs: Long): String
 
     // --- Lightweight Call ---
 
-    @JvmStatic external fun nativeLightCallEnter(): String
-    @JvmStatic external fun nativeLightCallExit(): String
-    @JvmStatic external fun nativeLightCallAssessMemory(): String
-    @JvmStatic external fun nativeShouldUseLightweightMode(): Boolean
 
     // --- Scheduled Edits ---
 
-    @JvmStatic external fun nativeSchedEditSchedule(roomId: String, targetEventId: String, newContent: String, contentUrl: String, formattedContent: String, formattedUrl: String, scheduledAtMs: Long, recurring: Boolean): String
-    @JvmStatic external fun nativeSchedEditCancel(editId: String)
-    @JvmStatic external fun nativeSchedEditGetDue(): String
-    @JvmStatic external fun nativeSchedEditMarkApplied(editId: String)
-    @JvmStatic external fun nativeSchedEditMarkFailed(editId: String, error: String)
-    @JvmStatic external fun nativeSchedEditExport(): String
-    @JvmStatic external fun nativeSchedEditStats(): String
 
     // --- SVG Rendering ---
 
-    @JvmStatic external fun nativeParseSvg(svgData: String): String
-    @JvmStatic external fun nativeIsValidSvg(data: String): Boolean
 
     // --- Drawing Canvas ---
 
-    @JvmStatic external fun nativeDrawMoveTo(x: Double, y: Double)
-    @JvmStatic external fun nativeDrawLineTo(x: Double, y: Double)
-    @JvmStatic external fun nativeDrawSetColor(argb: Int)
-    @JvmStatic external fun nativeDrawSetWidth(w: Double)
-    @JvmStatic external fun nativeDrawExportJson(): String
-    @JvmStatic external fun nativeDrawToSvgPath(): String
-    @JvmStatic external fun nativeDrawClear()
 
     // --- Profile Swiper ---
 
-    @JvmStatic external fun nativeProfileSwiperSetProfiles(profilesJson: String)
-    @JvmStatic external fun nativeProfileSwiperNext(): String
-    @JvmStatic external fun nativeProfileSwiperPrev(): String
 
     // --- Rainbow Generator ---
 
-    @JvmStatic external fun nativeGenerateRainbow(text: String): String
 
     // --- Text Formatting ---
 
-    @JvmStatic external fun nativeFormatSpoiler(text: String): String
-    @JvmStatic external fun nativeFormatEmote(sender: String, text: String): String
-    @JvmStatic external fun nativeFormatShrug(text: String): String
-    @JvmStatic external fun nativeFormatLenny(text: String): String
-    @JvmStatic external fun nativeFormatTableFlip(text: String): String
-    @JvmStatic external fun nativeFormatPlain(text: String): String
-    @JvmStatic external fun nativeIsEmojiOnly(text: String): Boolean
-    @JvmStatic external fun nativeTruncateText(text: String, maxLen: Int): String
 
     // --- URL Tools ---
 
-    @JvmStatic external fun nativeExtractFirstUrl(text: String): String
-    @JvmStatic external fun nativeUrlEncode(input: String): String
-    @JvmStatic external fun nativeUrlDecode(input: String): String
-    @JvmStatic external fun nativeBuildMatrixToUrl(roomId: String): String
 
     // --- Notification Priority ---
 
-    @JvmStatic external fun nativeComputeNotifPriority(isDM: Boolean, isMention: Boolean, isRoomMention: Boolean, isKeyword: Boolean, isCall: Boolean, isBackground: Boolean, dnd: Boolean, favorite: Boolean): String
-    @JvmStatic external fun nativeFormatNotifTitle(roomName: String, senderName: String, isDM: Boolean): String
-    @JvmStatic external fun nativeFormatNotifBody(body: String, senderName: String, isDM: Boolean, showSender: Boolean): String
-    @JvmStatic external fun nativeIsRoomMention(body: String): Boolean
 
     // --- Matrix Patterns ---
 
@@ -965,50 +762,31 @@ object ProgressiveNative {
 
     // --- Desync Detector ---
 
-    @JvmStatic external fun nativeDesyncTrackEvent(eventId: String, serverName: String, timestamp: Long)
-    @JvmStatic external fun nativeDesyncCheck(roomId: String, currentServer: String): String
 
     // --- Latency Tracker ---
 
-    @JvmStatic external fun nativeLatencyRecord(latencyMs: Double, server: String, endpoint: String, success: Boolean)
-    @JvmStatic external fun nativeLatencyStats(): String
-    @JvmStatic external fun nativeLatencyStatsText(): String
 
     // --- String Utils ---
 
-    @JvmStatic external fun nativeSanitizeRoomName(input: String): String
-    @JvmStatic external fun nativeWordCount(input: String): Int
 
     // --- Location Sharing ---
 
-    @JvmStatic external fun nativeLocationFormatMessage(lat: Double, lon: Double, acc: Double, label: String): String
-    @JvmStatic external fun nativeLocationFormatGeoJson(lat: Double, lon: Double, acc: Double): String
-    @JvmStatic external fun nativeLocationDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double
 
     // --- Color Utils ---
 
-    @JvmStatic external fun nativeContrastRatio(fgR: Int, fgG: Int, fgB: Int, bgR: Int, bgG: Int, bgB: Int): Double
-    @JvmStatic external fun nativeParseColor(input: String): String
 
     // --- E2EE Utils ---
 
     @JvmStatic external fun nativeGetTrustLabel(level: Int): String
-    @JvmStatic external fun nativeGetTrustBadge(level: Int): String
 
     // --- Thumbnail ---
 
-    @JvmStatic external fun nativeComputeThumbnail(srcW: Int, srcH: Int, maxW: Int, maxH: Int, upscale: Boolean, quality: Int): String
-    @JvmStatic external fun nativeBuildThumbnailUrl(mxcUri: String, w: Int, h: Int, method: String, animated: Boolean): String
 
     // --- Waveform ---
 
-    @JvmStatic external fun nativeSuggestBarCount(durationMs: Long): Int
-    @JvmStatic external fun nativeComputeRmsVolume(samples: IntArray): Double
 
     // --- Session Timeout ---
 
-    @JvmStatic external fun nativeShouldLock(lockMethod: Int, idleTimeoutMin: Int, maxSessionMin: Int, maxFailedPin: Int, lockOnBg: Boolean, lastActivityMs: Long, sessionStartMs: Long, failedAttempts: Int, isLocked: Boolean, isBackground: Boolean): Boolean
-    @JvmStatic external fun nativeIsValidPin(pin: String, minLen: Int, maxLen: Int): Boolean
 
     // --- Password Validator ---
 
@@ -1016,94 +794,69 @@ object ProgressiveNative {
 
     // --- Spellcheck ---
 
-    @JvmStatic external fun nativeEditDistance(a: String, b: String): Int
 
     // --- Typing Indicator ---
 
-    @JvmStatic external fun nativeFormatTypingText(namesJson: String): String
 
     // --- Hash Utils ---
 
-    @JvmStatic external fun nativeSha256Hex(input: String): String
-    @JvmStatic external fun nativeGenerateToken(bytes: Int): String
 
     // --- Room Stats ---
 
-    @JvmStatic external fun nativeComputeMessagesPerDay(count: Int, firstTs: Long, lastTs: Long): Double
 
     // --- Mention Parser ---
 
-    @JvmStatic external fun nativeBuildUserPill(userId: String, displayName: String): String
-    @JvmStatic external fun nativeStripPills(html: String): String
 
     // --- Poll Utils ---
     // --- Reaction Utils ---
 
-    @JvmStatic external fun nativeGetQuickReactions(): String
 
     // --- File Validator ---
 
     @JvmStatic external fun nativeFormatFileSize(bytes: Long): String
-    @JvmStatic external fun nativeGetExtensionFromName(fileName: String): String
 
     // --- Date Utils ---
 
-    @JvmStatic external fun nativeFormatChatTimestamp(epochMs: Long, includeSeconds: Boolean): String
-    @JvmStatic external fun nativeFormatRelativeTime(epochMs: Long): String
 
     // --- Message Queue ---
 
-    @JvmStatic external fun nativeTextSimilarity(a: String, b: String): Double
 
     // --- Pinned Events (Element Web parity) ---
 
-    @JvmStatic external fun nativeParsePinnedEventIds(stateJson: String): String
-    @JvmStatic external fun nativeBuildPinnedEventsContent(idsJson: String): String
 
     // --- Server Capabilities ---
 
-    @JvmStatic external fun nativeParseServerCapabilities(wellKnownJson: String): String
 
     // --- Username Validator ---
 
-    @JvmStatic external fun nativeValidateUsername(username: String): String
 
     // --- Emoji Analyzer ---
 
-    @JvmStatic external fun nativeIsEmojiOnlyMessage(text: String): Boolean
 
     // --- Identity Utils ---
 
-    @JvmStatic external fun nativeResolveMatrixId(input: String): String
     @JvmStatic external fun nativeGetInitials(name: String): String
 
     // --- Notification Analyzer ---
 
-    @JvmStatic external fun nativeSuggestQuietHours(byHourJson: String): String
 
     // --- Sync Analyzer ---
 
-    @JvmStatic external fun nativeFormatProgressBar(percent: Double, width: Int): String
 
     // --- User Rating ---
 
-    @JvmStatic external fun nativeComputeStreak(timestampsJson: String): String
 
     // --- Event Timeline ---
 
-    @JvmStatic external fun nativeFormatGroupLabel(timestampMs: Long): String
 
     // --- Room Directory ---
 
-    @JvmStatic external fun nativeExtractServers(roomsJson: String): String
 
     // --- SSO Utils ---
 
-    @JvmStatic external fun nativeValidateHomeserverUrl(input: String): String
 
     // --- Backup Utils ---
 
-    @JvmStatic external fun nativeIsValidRecoveryKey(key: String): Boolean
 
     // --- Device Manager ---
 
@@ -1113,15 +866,12 @@ object ProgressiveNative {
     // --- Presence ---
 
     @JvmStatic external fun nativeFormatPresence(presence: Int): String
-    @JvmStatic external fun nativeFormatPresenceLine(presence: Int, lastActiveAgoMs: Long, statusMsg: String): String
 
     // --- Room Permissions ---
 
-    @JvmStatic external fun nativeGetSuggestedRole(plJson: String, userId: String): String
 
     // --- Room Summary ---
 
-    @JvmStatic external fun nativeFormatLastMessagePreview(sender: String, body: String, encrypted: Boolean): String
 
     // --- Membership ---
 
@@ -1129,30 +879,22 @@ object ProgressiveNative {
 
     // --- Event Validator ---
 
-    @JvmStatic external fun nativeValidateEvent(eventId: String, eventType: String, senderId: String, contentJson: String, originTs: String, blockedUsersJson: String): String
 
     // --- Room Encryption ---
 
-    @JvmStatic external fun nativeIsRoomEncrypted(stateJson: String): Boolean
 
     // --- Login Utils ---
 
-    @JvmStatic external fun nativeBuildLoginBody(userId: String, password: String, deviceName: String, deviceId: String): String
 
     // --- Account Utils ---
 
-    @JvmStatic external fun nativeValidatePasswordWithUsername(password: String, username: String): String
 
     // --- Connection Monitor ---
 
-    @JvmStatic external fun nativeConnMonitorOnConnected()
-    @JvmStatic external fun nativeConnMonitorOnDisconnected()
     @JvmStatic external fun nativeConnMonitorOnReconnectAttempt()
-    @JvmStatic external fun nativeConnMonitorGetStatus(): String
 
     // --- Push Rules ---
 
-    @JvmStatic external fun nativeParsePushCondition(conditionJson: String): String
 
     // --- Space Utils ---
 
@@ -1161,16 +903,12 @@ object ProgressiveNative {
     // --- Event Relations ---
     // --- E2EE Decoration ---
 
-    @JvmStatic external fun nativeComputeE2eeDecoration(encrypted: Boolean, verified: Boolean, crossSigned: Boolean, decryptError: Boolean, blacklisted: Boolean, beforeJoined: Boolean, errorReason: String): String
 
     // --- Room List ---
 
-    @JvmStatic external fun nativeGetBadgeText(count: Int, highlights: Int): String
 
     // --- Media Utils ---
 
-    @JvmStatic external fun nativeMimeToMsgType(mimeType: String): String
-    @JvmStatic external fun nativeIsValidBlurhash(hash: String): Boolean
 
     // --- Notification Settings ---
 
@@ -1182,15 +920,12 @@ object ProgressiveNative {
 
     // --- Verification ---
 
-    @JvmStatic external fun nativeGetVerificationEmojis(): String
 
     // --- Session Manager ---
 
-    @JvmStatic external fun nativeFormatSessionBadge(unread: Int, highlights: Int): String
 
     // --- Auth Utils ---
 
-    @JvmStatic external fun nativeFormatRateLimitMessage(responseJson: String, httpStatus: Int): String
 
     // --- Content Scanner ---
 
@@ -1198,7 +933,6 @@ object ProgressiveNative {
 
     // --- Event Encryption ---
 
-    @JvmStatic external fun nativeParseEncryptedHeader(contentJson: String): String
 
     // --- Report Utils ---
 
@@ -1239,7 +973,6 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeIsMxcUrl(url: String): Boolean
     @JvmStatic external fun nativeIsPhoneNumber(input: String): Boolean
-    @JvmStatic external fun nativeExtractServerNameFromId(mxid: String): String
     @JvmStatic external fun nativeExtractUserNameFromId(mxid: String): String
     @JvmStatic external fun nativeCandidateAliasFromRoomName(roomName: String, domain: String, maxLength: Int): String
 
@@ -1305,7 +1038,6 @@ object ProgressiveNative {
 
     @JvmStatic external fun nativeGetExtensionFromMimeType(mimetype: String): String
     @JvmStatic external fun nativeExtractUsefulTextFromReply(repliedBody: String): String
-    @JvmStatic external fun nativeFormatSpoilerTextFromHtml(formattedBody: String): String
     @JvmStatic external fun nativeGetLatestEditEventId(editSummaryJson: String, originalEventId: String): String
     @JvmStatic external fun nativeGetEditedTargetEventId(contentJson: String): String
 
@@ -1519,7 +1251,6 @@ object ProgressiveNative {
     @JvmStatic external fun nativeThreadIsRoot(eventContent: String, eventId: String): Boolean
     @JvmStatic external fun nativeThreadExtractRoot(eventContent: String): String
     @JvmStatic external fun nativeThreadUpsert(threadJson: String)
-    @JvmStatic external fun nativeThreadAddReply(threadId: String, senderId: String, senderName: String, body: String, timestampMs: Long)
     @JvmStatic external fun nativeThreadGetList(limit: Int, offset: Int): String
     @JvmStatic external fun nativeThreadSetUnread(threadId: String, count: Int, highlighted: Boolean)
     @JvmStatic external fun nativeThreadMarkRead(threadId: String, readPos: Long)
@@ -1803,18 +1534,13 @@ object ProgressiveNative {
     // --- WebRTC Utils ---
 
     @JvmStatic external fun nativeFormatCallDuration(seconds: Int): String
-    @JvmStatic external fun nativeIsCallEvent(eventType: String): Boolean
 
     // --- Message Retry ---
 
-    @JvmStatic external fun nativeComputeRetryDelay(retryCount: Int, maxDelayMs: Int): Int
-    @JvmStatic external fun nativeDecideRetry(retryCount: Int, errorCode: Int, retryAfterHeader: String): String
-    @JvmStatic external fun nativeFormatMessageStatus(state: Int): String
 
     // --- Sync Utils ---
     // --- Event Display ---
 
-    @JvmStatic external fun nativeClassifyEvent(eventType: String, msgType: String): Int
 
     // --- Permalink ---
 
@@ -1822,7 +1548,6 @@ object ProgressiveNative {
 
     // --- Network Monitor ---
 
-    @JvmStatic external fun nativeGetRecommendedMediaQuality(type: Int, connected: Boolean, metered: Boolean, signal: Int, latency: Double, loss: Double): String
 
     // --- Client Info ---
 
@@ -1830,20 +1555,16 @@ object ProgressiveNative {
 
     // --- Keyshare ---
 
-    @JvmStatic external fun nativeBuildKeyRequestBody(roomId: String, sessionId: String, senderKey: String, algorithm: String, requestId: String, deviceId: String): String
 
     // --- Display Name ---
 
     @JvmStatic external fun nativeUserIdToDisplayName(userId: String): String
-    @JvmStatic external fun nativeUserIdToColor(userId: String): String
 
     // --- Message Location ---
 
-    @JvmStatic external fun nativeEstimatePaginationRequests(missingEvents: Int, pageSize: Int): Int
 
     // --- Timeline Utils ---
 
-    @JvmStatic external fun nativeShouldAutoScroll(isOwnMessage: Boolean): Boolean
 
     // --- Cross Signing ---
     // --- Edit History ---
@@ -1860,7 +1581,6 @@ object ProgressiveNative {
      * @return JSON with lastReadEventId, firstUnreadEventId, unreadCount,
      *         unreadMentions, hasUnread, readMarkerIndex
      */
-    @JvmStatic external fun nativeComputeReadMarker(
         lastReadEventId: String,
         loadedEventIds: Array<String>,
         loadedSenders: Array<String>,
