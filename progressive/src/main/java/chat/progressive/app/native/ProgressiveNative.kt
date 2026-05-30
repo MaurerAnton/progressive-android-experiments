@@ -46,7 +46,6 @@ object ProgressiveNative {
      *
      * @return JSON string with eventId — or error info on failure
      */
-    @JvmStatic
         responseBody: String,
 
     /**
@@ -64,27 +63,19 @@ object ProgressiveNative {
 
     // --- Export functions ---
 
-    @JvmStatic
         senderName: String,
 
-    @JvmStatic
         senderName: String,
 
-    @JvmStatic
         roomName: String,
-        eventHtmls: Array<String>
 
     // --- Event Cache ---
 
-    @JvmStatic
         eventId: String,
     )
 
-    @JvmStatic
 
-    @JvmStatic
 
-    @JvmStatic
 
     // --- SQLite Event Database ---
 
@@ -148,7 +139,6 @@ object ProgressiveNative {
 
     // --- Proxy / Tor / I2P ---
 
-    @JvmStatic
         connType: Int,
 
     // --- Yggdrasil ---
@@ -1525,8 +1515,6 @@ object ProgressiveNative {
      * @return JSON with lastReadEventId, firstUnreadEventId, unreadCount,
      *         unreadMentions, hasUnread, readMarkerIndex
      */
-        loadedEventIds: Array<String>,
-        loadedSenders: Array<String>,
 
     @JvmStatic external fun nativeAdvanceReadMarker(roomId: String, latestEventId: String): String
     @JvmStatic external fun nativeReadMarkerToJson(lastReadEventId: String, unreadCount: Int, unreadMentions: Int, unreadHighlights: Int, hasUnread: Boolean): String
