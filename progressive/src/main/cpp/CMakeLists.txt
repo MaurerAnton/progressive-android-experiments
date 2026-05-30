@@ -403,7 +403,6 @@ add_library(
     src/media_tools.cpp
     src/user_profiles.cpp
     src/jni_bridge.cpp
-    src/jni_stubs_part1.cpp
     src/eventdb.cpp
     src/sync_status_utils.cpp
     src/timeline_controller.cpp
@@ -574,6 +573,19 @@ target_link_libraries(
 )
 
 target_compile_definitions(progressive_native PRIVATE PROGRESSIVE_HAS_OLM=1)
+
+# JNI stubs as separate static library (no LTO to avoid OOM)
+add_library(progressive_stubs STATIC
+    src/jni_stubs_part1.cpp
+    src/jni_stubs_part2.cpp
+    src/jni_stubs_part3.cpp
+    src/jni_stubs_part4.cpp
+    src/jni_stubs_part5.cpp
+    src/jni_stubs_part6.cpp
+)
+target_include_directories(progressive_stubs PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_compile_options(progressive_stubs PRIVATE -Os -fvisibility=hidden)
+target_link_libraries(progressive_native progressive_stubs)
 
 # SQLite3 amalgamation compile flags (optimize for Android, downloaded at build time)
 set_source_files_properties(

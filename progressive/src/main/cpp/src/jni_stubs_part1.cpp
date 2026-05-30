@@ -3,47 +3,9 @@
  * Uses project's custom JSON parser (not external lib).
  */
 
-#include "progressive/json_parser.hpp"
-#include "progressive/string_utils.hpp"
-#include <jni.h>
-#include <string>
-#include <sstream>
-#include <ctime>
-#include <vector>
-#include <cstdlib>
-#include <cmath>
-#include <algorithm>
+#include "progressive/jni_stubs_helpers.hpp"
 
 #define JNI_FUNC(ret, name) extern "C" JNIEXPORT ret JNICALL Java_chat_progressive_app_native_ProgressiveNative_##name
-
-static std::string j2s(JNIEnv* env, jstring s) {
-    if (!s) return "";
-    const char* c = env->GetStringUTFChars(s, nullptr);
-    std::string r(c);
-    env->ReleaseStringUTFChars(s, c);
-    return r;
-}
-
-// Simple JSON builders using escapeJson for safety
-static std::string jsonObj(const std::string& pairs) { return "{" + pairs + "}"; }
-static std::string jsonPair(const std::string& k, const std::string& v) {
-    return "\"" + progressive::escapeJson(k) + "\":\"" + progressive::escapeJson(v) + "\"";
-}
-static std::string jsonPair(const std::string& k, bool v) {
-    return "\"" + progressive::escapeJson(k) + "\":" + (v ? "true" : "false");
-}
-static std::string jsonPair(const std::string& k, int64_t v) {
-    return "\"" + progressive::escapeJson(k) + "\":" + std::to_string(v);
-}
-static std::string jsonPair(const std::string& k, double v, int prec = 6) {
-    std::ostringstream ss; ss.precision(prec); ss << std::fixed << v;
-    return "\"" + progressive::escapeJson(k) + "\":" + ss.str();
-}
-static std::string jsonArr(const std::string& items) { return "[" + items + "]"; }
-
-// ============================================================
-// Alarm Engine
-// ============================================================
 
 JNI_FUNC(jstring, nativeAlarmGetWeatherAction)(JNIEnv* env, jclass) {
     return env->NewStringUTF(jsonObj(

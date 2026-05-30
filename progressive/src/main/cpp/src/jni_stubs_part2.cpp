@@ -3,16 +3,7 @@
  * Uses project's custom JSON parser (not external lib).
  */
 
-#include "progressive/json_parser.hpp"
-#include "progressive/string_utils.hpp"
-#include <jni.h>
-#include <string>
-#include <sstream>
-#include <ctime>
-#include <vector>
-#include <cstdlib>
-#include <cmath>
-#include <algorithm>
+#include "progressive/jni_stubs_helpers.hpp"
 
 #define JNI_FUNC(jint, nativeComputeThumbnail)(JNIEnv*, jclass, jint, jint, jint, jint) { return 0; }
 
