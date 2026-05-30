@@ -50,7 +50,6 @@ class DefaultErrorFormatter @Inject constructor(
                     is SSLException ->
                         stringProvider.getString(CommonStrings.login_error_ssl_other)
                     else ->
-                        // TODO Check network state, airplane mode, etc.
                         stringProvider.getString(CommonStrings.error_no_network)
                 }
             }
