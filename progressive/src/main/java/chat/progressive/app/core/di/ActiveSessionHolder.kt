@@ -82,9 +82,7 @@ class ActiveSessionHolder @Inject constructor(
         guardServiceStarter.stop()
     }
 
-    fun hasActiveSession(): Boolean {
-        return activeSessionReference.get() != null || authenticationService.hasAuthenticatedSessions()
-    }
+    fun hasActiveSession() = activeSessionReference.get() != null || authenticationService.hasAuthenticatedSessions()
 
     fun getSafeActiveSession(): Session? {
         return runBlocking { getOrInitializeSession() }

@@ -1696,9 +1696,7 @@ class TimelineFragment :
         timelineViewModel.handle(itemAction)
     }
 
-    override fun getPreviewUrlRetriever(): PreviewUrlRetriever {
-        return timelineViewModel.previewUrlRetriever
-    }
+    fun getPreviewUrlRetriever() = timelineViewModel.previewUrlRetriever
 
     override fun onRoomCreateLinkClicked(url: String) {
         viewLifecycleOwner.lifecycleScope.launch {

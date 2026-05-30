@@ -149,9 +149,7 @@ abstract class FormEditTextItem : ProgressiveEpoxyModel<FormEditTextItem.Holder>
                 }
     }
 
-    override fun shouldSaveViewState(): Boolean {
-        return false
-    }
+    fun shouldSaveViewState() = false
 
     override fun unbind(holder: Holder) {
         super.unbind(holder)

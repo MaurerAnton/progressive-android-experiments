@@ -70,9 +70,7 @@ abstract class AbstractVoiceRecorderQ(protected val context: Context) : Abstract
         nextOutputFile = null
     }
 
-    override fun getMaxAmplitude(): Int {
-        return mediaRecorder?.maxAmplitude ?: 0
-    }
+    fun getMaxAmplitude() = mediaRecorder?.maxAmplitude ?: 0
 
     protected open fun release() {
         mediaRecorder?.release()

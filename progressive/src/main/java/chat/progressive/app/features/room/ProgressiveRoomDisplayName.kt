@@ -32,9 +32,7 @@ class ProgressiveRoomDisplayName @Inject constructor(
                 .orEmpty()
     }
 
-    override fun getNameForRoomInvite(): String {
-        return context.getString(CommonStrings.room_displayname_room_invite)
-    }
+    fun getNameForRoomInvite() = context.getString(CommonStrings.room_displayname_room_invite)
 
     override fun getNameForEmptyRoom(isDirect: Boolean, leftMemberNames: List<String>): String {
         return if (leftMemberNames.isEmpty()) {

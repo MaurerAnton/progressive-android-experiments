@@ -16,9 +16,7 @@ object TimelineAsyncHelper {
 
     private var backgroundHandler: Handler? = null
 
-    fun getBackgroundHandler(): Handler {
-        return backgroundHandler ?: createBackgroundHandler().also { backgroundHandler = it }
-    }
+    fun getBackgroundHandler() = backgroundHandler ?: createBackgroundHandler().also { backgroundHandler = it }
 
     private fun createBackgroundHandler(): Handler {
         val handlerThread = HandlerThread(THREAD_NAME)

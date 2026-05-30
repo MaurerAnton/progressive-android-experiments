@@ -391,8 +391,6 @@ class CallAndroidService : ProgressiveService() {
     }
 
     inner class CallServiceBinder : Binder() {
-        fun getCallService(): CallAndroidService {
-            return this@CallAndroidService
-        }
+        fun getCallService() = this@CallAndroidService
     }
 }

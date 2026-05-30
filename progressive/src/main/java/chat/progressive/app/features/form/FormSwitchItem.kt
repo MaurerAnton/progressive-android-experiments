@@ -53,9 +53,7 @@ abstract class FormSwitchItem : ProgressiveEpoxyModel<FormSwitchItem.Holder>(R.l
         }
     }
 
-    override fun shouldSaveViewState(): Boolean {
-        return false
-    }
+    fun shouldSaveViewState() = false
 
     override fun unbind(holder: Holder) {
         super.unbind(holder)

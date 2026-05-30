@@ -21,7 +21,5 @@ data class LoginTermsViewState(
         localizedFlowDataLoginTermsChecked.find { it.localizedFlowDataLoginTerms == data }?.checked = false
     }
 
-    fun allChecked(): Boolean {
-        return localizedFlowDataLoginTermsChecked.all { it.checked }
-    }
+    fun allChecked() = localizedFlowDataLoginTermsChecked.all { it.checked }
 }

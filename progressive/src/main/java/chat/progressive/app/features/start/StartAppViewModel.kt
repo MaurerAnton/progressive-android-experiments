@@ -34,9 +34,7 @@ class StartAppViewModel @AssistedInject constructor(
 
     companion object : MavericksViewModelFactory<StartAppViewModel, StartAppViewState> by hiltMavericksViewModelFactory()
 
-    fun shouldStartApp(): Boolean {
-        return sessionHolder.isWaitingForSessionInitialization()
-    }
+    fun shouldStartApp() = sessionHolder.isWaitingForSessionInitialization()
 
     override fun handle(action: StartAppAction) {
         when (action) {

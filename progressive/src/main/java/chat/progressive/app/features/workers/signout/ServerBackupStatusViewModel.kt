@@ -147,9 +147,7 @@ class ServerBackupStatusViewModel @AssistedInject constructor(
     /**
      * Safe way to get the current KeysBackup version.
      */
-    fun getCurrentBackupVersion(): String {
-        return session.cryptoService().keysBackupService().currentBackupVersion ?: ""
-    }
+    fun getCurrentBackupVersion() = session.cryptoService().keysBackupService().currentBackupVersion ?: ""
 
     /**
      * Safe way to get the number of keys to backup.

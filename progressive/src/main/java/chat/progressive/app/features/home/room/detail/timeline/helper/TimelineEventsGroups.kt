@@ -97,13 +97,9 @@ class CallSignalingEventsGroup(private val group: TimelineEventsGroup) {
         return invite.root.getClearContent().toModel<CallInviteContent>()?.isVideo().orFalse()
     }
 
-    fun isRinging(): Boolean {
-        return getAnswer() == null && getHangup() == null && getReject() == null
-    }
+    fun isRinging() = getAnswer() == null && getHangup() == null && getReject() == null
 
-    fun isInCall(): Boolean {
-        return getHangup() == null && getReject() == null
-    }
+    fun isInCall() = getHangup() == null && getReject() == null
 
     fun formattedDuration(): String {
         val start = getAnswer()?.root?.originServerTs
@@ -117,9 +113,7 @@ class CallSignalingEventsGroup(private val group: TimelineEventsGroup) {
         }
     }
 
-    fun callWasAnswered(): Boolean {
-        return getAnswer() != null
-    }
+    fun callWasAnswered() = getAnswer() != null
 
     private fun getAnswer(): TimelineEvent? {
         return group.events.firstOrNull { it.root.getClearType() == EventType.CALL_ANSWER }
@@ -147,11 +141,7 @@ class VoiceBroadcastEventsGroup(private val group: TimelineEventsGroup) {
                 ?: group.events.filter { it.root.type == VoiceBroadcastConstants.STATE_ROOM_VOICE_BROADCAST_INFO }.maxBy { it.root.originServerTs ?: 0L }
     }
 
-    fun getDuration(): Int {
-        return group.events.mapNotNull { it.root.asMessageAudioEvent()?.duration }.sum()
-    }
+    fun getDuration() = group.events.mapNotNull { it.root.asMessageAudioEvent()?.duration }.sum()
 
-    fun hasUnableToDecryptEvent(): Boolean {
-        return group.events.any { it.root.getClearType() == EventType.ENCRYPTED }
-    }
+    fun hasUnableToDecryptEvent() = group.events.any { it.root.getClearType() == EventType.ENCRYPTED }
 }

@@ -55,8 +55,6 @@ class SpaceAddRoomSpaceChooserBottomSheet : ProgressiveBottomSheet<BottomSheetAd
         const val ACTION_ADD_SPACES = "Action.AddSpaces"
         const val ACTION_CREATE_ROOM = "Action.CreateRoom"
 
-        fun newInstance(): SpaceAddRoomSpaceChooserBottomSheet {
-            return SpaceAddRoomSpaceChooserBottomSheet()
-        }
+        fun newInstance() = SpaceAddRoomSpaceChooserBottomSheet()
     }
 }

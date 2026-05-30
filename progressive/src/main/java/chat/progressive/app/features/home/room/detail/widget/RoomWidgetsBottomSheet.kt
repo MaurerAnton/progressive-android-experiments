@@ -74,8 +74,6 @@ class RoomWidgetsBottomSheet :
     }
 
     companion object {
-        fun newInstance(): RoomWidgetsBottomSheet {
-            return RoomWidgetsBottomSheet()
-        }
+        fun newInstance() = RoomWidgetsBottomSheet()
     }
 }

@@ -60,7 +60,5 @@ data class LoginViewState(
                 asyncLoginAction is Success
     }
 
-    fun isUserLogged(): Boolean {
-        return asyncLoginAction is Success
-    }
+    fun isUserLogged() = asyncLoginAction is Success
 }

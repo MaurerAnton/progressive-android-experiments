@@ -63,9 +63,7 @@ class RoomProfileActivity :
 
     @Inject lateinit var roomDetailPendingActionStore: RoomDetailPendingActionStore
 
-    override fun getBinding(): ActivitySimpleBinding {
-        return ActivitySimpleBinding.inflate(layoutInflater)
-    }
+    fun getBinding() = ActivitySimpleBinding.inflate(layoutInflater)
 
     override fun getCoordinatorLayout() = views.coordinatorLayout
 

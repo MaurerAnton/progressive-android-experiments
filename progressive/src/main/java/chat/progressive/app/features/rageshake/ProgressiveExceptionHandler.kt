@@ -109,9 +109,7 @@ class ProgressiveExceptionHandler @Inject constructor(
      *
      * @return true if the application crashed
      */
-    fun didAppCrash(): Boolean {
-        return preferences.getBoolean(PREFS_CRASH_KEY, false)
-    }
+    fun didAppCrash() = preferences.getBoolean(PREFS_CRASH_KEY, false)
 
     /**
      * Clear the crash status.

@@ -265,9 +265,7 @@ class WebRtcCall(
         }
     }
 
-    fun durationMillis(): Int {
-        return timer.elapsedTime().toInt()
-    }
+    fun durationMillis() = timer.elapsedTime().toInt()
 
     fun formattedDuration(): String {
         return formatDuration(
@@ -697,9 +695,7 @@ class WebRtcCall(
         }
     }
 
-    fun canSwitchCamera(): Boolean {
-        return availableCamera.size > 1
-    }
+    fun canSwitchCamera() = availableCamera.size > 1
 
     private fun getOppositeCameraIfAny(): CameraProxy? {
         val currentCamera = cameraInUse ?: return null
@@ -759,9 +755,7 @@ class WebRtcCall(
         return cameraInUse?.type
     }
 
-    fun currentCaptureFormat(): CaptureFormat {
-        return currentCaptureFormat
-    }
+    fun currentCaptureFormat() = currentCaptureFormat
 
     fun startSharingScreen(videoCapturer: VideoCapturer) {
         val factory = peerConnectionFactoryProvider.get() ?: return
@@ -815,9 +809,7 @@ class WebRtcCall(
     /**
      * Returns true if the user is sharing the screen, false otherwise.
      */
-    fun isSharingScreen(): Boolean {
-        return localVideoTrack?.enabled().orFalse() && localVideoTrack?.id() == SCREEN_TRACK_ID
-    }
+    fun isSharingScreen() = localVideoTrack?.enabled().orFalse() && localVideoTrack?.id() == SCREEN_TRACK_ID
 
     private suspend fun release() {
         listeners.clear()

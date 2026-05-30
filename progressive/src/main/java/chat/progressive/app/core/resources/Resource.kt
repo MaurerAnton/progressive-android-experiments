@@ -39,9 +39,7 @@ data class Resource(
      *
      * @return true if the opened resource is a jpeg one.
      */
-    fun isJpegResource(): Boolean {
-        return mMimeType.normalizeMimeType() == MimeTypes.Jpeg
-    }
+    fun isJpegResource() = mMimeType.normalizeMimeType() == MimeTypes.Jpeg
 }
 
 /**

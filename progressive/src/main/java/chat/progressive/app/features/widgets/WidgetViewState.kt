@@ -27,13 +27,9 @@ enum class WidgetKind(@StringRes val nameRes: Int, val screenId: String?) {
     INTEGRATION_MANAGER(0, null),
     ELEMENT_CALL(0, null);
 
-    fun isAdmin(): Boolean {
-        return this == STICKER_PICKER || this == INTEGRATION_MANAGER
-    }
+    fun isAdmin() = this == STICKER_PICKER || this == INTEGRATION_MANAGER
 
-    fun supportsPictureInPictureMode(): Boolean {
-        return this == ELEMENT_CALL
-    }
+    fun supportsPictureInPictureMode() = this == ELEMENT_CALL
 }
 
 data class WidgetViewState(

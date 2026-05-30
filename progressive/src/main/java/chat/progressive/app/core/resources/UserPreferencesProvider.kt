@@ -12,43 +12,25 @@ import javax.inject.Inject
 
 class UserPreferencesProvider @Inject constructor(private val progressivePreferences: ProgressiveBasePreferences) {
 
-    fun shouldShowHiddenEvents(): Boolean {
-        return progressivePreferences.shouldShowHiddenEvents()
-    }
+    fun shouldShowHiddenEvents() = progressivePreferences.shouldShowHiddenEvents()
 
-    fun shouldShowReadReceipts(): Boolean {
-        return progressivePreferences.showReadReceipts()
-    }
+    fun shouldShowReadReceipts() = progressivePreferences.showReadReceipts()
 
-    fun shouldShowRedactedMessages(): Boolean {
-        return progressivePreferences.showRedactedMessages()
-    }
+    fun shouldShowRedactedMessages() = progressivePreferences.showRedactedMessages()
 
-    fun shouldShowLongClickOnRoomHelp(): Boolean {
-        return progressivePreferences.shouldShowLongClickOnRoomHelp()
-    }
+    fun shouldShowLongClickOnRoomHelp() = progressivePreferences.shouldShowLongClickOnRoomHelp()
 
     fun neverShowLongClickOnRoomHelpAgain() {
         progressivePreferences.neverShowLongClickOnRoomHelpAgain()
     }
 
-    fun shouldShowJoinLeaves(): Boolean {
-        return progressivePreferences.showJoinLeaveMessages()
-    }
+    fun shouldShowJoinLeaves() = progressivePreferences.showJoinLeaveMessages()
 
-    fun shouldShowAvatarDisplayNameChanges(): Boolean {
-        return progressivePreferences.showAvatarDisplayNameChangeMessages()
-    }
+    fun shouldShowAvatarDisplayNameChanges() = progressivePreferences.showAvatarDisplayNameChangeMessages()
 
-    fun areThreadMessagesEnabled(): Boolean {
-        return progressivePreferences.areThreadMessagesEnabled()
-    }
+    fun areThreadMessagesEnabled() = progressivePreferences.areThreadMessagesEnabled()
 
-    fun showLiveSenderInfo(): Boolean {
-        return progressivePreferences.showLiveSenderInfo()
-    }
+    fun showLiveSenderInfo() = progressivePreferences.showLiveSenderInfo()
 
-    fun autoplayAnimatedImages(): Boolean {
-        return progressivePreferences.autoplayAnimatedImages()
-    }
+    fun autoplayAnimatedImages() = progressivePreferences.autoplayAnimatedImages()
 }

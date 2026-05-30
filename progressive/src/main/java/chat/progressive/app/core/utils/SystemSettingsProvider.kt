@@ -26,7 +26,5 @@ class AndroidSystemSettingsProvider @Inject constructor(
         private val context: Context,
 ) : SystemSettingsProvider {
 
-    override fun getSystemFontScale(): Float {
-        return Settings.System.getFloat(context.contentResolver, Settings.System.FONT_SCALE, 1f)
-    }
+    fun getSystemFontScale() = Settings.System.getFloat(context.contentResolver, Settings.System.FONT_SCALE, 1f)
 }

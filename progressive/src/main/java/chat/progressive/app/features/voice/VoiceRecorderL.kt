@@ -121,9 +121,7 @@ class VoiceRecorderL(
         codec.release()
     }
 
-    override fun getMaxAmplitude(): Int {
-        return maxAmplitude
-    }
+    fun getMaxAmplitude() = maxAmplitude
 
     private fun createAudioRecord() {
         val channelConfig = AudioFormat.CHANNEL_IN_MONO

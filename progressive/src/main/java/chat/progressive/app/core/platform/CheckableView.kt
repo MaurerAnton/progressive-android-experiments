@@ -22,9 +22,7 @@ class CheckableView : View, Checkable {
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    override fun isChecked(): Boolean {
-        return mChecked
-    }
+    fun isChecked() = mChecked
 
     override fun setChecked(b: Boolean) {
         if (b != mChecked) {

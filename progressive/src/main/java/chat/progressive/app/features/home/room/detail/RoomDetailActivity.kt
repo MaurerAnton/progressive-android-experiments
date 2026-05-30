@@ -48,9 +48,7 @@ class RoomDetailActivity :
         ProgressiveActivity<ActivityRoomDetailBinding>(),
         MatrixToBottomSheet.InteractionListener {
 
-    override fun getBinding(): ActivityRoomDetailBinding {
-        return ActivityRoomDetailBinding.inflate(layoutInflater)
-    }
+    fun getBinding() = ActivityRoomDetailBinding.inflate(layoutInflater)
 
     private val fragmentLifecycleCallbacks = object : FragmentManager.FragmentLifecycleCallbacks() {
 

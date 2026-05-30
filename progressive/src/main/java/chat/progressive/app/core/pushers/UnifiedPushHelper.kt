@@ -150,13 +150,9 @@ class UnifiedPushHelper @Inject constructor(
         }
     }
 
-    fun isEmbeddedDistributor(): Boolean {
-        return isInternalDistributor() && fcmHelper.isFirebaseAvailable()
-    }
+    fun isEmbeddedDistributor() = isInternalDistributor() && fcmHelper.isFirebaseAvailable()
 
-    fun isBackgroundSync(): Boolean {
-        return isInternalDistributor() && !fcmHelper.isFirebaseAvailable()
-    }
+    fun isBackgroundSync() = isInternalDistributor() && !fcmHelper.isFirebaseAvailable()
 
     private fun isInternalDistributor(): Boolean {
         return UnifiedPush.getDistributor(context).isEmpty() ||

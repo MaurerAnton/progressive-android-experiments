@@ -100,9 +100,7 @@ class RingtoneUtils @Inject constructor(
     /**
      * Set using Riot default ringtone.
      */
-    fun useRiotDefaultRingtone(): Boolean {
-        return sharedPreferences.getBoolean(ProgressiveBasePreferences.SETTINGS_CALL_RINGTONE_USE_RIOT_PREFERENCE_KEY, true)
-    }
+    fun useRiotDefaultRingtone() = sharedPreferences.getBoolean(ProgressiveBasePreferences.SETTINGS_CALL_RINGTONE_USE_RIOT_PREFERENCE_KEY, true)
 
     /**
      * Ask if default Riot ringtone has to be used.

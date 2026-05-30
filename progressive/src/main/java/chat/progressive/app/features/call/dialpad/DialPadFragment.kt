@@ -140,9 +140,7 @@ class DialPadFragment : Fragment(), TextWatcher {
         }
     }
 
-    fun getRawInput(): String {
-        return PhoneNumberUtils.normalizeNumber(digits.text.toString())
-    }
+    fun getRawInput() = PhoneNumberUtils.normalizeNumber(digits.text.toString())
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

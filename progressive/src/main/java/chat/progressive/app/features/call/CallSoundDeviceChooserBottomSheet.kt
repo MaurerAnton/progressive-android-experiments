@@ -64,8 +64,6 @@ class CallSoundDeviceChooserBottomSheet : ProgressiveBottomSheet<BottomSheetGene
     }
 
     companion object {
-        fun newInstance(): RoomListQuickActionsBottomSheet {
-            return RoomListQuickActionsBottomSheet()
-        }
+        fun newInstance() = RoomListQuickActionsBottomSheet()
     }
 }

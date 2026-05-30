@@ -20,7 +20,5 @@ import chat.progressive.app.features.home.room.detail.timeline.helper.TimelineAs
 object HomeModule {
     @Provides
     @TimelineEventControllerHandler
-    fun providesTimelineBackgroundHandler(): Handler {
-        return TimelineAsyncHelper.getBackgroundHandler()
-    }
+    fun providesTimelineBackgroundHandler() = TimelineAsyncHelper.getBackgroundHandler()
 }

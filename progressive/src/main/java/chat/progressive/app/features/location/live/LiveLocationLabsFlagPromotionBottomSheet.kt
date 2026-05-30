@@ -48,8 +48,6 @@ class LiveLocationLabsFlagPromotionBottomSheet :
         const val REQUEST_KEY = "LiveLocationLabsFlagPromotionBottomSheetRequest"
         const val BUNDLE_KEY_LABS_APPROVAL = "BUNDLE_KEY_LABS_APPROVAL"
 
-        fun newInstance(): LiveLocationLabsFlagPromotionBottomSheet {
-            return LiveLocationLabsFlagPromotionBottomSheet()
-        }
+        fun newInstance() = LiveLocationLabsFlagPromotionBottomSheet()
     }
 }

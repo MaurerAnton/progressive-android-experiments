@@ -71,9 +71,7 @@ abstract class FormMultiLineEditTextItem : ProgressiveEpoxyModel<FormMultiLineEd
         holder.textInputEditText.addTextChangedListenerOnce(onTextChangeListener)
     }
 
-    override fun shouldSaveViewState(): Boolean {
-        return false
-    }
+    fun shouldSaveViewState() = false
 
     override fun unbind(holder: Holder) {
         super.unbind(holder)

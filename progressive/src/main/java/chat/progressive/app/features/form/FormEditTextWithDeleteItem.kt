@@ -85,9 +85,7 @@ abstract class FormEditTextWithDeleteItem : ProgressiveEpoxyModel<FormEditTextWi
         holder.textInputDeleteButton.onClick(onDeleteClicked)
     }
 
-    override fun shouldSaveViewState(): Boolean {
-        return false
-    }
+    fun shouldSaveViewState() = false
 
     override fun unbind(holder: Holder) {
         super.unbind(holder)

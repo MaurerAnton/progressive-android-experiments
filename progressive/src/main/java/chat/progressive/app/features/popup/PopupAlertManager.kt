@@ -59,9 +59,7 @@ class PopupAlertManager @Inject constructor(
 
     private val alertQueue = mutableListOf<ProgressiveAlert>()
 
-    fun hasAlertsToShow(): Boolean {
-        return currentAlerter != null || alertQueue.isNotEmpty()
-    }
+    fun hasAlertsToShow() = currentAlerter != null || alertQueue.isNotEmpty()
 
     fun postProgressiveAlert(alert: ProgressiveAlert) {
         synchronized(alertQueue) {

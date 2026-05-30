@@ -49,9 +49,7 @@ class ShortcutCreator @Inject constructor(
     }
     @Inject lateinit var progressivePreferences: ProgressiveBasePreferences
 
-    fun canCreateShortcut(): Boolean {
-        return ShortcutManagerCompat.isRequestPinShortcutSupported(context)
-    }
+    fun canCreateShortcut() = ShortcutManagerCompat.isRequestPinShortcutSupported(context)
 
     @WorkerThread
     fun create(roomSummary: RoomSummary, rank: Int = 1): ShortcutInfoCompat {
