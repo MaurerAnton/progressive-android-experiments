@@ -1,124 +1,40 @@
-name: APK Build
+name: Build 0.0.3.5
 
 on:
-  pull_request: { }
   push:
-    branches: [ main, develop ]
-
-permissions: {}
-
-# Enrich gradle.properties for CI/CD
-env:
-  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx3072m -Dfile.encoding=UTF-8" -Dkotlin.incremental=false
-  CI_GRADLE_ARG_PROPERTIES: --stacktrace -PpreDexEnable=false --max-workers 1 --no-daemon -PciArch=armeabi-v7a -PminifyEnabled=false
+    branches: [0.0.3.5]
+  workflow_dispatch:
 
 jobs:
-  debug:
-    name: Build debug APKs (${{ matrix.target }})
+  build:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
-    strategy:
-      fail-fast: false
-      matrix:
-        target: [ Gplay, Fdroid ]
-    # Allow all jobs on develop. Just one per PR.
-    concurrency:
-      group: ${{ github.ref == 'refs/heads/develop' && format('integration-tests-develop-{0}-{1}', matrix.target, github.sha) || format('build-debug-{0}-{1}', matrix.target, github.ref)  }}
-      cancel-in-progress: true
+    timeout-minutes: 360
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@v4
         with:
-          # https://github.com/actions/checkout/issues/881
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: false
-      - name: Use JDK 21
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
-        with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '21'
-      - name: Configure gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
-        with:
-          cache-read-only: ${{ github.ref != 'refs/heads/develop' }}
-      - name: Assemble ${{ matrix.target }} debug apk
-        run: ./gradlew assemble${{ matrix.target }}Debug $CI_GRADLE_ARG_PROPERTIES
-      - name: Upload ${{ matrix.target }} debug APKs
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-        with:
-          name: vector-${{ matrix.target }}-debug
-          path: |
-            vector-app/build/outputs/apk/*/debug/*.apk
+          ref: 0.0.3.5
 
-  release:
-    name: Build unsigned GPlay APKs
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.ref == 'refs/heads/main' && format('build-release-apk-main-{0}', github.sha) || github.ref == 'refs/heads/develop' && format('build-release-apk-develop-{0}', github.sha) || format('build-debug-{0}', github.ref)  }}
-      cancel-in-progress: false
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          # https://github.com/actions/checkout/issues/881
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-          persist-credentials: false
-      - name: Use JDK 21
-        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
-        with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '21'
-      - name: Configure gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
-        with:
-          cache-read-only: ${{ github.ref != 'refs/heads/develop' }}
-      - name: Assemble Fdroid unsigned apk (arm32)
-        run: ./gradlew assembleFdroidRelease $CI_GRADLE_ARG_PROPERTIES
-      - name: Upload Fdroid unsigned APK
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-        with:
-          name: progressive-fdroid-arm32
-          path: |
-            vector-app/build/outputs/apk/fdroid/release/*.apk
-      - name: Publish to GitHub Release
-        if: github.ref == 'refs/heads/main'
-        run: |
-          gh release delete nightly --cleanup-tag -y 2>/dev/null || true
-          gh release create nightly \
-            --title "Nightly build $(date +%Y-%m-%d)" \
-            --notes "Automated build from main branch. Commit: ${{ github.sha }}" \
-            --prerelease \
-            vector-app/build/outputs/apk/fdroid/release/*.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          distribution: 'temurin'
 
-  exodus:
-    runs-on: ubuntu-latest
-    needs: release
-    steps:
-      - name: Obtain apk from artifact
-        id: download
-        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
         with:
-          name: progressive-fdroid-arm32
-      - name: Show apks in artifact
-        run: ls -R ${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}
-        env:
-          STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH: ${{steps.download.outputs.download-path}}
-      - name: Execute exodus-standalone
-        uses: docker://exodusprivacy/exodus-standalone:latest
-        with:
-          # Don't fail when finding trackers so they can be reported later
-          args: /github/workspace/fdroid/release/vector-fdroid-armeabi-v7a-release-unsigned.apk -j -o /github/workspace/exodus.json -e 0
-      - name: Upload exodus json report
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-        with:
-          name: exodus.json
-          path: |
-            exodus.json
-      - name: Check for trackers
-        # Exodus scan is informational only — don't fail the build
+          packages: 'ndk;21.3.6528147 cmake;3.22.1 platforms;android-30 build-tools;30.0.3'
+
+      - name: Create local.properties
         run: |
-          TRACKER_IDS=$(jq ".trackers[] | .id" exodus.json || echo "")
-          echo "Found tracker IDs: $TRACKER_IDS"
-          [ -z "$TRACKER_IDS" ] || echo "::warning ::Trackers detected: $TRACKER_IDS"
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "ndk.dir=$ANDROID_HOME/ndk/21.3.6528147" >> local.properties
+
+      - name: Build
+        run: ./gradlew assembleFdroidRelease --no-daemon -PallWarningsAsErrors=false -PminifyEnabled
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: apks-0.0.3.5
+          path: vector-app/build/outputs/apk/fdroid/release/*.apk
