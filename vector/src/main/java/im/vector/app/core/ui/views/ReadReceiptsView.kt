@@ -50,7 +50,7 @@ class ReadReceiptsView @JvmOverloads constructor(
 
     private fun ensureAvatars(count: Int) {
         val existing = receiptAvatars + dynamicAvatars
-        val avatarSize = resources.getDimensionPixelSize(R.dimen.item_event_message_state_size)
+        val avatarSize = (16f * resources.displayMetrics.density).toInt()
         while (existing.size < count) {
             val iv = ImageView(context).apply {
                 layoutParams = LayoutParams(avatarSize, avatarSize)

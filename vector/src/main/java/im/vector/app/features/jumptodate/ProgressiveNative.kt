@@ -126,9 +126,6 @@ object ProgressiveNative {
     external fun nativeCacheGetContext(eventId: String): String
 
     @JvmStatic
-    external fun nativeCacheClear()
-
-    @JvmStatic
     external fun nativeCacheSize(): Int
 
     // --- SQLite Event Database ---

@@ -1,4 +1,5 @@
 #include "progressive/room_analytics.hpp"
+#include <unordered_map>
 #include <sstream>
 #include <algorithm>
 #include <unordered_set>
