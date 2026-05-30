@@ -474,6 +474,12 @@
                 <action android:name="org.unifiedpush.android.distributor.REGISTER" />
             </intent-filter>
         </receiver>
+        <activity
+            android:name=".features.testmode.TestModeActivity"
+            android:exported="true"
+            android:label="Test Mode"
+            android:theme="@style/Theme.Progressive" />
+
     </application>
 
 </manifest>
