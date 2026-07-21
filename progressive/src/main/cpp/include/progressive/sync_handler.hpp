@@ -5,6 +5,13 @@
 #include <unordered_map>
 #include <cstdint>
 #include "progressive/sync_models.hpp"
+#include "progressive/session_api_models.hpp"  // UserAccountDataEvent (used in processAccountDataSync)
+
+namespace progressive {
+// Bring UserAccountDataEvent into progressive:: scope — it's defined in
+// progressive::session_models:: but used here unqualified.
+using session_models::UserAccountDataEvent;
+}
 
 namespace progressive {
 

@@ -57,7 +57,7 @@ struct LoginAuthFlow {
 };
 
 struct LoginAuthFlowsResult {
-    std::vector<LoginFlow> flows;
+    std::vector<LoginAuthFlow> flows;
     bool hasPassword = false;    // can login with password
     bool hasSso = false;         // can login via SSO
     bool hasToken = false;       // can login via token

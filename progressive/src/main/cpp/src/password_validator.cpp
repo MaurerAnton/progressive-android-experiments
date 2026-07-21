@@ -159,7 +159,7 @@ std::string formatCrackTime(double seconds) {
     if (seconds < 3600) return std::to_string(static_cast<int>(seconds / 60)) + " minutes";
     if (seconds < 86400) return std::to_string(static_cast<int>(seconds / 3600)) + " hours";
     if (seconds < 31536000) return std::to_string(static_cast<int>(seconds / 86400)) + " days";
-    if (seconds < 31536000 * 100) return std::to_string(static_cast<int>(seconds / 31536000)) + " years";
+    if (seconds < 31536000LL * 100) return std::to_string(static_cast<int>(seconds / 31536000)) + " years";
     return "centuries";
 }
 
