@@ -107,6 +107,17 @@ OlmAccountResult OlmAccount::generateOneTimeKeys(int count) {
     return result;
 }
 
+OlmAccountResult OlmAccount::markKeysAsPublished() {
+    OlmAccountResult result;
+    auto* acc = static_cast<::OlmAccount*>(account_);
+    size_t rc = ::olm_account_mark_keys_as_published(acc);
+    result.success = (rc != ::olm_error());
+    if (!result.success) {
+        result.error = OlmError::UnknownError;
+    }
+    return result;
+}
+
 OlmAccountResult OlmAccount::sign(const std::string& message) {
     OlmAccountResult result;
     auto* acc = static_cast<::OlmAccount*>(account_);

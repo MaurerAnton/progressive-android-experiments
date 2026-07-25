@@ -66,6 +66,10 @@ public:
     // Generate one-time keys (count specifies how many).
     OlmAccountResult generateOneTimeKeys(int count);
 
+    // Mark current one-time keys as published (they remain usable for inbound
+    // session creation but won't be returned by one_time_keys again).
+    OlmAccountResult markKeysAsPublished();
+
     // Get the maximum number of one-time keys.
     int maxOneTimeKeys();
 
