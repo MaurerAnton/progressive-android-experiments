@@ -92,9 +92,15 @@ OlmAccountResult OlmAccount::generateOneTimeKeys(int count) {
         result.error = OlmError::NotEnoughRandom;
         return result;
     }
+    fprintf(stderr, "[e2ee] generateOneTimeKeys: generated %d keys, retrieving JSON...\n", (int)count);
+
     size_t kLen = olm_account_one_time_keys_length(acc);
+    fprintf(stderr, "[e2ee] generateOneTimeKeys: JSON length=%zu\n", kLen);
+
     std::string keys(kLen, '\0');
     olm_account_one_time_keys(acc, &keys[0], kLen);
+
+    fprintf(stderr, "[e2ee] generateOneTimeKeys: JSON first 100 chars=[%.100s]\n", keys.c_str());
     result.success = true;
     result.data = std::move(keys);
     return result;
