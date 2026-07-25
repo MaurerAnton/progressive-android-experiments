@@ -27,9 +27,9 @@ struct MegolmSession {
 bool parseMegolmSessionKey(const std::string& keyBase64, std::vector<uint8_t>& sessionKey);
 
 // Create an inbound Megolm session from a session key.
-// sessionKey: raw bytes from room_key event
+// sessionKeyBase64: base64-encoded session_key (libolm decodes internally)
 // Returns a valid MegolmSession or invalid on failure.
-MegolmSession createInboundMegolmSession(const std::vector<uint8_t>& sessionKey);
+MegolmSession createInboundMegolmSession(const std::string& sessionKeyBase64);
 
 // Destroy a Megolm session.
 void destroyMegolmSession(MegolmSession& session);

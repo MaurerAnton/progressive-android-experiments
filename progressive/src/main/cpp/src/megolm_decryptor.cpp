@@ -4,29 +4,16 @@
 #include <cstring>
 #include <algorithm>
 #include <android/log.h>
+#include <cstdio>
 
 #define LOG_TAG "MegolmDecryptor"
 #define LOGW(...) __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
 
 namespace progressive {
 
-static const char B64_C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-static std::vector<uint8_t> b64Decode(const std::string& in) {
-    std::vector<uint8_t> r;
-    int val = 0, vb = -8;
-    for (char c : in) {
-        if (c == '=') break;
-        const char* p = strchr(B64_C, c); if (!p) continue;
-        val = (val<<6)+(int)(p-B64_C); vb += 6;
-        if (vb >= 0) { r.push_back((uint8_t)((val>>vb)&0xFF)); vb -= 8; }
-    }
-    return r;
-}
-
 // ==== Megolm Session ====
 
-MegolmSession createInboundMegolmSession(const std::vector<uint8_t>& sessionKey) {
+MegolmSession createInboundMegolmSession(const std::string& sessionKeyBase64) {
     MegolmSession result;
 
     size_t size = olm_inbound_group_session_size();
@@ -36,11 +23,15 @@ MegolmSession createInboundMegolmSession(const std::vector<uint8_t>& sessionKey)
     if (!session) return result;
 
     auto* olmSession = olm_inbound_group_session(session);
-    size_t ret = olm_import_inbound_group_session(
-        olmSession, sessionKey.data(), sessionKey.size());
+    size_t ret = olm_init_inbound_group_session(
+        olmSession,
+        (const uint8_t*)sessionKeyBase64.data(), sessionKeyBase64.size());
+    std::fprintf(stderr, "[E2EE] addSession: init=%d err=%s\n",
+        ret == olm_error() ? 0 : 1,
+        ret == olm_error() ? olm_inbound_group_session_last_error(olmSession) : "(none)");
     if (ret == olm_error()) {
         const char* err = olm_inbound_group_session_last_error(olmSession);
-        LOGW("olm_import_inbound_group_session failed: %s", err ? err : "unknown");
+        LOGW("olm_init_inbound_group_session failed: %s", err ? err : "unknown");
         olm_clear_inbound_group_session(olmSession);
         free(session);
         return result;
@@ -64,7 +55,7 @@ MegolmSession createInboundMegolmSession(const std::vector<uint8_t>& sessionKey)
 
 void destroyMegolmSession(MegolmSession& session) {
     if (session.session) {
-        olm_clear_inbound_group_session(olm_inbound_group_session(session.session));
+        olm_clear_inbound_group_session(static_cast<OlmInboundGroupSession*>(session.session));
         free(session.session);
         session.session = nullptr;
     }
@@ -74,18 +65,23 @@ void destroyMegolmSession(MegolmSession& session) {
 std::string megolmDecrypt(MegolmSession& session, const std::string& ciphertext) {
     if (!session.valid || !session.session) return "";
 
-    auto* olmSession = olm_inbound_group_session(session.session);
+    auto* olmSession = static_cast<OlmInboundGroupSession*>(session.session);
 
-    // libolm overwrites message buffer with base64-decoded data — use mutable copy
     std::vector<uint8_t> msg(ciphertext.begin(), ciphertext.end());
 
     size_t maxLen = olm_group_decrypt_max_plaintext_length(olmSession, msg.data(), msg.size());
     if (maxLen == olm_error()) return "";
 
+    // libolm clobbers msg in-place during max_plaintext_length; restore before decrypt
+    std::memcpy(msg.data(), ciphertext.data(), ciphertext.size());
+
     std::vector<uint8_t> plaintext(maxLen);
     uint32_t messageIndex = 0;
     size_t ret = olm_group_decrypt(olmSession, msg.data(), msg.size(),
         plaintext.data(), maxLen, &messageIndex);
+    std::fprintf(stderr, "[E2EE] megolmDecrypt: ret=%zu err=%s\n",
+        ret,
+        ret == olm_error() ? olm_inbound_group_session_last_error(olmSession) : "(ok)");
     if (ret == olm_error()) {
         const char* err = olm_inbound_group_session_last_error(olmSession);
         LOGW("olm_group_decrypt failed: %s", err ? err : "unknown");
@@ -102,7 +98,7 @@ std::string getMegolmSessionId(const MegolmSession& session) {
 std::string exportMegolmSession(const MegolmSession& session) {
     if (!session.valid || !session.session) return "";
 
-    auto* olmSession = olm_inbound_group_session(session.session);
+    auto* olmSession = static_cast<OlmInboundGroupSession*>(session.session);
     size_t len = olm_export_inbound_group_session_length(olmSession);
     if (len == olm_error()) return "";
 
@@ -117,10 +113,7 @@ std::string exportMegolmSession(const MegolmSession& session) {
 
 bool MegolmSessionManager::addSession(const std::string& roomId, const std::string& senderKey,
                                        const std::string& sessionId, const std::string& sessionKeyBase64) {
-    auto keyBytes = b64Decode(sessionKeyBase64);
-    if (keyBytes.empty()) return false;
-
-    auto session = createInboundMegolmSession(keyBytes);
+    auto session = createInboundMegolmSession(sessionKeyBase64);
     if (!session.valid) return false;
 
     SessionKey key{roomId, senderKey, sessionId};
