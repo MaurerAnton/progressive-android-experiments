@@ -3,6 +3,7 @@
 #include <sstream>
 #include <cstring>
 #include <cstdlib>
+#include <cstdio>
 
 namespace progressive {
 
@@ -275,19 +276,27 @@ OlmSessionResult OlmSession::encrypt(const std::string& plaintext) {
 OlmSessionResult OlmSession::decrypt(const std::string& encryptedMessage, int messageType) {
     OlmSessionResult result;
     auto* sess = static_cast<::OlmSession*>(session_);
+    // libolm clobbers the message buffer in-place via b64_input — use mutable copy
+    std::string msg(encryptedMessage);
     size_t ptLen = olm_decrypt_max_plaintext_length(sess, messageType,
-        (void*)encryptedMessage.data(), encryptedMessage.size());
+        (void*)msg.data(), msg.size());
     if (ptLen == static_cast<size_t>(-1)) {
+        std::fprintf(stderr, "[E2EE] OlmDecrypt: maxLen err=%s\n",
+            ::olm_session_last_error(sess));
         result.error = OlmError::BadMessageFormat;
         return result;
     }
     std::string pt(ptLen, 0);
+    msg = encryptedMessage;  // restore before second call
     size_t written = olm_decrypt(sess, messageType,
-        (void*)encryptedMessage.data(), encryptedMessage.size(), &pt[0], ptLen);
+        (void*)msg.data(), msg.size(), &pt[0], ptLen);
     if (written == static_cast<size_t>(-1)) {
+        std::fprintf(stderr, "[E2EE] OlmDecrypt: written err=%s\n",
+            ::olm_session_last_error(sess));
         result.error = OlmError::BadMessageFormat;
         return result;
     }
+    std::fprintf(stderr, "[E2EE] OlmDecrypt: written=%zu ok\n", written);
     pt.resize(written);
     result.success = true;
     result.data = pt;
