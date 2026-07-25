@@ -92,7 +92,11 @@ OlmAccountResult OlmAccount::generateOneTimeKeys(int count) {
         result.error = OlmError::NotEnoughRandom;
         return result;
     }
+    size_t kLen = olm_account_one_time_keys_length(acc);
+    std::string keys(kLen, '\0');
+    olm_account_one_time_keys(acc, &keys[0], kLen);
     result.success = true;
+    result.data = std::move(keys);
     return result;
 }
 
