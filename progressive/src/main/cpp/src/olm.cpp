@@ -159,7 +159,7 @@ OlmAccountResult OlmAccount::ed25519Key() {
         keys.success = false;
         return keys;
     }
-    pos += 12;
+    pos += 11;
     auto end = keys.data.find('"', pos);
     keys.data = keys.data.substr(pos, end - pos);
     return keys;
@@ -173,7 +173,7 @@ OlmAccountResult OlmAccount::curve25519Key() {
         keys.success = false;
         return keys;
     }
-    pos += 15;
+    pos += 14;
     auto end = keys.data.find('"', pos);
     keys.data = keys.data.substr(pos, end - pos);
     return keys;
