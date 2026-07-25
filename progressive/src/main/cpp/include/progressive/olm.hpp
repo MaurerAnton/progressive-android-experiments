@@ -123,6 +123,9 @@ public:
     // Check if pre-key messages match this session.
     bool matchesInbound(const std::string& preKeyMessage);
 
+    // Access the underlying ::OlmSession* for libolm error queries.
+    void* rawSession() const { return session_; }
+
 private:
     void* session_;  // OlmSession*
 };
