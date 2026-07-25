@@ -277,6 +277,10 @@ OlmSessionResult OlmSession::decrypt(const std::string& encryptedMessage, int me
     auto* sess = static_cast<::OlmSession*>(session_);
     size_t ptLen = olm_decrypt_max_plaintext_length(sess, messageType,
         (void*)encryptedMessage.data(), encryptedMessage.size());
+    if (ptLen == static_cast<size_t>(-1)) {
+        result.error = OlmError::BadMessageFormat;
+        return result;
+    }
     std::string pt(ptLen, 0);
     size_t written = olm_decrypt(sess, messageType,
         (void*)encryptedMessage.data(), encryptedMessage.size(), &pt[0], ptLen);
