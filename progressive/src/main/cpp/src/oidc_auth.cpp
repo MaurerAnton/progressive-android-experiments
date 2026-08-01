@@ -1,4 +1,5 @@
 #include "progressive/oidc_auth.hpp"
+#include "progressive/olm.hpp"
 #include "progressive/http_client.hpp"
 #include "progressive/crypto_algorithms.hpp"
 #include "progressive/graph_utils.hpp"
@@ -11,12 +12,19 @@ namespace progressive {
 // ==== Simple PRNG for CSRF state and PKCE (not cryptographically strong, but sufficient) ====
 
 static std::string randomString(int length) {
+    // Bias-free sampling from generateRandomBytes (CSPRNG — see olm.cpp).
     static const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
-    static bool seeded = false;
-    if (!seeded) { srand(time(nullptr)); seeded = true; }
+    const size_t n = sizeof(charset) - 1;
+    const unsigned reject = 256 - (256 % n);
     std::string result;
-    for (int i = 0; i < length; i++) {
-        result += charset[rand() % (sizeof(charset) - 1)];
+    result.reserve(length);
+    while ((int)result.size() < length) {
+        std::string bytes = generateRandomBytes(length * 2);
+        for (unsigned char b : bytes) {
+            if ((int)result.size() >= length) break;
+            if (b >= reject) continue;
+            result += charset[b % n];
+        }
     }
     return result;
 }

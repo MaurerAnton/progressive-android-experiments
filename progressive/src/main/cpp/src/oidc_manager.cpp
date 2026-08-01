@@ -1,4 +1,5 @@
 #include "progressive/oidc_manager.hpp"
+#include "progressive/olm.hpp"
 #include <sstream>
 #include <algorithm>
 #include <ctime>
@@ -130,9 +131,10 @@ OidcPkcePair oidcGeneratePkce() {
     OidcPkcePair pair;
     // Generate 64 random chars for code verifier
     static const char* valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
-    srand(static_cast<unsigned>(time(nullptr)) * 100 + rand());
+    std::string rnd = generateRandomBytes(128);
     for (int i = 0; i < 64; i++) {
-        pair.codeVerifier += valid[rand() % 66];
+        // CSPRNG bytes — the key fix; modulo bias is negligible for a verifier.
+        pair.codeVerifier += valid[(unsigned char)rnd[i] % 66];
     }
 
     // SHA-256 hash (mock — real impl needs OpenSSL)
@@ -234,10 +236,10 @@ OidcClientRegistration parseClientRegistration(const std::string& json) {
 // ====== Authorization ======
 
 std::string generateState() {
-    srand(static_cast<unsigned>(time(nullptr)) + rand());
     static const char* chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    std::string rnd = generateRandomBytes(64);
     std::string state;
-    for (int i = 0; i < 32; i++) state += chars[rand() % 62];
+    for (int i = 0; i < 32; i++) state += chars[(unsigned char)rnd[i] % 62];
     return state;
 }
 
