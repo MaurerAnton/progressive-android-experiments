@@ -4,14 +4,29 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include <fcntl.h>
+#include <unistd.h>
+#include <random>
 
 namespace progressive {
 
 // ==== Utility functions ====
 
 std::string generateRandomBytes(int count) {
-    std::string result(count, 0);
-    for (int i = 0; i < count; ++i) result[i] = static_cast<char>(rand() % 256);
+    std::string result(count, '\0');
+    int fd = open("/dev/urandom", O_RDONLY);
+    if (fd >= 0) {
+        ssize_t total = 0;
+        while (total < count) {
+            ssize_t n = read(fd, &result[total], count - total);
+            if (n <= 0) break;
+            total += n;
+        }
+        close(fd);
+        if ((size_t)total == (size_t)count) return result;
+    }
+    std::random_device rd;
+    for (int i = 0; i < count; ++i) result[i] = static_cast<char>(rd());
     return result;
 }
 
@@ -104,6 +119,52 @@ OlmAccountResult OlmAccount::generateOneTimeKeys(int count) {
     fprintf(stderr, "[e2ee] generateOneTimeKeys: JSON first 100 chars=[%.100s]\n", keys.c_str());
     result.success = true;
     result.data = std::move(keys);
+    return result;
+}
+
+OlmAccountResult OlmAccount::generateFallbackKey() {
+    OlmAccountResult result;
+    auto* acc = static_cast<::OlmAccount*>(account_);
+    size_t randLen = olm_account_generate_fallback_key_random_length(acc);
+    auto random = generateRandomBytes(randLen);
+    size_t rc = olm_account_generate_fallback_key(acc, random.data(), random.size());
+    if (rc == static_cast<size_t>(-1)) {
+        result.error = OlmError::NotEnoughRandom;
+        return result;
+    }
+    result.success = true;
+    return result;
+}
+
+OlmAccountResult OlmAccount::unpublishedFallbackKey() {
+    OlmAccountResult result;
+    auto* acc = static_cast<::OlmAccount*>(account_);
+    size_t kLen = olm_account_unpublished_fallback_key_length(acc);
+    if (kLen == 0) {
+        result.success = true;
+        return result;
+    }
+    std::string key(kLen, '\0');
+    size_t rc = olm_account_unpublished_fallback_key(acc, &key[0], kLen);
+    if (rc == static_cast<size_t>(-1)) {
+        result.error = OlmError::UnknownError;
+        return result;
+    }
+    result.success = true;
+    // libolm always reports the buffer length of {"curve25519":{}} even when
+    // no unpublished fallback key exists — detect the empty form by content.
+    if (key.find(":{}") != std::string::npos) {
+        return result;
+    }
+    result.data = std::move(key);
+    return result;
+}
+
+OlmAccountResult OlmAccount::forgetOldFallbackKey() {
+    OlmAccountResult result;
+    auto* acc = static_cast<::OlmAccount*>(account_);
+    ::olm_account_forget_old_fallback_key(acc);
+    result.success = true;
     return result;
 }
 

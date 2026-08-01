@@ -66,6 +66,17 @@ public:
     // Generate one-time keys (count specifies how many).
     OlmAccountResult generateOneTimeKeys(int count);
 
+    // Generate a new fallback key (only one previous key is retained).
+    OlmAccountResult generateFallbackKey();
+
+    // Get the unpublished fallback key as JSON ({"curve25519":{"AAAA":"b64"}}),
+    // or empty data if no unpublished fallback key exists.
+    OlmAccountResult unpublishedFallbackKey();
+
+    // Forget the old fallback key — call ~5 min after publishing a new one
+    // so late pre-key messages using the old key still decrypt.
+    OlmAccountResult forgetOldFallbackKey();
+
     // Mark current one-time keys as published (they remain usable for inbound
     // session creation but won't be returned by one_time_keys again).
     OlmAccountResult markKeysAsPublished();
