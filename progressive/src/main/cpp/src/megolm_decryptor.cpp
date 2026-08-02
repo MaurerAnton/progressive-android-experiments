@@ -117,32 +117,33 @@ bool MegolmSessionManager::addSession(const std::string& roomId, const std::stri
                                        const std::string& sessionId, const std::string& sessionKeyBase64) {
     auto session = createInboundMegolmSession(sessionKeyBase64);
     if (!session.valid) return false;
+    session.senderKey = senderKey;
 
     SessionKey key{roomId, senderKey, sessionId};
     sessions_[key] = std::move(session);
     return true;
 }
 
-bool MegolmSessionManager::addImportedSession(const std::string& roomId,
+std::string MegolmSessionManager::addImportedSession(const std::string& roomId,
     const std::string& senderKey, const std::string& sessionKeyExportBase64) {
     // v1 export format: olm_import_inbound_group_session expects the base64
     // export string (AGENTS.md quirk #4 — never pre-decode).
     size_t size = olm_inbound_group_session_size();
     void* mem = malloc(size);
-    if (!mem) return false;
+    if (!mem) return {};
     auto* sess = olm_inbound_group_session(mem);
     size_t ret = olm_import_inbound_group_session(sess,
         (const uint8_t*)sessionKeyExportBase64.data(), sessionKeyExportBase64.size());
     if (ret == (size_t)-1) {
         free(mem);
-        return false;
+        return {};
     }
     // Read the real session id (the forwarded content's session_id may differ).
     size_t idLen = olm_inbound_group_session_id_length(sess);
     std::string realId(idLen, '\0');
     if (olm_inbound_group_session_id(sess, (uint8_t*)&realId[0], idLen) == (size_t)-1) {
         free(mem);
-        return false;
+        return {};
     }
     MegolmSession session;
     session.valid = true;
@@ -151,7 +152,7 @@ bool MegolmSessionManager::addImportedSession(const std::string& roomId,
     session.senderKey = senderKey;
     session.firstKnownIndex = 0;
     sessions_[SessionKey{roomId, senderKey, realId}] = std::move(session);
-    return true;
+    return realId;
 }
 
 std::string MegolmSessionManager::exportAllSessionsJson() {
