@@ -54,6 +54,12 @@ public:
     bool addSession(const std::string& roomId, const std::string& senderKey,
                     const std::string& sessionId, const std::string& sessionKeyBase64);
 
+    // Add a session from a v1 EXPORT-format key (m.forwarded_room_key / backup
+    // restore). Uses olm_import_inbound_group_session; stores under the REAL
+    // session id read back from the imported session.
+    bool addImportedSession(const std::string& roomId, const std::string& senderKey,
+                            const std::string& sessionKeyExportBase64);
+
     // Find a matching session for an event.
     MegolmSession* findSession(const std::string& roomId, const std::string& senderKey,
                                const std::string& sessionId);
