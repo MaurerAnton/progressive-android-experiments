@@ -2,6 +2,8 @@
 #include <olm/inbound_group_session.h>
 #include <olm/olm.h>
 #include <cstring>
+#include <sstream>
+#include <map>
 #include <algorithm>
 #include <android/log.h>
 #include <cstdio>
@@ -150,6 +152,35 @@ bool MegolmSessionManager::addImportedSession(const std::string& roomId,
     session.firstKnownIndex = 0;
     sessions_[SessionKey{roomId, senderKey, realId}] = std::move(session);
     return true;
+}
+
+std::string MegolmSessionManager::exportAllSessionsJson() {
+    std::map<std::string, std::vector<const MegolmSession*>> byRoom;
+    for (auto& [key, sess] : sessions_) byRoom[key.roomId].push_back(&sess);
+    std::ostringstream out;
+    out << "{\"version\":1,\"rooms\":{";
+    bool firstRoom = true;
+    for (auto& [room, list] : byRoom) {
+        if (!firstRoom) out << ",";
+        firstRoom = false;
+        out << "\"" << room << "\":{\"sessions\":[";
+        bool firstSess = true;
+        for (auto* s : list) {
+            std::string key = exportMegolmSession(*s);
+            if (key.empty()) continue;
+            if (!firstSess) out << ",";
+            firstSess = false;
+            out << "{\"algorithm\":\"m.megolm.v1.aes-sha2\","
+                << "\"room_id\":\"" << room << "\","
+                << "\"session_id\":\"" << s->sessionId << "\","
+                << "\"session_key\":\"" << key << "\","
+                << "\"sender_key\":\"" << s->senderKey << "\","
+                << "\"forwarding_curve25519_key_chain\":[]}";
+        }
+        out << "]}";
+    }
+    out << "}}";
+    return out.str();
 }
 
 MegolmSession* MegolmSessionManager::findSession(const std::string& roomId, const std::string& senderKey,

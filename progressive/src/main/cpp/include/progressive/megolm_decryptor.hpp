@@ -70,6 +70,10 @@ public:
     // Remove all sessions.
     void clearAll();
 
+    // Export ALL inbound sessions as a MegolmSessionData JSON envelope
+    // (version 1, rooms -> sessions). For key backup / export.
+    std::string exportAllSessionsJson();
+
     // Session count.
     int sessionCount() const { return (int)sessions_.size(); }
 
