@@ -121,6 +121,8 @@ bool MegolmSessionManager::addSession(const std::string& roomId, const std::stri
 
     SessionKey key{roomId, senderKey, sessionId};
     sessions_[key] = std::move(session);
+    std::fprintf(stderr, "[megolm-mgr] addSession stored room=%.40s senderKey=%.50s sid=%.50s count=%d\n",
+                 roomId.c_str(), senderKey.c_str(), sessionId.c_str(), (int)sessions_.size());
     return true;
 }
 
@@ -188,7 +190,16 @@ MegolmSession* MegolmSessionManager::findSession(const std::string& roomId, cons
                                                    const std::string& sessionId) {
     SessionKey key{roomId, senderKey, sessionId};
     auto it = sessions_.find(key);
-    return it != sessions_.end() ? &it->second : nullptr;
+    if (it == sessions_.end()) {
+        std::fprintf(stderr, "[megolm-mgr] findSession MISS room=%.40s senderKey=%.50s sid=%.50s count=%d\n",
+                     roomId.c_str(), senderKey.c_str(), sessionId.c_str(), (int)sessions_.size());
+        for (const auto& [k, s] : sessions_) {
+            std::fprintf(stderr, "[megolm-mgr]   stored room=%.40s senderKey=%.50s sid=%.50s\n",
+                         k.roomId.c_str(), k.senderKey.c_str(), k.sessionId.c_str());
+        }
+        return nullptr;
+    }
+    return &it->second;
 }
 
 void MegolmSessionManager::clearRoom(const std::string& roomId) {
